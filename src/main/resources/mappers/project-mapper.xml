@@ -11,6 +11,10 @@
 		select * from project where seq=#{value}
 	</select>
 	
+	<select id="latestSeq" resultType="string">
+		select max(seq) from project where writer=#{value}
+	</select>
+	
 	<insert id="insertProject" parameterType="kh.hello.dto.ProjectDTO">
 		insert into project values(projectSeq.nextval,#{title},#{contents},#{location},#{capacity},#{startDate},#{endDate},#{languages},#{phone},#{email},#{writer},sysdate,'N')
 	</insert>
