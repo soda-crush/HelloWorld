@@ -2,7 +2,7 @@ package kh.hello.dto;
 
 import java.sql.Timestamp;
 
-public class bambooDTO {
+public class BambooDTO {
 	private int seq;
 	private String writer;
 	private String title;
@@ -46,7 +46,7 @@ public class bambooDTO {
 	public void setViewCount(int viewCount) {
 		this.viewCount = viewCount;
 	}
-	public bambooDTO(int seq, String writer, String title, String content, Timestamp writeDate, int viewCount) {
+	public BambooDTO(int seq, String writer, String title, String content, Timestamp writeDate, int viewCount) {
 		super();
 		this.seq = seq;
 		this.writer = writer;
@@ -55,7 +55,7 @@ public class bambooDTO {
 		this.writeDate = writeDate;
 		this.viewCount = viewCount;
 	}
-	public bambooDTO() {
+	public BambooDTO() {
 		super();
 	}
 	
