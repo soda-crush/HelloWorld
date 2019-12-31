@@ -24,9 +24,9 @@
             </div>
             
             <!--      몸통 시작!!!   -->
-            
-            
-            
+            <div class=container>
+<!--             여기에 row, col 써서 넣으면 돼여!!! -->            
+            </div>
             <!--       몸통 끝!!!   -->
             
             <div class=container>

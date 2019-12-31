@@ -2,7 +2,6 @@ package kh.hello.project;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kh.hello.dto.ProjectApplyDTO;
 import kh.hello.dto.ProjectCoDTO;
 import kh.hello.dto.ProjectDTO;
 import kh.hello.services.ProjectService;
@@ -103,8 +103,30 @@ public class ProjectController {
 	
 	
 	/*
-	 * 프로젝트 지원
+	 * 프로젝트 지원(신청)
 	 */
 	
+	@ResponseBody
+	@RequestMapping(value="/apply/writeProc",produces="text/html;charset=urf8")
+	public String projectApplyWriteProc(ProjectApplyDTO dto) {
+		return service.projectApplyWriteProc(dto);
+	}
 	
+	@RequestMapping("/apply/list")
+	public String projectApplyList(int projectSeq, Model m) {
+		List<ProjectApplyDTO> result = service.projectApplyList(projectSeq);
+		m.addAttribute("projectApplyList", result);
+		return "/project/projectApplyList";
+	}
+	
+	@RequestMapping("/apply/detailView")
+	public String projectApplyDetailView(int seq, Model m) {
+		ProjectApplyDTO result = service.ProjectApplyDetailView(seq);
+		m.addAttribute("projectApplyPage", result);
+		return "/project/applyDetailView";	
+	}
+	
+	public String projectApplyDeleteConfirm(int seq) {
+		
+	}
 }

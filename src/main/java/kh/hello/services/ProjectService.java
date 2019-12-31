@@ -8,9 +8,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 
 import kh.hello.dao.ProjectDAO;
+import kh.hello.dto.ProjectApplyDTO;
 import kh.hello.dto.ProjectCoDTO;
 import kh.hello.dto.ProjectDTO;
 
@@ -99,4 +99,20 @@ public class ProjectService {
 	 * 프로젝트 지원
 	 */
 	
+	public String projectApplyWriteProc(ProjectApplyDTO dto) {
+		int result = dao.insertProjectApply(dto);
+		if(result>0) {
+			return "success";
+		}else {
+			return "fail";
+		}
+	}
+	
+	public List<ProjectApplyDTO> projectApplyList(int projectSeq) {
+		return dao.getApplyList(projectSeq);
+	}
+	
+	public ProjectApplyDTO ProjectApplyDetailView(int seq) {
+		return dao.getProjectApplyDetailView(seq);
+	}
 }

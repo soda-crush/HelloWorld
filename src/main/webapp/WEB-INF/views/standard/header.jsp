@@ -5,7 +5,7 @@
   <c:choose>
 			<c:when test="${loginInfo ==null}">
 			 <div class="row" id="loginCon">
-                <div class="col-12 text-right"><a href="member/login">로그인</a> | <a href="#">회원가입</a></div>
+                <div class="col-12 text-right"><a href="${pageContext.request.contextPath}/member/login">로그인</a> | <a href="#">회원가입</a></div>
             </div>
 			</c:when>
 			<c:otherwise>
@@ -32,6 +32,7 @@
    				 <span class="navbar-toggler-icon"></span>
   			</button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+
                 <div class="navbar-nav box text-center" id="naviCon">
                     <a class="nav-item nav-link active text-light" href="#">대나무숲</a>
                     <a class="nav-item nav-link active text-light" href="#">코드지식인</a>
@@ -43,7 +44,7 @@
             </div>
         </nav>
         <script>
-        	$("logo").on("click",function(){
-        		location.href = "/";
+        	$("#logo").on("click",function(){
+        		location.href = "${pageContext.request.contextPath}/";
         	})
         </script>

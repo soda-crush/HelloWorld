@@ -11,6 +11,18 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/css/mainBase.css">
+<style>
+div{
+	border: 1px solid green;
+}
+.input1{
+	width:100%;
+}
+.btnEle{
+	width:100%;
+	height: 100%;
+}
+</style>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/standard/header.jsp"/>
@@ -24,17 +36,34 @@
             </div>
             
             <!--      몸통 시작!!!   -->
-<<<<<<< HEAD
+            
             <div class=container>
-<!--             여기에 row, col 써서 넣으면 돼여!!! -->            
+            	<div class="row">
+            	<div class="col-1"></div>
+            		<div class="col-5">
+            		<h4>로그인</h4>
+            		<div class="row">
+            			<div class="col-8">
+            				<input type="text" name="id" id="id" class="input1" placeholder="아이디 입력"><br>
+            				<input type="text" name="pw" id="pw" class="input1" placeholder="비밀번호 입력">
+            			</div>
+            			<div class="col-2">
+            			<button>로그인</button>
+            			</div>
+            			<div class="col-2">
+            			<button>
+            			ㄹ
+            			</button>
+            			</div>
+            		</div>
+            		</div>
+            		<div class="col-5">
+            		
+            		</div>
+            	<div class="col-1"></div>
+            	</div>
             </div>
-=======
             
-            <div class="container">
-<!--             여기에 col.row써서 만드시면 됩니다!!!!! -->
-            </div>
-            
->>>>>>> 732a57990a6a52e798ad129ce83d429841926c15
             <!--       몸통 끝!!!   -->
             
             <div class=container>

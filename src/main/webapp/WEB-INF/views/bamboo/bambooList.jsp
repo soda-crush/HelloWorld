@@ -24,17 +24,17 @@
             </div>
             
             <!--      몸통 시작!!!   -->
-<<<<<<< HEAD
-            <div class=container>
-<!--             여기에 row, col 써서 넣으면 돼여!!! -->            
-            </div>
-=======
             
-            <div class="container">
-<!--             여기에 col.row써서 만드시면 됩니다!!!!! -->
-            </div>
+            <c:forEach items="${list}" var="list">	
+			
+				<div>${list.seq }</div>
+				<div>${list.writer }</div>
+				<div><a href="bambooDetailView.do?seq=${list.seq}">${list.title }</a></div>
+				<div>${list.writeDate }</div>
+				<div>${list.viewCount }</div>
+			
+			</c:forEach>
             
->>>>>>> 732a57990a6a52e798ad129ce83d429841926c15
             <!--       몸통 끝!!!   -->
             
             <div class=container>

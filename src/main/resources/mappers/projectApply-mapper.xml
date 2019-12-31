@@ -6,6 +6,9 @@
 	<select id="getList" resultType="kh.hello.dto.ProjectApplyDTO">
 		select * from projectApply where projectSeq=#{value}
 	</select>
+	<select id="getProjectApplyDetailView" resultType="kh.hello.dto.ProjectApplyDTO">
+		select * from projectApply where seq=#{value} 
+	</select>
 	<insert id="insertProjectApply" parameterType="kh.hello.dto.ProjectApplyDTO">
 		insert into projectApply values(projectApplySeq.nextval,#{projectSeq},#{writer},#{languages},#{gender},#{age},#{workIn},#{proceeding},#{email},#{etc},sysdate,'W')
 	</insert>

@@ -61,16 +61,19 @@ public class ProjectDAO {
 	
 	
 	//projectApply 테이블
-	public List<ProjectApplyDTO> getApplyList(int projectSeq){//프로젝트 모집댓글 전체리스트(해당글에 대한)
+	public List<ProjectApplyDTO> getApplyList(int projectSeq) {//프로젝트 지원 전체리스트(해당글에 대한)
 		return jdbc.selectList("ProjectApply.getList", projectSeq);
 	}
-	public int insertProjectApply(ProjectApplyDTO dto) {//프로젝트 모집댓글 작성
+	public ProjectApplyDTO getProjectApplyDetailView(int seq) {//프로젝트 지원 상세보기
+		return jdbc.selectOne("ProjectApply.getProjectApplyDetailView", seq);
+	}
+	public int insertProjectApply(ProjectApplyDTO dto) {//프로젝트 지원 작성
 		return jdbc.insert("ProjectApply.insertProjectApply", dto);
 	}	
-	public int updateProjectApply(ProjectApplyDTO dto) {//프로젝트 모집댓글 수정
+	public int updateProjectApply(ProjectApplyDTO dto) {//프로젝트 지원 수정
 		return jdbc.update("ProjectApply.updateProjectApply", dto);
 	}	
-	public int deleteProjectApply(int seq) {//프로젝트 모집댓글 삭제
+	public int deleteProjectApply(int seq) {//프로젝트 지원 삭제
 		return jdbc.delete("ProjectApply.deleteProjectApply", seq);
 	}
 	
