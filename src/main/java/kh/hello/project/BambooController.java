@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class BambooController {
 	@RequestMapping("/bamboolist.do")
 	public String bamboolistView () {
-		return "redirect:bamboo/bambooList";
+		return "/bamboo/bambooList";
 	}
 }

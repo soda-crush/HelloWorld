@@ -12,6 +12,30 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-
+	<jsp:include page="${pageContext.request.contextPath}/src/main/webapp/WEB-INF/views/standard/header.jsp"/>
+	
+ 		<div id=baseBackgroundColor>
+            <div class=container>
+                <div class=row>
+                    <div class="col-12" id=aroundContent>
+                    </div>
+                </div>
+            </div>
+            
+            <!--      몸통 시작!!!   -->
+            
+            
+            
+            <!--       몸통 끝!!!   -->
+            
+            <div class=container>
+                <div class=row>
+                    <div class="col-12" id=aroundContent>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <jsp:include page="${pageContext.request.contextPath}/src/main/webapp/WEB-INF/views/standard/footer.jsp"/>
 </body>
 </html>
