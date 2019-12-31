@@ -32,6 +32,7 @@
    				 <span class="navbar-toggler-icon"></span>
   			</button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+
                 <div class="navbar-nav box text-center" id="naviCon">
                     <a class="nav-item nav-link active text-light" href="#">대나무숲</a>
                     <a class="nav-item nav-link active text-light" href="#">코드지식인</a>
