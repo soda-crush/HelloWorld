@@ -1,14 +1,14 @@
 package kh.hello.dto;
 
-public class ProjectListDTO {
+public class ProjectMyListDTO {
 	private int seq;
 	private int projectSeq;
 	private String id;
 	
-	public ProjectListDTO() {
+	public ProjectMyListDTO() {
 		super();
 	}
-	public ProjectListDTO(int seq, int projectSeq, String id) {
+	public ProjectMyListDTO(int seq, int projectSeq, String id) {
 		super();
 		this.seq = seq;
 		this.projectSeq = projectSeq;

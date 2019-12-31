@@ -7,12 +7,20 @@
 		select * from project order by seq desc
 	</select>
 	
+	<select id="getProjectDetailView" resultType="kh.hello.dto.ProjectDTO">
+		select * from project where seq=#{value}
+	</select>
+	
 	<insert id="insertProject" parameterType="kh.hello.dto.ProjectDTO">
 		insert into project values(projectSeq.nextval,#{title},#{contents},#{location},#{capacity},#{startDate},#{endDate},#{languages},#{phone},#{email},#{writer},sysdate,'N')
 	</insert>
 	
 	<update id="updateProject" parameterType="kh.hello.dto.ProjectDTO">
 		update project set title=#{title}, contents=#{contents}, location=#{location}, capacity=#{capacity}, startDate=#{startDate}, endDate=#{endDate}, languages=#{languages}, phone=#{phone}, email=#{email}, writer=#{writer}, writeDate=#{writeDate}, state=#{state} where seq=#{seq}
+	</update>
+	
+	<update id="updateProjectViewCount">
+		update project set viewCount=viewCount+1 where seq=#{value}
 	</update>
 	
 	<delete id="deleteProject">
