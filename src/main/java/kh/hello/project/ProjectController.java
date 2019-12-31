@@ -107,7 +107,7 @@ public class ProjectController {
 	 */
 	
 	@ResponseBody
-	@RequestMapping(value="/apply/writeProc",produces="text/html;charset=urf8")
+	@RequestMapping(value="/apply/writeProc",produces="text/html;charset=utf8")
 	public String projectApplyWriteProc(ProjectApplyDTO dto) {
 		return service.projectApplyWriteProc(dto);
 	}
@@ -126,7 +126,8 @@ public class ProjectController {
 		return "/project/applyDetailView";	
 	}
 	
-	public String projectApplyDeleteConfirm(int seq) {
-		
+	@RequestMapping("/apply/deleteProc")
+	public void projectApplyDeleteConfirm(int seq) {
+		service.ProjectApplyDeleteConfirm(seq);
 	}
 }

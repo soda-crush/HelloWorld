@@ -115,4 +115,8 @@ public class ProjectService {
 	public ProjectApplyDTO ProjectApplyDetailView(int seq) {
 		return dao.getProjectApplyDetailView(seq);
 	}
+	
+	public int ProjectApplyDeleteConfirm(int seq) {
+		return dao.deleteProjectApply(seq);
+	}
 }
