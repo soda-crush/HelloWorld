@@ -18,7 +18,7 @@
 	<mvc:resources location="/resources/css/" mapping="/css/**" />
 	<mvc:resources location="/resources/img/" mapping="/img/**" />
 	<mvc:resources location="/resources/font/" mapping="/font/**" />
-	<mvc:resources location="/resources/adminLogin/" mapping="/adminLogin/**" />
+	<mvc:resources location="/resources/admin/" mapping="/admin/**" />
 
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/views/" />

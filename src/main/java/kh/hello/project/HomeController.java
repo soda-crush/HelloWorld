@@ -13,7 +13,7 @@ public class HomeController {
 	
 	@RequestMapping("/manage")
 	public String adminHome() {
-		return "admin/adminLogin";
+		return "admin/loginForm";
 	}
 	
 }

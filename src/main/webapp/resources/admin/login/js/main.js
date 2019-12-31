@@ -9,6 +9,7 @@
 
     $('.validate-form').on('submit',function(){
         var check = true;
+        alert(check);
         for(var i=0; i<input.length; i++) {
 
             if(validate(input[i]) == false){
@@ -16,7 +17,6 @@
                 check=false;
             }
         }
-
         return check;
     });
     
@@ -25,8 +25,7 @@
             if($(input).val().trim().match(/.+?/) == null) {
                 return false;
             }
-        }
-        else {
+        }else {
             if($(input).val().trim() == ''){
                 return false;
             }

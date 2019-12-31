@@ -3,5 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Admin">
-  
+  <select id="validLogin" resultType="integer">
+  	select count(*) from adminAccount where adminId=#{adminId} and password=#{password}
+  </select>
 </mapper>
