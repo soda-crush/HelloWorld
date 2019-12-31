@@ -21,12 +21,11 @@
             }
             #baseBackgroundColor{
                 position: relative;
-                z-index: -10;
                 background-color: #efefef;
                 border-bottom: 2px solid gray;
             }
             #naviCon{
-                width: 73%;
+                width: 82%;
                 margin: auto;
             }
             #naviCon a{
