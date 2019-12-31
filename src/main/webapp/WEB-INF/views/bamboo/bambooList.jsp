@@ -12,7 +12,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-	<jsp:include page="${pageContext.request.contextPath}/src/main/webapp/WEB-INF/views/standard/header.jsp"/>
+	<jsp:include page="/WEB-INF/views/standard/header.jsp"/>
 	
  		<div id=baseBackgroundColor>
             <div class=container>
@@ -36,6 +36,6 @@
             </div>
         </div>
         
-        <jsp:include page="${pageContext.request.contextPath}/src/main/webapp/WEB-INF/views/standard/footer.jsp"/>
+        <jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
 </body>
 </html>
