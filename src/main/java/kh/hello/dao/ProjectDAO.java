@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import kh.hello.dto.ProjectApplyDTO;
 import kh.hello.dto.ProjectCoDTO;
 import kh.hello.dto.ProjectDTO;
-import kh.hello.dto.ProjectListDTO;
+import kh.hello.dto.ProjectMyListDTO;
 
 @Repository
 public class ProjectDAO {
@@ -22,12 +22,18 @@ public class ProjectDAO {
 	public List<ProjectDTO> getProjectList(){//프로젝트 모집글 전체리스트
 		return jdbc.selectList("Project.getList");
 	}	
+	public ProjectDTO getProjectDetailView(int seq) {//프로젝트 모집글 상세보기
+		return jdbc.selectOne("Project.getDetailView", seq);
+	}
 	public int insertProject(ProjectDTO dto) {//프로젝트 모집글 작성
 		return jdbc.insert("Project.insertProject", dto);
 	}	
 	public int updateProject(ProjectDTO dto) {//프로젝트 모집글 수정
 		return jdbc.update("Project.updateProject", dto);
-	}	
+	}
+	public int updateProjectViewCount(int seq) {//프로젝트 모집글 조회수+1
+		return jdbc.update("Project.updateProjectViewCount", seq);
+	}
 	public int deleteProject(int seq) {//프로젝트 모집글 삭제
 		return jdbc.delete("Project.deleteProject", seq);
 	}
@@ -63,14 +69,14 @@ public class ProjectDAO {
 	}
 	
 	
-	//projectList 테이블
-	public List<ProjectListDTO> getMyList(String id){//나의 프로젝트 전체리스트
-		return jdbc.selectList("ProjectList.getList", id);
+	//projectMyList 테이블
+	public List<ProjectMyListDTO> getMyList(String id){//나의 프로젝트 전체리스트
+		return jdbc.selectList("ProjectMyList.getList", id);
 	}
-	public int insertProjectList(ProjectListDTO dto) {//나의 프로젝트 등록
-		return jdbc.insert("ProjectList.insertProjectList", dto);
+	public int insertProjectList(ProjectMyListDTO dto) {//나의 프로젝트 등록
+		return jdbc.insert("ProjectMyList.insertProjectMyList", dto);
 	}
 	public int deleteProjectList(int seq) {//나의 프로젝트 삭제
-		return jdbc.delete("ProjectList.deleteProjectList", seq);
+		return jdbc.delete("ProjectMyList.deleteProjectMyList", seq);
 	}
 }
