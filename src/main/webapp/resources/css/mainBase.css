@@ -56,3 +56,9 @@
             #footerMsg{
                 line-height: 1.9em;
             }
+            button{
+            background-color: #cccccc;
+            border:none;
+            border-radius: 5%;
+            font-size: 12px;
+            }
