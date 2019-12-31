@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ProjectCo">
+	<select id="getList" resultType="kh.hello.dto.ProjectCoDTO">
+		select * from projectComment where projectSeq=#{value}
+	</select>
+	<insert id="insertProjectCo" parameterType="kh.hello.dto.ProjectCoDTO">
+		insert into projectComment values(projectCoSeq.nextval,#{projectSeq},#{writer},#{contents},sysdate)
+	</insert>
+	<update id="updateProjectCo" parameterType="kh.hello.dto.ProjectCoDTO">
+		update projectComment set contents=#{contents} where seq=#{seq}
+	</update>
+	<delete id="deleteProjectCo">
+		delete from projectComment where seq=#{value}
+	</delete>
+</mapper>
