@@ -6,4 +6,8 @@
 	<select id="getList" resultType="kh.hello.dto.ProjectDTO">
 		select * from project order by seq desc
 	</select>
+	
+	<insert id="insertProject" parameterType="kh.hello.dto.ProjectDTO">
+		insert into project values()
+	</insert>
 </mapper>
