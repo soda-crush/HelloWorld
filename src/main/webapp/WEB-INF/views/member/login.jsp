@@ -15,6 +15,13 @@
 div{
 	border: 1px solid green;
 }
+.input1{
+	width:100%;
+}
+.btnEle{
+	width:100%;
+	height: 100%;
+}
 </style>
 </head>
 <body>
@@ -32,12 +39,28 @@ div{
             
             <div class=container>
             	<div class="row">
-            		<div class="col-6">
-            		네
+            	<div class="col-1"></div>
+            		<div class="col-5">
+            		<h4>로그인</h4>
+            		<div class="row">
+            			<div class="col-8">
+            				<input type="text" name="id" id="id" class="input1" placeholder="아이디 입력"><br>
+            				<input type="text" name="pw" id="pw" class="input1" placeholder="비밀번호 입력">
+            			</div>
+            			<div class="col-2">
+            			<button>로그인</button>
+            			</div>
+            			<div class="col-2">
+            			<button>
+            			ㄹ
+            			</button>
+            			</div>
             		</div>
-            		<div class="col-6">
-            		네
             		</div>
+            		<div class="col-5">
+            		
+            		</div>
+            	<div class="col-1"></div>
             	</div>
             </div>
             
