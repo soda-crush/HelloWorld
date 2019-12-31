@@ -17,13 +17,14 @@ public class ProjectDTO {
 	private String writer;
 	private Timestamp writeDate;
 	private String state;
+	private int viewCount;
 	
 	public ProjectDTO() {
 		super();
-	}
+	}	
 	public ProjectDTO(int seq, String title, String contents, String location, int capacity, Timestamp startDate,
 			Timestamp endDate, String languages, String phone, String email, String writer, Timestamp writeDate,
-			String state) {
+			String state, int viewCount) {
 		super();
 		this.seq = seq;
 		this.title = title;
@@ -38,6 +39,7 @@ public class ProjectDTO {
 		this.writer = writer;
 		this.writeDate = writeDate;
 		this.state = state;
+		this.viewCount = viewCount;
 	}
 	public int getSeq() {
 		return seq;
@@ -117,6 +119,10 @@ public class ProjectDTO {
 	public void setState(String state) {
 		this.state = state;
 	}
-	
-	
+	public int getViewCount() {
+		return viewCount;
+	}
+	public void setViewCount(int viewCount) {
+		this.viewCount = viewCount;
+	}
 }
