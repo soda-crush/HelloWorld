@@ -17,4 +17,10 @@ public class HomeController {
 		return "admin/adminLogin";
 	}
 	
+	@RequestMapping("/base")
+	public String toBase() {
+		return "standard/mainBase";
+	}
+	
+	
 }
