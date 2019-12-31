@@ -4,8 +4,8 @@
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xmlns:task="http://www.springframework.org/schema/task"
-	xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.3.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
@@ -15,41 +15,31 @@
 
 
 	<mvc:annotation-driven />
-	<mvc:resources location="/resources/css/"
-		mapping="/css/**" />
-	<mvc:resources location="/resources/img/"
-		mapping="/img/**" />
-	<mvc:resources location="/resources/font/"
-		mapping="/font/**" />
+	<mvc:resources location="/resources/css/" mapping="/css/**" />
+	<mvc:resources location="/resources/img/" mapping="/img/**" />
+	<mvc:resources location="/resources/font/" mapping="/font/**" />
 
-	<bean
-		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/views/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
 
 	<context:component-scan base-package="kh.hello" />
 
-	<bean id="dataSource"
-		class="org.apache.commons.dbcp2.BasicDataSource">
-		<property name="driverClassName"
-			value="oracle.jdbc.driver.OracleDriver" />
-		<property name="url"
-			value="jdbc:oracle:thin:@localhost:1521:xe" />
+	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" />
 		<property name="username" value="hello" />
 		<property name="password" value="hello" />
 		<property name="initialSize" value="30" />
 	</bean>
 
-	<bean id="sqlSession"
-		class="org.mybatis.spring.SqlSessionFactoryBean">
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="mapperLocations"
-			value="classpath:mappers/*mapper.xml" />
+		<property name="mapperLocations" value="classpath:mappers/*mapper.xml" />
 	</bean>
 
-	<bean id="sqlSessionTemplate"
-		class="org.mybatis.spring.SqlSessionTemplate">
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg ref="sqlSession" />
 	</bean>
 
@@ -57,8 +47,7 @@
 
 
 	<tx:annotation-driven />
-	<bean id="txManager"
-		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 
