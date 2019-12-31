@@ -11,7 +11,7 @@ public class HomeController {
 		return "home";
 	}
 	
-	@RequestMapping("/admin")
+	@RequestMapping("/manage")
 	public String adminHome() {
 		return "admin/adminLogin";
 	}

@@ -5,112 +5,68 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Hello World</title>
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hello World!</title>
+<link rel="icon" type="image/png" href="adminLogin/images/icons/favicon.ico"/>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="adminLogin/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="adminLogin/vendor/animate/animate.css">
+<link rel="stylesheet" type="text/css" href="adminLogin/vendor/animsition/css/animsition.min.css">
+<link rel="stylesheet" type="text/css" href="adminLogin/css/util.css">
+<link rel="stylesheet" type="text/css" href="adminLogin/css/main.css">
+
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-<style>
-.form-signin
-{
-    max-width: 330px;
-    padding: 15px;
-    margin: 0 auto;
-}
-.form-signin .form-signin-heading, .form-signin .checkbox
-{
-    margin-bottom: 10px;
-}
-.form-signin .checkbox
-{
-    font-weight: normal;
-}
-.form-signin .form-control
-{
-    position: relative;
-    font-size: 16px;
-    height: auto;
-    padding: 10px;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
-.form-signin .form-control:focus
-{
-    z-index: 2;
-}
-.form-signin input[type="text"]
-{
-    margin-bottom: -1px;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-}
-.form-signin input[type="password"]
-{
-    margin-bottom: 10px;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-}
-.account-wall
-{
-    margin-top: 20px;
-    padding: 40px 0px 20px 0px;
-    background-color: #f7f7f7;
-    -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-    -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-}
-.login-title
-{
-    color: #555;
-    font-size: 18px;
-    font-weight: 400;
-    display: block;
-}
-.profile-img
-{
-    width: 96px;
-    height: 96px;
-    margin: 0 auto 10px;
-    display: block;
-    -moz-border-radius: 50%;
-    -webkit-border-radius: 50%;
-    border-radius: 50%;
-}
-.need-help
-{
-    margin-top: 10px;
-}
-.new-account
-{
-    display: block;
-    margin-top: 10px;
-}
-</style>
+<script src="adminLogin/vendor/animsition/js/animsition.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script src="adminLogin/js/main.js"></script>
 </head>
 <body>
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100 p-t-50 p-b-90">
+				<form action="admin/adminLogin" method="post" class="login100-form validate-form flex-sb flex-w" id="frm">
+					<span class="login100-form-title p-b-51">
+						ADMIN LOGIN
+					</span>
 
-<div class="container">
-    <div class="row">
-        <div class="col-sm-6 col-md-4 col-md-offset-4">
-            <h1 class="text-center login-title">Sign in to continue to Bootsnipp</h1>
-            <div class="account-wall">
-                <img class="profile-img" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120"
-                    alt="">
-                <form class="form-signin">
-                <input type="text" class="form-control" placeholder="Email" required autofocus>
-                <input type="password" class="form-control" placeholder="Password" required>
-                <button class="btn btn-lg btn-primary btn-block" type="submit">
-                    Sign in</button>
-                <label class="checkbox pull-left">
-                    <input type="checkbox" value="remember-me">
-                    Remember me
-                </label>
-                <a href="#" class="pull-right need-help">Need help? </a><span class="clearfix"></span>
-                </form>
-            </div>
-            <a href="#" class="text-center new-account">Create an account </a>
-        </div>
-    </div>
-</div>
+					
+					<div class="wrap-input100 validate-input m-b-16" data-validate = "Username is required">
+						<input id="name" class="input100" type="text" name="name" placeholder="Username">
+						<span class="focus-input100"></span>
+					</div>
+					
+					
+					<div class="wrap-input100 validate-input m-b-16" data-validate = "Password is required">
+						<input id="pw" class="input100" type="password" name="password" placeholder="Password">
+						<span class="focus-input100"></span>
+					</div>
+					
+					<div class="flex-sb-m w-full p-t-3 p-b-24">
+						<div class="contact100-form-checkbox">
+							<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
+							<label class="label-checkbox100" for="ckb1">
+								Remember me
+							</label>
+						</div>
+
+						<div>
+							<a href="#" class="txt1">
+							
+							</a>
+						</div>
+					</div>
+
+					<div class="container-login100-form-btn m-t-17">
+						<button id="loginBtn" class="login100-form-btn">
+							Login
+						</button>
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
+
 </body>
 </html>
