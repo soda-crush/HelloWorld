@@ -8,7 +8,6 @@ public class HomeController {
 	
 	@RequestMapping("/")
 	public String home() {
-		
 		return "home";
 	}
 	
@@ -16,11 +15,5 @@ public class HomeController {
 	public String adminHome() {
 		return "admin/adminLogin";
 	}
-	
-	@RequestMapping("/base")
-	public String toBase() {
-		return "standard/mainBase";
-	}
-	
 	
 }
