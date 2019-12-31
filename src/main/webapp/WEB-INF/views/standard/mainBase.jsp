@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="/css/mainBase.css">
 </head>
 <body>
-	<jsp:include page="header.jsp"/>
+	<jsp:include page="/WEB-INF/views/standard/header.jsp"/>
 	
  		<div id=baseBackgroundColor>
             <div class=container>
@@ -37,6 +37,6 @@
             </div>
         </div>
         
-        <jsp:include page="footer.jsp"/>
+        <jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
 </body>
 </html>
