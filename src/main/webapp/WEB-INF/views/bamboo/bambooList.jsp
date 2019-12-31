@@ -25,7 +25,15 @@
             
             <!--      몸통 시작!!!   -->
             
-            
+            <c:forEach items="${list}" var="list">	
+			
+				<div>${list.seq }</div>
+				<div>${list.writer }</div>
+				<div><a href="bambooDetailView.do?seq=${list.seq}">${list.title }</a></div>
+				<div>${list.writeDate }</div>
+				<div>${list.viewCount }</div>
+			
+			</c:forEach>
             
             <!--       몸통 끝!!!   -->
             
