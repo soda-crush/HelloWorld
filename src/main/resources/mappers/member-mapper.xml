@@ -6,5 +6,4 @@
 	<select id="login" resultType="Integer" parameterType="java.util.Map">
 		select count(*) from member;
 	</select>
-	
 </mapper>
