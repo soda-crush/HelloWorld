@@ -5,6 +5,7 @@
             }
             *{
                 font-family: "Nanumgothic";
+                box-sizing: border-box;
             }
             .navbar-collapse{
                 width : 100%;
@@ -18,23 +19,19 @@
             #logo{
                 width: 100%;   
             }
-            div{
-/*                              border:1px solid black;*/
-                box-sizing: border-box;
-                text-align: center;
-            }
             #baseBackgroundColor{
                 position: relative;
                 z-index: -10;
                 background-color: #efefef;
                 border-bottom: 2px solid gray;
             }
-            .naviCon{
+            #naviCon{
                 width: 73%;
                 margin: auto;
             }
-            .naviCon a{
+            #naviCon a{
                 font-size: 13px;
+                text-align: center;
             }
             #logo{
                 width:80%;
@@ -54,7 +51,9 @@
                 color: darkgray;
                 font-size: 12px;
             }
-            
+            #logoCon{
+            	text-align: center;
+            }
             #footerMsg{
                 line-height: 1.9em;
             }
