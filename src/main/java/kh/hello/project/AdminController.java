@@ -15,10 +15,11 @@ public class AdminController {
 	@RequestMapping("/adminLogin")
 	public String adminLogin(String name, String password) {
 		int result = as.validLogin(name, password);
+		//로그인 정보 세션에 저장하기
 		if(result > 0) {
-			return "admin/main";
+			return "redirect:main";
 		}else {
-			return "admin/loginFail";
+			return "redirect:loginFail";
 		}
 	}
 
