@@ -34,7 +34,7 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 
                 <div class="navbar-nav box text-center naviCon">
-                    <a class="nav-item nav-link active text-light" href="/WEB-INF/views/bamboo/bambooList.jsp">대나무숲</a>
+                    <a class="nav-item nav-link active text-light" href="#">대나무숲</a>
                     <a class="nav-item nav-link active text-light" href="#">코드지식인</a>
                     <a class="nav-item nav-link active text-light" href="#">업계현황</a>
                     <a class="nav-item nav-link active text-light" href="#">IT 뉴스</a>
