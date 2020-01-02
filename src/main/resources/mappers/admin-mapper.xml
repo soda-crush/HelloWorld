@@ -6,4 +6,16 @@
   <select id="validLogin" resultType="integer">
   	select count(*) from adminAccount where adminId=#{adminId} and password=#{password}
   </select>
+  <update id="modifyInfo" parameterType="java.util.Map">
+  	update adminAccount set password=#{password}, email=#{email} where adminId=#{adminId}
+  </update>
+  <select id="selectInquiryByPage" resultType="kh.hello.dto.InquiryDTO">
+  	select * from (select inquiry.*, row_number() over(order by seq desc) rown from inquiry) where rown between #{start} and #{end}
+  </select>
+  <select id="getInquiryTotal" resultType="integer">
+  	select count(*) from inquiry
+  </select>
+  <select id="inquiryDetailView" resultType="kh.hello.dto.InquiryDTO">
+  	select * from inquiry where seq=#{seq}
+  </select>
 </mapper>

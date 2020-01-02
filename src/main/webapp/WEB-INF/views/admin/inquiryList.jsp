@@ -44,11 +44,11 @@
                 <div class="menu-inner">
                     <nav>
                         <ul class="metismenu" id="menu">
-                            <li class="active"><a href="${pageContext.request.contextPath }/admin/main"><i class="ti-dashboard"></i><span>모니터링</span></a></li>
-                            <li><a href="#"><i class="ti-user"></i><span>회원관리</span></a></li>
+                            <li><a href="${pageContext.request.contextPath }/admin/main"><i class="ti-map-alt"></i><span>모니터링</span></a></li>
+                            <li><a href="#"><i class="ti-map-alt"></i><span>회원관리</span></a></li>
                             
                             <li>
-                                <a href="javascript:void(0)" aria-expanded="true"><i class="ti-menu"></i><span>게시판관리</span></a>
+                                <a href="javascript:void(0)" aria-expanded="true"><i class="ti-dashboard"></i><span>게시판관리</span></a>
                                 <ul class="collapse">
                                     <li><a href="#">대나무숲</a></li>
                                     <li><a href="#">코드지식인</a></li>
@@ -57,8 +57,8 @@
                                 </ul>
                             </li>
                             
-                            <li><a href="${pageContext.request.contextPath }/admin/inquiryList"><i class="ti-help"></i><span>일대일문의</span></a></li>
-                            <li><a href="${pageContext.request.contextPath }/admin/modifyForm"><i class="ti-face-smile"></i><span>정보변경</span></a></li>
+                            <li class="active"><a href="#"><i class="ti-map-alt"></i><span>일대일문의</span></a></li>
+                            <li><a href="${pageContext.request.contextPath }/admin/modifyForm"><i class="ti-map-alt"></i><span>정보변경</span></a></li>
                         </ul>
                     </nav>
                 </div>
@@ -93,10 +93,10 @@
                 <div class="row align-items-center">
                     <div class="col-sm-6">
                         <div class="breadcrumbs-area clearfix">
-                            <h4 class="page-title pull-left">모니터링</h4>
+                            <h4 class="page-title pull-left">일대일문의</h4>
                             <ul class="breadcrumbs pull-left">
                                 <li><a href="${pageContext.request.contextPath }/admin/main">Home</a></li>
-                                <li><span>모니터링</span></li>
+                                <li><span>일대일문의</span></li>
                             </ul>
                         </div>
                     </div>
@@ -114,6 +114,70 @@
             <!-- page title area end -->
             <div class="main-content-inner">
                 <!-- MAIN CONTENT GOES HERE -->
+                
+                 <!-- Hoverable Rows Table start -->
+                    <div class="col-lg-12 mt-5">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="header-title">글 목록</h4>
+                                <div class="single-table">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover text-center">
+                                            <thead class="text-uppercase">
+                                                <tr>
+                                                	<th scope="col">state</th>
+                                                    <th scope="col">번호</th>
+                                                    <th scope="col">제목</th>
+                                                    <th scope="col">글쓴이</th>
+                                                    <th scope="col">작성일</th>                                                    
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            	<c:forEach items="${list }" var="dto">
+                                            		<tr>
+                                                    <th scope="row">
+                                                    <c:choose>
+                                                    	<c:when test="dto.state == 'T'">
+                                                    		답변완료
+                                                    	</c:when>
+                                                    	<c:otherwise>
+                                                    		답변대기중
+                                                    	</c:otherwise>
+                                                    </c:choose>
+                                                    </th>
+                                                    <td>${dto.seq}</td>
+                                                    <td><a href="inquiryDetailView?seq=${dto.seq}">${dto.title}</a></td>
+                                                    <td>${dto.writer}</td>
+                                                    <td>${dto.formedDate}</td>
+                                               		</tr>
+                                            	</c:forEach>
+                                                
+                                                
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                         <div class="card">
+                            <div class="card-body">
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination justify-content-center">
+										<c:forEach items="${pageNavi}" var="page">
+											 <li class="page-item"><li class="page-item">${page}</li></li>
+										</c:forEach>
+
+
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <!-- Hoverable Rows Table end -->
+                    
+               
             </div>
         </div>
         <!-- main content area end -->
@@ -126,7 +190,7 @@
         <!-- footer area end-->
     </div>
     <!-- page container area end -->
-
+   
     <!-- jquery latest version -->
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <!-- bootstrap 4 js -->
