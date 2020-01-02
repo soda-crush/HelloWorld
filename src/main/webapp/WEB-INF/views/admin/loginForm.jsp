@@ -7,16 +7,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Hello World!</title>
-<link rel="icon" type="image/png" href="adRsc/login/images/icons/favicon.ico"/>
+<link rel="icon" type="image/png" href="adRsc/images/icons/favicon.ico"/>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="adRsc/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" type="text/css" href="adRsc/login/vendor/animate/animate.css">
-<link rel="stylesheet" type="text/css" href="adRsc/login/vendor/animsition/css/animsition.min.css">
-<link rel="stylesheet" type="text/css" href="adRsc/login/css/util.css">
-<link rel="stylesheet" type="text/css" href="adRsc/login/css/main.css">
+<link rel="stylesheet" type="text/css" href="css/font-awesome/css/font-awesome.css">
+<link rel="stylesheet" type="text/css" href="adRsc/vendor/animate/animate.css">
+<link rel="stylesheet" type="text/css" href="adRsc/vendor/animsition/css/animsition.min.css">
+<link rel="stylesheet" type="text/css" href="adRsc/css/util.css">
+<link rel="stylesheet" type="text/css" href="adRsc/css/main.css">
 
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-<script src="adRsc/login/vendor/animsition/js/animsition.min.js"></script>
+<script src="adRsc/vendor/animsition/js/animsition.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 

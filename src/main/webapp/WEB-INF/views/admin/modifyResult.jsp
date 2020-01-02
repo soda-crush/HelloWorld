@@ -10,8 +10,13 @@
 </head>
 <body>
 	<script>
-		alert("로그인에 실패했습니다. 아이디 또는 비밀번호를 다시 확인해주세요");
-		location.href = "/manage";
+		var result = ${result};
+		if(result){
+			alert("정보 변경이 완료되었습니다");
+		}else{
+			alert("정보 변경에 실패했습니다. 다시 시도해 주세요");
+		}		
+		location.href = "${pageContext.request.contextPath }/admin/modifyForm";
 	</script>
 </body>
 </html>
