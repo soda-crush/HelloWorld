@@ -21,9 +21,9 @@ public class ProjectDAO {
 	//project 테이블
 	public List<ProjectDTO> getProjectList(){//프로젝트 모집글 전체리스트
 		return jdbc.selectList("Project.getList");
-	}	
+	}
 	public ProjectDTO getProjectDetailView(int seq) {//프로젝트 모집글 상세보기
-		return jdbc.selectOne("Project.getDetailView", seq);
+		return jdbc.selectOne("Project.getProjectDetailView", seq);
 	}
 	public int latestSeq(String writer) {//작성자 가장 최근글(작성/수정 직후 디테일뷰)
 		return jdbc.selectOne("Project.latestSeq", writer);
@@ -58,7 +58,6 @@ public class ProjectDAO {
 	public int deleteProjectAllCo(int projectSeq) {//프로젝트 모집댓글 삭제(글에 달린 모든댓글)
 		return jdbc.delete("ProjectCo.deleteProjectAllCo", projectSeq);
 	}
-	
 	
 	//projectApply 테이블
 	public List<ProjectApplyDTO> getApplyList(int projectSeq) {//프로젝트 지원 전체리스트(해당글에 대한)
