@@ -57,7 +57,7 @@
                                 </ul>
                             </li>
                             
-                            <li class="active"><a href="#"><i class="ti-map-alt"></i><span>일대일문의</span></a></li>
+                            <li class="active"><a href="${pageContext.request.contextPath }/admin/inquiryList"><i class="ti-map-alt"></i><span>일대일문의</span></a></li>
                             <li><a href="${pageContext.request.contextPath }/admin/modifyForm"><i class="ti-map-alt"></i><span>정보변경</span></a></li>
                         </ul>
                     </nav>
@@ -137,7 +137,7 @@
                                             		<tr>
                                                     <th scope="row">
                                                     <c:choose>
-                                                    	<c:when test="dto.state == 'T'">
+                                                    	<c:when test="${dto.state eq 'T'}">
                                                     		답변완료
                                                     	</c:when>
                                                     	<c:otherwise>
@@ -146,7 +146,7 @@
                                                     </c:choose>
                                                     </th>
                                                     <td>${dto.seq}</td>
-                                                    <td><a href="inquiryDetailView?seq=${dto.seq}">${dto.title}</a></td>
+                                                    <td><a href="inquiryDetailView?page=${page}&seq=${dto.seq}">${dto.title}</a></td>
                                                     <td>${dto.writer}</td>
                                                     <td>${dto.formedDate}</td>
                                                		</tr>
