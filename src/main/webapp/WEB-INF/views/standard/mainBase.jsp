@@ -11,6 +11,7 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/css/mainBase.css">
+<link rel="stylesheet" type="text/css" href="/css/font-awesome/css/font-awesome.css">
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/standard/header.jsp"/>

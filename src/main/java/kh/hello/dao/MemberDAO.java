@@ -11,7 +11,7 @@ public class MemberDAO {
 	private SqlSessionTemplate jdbc;
 	
 	public int login(String id, String pw)throws Exception{
-		
+		return 1;
 	}
 	
 	

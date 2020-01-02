@@ -20,7 +20,8 @@ public class memberController {
 	
 	@RequestMapping("loginProc")
 	public String loginProc(String id, String pw){
-		mdao.login(id, pw);
+		//mdao.login(id, pw);
+		return "";
 	}
 	
 }
