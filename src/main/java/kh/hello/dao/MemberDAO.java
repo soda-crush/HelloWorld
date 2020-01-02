@@ -21,5 +21,9 @@ public class MemberDAO {
 		return jdbc.selectOne("Member.login", param);
 	}
 	
+	//아이디 중복체크
+	public int dupleCheck(String id)throws Exception{
+		return jdbc.selectOne("Member.dupleCheck", id);
+	}
 	
 }
