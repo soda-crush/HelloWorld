@@ -28,7 +28,11 @@
 
             
             <div class="container">
-<!--             여기에 col.row써서 만드시면 됩니다!!!!! -->
+				<div class="row">
+					<div class="col-12 text-center">
+						<h1>에러 발생!</h1>
+					</div>
+				</div>
             </div>
             
             <!--       몸통 끝!!!   -->
