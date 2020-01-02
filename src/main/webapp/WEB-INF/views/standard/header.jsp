@@ -10,7 +10,7 @@
 			</c:when>
 			<c:otherwise>
 			 <div class="row" id="loginCon">
-                <div class="col-12 text-right"><a href="#">마이페이지</a> | <a href="#">로그아웃</a></div>
+                <div class="col-12 text-right"><a href="#">마이페이지</a> | <a href="#" id="logout">로그아웃</a></div>
             </div>
 			</c:otherwise>
 	</c:choose>
@@ -46,5 +46,11 @@
         <script>
         	$("#logo").on("click",function(){
         		location.href = "${pageContext.request.contextPath}/";
+        	})
+        	$("#logout").on("click",function(){
+        		var result = confirm("정말 로그아웃 하시겠습니까?");
+        		if(result){
+        			location.href="${pageContext.request.contextPath}/member/logout";
+        		}
         	})
         </script>

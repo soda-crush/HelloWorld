@@ -40,7 +40,7 @@ button{
             </div>
             
             <!--      몸통 시작!!!   -->
-            
+            <form action="${pageContext.request.contextPath}/member/loginProc" method="post">
             <div class=container>
             	<div class="row">
             	<div class="col-1"></div>
@@ -50,7 +50,7 @@ button{
             			<div class="col-8">
             				<input type="text" name="id" id="id" class="input1" placeholder="아이디 입력"><br>
             				<input type="text" name="pw" id="pw" class="input1" placeholder="비밀번호 입력"><br>
-            				아이디를 기억합니다. <i class="fa fa-battery-1"></i><input type="checkbox" id="remID">
+            				아이디를 기억합니다. <input type="checkbox" id="remID">
             			</div>
             			<div class="col-2">
             			<button id=login>로그인</button>
@@ -66,7 +66,7 @@ button{
             	<div class="col-1"></div>
             	</div>
             </div>
-            
+            </form>
             <!--       몸통 끝!!!   -->
             
             <div class=container>
