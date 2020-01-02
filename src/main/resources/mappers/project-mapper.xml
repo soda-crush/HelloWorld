@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Project">
 	<select id="getList" resultType="kh.hello.dto.ProjectDTO">
-		select * from project order by seq desc
+		select seq,title,location1,capacity,startDate,endDate,state,writer,viewCount,(select count(*) from projectComment where projectSeq=project.seq) as commentCount from project order by seq desc
 	</select>
 	
 	<select id="getProjectDetailView" resultType="kh.hello.dto.ProjectDTO">
@@ -16,7 +16,7 @@
 	</select>
 	
 	<insert id="insertProject" parameterType="kh.hello.dto.ProjectDTO">
-		insert into project values(projectSeq.nextval,#{title},#{contents},#{location},#{capacity},#{startDate},#{endDate},#{languages},#{phone},#{email},#{writer},sysdate,'N')
+		insert into project values(projectSeq.nextval,#{title},#{contents},#{location1},#{location2},#{capacity},#{startDate},#{endDate},#{languages},#{phone},#{email},#{writer},sysdate,'N')
 	</insert>
 	
 	<update id="updateProject" parameterType="kh.hello.dto.ProjectDTO">

@@ -38,7 +38,7 @@
                     <a class="nav-item nav-link active text-light" href="#">코드지식인</a>
                     <a class="nav-item nav-link active text-light" href="#">업계현황</a>
                     <a class="nav-item nav-link active text-light" href="#">IT 뉴스</a>
-                    <a class="nav-item nav-link active text-light" href="#">프로젝트</a>
+                    <a class="nav-item nav-link active text-light" href="${pageContext.request.contextPath}/project/list">프로젝트</a>
                     <a class="nav-item nav-link active text-light" href="#">P-log</a>
                 </div>
             </div>
