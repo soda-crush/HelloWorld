@@ -20,11 +20,17 @@
 	#pHeader #stateLabel{color:white;}
 	#pHeader label.N{background-color:limegreen;}
 	#pHeader label.Y{background-color:red;}
-	#pHeader label:not(#stateLabel){font-size:15px;}
+	#pHeader label:not(#stateLabel){font-size:13px;}
 	#pHeader span:first-of-type{font-size:20px;}
 	#pHeader label:nth-of-type(2){width:200px;}
+	#pHeader .fa{margin-left:15px;margin-top:15px;font-size:20px;}
 	#pInfo *,#pBody *{font-size:15px;}
 	#pInfo label,#pBody label{width:100px;color:darkgray;}
+	.applyBtn{margin-bottom:20px;}
+	.modal-title{font-weight:bold;}
+	.aItem{margin-top:5px;font-size:15px;font-weight:bold;}
+	.star{color:red;}
+	.genderRadio,.workInRadio{padding-top:5px;}
 </style>
 </head>
 <body>
@@ -47,7 +53,7 @@
 					<c:if test="${pPage.seq !=null }">
 						<div id="pHeader">
 							<label class="${pPage.state } badge badge-pill ml-4" id="stateLabel">${pPage.stateInKor }</label>
-							<i class="fa fa-share-alt"></i><br>
+							<i class="fa fa-share-alt"></i><i class="fa fa-bookmark"></i><br>
 							<span class="ml-4">${pPage.title}</span><br>
 							<label class="ml-4">작성자 : ${pPage.writer }</label><label>작성일 : ${pPage.formedWriteDate }</label>
 						</div>
@@ -64,6 +70,12 @@
 							
 							<div><label class="ml-4">연락처</label><span>${pPage.phone }</span></div>
 							<div><label class="ml-4">메일주소</label><span>${pPage.email }</span></div>
+							
+							<c:if test="${pPage.writer != sessionScope.loginInfo}">
+							<div class="text-center applyBtn">
+								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">신청하기</button>
+							</div>
+							</c:if>
 							
 							<c:if test="${comments.size()>0 }">
 								<c:forEach items="${comments }" var="c">
@@ -96,5 +108,86 @@
         
         <jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
         
+        
+        
+        
+        <!-- Modal -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLabel">프로젝트 신청</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		      
+		      	<div class="row">
+					<div class="col-4"><label class="aItem">사용 가능 언어</label><label class="star">*</label></div>
+					<div class="col-7"><input type="text" class="form-control" id="email"></div>
+				</div>
+				<div class="row">
+					<div class="col-4"><label class="aItem">성별</label><label class="star">*</label></div>
+					<div class="col-7 genderRadio">
+						<div class="form-check form-check-inline">
+						  <input class="form-check-input" type="radio" name="gender" id="male" value="male">
+						  <label class="form-check-label" for="male">남</label>
+						</div>
+						<div class="form-check form-check-inline">
+						  <input class="form-check-input" type="radio" name="gender" id="female" value="female">
+						  <label class="form-check-label" for="female">여</label>
+						</div>
+						<div class="form-check form-check-inline">
+						  <input class="form-check-input" type="radio" name="gender" id="none" value="none">
+						  <label class="form-check-label" for="none">비공개</label>
+						</div> 					  
+					</div>
+					
+				</div>
+				<div class="row">
+					<div class="col-4"><label class="aItem">나이</label><label class="star">*</label></div>
+					<div class="col-4">
+						<select class="custom-select">
+							<option selected>선택</option>
+						    <option value="1">10대</option>
+						    <option value="2">20대</option>
+						    <option value="3">30대</option>
+						    <option value="4">40대 이상</option>
+						</select>
+					</div>
+				</div>							
+				<div class="row">
+					<div class="col-4"><label class="aItem">재직여부</label><label class="star">*</label></div>
+					<div class="col-7 workInRadio">
+						<div class="form-check form-check-inline">
+						  <input class="form-check-input" type="radio" name="workIn" id="Y" value="Y">
+						  <label class="form-check-label" for="Y">재직</label>
+						</div>
+						<div class="form-check form-check-inline">
+						  <input class="form-check-input" type="radio" name="workIn" id="N" value="N">
+						  <label class="form-check-label" for="N">비재직</label>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-4"><label class="aItem">메일주소</label></div>							
+					<div class="col-7"><input type="email" class="form-control" id="email"></div>
+				</div>
+				<div class="row">
+					<div class="col-12"><label class="aItem">하고 싶은 말</label></div>
+					<div class="col-12" id="aContentsInput"><textarea class="form-control" style="height:100px;" placeholder="내용을 입력해주세요"></textarea></div>
+				</div>						
+		      
+		      
+		      		       
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+		        <button type="button" class="btn btn-primary">신청</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
 </body>
 </html>

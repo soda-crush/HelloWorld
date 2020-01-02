@@ -19,6 +19,7 @@
 	<mvc:resources location="/resources/img/" mapping="/img/**" />
 	<mvc:resources location="/resources/font/" mapping="/font/**" />
 	<mvc:resources location="/resources/adRsc/" mapping="/adRsc/**" />
+	<mvc:resources location="/resources/js/" mapping="/js/**" />
 
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/views/" />

@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Project">
 	<select id="getList" resultType="kh.hello.dto.ProjectDTO">
-		select seq,title,location1,capacity,startDate,endDate,state,writer,viewCount,(select count(*) from projectComment where projectSeq=project.seq) as commentCount from project order by seq desc
+		select seq,title,location1,capacity,startDate,endDate,state,writer,writeDate,viewCount,(select count(*) from projectComment where projectSeq=project.seq) as commentCount from project order by seq desc
 	</select>
 	
 	<select id="getProjectDetailView" resultType="kh.hello.dto.ProjectDTO">

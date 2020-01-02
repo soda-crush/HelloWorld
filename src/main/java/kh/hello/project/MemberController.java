@@ -10,7 +10,7 @@ import kh.hello.services.MemberService;
 
 @Controller
 @RequestMapping("/member")
-public class memberController {
+public class MemberController {
 	
 	@Autowired
 	private MemberService ms;

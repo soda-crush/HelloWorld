@@ -9,10 +9,8 @@
 	font-weight: bold;
 }
 *{
-    box-sizing: border-box;
-    font-family: NanumGothic;             	
-    font-weight: bold;
-}                       
+    box-sizing: border-box;    
+}
 .navbar-collapse{
     width : 100%;
 }

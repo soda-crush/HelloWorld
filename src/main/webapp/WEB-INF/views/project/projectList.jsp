@@ -41,8 +41,8 @@
 				<div id="pageTitle">
 					<h1>프로젝트 목록</h1>
 					<a class="btn btn-primary" href="/project/list" role="button">게시판</a>
-					<a class="btn btn-secondary" href="#" role="button">그래픽</a>
-					<a class="btn btn-secondary" href="#" role="button">지도</a>
+					<a class="btn btn-secondary" href="/project/chart" role="button">그래픽</a>
+					<a class="btn btn-secondary" href="/project/map" role="button">지도</a>
 				</div>				
 				<table class="table table-hover">
 				  <thead class="thead-light">
@@ -54,13 +54,14 @@
 				      <th scope="col">인원</th>
 				      <th scope="col">기간</th>
 				      <th scope="col">작성자</th>
+				      <th scope="col">작성일</th>
 				      <th scope="col">조회수</th>
 				    </tr>
 				  </thead>
 				  <tbody>
 				  	<c:choose>
 				  		<c:when test="${projectList.size()==0 }">
-				  		<tr><td colspan="8">작성된 글이 없습니다.</td></tr>
+				  		<tr><td colspan="9">작성된 글이 없습니다.</td></tr>
 				  		</c:when>
 				  		<c:otherwise>
 				  			<c:forEach items="${projectList }" var="p">
@@ -77,6 +78,7 @@
 				  					<td>${p.capacity }명</td>
 				  					<td>${p.formedAllDate }</td>
 				  					<td>${p.writer }</td>
+				  					<td>${p.formedWriteDate }</td>
 				  					<td>${p.viewCount }</td>
 				  				</tr>
 				  			</c:forEach>
@@ -87,7 +89,7 @@
 				<div class="text-right">
 					<a class="btn btn-primary" href="/project/write" role="button">글쓰기</a>					
 				</div>
-				<nav aria-label="List navi">
+				<nav aria-label="List navi" id="pPageNavi">
 				  <ul class="pagination justify-content-center">
 				    <li class="page-item">
 				      <a class="page-link" href="#" aria-label="Previous">

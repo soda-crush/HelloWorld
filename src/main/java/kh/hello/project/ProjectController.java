@@ -35,6 +35,20 @@ public class ProjectController {
 		return "/project/projectList";
 	}
 	
+	@RequestMapping("/chart")
+	public String projectChart(Model m) {
+		List<ProjectDTO> result = service.projectList();
+		m.addAttribute("projectList", result);
+		return "/project/projectChart";
+	}
+	
+	@RequestMapping("/map")
+	public String projectMap(Model m) {
+		List<ProjectDTO> result = service.projectList();
+		m.addAttribute("projectList", result);
+		return "/project/projectMap";
+	}
+	
 	@RequestMapping("/detailView")
 	public String projectDetailView(int seq, Model m) {
 		session.setAttribute("loginInfo", "sooin");
