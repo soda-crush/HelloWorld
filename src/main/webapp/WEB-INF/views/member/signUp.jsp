@@ -48,6 +48,8 @@
             	<div class=col-12>
             		<h5><img src="/icon/arrow.svg" class=arrow>아이디</h5>
             		&emsp;<input type=text name=id id=id placeholder="아이디 입력">
+            		<img id=idCheck style="display:none;">
+            		<div id=idMsg></div>
             	</div>
             </div>
             <div class=row>
@@ -63,6 +65,7 @@
             	<div class="col-12 col-sm-6">
             	<h5><img src="/icon/arrow.svg" class=arrow>비밀번호 확인</h5>
             		&emsp;<input type=text name=pwRe id=pwRe placeholder="비밀번호 재입력">
+            		<img id=pwCheck style="display:none;">
             	</div>
             </div>
              <div class=row>
@@ -91,6 +94,7 @@
 		            	<h5 style="display:inline;"><img src="/icon/doubleArrow.svg" class=arrow>회사 메일</h5>
 		            	<p style="display:inline;">- 일반 메일일 경우  비실무자로 가입됩니다.</p>
 		            		&emsp;<br>&emsp;<input type=text name=empEmail id=empEmail placeholder="메일 주소 입력">
+		            		<img id=empEmailCheck style="display:none;">
 	            	</div>
 	            	<div class="col-12 col-sm-6">
 		            	<h5><img src="/icon/doubleArrow.svg" class=arrow>인증 코드</h5>
@@ -103,6 +107,7 @@
 	            	<div class="col-12 col-sm-6">
 		            	<h5><img src="/icon/doubleArrow.svg" class=arrow>개인 메일</h5>
 		            		&emsp;<input type=text name=unempEmail id=unempEmail placeholder="메일 주소 입력">
+		            		<img id=unempEmailCheck style="display:none;">
 	            	</div>
 	            	<div class="col-12 col-sm-6">
 		            	<h5><img src="/icon/doubleArrow.svg" class=arrow>인증 코드</h5>
@@ -132,6 +137,7 @@
             	<div class=col-12>
             		<h5><img src="/icon/arrow.svg" class=arrow>닉네임</h5>
             		&emsp;<input type=text name=nickName id=nickName placeholder="닉네임 입력">
+            		<img id=nickCheck style="display:none;">
             	</div>
             </div>
               <div class=row>
@@ -180,6 +186,16 @@
             		<h1><br></h1>
             	</div>
             </div>
+            <div class=row>
+            	<div class="col-12 text-center">
+            		<button>가입하기</button>
+            	</div>
+            </div>
+            <div class=row>
+            	<div class=col-12>
+            		<h1><br></h1>
+            	</div>
+            </div>
             
             </div>
             </form>
@@ -219,7 +235,118 @@
         		}).open();
     		}
         
+        //유효성 검사
+        	//아이디
+        	 //1. ID는 영어소문자,숫자만 가능해야함(4~12자리,소문자로 시작해야함)
+                $("#id").on("focusout",function(){
+                    var regex = /^[a-z][a-z0-9]{6,11}$/g;
+                    var data =$("#id").val();
+                    var result = regex.exec(data);
+
+                    if(result == null){
+                        $("#idMsg").html("&emsp;아이디는 소문자로 시작해야하며 숫자,소문자를 이용해  7-14자로 입력하십시오.");
+                    }else{
+                    	 $("#idMsg").html("");
+                    	$.ajax({
+                    		url : "${pageContext.request.contextPath}/member/duplCheck",
+							type : "post",
+							data : {id : $("#id").val()},
+							dataType : "json"
+								}).done(function(data){
+									if (data.result == true) {
+										$("#idCheck").css("display","inline");
+										$("#idCheck").attr("src","/icon/x.svg");
+									}else{
+										$("#idCheck").css("display","inline");
+										$("#idCheck").attr("src","/icon/check.svg");
+									}
+								})
+                    }
+                })
         
+               //비밀번호 
+                $("#pw").on("focusout",function(){
+                    var pw =$("#pw").val();
+                    var pwRe =$("#pwRe").val();
+
+                    if(pw == pwRe){
+                    	$("#pwCheck").css("display","inline");
+						$("#pwCheck").attr("src","/icon/check.svg");
+                    }else{
+                    	$("#pwCheck").css("display","inline");
+						$("#pwCheck").attr("src","/icon/x.svg");
+                    }
+                }) 
+                $("#pwRe").on("focusout",function(){
+                    var pw =$("#pw").val();
+                    var pwRe =$("#pwRe").val();
+
+                    if(pw == pwRe){
+                    	$("#pwCheck").css("display","inline");
+						$("#pwCheck").attr("src","/icon/check.svg");
+                    }else{
+                    	$("#pwCheck").css("display","inline");
+						$("#pwCheck").attr("src","/icon/x.svg");
+                    }
+                }) 
+        	//이메일 유효성 검사
+        	 $("input:radio[name=empCheck]").click(function(){
+	            if($("input:radio[name=empCheck]:checked").val()=='employee'){
+	               //실무자 체크했을때
+	            	 $("#empEmail").on("focusout",function(){
+	                     var regex = /^\w+@[a-z]+(\.[a-z]+){1,2}$/gm;
+	                     var data = $("#empEmail").val();
+	                     var result = regex.exec(data);
+
+	                     if(result == null){
+	                    	 $("#empEmailCheck").css("display","inline");
+	 						 $("#empEmailCheck").attr("src","/icon/x.svg");
+	                     }else{
+	                    	 $("#empEmailCheck").css("display","none");
+	                     }
+	                 })
+
+	            }else if($("input:radio[name=empCheck]:checked").val()=='unemployee'){
+	            	//비실무자 체크했을때
+	            	 $("#unempEmail").on("focusout",function(){
+	                     var regex = /^\w+@[a-z]+(\.[a-z]+){1,2}$/gm;
+	                     var data = $("#unempEmail").val();
+	                     var result = regex.exec(data);
+
+	                     if(result == null){
+	                    	 $("#unempEmailCheck").css("display","inline");
+	 						 $("#unempEmailCheck").attr("src","/icon/x.svg");
+	                     }else{
+	                    	 $("#unempEmailCheck").css("display","none");
+	                     }
+	                 })
+	            }
+	        });
+        
+            //닉네임 중복검사
+           		  $("#nickName").on("focusout",function(){
+                   var nickName =   $("#nickName").val();
+
+//                     if(result == null){
+//                         $("#idMsg").html("&emsp;아이디는 소문자로 시작해야하며 숫자,소문자를 이용해  7-14자로 입력하십시오.");
+//                     }else{
+//                     	 $("#idMsg").html("");
+//                     	$.ajax({
+//                     		url : "${pageContext.request.contextPath}/member/duplCheck",
+// 							type : "post",
+// 							data : {id : $("#id").val()},
+// 							dataType : "json"
+// 								}).done(function(data){
+// 									if (data.result == true) {
+// 										$("#idCheck").css("display","inline");
+// 										$("#idCheck").attr("src","/icon/x.svg");
+// 									}else{
+// 										$("#idCheck").css("display","inline");
+// 										$("#idCheck").attr("src","/icon/check.svg");
+// 									}
+// 								})
+//                     }
+                })
         </script>
 </body>
 </html>

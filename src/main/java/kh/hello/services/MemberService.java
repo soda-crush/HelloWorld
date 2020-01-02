@@ -15,4 +15,12 @@ public class MemberService {
 	public int login(String id, String pw)throws Exception{
 		return mdao.login(id, pw);
 	}
+	
+	//아이디 중복체크
+	public int dupleCheck(String id)throws Exception{
+		return mdao.dupleCheck(id);
+	}
+	
+	
+	
 }

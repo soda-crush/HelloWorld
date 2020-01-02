@@ -3,7 +3,15 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Member">
+	
+<!-- 	로그인 -->
 	<select id="login" resultType="integer" parameterType="java.util.Map">
 		select count(*) from member where id = #{id} and pw = #{pw}
 	</select>
+	
+	<select id="dupleCheck" resultType="integer" parameterType="string">
+		select count(*) from member where id = #{id}
+	</select>
+	
+	
 </mapper>
