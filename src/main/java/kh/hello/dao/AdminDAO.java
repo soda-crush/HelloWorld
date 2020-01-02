@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kh.hello.dto.InquiryDTO;
+import kh.hello.dto.InquiryReplyDTO;
 
 @Repository
 public class AdminDAO {
@@ -46,4 +47,35 @@ public class AdminDAO {
 		return jdbc.selectOne("Admin.inquiryDetailView", seq);
 	}
 	
+	public int writeInquiry(String reply, int boardSeq) {
+		Map<String, Object> param = new HashMap<>();
+		param.put("reply", reply);
+		param.put("boardSeq", boardSeq);
+		return jdbc.insert("Admin.writeInquiry", param);
+	}
+	
+	public int getLatestReplySeq() {
+		return jdbc.selectOne("Admin.getLatestReplySeq");
+	}
+	
+	public InquiryReplyDTO getLatestReply(int seq) {
+		return jdbc.selectOne("Admin.getLatestReply", seq);
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

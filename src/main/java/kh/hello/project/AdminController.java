@@ -11,8 +11,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.JsonObject;
+
 import kh.hello.configuration.Configuration;
 import kh.hello.dto.InquiryDTO;
+import kh.hello.dto.InquiryReplyDTO;
 import kh.hello.services.AdminService;
 
 @Controller
@@ -95,7 +98,19 @@ public class AdminController {
 		return "admin/inquiryDetailView";
 	}
 	
-
+	@RequestMapping(value="/writeInquiry", produces="text/html; charset=utf8")
+	@ResponseBody
+	public String writeInquiry(String reply, int boardSeq) {
+		InquiryReplyDTO dto = as.writeInquiry(reply, boardSeq);
+		JsonObject obj = new JsonObject();
+		obj.addProperty("seq", dto.getSeq());
+		obj.addProperty("boardSeq", dto.getBoardSeq());
+		obj.addProperty("reply", dto.getReply());
+		obj.addProperty("writeDate", dto.getFormedDate());
+		String result = obj.toString();
+		System.out.println("출력값 테스트" + result);
+		return result;
+	}
 
 }
 
