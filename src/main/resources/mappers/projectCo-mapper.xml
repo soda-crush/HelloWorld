@@ -15,4 +15,7 @@
 	<delete id="deleteProjectCo">
 		delete from projectComment where seq=#{value}
 	</delete>
+	<delete id="deleteProjectAllCo">
+		delete from projectComment where projectSeq=#{value}
+	</delete>
 </mapper>
