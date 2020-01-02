@@ -24,13 +24,19 @@
 	#pHeader span:first-of-type{font-size:20px;}
 	#pHeader label:nth-of-type(2){width:200px;}
 	#pHeader .fa{margin-left:15px;margin-top:15px;font-size:20px;}
-	#pInfo *,#pBody *{font-size:15px;}
+	#pInfo *,#pBody *{font-size:15px;font-weight:bold;}
 	#pInfo label,#pBody label{width:100px;color:darkgray;}
 	.applyBtn{margin-bottom:20px;}
 	.modal-title{font-weight:bold;}
 	.aItem{margin-top:5px;font-size:15px;font-weight:bold;}
-	.star{color:red;}
+	.star{margin-left:2px;color:red;}
 	.genderRadio,.workInRadio{padding-top:5px;}
+	#pCoInput{margin-top:20px;}
+	#pCoInput textarea{height:100px; margin-left:20px; margin-bottom:20px;}
+	#pCoInput button{height:45px; width:90%;}
+	.pApply{font-size:13px;color:red;}
+	.checkBtn button:nth-child(2){margin-left:10px;}
+	#advBox{height:100px;width:100%;background-color:darkgray;margin-top:20px;}
 </style>
 </head>
 <body>
@@ -54,7 +60,7 @@
 						<div id="pHeader">
 							<label class="${pPage.state } badge badge-pill ml-4" id="stateLabel">${pPage.stateInKor }</label>
 							<i class="fa fa-share-alt"></i><i class="fa fa-bookmark"></i><br>
-							<span class="ml-4">${pPage.title}</span><br>
+							<span class="ml-4" style="font-weight:bold;">${pPage.title}</span><br>
 							<label class="ml-4">작성자 : ${pPage.writer }</label><label>작성일 : ${pPage.formedWriteDate }</label>
 						</div>
 						<hr>
@@ -71,17 +77,50 @@
 							<div><label class="ml-4">연락처</label><span>${pPage.phone }</span></div>
 							<div><label class="ml-4">메일주소</label><span>${pPage.email }</span></div>
 							
-							<c:if test="${pPage.writer != sessionScope.loginInfo}">
-							<div class="text-center applyBtn">
-								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">신청하기</button>
-							</div>
+							<c:if test="${pPage.writer == sessionScope.loginInfo}">
+								<div class="text-center checkBtn">
+									<button type="button" class="btn btn-warning">신청내역
+										<c:if test="${pPage.applyCount>0 }">
+					  						<span class="pApply font-weight-bold">${pPage.applyCount }</span>
+					  					</c:if>
+									</button>
+									<button type="button" class="btn btn-success">모집완료처리</button>
+								</div>
 							</c:if>
+							
+							
+							
+							<c:if test="${pPage.writer != sessionScope.loginInfo}">
+								<div class="text-center applyBtn">
+									<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">신청하기</button>
+								</div>
+							</c:if>
+							
+							
+							<div id="advBox"></div>
+							
 							
 							<c:if test="${comments.size()>0 }">
 								<c:forEach items="${comments }" var="c">
 									${c.contents }<br>
 								</c:forEach>
 							</c:if>
+							
+							<div id="pCoInput" class="row">
+								<div class="col-9 col-lg-10"><textarea class="form-control" placeholder="댓글 내용을 입력해주세요"></textarea></div>
+								<div class="col-3 col-lg-2">
+									<div class="row">
+										<div class="col-12">
+											<button type="button" class="btn btn-secondary" style="margin-bottom:10px;">취소</button>
+										</div>										
+									</div>
+									<div class="row">
+										<div class="col-12">
+											<button type="button" class="btn btn-primary">작성</button>
+										</div>										
+									</div>								
+		        				</div>
+							</div>
 						</div>
 					</c:if>
 				</div>
@@ -154,6 +193,7 @@
 						    <option value="2">20대</option>
 						    <option value="3">30대</option>
 						    <option value="4">40대 이상</option>
+						    <option value="0">비공개</option>
 						</select>
 					</div>
 				</div>							

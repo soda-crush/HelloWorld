@@ -22,7 +22,7 @@ public class ProjectController {
 	@Autowired
 	private HttpSession session;
 	@Autowired
-	private ProjectService service;
+	private ProjectService svc;
 	
 	/*
 	 * 프로젝트 모집
@@ -30,21 +30,21 @@ public class ProjectController {
 	
 	@RequestMapping("/list")
 	public String projectMainList(Model m) {
-		List<ProjectDTO> result = service.projectList();
+		List<ProjectDTO> result = svc.projectList();
 		m.addAttribute("projectList", result);
 		return "/project/projectList";
 	}
 	
 	@RequestMapping("/chart")
 	public String projectChart(Model m) {
-		List<ProjectDTO> result = service.projectList();
+		List<ProjectDTO> result = svc.projectList();
 		m.addAttribute("projectList", result);
 		return "/project/projectChart";
 	}
 	
 	@RequestMapping("/map")
 	public String projectMap(Model m) {
-		List<ProjectDTO> result = service.projectList();
+		List<ProjectDTO> result = svc.projectList();
 		m.addAttribute("projectList", result);
 		return "/project/projectMap";
 	}
@@ -52,42 +52,44 @@ public class ProjectController {
 	@RequestMapping("/detailView")
 	public String projectDetailView(int seq, Model m) {
 		session.setAttribute("loginInfo", "sooin");
-		ProjectDTO result = service.ProjectDetailView(seq);
-		List<ProjectCoDTO> coResult = service.commentList(seq); 
+		ProjectDTO result = svc.projectDetailView(seq);
+		List<ProjectCoDTO> coResult = svc.commentList(seq); 
 		m.addAttribute("pPage", result);
 		m.addAttribute("comments", coResult);
 		return "/project/detailView";
 	}
 	
 	@RequestMapping("/write")
-	public String projectWrite() {
+	public String projectWrite(Model m) {
+		String result = svc.projectWrite();
+		m.addAttribute("data", result);
 		return "/project/write";
 	}
 	
 	@RequestMapping("/writeProc")
 	public String projectWriteConfirm(ProjectDTO dto) {
 		dto.setWriter((String)session.getAttribute("loginInfo"));
-		int seq = service.projectWriteConfirm(dto);
+		int seq = svc.projectWriteConfirm(dto);
 		return "redirect:/project/detailView?seq="+seq;
 	}
 	
 	@RequestMapping("/modify")
 	public String projectModify(int seq, Model m) {
-		ProjectDTO result = service.ProjectDetailView(seq);
+		ProjectDTO result = svc.projectDetailView(seq);
 		m.addAttribute("projectPage", result);
 		return "/project/modify";
 	}
 	
 	@RequestMapping("/modifyProc")
 	public String projectModifyConfirm(ProjectDTO dto) {
-		service.projectModifyConfirm(dto);
+		svc.projectModifyConfirm(dto);
 		int seq = dto.getSeq();
 		return "redirect:/project/detailView?seq="+seq;
 	}
 	
 	@RequestMapping("/deleteProc")
 	public String projectDeleteConfirm(int seq) {
-		service.projectDeleteConfirm(seq);
+		svc.projectDeleteConfirm(seq);
 		return "redirect:/project/list";
 	}
 	
@@ -101,18 +103,18 @@ public class ProjectController {
 	@ResponseBody
 	@RequestMapping(value="/comment/writeProc",produces="text/html;charset=utf8")
 	public String commentWriteConfirm(ProjectCoDTO dto) {
-		return service.commentWriteConfirm(dto);		
+		return svc.commentWriteConfirm(dto);		
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="/comment/modifyProc",produces="text/html;charset=utf8")
 	public String commentModifyConfirm(ProjectCoDTO dto) {
-		return service.commentModifyConfirm(dto);
+		return svc.commentModifyConfirm(dto);
 	}
 	
 	@RequestMapping("/comment/deleteProc")
 	public void commentDeleteConfirm(int seq) {
-		service.commentDeleteConfirm(seq);
+		svc.commentDeleteConfirm(seq);
 	}
 	
 	
@@ -124,25 +126,25 @@ public class ProjectController {
 	@ResponseBody
 	@RequestMapping(value="/apply/writeProc",produces="text/html;charset=utf8")
 	public String projectApplyWriteProc(ProjectApplyDTO dto) {
-		return service.projectApplyWriteProc(dto);
+		return svc.projectApplyWriteProc(dto);
 	}
 	
 	@RequestMapping("/apply/list")
 	public String projectApplyList(int projectSeq, Model m) {
-		List<ProjectApplyDTO> result = service.projectApplyList(projectSeq);
+		List<ProjectApplyDTO> result = svc.projectApplyList(projectSeq);
 		m.addAttribute("projectApplyList", result);
 		return "/project/projectApplyList";
 	}
 	
 	@RequestMapping("/apply/detailView")
 	public String projectApplyDetailView(int seq, Model m) {
-		ProjectApplyDTO result = service.ProjectApplyDetailView(seq);
+		ProjectApplyDTO result = svc.projectApplyDetailView(seq);
 		m.addAttribute("projectApplyPage", result);
 		return "/project/applyDetailView";	
 	}
 	
 	@RequestMapping("/apply/deleteProc")
 	public void projectApplyDeleteConfirm(int seq) {
-		service.ProjectApplyDeleteConfirm(seq);
+		svc.projectApplyDeleteConfirm(seq);
 	}
 }
