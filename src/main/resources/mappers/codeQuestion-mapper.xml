@@ -5,7 +5,7 @@
 <mapper namespace="Code">
 	<insert id="insert" parameterType="kh.hello.dto.CodeQuestionDTO">
 		insert into codeQuestion
-		values(codeQuestionSeq.nextval,#{division},#{title},#{content},#{writer},300,0,sysdate)
+		values(codeQuestionSeq.nextval,#{division},#{title},#{content},#{writer},#{point},0,sysdate)
 	</insert>
 	
 	<select id="selectQuestionAll" resultType="kh.hello.dto.CodeQuestionDTO">
