@@ -160,7 +160,7 @@ public class ProjectDTO {
 	}
 	
 	public String getFormedWriteDate() {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
 		String result = sdf.format(this.writeDate);
 		return result;
 	}

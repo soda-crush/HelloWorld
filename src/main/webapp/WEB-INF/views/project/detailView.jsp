@@ -11,6 +11,7 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/css/projectBase.css" type="text/css"/>
+<link rel="stylesheet" href="/css/font-awesome/css/font-awesome.css" type="text/css"/>
 <style>
 	#pageTitle{margin-bottom:20px;}
 	#pageTitle h1{display:inline;margin-right:10px;font-weight:bold;}
@@ -45,7 +46,8 @@
 				<div class="border border-secondary rounded" id="pageBody">
 					<c:if test="${pPage.seq !=null }">
 						<div id="pHeader">
-							<label class="${pPage.state } badge badge-pill ml-4" id="stateLabel">${pPage.stateInKor }</label><br>
+							<label class="${pPage.state } badge badge-pill ml-4" id="stateLabel">${pPage.stateInKor }</label>
+							<i class="fa fa-share-alt"></i><br>
 							<span class="ml-4">${pPage.title}</span><br>
 							<label class="ml-4">작성자 : ${pPage.writer }</label><label>작성일 : ${pPage.formedWriteDate }</label>
 						</div>
