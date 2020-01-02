@@ -44,11 +44,11 @@
                 <div class="menu-inner">
                     <nav>
                         <ul class="metismenu" id="menu">
-                            <li class="active"><a href="${pageContext.request.contextPath }/admin/main"><i class="ti-dashboard"></i><span>모니터링</span></a></li>
-                            <li><a href="#"><i class="ti-user"></i><span>회원관리</span></a></li>
+                            <li><a href="${pageContext.request.contextPath }/admin/main"><i class="ti-map-alt"></i><span>모니터링</span></a></li>
+                            <li><a href="#"><i class="ti-map-alt"></i><span>회원관리</span></a></li>
                             
                             <li>
-                                <a href="javascript:void(0)" aria-expanded="true"><i class="ti-menu"></i><span>게시판관리</span></a>
+                                <a href="javascript:void(0)" aria-expanded="true"><i class="ti-dashboard"></i><span>게시판관리</span></a>
                                 <ul class="collapse">
                                     <li><a href="#">대나무숲</a></li>
                                     <li><a href="#">코드지식인</a></li>
@@ -57,8 +57,8 @@
                                 </ul>
                             </li>
                             
-                            <li><a href="${pageContext.request.contextPath }/admin/inquiryList"><i class="ti-help"></i><span>일대일문의</span></a></li>
-                            <li><a href="${pageContext.request.contextPath }/admin/modifyForm"><i class="ti-face-smile"></i><span>정보변경</span></a></li>
+                            <li class="active"><a href="#"><i class="ti-map-alt"></i><span>일대일문의</span></a></li>
+                            <li><a href="${pageContext.request.contextPath }/admin/modifyForm"><i class="ti-map-alt"></i><span>정보변경</span></a></li>
                         </ul>
                     </nav>
                 </div>
@@ -93,10 +93,10 @@
                 <div class="row align-items-center">
                     <div class="col-sm-6">
                         <div class="breadcrumbs-area clearfix">
-                            <h4 class="page-title pull-left">모니터링</h4>
+                            <h4 class="page-title pull-left">일대일문의</h4>
                             <ul class="breadcrumbs pull-left">
                                 <li><a href="${pageContext.request.contextPath }/admin/main">Home</a></li>
-                                <li><span>모니터링</span></li>
+                                <li><span>일대일문의</span></li>
                             </ul>
                         </div>
                     </div>
@@ -114,6 +114,56 @@
             <!-- page title area end -->
             <div class="main-content-inner">
                 <!-- MAIN CONTENT GOES HERE -->
+                <div class="main-content-inner">
+                <div class="row">
+                    <div class="col-lg-12 mt-5">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="invoice-area">
+                                    <div class="invoice-head">
+                                        <div class="row">
+                                            <div class="iv-left col-6">
+                                                <span>글읽기</span>
+                                            </div>
+                                            <div class="iv-right col-6 text-md-right">
+                                                <span>#${dto.seq }</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row align-items-center">
+                                        <div class="col-md-6">
+                                            <div class="invoice-address">
+                                                <h3>${dto.title }</h3>
+                                                <h5>${dto.writer }</h5>
+                                                <p>${dto.content }</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 text-md-right">
+                                            <ul class="invoice-date">
+                                                <li>${dto.formedDate }</li>
+                                            </ul>
+                                        </div>
+                                    </div>                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     <!-- basic form start -->
+                            <div class="col-12 mt-5">
+                                <div class="card" id="replyAppend">
+                                
+                                
+                                
+                                    <div class="card-body">
+                                        <h4 class="header-title">댓글쓰기</h4>                                        
+                                            <input class="form-control form-control-lg mb-4" type="text" placeholder="댓글을 입력하세요" id="replyForm">
+                                            <button type="button" class="btn btn-primary mt-4 pr-4 pl-4" id="writeReply">댓글쓰기</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- basic form end -->   
+                </div>
+            </div>  
             </div>
         </div>
         <!-- main content area end -->
@@ -126,7 +176,7 @@
         <!-- footer area end-->
     </div>
     <!-- page container area end -->
-
+   
     <!-- jquery latest version -->
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <!-- bootstrap 4 js -->
@@ -154,5 +204,46 @@
     <!-- others plugins -->
     <script src="${pageContext.request.contextPath }/adRsc/js/plugins.js"></script>
     <script src="${pageContext.request.contextPath }/adRsc/js/scripts.js"></script>
+    <script>
+    	$("#writeReply").on("click", function(){
+    		var reply = $("#replyForm").val();
+    		if(reply == ""){
+    			alert("댓글을 입력해주세요");
+    		}else{
+    			$("#replyForm").val("");
+    			$.ajax({
+    				url: "writeInquiry",
+    				type: "post",
+    				data: {
+    					reply: reply,
+    					boardSeq: ${dto.seq}
+    				},
+    				dataType: "json"   				
+    			}).done(function(rs){
+    				var target = $("#replyAppend");
+    				
+    				var dateA = $("<a class='nav-link active' id='home-tab' data-toggle='tab' href='#' role='tab' aria-controls='home' aria-selected='true'></a>");
+    				dateA.append(rs.writeDate);
+    				var dateLi = $("<li class='nav-item'></li>");
+    				dateLi.append(dateA);
+    				var dateUl = $("<ul class='nav nav-tabs' id='myTab' role='tablist'></ul>");
+    				dateUl.append(dateLi);
+    				
+    				var replyP = $("<p></p>");
+    				replyP.append(rs.reply);
+    				var replyDiv = $("<div class='tab-pane fade show active' id='home' role='tabpanel' aria-labelledby='home-tab'></div>");
+    				replyDiv.append(replyP);
+    				var replyContent = $("<div class='tab-content mt-3' id='myTabContent'></div>");
+    				replyContent.append(replyDiv);
+    				
+    				var finalDiv = $("<div class='card-body'></div>");
+    				finalDiv.append(dateUl);
+    				finalDiv.append(replyContent);
+    				
+    				target.prepend(finalDiv);
+    			});
+    		}
+    	})
+    </script>
 </body>
 </html>
