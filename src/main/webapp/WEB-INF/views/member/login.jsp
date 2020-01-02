@@ -13,9 +13,6 @@
 <link rel="stylesheet" href="/css/mainBase.css">
 <link rel="stylesheet" type="text/css" href="/css/font-awesome/css/font-awesome.css">
 <style>
-div{
-	border: 1px solid green;
-}
 .input1{
 	width:100%;
 }

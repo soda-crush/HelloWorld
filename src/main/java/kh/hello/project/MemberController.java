@@ -10,17 +10,17 @@ import kh.hello.services.MemberService;
 
 @Controller
 @RequestMapping("/member")
-public class memberController {
+public class MemberController {
 	
 	@Autowired
 	private MemberService ms;
 
-	@RequestMapping("login")
-	public String login(){ //로그인 폼으로 이동
+	@RequestMapping("/login")
+	public String loginFrm(){ //로그인 폼으로 이동
 		return "member/login";
 	}
 	
-	@RequestMapping("loginProc")
+	@RequestMapping("/loginProc")
 	public String loginProc(String id, String pw, HttpSession session){
 		try {
 			int result = ms.login(id, pw);
@@ -36,10 +36,15 @@ public class memberController {
 		}
 	}
 	
-	@RequestMapping("logout")
+	@RequestMapping("/logout")
 	public String logout(HttpSession session){
 		session.invalidate();
 		return "redirect:/";
+	}
+	
+	@RequestMapping("/signUp")
+	public String signUpFrm(){
+		return "member/signUp";
 	}
 	
 }

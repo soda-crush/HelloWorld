@@ -5,7 +5,8 @@
   <c:choose>
 			<c:when test="${loginInfo ==null}">
 			 <div class="row" id="loginCon">
-                <div class="col-12 text-right"><a href="${pageContext.request.contextPath}/member/login">로그인</a> | <a href="#">회원가입</a></div>
+                <div class="col-12 text-right"><a href="${pageContext.request.contextPath}/member/login">로그인</a> 
+                | <a href="${pageContext.request.contextPath}/member/signUp">회원가입</a></div>
             </div>
 			</c:when>
 			<c:otherwise>

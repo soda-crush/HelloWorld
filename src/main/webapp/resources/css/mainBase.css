@@ -62,3 +62,8 @@
             border-radius: 5%;
             font-size: 12px;
             }
+            .eleCon{
+            	background-color: white;
+            	border: 1px solid gray;
+            	border-radius: 1%;
+            }
