@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 
 public class PortfolioDTO {
 	private int seq;
+	private String writer;
 	private String portfolioTitle;
 	private Timestamp startDate;
 	private Timestamp endDate;
@@ -25,12 +26,13 @@ public class PortfolioDTO {
 	public PortfolioDTO() {
 		super();
 	}
-	public PortfolioDTO(int seq, String portfolioTitle, Timestamp startDate, Timestamp endDate, String purpose,
-			String environment, String allFunction, String dbUnitPlan, String role, String contribution, String image1,
-			String function1, String explanation1, String image2, String function2, String explanation2, String image3,
-			String function3, String explanation3) {
+	public PortfolioDTO(int seq, String writer, String portfolioTitle, Timestamp startDate, Timestamp endDate,
+			String purpose, String environment, String allFunction, String dbUnitPlan, String role, String contribution,
+			String image1, String function1, String explanation1, String image2, String function2, String explanation2,
+			String image3, String function3, String explanation3) {
 		super();
 		this.seq = seq;
+		this.writer = writer;
 		this.portfolioTitle = portfolioTitle;
 		this.startDate = startDate;
 		this.endDate = endDate;
@@ -55,6 +57,12 @@ public class PortfolioDTO {
 	}
 	public void setSeq(int seq) {
 		this.seq = seq;
+	}
+	public String getWriter() {
+		return writer;
+	}
+	public void setWriter(String writer) {
+		this.writer = writer;
 	}
 	public String getPortfolioTitle() {
 		return portfolioTitle;
@@ -164,5 +172,6 @@ public class PortfolioDTO {
 	public void setExplanation3(String explanation3) {
 		this.explanation3 = explanation3;
 	}
+	
 	
 }
