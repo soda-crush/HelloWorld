@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kh.hello.configuration.Configuration;
 import kh.hello.dao.AdminDAO;
@@ -81,17 +82,28 @@ public class AdminService {
 		return adao.inquiryDetailView(seq);
 	}
 	
+	public List<InquiryReplyDTO> getInquiryReply(int boardSeq) {
+		return adao.getInquiryReply(boardSeq);
+	}
+	
+	@Transactional("txManager")
 	public InquiryReplyDTO writeInquiry(String reply, int boardSeq) {
 		//1. 댓글 입력
 		int result = adao.writeInquiry(reply, boardSeq);
+		//2. 말머리 변경
+		result = adao.updateInquiryState(boardSeq);
 		if(result > 0) {
-			//2. 댓글 내용 받아오기 (1. 마지막 시퀀스 2. 댓글 내용)
+			//3. 댓글 내용 받아오기 (1. 마지막 시퀀스 2. 댓글 내용)
 			int seq = adao.getLatestReplySeq();
 			return adao.getLatestReply(seq);
 		}else {
 			return null;
 		}
 		
+	}
+	
+	public int deleteInquiryReply(int seq) {
+		return adao.deleteInquiryReply(seq);
 	}
 }
 

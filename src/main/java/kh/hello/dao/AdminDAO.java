@@ -47,11 +47,19 @@ public class AdminDAO {
 		return jdbc.selectOne("Admin.inquiryDetailView", seq);
 	}
 	
+	public List<InquiryReplyDTO> getInquiryReply(int boardSeq) {
+		return jdbc.selectList("Admin.getInquiryReply", boardSeq);
+	}
+	
 	public int writeInquiry(String reply, int boardSeq) {
 		Map<String, Object> param = new HashMap<>();
 		param.put("reply", reply);
 		param.put("boardSeq", boardSeq);
 		return jdbc.insert("Admin.writeInquiry", param);
+	}
+	
+	public int updateInquiryState(int seq) {
+		return jdbc.update("Admin.updateInquiryState", seq);
 	}
 	
 	public int getLatestReplySeq() {
@@ -60,6 +68,10 @@ public class AdminDAO {
 	
 	public InquiryReplyDTO getLatestReply(int seq) {
 		return jdbc.selectOne("Admin.getLatestReply", seq);
+	}
+	
+	public int deleteInquiryReply(int seq) {
+		return jdbc.delete("Admin.deleteInquiryReply", seq);
 	}
 	
 }

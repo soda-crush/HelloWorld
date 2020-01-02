@@ -24,6 +24,13 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath }/adRsc/css/responsive.css">
 <!-- modernizr css -->
 <script src="${pageContext.request.contextPath }/adRsc/vendor/modernizr-2.8.3.min.js"></script>
+
+<style>
+#home-tab:hover{
+cursor:default;
+}
+</style>
+
 </head>
 <body>
 	<!-- preloader area start -->
@@ -57,7 +64,7 @@
                                 </ul>
                             </li>
                             
-                            <li class="active"><a href="#"><i class="ti-map-alt"></i><span>일대일문의</span></a></li>
+                            <li class="active"><a href="${pageContext.request.contextPath }/admin/inquiryList"><i class="ti-map-alt"></i><span>일대일문의</span></a></li>
                             <li><a href="${pageContext.request.contextPath }/admin/modifyForm"><i class="ti-map-alt"></i><span>정보변경</span></a></li>
                         </ul>
                     </nav>
@@ -144,14 +151,32 @@
                                             </ul>
                                         </div>
                                     </div>                                   
-                                </div>
+                                </div> 
+                                <button type="button" class="btn btn-primary mt-4 pr-4 pl-4" id="back">목록으로</button>                              
                             </div>
-                        </div>
+                        </div>                       
                     </div>
                      <!-- basic form start -->
                             <div class="col-12 mt-5">
                                 <div class="card" id="replyAppend">
-                                
+                                	<c:forEach items="${reply }" var="reply">
+                             
+       											<div class="card-body">
+            										<ul class="nav nav-tabs" id="myTab" role="tablist">
+                										<li class="nav-item">
+                    										<a class="nav-link active" id="home-tab" data-toggle="tab" href="#" role="tab" aria-controls="home" aria-selected="true">${reply.formedDate }</a>
+               											</li>  
+                    										<li class="text-center mt-2 pl-2"><a href="${pageContext.request.contextPath }/admin/deleteInquiryReply?seq=${reply.seq}&boardSeq=${dto.seq}&page=${page}">
+                    										<i data-brackets-id="23054" class="fa fa-trash"></i></a></li>    
+           											</ul>
+            									<div class="tab-content mt-3" id="myTabContent">
+                									<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    									<p>${reply.reply }</p>
+                									</div>              
+           										</div>
+       											</div>
+   											
+                                	</c:forEach>
                                 
                                 
                                     <div class="card-body">
@@ -205,6 +230,10 @@
     <script src="${pageContext.request.contextPath }/adRsc/js/plugins.js"></script>
     <script src="${pageContext.request.contextPath }/adRsc/js/scripts.js"></script>
     <script>
+		$("#back").on("click",function(){
+			location.href="inquiryList?page=${page}";
+		})    
+    
     	$("#writeReply").on("click", function(){
     		var reply = $("#replyForm").val();
     		if(reply == ""){
@@ -228,6 +257,8 @@
     				dateLi.append(dateA);
     				var dateUl = $("<ul class='nav nav-tabs' id='myTab' role='tablist'></ul>");
     				dateUl.append(dateLi);
+    				var delIcon = $("<li class='text-center mt-2 pl-2'><a href='${pageContext.request.contextPath }/admin/deleteInquiryReply?seq="+ rs.seq +"&boardSeq=${dto.seq}&page=${page}'><i data-brackets-id='23054' class='fa fa-trash'></i></a></li>");
+    				dateUl.append(delIcon);
     				
     				var replyP = $("<p></p>");
     				replyP.append(rs.reply);

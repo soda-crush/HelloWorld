@@ -57,7 +57,7 @@
                                 </ul>
                             </li>
                             
-                            <li><a href="#"><i class="ti-help"></i><span>일대일문의</span></a></li>
+                            <li><a href="${pageContext.request.contextPath }/admin/inquiryList"><i class="ti-help"></i><span>일대일문의</span></a></li>
                             <li class="active"><a href="${pageContext.request.contextPath }/admin/modifyForm"><i class="ti-face-smile"></i><span>정보변경</span></a></li>
                         </ul>
                     </nav>

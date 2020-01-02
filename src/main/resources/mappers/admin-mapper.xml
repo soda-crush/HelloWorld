@@ -27,4 +27,13 @@
   <select id="getLatestReply" resultType="kh.hello.dto.InquiryReplyDTO">
   	select * from inquiryReply where seq=#{seq}
   </select>
+  <select id="getInquiryReply" resultType="kh.hello.dto.InquiryReplyDTO">
+  	select * from inquiryReply where boardSeq=#{boardSeq} order by seq desc
+  </select>
+  <update id="updateInquiryState" parameterType="integer">
+  	update inquiry set state='T' where seq=#{seq}
+  </update>
+  <delete id="deleteInquiryReply" parameterType="integer">
+  	delete from inquiryReply where seq=#{seq}
+  </delete>
 </mapper>
