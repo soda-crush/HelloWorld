@@ -37,9 +37,10 @@ public class ProjectController {
 	
 	@RequestMapping("/detailView")
 	public String projectDetailView(int seq, Model m) {
+		session.setAttribute("loginInfo", "sooin");
 		ProjectDTO result = service.ProjectDetailView(seq);
 		List<ProjectCoDTO> coResult = service.commentList(seq); 
-		m.addAttribute("projectPage", result);
+		m.addAttribute("pPage", result);
 		m.addAttribute("comments", coResult);
 		return "/project/detailView";
 	}
