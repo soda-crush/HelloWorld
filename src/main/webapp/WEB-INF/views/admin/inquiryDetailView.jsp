@@ -150,9 +150,12 @@
                     </div>
                      <!-- basic form start -->
                             <div class="col-12 mt-5">
-                                <div class="card">
+                                <div class="card" id="replyAppend">
+                                
+                                
+                                
                                     <div class="card-body">
-                                        <h4 class="header-title">댓글</h4>                                        
+                                        <h4 class="header-title">댓글쓰기</h4>                                        
                                             <input class="form-control form-control-lg mb-4" type="text" placeholder="댓글을 입력하세요" id="replyForm">
                                             <button type="button" class="btn btn-primary mt-4 pr-4 pl-4" id="writeReply">댓글쓰기</button>
                                     </div>
@@ -207,15 +210,37 @@
     		if(reply == ""){
     			alert("댓글을 입력해주세요");
     		}else{
+    			$("#replyForm").val("");
     			$.ajax({
     				url: "writeInquiry",
     				type: "post",
     				data: {
     					reply: reply,
     					boardSeq: ${dto.seq}
-    				}
+    				},
+    				dataType: "json"   				
     			}).done(function(rs){
+    				var target = $("#replyAppend");
     				
+    				var dateA = $("<a class='nav-link active' id='home-tab' data-toggle='tab' href='#' role='tab' aria-controls='home' aria-selected='true'></a>");
+    				dateA.append(rs.writeDate);
+    				var dateLi = $("<li class='nav-item'></li>");
+    				dateLi.append(dateA);
+    				var dateUl = $("<ul class='nav nav-tabs' id='myTab' role='tablist'></ul>");
+    				dateUl.append(dateLi);
+    				
+    				var replyP = $("<p></p>");
+    				replyP.append(rs.reply);
+    				var replyDiv = $("<div class='tab-pane fade show active' id='home' role='tabpanel' aria-labelledby='home-tab'></div>");
+    				replyDiv.append(replyP);
+    				var replyContent = $("<div class='tab-content mt-3' id='myTabContent'></div>");
+    				replyContent.append(replyDiv);
+    				
+    				var finalDiv = $("<div class='card-body'></div>");
+    				finalDiv.append(dateUl);
+    				finalDiv.append(replyContent);
+    				
+    				target.prepend(finalDiv);
     			});
     		}
     	})

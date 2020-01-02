@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import kh.hello.configuration.Configuration;
 import kh.hello.dao.AdminDAO;
 import kh.hello.dto.InquiryDTO;
+import kh.hello.dto.InquiryReplyDTO;
 
 @Service
 public class AdminService {
@@ -80,11 +81,19 @@ public class AdminService {
 		return adao.inquiryDetailView(seq);
 	}
 	
+	public InquiryReplyDTO writeInquiry(String reply, int boardSeq) {
+		//1. 댓글 입력
+		int result = adao.writeInquiry(reply, boardSeq);
+		if(result > 0) {
+			//2. 댓글 내용 받아오기 (1. 마지막 시퀀스 2. 댓글 내용)
+			int seq = adao.getLatestReplySeq();
+			return adao.getLatestReply(seq);
+		}else {
+			return null;
+		}
+		
+	}
 }
-
-
-
-
 
 
 
