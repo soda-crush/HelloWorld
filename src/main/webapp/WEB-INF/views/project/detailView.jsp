@@ -20,11 +20,25 @@
 	#pHeader #stateLabel{color:white;}
 	#pHeader label.N{background-color:limegreen;}
 	#pHeader label.Y{background-color:red;}
-	#pHeader label:not(#stateLabel){font-size:15px;}
+	#pHeader label:not(#stateLabel){font-size:13px;}
 	#pHeader span:first-of-type{font-size:20px;}
 	#pHeader label:nth-of-type(2){width:200px;}
-	#pInfo *,#pBody *{font-size:15px;}
+	#pHeader .fa{margin-left:15px;margin-top:15px;font-size:20px;}
+	#pInfo *,#pBody *{font-size:15px;font-weight:500;}
 	#pInfo label,#pBody label{width:100px;color:darkgray;}
+	.applyBtn{margin-bottom:20px;}
+	.modal-title{font-weight:bold;}
+	.aItem{margin-top:5px;font-size:15px;font-weight:bold;}
+	.star{margin-left:2px;color:red;}
+	.genderRadio,.workInRadio{padding-top:5px;}
+	#pCoInput{margin-top:20px;}
+	#pCoInput textarea{height:100px; margin-left:20px; margin-bottom:20px;}
+	#pCoInput button{height:45px; width:90%;}
+	.pApply{font-size:13px;color:red;}
+	.checkBtn button:nth-child(2){margin-left:10px;}
+	.adBox{height:200px;width:100%;background-color:darkgray;text-align:center;margin:0;margin-top:20px;}
+	.pSelect{width:100px;}
+	#pPageContents{margin:40px;}
 </style>
 </head>
 <body>
@@ -47,8 +61,8 @@
 					<c:if test="${pPage.seq !=null }">
 						<div id="pHeader">
 							<label class="${pPage.state } badge badge-pill ml-4" id="stateLabel">${pPage.stateInKor }</label>
-							<i class="fa fa-share-alt"></i><br>
-							<span class="ml-4">${pPage.title}</span><br>
+							<i class="fa fa-share-alt"></i><i class="fa fa-bookmark"></i><br>
+							<span class="ml-4" style="font-weight:bold;">${pPage.title}</span><br>
 							<label class="ml-4">작성자 : ${pPage.writer }</label><label>작성일 : ${pPage.formedWriteDate }</label>
 						</div>
 						<hr>
@@ -60,21 +74,90 @@
 						</div>
 						<hr>
 						<div id="pBody">
-							<div><p>${pPage.contents }</p></div>
+						
+							<div id="pPageContents">${pPage.contents }</div>
 							
 							<div><label class="ml-4">연락처</label><span>${pPage.phone }</span></div>
 							<div><label class="ml-4">메일주소</label><span>${pPage.email }</span></div>
+							
+							<c:if test="${pPage.writer == sessionScope.loginInfo}">
+								<div class="text-center checkBtn">
+									<button type="button" class="btn btn-warning">신청내역
+										<c:if test="${pPage.applyCount>0 }">
+					  						<span class="pApply font-weight-bold">${pPage.applyCount }</span>
+					  					</c:if>
+									</button>
+									<c:if test="${pPage.state=='N' }">
+									<button type="button" class="btn btn-success" id="pCloseBtn">모집완료처리</button>
+									</c:if>
+								</div>
+							</c:if>
+							
+							
+							
+							<c:if test="${pPage.writer != sessionScope.loginInfo && pPage.state=='N' }">
+								<div class="text-center applyBtn">
+									<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">신청하기</button>
+								</div>
+							</c:if>
+							
+							
+							 <div class="row align-items-center adBox">
+							    <div class="col-12">광고자리</div>
+							 </div>
+							
 							
 							<c:if test="${comments.size()>0 }">
 								<c:forEach items="${comments }" var="c">
 									${c.contents }<br>
 								</c:forEach>
 							</c:if>
+							
+							<div id="pCoInput" class="row">
+								<div class="col-9 col-lg-10"><textarea class="form-control" placeholder="댓글 내용을 입력해주세요" id="pCoContents"></textarea></div>
+								<div class="col-3 col-lg-2">
+									<div class="row">
+										<div class="col-12">
+											<button type="button" class="btn btn-secondary" style="margin-bottom:10px;" id="coCancel">취소</button>
+										</div>										
+									</div>
+									<div class="row">
+										<div class="col-12">
+											<button type="button" class="btn btn-primary" id="coWriteBtn">작성</button>
+										</div>										
+									</div>								
+		        				</div>
+							</div>
 						</div>
 					</c:if>
 				</div>
+				
+				
+				
+				
+				
+				<script>
+					$("#coCancel").on("click",function(){
+						var check = confirm("정말 취소하시겠습니까?");
+						if(check){
+							$("#pCoContents").val("");
+						}
+					});
+					$("#coWriteBtn").on("click",function(){						
+					});
+				</script>
+				
+				
+				
+				
+				
+				
+				
+				
 				<div id="pageFooter">
-					<span><a class="btn btn-danger" href="#" role="button">게시글 신고</a></span>
+					<c:if test="${pPage.writer != sessionScope.loginInfo}">
+						<span><a class="btn btn-danger" href="#" role="button">게시글 신고</a></span>
+					</c:if>
 					<span class="float-right">
 						<c:if test="${pPage.writer == sessionScope.loginInfo}">
 							<a class="btn btn-info" href="#" role="button">수정</a>
@@ -96,5 +179,94 @@
         
         <jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
         
+        
+        
+        
+        <!-- Modal -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLabel">프로젝트 신청</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		      
+		      	<div class="row">
+					<div class="col-4"><label class="aItem">사용 가능 언어</label><label class="star">*</label></div>
+					<div class="col-7"><input type="text" class="form-control form-control-sm" id="languages" name="languages"></div>
+				</div>
+				<div class="row">
+					<div class="col-4"><label class="aItem">성별</label><label class="star">*</label></div>
+					<div class="col-7 genderRadio">
+						<div class="form-check form-check-inline">
+						  <input class="form-check-input" type="radio" name="gender" id="male" value="male">
+						  <label class="form-check-label" for="male">남</label>
+						</div>
+						<div class="form-check form-check-inline">
+						  <input class="form-check-input" type="radio" name="gender" id="female" value="female">
+						  <label class="form-check-label" for="female">여</label>
+						</div>
+						<div class="form-check form-check-inline">
+						  <input class="form-check-input" type="radio" name="gender" id="none" value="none">
+						  <label class="form-check-label" for="none">비공개</label>
+						</div> 					  
+					</div>
+					
+				</div>
+				<div class="row">
+					<div class="col-4"><label class="aItem">나이</label><label class="star">*</label></div>
+					<div class="col-4">
+						<select class="form-control form-control-sm pSelect">
+							<option selected>선택</option>
+						    <option value="1">10대</option>
+						    <option value="2">20대</option>
+						    <option value="3">30대</option>
+						    <option value="4">40대 이상</option>
+						    <option value="0">비공개</option>
+						</select>
+					</div>
+				</div>							
+				<div class="row">
+					<div class="col-4"><label class="aItem">재직여부</label><label class="star">*</label></div>
+					<div class="col-7 workInRadio">
+						<div class="form-check form-check-inline">
+						  <input class="form-check-input" type="radio" name="workIn" id="Y" value="Y">
+						  <label class="form-check-label" for="Y">재직</label>
+						</div>
+						<div class="form-check form-check-inline">
+						  <input class="form-check-input" type="radio" name="workIn" id="N" value="N">
+						  <label class="form-check-label" for="N">비재직</label>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-4"><label class="aItem">메일주소</label></div>							
+					<div class="col-7"><input type="email" class="form-control form-control-sm" id="email"></div>
+				</div>
+				<div class="row">
+					<div class="col-12"><label class="aItem">하고 싶은 말</label></div>
+					<div class="col-12" id="aContentsInput"><textarea class="form-control form-control-sm" placeholder="내용을 입력해주세요"></textarea></div>
+				</div>						
+		      		       
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+		        <button type="button" class="btn btn-primary">신청</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		
+		<script>
+			$("#pCloseBtn").on("click",function(){
+				var check = confirm("프로젝트 모집을 마감하시겠습니까?\n마감된 모집글은 상태를 변경할 수 없습니다.");
+				if(check){
+					location.href="/project/closeProject?seq=${pPage.seq}";
+				}
+			});
+		</script>
 </body>
 </html>

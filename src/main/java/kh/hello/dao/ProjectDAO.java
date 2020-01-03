@@ -40,7 +40,9 @@ public class ProjectDAO {
 	public int deleteProject(int seq) {//프로젝트 모집글 삭제
 		return jdbc.delete("Project.deleteProject", seq);
 	}
-	
+	public int closeProject(int seq) {
+		return jdbc.update("Project.closeProject", seq);
+	}
 	
 	//projectComment 테이블
 	public List<ProjectCoDTO> getCoList(int projectSeq){//프로젝트 모집댓글 전체리스트(해당글에 대한)
@@ -74,6 +76,9 @@ public class ProjectDAO {
 	}	
 	public int deleteProjectApply(int seq) {//프로젝트 지원 삭제
 		return jdbc.delete("ProjectApply.deleteProjectApply", seq);
+	}
+	public int closeProjectApply(int seq) {
+		return jdbc.update("ProjectApply.closeProjectApply", seq);
 	}
 	
 	

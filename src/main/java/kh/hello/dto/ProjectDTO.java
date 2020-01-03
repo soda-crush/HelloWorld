@@ -21,7 +21,8 @@ public class ProjectDTO {
 	private String state;
 	private int viewCount;
 	private int commentCount;
-
+	private int applyCount;
+	
 	public ProjectDTO() {
 		super();
 	}	
@@ -140,6 +141,12 @@ public class ProjectDTO {
 	}
 	public void setCommentCount(int commentCount) {
 		this.commentCount = commentCount;
+	}
+	public int getApplyCount() {
+		return applyCount;
+	}
+	public void setApplyCount(int applyCount) {
+		this.applyCount = applyCount;
 	}
 	
 	

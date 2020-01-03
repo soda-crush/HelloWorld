@@ -4,19 +4,21 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Project">
 	<select id="getList" resultType="kh.hello.dto.ProjectDTO">
-		select seq,title,location1,capacity,startDate,endDate,state,writer,viewCount,(select count(*) from projectComment where projectSeq=project.seq) as commentCount from project order by seq desc
+<!-- 		select seq,title,location1,capacity,startDate,endDate,state,writer,writeDate,viewCount,(select count(*) from projectComment where projectSeq=project.seq) as commentCount from project order by seq desc -->
+		select project.*,(select count(*) from projectComment where projectSeq=project.seq) as commentCount from project order by seq desc
 	</select>
 	
 	<select id="getProjectDetailView" resultType="kh.hello.dto.ProjectDTO">
-		select * from project where seq=#{value}
+<!-- 		select * from project where seq=#{value} -->
+		select project.*,(select count(*) from projectApply where projectSeq=project.seq) as applyCount from project where seq=#{value}
 	</select>
 	
-	<select id="latestSeq" resultType="string">
+	<select id="latestSeq" resultType="integer">
 		select max(seq) from project where writer=#{value}
 	</select>
 	
 	<insert id="insertProject" parameterType="kh.hello.dto.ProjectDTO">
-		insert into project values(projectSeq.nextval,#{title},#{contents},#{location1},#{location2},#{capacity},#{startDate},#{endDate},#{languages},#{phone},#{email},#{writer},sysdate,'N')
+		insert into project values(projectSeq.nextval,#{title},#{contents},#{location1},#{location2},#{capacity},#{startDate},#{endDate},#{languages},#{phone},#{email},#{writer},sysdate,'N',0)
 	</insert>
 	
 	<update id="updateProject" parameterType="kh.hello.dto.ProjectDTO">
@@ -30,4 +32,8 @@
 	<delete id="deleteProject">
 		delete from project where seq=#{value}
 	</delete>
+	
+	<update id="closeProject">
+		update project set state='Y' where seq=#{value}
+	</update>
 </mapper>
