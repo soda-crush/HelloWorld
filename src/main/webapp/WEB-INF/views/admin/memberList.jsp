@@ -24,13 +24,6 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath }/adRsc/css/responsive.css">
 <!-- modernizr css -->
 <script src="${pageContext.request.contextPath }/adRsc/vendor/modernizr-2.8.3.min.js"></script>
-
-<style>
-#home-tab:hover{
-cursor:default;
-}
-</style>
-
 </head>
 <body>
 	<!-- preloader area start -->
@@ -51,11 +44,11 @@ cursor:default;
                 <div class="menu-inner">
                     <nav>
                         <ul class="metismenu" id="menu">
-                            <li><a href="${pageContext.request.contextPath }/admin/main"><i class="ti-map-alt"></i><span>모니터링</span></a></li>
-                            <li><a href="${pageContext.request.contextPath }/admin/memberList"><i class="ti-map-alt"></i><span>회원관리</span></a></li>
+                            <li><a href="${pageContext.request.contextPath }/admin/main"><i class="ti-dashboard"></i><span>모니터링</span></a></li>
+                            <li class="active"><a href="${pageContext.request.contextPath }/admin/memberList"><i class="ti-user"></i><span>회원관리</span></a></li>
                             
                             <li>
-                                <a href="javascript:void(0)" aria-expanded="true"><i class="ti-dashboard"></i><span>게시판관리</span></a>
+                                <a href="javascript:void(0)" aria-expanded="true"><i class="ti-menu"></i><span>게시판관리</span></a>
                                 <ul class="collapse">
                                     <li><a href="#">대나무숲</a></li>
                                     <li><a href="#">코드지식인</a></li>
@@ -64,8 +57,8 @@ cursor:default;
                                 </ul>
                             </li>
                             
-                            <li class="active"><a href="${pageContext.request.contextPath }/admin/inquiryList"><i class="ti-map-alt"></i><span>일대일문의</span></a></li>
-                            <li><a href="${pageContext.request.contextPath }/admin/modifyForm"><i class="ti-map-alt"></i><span>정보변경</span></a></li>
+                            <li><a href="${pageContext.request.contextPath }/admin/inquiryList"><i class="ti-help"></i><span>일대일문의</span></a></li>
+                            <li><a href="${pageContext.request.contextPath }/admin/modifyForm"><i class="ti-face-smile"></i><span>정보변경</span></a></li>
                         </ul>
                     </nav>
                 </div>
@@ -100,10 +93,10 @@ cursor:default;
                 <div class="row align-items-center">
                     <div class="col-sm-6">
                         <div class="breadcrumbs-area clearfix">
-                            <h4 class="page-title pull-left">일대일문의</h4>
+                            <h4 class="page-title pull-left">회원관리</h4>
                             <ul class="breadcrumbs pull-left">
                                 <li><a href="${pageContext.request.contextPath }/admin/main">Home</a></li>
-                                <li><span>일대일문의</span></li>
+                                <li><span>회원관리</span></li>
                             </ul>
                         </div>
                     </div>
@@ -121,74 +114,64 @@ cursor:default;
             <!-- page title area end -->
             <div class="main-content-inner">
                 <!-- MAIN CONTENT GOES HERE -->
-                <div class="main-content-inner">
-                <div class="row">
+                
+                <!-- Hoverable Rows Table start -->
                     <div class="col-lg-12 mt-5">
                         <div class="card">
                             <div class="card-body">
-                                <div class="invoice-area">
-                                    <div class="invoice-head">
-                                        <div class="row">
-                                            <div class="iv-left col-6">
-                                                <span>글읽기</span>
-                                            </div>
-                                            <div class="iv-right col-6 text-md-right">
-                                                <span>#${dto.seq }</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row align-items-center">
-                                        <div class="col-md-6">
-                                            <div class="invoice-address">
-                                                <h3>${dto.title }</h3>
-                                                <h5>${dto.writer }</h5>
-                                                <p>${dto.content }</p>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 text-md-right">
-                                            <ul class="invoice-date">
-                                                <li>${dto.formedDate }</li>
-                                            </ul>
-                                        </div>
-                                    </div>                                   
-                                </div> 
-                                <button type="button" class="btn btn-primary mt-4 pr-4 pl-4" id="back">목록으로</button>                              
-                            </div>
-                        </div>                       
-                    </div>
-                     <!-- basic form start -->
-                            <div class="col-12 mt-5">
-                                <div class="card" id="replyAppend">
-                                	<c:forEach items="${reply }" var="reply">
-                             
-       											<div class="card-body">
-            										<ul class="nav nav-tabs" id="myTab" role="tablist">
-                										<li class="nav-item">
-                    										<a class="nav-link active" id="home-tab" data-toggle="tab" href="#" role="tab" aria-controls="home" aria-selected="true">${reply.formedDate }</a>
-               											</li>  
-                    										<li class="text-center mt-2 pl-2"><a href="${pageContext.request.contextPath }/admin/deleteInquiryReply?seq=${reply.seq}&boardSeq=${dto.seq}&page=${page}">
-                    										<i data-brackets-id="23054" class="fa fa-trash"></i></a></li>    
-           											</ul>
-            									<div class="tab-content mt-3" id="myTabContent">
-                									<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                    									<p>${reply.reply }</p>
-                									</div>              
-           										</div>
-       											</div>
-   											
-                                	</c:forEach>
-                                
-                                
-                                    <div class="card-body">
-                                        <h4 class="header-title">댓글쓰기</h4>                                        
-                                            <input class="form-control form-control-lg mb-4" type="text" placeholder="댓글을 입력하세요" id="replyForm">
-                                            <button type="button" class="btn btn-primary mt-4 pr-4 pl-4" id="writeReply">댓글쓰기</button>
+                                <h4 class="header-title">회원목록</h4>
+                                <div class="single-table">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover text-center">
+                                            <thead class="text-uppercase">
+                                                <tr>
+                                                	<th scope="col">아이디</th>
+                                                    <th scope="col">이름</th>
+                                                    <th scope="col">닉네임</th>
+                                                    <th scope="col">레벨</th>
+                                                    <th scope="col">신고횟수</th>  
+                                                    <th scope="col">포인트</th>
+                                                    <th scope="col">차단버튼</th>                                                    
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            	<c:forEach items="${list }" var="dto">
+                                            		<tr>
+                                                    <th scope="row">${dto.id }</th>
+                                                    <td>${dto.name}</td>
+                                                    <td>${dto.nickName }</td>
+                                                    <td>${dto.memLevel}</td>
+                                                    <td>${dto.reportCount}</td>
+                                                    <td>${dto.point}</td>
+                                                    <td><a href="#">차단</a></td>
+                                               		</tr>
+                                            	</c:forEach>
+                                                
+                                                
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
-                            <!-- basic form end -->   
-                </div>
-            </div>  
+                        </div>
+                        
+                         <div class="card">
+                            <div class="card-body">
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination justify-content-center">
+										<c:forEach items="${pageNavi}" var="navi">
+											 <li class="page-item aaa">${navi}</li>
+										</c:forEach>
+
+
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <!-- Hoverable Rows Table end -->
+                
             </div>
         </div>
         <!-- main content area end -->
@@ -201,7 +184,7 @@ cursor:default;
         <!-- footer area end-->
     </div>
     <!-- page container area end -->
-   
+
     <!-- jquery latest version -->
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <!-- bootstrap 4 js -->
@@ -229,52 +212,11 @@ cursor:default;
     <!-- others plugins -->
     <script src="${pageContext.request.contextPath }/adRsc/js/plugins.js"></script>
     <script src="${pageContext.request.contextPath }/adRsc/js/scripts.js"></script>
-    <script>
-		$("#back").on("click",function(){
-			location.href="inquiryList?page=${page}";
-		})    
-    
-    	$("#writeReply").on("click", function(){
-    		var reply = $("#replyForm").val();
-    		if(reply == ""){
-    			alert("댓글을 입력해주세요");
-    		}else{
-    			$("#replyForm").val("");
-    			$.ajax({
-    				url: "writeInquiry",
-    				type: "post",
-    				data: {
-    					reply: reply,
-    					boardSeq: ${dto.seq}
-    				},
-    				dataType: "json"   				
-    			}).done(function(rs){
-    				var target = $("#replyAppend");
-    				
-    				var dateA = $("<a class='nav-link active' id='home-tab' data-toggle='tab' href='#' role='tab' aria-controls='home' aria-selected='true'></a>");
-    				dateA.append(rs.writeDate);
-    				var dateLi = $("<li class='nav-item'></li>");
-    				dateLi.append(dateA);
-    				var dateUl = $("<ul class='nav nav-tabs' id='myTab' role='tablist'></ul>");
-    				dateUl.append(dateLi);
-    				var delIcon = $("<li class='text-center mt-2 pl-2'><a href='${pageContext.request.contextPath }/admin/deleteInquiryReply?seq="+ rs.seq +"&boardSeq=${dto.seq}&page=${page}'><i data-brackets-id='23054' class='fa fa-trash'></i></a></li>");
-    				dateUl.append(delIcon);
-    				
-    				var replyP = $("<p></p>");
-    				replyP.append(rs.reply);
-    				var replyDiv = $("<div class='tab-pane fade show active' id='home' role='tabpanel' aria-labelledby='home-tab'></div>");
-    				replyDiv.append(replyP);
-    				var replyContent = $("<div class='tab-content mt-3' id='myTabContent'></div>");
-    				replyContent.append(replyDiv);
-    				
-    				var finalDiv = $("<div class='card-body'></div>");
-    				finalDiv.append(dateUl);
-    				finalDiv.append(replyContent);
-    				
-    				target.prepend(finalDiv);
-    			});
-    		}
-    	})
-    </script>
+	 <script>
+	$(function(){
+		var element = $(".pageNavi");
+		element[${page-1}].classList.add('active');
+	});
+</script>
 </body>
 </html>

@@ -11,6 +11,7 @@ import kh.hello.configuration.Configuration;
 import kh.hello.dao.AdminDAO;
 import kh.hello.dto.InquiryDTO;
 import kh.hello.dto.InquiryReplyDTO;
+import kh.hello.dto.MemberDTO;
 
 @Service
 public class AdminService {
@@ -104,6 +105,49 @@ public class AdminService {
 	
 	public int deleteInquiryReply(int seq) {
 		return adao.deleteInquiryReply(seq);
+	}
+	
+	public List<MemberDTO> memberList(int start, int end){
+		return adao.memberList(start, end);
+	}
+	
+	public List<String> getMemberPageNavi(int currentPage){
+		int memberTotalCount = adao.getMemberTotal();
+		int pageTotalCount = 0;
+		if(memberTotalCount % Configuration.recordCountPerPage > 0) {
+			pageTotalCount = memberTotalCount / Configuration.recordCountPerPage + 1;
+		}else {
+			pageTotalCount = memberTotalCount / Configuration.recordCountPerPage;
+		}
+		
+		int startNavi = (currentPage - 1) / Configuration.naviCountPerPage * Configuration.naviCountPerPage + 1;
+		int endNavi = startNavi + (Configuration.naviCountPerPage - 1);
+		
+		if(endNavi > pageTotalCount) {
+			endNavi = pageTotalCount;
+		}
+		boolean needPrev = true;
+		if(startNavi == 1) {
+			needPrev = false;
+		}
+		boolean needNext = true;
+		if(endNavi == pageTotalCount) {
+			needNext = false;
+		}
+		
+		List<String> pages = new ArrayList<>();
+		if(needPrev) pages.add("<a href='memberList?page=" + (startNavi - 1) + "'>< </a>");
+		for(int i = startNavi; i <= endNavi; i++) {
+			StringBuilder sb = new StringBuilder();
+			sb.append("<a href='memberList?page="+ i +"'>");
+			sb.append(i + " ");
+			sb.append("</a>");
+			
+			pages.add(sb.toString());
+		}
+		if(needNext) pages.add("<a href='memberList?page=" + (endNavi + 1) + "'>> </a>");
+		
+		return pages;
 	}
 }
 
