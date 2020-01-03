@@ -133,7 +133,7 @@ badge-success
 										<th scope="row">${dto.seq}</th>
 										<td class="badge badge-pill badge-success"
 											style="margin: 10; padding: 10; width: 40px;">${dto.division}</td>
-										<td><a href="/code/codeQDetail.do?seq=${dto.seq }">${dto.title}</a>
+										<td><a href="/code/codeDetail.do?seq=${dto.seq }">${dto.title}</a>
 											<span class="badge badge-pill badge-danger">N</span></td>
 										<td>${dto.writer}  
 										 <span class="badge badge-pill badge-info">실무자</span></td>

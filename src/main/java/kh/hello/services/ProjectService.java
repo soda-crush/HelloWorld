@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 import kh.hello.dao.ProjectDAO;
 import kh.hello.dto.ProjectApplyDTO;
@@ -30,9 +31,22 @@ public class ProjectService {
 	}
 	
 	@Transactional("txManager")
-	public ProjectDTO ProjectDetailView(int seq) {
+	public ProjectDTO projectDetailView(int seq) {
 		dao.updateProjectViewCount(seq);
 		return dao.getProjectDetailView(seq);
+	}
+	
+	public String projectWrite() {
+		//String[] v = {"markup","css","sass","javascript","java","python","groovy","scala","php","bash","coffeescript","go","haskell","c","cpp","sql","ruby","aspnet","csharp","swift","objectivec"};
+		String[] v = {"HTML/Markup","CSS","Sass","JavaScript","Java","Python","Groovy","Scala","PHP","Bash","CoffeeScript","Go","Haskell","C","C++","SQL","Ruby","ASP.NET","C#","Swift","Objective-C"};
+		JsonArray array = new JsonArray();
+		for(int i=0;i<v.length;i++) {
+			JsonObject obj = new JsonObject();
+			obj.addProperty("value", v[i]);
+			obj.addProperty("text", v[i]);
+			array.add(obj);
+		}
+		return array.toString();		
 	}
 	
 	@Transactional("txManager")
@@ -49,6 +63,12 @@ public class ProjectService {
 	public int projectDeleteConfirm(int seq) {
 		dao.deleteProjectAllCo(seq);
 		return dao.deleteProject(seq);
+	}
+	
+	@Transactional("txManager")
+	public void projectClose(int seq) {
+		dao.closeProject(seq);
+		dao.closeProjectApply(seq);
 	}
 	
 	
@@ -112,11 +132,11 @@ public class ProjectService {
 		return dao.getApplyList(projectSeq);
 	}
 	
-	public ProjectApplyDTO ProjectApplyDetailView(int seq) {
+	public ProjectApplyDTO projectApplyDetailView(int seq) {
 		return dao.getProjectApplyDetailView(seq);
 	}
 	
-	public int ProjectApplyDeleteConfirm(int seq) {
+	public int projectApplyDeleteConfirm(int seq) {
 		return dao.deleteProjectApply(seq);
 	}
 }
