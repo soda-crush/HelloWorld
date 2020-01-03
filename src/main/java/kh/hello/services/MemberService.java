@@ -21,6 +21,15 @@ public class MemberService {
 		return mdao.dupleCheck(id);
 	}
 	
+	//닉네임 중복체크
+	public int nickDupleCheck(String nickName)throws Exception{
+		return mdao.nickDupleCheck(nickName);
+	}
+	
+	//연락처 중복체크
+		public int phoneDupleCheck(String phone)throws Exception{
+			return mdao.phoneDupleCheck(phone);
+		}
 	
 	
 }

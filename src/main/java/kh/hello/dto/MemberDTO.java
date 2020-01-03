@@ -1,5 +1,7 @@
 package kh.hello.dto;
 
+import java.sql.Timestamp;
+
 public class MemberDTO {
 	private String id;
 	private String pw;
@@ -12,17 +14,28 @@ public class MemberDTO {
 	private String addr2;
 	private String joinPath;
 	private String gender;
-	private String level;
+	private String memLevel;
 	private String reportCount;
 	private int point;
+	private Timestamp joinDate;
+	private Timestamp lastLogin;
 	
 	public MemberDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
+	public String toString() {
+		return "MemberDTO [id=" + id + ", pw=" + pw + ", name=" + name + ", nickName=" + nickName + ", email=" + email
+				+ ", phone=" + phone + ", postcode=" + postcode + ", addr1=" + addr1 + ", addr2=" + addr2
+				+ ", joinPath=" + joinPath + ", gender=" + gender + ", memLevel=" + memLevel + ", reportCount="
+				+ reportCount + ", point=" + point + ", joinDate=" + joinDate + ", lastLogin=" + lastLogin + "]";
+	}
+
 	public MemberDTO(String id, String pw, String name, String nickName, String email, String phone, String postcode,
-			String addr1, String addr2, String joinPath, String gender, String level, String reportCount, int point) {
+			String addr1, String addr2, String joinPath, String gender, String memLevel, String reportCount, int point,
+			Timestamp joinDate, Timestamp lastLogin) {
 		super();
 		this.id = id;
 		this.pw = pw;
@@ -35,9 +48,11 @@ public class MemberDTO {
 		this.addr2 = addr2;
 		this.joinPath = joinPath;
 		this.gender = gender;
-		this.level = level;
+		this.memLevel = memLevel;
 		this.reportCount = reportCount;
 		this.point = point;
+		this.joinDate = joinDate;
+		this.lastLogin = lastLogin;
 	}
 
 	public String getId() {
@@ -128,12 +143,12 @@ public class MemberDTO {
 		this.gender = gender;
 	}
 
-	public String getLevel() {
-		return level;
+	public String getMemLevel() {
+		return memLevel;
 	}
 
-	public void setLevel(String level) {
-		this.level = level;
+	public void setMemLevel(String memLevel) {
+		this.memLevel = memLevel;
 	}
 
 	public String getReportCount() {
@@ -152,12 +167,22 @@ public class MemberDTO {
 		this.point = point;
 	}
 
-	@Override
-	public String toString() {
-		return "MemberDTO [id=" + id + ", pw=" + pw + ", name=" + name + ", nickName=" + nickName + ", email=" + email
-				+ ", phone=" + phone + ", postcode=" + postcode + ", addr1=" + addr1 + ", addr2=" + addr2
-				+ ", joinPath=" + joinPath + ", gender=" + gender + ", level=" + level + ", reportCount=" + reportCount
-				+ ", point=" + point + "]";
+	public Timestamp getJoinDate() {
+		return joinDate;
 	}
+
+	public void setJoinDate(Timestamp joinDate) {
+		this.joinDate = joinDate;
+	}
+
+	public Timestamp getLastLogin() {
+		return lastLogin;
+	}
+
+	public void setLastLogin(Timestamp lastLogin) {
+		this.lastLogin = lastLogin;
+	}
+
+	
 	
 }

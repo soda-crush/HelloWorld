@@ -26,4 +26,14 @@ public class MemberDAO {
 		return jdbc.selectOne("Member.dupleCheck", id);
 	}
 	
+	//닉네임 중복체크
+	public int nickDupleCheck(String nickName)throws Exception{
+		return jdbc.selectOne("Member.nickDupleCheck", nickName);
+	}
+	
+	//연락처 중복체크
+		public int phoneDupleCheck(String phone)throws Exception{
+			return jdbc.selectOne("Member.phoneDupleCheck", phone);
+		}
+	
 }
