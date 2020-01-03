@@ -45,7 +45,7 @@
                     <nav>
                         <ul class="metismenu" id="menu">
                             <li><a href="${pageContext.request.contextPath }/admin/main"><i class="ti-map-alt"></i><span>모니터링</span></a></li>
-                            <li><a href="#"><i class="ti-map-alt"></i><span>회원관리</span></a></li>
+                            <li><a href="${pageContext.request.contextPath }/admin/memberList"><i class="ti-map-alt"></i><span>회원관리</span></a></li>
                             
                             <li>
                                 <a href="javascript:void(0)" aria-expanded="true"><i class="ti-dashboard"></i><span>게시판관리</span></a>
@@ -164,8 +164,8 @@
                             <div class="card-body">
                                 <nav aria-label="Page navigation example">
                                     <ul class="pagination justify-content-center">
-										<c:forEach items="${pageNavi}" var="page">
-											 <li class="page-item"><li class="page-item">${page}</li></li>
+										<c:forEach items="${pageNavi}" var="navi">									
+											<li class="page-item pageNavi">${navi}</li>
 										</c:forEach>
 
 
@@ -218,5 +218,11 @@
     <!-- others plugins -->
     <script src="${pageContext.request.contextPath }/adRsc/js/plugins.js"></script>
     <script src="${pageContext.request.contextPath }/adRsc/js/scripts.js"></script>
+    <script>
+	$(function(){
+		var element = $(".pageNavi");
+		element[${page-1}].classList.add('active');
+	});
+</script>
 </body>
 </html>

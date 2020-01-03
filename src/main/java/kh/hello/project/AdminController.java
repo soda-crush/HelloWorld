@@ -16,6 +16,7 @@ import com.google.gson.JsonObject;
 import kh.hello.configuration.Configuration;
 import kh.hello.dto.InquiryDTO;
 import kh.hello.dto.InquiryReplyDTO;
+import kh.hello.dto.MemberDTO;
 import kh.hello.services.AdminService;
 
 @Controller
@@ -131,6 +132,34 @@ public class AdminController {
 		int result = as.deleteInquiryReply(seq);
 		//boardSeq가지고 디테일뷰로 이동하기
 		return "redirect:inquiryDetailView?page="+page+"&seq="+boardSeq;
+	}
+	
+	@RequestMapping("/memberList")
+	public String memberList(String page, Model m) {
+		//회원 목록 받아오기(byPage)
+		int currentPage = 1;
+		if(page != null) currentPage = Integer.parseInt(page);
+		if(currentPage > 0 && currentPage <= Configuration.naviCountPerPage) {
+			m.addAttribute("currentPage", currentPage);
+		}else if(currentPage % Configuration.naviCountPerPage == 0) {
+			m.addAttribute("currentPage", Configuration.naviCountPerPage + 1);
+		}else {
+			m.addAttribute("currentPage", (currentPage % Configuration.naviCountPerPage + 1));
+		}
+		
+		int end = currentPage * Configuration.recordCountPerPage;
+		int start = end - (Configuration.recordCountPerPage - 1);
+		
+		List<MemberDTO> list = as.memberList(start, end);
+		m.addAttribute("list", list);
+				
+		//페이지네비
+		List<String> pageNavi = as.getMemberPageNavi(currentPage);
+		m.addAttribute("pageNavi", pageNavi);
+		
+		m.addAttribute("page", currentPage);
+
+		return "admin/memberList";
 	}
 
 }

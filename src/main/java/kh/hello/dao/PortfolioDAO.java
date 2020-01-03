@@ -18,8 +18,12 @@ public class PortfolioDAO {
 		jdbc.insert("Portfolio.insert", pdto);
 	}
 	
-	public List<PortfolioDTO> selectList() {
-		return jdbc.selectList("Portfolio.selectAll");
+	public List<PortfolioDTO> selectList(String writer) {
+		return jdbc.selectList("Portfolio.selectAll", writer);
+	}
+	
+	public PortfolioDTO selectBySeq(int seq) {
+		return jdbc.selectOne("Portfolio.selectBySeq", seq);
 	}
 	
 }

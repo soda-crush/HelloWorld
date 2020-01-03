@@ -36,4 +36,10 @@
   <delete id="deleteInquiryReply" parameterType="integer">
   	delete from inquiryReply where seq=#{seq}
   </delete>
+  <select id="memberList" resultType="kh.hello.dto.MemberDTO">
+  	select * from (select member.*, row_number() over(order by name) rown from member) where rown between #{start} and #{end}
+  </select>
+  <select id="getMemberTotal" resultType="integer">
+  	select count(*) from member
+  </select>
 </mapper>
