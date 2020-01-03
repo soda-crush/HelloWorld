@@ -13,5 +13,13 @@
 		select count(*) from member where id = #{id}
 	</select>
 	
+	<select id="nickDupleCheck" resultType="integer" parameterType="string">
+		select count(*) from member where nickName = #{nickName}
+	</select>
+	
+	<select id="phoneDupleCheck" resultType="integer" parameterType="string">
+		select count(*) from member where phone = #{phone}
+	</select>
+	
 	
 </mapper>

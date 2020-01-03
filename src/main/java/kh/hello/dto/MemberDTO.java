@@ -1,5 +1,7 @@
 package kh.hello.dto;
 
+import java.sql.Timestamp;
+
 public class MemberDTO {
 	private String id;
 	private String pw;
@@ -15,12 +17,25 @@ public class MemberDTO {
 	private String memLevel;
 	private String reportCount;
 	private int point;
+	private Timestamp joinDate;
+	private Timestamp lastLogin;
+	
 	public MemberDTO() {
 		super();
 	}
+
+	@Override
+	public String toString() {
+		return "MemberDTO [id=" + id + ", pw=" + pw + ", name=" + name + ", nickName=" + nickName + ", email=" + email
+				+ ", phone=" + phone + ", postcode=" + postcode + ", addr1=" + addr1 + ", addr2=" + addr2
+				+ ", joinPath=" + joinPath + ", gender=" + gender + ", memLevel=" + memLevel + ", reportCount="
+				+ reportCount + ", point=" + point + ", joinDate=" + joinDate + ", lastLogin=" + lastLogin + "]";
+	}
+
 	public MemberDTO(String id, String pw, String name, String nickName, String email, String phone, String postcode,
-			String addr1, String addr2, String joinPath, String gender, String memLevel, String reportCount,
-			int point) {
+			String addr1, String addr2, String joinPath, String gender, String memLevel, String reportCount, int point,
+			Timestamp joinDate, Timestamp lastLogin) {
+
 		super();
 		this.id = id;
 		this.pw = pw;
@@ -36,6 +51,8 @@ public class MemberDTO {
 		this.memLevel = memLevel;
 		this.reportCount = reportCount;
 		this.point = point;
+		this.joinDate = joinDate;
+		this.lastLogin = lastLogin;
 	}
 	public String getId() {
 		return id;
@@ -121,14 +138,19 @@ public class MemberDTO {
 	public void setPoint(int point) {
 		this.point = point;
 	}
-	@Override
-	public String toString() {
-		return "MemberDTO [id=" + id + ", pw=" + pw + ", name=" + name + ", nickName=" + nickName + ", email=" + email
-				+ ", phone=" + phone + ", postcode=" + postcode + ", addr1=" + addr1 + ", addr2=" + addr2
-				+ ", joinPath=" + joinPath + ", gender=" + gender + ", memLevel=" + memLevel + ", reportCount="
-				+ reportCount + ", point=" + point + "]";
+	public Timestamp getJoinDate() {
+		return joinDate;
 	}
-	
-	
+
+	public void setJoinDate(Timestamp joinDate) {
+		this.joinDate = joinDate;
+	}
+
+	public Timestamp getLastLogin() {
+		return lastLogin;
+	}
+	public void setLastLogin(Timestamp lastLogin) {
+		this.lastLogin = lastLogin;
+	}
 	
 }
