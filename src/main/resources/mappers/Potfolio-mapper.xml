@@ -4,11 +4,15 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Portfolio">
 	<insert id="insert" parameterType="kh.hello.dto.PortfolioDTO">
-		insert into board values(portfolioSeq.nextval,#{writer},#{portfolioTitle},#{startDate},#{endDate},#{purpose},#{environment},#{allFunction},#{dbUnitPlan},#{role},#{contribution},#{image1},#{function1},#{explanation1},#{image2},#{function2},#{explanation2},#{image3},#{function3},#{explanation3})
+		insert into portfolio values(portfolioSeq.nextval,#{writer},#{portfolioTitle},#{startDate},#{endDate},#{purpose},#{environment},#{allFunction},#{dbUnitPlan},#{role},#{contribution},#{image1},#{function1},#{explanation1},#{image2},#{function2},#{explanation2},#{image3},#{function3},#{explanation3},#{git})
 	</insert>
 	
-	<select id="selectAll" resultType="kh.hello.dto.PortfolioDTO">
-		select * from portfolio
+	<select id="selectAll"  parameterType="String" resultType="kh.hello.dto.PortfolioDTO">
+		select * from portfolio where writer = #{writer}
+	</select>
+	
+	<select id="selectBySeq"  parameterType="int" resultType="kh.hello.dto.PortfolioDTO">
+		select * from portfolio where seq = #{seq}
 	</select>
 	
 </mapper>

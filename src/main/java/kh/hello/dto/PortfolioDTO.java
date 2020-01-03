@@ -23,13 +23,14 @@ public class PortfolioDTO {
 	private String image3;
 	private String function3;
 	private String explanation3;
+	private String git;
 	public PortfolioDTO() {
 		super();
 	}
 	public PortfolioDTO(int seq, String writer, String portfolioTitle, Timestamp startDate, Timestamp endDate,
 			String purpose, String environment, String allFunction, String dbUnitPlan, String role, String contribution,
 			String image1, String function1, String explanation1, String image2, String function2, String explanation2,
-			String image3, String function3, String explanation3) {
+			String image3, String function3, String explanation3, String git) {
 		super();
 		this.seq = seq;
 		this.writer = writer;
@@ -51,6 +52,7 @@ public class PortfolioDTO {
 		this.image3 = image3;
 		this.function3 = function3;
 		this.explanation3 = explanation3;
+		this.git = git;
 	}
 	public int getSeq() {
 		return seq;
@@ -171,6 +173,12 @@ public class PortfolioDTO {
 	}
 	public void setExplanation3(String explanation3) {
 		this.explanation3 = explanation3;
+	}
+	public String getGit() {
+		return git;
+	}
+	public void setGit(String git) {
+		this.git = git;
 	}
 	
 	
