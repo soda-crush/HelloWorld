@@ -136,16 +136,16 @@ public class AdminService {
 		}
 		
 		List<String> pages = new ArrayList<>();
-		if(needPrev) pages.add("<a href='memberList?page=" + (startNavi - 1) + "'>< </a>");
+		if(needPrev) pages.add("<a class=page-link href='memberList?page=" + (startNavi - 1) + "'>< </a>");
 		for(int i = startNavi; i <= endNavi; i++) {
 			StringBuilder sb = new StringBuilder();
-			sb.append("<a href='memberList?page="+ i +"'>");
+			sb.append("<a class=page-link href='memberList?page="+ i +"'>");
 			sb.append(i + " ");
 			sb.append("</a>");
 			
 			pages.add(sb.toString());
 		}
-		if(needNext) pages.add("<a href='memberList?page=" + (endNavi + 1) + "'>> </a>");
+		if(needNext) pages.add("<a class=page-link href='memberList?page=" + (endNavi + 1) + "'>> </a>");
 		
 		return pages;
 	}
