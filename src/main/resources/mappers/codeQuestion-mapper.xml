@@ -9,7 +9,7 @@
 	</insert>
 	
 	<select id="selectQuestionAll" resultType="kh.hello.dto.CodeQuestionDTO">
-		select * from codeQuestion
+		select * from codeQuestion order by seq desc
 	</select>
 	
 	<select id="selectSeq" parameterType="String" resultType="Integer">

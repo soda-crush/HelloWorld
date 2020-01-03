@@ -3,5 +3,24 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="CodeR">
-
+	<insert id="insert" parameterType="kh.hello.dto.CodeReplyDTO">
+		insert into codeReply
+		values(codeReplySeq.nextval,#{queSeq},#{title},#{content},#{writer},sysdate)
+	</insert>
+<!-- 	리스트에 답글 보이게? -->
+	<select id="selectReplyAll" resultType="kh.hello.dto.CodeReplyDTO">
+		select * from codeReply
+	</select>
+	
+	<select id="detailReply" resultType="kh.hello.dto.CodeReplyDTO" parameterType="Integer">
+		select * from codeReply where seq = #{seq} order by 1 desc
+	</select>
+	
+	<delete id="deleteR" parameterType="Integer">
+		delete from codeReply where seq=#{seq}
+	</delete>
+	
+<!-- 	<select id="selectParentSeq" resultType="Integer" parameterType="Integer"> -->
+<!-- 		select seq from codeQuestion where seq = #{seq}  -->
+<!-- 	</select> -->
 </mapper>

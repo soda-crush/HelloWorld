@@ -52,47 +52,16 @@ $(function(){
 		</div>
 
 		<!--      몸통 시작!!!   -->
-		<form action="codeQWriteProc.do" method="post" id="writeForm">
+		<form action="codeRWriteProc.do" method="post" id="writeForm">
 			<div class=container>
+		
 				<div class=row>
-					<div class="col-3 division">
-						<h4>Language</h4>
-					</div>
-					<div class="col-3 division">
-						<select name="division" class="sele">
-							<option value="">언어 선택</option>
-							<option value="java">java</option>
-							<option value="php">php</option>
-							<option value="c">c/c++/c#</option>
-							<option value="android">android</option>
-							<option value="ios">ios</option>
-							<option value="db">db(oracle/mysql/mssql)</option>
-							<option value="기타">기타</option>
-						</select>
-					</div>
-					<div class="col-3 division">
-						<h4>Get Point</h4>
-					</div>
-					<div class="col-3 division">
-						<select name="point" class="sele">
-							<option value="">point</option>
-							<option value="10">10</option>
-							<option value="30">30</option>
-							<option value="50">50</option>
-							<option value="100">100</option>
-						</select>
+					<div class="col-12 title">
+					<input type="hidden" name=title value="">
+						<h4>${sessionScope.loginInfo}님 답변해주세요.</h4>
 					</div>
 				</div>
-
-				<div class=row>
-					<div class="col-2 title">
-						<h4>Q    질문</h4>
-					</div>
-					<div class="col-10 title">
-						<input type="text" name="title" style="width:100%">
-					</div>
-				</div>
-
+				<input type="hidden" name=parent_seq value="${parent_seq}">
 				<div class=row>
 					<div class="col-12 content">
 						<textarea name="content" id="content" style="display:none"></textarea>
@@ -102,8 +71,8 @@ $(function(){
 				
 				<div class=row>
 					<div class="col-12 btn" style="text-align:right;">
-						<button class="btn btn-primary" type="submit">작성완료</button>
-						<button class="btn btn-primary" type="button">작성취소</button>
+						<button class="btn btn-primary" type="submit">답변등록</button>
+						<button class="btn btn-primary" type="button">취소</button>
 					</div>
 				</div>
 			</div>

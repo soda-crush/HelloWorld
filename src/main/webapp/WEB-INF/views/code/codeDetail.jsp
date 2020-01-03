@@ -14,8 +14,8 @@
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/css/projectBase.css" type="text/css" />
-<link rel="stylesheet" href="/css/font-awesome/css/font-awesome.css"
-	type="text/css" />
+<link rel="stylesheet" href="/css/font-awesome/css/font-awesome.css" type="text/css" />
+
 <style>
 .contentDiv {
 	/* 한 줄 자르기 */
@@ -127,35 +127,61 @@ span:nth-child(4) {
 		<div class=container id="projectPage" style="background-color: white;">
 			<!-- 			<div id="pageTitle"> -->
 			<div class="topQ">
-				<span>Q</span> <span class="badge badge-pill badge-danger">${dResult.point}</span>
+				<span>Q</span> <span class="badge badge-pill badge-danger">${qResult.point}</span>
 				<span class="badge badge-pill badge-success"
-					style="margin: 10; padding: 10; width: 40px;">${dResult.division}</span>
-				<span>${dResult.title}</span>
+					style="margin: 10; padding: 10; width: 40px;">${qResult.division}</span>
+				<span>${qResult.title}</span>
 			</div>
+			<br>
 			<div>
-				<div class="contentDiv">${dResult.content}</div>
-				<div class="botD">${dResult.writer} ${dResult.writeDate} ${dResult.viewCount}</div>
-				<div>　</div>
-				<div style="text-align: right;" class="btnDIv">
-					<a class="btn btn-dark" href="/code/codeQList.do" role="button">목록</a>
-					<button class="btn btn-dark">공유하기</button>
-					<button class="btn btn-dark">스크랩</button>
-					<button class="btn btn-danger">신고하기</button>
-				</div>
-				<div>　</div>
+				<div class="contentDiv">${qResult.content}</div>
+				<br>
+				<div class="botD"><img src="/icon/Cicon.svg">${qResult.writer} ${qResult.writeDate} 조회수${qResult.viewCount}</div>
+				<br>
+				<!-- 아래 비로그인일때도 보이는지..? -->
 				<c:choose>
-					<c:when test="${sessionScope.loginInfo ==null}">
+					<c:when test="${qResult.writer!=sessionScope.loginInfo}">
+						<div style="text-align: right;" class="btnDIv">
+							<a class="btn btn-dark" href="/code/codeRWrite.do?seq=${qResult.seq}" role="button">답변</a>
+							<button class="btn btn-dark">공유</button>
+							<button class="btn btn-dark">스크랩</button>
+							<a class="btn btn-dark" href="/code/codeQList.do" role="button">목록</a>
+							<button class="btn btn-danger">신고</button>
+						</div>
 					</c:when>
 					<c:otherwise>
 						<div style="text-align: right;">
-							<button class="btn btn-dark" class="btnDIv2" id="modify">수정하기</button>
-							<button class="btn btn-danger" class="btnDIv2" id="delete">삭제하기</button>
+							<button class="btn btn-dark" class="btnDIv2" id="modify">수정</button>
+							<button class="btn btn-danger" class="btnDIv2" id="delete">삭제</button>
 						</div>
 					</c:otherwise>
 				</c:choose>
 				<hr>
 				<div style="text-align: center; margin-right: 200px;">A2개</div>
 				<hr>
+				
+			<!-- 답글 시작-->
+		
+				<div class="topQ">
+					<c:forEach items="${rResult}" var="r">
+						<div style="font-size: 40px; font-weight: 100;">${r.writer}님의 답변입니다.</div>
+						<br>
+						<div>${r.content}</div>
+						<br>
+						<div>${r.writeDate}
+							<button class="btn btn-dark">댓글</button>
+						</div>
+						<c:choose>
+							<c:when test="${qResult.writer==sessionScope.loginInfo}">
+									<button class="btn btn-dark" class="btnDIv2" id="modifyR">수정</button>
+									<button class="btn btn-danger" class="btnDIv2" id="deleteR" onclick ="deleteR(${r.seq})">삭제</button>
+<%-- 									<button type="button" onclick="location.href='${pageContext.request.contextPath}/board/boardDelete.do?seq=${Bresult.seq}'">삭제</button> --%>
+							</c:when>
+						</c:choose>
+						<br>
+						<hr>
+					</c:forEach>
+				</div>
 			</div>
 		</div>
 		<!--       몸통 끝!!!   -->
@@ -176,8 +202,18 @@ span:nth-child(4) {
 		$("#delete").on("click",function(){
 			var cf = confirm("삭제하시겠습니까?");
 			if(cf){
-				location.href="${pageContext.request.contextPath}/code/delete.do?seq=${dResult.seq}";
+				location.href="${pageContext.request.contextPath}/code/delete.do?seq=${qResult.seq}";
 			}
 		})
+		$("#modifyR").on("click",function(){
+			
+		})
+		
+		function deleteR(seq){
+			var cf = confirm("삭제하시겠습니까?");
+			if(cf){
+				location.href="${pageContext.request.contextPath}/code/deleteR.do?seq="+seq;
+			}
+        }
 	</script>
 </html>
