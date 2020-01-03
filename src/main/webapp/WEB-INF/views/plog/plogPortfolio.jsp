@@ -26,10 +26,6 @@
                 background-color: lightgray;
                 font-size: 13px;
             }
-            .container{
-                margin:auto;
-                background-color: #efefef;
-            }
             .card{
                 margin-top:20px;
             }
@@ -39,7 +35,7 @@
                 margin-bottom: 30px;
             }
             #mycard{
-                width:200px;
+                height: 300px;
                 float:none;
                 display:flex;
                 margin: auto;
@@ -113,48 +109,24 @@
 	                            <p class="card-text" style="text-align: center;">point : 12,345</p>
 	                        </div>
 	                    </div>
+						<div style = "text-align: end;margin-top: 10px;">
+                       		<button id="addPF">포트폴리오 추가하기</button>
+                    	</div>
 	                </div>
 	                <div class ="col-12 col-md-8 col-lg-9 wrapportfolio">
-	                    <div class="cardwrap col-6 col-xl-4">
-	                        <div class="card" >
-	                            <img src="success3.gif" class="card-img-top" alt="...">
-	                            <div class="card-body" style="padding: 5px;">
-	                                <h5 class="card-title">포트폴리오 1</h5>
-	                                <p class="card-text">~~~에서 ~~~를 구현한 ~~~입니다.</p>
-	                                <a href="#" class="btn btn-primary">이동하기</a>
-	                            </div>
-	                        </div>
-	                    </div>
-	                    <div class="cardwrap col-6 col-xl-4">
-	                        <div class="card" >
-	                            <img src="success3.gif" class="card-img-top" alt="...">
-	                            <div class="card-body" style="padding: 5px;">
-	                                <h5 class="card-title">포트폴리오 1</h5>
-	                                <p class="card-text">~~~에서 ~~~를 구현한 ~~~입니다.</p>
-	                                <a href="#" class="btn btn-primary">이동하기</a>
-	                            </div>
-	                        </div>
-	                    </div>
-	                    <div class="cardwrap col-6 col-xl-4">
-	                        <div class="card" >
-	                            <img src="success3.gif" class="card-img-top" alt="...">
-	                            <div class="card-body" style="padding: 5px;">
-	                                <h5 class="card-title">포트폴리오 1</h5>
-	                                <p class="card-text">~~~에서 ~~~를 구현한 ~~~입니다.</p>
-	                                <a href="#" class="btn btn-primary">이동하기</a>
-	                            </div>
-	                        </div>
-	                    </div>
-	                    <div class="cardwrap col-6 col-xl-4">
-	                        <div class="card" >
-	                            <img src="success3.gif" class="card-img-top" alt="...">
-	                            <div class="card-body" style="padding: 5px;">
-	                                <h5 class="card-title">포트폴리오 1</h5>
-	                                <p class="card-text">~~~에서 ~~~를 구현한 ~~~입니다.</p>
-	                                <a href="#" class="btn btn-primary">이동하기</a>
-	                            </div>
-	                        </div>
-	                    </div>
+	                	<c:forEach items="${list }" var="dto">
+	                		<div class="cardwrap col-6 col-xl-4">
+		                        <div class="card">
+		                            <img src="${dto.image1}" class="card-img-top" alt="..." style="height: inherit;width: 160px;height: 170px;margin:15px;">
+		                            <div class="card-body" style="padding: 5px;width:190px;height:115px;">
+		                                <h5 class="card-title" style="white-space:nowrap;overflow: hidden;text-overflow:ellipsis;width:100%;height:16px;"><a href="${pageContext.request.contextPath}/Portfolio/detail.do?seq=${dto.seq}">${dto.portfolioTitle}</a></h5>
+		                                <p class="card-text" style="overflow: hidden;width:100%;height:60%;text-overflow: ellipsis;">${dto.purpose }</p>
+	                                <div style="text-align: end;">
+	                                </div>
+		                            </div>
+		                        </div>
+	                    	</div>
+						</c:forEach>
 	                </div>
 	            </div>
             </div>
@@ -170,5 +142,12 @@
         </div>
         
         <jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
+        
+        
+		<script>
+            $("#addPF").on("click",function(){
+                location.href = "${pageContext.request.contextPath}/Portfolio/toInsert.do";
+            })
+        </script>
 </body>
 </html>
