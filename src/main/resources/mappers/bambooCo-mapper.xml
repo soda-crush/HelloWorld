@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="BambooCo">
+	<select id="getList" resultType="kh.hello.dto.BambooCoDTO">
+		select * from bambooComments where bamSeq=#{value}
+	</select>
+	<insert id="insertBambooCo" parameterType="kh.hello.dto.BambooCoDTO">
+		insert into bambooComments values(bambooCommentsSeq.nextval,#{bamSeq},#{writer},#{content},sysdate)
+	</insert>
+	<select id="getComment" resultType="kh.hello.dto.BambooCoDTO">
+		SELECT * FROM (SELECT * FROM bambooComments where bamSeq=#{value} ORDER BY writedate DESC) WHERE ROWNUM = 1
+	</select>
+	<update id="updateBambooCo" parameterType="kh.hello.dto.BambooCoDTO">
+		update bambooComments set content=#{content} where seq=#{seq}
+	</update>
+	<delete id="deleteBambooCo">
+		delete from bambooComments where seq=#{value}
+	</delete>
+	<delete id="deleteBambooAllCo">
+		delete from bambooComments where bamSeq=#{value}
+	</delete>
+</mapper>
