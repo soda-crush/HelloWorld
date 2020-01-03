@@ -18,4 +18,7 @@
 	<delete id="deleteProjectApply">
 		delete from projectApply where seq=#{value}
 	</delete>
+	<update id="closeProjectApply">
+		update projectApply set approve='X' where projectSeq=#{value} and approve='W'
+	</update>
 </mapper>

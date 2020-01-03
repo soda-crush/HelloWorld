@@ -39,7 +39,7 @@
             <!--      몸통 시작!!!   -->
             <div class=container id="projectPage">
 				<div id="pageTitle">
-					<h1>프로젝트 목록</h1>
+					<h1>프로젝트 모집</h1>
 					<a class="btn btn-primary" href="/project/list" role="button">게시판</a>
 					<a class="btn btn-secondary" href="/project/chart" role="button">그래픽</a>
 					<a class="btn btn-secondary" href="/project/map" role="button">지도</a>

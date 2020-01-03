@@ -24,7 +24,7 @@
 	#pHeader span:first-of-type{font-size:20px;}
 	#pHeader label:nth-of-type(2){width:200px;}
 	#pHeader .fa{margin-left:15px;margin-top:15px;font-size:20px;}
-	#pInfo *,#pBody *{font-size:15px;font-weight:bold;}
+	#pInfo *,#pBody *{font-size:15px;font-weight:500;}
 	#pInfo label,#pBody label{width:100px;color:darkgray;}
 	.applyBtn{margin-bottom:20px;}
 	.modal-title{font-weight:bold;}
@@ -36,7 +36,9 @@
 	#pCoInput button{height:45px; width:90%;}
 	.pApply{font-size:13px;color:red;}
 	.checkBtn button:nth-child(2){margin-left:10px;}
-	#advBox{height:100px;width:100%;background-color:darkgray;margin-top:20px;}
+	.adBox{height:200px;width:100%;background-color:darkgray;text-align:center;margin:0;margin-top:20px;}
+	.pSelect{width:100px;}
+	#pPageContents{margin:40px;}
 </style>
 </head>
 <body>
@@ -72,7 +74,8 @@
 						</div>
 						<hr>
 						<div id="pBody">
-							<div><p>${pPage.contents }</p></div>
+						
+							<div id="pPageContents">${pPage.contents }</div>
 							
 							<div><label class="ml-4">연락처</label><span>${pPage.phone }</span></div>
 							<div><label class="ml-4">메일주소</label><span>${pPage.email }</span></div>
@@ -84,20 +87,24 @@
 					  						<span class="pApply font-weight-bold">${pPage.applyCount }</span>
 					  					</c:if>
 									</button>
-									<button type="button" class="btn btn-success">모집완료처리</button>
+									<c:if test="${pPage.state=='N' }">
+									<button type="button" class="btn btn-success" id="pCloseBtn">모집완료처리</button>
+									</c:if>
 								</div>
 							</c:if>
 							
 							
 							
-							<c:if test="${pPage.writer != sessionScope.loginInfo}">
+							<c:if test="${pPage.writer != sessionScope.loginInfo && pPage.state=='N' }">
 								<div class="text-center applyBtn">
 									<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">신청하기</button>
 								</div>
 							</c:if>
 							
 							
-							<div id="advBox"></div>
+							 <div class="row align-items-center adBox">
+							    <div class="col-12">광고자리</div>
+							 </div>
 							
 							
 							<c:if test="${comments.size()>0 }">
@@ -107,16 +114,16 @@
 							</c:if>
 							
 							<div id="pCoInput" class="row">
-								<div class="col-9 col-lg-10"><textarea class="form-control" placeholder="댓글 내용을 입력해주세요"></textarea></div>
+								<div class="col-9 col-lg-10"><textarea class="form-control" placeholder="댓글 내용을 입력해주세요" id="pCoContents"></textarea></div>
 								<div class="col-3 col-lg-2">
 									<div class="row">
 										<div class="col-12">
-											<button type="button" class="btn btn-secondary" style="margin-bottom:10px;">취소</button>
+											<button type="button" class="btn btn-secondary" style="margin-bottom:10px;" id="coCancel">취소</button>
 										</div>										
 									</div>
 									<div class="row">
 										<div class="col-12">
-											<button type="button" class="btn btn-primary">작성</button>
+											<button type="button" class="btn btn-primary" id="coWriteBtn">작성</button>
 										</div>										
 									</div>								
 		        				</div>
@@ -124,8 +131,33 @@
 						</div>
 					</c:if>
 				</div>
+				
+				
+				
+				
+				
+				<script>
+					$("#coCancel").on("click",function(){
+						var check = confirm("정말 취소하시겠습니까?");
+						if(check){
+							$("#pCoContents").val("");
+						}
+					});
+					$("#coWriteBtn").on("click",function(){						
+					});
+				</script>
+				
+				
+				
+				
+				
+				
+				
+				
 				<div id="pageFooter">
-					<span><a class="btn btn-danger" href="#" role="button">게시글 신고</a></span>
+					<c:if test="${pPage.writer != sessionScope.loginInfo}">
+						<span><a class="btn btn-danger" href="#" role="button">게시글 신고</a></span>
+					</c:if>
 					<span class="float-right">
 						<c:if test="${pPage.writer == sessionScope.loginInfo}">
 							<a class="btn btn-info" href="#" role="button">수정</a>
@@ -164,7 +196,7 @@
 		      
 		      	<div class="row">
 					<div class="col-4"><label class="aItem">사용 가능 언어</label><label class="star">*</label></div>
-					<div class="col-7"><input type="text" class="form-control" id="email"></div>
+					<div class="col-7"><input type="text" class="form-control form-control-sm" id="languages" name="languages"></div>
 				</div>
 				<div class="row">
 					<div class="col-4"><label class="aItem">성별</label><label class="star">*</label></div>
@@ -187,7 +219,7 @@
 				<div class="row">
 					<div class="col-4"><label class="aItem">나이</label><label class="star">*</label></div>
 					<div class="col-4">
-						<select class="custom-select">
+						<select class="form-control form-control-sm pSelect">
 							<option selected>선택</option>
 						    <option value="1">10대</option>
 						    <option value="2">20대</option>
@@ -212,14 +244,12 @@
 				</div>
 				<div class="row">
 					<div class="col-4"><label class="aItem">메일주소</label></div>							
-					<div class="col-7"><input type="email" class="form-control" id="email"></div>
+					<div class="col-7"><input type="email" class="form-control form-control-sm" id="email"></div>
 				</div>
 				<div class="row">
 					<div class="col-12"><label class="aItem">하고 싶은 말</label></div>
-					<div class="col-12" id="aContentsInput"><textarea class="form-control" style="height:100px;" placeholder="내용을 입력해주세요"></textarea></div>
+					<div class="col-12" id="aContentsInput"><textarea class="form-control form-control-sm" placeholder="내용을 입력해주세요"></textarea></div>
 				</div>						
-		      
-		      
 		      		       
 		      </div>
 		      <div class="modal-footer">
@@ -229,5 +259,14 @@
 		    </div>
 		  </div>
 		</div>
+		
+		<script>
+			$("#pCloseBtn").on("click",function(){
+				var check = confirm("프로젝트 모집을 마감하시겠습니까?\n마감된 모집글은 상태를 변경할 수 없습니다.");
+				if(check){
+					location.href="/project/closeProject?seq=${pPage.seq}";
+				}
+			});
+		</script>
 </body>
 </html>

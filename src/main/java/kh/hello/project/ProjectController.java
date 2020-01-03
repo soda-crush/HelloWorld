@@ -30,6 +30,7 @@ public class ProjectController {
 	
 	@RequestMapping("/list")
 	public String projectMainList(Model m) {
+		session.setAttribute("loginInfo", "sooin");
 		List<ProjectDTO> result = svc.projectList();
 		m.addAttribute("projectList", result);
 		return "/project/projectList";
@@ -51,7 +52,6 @@ public class ProjectController {
 	
 	@RequestMapping("/detailView")
 	public String projectDetailView(int seq, Model m) {
-		session.setAttribute("loginInfo", "sooin");
 		ProjectDTO result = svc.projectDetailView(seq);
 		List<ProjectCoDTO> coResult = svc.commentList(seq); 
 		m.addAttribute("pPage", result);
@@ -93,7 +93,11 @@ public class ProjectController {
 		return "redirect:/project/list";
 	}
 	
-	
+	@RequestMapping("/closeProject")
+	public String projectClose(int seq) {
+		svc.projectClose(seq);
+		return "redirect:/project/detailView?seq="+seq;
+	}
 	
 	
 	/*

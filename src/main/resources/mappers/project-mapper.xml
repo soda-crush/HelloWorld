@@ -13,12 +13,12 @@
 		select project.*,(select count(*) from projectApply where projectSeq=project.seq) as applyCount from project where seq=#{value}
 	</select>
 	
-	<select id="latestSeq" resultType="string">
+	<select id="latestSeq" resultType="integer">
 		select max(seq) from project where writer=#{value}
 	</select>
 	
 	<insert id="insertProject" parameterType="kh.hello.dto.ProjectDTO">
-		insert into project values(projectSeq.nextval,#{title},#{contents},#{location1},#{location2},#{capacity},#{startDate},#{endDate},#{languages},#{phone},#{email},#{writer},sysdate,'N')
+		insert into project values(projectSeq.nextval,#{title},#{contents},#{location1},#{location2},#{capacity},#{startDate},#{endDate},#{languages},#{phone},#{email},#{writer},sysdate,'N',0)
 	</insert>
 	
 	<update id="updateProject" parameterType="kh.hello.dto.ProjectDTO">
@@ -32,4 +32,8 @@
 	<delete id="deleteProject">
 		delete from project where seq=#{value}
 	</delete>
+	
+	<update id="closeProject">
+		update project set state='Y' where seq=#{value}
+	</update>
 </mapper>

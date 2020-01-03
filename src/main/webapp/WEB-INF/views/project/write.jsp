@@ -32,10 +32,11 @@
 	#pInfo .pItem{margin-top:8px;font-weight:bold;}
 	#pInfo .star{margin-left:2px;color:red;}
 	#pInfo .row{margin-top:10px;}
-	#pInfo .custom-select{width:100px;}	
+	#pInfo .pSelect{width:100px;display:inline-block;}	
 	#pInfo .phone{display:inline;width:60px;}
 	#pBody #pTitleInput,#pContentsInput{margin-top:10px;}
 	.datePicker{display:inline;width:110px;text-align:center;}
+	#phone1,#phone2,#phone3{text-align:center;}
 	.label-info {
 		background-color: #17a2b8;
 		display: inline-block;
@@ -68,69 +69,81 @@
 				<div id="pageTitle">
 					<h1>프로젝트 모집</h1>
 				</div>
-				<div id="pageBody">					
-					<div id="pInfo">
-						<div class="row">
-							<div class="col-md-2"><label class="pItem">지역</label><label class="star">*</label></div>
-							<div class="col-md-2">
-								<select class="custom-select">
-									<option selected>지역</option>
-								    <option value="1">One</option>
-								    <option value="2">Two</option>
-								    <option value="3">Three</option>
-								</select>
+				
+				<form action="/project/writeProc" method="post" id="writeFrm">
+					<div id="pageBody">					
+						<div id="pInfo">
+							<div class="row">
+								<div class="col-md-2"><label class="pItem">지역</label><label class="star">*</label></div>
+								<div class="col-md-10">
+									<select class="form-control form-control-sm pSelect" name="location1" id="location1">
+										<option selected disabled>지역</option>
+									    <option value="서울">서울</option>
+									    <option value="부산">부산</option>
+									    <option value="강원">강원</option>
+									</select>
+									<select class="form-control form-control-sm pSelect" name="location2" id="location2">
+										<option selected disabled>지역</option>
+									    <option value="은평구">은평구</option>
+									    <option value="남구">남구</option>
+									    <option value="강릉시">강릉시</option>
+									</select>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-2"><label class="pItem">모집인원</label><label class="star">*</label></div>
+								<div class="col-md-2">
+									<select class="form-control form-control-sm pSelect" name="capacity" id="capacity">
+										<option selected disabled>인원</option>
+									    <option value="1">One</option>
+									    <option value="2">Two</option>
+									    <option value="3">Three</option>
+									</select>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-2"><label class="pItem">기간</label><label class="star">*</label></div>
+								<div class="col-md-10">
+	        						<input type="text" id="startInputDate" class="form-control form-control-sm datePicker" placeholder="시작일" name="startInputDate">
+	        						<span> ~ </span>
+	        						<input type="text" id="endInputDate" class="form-control form-control-sm datePicker" placeholder="종료일" name="endInputDate">
+	        						<input type="hidden" id="startDate" name="startDate">
+									<input type="hidden" id="endDate" name="endDate">
+	    						</div>
+							</div>							
+							<div class="row">
+								<div class="col-md-2"><label class="pItem">사용언어</label><label class="star">*</label></div>
+								<div class="col-md-7">
+									<input type="text" class="form-control" id="languages" name="languages">
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-2"><label class="pItem">연락처</label></div>
+								<div class="col-md-7">
+									<input type="text" class="form-control form-control-sm phone p-1" maxlength="3" id="phone1"> -
+									<input type="text" class="form-control form-control-sm phone p-1" maxlength="4" id="phone2"> -
+									<input type="text" class="form-control form-control-sm phone p-1" maxlength="4" id="phone3">
+									<input type="hidden" name="phone" id="phone">
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-2"><label class="pItem">메일주소</label></div>							
+								<div class="col-md-7"><input type="email" class="form-control form-control-sm" id="email" name="email"></div>
 							</div>
 						</div>
-						<div class="row">
-							<div class="col-md-2"><label class="pItem">모집인원</label><label class="star">*</label></div>
-							<div class="col-md-2">
-								<select class="custom-select">
-									<option selected>인원</option>
-								    <option value="1">One</option>
-								    <option value="2">Two</option>
-								    <option value="3">Three</option>
-								</select>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-2"><label class="pItem">기간</label><label class="star">*</label></div>
-							<div class="col-md-10">
-        						<input type="text" id="startDatePick" class="form-control datePicker" value="시작일">
-        						<span> ~ </span>
-        						<input type="text" id="endDatePick" class="form-control datePicker" value="종료일">        						
-    						</div>
-						</div>							
-						<div class="row">
-							<div class="col-md-2"><label class="pItem">사용언어</label><label class="star">*</label></div>
-							<div class="col-md-7">
-								<input type="text" class="form-control" id="languages" name="languages">
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-2"><label class="pItem">연락처</label></div>
-							<div class="col-md-7">
-								<input type="text" class="form-control phone p-1" maxlength="3"> -
-								<input type="text" class="form-control phone p-1" maxlength="4"> -
-								<input type="text" class="form-control phone p-1" maxlength="4">
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-2"><label class="pItem">메일주소</label></div>							
-							<div class="col-md-7"><input type="text" class="form-control" id="email"></div>
-						</div>
+						<div id="pBody">
+							<div id="pTitleInput"><input type="text" class="form-control" placeholder="제목을 입력해주세요" name="title" id="title"></div>
+							<div id="pContentsInput"><textarea class="form-control summernote" name="contents" id="contents"></textarea></div>											
+						</div>					
 					</div>
-					<div id="pBody">
-						<div id="pTitleInput"><input type="text" class="form-control" placeholder="제목을 입력해주세요"></div>
-						<div id="pContentsInput"><textarea class="form-control summernote"></textarea></div>											
-					</div>					
-				</div>
-				<div id="pageFooter">
-					<span><a class="btn btn-secondary" href="/project/list" role="button">목록</a></span>
-					<span class="float-right">						
-						<a class="btn btn-secondary" href="/project/list" role="button">취소</a>
-						<a class="btn btn-primary" href="#" role="button">글쓰기</a>						
-					</span>
-				</div>          
+					<div id="pageFooter">
+						<span><a class="btn btn-secondary" href="/project/list" role="button">목록</a></span>
+						<span class="float-right">						
+							<a class="btn btn-secondary" href="/project/list" role="button">취소</a>
+							<input class="btn btn-primary" type="submit" value="글쓰기" id="writeBtn">						
+						</span>
+					</div>
+				</form>          
             </div>
             <!--       몸통 끝!!!   -->
             
@@ -182,24 +195,43 @@
 			var result = ${data};
 			var data = JSON.stringify(result);			
 			var task = new Bloodhound({
-			  datumTokenizer: Bloodhound.tokenizers.obj.whitespace("text"),
-			  queryTokenizer: Bloodhound.tokenizers.whitespace,
-			  local: jQuery.parseJSON(data) //your can use json type
+				datumTokenizer: Bloodhound.tokenizers.obj.whitespace("text"),
+				queryTokenizer: Bloodhound.tokenizers.whitespace,
+				local: jQuery.parseJSON(data) //your can use json type
 			});
 		
 			task.initialize();
 		
 			var elt = $("#languages");
 			elt.tagsinput({
-			  itemValue: "value",
-			  itemText: "text",
-			  typeaheadjs: {
-			    name: "task",
-			    displayKey: "text",
-			    source: task.ttAdapter()
-			  }
+				itemValue: "value",
+				itemText: "text",
+				typeaheadjs: {
+				  name: "task",
+				  displayKey: "text",
+				  source: task.ttAdapter()
+				}
 			});
 			
+			$("#writeBtn").on("click",function(){
+				var time = new Date($("#startInputDate").val()).getTime();
+				$("#phone").val($("#phone1").val()+"-"+$("#phone2").val()+"-"+$("#phone3").val());
+				$("#startDate").val($("#startInputDate").val()+" 00:00:00.000000000");
+				$("#endDate").val($("#endInputDate").val()+" 00:00:00.000000000");
+				if($("#location1").val()==null|$("#location2").val()==null|$("#capacity")==null|$("#startDate").val()==""|$("#endDate").val()==""|$("#languages").val()==""){
+					alert("필수 입력 항목을 확인해주세요");
+					return false;
+				}
+								
+				$("#title").val($.trim($("#title").val())); 				
+				if($("#title").val()==""){
+					alert("제목을 입력해주세요");
+					return false;
+				}
+				
+			});
+			
+
         </script>
 </body>
 </html>

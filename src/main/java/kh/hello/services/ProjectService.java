@@ -38,7 +38,7 @@ public class ProjectService {
 	
 	public String projectWrite() {
 		//String[] v = {"markup","css","sass","javascript","java","python","groovy","scala","php","bash","coffeescript","go","haskell","c","cpp","sql","ruby","aspnet","csharp","swift","objectivec"};
-		String[] v = {"HTML / Markup","CSS","Sass","JavaScript","Java","Python","Groovy","Scala","PHP","Bash","CoffeeScript","Go","Haskell","C","C++","SQL","Ruby","ASP.NET","C#","Swift","Objective-C"};
+		String[] v = {"HTML/Markup","CSS","Sass","JavaScript","Java","Python","Groovy","Scala","PHP","Bash","CoffeeScript","Go","Haskell","C","C++","SQL","Ruby","ASP.NET","C#","Swift","Objective-C"};
 		JsonArray array = new JsonArray();
 		for(int i=0;i<v.length;i++) {
 			JsonObject obj = new JsonObject();
@@ -63,6 +63,12 @@ public class ProjectService {
 	public int projectDeleteConfirm(int seq) {
 		dao.deleteProjectAllCo(seq);
 		return dao.deleteProject(seq);
+	}
+	
+	@Transactional("txManager")
+	public void projectClose(int seq) {
+		dao.closeProject(seq);
+		dao.closeProjectApply(seq);
 	}
 	
 	
