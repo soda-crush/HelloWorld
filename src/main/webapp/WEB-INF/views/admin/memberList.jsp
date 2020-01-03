@@ -24,6 +24,16 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath }/adRsc/css/responsive.css">
 <!-- modernizr css -->
 <script src="${pageContext.request.contextPath }/adRsc/vendor/modernizr-2.8.3.min.js"></script>
+<style>
+	#dropdownMenuButton{
+		border: 1px solid transparent !important;
+		background-color:transparent !important;
+		color: black;
+	}
+	.dropdown-toggle::after{
+		background-color:transparent;
+	}
+</style>
 </head>
 <body>
 	<!-- preloader area start -->
@@ -34,59 +44,12 @@
     <!-- page container area start -->
     <div class="page-container">
         <!-- sidebar menu area start -->
-        <div class="sidebar-menu">
-            <div class="sidebar-header">
-                <div class="logo">
-                    <a href="${pageContext.request.contextPath }/admin/main"><img src="${pageContext.request.contextPath }/adRsc/images/logo.png" alt="logo"></a>
-                </div>
-            </div>
-            <div class="main-menu">
-                <div class="menu-inner">
-                    <nav>
-                        <ul class="metismenu" id="menu">
-                            <li><a href="${pageContext.request.contextPath }/admin/main"><i class="ti-dashboard"></i><span>모니터링</span></a></li>
-                            <li class="active"><a href="${pageContext.request.contextPath }/admin/memberList"><i class="ti-user"></i><span>회원관리</span></a></li>
-                            
-                            <li>
-                                <a href="javascript:void(0)" aria-expanded="true"><i class="ti-menu"></i><span>게시판관리</span></a>
-                                <ul class="collapse">
-                                    <li><a href="#">대나무숲</a></li>
-                                    <li><a href="#">코드지식인</a></li>
-                                    <li><a href="#">업계현황</a></li>
-                                    <li><a href="#">프로젝트 모집</a></li>
-                                </ul>
-                            </li>
-                            
-                            <li><a href="${pageContext.request.contextPath }/admin/inquiryList"><i class="ti-help"></i><span>일대일문의</span></a></li>
-                            <li><a href="${pageContext.request.contextPath }/admin/modifyForm"><i class="ti-face-smile"></i><span>정보변경</span></a></li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-        </div>
+        <jsp:include page="/WEB-INF/views/standard/adminSidebar.jsp"/>
         <!-- sidebar menu area end -->
         <!-- main content area start -->
         <div class="main-content">
             <!-- header area start -->
-            <div class="header-area">
-                <div class="row align-items-center">
-                    <!-- nav and search button -->
-                    <div class="col-md-6 col-sm-8 clearfix">
-                        <div class="nav-btn pull-left">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </div>
-                    </div>
-                    <!-- profile info & task notification -->
-                    <div class="col-md-6 col-sm-4 clearfix">
-                        <ul class="notification-area pull-right">
-                            <li id="full-view"><i class="ti-fullscreen"></i></li>
-                            <li id="full-view-exit"><i class="ti-zoom-out"></i></li>                                                
-                        </ul>
-                    </div>
-                </div>
-            </div>
+            <jsp:include page="/WEB-INF/views/standard/adminHeader.jsp"/>
             <!-- header area end -->
             <!-- page title area start -->
             <div class="page-title-area">
@@ -125,42 +88,56 @@
                                         <table class="table table-hover text-center">
                                             <thead class="text-uppercase">
                                                 <tr>
-                                                	<th scope="col">아이디</th>
-                                                    <th scope="col">이름</th>
-                                                    <th scope="col">닉네임</th>
+                                                	<th scope="col"><input type="checkbox" id="checkAll" onclick="checkAll()"></th>
+                                                	<th scope="col">닉네임(아이디)</th>
                                                     <th scope="col">레벨</th>
-                                                    <th scope="col">신고횟수</th>  
-                                                    <th scope="col">포인트</th>
-                                                    <th scope="col">차단버튼</th>                                                    
+                                                    <th scope="col">가입일</th>  
+                                                    <th scope="col">최종방문일</th>  
+                                                    <th scope="col">성별</th>  
+                                                    <th scope="col">활동점수</th>  
+                                                    <th scope="col">신고횟수</th>                                             
                                                 </tr>
                                             </thead>
                                             <tbody>
                                             	<c:forEach items="${list }" var="dto">
                                             		<tr>
-                                                    <th scope="row">${dto.id }</th>
-                                                    <td>${dto.name}</td>
-                                                    <td>${dto.nickName }</td>
+                                            		<td class="align-self-center"><input type="checkbox"></td>
+	                                                    <td scope="row">
+	                                                    <div class="dropdown col-lg-6 col-md-4 col-sm-6">
+	   														<button class="btn btn-flat btn-primary dropdown-toggle pt-0 pb-1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	        													${dto.nickName }(${dto.id })
+	    													</button>
+	    												<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+													        <a class="dropdown-item" href="#">회원정보</a>
+													        <a class="dropdown-item" href="#">강제탈퇴</a>
+													        <a class="dropdown-item" href="#">활동정지</a>
+													    </div>
+														</div>
+                                                    </td>
                                                     <td>${dto.memLevel}</td>
-                                                    <td>${dto.reportCount}</td>
+                                                    <td>dto.joinDate</td>
+                                                    <td>dto.lastLogin</td>
+                                                    <td>${dto.gender}</td>
                                                     <td>${dto.point}</td>
-                                                    <td><a href="#">차단</a></td>
+                                                    <td>${dto.reportCount}</td>
                                                		</tr>
-                                            	</c:forEach>
-                                                
-                                                
+                                            	</c:forEach>                                                                                                
                                             </tbody>
                                         </table>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        
+                                </div>    
+                            </div> 
+                            <div class="card-body pt-0">
+                            	<p class="ml-5 mt-0">선택 멤버를 <button>강제탈퇴</button></p>
+                            </div>                        
+                        </div> 
+                                              
                          <div class="card">
                             <div class="card-body">
                                 <nav aria-label="Page navigation example">
                                     <ul class="pagination justify-content-center">
-										<c:forEach items="${pageNavi}" var="navi">
-											 <li class="page-item aaa">${navi}</li>
+										<c:forEach items="${pageNavi}" var="navi">									
+											<li class="page-item pageNavi">${navi}</li>
 										</c:forEach>
 
 
@@ -169,20 +146,16 @@
                             </div>
                         </div>
                         
-                    </div>
+				</div>
                     <!-- Hoverable Rows Table end -->
                 
             </div>
         </div>
         <!-- main content area end -->
-        <!-- footer area start-->
-        <footer>
-            <div class="footer-area">
-                <p>© Copyright 2018. All right reserved. Template by <a href="https://colorlib.com/wp/">Colorlib</a>.</p>
-            </div>
-        </footer>
-        <!-- footer area end-->
-    </div>
+		<!-- footer area start-->
+		<jsp:include page="/WEB-INF/views/standard/adminFooter.jsp" />
+		<!-- footer area end-->
+	</div>
     <!-- page container area end -->
 
     <!-- jquery latest version -->
@@ -213,10 +186,18 @@
     <script src="${pageContext.request.contextPath }/adRsc/js/plugins.js"></script>
     <script src="${pageContext.request.contextPath }/adRsc/js/scripts.js"></script>
 	 <script>
-	$(function(){
-		var element = $(".pageNavi");
-		element[${page-1}].classList.add('active');
-	});
-</script>
+	 window.onload = function(){
+		 var element = document.getElementsByClassName("pageNavi");
+		 element[${page - 1}].className += " active";
+	 }
+	 
+	 function checkAll(){
+		 if($("#checkAll").is(':checked')){
+			 $("input[type=checkbox]").prop("checked", true);
+		 }else{
+			 $("input[type=checkbox]").prop("checked", false);
+		 }
+	 }
+	</script>
 </body>
 </html>
