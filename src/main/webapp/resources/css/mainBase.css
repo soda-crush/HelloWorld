@@ -45,7 +45,8 @@
             }
             #realFooter p,#realFooter a{
                 color: darkgray;
-                font-size: 11px;
+                font-size: 11px;*
+                
                 line-height: 0.31em;
             }
             #loginCon *{
