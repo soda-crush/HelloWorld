@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Industry">
+	<select id="selectAll" resultType="kh.hello.dto.IndustryStatusDTO">
+		select seq,field,duty,writer,title,content,writeDate,viewCount,(select count(*) from industryComments where indSeq=industryStatus.seq) as commentCount from industryStatus order by seq desc
+	</select>
+	
+	<select id="getIndustryStatusDetailView" resultType="kh.hello.dto.IndustryStatusDTO">
+		select * from industryStatus where seq=#{value}
+	</select>
+	
+	<select id="latestSeq" resultType="integer">
+		select max(seq) from industryStatus where writer=#{value}
+	</select>
+	
+	<insert id="insertIndustryStatus" parameterType="kh.hello.dto.IndustryStatusDTO">
+		insert into industryStatus values(industryStatusSeq.nextval,#{title},#{field},#{duty},#{writer},#{title},#{content},sysdate,0)
+	</insert>
+	
+	<update id="updateIndustryStatus" parameterType="kh.hello.dto.IndustryStatusDTO">
+		update industryStatus set title=#{title}, field=#{field}, duty=#{duty}, title=#{title}, content=#{content}  where seq=#{seq}
+	</update>
+	
+	<update id="updateIndustryStatusViewCount">
+		update industryStatus set viewCount=viewCount+1 where seq=#{value}
+	</update>
+	
+	<delete id="deleteIndustryStatus">
+		delete from industryStatus where seq=#{value}
+	</delete>
+</mapper>

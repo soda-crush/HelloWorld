@@ -3,8 +3,10 @@ package kh.hello.dto;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 
-public class BambooDTO {
+public class IndustryStatusDTO {
 	private int seq;
+	private String field;
+	private String duty;
 	private String writer;
 	private String title;
 	private String content;
@@ -12,11 +14,38 @@ public class BambooDTO {
 	private int viewCount;
 	private int commentCount;
 	
+	public IndustryStatusDTO() {
+		super();
+	}
+	public IndustryStatusDTO(int seq, String field, String duty, String writer, String title, String content,
+			Timestamp writeDate, int viewCount) {
+		super();
+		this.seq = seq;
+		this.field = field;
+		this.duty = duty;
+		this.writer = writer;
+		this.title = title;
+		this.content = content;
+		this.writeDate = writeDate;
+		this.viewCount = viewCount;
+	}
 	public int getSeq() {
 		return seq;
 	}
 	public void setSeq(int seq) {
 		this.seq = seq;
+	}
+	public String getField() {
+		return field;
+	}
+	public void setField(String field) {
+		this.field = field;
+	}
+	public String getDuty() {
+		return duty;
+	}
+	public void setDuty(String duty) {
+		this.duty = duty;
 	}
 	public String getWriter() {
 		return writer;
@@ -48,18 +77,7 @@ public class BambooDTO {
 	public void setViewCount(int viewCount) {
 		this.viewCount = viewCount;
 	}
-	public BambooDTO(int seq, String writer, String title, String content, Timestamp writeDate, int viewCount) {
-		super();
-		this.seq = seq;
-		this.writer = writer;
-		this.title = title;
-		this.content = content;
-		this.writeDate = writeDate;
-		this.viewCount = viewCount;
-	}
-	public BambooDTO() {
-		super();
-	}
+	
 	
 	public int getCommentCount() {
 		return commentCount;
@@ -73,11 +91,4 @@ public class BambooDTO {
 		String result = sdf.format(this.writeDate);
 		return result;
 	}
-	@Override
-	public String toString() {
-		return "BambooDTO [seq=" + seq + ", writer=" + writer + ", title=" + title + ", content=" + content
-				+ ", writeDate=" + writeDate + ", viewCount=" + viewCount + ", commentCount=" + commentCount + "]";
-	}
-	
-	
 }

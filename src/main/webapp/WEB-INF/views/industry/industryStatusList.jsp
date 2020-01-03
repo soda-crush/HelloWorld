@@ -40,7 +40,7 @@
             <!--      몸통 시작!!!   -->
             <div class=container id="projectPage" style="background-color:white">
 				<div id="pageTitle">
-					<h1>대나무숲</h1>
+					<h1>업계현황</h1>
 				</div>				
 				<table class="table table-hover">
 				  <thead class="thead-light">
@@ -54,22 +54,22 @@
 				  </thead>
 				  <tbody>
 				  	<c:choose>
-				  		<c:when test="${bambooList.size()==0 }">
+				  		<c:when test="${industryStatusList.size()==0 }">
 				  		<tr><td colspan="8">작성된 글이 없습니다.</td></tr>
 				  		</c:when>
 				  		<c:otherwise>
-				  			<c:forEach items="${bambooList }" var="b">
+				  			<c:forEach items="${industryStatusList }" var="i">
 				  				<tr>
-				  					<th scope="row">${b.seq }</th>
-				  					<td><a href="/bamboo/bambooDetailView.do?seq=${b.seq }">${b.title } 
-				  						<c:if test="${b.commentCount>0 }">
-				  							<span class="pComment font-weight-bold">${b.commentCount }</span>
+				  					<th scope="row">${i.seq }</th>
+				  					<td><a href="/industry/industryStatusDetailView.do?seq=${i.seq }">${i.title } 
+				  						<c:if test="${i.commentCount>0 }">
+				  							<span class="pComment font-weight-bold">${i.commentCount }</span>
 				  						</c:if>
 				  						</a>
 				  					</td>
 				  					<td>익명</td>
-				  					<td>${b.formedWriteDate }</td>
-				  					<td>${b.viewCount }</td>
+				  					<td>${i.formedWriteDate }</td>
+				  					<td>${i.viewCount }</td>
 				  				</tr>
 				  			</c:forEach>
 				  		</c:otherwise>
