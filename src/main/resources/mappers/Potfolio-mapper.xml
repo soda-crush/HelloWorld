@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Portfolio">
+	<insert id="insert" parameterType="kh.hello.dto.PortfolioDTO">
+		insert into board values(portfolioSeq.nextval,#{writer},#{portfolioTitle},#{startDate},#{endDate},#{purpose},#{environment},#{allFunction},#{dbUnitPlan},#{role},#{contribution},#{image1},#{function1},#{explanation1},#{image2},#{function2},#{explanation2},#{image3},#{function3},#{explanation3})
+	</insert>
+	
+	<select id="selectAll" resultType="kh.hello.dto.PortfolioDTO">
+		select * from portfolio
+	</select>
+	
+</mapper>

@@ -45,7 +45,7 @@
                     <nav>
                         <ul class="metismenu" id="menu">
                             <li><a href="${pageContext.request.contextPath }/admin/main"><i class="ti-dashboard"></i><span>모니터링</span></a></li>
-                            <li><a href="#"><i class="ti-user"></i><span>회원관리</span></a></li>
+                            <li><a href="${pageContext.request.contextPath }/admin/memberList"><i class="ti-user"></i><span>회원관리</span></a></li>
                             
                             <li>
                                 <a href="javascript:void(0)" aria-expanded="true"><i class="ti-menu"></i><span>게시판관리</span></a>
@@ -57,7 +57,7 @@
                                 </ul>
                             </li>
                             
-                            <li><a href="#"><i class="ti-help"></i><span>일대일문의</span></a></li>
+                            <li><a href="${pageContext.request.contextPath }/admin/inquiryList"><i class="ti-help"></i><span>일대일문의</span></a></li>
                             <li class="active"><a href="${pageContext.request.contextPath }/admin/modifyForm"><i class="ti-face-smile"></i><span>정보변경</span></a></li>
                         </ul>
                     </nav>

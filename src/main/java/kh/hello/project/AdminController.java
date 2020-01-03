@@ -16,6 +16,7 @@ import com.google.gson.JsonObject;
 import kh.hello.configuration.Configuration;
 import kh.hello.dto.InquiryDTO;
 import kh.hello.dto.InquiryReplyDTO;
+import kh.hello.dto.MemberDTO;
 import kh.hello.services.AdminService;
 
 @Controller
@@ -88,13 +89,22 @@ public class AdminController {
 		List<String> pageNavi = as.getInquiryPageNavi(currentPage);
 		m.addAttribute("pageNavi", pageNavi);
 		
+		m.addAttribute("page", currentPage);
+		
 		return "admin/inquiryList";
 	}
 	
 	@RequestMapping("/inquiryDetailView")
-	public String inquiryDetailView(int seq, Model m) {
+	public String inquiryDetailView(int seq, int page, Model m) {
+		//글 받아오기
 		InquiryDTO dto = as.inquiryDetailView(seq);
 		m.addAttribute("dto", dto);
+		
+		//댓글 받아오기
+		List<InquiryReplyDTO> reply = as.getInquiryReply(seq);
+		m.addAttribute("reply", reply);
+		
+		m.addAttribute("page", page);
 		return "admin/inquiryDetailView";
 	}
 	
@@ -110,6 +120,46 @@ public class AdminController {
 		String result = obj.toString();
 		System.out.println("출력값 테스트" + result);
 		return result;
+	}
+	
+	@RequestMapping("/deleteInquiryReply")
+	public String deleteInquiryReply(int seq, int boardSeq, int page) {
+		
+		System.out.println("seq : " + seq);
+		System.out.println("boardSeq : " + boardSeq);
+		System.out.println("page : " + page);
+		//댓글 삭제하고
+		int result = as.deleteInquiryReply(seq);
+		//boardSeq가지고 디테일뷰로 이동하기
+		return "redirect:inquiryDetailView?page="+page+"&seq="+boardSeq;
+	}
+	
+	@RequestMapping("/memberList")
+	public String memberList(String page, Model m) {
+		//회원 목록 받아오기(byPage)
+		int currentPage = 1;
+		if(page != null) currentPage = Integer.parseInt(page);
+		if(currentPage > 0 && currentPage <= Configuration.naviCountPerPage) {
+			m.addAttribute("currentPage", currentPage);
+		}else if(currentPage % Configuration.naviCountPerPage == 0) {
+			m.addAttribute("currentPage", Configuration.naviCountPerPage + 1);
+		}else {
+			m.addAttribute("currentPage", (currentPage % Configuration.naviCountPerPage + 1));
+		}
+		
+		int end = currentPage * Configuration.recordCountPerPage;
+		int start = end - (Configuration.recordCountPerPage - 1);
+		
+		List<MemberDTO> list = as.memberList(start, end);
+		m.addAttribute("list", list);
+				
+		//페이지네비
+		List<String> pageNavi = as.getMemberPageNavi(currentPage);
+		m.addAttribute("pageNavi", pageNavi);
+		
+		m.addAttribute("page", currentPage);
+
+		return "admin/memberList";
 	}
 
 }

@@ -45,7 +45,7 @@
                     <nav>
                         <ul class="metismenu" id="menu">
                             <li><a href="${pageContext.request.contextPath }/admin/main"><i class="ti-map-alt"></i><span>모니터링</span></a></li>
-                            <li><a href="#"><i class="ti-map-alt"></i><span>회원관리</span></a></li>
+                            <li><a href="${pageContext.request.contextPath }/admin/memberList"><i class="ti-map-alt"></i><span>회원관리</span></a></li>
                             
                             <li>
                                 <a href="javascript:void(0)" aria-expanded="true"><i class="ti-dashboard"></i><span>게시판관리</span></a>
@@ -57,7 +57,7 @@
                                 </ul>
                             </li>
                             
-                            <li class="active"><a href="#"><i class="ti-map-alt"></i><span>일대일문의</span></a></li>
+                            <li class="active"><a href="${pageContext.request.contextPath }/admin/inquiryList"><i class="ti-map-alt"></i><span>일대일문의</span></a></li>
                             <li><a href="${pageContext.request.contextPath }/admin/modifyForm"><i class="ti-map-alt"></i><span>정보변경</span></a></li>
                         </ul>
                     </nav>
@@ -137,7 +137,7 @@
                                             		<tr>
                                                     <th scope="row">
                                                     <c:choose>
-                                                    	<c:when test="dto.state == 'T'">
+                                                    	<c:when test="${dto.state eq 'T'}">
                                                     		답변완료
                                                     	</c:when>
                                                     	<c:otherwise>
@@ -146,7 +146,7 @@
                                                     </c:choose>
                                                     </th>
                                                     <td>${dto.seq}</td>
-                                                    <td><a href="inquiryDetailView?seq=${dto.seq}">${dto.title}</a></td>
+                                                    <td><a href="inquiryDetailView?page=${page}&seq=${dto.seq}">${dto.title}</a></td>
                                                     <td>${dto.writer}</td>
                                                     <td>${dto.formedDate}</td>
                                                		</tr>
@@ -164,8 +164,8 @@
                             <div class="card-body">
                                 <nav aria-label="Page navigation example">
                                     <ul class="pagination justify-content-center">
-										<c:forEach items="${pageNavi}" var="page">
-											 <li class="page-item"><li class="page-item">${page}</li></li>
+										<c:forEach items="${pageNavi}" var="navi">									
+											<li class="page-item pageNavi">${navi}</li>
 										</c:forEach>
 
 
@@ -218,5 +218,11 @@
     <!-- others plugins -->
     <script src="${pageContext.request.contextPath }/adRsc/js/plugins.js"></script>
     <script src="${pageContext.request.contextPath }/adRsc/js/scripts.js"></script>
+    <script>
+	$(function(){
+		var element = $(".pageNavi");
+		element[${page-1}].classList.add('active');
+	});
+</script>
 </body>
 </html>
