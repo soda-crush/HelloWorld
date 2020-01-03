@@ -129,7 +129,7 @@ public class MemberController {
 	
 	@RequestMapping("/tmp")
 	public String tmpForMail() {
-		return "mailTest";
+		return "member/mailTest";
 	}
 	
 	
