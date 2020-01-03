@@ -1,6 +1,7 @@
 package kh.hello.dto;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 public class CodeQuestionDTO {
 	private int seq;
@@ -77,5 +78,8 @@ public class CodeQuestionDTO {
 	public void setWriteDate(Timestamp writeDate) {
 		this.writeDate = writeDate;
 	}
-	
+	public String getFormedDate() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+		return sdf.format(writeDate);
+	}
 }

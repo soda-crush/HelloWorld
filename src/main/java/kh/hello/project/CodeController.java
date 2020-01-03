@@ -2,7 +2,6 @@ package kh.hello.project;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import kh.hello.dto.CodeQuestionDTO;
-import kh.hello.dto.ProjectCoDTO;
-import kh.hello.dto.ProjectDTO;
+import kh.hello.dto.CodeReplyDTO;
 import kh.hello.services.CodeService;
 
 @Controller
@@ -24,6 +22,7 @@ public class CodeController {
 	@Autowired
 	private HttpSession session; 
 	
+	//질문 CodeQuestion
 	@RequestMapping("/codeQList.do")
 	public String codeList(Model m) {
 		try {
@@ -45,25 +44,30 @@ public class CodeController {
 	public String codeWriteProc(CodeQuestionDTO dto) {
 		dto.setWriter((String)session.getAttribute("loginInfo"));
 		try {
-			sv.insertBoard(dto);
+			String path = session.getServletContext().getRealPath("files");
+			sv.insert(dto);
+			sv.imageUpload(dto, path);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return "redirect:codeQList.do";
 	}
 	
-	@RequestMapping("/codeQDetail.do")
+	@RequestMapping("/codeDetail.do")
 	public String codeDetail(int seq, Model m) {
-		CodeQuestionDTO dResult;
+		CodeQuestionDTO qResult;
+		List<CodeReplyDTO> rResult;
 		try {
-			dResult = sv.detailQuestion(seq);
-			m.addAttribute("dResult", dResult);
+			qResult = sv.detailQuestion(seq);
+			rResult = sv.detailReply(seq);
+			m.addAttribute("qResult", qResult);
+			m.addAttribute("rResult", rResult);
 			//List<ProjectCoDTO> coResult = service.commentList(seq);  댓글
 			//m.addAttribute("comments", coResult);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "/code/codeQDetail";
+		return "/code/codeDetail";
 	}
 	
 	@RequestMapping("/delete.do")
@@ -74,5 +78,51 @@ public class CodeController {
 			e.printStackTrace();
 		}
 		return "redirect:codeQList.do";
+	}
+	
+	//답글 CodeReply
+//	@RequestMapping("/codeQList.do") List도 transaction걸어야함.
+//	public String selectReplyAll(Model m) {
+//		try {
+//			session.setAttribute("loginInfo", "oh");
+//			List<CodeReplyDTO> list = sv.selectReplyAll();
+//			m.addAttribute("list",list);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		return "code/codeQList";
+//	}
+	
+	@RequestMapping("/codeRWrite.do")
+	public String codeRWrite(int seq,Model m) {
+		int parent_seq = seq;
+		m.addAttribute("parent_seq",parent_seq);
+		return "code/codeRWrite";
+	}
+	
+	@RequestMapping("/codeRWriteProc.do")
+	public String codeRWriteProc(CodeReplyDTO dto,CodeQuestionDTO Qdto,int parent_seq) {
+		int queSeq = parent_seq;
+		dto.setQueSeq(queSeq);
+		dto.setWriter((String)session.getAttribute("loginInfo"));
+		try {
+			//int queSeq = sv.selectParentSeq(parent_seq);
+			String path = session.getServletContext().getRealPath("files");
+			sv.insertR(dto);
+			sv.imageUploadR(dto, path);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "redirect:codeDetail.do";
+	}
+	
+	@RequestMapping("/deleteR.do")
+	public String deleteR(int seq) {
+		try {
+			sv.deleteR(seq);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "redirect:codeDetail.do";
 	}
 }
