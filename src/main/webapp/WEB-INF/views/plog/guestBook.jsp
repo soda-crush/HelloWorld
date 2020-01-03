@@ -25,10 +25,6 @@
                 background-color: lightgray;
                 font-size: 13px;
             }
-            .container{
-                margin:auto;
-                background-color: #efefef;
-            }
             .card{
                 width:200px;
                 height:300px;

@@ -18,8 +18,12 @@ public class PortfolioService {
 		pdao.insertWrite(pdto);
 	}
 	
-	public List<PortfolioDTO> selectList(){
-		return pdao.selectList();
+	public List<PortfolioDTO> selectList(String writer){
+		return pdao.selectList(writer);
+	}
+	
+	public PortfolioDTO selectBySeq(int  seq){
+		return pdao.selectBySeq(seq);
 	}
 
 }
