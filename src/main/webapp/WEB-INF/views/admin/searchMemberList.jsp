@@ -97,7 +97,7 @@
                     <div class="col-lg-12 mt-5 contentCard">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="header-title">회원목록</h4>
+                                <h4 class="header-title">검색결과</h4>
                                 <div class="single-table">
                                     <div class="table-responsive">
                                         <table class="table table-hover text-center">
@@ -260,14 +260,6 @@
 			}
 			
 		});
-	 
-	 function checkAll(){
-		 if($("#checkAll").is(':checked')){
-			 $("input[type=checkbox]").prop("checked", true);
-		 }else{
-			 $("input[type=checkbox]").prop("checked", false);
-		 }
-	 }
 	 
 	 $("#searchBtn").on("click", function(){	 
 		var regex = /^[\w,가-힣,ㄱ-ㅎ,ㅏ-ㅣ]+/g;

@@ -72,4 +72,10 @@
   <delete id="forcedOutDel">
   	delete from forcedOut where seq=#{seq}
   </delete>
+  <select id="getSearchMemberListByPage" resultType="kh.hello.dto.MemberDTO">
+  	select * from (select member.*, row_number() over(order by name) rown from member where ${col} like #{searchWord}) where rown between #{start} and #{end}
+  </select>
+  <select id="getSearchMemberResultTotal" resultType="integer">
+  	select count(*) from member where ${col} like #{searchWord}
+  </select>
 </mapper>

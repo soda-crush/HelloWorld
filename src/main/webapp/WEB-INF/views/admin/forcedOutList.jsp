@@ -161,10 +161,17 @@
     <script src="${pageContext.request.contextPath }/adRsc/js/plugins.js"></script>
     <script src="${pageContext.request.contextPath }/adRsc/js/scripts.js"></script>
    	<script>
-	 window.onload = function(){
-		 var element = document.getElementsByClassName("pageNavi");
-		 element[${page - 1}].className += " active";
-	 }	 
+	$(function(){
+		var element = $(".pageNavi");
+		var page = "${page}";
+		if(page > 0 && page <= 10){
+			element[page-1].classList.add('active');
+		}else if(page % 10 == 0){
+			element[10].classList.add('active');
+		}else{
+			element[page % 10].classList.add('active');
+		}	
+	});
 	</script>
 </body>
 </html>

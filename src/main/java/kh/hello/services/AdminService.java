@@ -229,6 +229,52 @@ public class AdminService {
 	public int forcedOutDel(int seq) {
 		return adao.forcedOutDel(seq);
 	}
+	
+	public List<MemberDTO> getSearchMemberListByPage(String col, String searchWord, int start, int end){
+		//검색해서 열개씩 잘라서 가져와야하는데..
+		return adao.getSearchMemberListByPage(col, searchWord, start, end);
+	}
+	
+	public List<String> getSearchMemberListPageNavi(int currentPage, String col, String searchWord){
+		int searchResultTotalCount = adao.getSearchMemberResultTotal(col, searchWord);
+		int pageTotalCount = 0;
+		
+		if(searchResultTotalCount % Configuration.recordCountPerPage > 0) {
+			pageTotalCount = searchResultTotalCount / Configuration.recordCountPerPage + 1;
+		}else {
+			pageTotalCount = searchResultTotalCount / Configuration.recordCountPerPage;
+		}
+		
+		int startNavi = (currentPage - 1) / Configuration.naviCountPerPage * Configuration.naviCountPerPage + 1;
+		int endNavi = startNavi + (Configuration.naviCountPerPage - 1);
+		
+		if(endNavi > pageTotalCount) {
+			endNavi = pageTotalCount;
+		}
+		boolean needPrev = true;
+		if(startNavi == 1) {
+			needPrev = false;
+		}
+		boolean needNext = true;
+		if(endNavi == pageTotalCount) {
+			needNext = false;
+		}
+		
+		List<String> pages = new ArrayList<>();
+
+		if(needPrev) pages.add("<a class=page-link href='searchMember?col="+col+"&searchWord="+searchWord+"&page=" + (startNavi - 1) + "'>< </a>");
+		for(int i = startNavi; i <= endNavi; i++) {
+			StringBuilder sb = new StringBuilder();
+			sb.append("<a class=page-link href='searchMember?col="+col+"&searchWord="+searchWord+"&page="+ i +"'>");
+			sb.append(i + " ");
+			sb.append("</a>");
+			
+			pages.add(sb.toString());
+		}
+		if(needNext) pages.add("<a class=page-link href='searchMember?col="+col+"&searchWord="+searchWord+"&page=" + (endNavi + 1) + "'>> </a>");
+		
+		return pages;
+	}
 }
 
 

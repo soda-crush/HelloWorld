@@ -183,7 +183,15 @@
     <script>
 	$(function(){
 		var element = $(".pageNavi");
-		element[${page-1}].classList.add('active');
+		var page = "${page}";
+		if(page > 0 && page <= 10){
+			element[page-1].classList.add('active');
+		}else if(page % 10 == 0){
+			element[10].classList.add('active');
+		}else{
+			element[page % 10].classList.add('active');
+		}
+		
 	});
 </script>
 </body>
