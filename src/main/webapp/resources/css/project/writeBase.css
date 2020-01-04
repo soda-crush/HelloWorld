@@ -1,0 +1,29 @@
+@charset "UTF-8";
+#pageTitle{margin-bottom:40px;}
+#pageTitle h1{display:inline;margin-right:10px;font-weight:bold;}
+#pageFooter{padding-top:10px;}
+#pBody{margin-top:20px;}
+#pInfo *,#pBody *{font-size:15px;}
+#pInfo .pItem{margin-top:4px;font-weight:bold;}
+#pInfo .star{margin-left:2px;color:red;}
+#pInfo .row{margin-top:10px;}
+#pInfo .pSelect{width:100px;display:inline-block;}	
+#pInfo .phone{display:inline;width:60px;}
+#pBody #pTitleInput,#pContentsInput{margin-top:10px;}
+.datePicker{display:inline;width:110px;text-align:center;}
+#phone1,#phone2,#phone3{text-align:center;}
+#email{width:250px;}
+.label-info {
+	background-color: #17a2b8;
+	display: inline-block;
+		padding: 0.2em 0.6em 0.3em; 
+	font-size: 13px;
+	font-weight: 600;
+	line-height: 1;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: baseline;
+		border-radius: 0.25em; 
+}
+.bootstrap-tagsinput .tag{color: white;}
+.bootstrap-tagsinput .tag [data-role="remove"]:after{color: red;font-weight: bold;padding: 0px;}

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -150,7 +151,7 @@ public class AdminController {
 		int end = currentPage * Configuration.recordCountPerPage;
 		int start = end - (Configuration.recordCountPerPage - 1);
 		
-		List<MemberDTO> list = as.memberList(start, end);
+		List<MemberDTO> list = as.memberListByPage(start, end);
 		m.addAttribute("list", list);
 				
 		//페이지네비
@@ -161,7 +162,45 @@ public class AdminController {
 
 		return "admin/memberList";
 	}
-
+	
+	@RequestMapping("/getMemberInfo")
+	public String getMemberInfo(String id, Model m) {
+		MemberDTO dto = as.getMemberInfo(id);
+		m.addAttribute("dto", dto);
+		
+		return "admin/memberInfoView";
+	}
+	
+	@RequestMapping("/memberModify")
+	public String memberModify(String id, String email, String phone, Model m) {		
+		int result = as.memberModify(id, email, phone);
+		if(result == 0) {
+			m.addAttribute("id", id);
+		}
+		m.addAttribute("result", result);
+		return "admin/memberInfoResult";
+	}
+	
+	@RequestMapping("/memberStop")
+	public String memberStop(String id, Model m) {
+		int result = as.memberStop(id);
+		m.addAttribute("result", result);
+		return "admin/memberStopResult";
+	}
+	
+	@RequestMapping("/memberStart")
+	public String memberStart(String id, Model m) {
+		int result = as.memberStart(id);
+		m.addAttribute("result", result);
+		return "admin/memberStartResult";
+	}
+	
+	@RequestMapping("/memberOut")
+	public String memberOut(String id, String reason, Model m) {
+		int result = as.memberOut(id, reason);
+		m.addAttribute("result", result);
+		return "admin/memberOutResult";
+	}
 }
 
 

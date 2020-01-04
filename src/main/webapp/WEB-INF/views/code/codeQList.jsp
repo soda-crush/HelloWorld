@@ -154,9 +154,10 @@ badge-success
 						<li class="page-item"><a class="page-link" href="#"
 							aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
 						</a></li>
-						<li class="page-item"><a class="page-link" href="#">1</a></li>
-						<li class="page-item active"><a class="page-link" href="#">2</a></li>
-						<li class="page-item"><a class="page-link" href="#">3</a></li>
+						<li id="page-navi" class="page-item" align="center">${pageNavi}</li>
+<!-- 						<li id="page-navi" class="page-item"><a class="page-link" href="#">1</a></li> -->
+<!-- 						<li class="page-item active"><a class="page-link" href="#">2</a></li> -->
+<!-- 						<li class="page-item"><a class="page-link" href="#">3</a></li> -->
 						<li class="page-item"><a class="page-link" href="#"
 							aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 						</a></li>
@@ -172,7 +173,7 @@ badge-success
 				</div>
 			</div>
 		</div>
-
+		
 		<jsp:include page="/WEB-INF/views/standard/footer.jsp" />
 </body>
 </html>

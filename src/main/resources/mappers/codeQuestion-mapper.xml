@@ -8,7 +8,7 @@
 		values(codeQuestionSeq.nextval,#{division},#{title},#{content},#{writer},#{point},0,sysdate)
 	</insert>
 	
-	<select id="selectQuestionAll" resultType="kh.hello.dto.CodeQuestionDTO">
+	<select id="selectQuestionAll" resultType="kh.hello.dto.CodeQuestionDTO" parameterType="Integer">
 		select * from codeQuestion order by seq desc
 	</select>
 	
@@ -16,7 +16,7 @@
 		select max(seq) from codeQuestion where writer = #{writer}
 	</select>
 	
-	<select id="detailQuestion" resultType="kh.hello.dto.CodeQuestionDTO" parameterType="Integer">
+	<select id="detailQuestion" resultType="kh.hello.dto.CodeQuestionDTO">
 		select * from codeQuestion where seq = #{seq} order by 1 desc
 	</select>
 	

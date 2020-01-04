@@ -63,27 +63,59 @@ public class AdminDAO {
 		return jdbc.update("Admin.updateInquiryState", seq);
 	}
 	
-	public int getLatestReplySeq() {
+	public int getLatestReplySeq() {//일대일문의 가장 마지막 댓글  seq 받아오기
 		return jdbc.selectOne("Admin.getLatestReplySeq");
 	}
 	
-	public InquiryReplyDTO getLatestReply(int seq) {
+	public InquiryReplyDTO getLatestReply(int seq) {//일대일문의 가장 마지막 댓글 받아오기
 		return jdbc.selectOne("Admin.getLatestReply", seq);
 	}
 	
-	public int deleteInquiryReply(int seq) {
+	public int deleteInquiryReply(int seq) {//일대일문의 댓글 삭제
 		return jdbc.delete("Admin.deleteInquiryReply", seq);
 	}
 	
-	public List<MemberDTO> memberList(int start, int end){
+	public List<MemberDTO> memberListByPage(int start, int end){//회원목록 페이지별로 받아오기
 		Map<String, Integer> param = new HashMap<>();
 		param.put("start", start);
 		param.put("end", end);
-		return jdbc.selectList("Admin.memberList", param);
+		return jdbc.selectList("Admin.memberListByPage", param);
 	}
 	
-	public int getMemberTotal(){
+	public int getMemberTotal(){//총 회원수
 		return jdbc.selectOne("Admin.getMemberTotal");
+	}
+	
+	public MemberDTO getMemberInfo(String id) {//회원 정보 받기
+		return jdbc.selectOne("Admin.getMemberInfo", id);
+	}
+	
+	public int memberModify(String id, String email, String phone) {//회원 이메일,전화번호 수정
+		Map<String, String> param = new HashMap<>();
+		param.put("id", id);
+		param.put("email", email);
+		param.put("phone", phone);
+		return jdbc.update("Admin.memberModify", param);
+	}
+	
+	public int memberStop(String id) {//활동정지(레벨1로 만들기)
+		return jdbc.update("Admin.memberStop", id);
+	}
+	
+	public int memberStart(String id) {//활동정지 해제(레벨2로 만들기)
+		return jdbc.update("Admin.memberStart", id);
+	}
+	
+	public int memberOut(String id) {//회원 강제탈퇴
+		return jdbc.delete("Admin.memberOut", id);
+	}
+	
+	public int memberOutList(String id, String reason) {//강제탈퇴 리스트
+		Map<String, String> param = new HashMap<>();
+		param.put("id", id);
+		param.put("reason", reason);		
+		return jdbc.insert("Admin.memberOutList", param);
+				
 	}
 	
 }

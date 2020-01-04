@@ -9,8 +9,7 @@
 	</select>
 	
 	<select id="getProjectDetailView" resultType="kh.hello.dto.ProjectDTO">
-<!-- 		select * from project where seq=#{value} -->
-		select project.*,(select count(*) from projectApply where projectSeq=project.seq) as applyCount from project where seq=#{value}
+		select project.*,(select count(*) from projectApply where projectSeq=project.seq and approve in('W')) as applyCount from project where seq=#{value}
 	</select>
 	
 	<select id="latestSeq" resultType="integer">

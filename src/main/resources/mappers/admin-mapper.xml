@@ -36,10 +36,28 @@
   <delete id="deleteInquiryReply" parameterType="integer">
   	delete from inquiryReply where seq=#{seq}
   </delete>
-  <select id="memberList" resultType="kh.hello.dto.MemberDTO">
+  <select id="memberListByPage" resultType="kh.hello.dto.MemberDTO">
   	select * from (select member.*, row_number() over(order by name) rown from member) where rown between #{start} and #{end}
   </select>
   <select id="getMemberTotal" resultType="integer">
   	select count(*) from member
   </select>
+  <select id="getMemberInfo" resultType="kh.hello.dto.MemberDTO">
+  	select * from member where id=#{member}
+  </select>
+  <update id="memberModify" parameterType="java.util.Map">
+  	update member set email=#{email}, phone=#{phone} where id=#{id}
+  </update>
+  <update id="memberStop">
+  	update member set memLevel='1' where id=#{id}
+  </update>
+  <update id="memberStart">
+  	update member set memLevel='2' where id=#{id}
+  </update>
+  <delete id="memberOut">
+  	delete from member where id=#{id}
+  </delete>
+  <insert id="memberOutList" parameterType="java.util.Map">
+  	insert into forcedOut values(forcedOutSeq.nextval, #{id}, #{reason}, sysdate);
+  </insert>
 </mapper>

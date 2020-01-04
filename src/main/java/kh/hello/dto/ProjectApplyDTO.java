@@ -6,30 +6,29 @@ public class ProjectApplyDTO {
 	private int seq;
 	private int projectSeq;
 	private String writer;
-	private String laguages;
+	private String languages;
 	private String gender;
 	private String age;
 	private String workIn;
-	private String proceeding;
 	private String email;
 	private String etc;
 	private Timestamp writeDate;
 	private String approve;
+	private int proceeding;
 	
 	public ProjectApplyDTO() {
 		super();
 	}
-	public ProjectApplyDTO(int seq, int projectSeq, String writer, String laguages, String gender, String age,
-			String workIn, String proceeding, String email, String etc, Timestamp writeDate, String approve) {
+	public ProjectApplyDTO(int seq, int projectSeq, String writer, String languages, String gender, String age,
+			String workIn, String email, String etc, Timestamp writeDate, String approve) {
 		super();
 		this.seq = seq;
 		this.projectSeq = projectSeq;
 		this.writer = writer;
-		this.laguages = laguages;
+		this.languages = languages;
 		this.gender = gender;
 		this.age = age;
 		this.workIn = workIn;
-		this.proceeding = proceeding;
 		this.email = email;
 		this.etc = etc;
 		this.writeDate = writeDate;
@@ -53,11 +52,11 @@ public class ProjectApplyDTO {
 	public void setWriter(String writer) {
 		this.writer = writer;
 	}
-	public String getLaguages() {
-		return laguages;
+	public String getLanguages() {
+		return languages;
 	}
-	public void setLaguages(String laguages) {
-		this.laguages = laguages;
+	public void setLanguages(String languages) {
+		this.languages = languages;
 	}
 	public String getGender() {
 		return gender;
@@ -76,12 +75,6 @@ public class ProjectApplyDTO {
 	}
 	public void setWorkIn(String workIn) {
 		this.workIn = workIn;
-	}
-	public String getProceeding() {
-		return proceeding;
-	}
-	public void setProceeding(String proceeding) {
-		this.proceeding = proceeding;
 	}
 	public String getEmail() {
 		return email;
@@ -106,5 +99,11 @@ public class ProjectApplyDTO {
 	}
 	public void setApprove(String approve) {
 		this.approve = approve;
+	}
+	public int getProceeding() {
+		return proceeding;
+	}
+	public void setProceeding(int proceeding) {
+		this.proceeding = proceeding;
 	}
 }

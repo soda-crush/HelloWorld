@@ -3,5 +3,16 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="CodeC">
-
+	<insert id="insertComment" parameterType="kh.hello.dto.CodeCommentsDTO">
+		insert into codeComments values(codeCommentsSeq.nextval,#{repSeq},#{content},#{writer},sysdate)
+	</insert>
+	<select id="commentsList" resultType="kh.hello.dto.CodeCommentsDTO">
+		select * from codeComments where repSeq=#{repSeq}
+	</select>
+	<update id="updateComment" parameterType="kh.hello.dto.CodeCommentsDTO">
+		update codeComments set content=#{content} where seq=#{seq}
+	</update>
+	<delete id="deleteComment">
+		delete from codeComments where seq=#{seq}
+	</delete>
 </mapper>
