@@ -2,15 +2,20 @@ package kh.hello.project;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import kh.hello.configuration.Configuration;
+import kh.hello.dto.CodeCommentsDTO;
 import kh.hello.dto.CodeQuestionDTO;
 import kh.hello.dto.CodeReplyDTO;
+import kh.hello.dto.ProjectCoDTO;
 import kh.hello.services.CodeService;
 
 @Controller
@@ -24,11 +29,20 @@ public class CodeController {
 	
 	//질문 CodeQuestion
 	@RequestMapping("/codeQList.do")
-	public String codeList(Model m) {
+	public String codeList(Model m,HttpServletRequest request) {
 		try {
+			String page = request.getParameter("cpage");
 			session.setAttribute("loginInfo", "oh");
-			List<CodeQuestionDTO> list = sv.selectQuestionAll();
+			int cpage = 1;
+			if(page != null) {
+				cpage = Integer.parseInt(page);
+			}
+			int start = cpage * Configuration.recordCountPerPage - (Configuration.recordCountPerPage-1);
+			int end = cpage * Configuration.recordCountPerPage;
+			List<CodeQuestionDTO> list = sv.selectQuestionAll(start,end);
+			String pageNavi = sv.pageNavi(page,start,end);
 			m.addAttribute("list",list);
+			m.addAttribute("pageNavi",pageNavi);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -55,15 +69,14 @@ public class CodeController {
 	
 	@RequestMapping("/codeDetail.do")
 	public String codeDetail(int seq, Model m) {
-		CodeQuestionDTO qResult;
-		List<CodeReplyDTO> rResult;
 		try {
-			qResult = sv.detailQuestion(seq);
-			rResult = sv.detailReply(seq);
+			CodeQuestionDTO qResult = sv.detailQuestion(seq);
+			List<CodeReplyDTO> rResult = sv.detailReply(seq);
+			List<CodeCommentsDTO> cResult = sv.commentList(seq);
+			
 			m.addAttribute("qResult", qResult);
 			m.addAttribute("rResult", rResult);
-			//List<ProjectCoDTO> coResult = service.commentList(seq);  댓글
-			//m.addAttribute("comments", coResult);
+			m.addAttribute("cResult", cResult);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -81,6 +94,7 @@ public class CodeController {
 	}
 	
 	//답글 CodeReply
+	
 //	@RequestMapping("/codeQList.do") List도 transaction걸어야함.
 //	public String selectReplyAll(Model m) {
 //		try {
@@ -124,5 +138,23 @@ public class CodeController {
 			e.printStackTrace();
 		}
 		return "redirect:codeDetail.do";
+	}
+	
+	//댓글 CodeReply
+	@ResponseBody
+	@RequestMapping(value="/comment/writeProc",produces="text/html;charset=utf8")
+	public String insertComment(CodeCommentsDTO dto) {
+		return sv.insertComment(dto);		
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/comment/modifyProc",produces="text/html;charset=utf8")
+	public String updateComment(CodeCommentsDTO dto) {
+		return sv.updateComment(dto);
+	}
+	
+	@RequestMapping("/comment/deleteProc")
+	public void deleteComment(int seq) {
+		sv.deleteComment(seq);
 	}
 }

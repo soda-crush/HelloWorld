@@ -166,10 +166,15 @@ span:nth-child(4) {
 					<c:forEach items="${rResult}" var="r">
 						<div style="font-size: 40px; font-weight: 100;">${r.writer}님의 답변입니다.</div>
 						<br>
-						<div>${r.content}</div>
+						<div id="content">${r.content}</div>
 						<br>
+							<c:if test="${cResult.size()>0 }">
+								<c:forEach items="${cResult }" var="c">
+									${c.content}<br>
+								</c:forEach>
+							</c:if>
 						<div>${r.writeDate}
-							<button class="btn btn-dark">댓글</button>
+							<button class="btn btn-dark" id="comments">댓글</button>
 						</div>
 						<c:choose>
 							<c:when test="${qResult.writer==sessionScope.loginInfo}">
@@ -207,6 +212,10 @@ span:nth-child(4) {
 		})
 		$("#modifyR").on("click",function(){
 			
+		})
+		
+		$("#comments").on("click",function(){
+			$("#content").append("<input type='text'><button>전송</button>");
 		})
 		
 		function deleteR(seq){
