@@ -9,56 +9,70 @@ public class InquiryDTO {
 	private String content;
 	private String writer;
 	private Timestamp writeDate;
-	private String state;
+	private int count;
+	
 	public InquiryDTO() {
 		super();
 	}
-	public InquiryDTO(int seq, String title, String content, String writer, Timestamp writeDate, String state) {
+	
+	public InquiryDTO(int seq, String title, String content, String writer, Timestamp writeDate, int count) {
 		super();
 		this.seq = seq;
 		this.title = title;
 		this.content = content;
 		this.writer = writer;
 		this.writeDate = writeDate;
-		this.state = state;
+		this.count = count;
 	}
+
 	public int getSeq() {
 		return seq;
 	}
+
 	public void setSeq(int seq) {
 		this.seq = seq;
 	}
+
 	public String getTitle() {
 		return title;
 	}
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
 	public String getContent() {
 		return content;
 	}
+
 	public void setContent(String content) {
 		this.content = content;
 	}
+
 	public String getWriter() {
 		return writer;
 	}
+
 	public void setWriter(String writer) {
 		this.writer = writer;
 	}
+
 	public Timestamp getWriteDate() {
 		return writeDate;
 	}
+
 	public void setWriteDate(Timestamp writeDate) {
 		this.writeDate = writeDate;
 	}
-	public String getState() {
-		return state;
+
+	public int getCount() {
+		return count;
 	}
-	public void setState(String state) {
-		this.state = state;
+
+	public void setCount(int count) {
+		this.count = count;
 	}
-	
+
 	public String getFormedDate() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
 		return sdf.format(writeDate);

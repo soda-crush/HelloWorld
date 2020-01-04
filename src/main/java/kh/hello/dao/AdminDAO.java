@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kh.hello.dto.ForcedOutMemberDTO;
 import kh.hello.dto.InquiryDTO;
 import kh.hello.dto.InquiryReplyDTO;
 import kh.hello.dto.MemberDTO;
@@ -58,11 +59,9 @@ public class AdminDAO {
 		param.put("boardSeq", boardSeq);
 		return jdbc.insert("Admin.writeInquiry", param);
 	}
-	
-	public int updateInquiryState(int seq) {//일대일 문의 말머리 변경
-		return jdbc.update("Admin.updateInquiryState", seq);
+	public int plusInquiryCount(int seq) {//일대일 문의 댓글수 +1
+		return jdbc.update("Admin.plusInquiryCount", seq);
 	}
-	
 	public int getLatestReplySeq() {//일대일문의 가장 마지막 댓글  seq 받아오기
 		return jdbc.selectOne("Admin.getLatestReplySeq");
 	}
@@ -73,6 +72,10 @@ public class AdminDAO {
 	
 	public int deleteInquiryReply(int seq) {//일대일문의 댓글 삭제
 		return jdbc.delete("Admin.deleteInquiryReply", seq);
+	}
+	
+	public int minusInquiryCount(int seq) {
+		return jdbc.update("Admin.minusInquiryCount", seq);
 	}
 	
 	public List<MemberDTO> memberListByPage(int start, int end){//회원목록 페이지별로 받아오기
@@ -114,8 +117,22 @@ public class AdminDAO {
 		Map<String, String> param = new HashMap<>();
 		param.put("id", id);
 		param.put("reason", reason);		
-		return jdbc.insert("Admin.memberOutList", param);
-				
+		return jdbc.insert("Admin.memberOutList", param);				
+	}
+	
+	public List<ForcedOutMemberDTO> forcedOutListByPage(int start, int end){
+		Map<String, Integer> param = new HashMap<>();
+		param.put("start", start);
+		param.put("end", end);
+		return jdbc.selectList("Admin.forcedOutListByPage", param);
+	}
+	
+	public int getForcedOutTotal() {
+		return jdbc.selectOne("Admin.getForcedOutTotal");
+	}
+	
+	public int forcedOutDel(int seq) {
+		return jdbc.delete("Admin.forcedOutDel", seq);
 	}
 	
 }

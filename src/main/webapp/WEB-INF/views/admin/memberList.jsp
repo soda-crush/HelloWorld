@@ -103,7 +103,7 @@
                                         <table class="table table-hover text-center">
                                             <thead class="text-uppercase">
                                                 <tr>
-                                                	<th scope="col"><input type="checkbox" id="checkAll" onclick="checkAll()"></th>
+<!--                                                 	<th scope="col"><input type="checkbox" id="checkAll" onclick="checkAll()"></th> -->
                                                 	<th scope="col">
                                                 	<div class="row d-sm-none"><div class="col-12">닉네임</div><div class="col-12">(아이디)</div></div>
                                                 	<div class="row d-none d-sm-block">닉네임(아이디)</div>
@@ -116,7 +116,7 @@
                                             <tbody>
                                             	<c:forEach items="${list }" var="dto">
                                             		<tr>
-                                            		<td class="align-self-center"><input type="checkbox"></td>
+<!--                                             		<td class="align-self-center"><input type="checkbox"></td> -->
 	                                                <td scope="row">
 														<div class="btn-group dropright">
 														  <button class="btn btn-secondary btn-sm dropdown-toggle nameBtn p-0" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -140,7 +140,8 @@
                                                     <td>${dto.memLevel}</td>
                                                     <td>${dto.reportCount}</td>
                                                		</tr>
-                                               		<form action="${pageContext.request.contextPath}/admin/memberOut?id=${dto.id}" id="frm${dto.id}">
+                                               		<form action="${pageContext.request.contextPath}/admin/memberOut" method="post" id="frm${dto.id}">
+                                               			<input type="hidden" name="id" value="${dto.id}">
                                                			<input type="hidden" name="reason" id="reason${dto.id}">
                                                		</form>
                                                		<script>
@@ -174,30 +175,35 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                </div>    
-                            </div> 
-                            <div class="card-body pt-0">
-                            	<p class="ml-5 mt-0">선택 멤버를 <button>강제탈퇴</button></p>
-                            </div>                        
-                        </div> 
-                                              
-                         <div class="card">
-                            <div class="card-body">
+                                </div>  
+                                <hr>
                                 <nav aria-label="Page navigation example">
                                     <ul class="pagination justify-content-center">
 										<c:forEach items="${pageNavi}" var="navi">									
 											<li class="page-item pageNavi">${navi}</li>
 										</c:forEach>
-
-
                                     </ul>
                                 </nav>
-                            </div>
-                        </div>
-                        
+                            </div>                                                   
+                        </div>                        
 				</div>
                     <!-- Hoverable Rows Table end -->
-                
+               	<div class="col-lg-12 mt-1 contentCard">
+					<div class="card">
+						<div class="form-group row mt-1 mb-5">
+								<div class="col-3 p-0">
+                                <select class="form-control">
+                                    <option>Select</option>
+                                    <option>Large select</option>
+                                    <option>Small select</option>
+                                </select>
+                                </div>
+                                <div class="col-6 p-0">
+								<input type="text" class="form-control">
+								</div>
+						</div>
+					</div>
+				</div>
             </div>
         </div>
         <!-- main content area end -->

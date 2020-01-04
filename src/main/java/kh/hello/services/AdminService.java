@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kh.hello.configuration.Configuration;
 import kh.hello.dao.AdminDAO;
+import kh.hello.dto.ForcedOutMemberDTO;
 import kh.hello.dto.InquiryDTO;
 import kh.hello.dto.InquiryReplyDTO;
 import kh.hello.dto.MemberDTO;
@@ -91,8 +92,8 @@ public class AdminService {
 	public InquiryReplyDTO writeInquiry(String reply, int boardSeq) {
 		//1. 댓글 입력
 		int result = adao.writeInquiry(reply, boardSeq);
-		//2. 말머리 변경
-		result = adao.updateInquiryState(boardSeq);
+		//2. 일대일 문의글 댓글 수 +1
+		result = adao.plusInquiryCount(boardSeq);
 		if(result > 0) {
 			//3. 댓글 내용 받아오기 (1. 마지막 시퀀스 2. 댓글 내용)
 			int seq = adao.getLatestReplySeq();
@@ -103,8 +104,15 @@ public class AdminService {
 		
 	}
 	
-	public int deleteInquiryReply(int seq) {
-		return adao.deleteInquiryReply(seq);
+	@Transactional("txManager")
+	public int deleteInquiryReply(int seq, int boardSeq) {
+		//댓글 삭제
+		int result = adao.deleteInquiryReply(seq);
+		//일대일문의글 댓글수 -1
+		if(result > 0) {
+			result = adao.minusInquiryCount(boardSeq);
+		}
+		return result;
 	}
 	
 	public List<MemberDTO> memberListByPage(int start, int end){
@@ -172,6 +180,54 @@ public class AdminService {
 		adao.memberOut(id);
 		//테이블에 입력하기		
 		return adao.memberOutList(id, reason);		 
+	}
+	
+	public List<ForcedOutMemberDTO> forcedOutListByPage(int start, int end) {
+		return adao.forcedOutListByPage(start, end);
+	}
+	
+	public List<String> getForcedOutPageNavi(int currentPage){
+		int outTotalCount = adao.getForcedOutTotal();
+		int pageTotalCount = 0;
+		
+		if(outTotalCount % Configuration.recordCountPerPage > 0) {
+			pageTotalCount = outTotalCount / Configuration.recordCountPerPage + 1;
+		}else {
+			pageTotalCount = outTotalCount / Configuration.recordCountPerPage;
+		}
+		
+		int startNavi = (currentPage - 1) / Configuration.naviCountPerPage * Configuration.naviCountPerPage + 1;
+		int endNavi = startNavi + (Configuration.naviCountPerPage - 1);
+		
+		if(endNavi > pageTotalCount) {
+			endNavi = pageTotalCount;
+		}
+		boolean needPrev = true;
+		if(startNavi == 1) {
+			needPrev = false;
+		}
+		boolean needNext = true;
+		if(endNavi == pageTotalCount) {
+			needNext = false;
+		}
+		
+		List<String> pages = new ArrayList<>();
+		if(needPrev) pages.add("<a class=page-link href='forcedOutList?page=" + (startNavi - 1) + "'>< </a>");
+		for(int i = startNavi; i <= endNavi; i++) {
+			StringBuilder sb = new StringBuilder();
+			sb.append("<a class=page-link href='forcedOutList?page="+ i +"'>");
+			sb.append(i + " ");
+			sb.append("</a>");
+			
+			pages.add(sb.toString());
+		}
+		if(needNext) pages.add("<a class=page-link href='forcedOutList?page=" + (endNavi + 1) + "'>> </a>");
+		
+		return pages;
+	}
+	
+	public int forcedOutDel(int seq) {
+		return adao.forcedOutDel(seq);
 	}
 }
 

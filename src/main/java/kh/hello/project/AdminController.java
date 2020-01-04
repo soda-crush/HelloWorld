@@ -8,13 +8,13 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.JsonObject;
 
 import kh.hello.configuration.Configuration;
+import kh.hello.dto.ForcedOutMemberDTO;
 import kh.hello.dto.InquiryDTO;
 import kh.hello.dto.InquiryReplyDTO;
 import kh.hello.dto.MemberDTO;
@@ -112,6 +112,7 @@ public class AdminController {
 	@RequestMapping(value="/writeInquiry", produces="text/html; charset=utf8")
 	@ResponseBody
 	public String writeInquiry(String reply, int boardSeq) {
+		System.out.println("컨트롤러");
 		InquiryReplyDTO dto = as.writeInquiry(reply, boardSeq);
 		JsonObject obj = new JsonObject();
 		obj.addProperty("seq", dto.getSeq());
@@ -119,7 +120,6 @@ public class AdminController {
 		obj.addProperty("reply", dto.getReply());
 		obj.addProperty("writeDate", dto.getFormedDate());
 		String result = obj.toString();
-		System.out.println("출력값 테스트" + result);
 		return result;
 	}
 	
@@ -130,7 +130,7 @@ public class AdminController {
 		System.out.println("boardSeq : " + boardSeq);
 		System.out.println("page : " + page);
 		//댓글 삭제하고
-		int result = as.deleteInquiryReply(seq);
+		as.deleteInquiryReply(seq, boardSeq);
 		//boardSeq가지고 디테일뷰로 이동하기
 		return "redirect:inquiryDetailView?page="+page+"&seq="+boardSeq;
 	}
@@ -200,6 +200,41 @@ public class AdminController {
 		int result = as.memberOut(id, reason);
 		m.addAttribute("result", result);
 		return "admin/memberOutResult";
+	}
+	
+	@RequestMapping("/forcedOutList")
+	public String forcedOutList(String page, Model m) {
+		//목록 받아오기(page)
+		int currentPage = 1;
+		if(page != null) currentPage = Integer.parseInt(page);
+		if(currentPage > 0 && currentPage <= Configuration.naviCountPerPage) {
+			m.addAttribute("currentPage", currentPage);
+		}else if(currentPage % Configuration.naviCountPerPage == 0) {
+			m.addAttribute("currentPage", Configuration.naviCountPerPage + 1);
+		}else {
+			m.addAttribute("currentPage", (currentPage % Configuration.naviCountPerPage + 1));
+		}
+		
+		int end = currentPage * Configuration.recordCountPerPage;
+		int start = end - (Configuration.recordCountPerPage - 1);
+		
+		List<ForcedOutMemberDTO> list = as.forcedOutListByPage(start, end);
+		m.addAttribute("list", list);
+		
+		//페이지네비 받아오기
+		List<String> pageNavi = as.getForcedOutPageNavi(currentPage);
+		m.addAttribute("pageNavi", pageNavi);
+		
+		m.addAttribute("page", currentPage);
+		
+		return "admin/forcedOutList";
+	}
+	
+	@RequestMapping("/forcedOutDel")
+	public String forcedOutDel(int seq, Model m) {
+		int result = as.forcedOutDel(seq);
+		m.addAttribute("result", result);
+		return "admin/forcedOutDelResult";
 	}
 }
 

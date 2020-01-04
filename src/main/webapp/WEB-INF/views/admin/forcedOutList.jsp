@@ -26,37 +26,33 @@
 <script src="${pageContext.request.contextPath }/adRsc/vendor/modernizr-2.8.3.min.js"></script>
 <!-- jquery latest version -->
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-<style>
-	.contentCard{
-		max-width: 1000px;
-	}
-</style>
 </head>
 <body>
 	<!-- preloader area start -->
-    <div id="preloader">
-        <div class="loader"></div>
-    </div>
-    <!-- preloader area end -->
-    <!-- page container area start -->
+	<div id="preloader">
+		<div class="loader"></div>
+	</div>
+	<!-- preloader area end -->
+	<!-- page container area start -->
     <div class="page-container">
-		<!-- sidebar menu area start -->
-		<jsp:include page="/WEB-INF/views/standard/adminSidebar.jsp" />
-		<!-- sidebar menu area end -->
-		<!-- main content area start -->
+        <!-- sidebar menu area start -->
+        <jsp:include page="/WEB-INF/views/standard/adminSidebar.jsp"/>
+        <!-- sidebar menu area end -->
+        
+        <!-- main content area start -->
         <div class="main-content">
-			<!-- header area start -->
-			<jsp:include page="/WEB-INF/views/standard/adminHeader.jsp" />
-			<!-- header area end -->
-			<!-- page title area start -->
+            <!-- header area start -->
+            <jsp:include page="/WEB-INF/views/standard/adminHeader.jsp"/>
+            <!-- header area end -->
+            <!-- page title area start -->
             <div class="page-title-area">
                 <div class="row align-items-center">
                     <div class="col-sm-6">
                         <div class="breadcrumbs-area clearfix">
-                            <h4 class="page-title pull-left">일대일문의</h4>
+                            <h4 class="page-title pull-left">모니터링</h4>
                             <ul class="breadcrumbs pull-left">
                                 <li><a href="${pageContext.request.contextPath }/admin/main">Home</a></li>
-                                <li><span>일대일문의</span></li>
+                                <li><span>강퇴회원ID관리</span></li>
                             </ul>
                         </div>
                     </div>
@@ -75,52 +71,39 @@
             <div class="main-content-inner">
                 <!-- MAIN CONTENT GOES HERE -->
                 
-                 <!-- Hoverable Rows Table start -->
-                    <div class="col-lg-12 mt-5 contentCard">
+                <!-- Hoverable Rows Table start -->
+                    <div class="col-lg-6 mt-5">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="header-title">글 목록</h4>
+                                <h4 class="header-title">강퇴 ID 목록</h4>
                                 <div class="single-table">
                                     <div class="table-responsive">
                                         <table class="table table-hover text-center">
                                             <thead class="text-uppercase">
                                                 <tr>
-                                                    <th scope="col">번호</th>                                                
-                                                	<th scope="col">상태</th>
-                                                    <th scope="col">제목</th>
-                                                    <th scope="col">글쓴이</th>
-                                                    <th scope="col">작성일</th>                                                    
+                                                    <th scope="col">ID</th>
+                                                    <th scope="col">강퇴사유</th>
+                                                    <th scope="col">강퇴날짜</th>
+                                                    <th scope="col"></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                            	<c:forEach items="${list }" var="dto">
-                                            		<tr id="toDetail${dto.seq}">
-                                                    <td>${dto.seq}</td>                                            		
-                                                    <td scope="row">
-                                                    <c:choose>
-                                                    	<c:when test="${dto.count > 0}">
-                                                    		<p class="text-success"><strong>답변완료</strong></p>
-                                                    	</c:when>
-                                                    	<c:otherwise>
-                                                    		<p class="text-danger"><strong>답변대기중</strong></p>
-                                                    	</c:otherwise>
-                                                    </c:choose>
-                                                    </td>
-                                                    <td><strong>${dto.title}</strong></td>
-                                                    <td>${dto.writer}</td>
+                                            	<c:forEach items="${list}" var="dto">
+                                                <tr>
+                                                    <th scope="row">${dto.id}</th>
+                                                    <td>${dto.reason}</td>
                                                     <td>${dto.formedDate}</td>
-                                               		</tr>
-                                               		<script>
-                                               			$("#toDetail${dto.seq}").hover(function(){
-                                               				$("#toDetail${dto.seq}").css("cursor","pointer");
-                                               			})
-                                               			$("#toDetail${dto.seq}").on("click",function(){
-                                               				location.href = "inquiryDetailView?page=${page}&seq=${dto.seq}";
-                                               			})
-                                               		</script>
-                                            	</c:forEach>
-                                                
-                                                
+                                                    <td><i class="ti-trash" id="forcedOutDel${dto.seq}"></i></td>
+                                                </tr>
+                                                <script>
+                                                	$("#forcedOutDel${dto.seq}").on("click", function(){
+                                                		var result = confirm("이 기록을 지울까요?");
+                                                		if(result){
+                                                			location.href="${pageContext.request.contextPath}/admin/forcedOutDel?seq=${dto.seq}";
+                                                		}
+                                                	})
+                                                </script> 
+                                                </c:forEach>                                              
                                             </tbody>
                                         </table>
                                     </div>
@@ -128,15 +111,13 @@
                             </div>
                         </div>
                         
-                         <div class="card">
+                        <div class="card">
                             <div class="card-body">
                                 <nav aria-label="Page navigation example">
                                     <ul class="pagination justify-content-center">
 										<c:forEach items="${pageNavi}" var="navi">									
 											<li class="page-item pageNavi">${navi}</li>
 										</c:forEach>
-
-
                                     </ul>
                                 </nav>
                             </div>
@@ -144,8 +125,7 @@
                         
                     </div>
                     <!-- Hoverable Rows Table end -->
-                    
-               
+                
             </div>
         </div>
         <!-- main content area end -->
@@ -154,7 +134,7 @@
         <!-- footer area end-->
     </div>
     <!-- page container area end -->
-   
+
     <!-- bootstrap 4 js -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
@@ -180,11 +160,11 @@
     <!-- others plugins -->
     <script src="${pageContext.request.contextPath }/adRsc/js/plugins.js"></script>
     <script src="${pageContext.request.contextPath }/adRsc/js/scripts.js"></script>
-    <script>
-	$(function(){
-		var element = $(".pageNavi");
-		element[${page-1}].classList.add('active');
-	});
-</script>
+   	<script>
+	 window.onload = function(){
+		 var element = document.getElementsByClassName("pageNavi");
+		 element[${page - 1}].className += " active";
+	 }	 
+	</script>
 </body>
 </html>
