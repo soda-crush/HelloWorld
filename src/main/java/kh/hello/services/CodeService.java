@@ -11,9 +11,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Base64Utils;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+
 import kh.hello.dao.CodeDAO;
+import kh.hello.dto.CodeCommentsDTO;
 import kh.hello.dto.CodeQuestionDTO;
 import kh.hello.dto.CodeReplyDTO;
+import kh.hello.dto.ProjectCoDTO;
 
 @Service
 public class CodeService {
@@ -21,8 +26,8 @@ public class CodeService {
 	private CodeDAO dao;
 	
 	//질문 CodeQuestion
-	public List<CodeQuestionDTO> selectQuestionAll() throws Exception{
-			return dao.selectQuestionAll();
+	public List<CodeQuestionDTO> selectQuestionAll(int start,int end) throws Exception{
+			return dao.selectQuestionAll(start,end);
 	}
 	
 	public void insert(CodeQuestionDTO dto) throws Exception{
@@ -110,6 +115,48 @@ public class CodeService {
 		return dao.detailReply(seq);
 	}
 	
+	public String pageNavi(String page,int start,int end) throws Exception{
+		int cpage = 1;
+		if(page != null) {
+			cpage = Integer.parseInt(page);
+		}
+		String pageNavi = dao.getPageNavi(cpage,start,end);		
+		return pageNavi;
+	}
 	
-	//CodeCommentsDAO
+	
+	// 댓글 CodeComments
+	@Transactional("txManager")
+	public String insertComment(CodeCommentsDTO dto) {
+		dao.insertComment(dto);
+		Gson gson = new Gson();
+		JsonArray array = new JsonArray();
+		List<CodeCommentsDTO> result = dao.commentsList(dto.getRepSeq());
+		for(CodeCommentsDTO c : result) {
+			array.add(gson.toJson(c));
+		}
+		return array.toString();
+	}
+	
+	public List<CodeCommentsDTO> commentList(int repSeq) {
+		return dao.commentsList(repSeq);
+	}
+		
+	@Transactional("txManager")
+	public String updateComment(CodeCommentsDTO dto) {
+		dao.updateComment(dto);
+		Gson gson = new Gson();
+		JsonArray array = new JsonArray();
+		List<CodeCommentsDTO> result = dao.commentsList(dto.getRepSeq());
+		for(CodeCommentsDTO c : result) {
+			array.add(gson.toJson(c));
+		}
+		return array.toString();
+	}
+	
+	public int deleteComment(int seq) {
+		return dao.deleteComment(seq);
+	}
+	
+
 }
