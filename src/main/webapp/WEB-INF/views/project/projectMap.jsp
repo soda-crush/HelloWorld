@@ -33,9 +33,9 @@
 				<div id="pageTitle" class="row">
 					<div class="col-12 col-lg-4"><h1>프로젝트 모집</h1></div>
 					<div class="col-12 col-lg-8 pt-2">
-						<a class="btn btn-primary" href="/project/list" role="button">게시판</a>
+						<a class="btn btn-secondary" href="/project/list" role="button">게시판</a>
 						<a class="btn btn-secondary" href="/project/chart" role="button">그래픽</a>
-						<a class="btn btn-secondary" href="/project/map" role="button">지도</a>
+						<a class="btn btn-primary" href="/project/map" role="button">지도</a>
 					</div>
 				</div>		
 				

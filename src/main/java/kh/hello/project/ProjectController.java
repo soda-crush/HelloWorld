@@ -30,7 +30,10 @@ public class ProjectController {
 	
 	@RequestMapping("/list")
 	public String projectMainList(Model m) {
-		session.setAttribute("loginInfo", "sooin");
+//		session.setAttribute("loginInfo", "sooin");
+//		session.setAttribute("loginInfo", "sophie");
+		session.setAttribute("loginInfo", "eunwoo");
+//		session.setAttribute("loginInfo", "jennie");
 		List<ProjectDTO> result = svc.projectList();
 		m.addAttribute("projectList", result);
 		return "/project/projectList";
