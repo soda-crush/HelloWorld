@@ -54,6 +54,8 @@ public class ProjectController {
 	public String projectDetailView(int seq, Model m) {
 		ProjectDTO result = svc.projectDetailView(seq);
 		List<ProjectCoDTO> coResult = svc.commentList(seq); 
+		String data = svc.projectWrite();
+		m.addAttribute("data", data);
 		m.addAttribute("pPage", result);
 		m.addAttribute("comments", coResult);
 		return "/project/detailView";
@@ -61,8 +63,8 @@ public class ProjectController {
 	
 	@RequestMapping("/write")
 	public String projectWrite(Model m) {
-		String result = svc.projectWrite();
-		m.addAttribute("data", result);
+		String data = svc.projectWrite();
+		m.addAttribute("data", data);
 		return "/project/write";
 	}
 	
@@ -130,6 +132,7 @@ public class ProjectController {
 	@ResponseBody
 	@RequestMapping(value="/apply/writeProc",produces="text/html;charset=utf8")
 	public String projectApplyWriteProc(ProjectApplyDTO dto) {
+		dto.setWriter((String)session.getAttribute("loginInfo"));
 		return svc.projectApplyWriteProc(dto);
 	}
 	

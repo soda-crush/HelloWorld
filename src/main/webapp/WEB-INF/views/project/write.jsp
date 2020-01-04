@@ -10,7 +10,8 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="/css/projectBase.css" type="text/css"/>
+<link rel="stylesheet" href="/css/project/projectBase.css" type="text/css"/>
+<link rel="stylesheet" href="/css/project/writeBase.css" type="text/css"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
 <script src="/js/bootstrap-datepicker.js"></script>
@@ -20,39 +21,8 @@
 <script src="https://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
 <link rel="stylesheet" href="https://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.css">
 <link rel="stylesheet" href="https://bootstrap-tagsinput.github.io/bootstrap-tagsinput/examples/assets/app.css">
-
-
-
-<style>
-	#pageTitle{margin-bottom:40px;}
-	#pageTitle h1{display:inline;margin-right:10px;font-weight:bold;}
-	#pageFooter{padding-top:10px;}
-	#pBody{margin-top:20px;}
-	#pInfo *,#pBody *{font-size:15px;}
-	#pInfo .pItem{margin-top:8px;font-weight:bold;}
-	#pInfo .star{margin-left:2px;color:red;}
-	#pInfo .row{margin-top:10px;}
-	#pInfo .pSelect{width:100px;display:inline-block;}	
-	#pInfo .phone{display:inline;width:60px;}
-	#pBody #pTitleInput,#pContentsInput{margin-top:10px;}
-	.datePicker{display:inline;width:110px;text-align:center;}
-	#phone1,#phone2,#phone3{text-align:center;}
-	.label-info {
-		background-color: #17a2b8;
-		display: inline-block;
- 		padding: 0.2em 0.6em 0.3em; 
-		font-size: 13px;
-		font-weight: 600;
-		line-height: 1;
-		text-align: center;
-		white-space: nowrap;
-		vertical-align: baseline;
- 		border-radius: 0.25em; 
-	}
-	.bootstrap-tagsinput .tag{color: white;}
-    .bootstrap-tagsinput .tag [data-role="remove"]:after{color: red;font-weight: bold;padding: 0px;}
-</style>
 </head>
+
 <body>
 	<jsp:include page="/WEB-INF/views/standard/header.jsp"/>
 	
@@ -95,9 +65,9 @@
 								<div class="col-md-2">
 									<select class="form-control form-control-sm pSelect" name="capacity" id="capacity">
 										<option selected disabled>인원</option>
-									    <option value="1">One</option>
-									    <option value="2">Two</option>
-									    <option value="3">Three</option>
+									    <option value="1">1</option>
+									    <option value="2">2</option>
+									    <option value="3">3</option>
 									</select>
 								</div>
 							</div>
