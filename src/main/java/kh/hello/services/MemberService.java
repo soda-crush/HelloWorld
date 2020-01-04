@@ -31,5 +31,4 @@ public class MemberService {
 			return mdao.phoneDupleCheck(phone);
 		}
 	
-	
 }

@@ -1,0 +1,790 @@
+[33mcommit a4457eca9944e110e0169995937abf03060b0576[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Merge: d890e9b 2aa0f5e
+Author: ParkSoHyun <4862awd@naver.com>
+Date:   Fri Jan 3 17:40:22 2020 +0900
+
+    Merge branch 'master' of https://github.com/soda-crush/HelloWorld
+
+[33mcommit d890e9b5ff17307a4240c8c2b52a0408a08c37be[m
+Author: ParkSoHyun <4862awd@naver.com>
+Date:   Fri Jan 3 17:40:11 2020 +0900
+
+    for Pull
+
+[33mcommit 2aa0f5e5bbd8ab9a08b7e89b7fd87e5f48335cf2[m[33m ([m[1;31morigin/master[m[33m)[m
+Merge: 755ca99 59cfa4b
+Author: soda-crush <58195336+soda-crush@users.noreply.github.com>
+Date:   Fri Jan 3 17:37:25 2020 +0900
+
+    Merge pull request #25 from fgdkasdf12/master
+    
+    [moon][01-03 PM 05:33]bamboo comment add(bamboo)
+
+[33mcommit 59cfa4b6f13975da754cf20796b37dc6582282ae[m
+Author: fgdkasdf12 <fgdkasdf12@git.com>
+Date:   Fri Jan 3 17:34:00 2020 +0900
+
+    [moon][01-03 PM 05:33]bamboo comment add(bamboo)
+
+[33mcommit 755ca99ce48c5a16eae565a20d4473b5e06967de[m
+Author: ssh <song@song.hee>
+Date:   Fri Jan 3 17:25:32 2020 +0900
+
+    [ssh][01-03 PM 5:25] admin member manage modified
+
+[33mcommit 39784268878f739ba5d096ea6aef7d91c4a46b37[m
+Merge: 490a85c e8cf146
+Author: ParkSoHyun <4862awd@naver.com>
+Date:   Fri Jan 3 17:18:56 2020 +0900
+
+    Merge branch 'master' of https://github.com/soda-crush/HelloWorld
+
+[33mcommit 490a85c6c33c3a410e9c71d80d19b3a96c3ab92a[m
+Author: ParkSoHyun <4862awd@naver.com>
+Date:   Fri Jan 3 17:18:45 2020 +0900
+
+    [sohyun][01-03 PM 04:36]tmp(member)
+
+[33mcommit e8cf146f65673aff7664cef52d1c8f28355a92da[m
+Merge: 66ef78a 5426053
+Author: soda-crush <58195336+soda-crush@users.noreply.github.com>
+Date:   Fri Jan 3 16:40:42 2020 +0900
+
+    Merge pull request #24 from Park-So-Hyun/master
+    
+    확인부탁드려용 내용 넵!
+
+[33mcommit 5426053802c716d5850d5da1640f1bec4a52dd83[m[33m ([m[1;31msohyun/master[m[33m)[m
+Merge: 279ee55 dc00eff
+Author: ParkSoHyun <4862awd@naver.com>
+Date:   Fri Jan 3 16:36:59 2020 +0900
+
+    [sohyun][01-03 PM 04:36]web.xml add(member)
+
+[33mcommit 66ef78a3c68fcd1fb93e373c4bc85014ee2bd3b8[m
+Merge: dc00eff d3934ec
+Author: soda-crush <58195336+soda-crush@users.noreply.github.com>
+Date:   Fri Jan 3 16:22:45 2020 +0900
+
+    Merge pull request #23 from devlith/master
+    
+    [gihwan][01-03 PM 04:20] portfolioUpdate(plog)
+
+[33mcommit d3934ec7b765d69c544c64f329ffc04506f20442[m
+Author: user <a@b.com>
+Date:   Fri Jan 3 16:21:03 2020 +0900
+
+    [gihwan][01-03 PM 04:20] portfolioUpdate(plog)
+
+[33mcommit 279ee5526e677bac29dd248d3923aa8471db8314[m
+Author: ParkSoHyun <4862awd@naver.com>
+Date:   Fri Jan 3 16:17:37 2020 +0900
+
+    [sohyun][01-03 PM 04:17]web.xml add(member)
+
+[33mcommit dc00eff9c68ff7e2714ead0c07fe28922fb27c74[m
+Author: ssh <song@song.hee>
+Date:   Fri Jan 3 15:04:41 2020 +0900
+
+    [ssh][01-03 PM 3:04] memberDTO modified & admin memberList add
+
+[33mcommit 811a0049cfa9181605d75fa7f703ebf4ee7522a5[m
+Merge: 2ef2618 fecb7d5
+Author: soda-crush <58195336+soda-crush@users.noreply.github.com>
+Date:   Thu Jan 2 21:51:04 2020 +0900
+
+    Merge pull request #22 from Park-So-Hyun/master
+    
+    [sohyun][20-01-02 pm 09:49]unfinished(member)
+
+[33mcommit fecb7d5c5bbf6dbf3542c56e562250d05bf4a3df[m
+Author: ParkSoHyun <4862awd@naver.com>
+Date:   Thu Jan 2 21:49:35 2020 +0900
+
+    [sohyun][20-01-02 pm 09:49]unfinished(member)
+
+[33mcommit 2ef261804d70bc299e97d19a80a20c6c87bc1860[m
+Merge: 5ee150b b73562c
+Author: soda-crush <58195336+soda-crush@users.noreply.github.com>
+Date:   Thu Jan 2 21:11:34 2020 +0900
+
+    Merge pull request #21 from devlith/master
+    
+    [gihwan][20-01-02 pm 09:09] plog,portfolio All add(plog)
+
+[33mcommit 5ee150b7bf2fc13df8fb09a442105106a3e985e4[m
+Author: ssh <song@song.hee>
+Date:   Thu Jan 2 21:09:57 2020 +0900
+
+    [ssh][01-02 PM 9:09] admin inquiry complete
+
+[33mcommit b73562cd75b93e9bfc4e6e2745177bebbd86d90a[m
+Author: user <a@b.com>
+Date:   Thu Jan 2 21:09:53 2020 +0900
+
+    [gihwan][20-01-02 pm 09:09] plog,portfolio All add(plog)
+
+[33mcommit a64e5ee52daa1f545b1d91aa09af71c5120ee4cf[m
+Merge: 5bbb069 665bd3f
+Author: soda-crush <58195336+soda-crush@users.noreply.github.com>
+Date:   Thu Jan 2 20:31:13 2020 +0900
+
+    Merge pull request #20 from Park-So-Hyun/master
+    
+    회원가입 하는중이고 mainBase.css추가
+
+[33mcommit 665bd3f0b7cbca316f8da835b792f3e08979c34f[m
+Author: ParkSoHyun <4862awd@naver.com>
+Date:   Thu Jan 2 20:29:02 2020 +0900
+
+    [sohyun][20-01-02 pm 08:28]unfinished,mainBase.css(member)
+
+[33mcommit b95affa5a2c4e179a2811120db11f652c734b602[m
+Merge: 4115f05 5bbb069
+Author: ParkSoHyun <4862awd@naver.com>
+Date:   Thu Jan 2 20:27:32 2020 +0900
+
+    Merge branch 'master' of https://github.com/soda-crush/HelloWorld
+
+[33mcommit 4115f052fd5a6c59199723e29fc68ca752c654b5[m
+Author: ParkSoHyun <4862awd@naver.com>
+Date:   Thu Jan 2 20:27:22 2020 +0900
+
+    [sohyun][20-01-02 pm 08:27]unfinished,mainBase.css(member)
+
+[33mcommit 5bbb06907bd357654ccf7ec4466b3d5303ed2a8a[m
+Merge: 111fad8 bc78924
+Author: soda-crush <58195336+soda-crush@users.noreply.github.com>
+Date:   Thu Jan 2 20:21:50 2020 +0900
+
+    Merge pull request #19 from soo-wan/master
+    
+    [soowan][01-02 PM 08:15] modify(code)
+
+[33mcommit bc7892448535cb17ffe8d6dbf99dabb47ce60f77[m
+Author: oh <oh@oh.com>
+Date:   Thu Jan 2 20:15:26 2020 +0900
+
+    [soowan][01-02 PM 08:15] modify(code)
+
+[33mcommit 111fad801386983a5b958cab5b59a181313209c2[m
+Author: ssh <song@song.hee>
+Date:   Thu Jan 2 19:35:36 2020 +0900
+
+    [01-02 PM 7:35] admin inquiry reply write
+
+[33mcommit 27abb4bfb143786ec6ca6c68417ad136cdd4f780[m
+Author: ssh <song@song.hee>
+Date:   Thu Jan 2 17:27:41 2020 +0900
+
+    [ssh][01-02 PM 5:27] admin account modify complete
+
+[33mcommit aea8f1ad5a524cdd28aa5dc2dee8e080faf5925b[m
+Merge: d9530a7 b3d0a6c
+Author: soda-crush <58195336+soda-crush@users.noreply.github.com>
+Date:   Thu Jan 2 15:23:11 2020 +0900
+
+    Merge pull request #18 from Park-So-Hyun/master
+    
+    로그인,로그아웃 , 에러페이지
+
+[33mcommit b3d0a6c27c265a2b60ef61eaece211fa8fdab633[m
+Author: soda-crush <58195336+soda-crush@users.noreply.github.com>
+Date:   Thu Jan 2 15:21:52 2020 +0900
+
+    Rename memberController.java to MemberController.java
+
+[33mcommit 32793e207ae7dfcd1116f74c4760fe7c01170083[m
+Author: ParkSoHyun <4862awd@naver.com>
+Date:   Thu Jan 2 15:19:43 2020 +0900
+
+    [sohyun][20-01-02 pm 03:19]login,logout,error.jpg(member)
+
+[33mcommit 072eeb020f003e77b69eac2ac4846b2fde7b45da[m
+Merge: beba755 d9530a7
+Author: ParkSoHyun <4862awd@naver.com>
+Date:   Thu Jan 2 11:57:17 2020 +0900
+
+    Merge branch 'master' of https://github.com/soda-crush/HelloWorld
+
+[33mcommit beba7556c33775b454f6a03bbe9c6731110ef467[m
+Author: ParkSoHyun <4862awd@naver.com>
+Date:   Thu Jan 2 11:57:06 2020 +0900
+
+    tmp
+
+[33mcommit d9530a7e68459c951369b8e9a995648ec21ceaac[m
+Merge: 91db8f2 340c12b
+Author: soda-crush <58195336+soda-crush@users.noreply.github.com>
+Date:   Thu Jan 2 11:53:27 2020 +0900
+
+    Merge pull request #17 from soo-wan/master
+    
+    [soowan][01-02 AM 11:47] added(code)
+
+[33mcommit 340c12be5a31f10636cbf7c121b40df56a6f5233[m
+Author: oh <oh@oh.com>
+Date:   Thu Jan 2 11:48:20 2020 +0900
+
+    [soowan][01-02 AM 11:47] added(code)
+
+[33mcommit c1c5c8b87aef4464e1972f63b4c4d5c0e1cf93dc[m
+Merge: 3888d51 91db8f2
+Author: ParkSoHyun <4862awd@naver.com>
+Date:   Thu Jan 2 11:07:57 2020 +0900
+
+    Merge branch 'master' of https://github.com/soda-crush/HelloWorld
+
+[33mcommit 91db8f2288fe9e68b93bdfdacbd09ca893ed63f8[m
+Merge: 6cc7a8d 7b98154
+Author: soda-crush <58195336+soda-crush@users.noreply.github.com>
+Date:   Thu Jan 2 11:07:42 2020 +0900
+
+    Merge pull request #16 from sooinchoi/master
+    
+    [sooin][01-02 AM 11:05] modified (project)
+
+[33mcommit 7b981547be12600b4ad1aac25680e0249a9e759f[m
+Author: sooin <sooinchoi89@gmail.com>
+Date:   Thu Jan 2 11:05:55 2020 +0900
+
+    [sooin][01-02 AM 11:05] modified (project)
+
+[33mcommit 3888d518a247b0b58d9b92d8686c00d8608a3431[m
+Merge: c790246 6cc7a8d
+Author: ParkSoHyun <4862awd@naver.com>
+Date:   Thu Jan 2 09:51:20 2020 +0900
+
+    Merge branch 'master' of https://github.com/soda-crush/HelloWorld
+
+[33mcommit 557bd8899ea9e0b295490d45802cc7fb1eaeced1[m
+Merge: 8d40da8 6cc7a8d
+Author: sooin <sooinchoi89@gmail.com>
+Date:   Thu Jan 2 09:51:15 2020 +0900
+
+    Merge branch 'master' of https://github.com/soda-crush/HelloWorld
+
+[33mcommit 6cc7a8d307b42131919791dcc76d1d3bfa9eb84b[m
+Merge: db8ea0e 7149ff7
+Author: ssh <song@song.hee>
+Date:   Thu Jan 2 09:12:42 2020 +0900
+
+    [01-02 AM 9:12] git conflict modified
+
+[33mcommit c790246132d0fe3b20466a986cad1a78ebce2c54[m
+Merge: e0ba11f 7149ff7
+Author: ParkSoHyun <4862awd@naver.com>
+Date:   Thu Jan 2 09:08:32 2020 +0900
+
+    Merge branch 'master' of https://github.com/soda-crush/HelloWorld
+
+[33mcommit 8d40da8024ac1a046f7766de35d6025e06df5435[m
+Merge: 7149ff7 d6474bd
+Author: sooin <sooinchoi89@gmail.com>
+Date:   Thu Jan 2 09:07:43 2020 +0900
+
+    Merge branch 'master' of https://github.com/sooinchoi/HelloWorld
+
+[33mcommit d6474bd6b8baa032a4c0514215c440360e44f363[m
+Author: sooin <sooinchoi89@gmail.com>
+Date:   Thu Jan 2 06:30:49 2020 +0900
+
+    [sooin][01-02 AM 06:30] modified (project)
+
+[33mcommit 7149ff77c6da1ab999bde189377523d8f794ae5e[m
+Author: ssh <ssh@ss.ss>
+Date:   Wed Jan 1 20:44:32 2020 +0900
+
+    [01-01 PM 8:44] admin class added
+
+[33mcommit 678b016c18af84e46eebe4ab6d5b62e0bd159a99[m
+Merge: 8021cf7 4961db6
+Author: soda-crush <58195336+soda-crush@users.noreply.github.com>
+Date:   Tue Dec 31 20:22:50 2019 +0900
+
+    Merge pull request #15 from sooinchoi/master
+    
+    [sooin][12-31 PM 19:59] added (project)
+
+[33mcommit 4961db68b8bb236c06d5816a5cb4cf9e31c9ed35[m
+Author: soda-crush <58195336+soda-crush@users.noreply.github.com>
+Date:   Tue Dec 31 20:22:26 2019 +0900
+
+    Update mainBase.jsp
+
+[33mcommit e2021a068e44b49bf3838115cdd079bf36ee9819[m
+Author: sooin <sooinchoi89@gmail.com>
+Date:   Tue Dec 31 19:59:51 2019 +0900
+
+    [sooin][12-31 PM 19:59] added (project)
+
+[33mcommit e0ba11fdef4957c8d31c38e1b844011dc337e5d2[m
+Author: ParkSoHyun <4862awd@naver.com>
+Date:   Tue Dec 31 17:43:39 2019 +0900
+
+    [sohyun][12-31 pm 05:40]todayFinal2(standard)
+
+[33mcommit db8ea0ef8ecfb73469843f9fb28727b3e276ecb7[m
+Author: ssh <song@song.hee>
+Date:   Tue Dec 31 17:43:02 2019 +0900
+
+    [ssh][12-31 PM 5:42] admin ..ing
+
+[33mcommit 8a693ea409900667449af7b8e6d3c725152b4024[m
+Merge: cc3bca3 732a579
+Author: sooin <sooinchoi89@gmail.com>
+Date:   Tue Dec 31 17:42:49 2019 +0900
+
+    [sooin][12-31 PM 17:42] added (project)
+
+[33mcommit 58d3789156e59f9eafee98f32cda5b3c077bbc99[m
+Merge: bc9d154 8021cf7
+Author: ParkSoHyun <4862awd@naver.com>
+Date:   Tue Dec 31 17:40:30 2019 +0900
+
+    Merge branch 'master' of https://github.com/soda-crush/HelloWorld
+
+[33mcommit bc9d154fc5ead083a096b39d4fc36baf3971e663[m
+Author: ParkSoHyun <4862awd@naver.com>
+Date:   Tue Dec 31 17:40:18 2019 +0900
+
+    [sohyun][12-31 pm 05:40]todayFinal(standard)
+
+[33mcommit 8021cf7e7d4d6435935fa05020289b7b0769b67a[m
+Author: soda-crush <58195336+soda-crush@users.noreply.github.com>
+Date:   Tue Dec 31 17:39:57 2019 +0900
+
+    Rename bambooDTO.java to BambooDTO.java
+
+[33mcommit 347dba85d76110872362ed1f24922a4eef1d230e[m
+Merge: 8ba8c55 732a579
+Author: ssh <song@song.hee>
+Date:   Tue Dec 31 17:34:00 2019 +0900
+
+    Merge branch 'master' of https://github.com/soda-crush/HelloWorld
+
+[33mcommit 8ba8c550ea905abd668bd86ffdc879668ac966f1[m
+Author: ssh <song@song.hee>
+Date:   Tue Dec 31 17:33:52 2019 +0900
+
+    [ssh][12-31 PM 5:33] admin ..ing2
+
+[33mcommit 732a57990a6a52e798ad129ce83d429841926c15[m
+Merge: 6aaabe4 6b100fd
+Author: soda-crush <58195336+soda-crush@users.noreply.github.com>
+Date:   Tue Dec 31 17:32:45 2019 +0900
+
+    Merge pull request #14 from fgdkasdf12/master
+    
+    bamboo 고쳣어요~
+
+[33mcommit 6b100fd10160777afab28085e7aa7b7d2211cc21[m
+Author: fgdkasdf12 <fgdkasdf12@git.com>
+Date:   Tue Dec 31 17:29:13 2019 +0900
+
+    [moon][12-31 PM 5:29] bamboo list add
+
+[33mcommit 1395d90dccd8b0651f2885f172d92988c274c21e[m
+Author: fgdkasdf12 <fgdkasdf12@git.com>
+Date:   Tue Dec 31 17:16:58 2019 +0900
+
+    [moon][12-31 PM 5:16] bamboo list add
+
+[33mcommit d3d931e51c26174b6d9dc067ebd3b29effec006f[m
+Merge: c7e6471 6aaabe4
+Author: fgdkasdf12 <fgdkasdf12@git.com>
+Date:   Tue Dec 31 17:03:50 2019 +0900
+
+    Merge branch 'master' of https://github.com/soda-crush/HelloWorld
+
+[33mcommit 2990682ac9e23cc7817b8354816f4af0c8b30bef[m
+Merge: 59bfedc 6aaabe4
+Author: ssh <song@song.hee>
+Date:   Tue Dec 31 17:01:50 2019 +0900
+
+    Merge branch 'master' of https://github.com/soda-crush/HelloWorld
+
+[33mcommit 6aaabe419ad276185748b9b931a023aab619ffbc[m
+Merge: 20bae3b bd1977d
+Author: soda-crush <58195336+soda-crush@users.noreply.github.com>
+Date:   Tue Dec 31 17:01:35 2019 +0900
+
+    Merge pull request #12 from devlith/master
+    
+    [gihwan][12-31 pm 04:58] add (progDTO)
+
+[33mcommit bd1977d45d8a0e1d10210261be8096ea35655433[m
+Author: user <a@b.com>
+Date:   Tue Dec 31 16:59:46 2019 +0900
+
+    [gihwan][12-31 pm 04:58] add (progDTO)
+
+[33mcommit cc3bca36c75e5eba0f7c13822a88a637ad109f70[m
+Author: sooin <sooinchoi89@gmail.com>
+Date:   Tue Dec 31 16:34:25 2019 +0900
+
+    [sooin][12-31 AM 16:34] added (project)
+
+[33mcommit c7e64718ebdb328db78fb8f363bcef150e86d898[m
+Author: fgdkasdf12 <fgdkasdf12@git.com>
+Date:   Tue Dec 31 16:13:16 2019 +0900
+
+    [moon][12-31 PM 4:13] bamboo clean
+
+[33mcommit eebc55f08aae6dcab1e2d91320c48659e64a9754[m
+Merge: 42c546f 20bae3b
+Author: fgdkasdf12 <fgdkasdf12@git.com>
+Date:   Tue Dec 31 16:06:24 2019 +0900
+
+    Merge branch 'master' of https://github.com/soda-crush/HelloWorld
+
+[33mcommit 42c546f6f2cc009ac430221f5766d521e5cffe7d[m
+Author: fgdkasdf12 <fgdkasdf12@git.com>
+Date:   Tue Dec 31 16:06:08 2019 +0900
+
+    [moon][12-31 PM 4:06] bamboo clean
+
+[33mcommit 59bfedce7dfd7f4d0427f490c73ea51031aa2d31[m
+Merge: 821d6aa 20bae3b
+Author: ssh <song@song.hee>
+Date:   Tue Dec 31 16:05:46 2019 +0900
+
+    Merge branch 'master' of https://github.com/soda-crush/HelloWorld
+
+[33mcommit 20bae3b5d04b930a10972a297ff50544bfc0e9be[m
+Merge: 726505b 39e9fd6
+Author: soda-crush <58195336+soda-crush@users.noreply.github.com>
+Date:   Tue Dec 31 16:05:11 2019 +0900
+
+    Merge pull request #11 from Park-So-Hyun/master
+    
+    제트 인덱스 수정,,
+
+[33mcommit 39e9fd6dfd7428d9e526b97c632e3497ea0955b8[m
+Merge: bf8ad77 726505b
+Author: ParkSoHyun <4862awd@naver.com>
+Date:   Tue Dec 31 16:03:48 2019 +0900
+
+    Merge branch 'master' of https://github.com/soda-crush/HelloWorld
+
+[33mcommit bf8ad77e5b44b469aded5fa690d68e706e687b34[m
+Author: ParkSoHyun <4862awd@naver.com>
+Date:   Tue Dec 31 16:03:31 2019 +0900
+
+    [sohyun][12-31 pm 04:03]tmp(standard)
+
+[33mcommit 9d00acc634bfe46c7a6edd924f8d0b666b4cc97e[m
+Merge: bd25658 726505b
+Author: fgdkasdf12 <fgdkasdf12@git.com>
+Date:   Tue Dec 31 15:14:43 2019 +0900
+
+    Merge branch 'master' of https://github.com/soda-crush/HelloWorld
+
+[33mcommit bd25658119baf962367e52b59319e1fe2febd9f3[m
+Merge: f37c899 8761333
+Author: fgdkasdf12 <fgdkasdf12@git.com>
+Date:   Tue Dec 31 15:14:24 2019 +0900
+
+    [moon][12-31 PM 3:14] bamboo clean
+
+[33mcommit 821d6aa97d53096e0dc28030dd5eee5bbfa2a15a[m
+Merge: df691a4 726505b
+Author: ssh <song@song.hee>
+Date:   Tue Dec 31 15:12:24 2019 +0900
+
+    Merge branch 'master' of https://github.com/soda-crush/HelloWorld
+
+[33mcommit 726505bf745fa4a1138afdd03dbfecbe5a65ea56[m
+Merge: 8761333 52b646e
+Author: soda-crush <58195336+soda-crush@users.noreply.github.com>
+Date:   Tue Dec 31 15:11:53 2019 +0900
+
+    Merge pull request #10 from Park-So-Hyun/master
+    
+    mainBase에 몸통넣을부분 설명추가
+
+[33mcommit 52b646e43c228b596e77264798ae2806c8f6451a[m
+Author: ParkSoHyun <4862awd@naver.com>
+Date:   Tue Dec 31 15:10:16 2019 +0900
+
+    [sohyun][12-31 pm 03:10]mainBase mdf(standard)
+
+[33mcommit 2937e6d1a4fbaa7f931bb03c67f330a1c29c9439[m
+Merge: 7b0f099 8761333
+Author: ParkSoHyun <4862awd@naver.com>
+Date:   Tue Dec 31 15:09:21 2019 +0900
+
+    Merge branch 'master' of https://github.com/soda-crush/HelloWorld
+
+[33mcommit 7b0f09980e6987b06b9d7014a3e0b3d021245245[m
+Author: ParkSoHyun <4862awd@naver.com>
+Date:   Tue Dec 31 15:07:53 2019 +0900
+
+    [sohyun][12-31 pm 03:07]tmp(standard)
+
+[33mcommit df691a4e4b6896ec71fe1da6adbfbe1cbbf7838e[m
+Merge: bb8cf56 8761333
+Author: ssh <song@song.hee>
+Date:   Tue Dec 31 15:02:52 2019 +0900
+
+    Merge branch 'master' of https://github.com/soda-crush/HelloWorld
+
+[33mcommit bb8cf56f1a48e7d0a4d7e8678fbf2b40f8cbdde8[m
+Author: ssh <song@song.hee>
+Date:   Tue Dec 31 15:02:43 2019 +0900
+
+    [ssh][12-31 PM 3:02] admin ing...1
+
+[33mcommit 876133387853010d813b64eca42899b2442efe23[m
+Merge: db7129d bca1767
+Author: soda-crush <58195336+soda-crush@users.noreply.github.com>
+Date:   Tue Dec 31 15:01:08 2019 +0900
+
+    Merge pull request #9 from sooinchoi/master
+    
+    [sooin][12-31 AM 14:57] added (project,mainBase.jsp)
+
+[33mcommit bca17674c93843cb0b15b61b0166ad83d90793d4[m
+Author: sooin <sooinchoi89@gmail.com>
+Date:   Tue Dec 31 14:58:19 2019 +0900
+
+    [sooin][12-31 AM 14:57] added (project,mainBase.jsp)
+
+[33mcommit f37c89916858fe2ce2d18784f02cd8f615eca24b[m
+Author: fgdkasdf12 <fgdkasdf12@git.com>
+Date:   Tue Dec 31 14:47:26 2019 +0900
+
+    [moon][12-31 PM 2:47] bamboo clean
+
+[33mcommit db7129d2dd9df231f021951abd55afcc558ebaff[m
+Merge: 3ca61f4 d3031ea
+Author: soda-crush <58195336+soda-crush@users.noreply.github.com>
+Date:   Tue Dec 31 14:45:43 2019 +0900
+
+    Merge pull request #8 from Park-So-Hyun/master
+    
+    헤더 푸터 잘못돼서 바꿨어용
+
+[33mcommit d3031eaa6c29142ca8a887b5c82eff8e86ae28b5[m
+Merge: 08db2b7 3ca61f4
+Author: ParkSoHyun <4862awd@naver.com>
+Date:   Tue Dec 31 14:43:49 2019 +0900
+
+    [sohyun][12-31 pm 02:43]footer,header mdf(standard)
+
+[33mcommit 08db2b74d2bc7057f3952e5686f9cebd0f492ed6[m
+Author: ParkSoHyun <4862awd@naver.com>
+Date:   Tue Dec 31 14:42:47 2019 +0900
+
+    [sohyun][12-31 pm 02:42]footer,header mdf(standard)
+
+[33mcommit 9439d7fbf9e4c05ba50a794fd8783bf919756655[m
+Merge: eff2be4 3ca61f4
+Author: fgdkasdf12 <fgdkasdf12@git.com>
+Date:   Tue Dec 31 14:14:02 2019 +0900
+
+    Merge branch 'master' of https://github.com/soda-crush/HelloWorld
+
+[33mcommit 3ca61f4db2f0fc6443eb616b12dab7036ac90dd1[m
+Merge: 913fc2b 05e863b
+Author: soda-crush <58195336+soda-crush@users.noreply.github.com>
+Date:   Tue Dec 31 14:11:40 2019 +0900
+
+    Merge pull request #7 from sooinchoi/master
+    
+    [sooin][12-31 AM 14:10] added (project,mainBase.css)
+
+[33mcommit 05e863b3111afdc06822b9ebce62a9d03435064e[m
+Author: sooin <sooinchoi89@gmail.com>
+Date:   Tue Dec 31 14:09:55 2019 +0900
+
+    [sooin][12-31 AM 14:10] added (project,mainBase.css)
+
+[33mcommit eff2be495f9391a06777ab1b5748eb0899db8c58[m
+Merge: ac6ab6c 913fc2b
+Author: fgdkasdf12 <fgdkasdf12@git.com>
+Date:   Tue Dec 31 12:34:36 2019 +0900
+
+    Merge branch 'master' of https://github.com/soda-crush/HelloWorld
+
+[33mcommit ac6ab6cfcfbf526f3047789a00a7f6d8c3f6907d[m
+Merge: 5238337 0415762
+Author: fgdkasdf12 <fgdkasdf12@git.com>
+Date:   Tue Dec 31 12:34:04 2019 +0900
+
+    [moon][12-31 AM 12:33] bamboo clean
+
+[33mcommit 913fc2b2bc027a1e79acc29c59816b129f5eb1b3[m
+Merge: 0415762 b2a958d
+Author: soda-crush <58195336+soda-crush@users.noreply.github.com>
+Date:   Tue Dec 31 12:33:12 2019 +0900
+
+    Merge pull request #6 from Park-So-Hyun/master
+    
+    [sohyun][12-31 pm 12:31]path modify(standard)
+
+[33mcommit b2a958d8cf7b3032d8138305fc3859aac254bec2[m
+Author: ParkSoHyun <4862awd@naver.com>
+Date:   Tue Dec 31 12:31:37 2019 +0900
+
+    [sohyun][12-31 pm 12:31]path modify(standard)
+
+[33mcommit 52383372d581b20300139966298beed981fc1cb3[m
+Author: fgdkasdf12 <fgdkasdf12@git.com>
+Date:   Tue Dec 31 12:17:55 2019 +0900
+
+    [moon][12-31 AM 12:17] bamboo clean
+
+[33mcommit 04157628a64b299223773884eb88f1b1b21375da[m
+Merge: 404a58b cb1e2c0
+Author: soda-crush <58195336+soda-crush@users.noreply.github.com>
+Date:   Tue Dec 31 12:14:44 2019 +0900
+
+    Merge pull request #5 from Park-So-Hyun/master
+    
+    sqlSession주석 건거 풀고 home.jsp 바디 내용 지움
+
+[33mcommit cb1e2c00148fcb2946406b6c083f5b7fddabcc01[m
+Author: ParkSoHyun <4862awd@naver.com>
+Date:   Tue Dec 31 12:11:22 2019 +0900
+
+    [sohyun][12-31 pm 12:11]mainBase.jsp(standard)
+
+[33mcommit 31974a46a7cc15b02edcedcb1dcfe2cde836af75[m
+Author: ParkSoHyun <4862awd@naver.com>
+Date:   Tue Dec 31 12:09:56 2019 +0900
+
+    [sohyun][12-31 pm 12:09]mainBase.jsp(standard)
+
+[33mcommit 7658a0da6a6a7da089a4a2788cd366bc01c3ebe5[m
+Author: ParkSoHyun <4862awd@naver.com>
+Date:   Tue Dec 31 12:06:52 2019 +0900
+
+    [sohyun][12-31 pm 12:05]mainBase.jsp(standard)
+
+[33mcommit 713d1de179be86532faf01f5ee72315a81a4b7fd[m
+Merge: 4423fa8 404a58b
+Author: fgdkasdf12 <fgdkasdf12@git.com>
+Date:   Tue Dec 31 12:02:00 2019 +0900
+
+    Merge branch 'master' of https://github.com/soda-crush/HelloWorld
+
+[33mcommit d8ac62aa47a18ab928d8e612c9deadabe454d2a2[m
+Author: lelode <lys6370@gmail.com>
+Date:   Tue Dec 31 12:01:38 2019 +0900
+
+    [sohyun][12-31 pm 12:01]mainBase.jsp(standard)
+
+[33mcommit fac165812fec7291076881a48468e4411f63353b[m
+Merge: 8890ede 404a58b
+Author: lelode <lys6370@gmail.com>
+Date:   Tue Dec 31 12:01:07 2019 +0900
+
+    Merge branch 'master' of https://github.com/soda-crush/HelloWorld
+
+[33mcommit 8890ede35daabd084259be85d0174686dac8e8c6[m
+Author: lelode <lys6370@gmail.com>
+Date:   Tue Dec 31 11:59:27 2019 +0900
+
+    [sohyun][12-31 pm 12:00]mainBase.jsp(standard)
+
+[33mcommit 404a58b7d48b4d94352c2fb6fc1939946716ac08[m
+Merge: 24d1cf8 820bb42
+Author: soda-crush <58195336+soda-crush@users.noreply.github.com>
+Date:   Tue Dec 31 11:58:01 2019 +0900
+
+    Merge pull request #3 from sooinchoi/master
+    
+    [sooin][12-31 AM 11:54] added (project)
+
+[33mcommit 820bb423aff430274e66f5a970603d4564cbf75c[m
+Author: sooin <sooinchoi89@gmail.com>
+Date:   Tue Dec 31 11:54:57 2019 +0900
+
+    [sooin][12-31 AM 11:54] added (project)
+
+[33mcommit c2650a83777907811312df20e17795b116ad4a66[m
+Author: kde <kde@naver.com>
+Date:   Tue Dec 31 11:36:19 2019 +0900
+
+    [sooin][12-31 AM 11:36] added (project)
+
+[33mcommit 27b26f65f9a8d8b814d6c3f08cd83e11062e11e4[m
+Author: kde <kde@naver.com>
+Date:   Tue Dec 31 11:20:54 2019 +0900
+
+    [sooin][12-31 AM 11:20] added (project)
+
+[33mcommit b51b9a22cee23bd0add917acc45d8c00419b845c[m
+Author: sooin <sooinchoi89@gmail.com>
+Date:   Tue Dec 31 08:17:36 2019 +0900
+
+    [sooin][12-31 AM 9:00] added (project)
+
+[33mcommit 4423fa8b8cf7d242a2bbe648887f5fa9dbcbad4a[m
+Merge: 29f11d2 24d1cf8
+Author: fgdkasdf12 <fgdkasdf12@git.com>
+Date:   Mon Dec 30 17:11:00 2019 +0900
+
+    Merge branch 'master' of https://github.com/soda-crush/HelloWorld
+
+[33mcommit 24d1cf82762066638c5803ad2eb0d3f8560fe940[m
+Merge: fc22612 c0a2676
+Author: soda-crush <58195336+soda-crush@users.noreply.github.com>
+Date:   Mon Dec 30 17:00:54 2019 +0900
+
+    Merge pull request #2 from sooinchoi/master
+    
+    [sooin][12-30 PM 16:57] servlet-context.xml tx, dataSource, sqlSessio…
+
+[33mcommit c0a26768a357e6342070c5f582cf5eac0cd9bb50[m
+Author: soda-crush <58195336+soda-crush@users.noreply.github.com>
+Date:   Mon Dec 30 17:00:32 2019 +0900
+
+    Update servlet-context.xml
+
+[33mcommit 37de60ab08c8e9c3b2484cb83ed67c89f8a404ea[m
+Author: kde <kde@naver.com>
+Date:   Mon Dec 30 16:59:09 2019 +0900
+
+    [sooin][12-30 PM 16:57] servlet-context.xml tx, dataSource, sqlSession, sqlSessionTemplate added (*)
+
+[33mcommit 29f11d23b23f0f227a5e8852001919957975643d[m
+Merge: 8033d58 fc22612
+Author: fgdkasdf12 <fgdkasdf12@git.com>
+Date:   Mon Dec 30 16:30:50 2019 +0900
+
+    [moon][12-30 PM 4:30] bamboo clean (board)
+
+[33mcommit 8033d58a1dcbe4798626b1fd69bb7b9d1f84e446[m
+Author: fgdkasdf12 <fgdkasdf12@git.com>
+Date:   Mon Dec 30 16:28:55 2019 +0900
+
+    [moon][12-30 PM 4:27] bamboo clean (board)
+
+[33mcommit fc226129cd34ee24cab6930ee7ec06083750f6c8[m
+Author: ssh <song@song.hee>
+Date:   Mon Dec 30 16:24:37 2019 +0900
+
+    [ssh][12-30 PM 4:24] admin login jsp
+
+[33mcommit e14b7811c539db2034f0a650130593be5db6567a[m
+Merge: c0654e1 b3122cc
+Author: soda-crush <58195336+soda-crush@users.noreply.github.com>
+Date:   Mon Dec 30 15:32:34 2019 +0900
+
+    Merge pull request #1 from sooinchoi/master
+    
+    [sooin][12-30 PM 15:30] init setting complete (*)
+
+[33mcommit b3122cc24ac2bfe317f980732a10d212376cb583[m
+Author: kde <kde@naver.com>
+Date:   Mon Dec 30 15:30:54 2019 +0900
+
+    [sooin][12-30 PM 15:30] init setting complete (*)
+
+[33mcommit c0654e119c86a94fd9d40513d05111d2325ea316[m
+Author: ssh <song@song.hee>
+Date:   Mon Dec 30 15:01:05 2019 +0900
+
+    [12-30 PM3:00] first upload
