@@ -24,14 +24,29 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath }/adRsc/css/responsive.css">
 <!-- modernizr css -->
 <script src="${pageContext.request.contextPath }/adRsc/vendor/modernizr-2.8.3.min.js"></script>
+<!-- jquery latest version -->
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <style>
-	#dropdownMenuButton{
+	.nameBtn{
 		border: 1px solid transparent !important;
 		background-color:transparent !important;
 		color: black;
 	}
-	.dropdown-toggle::after{
-		background-color:transparent;
+	.show>.btn-secondary.dropdown-toggle ,
+	.btn-secondary.focus, .btn-secondary:focus {
+		color: darkgray !important;
+	}
+	.dropright .dropdown-toggle::after{
+		display:none;
+	}
+	.contentCard{
+		max-width: 1000px;
+	}
+	.table{
+		min-width: 400px;
+	}
+	.notification-area {
+		text-align:right;
 	}
 </style>
 </head>
@@ -59,7 +74,7 @@
                             <h4 class="page-title pull-left">회원관리</h4>
                             <ul class="breadcrumbs pull-left">
                                 <li><a href="${pageContext.request.contextPath }/admin/main">Home</a></li>
-                                <li><span>회원관리</span></li>
+                                <li><span>전체회원관리</span></li>
                             </ul>
                         </div>
                     </div>
@@ -79,7 +94,7 @@
                 <!-- MAIN CONTENT GOES HERE -->
                 
                 <!-- Hoverable Rows Table start -->
-                    <div class="col-lg-12 mt-5">
+                    <div class="col-lg-12 mt-5 contentCard">
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="header-title">회원목록</h4>
@@ -89,12 +104,12 @@
                                             <thead class="text-uppercase">
                                                 <tr>
                                                 	<th scope="col"><input type="checkbox" id="checkAll" onclick="checkAll()"></th>
-                                                	<th scope="col">닉네임(아이디)</th>
-                                                    <th scope="col">레벨</th>
-                                                    <th scope="col">가입일</th>  
-                                                    <th scope="col">최종방문일</th>  
-                                                    <th scope="col">성별</th>  
-                                                    <th scope="col">활동점수</th>  
+                                                	<th scope="col">
+                                                	<div class="row d-sm-none"><div class="col-12">닉네임</div><div class="col-12">(아이디)</div></div>
+                                                	<div class="row d-none d-sm-block">닉네임(아이디)</div>
+                                                	</th>
+                                                    <th scope="col">최종방문일</th>   
+                                                    <th scope="col">레벨</th>  
                                                     <th scope="col">신고횟수</th>                                             
                                                 </tr>
                                             </thead>
@@ -102,25 +117,59 @@
                                             	<c:forEach items="${list }" var="dto">
                                             		<tr>
                                             		<td class="align-self-center"><input type="checkbox"></td>
-	                                                    <td scope="row">
-	                                                    <div class="dropdown col-lg-6 col-md-4 col-sm-6">
-	   														<button class="btn btn-flat btn-primary dropdown-toggle pt-0 pb-1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	        													${dto.nickName }(${dto.id })
-	    													</button>
-	    												<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-													        <a class="dropdown-item" href="#">회원정보</a>
-													        <a class="dropdown-item" href="#">강제탈퇴</a>
-													        <a class="dropdown-item" href="#">활동정지</a>
-													    </div>
+	                                                <td scope="row">
+														<div class="btn-group dropright">
+														  <button class="btn btn-secondary btn-sm dropdown-toggle nameBtn p-0" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+														    ${dto.nickName}(${dto.id})
+														  </button>
+														  <div class="dropdown-menu">
+														    <p class="dropdown-item" id="memberInfo${dto.id}">회원정보 수정</p>
+														    <c:choose>
+														    	<c:when test="${dto.memLevel == '1'}">
+														    		<p class="dropdown-item" id="memberStart${dto.id}">활동정지 해제</p>	
+														    	</c:when>
+														    	<c:otherwise>
+														    		<p class="dropdown-item" id="memberStop${dto.id}">활동정지</p>
+														    	</c:otherwise>
+														    </c:choose>														    
+														    <p class="dropdown-item" id="memberOut${dto.id}">강제탈퇴</p>
+														  </div>
 														</div>
                                                     </td>
-                                                    <td>${dto.memLevel}</td>
-                                                    <td>dto.joinDate</td>
                                                     <td>dto.lastLogin</td>
-                                                    <td>${dto.gender}</td>
-                                                    <td>${dto.point}</td>
+                                                    <td>${dto.memLevel}</td>
                                                     <td>${dto.reportCount}</td>
                                                		</tr>
+                                               		<form action="${pageContext.request.contextPath}/admin/memberOut?id=${dto.id}" id="frm${dto.id}">
+                                               			<input type="hidden" name="reason" id="reason${dto.id}">
+                                               		</form>
+                                               		<script>
+                                               			$("#memberInfo${dto.id}").on("click", function(){
+                                               				window.open("${pageContext.request.contextPath}/admin/getMemberInfo?id=${dto.id}","","width=600px,height=602px,top=300px,left=600px");
+                                               			})
+                                               			$("#memberStop${dto.id}").on("click", function(){
+                                               				var result = confirm("${dto.nickName}(${dto.id}) 님을 활동정지 하시겠습니까?");
+                                               				if(result){
+                                               					location.href = "${pageContext.request.contextPath}/admin/memberStop?id=${dto.id}";
+                                               				};
+                                               			})
+                                               			$("#memberStart${dto.id}").on("click", function(){
+                                               				var result = confirm("${dto.nickName}(${dto.id}) 님 활동정지를 해제할까요?");
+                                               				if(result){
+                                               					location.href = "${pageContext.request.contextPath}/admin/memberStart?id=${dto.id}";
+                                               				};
+                                               			})
+                                               			$("#memberOut${dto.id}").on("click", function(){
+                                               				var result = prompt("${dto.nickName}(${dto.id}) 님 강제 탈퇴 이유를 적어주세요");
+                                               				if(result == ""){
+                                               					alert("강제 탈퇴 이유를 적어주세요");
+                                               				}else{
+                                               					$("#reason${dto.id}").val(result);
+                                               					$("#frm${dto.id}").submit();
+                                               				}
+                                               			})
+                                               			
+                                               		</script>
                                             	</c:forEach>                                                                                                
                                             </tbody>
                                         </table>
@@ -158,8 +207,6 @@
 	</div>
     <!-- page container area end -->
 
-    <!-- jquery latest version -->
-    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <!-- bootstrap 4 js -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>

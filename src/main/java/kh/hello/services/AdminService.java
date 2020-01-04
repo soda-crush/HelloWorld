@@ -107,8 +107,8 @@ public class AdminService {
 		return adao.deleteInquiryReply(seq);
 	}
 	
-	public List<MemberDTO> memberList(int start, int end){
-		return adao.memberList(start, end);
+	public List<MemberDTO> memberListByPage(int start, int end){
+		return adao.memberListByPage(start, end);
 	}
 	
 	public List<String> getMemberPageNavi(int currentPage){
@@ -148,6 +148,30 @@ public class AdminService {
 		if(needNext) pages.add("<a class=page-link href='memberList?page=" + (endNavi + 1) + "'>> </a>");
 		
 		return pages;
+	}
+	
+	public MemberDTO getMemberInfo(String id) {
+		return adao.getMemberInfo(id);
+	}
+	
+	public int memberModify(String id, String email, String phone) {
+		return adao.memberModify(id, email, phone);
+	}
+	
+	public int memberStop(String id) {
+		return adao.memberStop(id);
+	}
+	
+	public int memberStart(String id) {
+		return adao.memberStart(id);
+	}
+	
+	@Transactional("txManager")
+	public int memberOut(String id, String reason) {
+		//강퇴시키고
+		adao.memberOut(id);
+		//테이블에 입력하기		
+		return adao.memberOutList(id, reason);		 
 	}
 }
 
