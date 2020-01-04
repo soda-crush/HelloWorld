@@ -11,7 +11,7 @@
 			</c:when>
 			<c:otherwise>
 			 <div class="row" id="loginCon">
-                <div class="col-12 text-right"><a href="#">마이페이지</a> | <a href="#" id="logout">로그아웃</a></div>
+                <div class="col-12 text-right"><a href="#">마이페이지</a> | <a href="#" id="${pageContext.request.contextPath}/member/logout">로그아웃</a></div>
             </div>
 			</c:otherwise>
 	</c:choose>
@@ -38,7 +38,7 @@
                     <a class="nav-item nav-link active text-light" href="#">대나무숲</a>
                     <a class="nav-item nav-link active text-light" href="${pageContext.request.contextPath}/code/codeQList.do">코드지식인</a>
                     <a class="nav-item nav-link active text-light" href="#">업계현황</a>
-                    <a class="nav-item nav-link active text-light" href="#">IT 뉴스</a>
+                    <a class="nav-item nav-link active text-light" href="${pageContext.request.contextPath}/itnews/itnewsList">IT 뉴스</a>
                     <a class="nav-item nav-link active text-light" href="${pageContext.request.contextPath}/project/list">프로젝트</a>
                     <a class="nav-item nav-link active text-light" href="#">P-log</a>
                 </div>
