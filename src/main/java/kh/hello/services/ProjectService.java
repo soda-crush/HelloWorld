@@ -119,6 +119,7 @@ public class ProjectService {
 	 * 프로젝트 지원
 	 */
 	
+	
 	public String projectApplyWriteProc(ProjectApplyDTO dto) {
 		int result = dao.insertProjectApply(dto);
 		if(result>0) {

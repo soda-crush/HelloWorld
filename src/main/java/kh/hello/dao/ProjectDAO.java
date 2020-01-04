@@ -80,7 +80,9 @@ public class ProjectDAO {
 	public int closeProjectApply(int seq) {
 		return jdbc.update("ProjectApply.closeProjectApply", seq);
 	}
-	
+	public int getCountInApprove(String writer) {
+		return jdbc.selectOne("ProjectApply.getCountInApprove", writer);
+	}
 	
 	//projectMyList 테이블
 	public List<ProjectMyListDTO> getMyList(String id){//나의 프로젝트 전체리스트

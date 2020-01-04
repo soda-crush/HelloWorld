@@ -10,37 +10,16 @@
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="/css/projectBase.css" type="text/css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.min.js"></script>
+<script src="https://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
+<link rel="stylesheet" href="https://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.css">
+<link rel="stylesheet" href="https://bootstrap-tagsinput.github.io/bootstrap-tagsinput/examples/assets/app.css">
+<link rel="stylesheet" href="/css/project/projectBase.css" type="text/css"/>
+<link rel="stylesheet" href="/css/project/detailView.css" type="text/css"/>
 <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.css" type="text/css"/>
-<style>
-	#pageTitle{margin-bottom:20px;}
-	#pageTitle h1{display:inline;margin-right:10px;font-weight:bold;}
-	#pageBody{background-color:white;}	
-	#pHeader,#pageFooter{padding-top:10px;}
-	#pHeader #stateLabel{color:white;}
-	#pHeader label.N{background-color:limegreen;}
-	#pHeader label.Y{background-color:red;}
-	#pHeader label:not(#stateLabel){font-size:13px;}
-	#pHeader span:first-of-type{font-size:20px;}
-	#pHeader label:nth-of-type(2){width:200px;}
-	#pHeader .fa{margin-left:15px;margin-top:15px;font-size:20px;}
-	#pInfo *,#pBody *{font-size:15px;font-weight:500;}
-	#pInfo label,#pBody label{width:100px;color:darkgray;}
-	.applyBtn{margin-bottom:20px;}
-	.modal-title{font-weight:bold;}
-	.aItem{margin-top:5px;font-size:15px;font-weight:bold;}
-	.star{margin-left:2px;color:red;}
-	.genderRadio,.workInRadio{padding-top:5px;}
-	#pCoInput{margin-top:20px;}
-	#pCoInput textarea{height:100px; margin-left:20px; margin-bottom:20px;}
-	#pCoInput button{height:45px; width:90%;}
-	.pApply{font-size:13px;color:red;}
-	.checkBtn button:nth-child(2){margin-left:10px;}
-	.adBox{height:200px;width:100%;background-color:darkgray;text-align:center;margin:0;margin-top:20px;}
-	.pSelect{width:100px;}
-	#pPageContents{margin:40px;}
-</style>
+
 </head>
+
 <body>
 	<jsp:include page="/WEB-INF/views/standard/header.jsp"/>
 	
@@ -63,7 +42,9 @@
 							<label class="${pPage.state } badge badge-pill ml-4" id="stateLabel">${pPage.stateInKor }</label>
 							<i class="fa fa-share-alt"></i><i class="fa fa-bookmark"></i><br>
 							<span class="ml-4" style="font-weight:bold;">${pPage.title}</span><br>
-							<label class="ml-4">작성자 : ${pPage.writer }</label><label>작성일 : ${pPage.formedWriteDate }</label>
+							<label class="ml-4">작성자 : ${pPage.writer }</label>
+							<label class="ml-4">작성일 : ${pPage.formedWriteDate }</label>
+							<label class="ml-4">조회수 : ${pPage.viewCount }</label>
 						</div>
 						<hr>
 						<div id="pInfo">
@@ -97,12 +78,12 @@
 							
 							<c:if test="${pPage.writer != sessionScope.loginInfo && pPage.state=='N' }">
 								<div class="text-center applyBtn">
-									<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">신청하기</button>
+									<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#pApplyModal">신청하기</button>
 								</div>
 							</c:if>
 							
 							
-							 <div class="row align-items-center adBox">
+							 <div class="row align-items-center adBoxDiv">
 							    <div class="col-12">광고자리</div>
 							 </div>
 							
@@ -132,43 +113,22 @@
 					</c:if>
 				</div>
 				
-				
-				
-				
-				
-				<script>
-					$("#coCancel").on("click",function(){
-						var check = confirm("정말 취소하시겠습니까?");
-						if(check){
-							$("#pCoContents").val("");
-						}
-					});
-					$("#coWriteBtn").on("click",function(){						
-					});
-				</script>
-				
-				
-				
-				
-				
-				
-				
-				
 				<div id="pageFooter">
 					<c:if test="${pPage.writer != sessionScope.loginInfo}">
 						<span><a class="btn btn-danger" href="#" role="button">게시글 신고</a></span>
 					</c:if>
 					<span class="float-right">
 						<c:if test="${pPage.writer == sessionScope.loginInfo}">
-							<a class="btn btn-info" href="#" role="button">수정</a>
-							<a class="btn btn-info" href="#" role="button">삭제</a>
+							<a class="btn btn-info" href="/project/modifyProc?seq=${pPage.seq }" role="button">수정</a>
+							<button type="button" class="btn btn-info" id="pDelBtn">삭제</button>
 						</c:if>
 						<a class="btn btn-secondary" href="/project/list" role="button">목록</a>
 					</span>
 				</div>          
             </div>
             <!--       몸통 끝!!!   -->
-            
+
+
             <div class=container>
                 <div class=row>
                     <div class="col-12" id=aroundContent>
@@ -176,90 +136,9 @@
                 </div>
             </div>
         </div>
-        
+
+		<jsp:include page="/WEB-INF/views/project/jsp/applyModal.jsp"/>        
         <jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
-        
-        
-        
-        
-        <!-- Modal -->
-		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		  <div class="modal-dialog" role="document">
-		    <div class="modal-content">
-		      <div class="modal-header">
-		        <h5 class="modal-title" id="exampleModalLabel">프로젝트 신청</h5>
-		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-		          <span aria-hidden="true">&times;</span>
-		        </button>
-		      </div>
-		      <div class="modal-body">
-		      
-		      	<div class="row">
-					<div class="col-4"><label class="aItem">사용 가능 언어</label><label class="star">*</label></div>
-					<div class="col-7"><input type="text" class="form-control form-control-sm" id="languages" name="languages"></div>
-				</div>
-				<div class="row">
-					<div class="col-4"><label class="aItem">성별</label><label class="star">*</label></div>
-					<div class="col-7 genderRadio">
-						<div class="form-check form-check-inline">
-						  <input class="form-check-input" type="radio" name="gender" id="male" value="male">
-						  <label class="form-check-label" for="male">남</label>
-						</div>
-						<div class="form-check form-check-inline">
-						  <input class="form-check-input" type="radio" name="gender" id="female" value="female">
-						  <label class="form-check-label" for="female">여</label>
-						</div>
-						<div class="form-check form-check-inline">
-						  <input class="form-check-input" type="radio" name="gender" id="none" value="none">
-						  <label class="form-check-label" for="none">비공개</label>
-						</div> 					  
-					</div>
-					
-				</div>
-				<div class="row">
-					<div class="col-4"><label class="aItem">나이</label><label class="star">*</label></div>
-					<div class="col-4">
-						<select class="form-control form-control-sm pSelect">
-							<option selected>선택</option>
-						    <option value="1">10대</option>
-						    <option value="2">20대</option>
-						    <option value="3">30대</option>
-						    <option value="4">40대 이상</option>
-						    <option value="0">비공개</option>
-						</select>
-					</div>
-				</div>							
-				<div class="row">
-					<div class="col-4"><label class="aItem">재직여부</label><label class="star">*</label></div>
-					<div class="col-7 workInRadio">
-						<div class="form-check form-check-inline">
-						  <input class="form-check-input" type="radio" name="workIn" id="Y" value="Y">
-						  <label class="form-check-label" for="Y">재직</label>
-						</div>
-						<div class="form-check form-check-inline">
-						  <input class="form-check-input" type="radio" name="workIn" id="N" value="N">
-						  <label class="form-check-label" for="N">비재직</label>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-4"><label class="aItem">메일주소</label></div>							
-					<div class="col-7"><input type="email" class="form-control form-control-sm" id="email"></div>
-				</div>
-				<div class="row">
-					<div class="col-12"><label class="aItem">하고 싶은 말</label></div>
-					<div class="col-12" id="aContentsInput"><textarea class="form-control form-control-sm" placeholder="내용을 입력해주세요"></textarea></div>
-				</div>						
-		      		       
-		      </div>
-		      <div class="modal-footer">
-		        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-		        <button type="button" class="btn btn-primary">신청</button>
-		      </div>
-		    </div>
-		  </div>
-		</div>
-		
 		<script>
 			$("#pCloseBtn").on("click",function(){
 				var check = confirm("프로젝트 모집을 마감하시겠습니까?\n마감된 모집글은 상태를 변경할 수 없습니다.");
@@ -267,6 +146,71 @@
 					location.href="/project/closeProject?seq=${pPage.seq}";
 				}
 			});
-		</script>
+			var applyCount = ${pPage.applyCount};
+           	$("#pDelBtn").on("click",function(){
+           		var check = confirm("정말 삭제하시겠습니까?");
+           		if(check){
+           			location.href="/project/deleteProc?seq=${pPage.seq}";
+           		}
+           	});
+           
+
+			$("#coCancel").on("click",function(){
+				var check = confirm("정말 취소하시겠습니까?");
+				if(check){
+					$("#pCoContents").val("");
+				}
+			});
+			$("#coWriteBtn").on("click",function(){						
+			});
+			
+			var result = ${data};
+			var data = JSON.stringify(result);			
+			var task = new Bloodhound({
+				datumTokenizer: Bloodhound.tokenizers.obj.whitespace("text"),
+				queryTokenizer: Bloodhound.tokenizers.whitespace,
+				local: jQuery.parseJSON(data) //your can use json type
+			});
+		
+			task.initialize();
+		
+			var elt = $("#languages");
+			elt.tagsinput({
+				itemValue: "value",
+				itemText: "text",
+				typeaheadjs: {
+				  name: "task",
+				  displayKey: "text",
+				  source: task.ttAdapter()
+				}
+			});
+			
+			$("#applyFrm").on("keypress", function(e) {
+		        if(e.keyCode == 13) {
+		        	e.preventDefault();
+		        }
+		    });
+			$("#applyFrm").on("submit",function(){
+				$.ajax({
+					type:"post",
+					url:"/project/apply/writeProc",
+					data:$("#applyFrm").serialize()
+				}).done(function(resp){
+					console.log("성공");
+					console.log(resp);
+					alert("신청완료!");					
+				}).fail(function(resp){
+					console.log("실패");
+					console.log(resp);
+					alert("신청실패!");
+				});
+				$(".pApplyInput").children('input').val("");
+				$(".bootstrap-tagsinput").children('.label-info').remove();
+				$(".pApplyInput").children('select').val("");
+				$('#pApplyModal').modal('hide');
+				return false;				
+			});
+         </script>            
+            
 </body>
 </html>
