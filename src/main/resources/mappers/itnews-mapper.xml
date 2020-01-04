@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="Itnews"> 
+  <select id="getList" resultType="kh.hello.dto.ItnewsDTO">
+		select * from itnews order by seq desc
+	</select>
+	
+	<select id="getDTO" resultType="kh.hello.dto.ItnewsDTO">
+		select * from itnews where seq = ${seq}
+	</select>
+</mapper> 
