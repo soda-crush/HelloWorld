@@ -1,6 +1,8 @@
 package kh.hello.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +38,17 @@ public class BambooDAO {
 	}
 	public int deleteBamboo(int seq) {//대나무숲 글삭제
 		return jdbc.delete("Bamboo.deleteBamboo", seq);
+	}
+	
+	
+	public int recordBambooListTotalCount () {//대나무숲 전체리스트 수
+		return jdbc.selectOne("Bamboo.recordBambooListTotalCount");
+	}
+	public List<BambooDTO> BambooListByPage (int start, int end) {//대나무숲 목록 페이지네비
+		Map<String, Integer> param = new HashMap<>();
+		param.put("start", start);
+		param.put("end", end);
+		return jdbc.selectList("Bamboo.BambooListByPage",param);
 	}
 	
 	//대나무숲 댓글
