@@ -1,6 +1,8 @@
 package kh.hello.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,19 @@ public class ProjectDAO {
 	public List<ProjectDTO> getProjectList(){//프로젝트 모집글 전체리스트
 		return jdbc.selectList("Project.getList");
 	}
+	
+	public int getArticleCount() {//프로젝트 모집글 전체 개수
+		return jdbc.selectOne("Project.getArticleCount");
+	}
+	public List<ProjectDTO> getProjectListPerPage(int start, int end){
+		Map<String, Integer> param = new HashMap<>();
+		param.put("start", start);
+		param.put("end", end);
+		return jdbc.selectList("Project.getListByPage", param);
+	}
+	
+	
+	
 	public ProjectDTO getProjectDetailView(int seq) {//프로젝트 모집글 상세보기
 		return jdbc.selectOne("Project.getProjectDetailView", seq);
 	}

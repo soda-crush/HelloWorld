@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kh.hello.configuration.Configuration;
 import kh.hello.dto.ProjectApplyDTO;
 import kh.hello.dto.ProjectCoDTO;
 import kh.hello.dto.ProjectDTO;
@@ -29,13 +30,23 @@ public class ProjectController {
 	 */
 	
 	@RequestMapping("/list")
-	public String projectMainList(Model m) {
+	public String projectMainList(String page, Model m) {
 //		session.setAttribute("loginInfo", "sooin");
 //		session.setAttribute("loginInfo", "sophie");
 		session.setAttribute("loginInfo", "eunwoo");
 //		session.setAttribute("loginInfo", "jennie");
-		List<ProjectDTO> result = svc.projectList();
+		
+		int currentPage = 1;
+		if(page!=null) {
+			currentPage = Integer.parseInt(page);
+		}
+		int start = currentPage * (Configuration.recordCountPerPage)-(Configuration.recordCountPerPage-1);
+		int end = currentPage * (Configuration.recordCountPerPage);
+		List<ProjectDTO> result = svc.projectListPerPage(start, end);
 		m.addAttribute("projectList", result);
+		String pageNavi = svc.getPageNavi(currentPage);
+		m.addAttribute("pageNavi", pageNavi);
+		m.addAttribute("currentPage", currentPage);
 		return "/project/projectList";
 	}
 	

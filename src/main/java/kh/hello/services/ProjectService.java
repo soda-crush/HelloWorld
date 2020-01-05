@@ -10,6 +10,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import kh.hello.configuration.Configuration;
 import kh.hello.dao.ProjectDAO;
 import kh.hello.dto.ProjectApplyDTO;
 import kh.hello.dto.ProjectCoDTO;
@@ -29,6 +30,59 @@ public class ProjectService {
 	public List<ProjectDTO> projectList(){
 		return dao.getProjectList();
 	}
+		
+	public String getPageNavi(int currentPage) {
+		int recordTotalCount = dao.getArticleCount();
+		int pageTotalCount = 0;		
+		if(recordTotalCount % Configuration.recordCountPerPage>0) {
+			pageTotalCount = recordTotalCount/Configuration.recordCountPerPage+1;
+		}else {
+			pageTotalCount = recordTotalCount/Configuration.recordCountPerPage;
+		}
+		if(currentPage < 1) {
+			currentPage = 1;
+		}else if(currentPage > pageTotalCount) {
+			currentPage = pageTotalCount;
+		}
+		
+		int startNavi = (currentPage-1) / Configuration.naviCountPerPage * Configuration.naviCountPerPage+1;
+		int endNavi = startNavi+(Configuration.naviCountPerPage-1);		
+		if(endNavi > pageTotalCount) {
+			endNavi = pageTotalCount;
+		}
+		
+		boolean needPrev = true;
+		boolean needNext = true;
+		if(startNavi==1) {
+			needPrev = false;
+		}
+		if(endNavi==pageTotalCount) {
+			needNext = false;
+		}
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append("<ul class='pagination justify-content-center'>");
+		if(needPrev) {
+			sb.append("<li class='page-item'>");
+			sb.append("<a class='page-link' href='/project/list?page="+(startNavi-1)+"' aria-label='Previous'>"); 
+			sb.append("<span aria-hidden='true'>&laquo;</span></a></li>");			
+		}
+		for(int i=startNavi;i<=endNavi;i++) {
+			sb.append("<li class='page-item pNavi"+i+"'><a class='page-link' href='/project/list?page="+i+"'>"+i+"</a></li>");			
+		}
+		if(needNext) {
+			sb.append("<li class='page-item'>");
+			sb.append("<a class='page-link' href='/project/list?page="+(endNavi+1)+"' aria-label='Next'>");
+			sb.append("<span aria-hidden='true'>&raquo;</span></a></li>");			
+		}
+		sb.append("</ul>");
+		return sb.toString();
+	}
+	
+	public List<ProjectDTO> projectListPerPage(int start, int end){
+		return dao.getProjectListPerPage(start, end);
+	}
+	
 	
 	@Transactional("txManager")
 	public ProjectDTO projectDetailView(int seq) {
