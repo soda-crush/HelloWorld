@@ -139,34 +139,59 @@ public class MemberController {
 		return "member/mailTest";
 	}
 	
-	 @RequestMapping(value = "/mailSending")
-	  public String mailSending(HttpServletRequest request) {
-	   
+	 @RequestMapping(value = "/mailSending", produces = "text/html; charset=utf-8")
+	 @ResponseBody
+	  public String mailSending(String email) {
+		String ctfCode = "0000"; 
+		 
 	    String setfrom = "sohyunKH4862@gmail.com";         
-	    String tomail  = request.getParameter("tomail");     // 받는 사람 이메일
-	    String title   = request.getParameter("title");      // 제목
-	    String content = request.getParameter("content");    // 내용
-	   
+	    String tomail  = email;     // 받는 사람 이메일
+	    String title   = "[Hello World!] This is your verification code.";      // 제목
+	    String content = "Please enter this code : ";    // 내용
+	  
+	    
 	    try {
+	    	//디비에 이메일이랑 인증코드 저장
+		    ms.insertCtfCode(email, ctfCode);
+		    
 	      MimeMessage message = mailSender.createMimeMessage();
 	      MimeMessageHelper messageHelper 
 	                        = new MimeMessageHelper(message, true, "UTF-8");
-	 
+	      
 	      messageHelper.setFrom(setfrom);  // 보내는사람 생략하거나 하면 정상작동을 안함
 	      messageHelper.setTo(tomail);     // 받는사람 이메일
 	      messageHelper.setSubject(title); // 메일제목은 생략이 가능하다
 	      messageHelper.setText(content);  // 메일 내용
 	     
-	      System.out.println("메일 보내기 직전");
 	      mailSender.send(message);
-	      System.out.println("메일 보보냄");
+
+		    return "send";
 	    } catch(Exception e){
-	    	 System.out.println("오류여~!");
 	      System.out.println(e);
+	      return "localhost/error.jsp";
+	      //수정필요
 	    }
 	   
-	    return "redirect:/";
 	  }
+	 
+	 @RequestMapping("/ctfCodeProc")
+	 @ResponseBody
+	 public String ctfCodeProc(String email, String code) {
+		try {
+			int result =  ms.confirmCode(email, code);
+			if(result > 0) {
+				return "true";
+			}else {
+				return "false";
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			return "localhost/error.jsp";
+			//수정필요
+		}
+		 
+		
+	 }
 	
 	
 }

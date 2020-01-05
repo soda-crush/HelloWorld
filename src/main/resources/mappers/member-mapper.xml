@@ -21,5 +21,12 @@
 		select count(*) from member where phone = #{phone}
 	</select>
 	
+	<insert id="insertCode" parameterType="string">
+		insert into signupcertification values (#{email} , #{certificationCode})
+	</insert>
+	
+	<select id="selectCode" resultType="integer" parameterType="string">
+		select count(*) from signupcertification where email = #{email} and certificationCode = #{certificationCode}
+	</select>
 	
 </mapper>
