@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="AdBoard">
+	<select id="projectListByPage" resultType="kh.hello.dto.ProjectDTO">
+		select * from (select project.*,(select count(*) from projectComment where projectSeq=project.seq) as commentCount, row_number() over (order by seq desc) as num from project) where num between #{start} and #{end}
+	</select>
+	<select id="getProjectTotal" resultType="integer">
+		select count(*) from project
+	</select>	
+</mapper>

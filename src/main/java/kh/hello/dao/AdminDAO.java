@@ -113,29 +113,29 @@ public class AdminDAO {
 		return jdbc.delete("Admin.memberOut", id);
 	}
 	
-	public int memberOutList(String id, String reason) {//강제탈퇴 리스트
+	public int memberOutList(String id, String reason) {//강퇴 아이디와 사유 테이블에 기록
 		Map<String, String> param = new HashMap<>();
 		param.put("id", id);
 		param.put("reason", reason);		
 		return jdbc.insert("Admin.memberOutList", param);				
 	}
 	
-	public List<ForcedOutMemberDTO> forcedOutListByPage(int start, int end){
+	public List<ForcedOutMemberDTO> forcedOutListByPage(int start, int end){//강퇴 아이디 리스트 페이지 별로 받아오기
 		Map<String, Integer> param = new HashMap<>();
 		param.put("start", start);
 		param.put("end", end);
 		return jdbc.selectList("Admin.forcedOutListByPage", param);
 	}
 	
-	public int getForcedOutTotal() {
+	public int getForcedOutTotal() {//강퇴 회원 총합
 		return jdbc.selectOne("Admin.getForcedOutTotal");
 	}
 	
-	public int forcedOutDel(int seq) {
+	public int forcedOutDel(int seq) {//강퇴 목록에서 지우기
 		return jdbc.delete("Admin.forcedOutDel", seq);
 	}
 	
-	public List<MemberDTO> getSearchMemberListByPage(String col, String searchWord, int start, int end){
+	public List<MemberDTO> getSearchMemberListByPage(String col, String searchWord, int start, int end){//멤버 검색해서 결과 페이지별로 받아오기
 		Map<String, Object> param = new HashMap<>();
 		param.put("start", start);
 		param.put("end", end);
@@ -144,7 +144,7 @@ public class AdminDAO {
 		return jdbc.selectList("Admin.getSearchMemberListByPage", param);
 	}
 	
-	public int getSearchMemberResultTotal(String col, String searchWord) {
+	public int getSearchMemberResultTotal(String col, String searchWord) {//멤버 검색 결과 총합
 		Map<String, String> param = new HashMap<>();
 		param.put("col", col);
 		param.put("searchWord", "%"+searchWord+"%");

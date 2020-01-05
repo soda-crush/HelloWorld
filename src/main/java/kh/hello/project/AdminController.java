@@ -45,6 +45,12 @@ public class AdminController {
 		return "admin/loginFail";
 	}
 	
+	@RequestMapping("/logout")
+	public String logout() {
+		session.invalidate();
+		return "redirect:../manage";
+	}
+	
 	@RequestMapping("/main")
 	public String main() {
 		return "admin/main";
@@ -104,7 +110,6 @@ public class AdminController {
 	@RequestMapping(value="/writeInquiry", produces="text/html; charset=utf8")
 	@ResponseBody
 	public String writeInquiry(String reply, int boardSeq) {
-		System.out.println("컨트롤러");
 		InquiryReplyDTO dto = as.writeInquiry(reply, boardSeq);
 		JsonObject obj = new JsonObject();
 		obj.addProperty("seq", dto.getSeq());
@@ -224,7 +229,6 @@ public class AdminController {
 	
 	@RequestMapping("/searchMember")
 	public String searchMember(String col, String searchWord, String page, Model m) {
-		System.out.println(col + " : " + searchWord);
 		//검색 후 목록 받아오기
 		int currentPage = 1;
 		if(page != null) currentPage = Integer.parseInt(page);

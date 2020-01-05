@@ -26,7 +26,7 @@
 							<li><a href="#">대나무숲</a></li>
 							<li><a href="#">코드지식인</a></li>
 							<li><a href="#">업계현황</a></li>
-							<li><a href="#">프로젝트 모집</a></li>
+							<li><a href="${pageContext.request.contextPath }/adBoard/projectList">프로젝트 모집</a></li>
 						</ul>
 					</li>
 

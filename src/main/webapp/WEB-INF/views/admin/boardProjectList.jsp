@@ -37,29 +37,30 @@
 </head>
 <body>
 	<!-- preloader area start -->
-    <div id="preloader">
-        <div class="loader"></div>
-    </div>
-    <!-- preloader area end -->
-    <!-- page container area start -->
+	<div id="preloader">
+		<div class="loader"></div>
+	</div>
+	<!-- preloader area end -->
+	<!-- page container area start -->
     <div class="page-container">
-		<!-- sidebar menu area start -->
-		<jsp:include page="/WEB-INF/views/standard/adminSidebar.jsp" />
-		<!-- sidebar menu area end -->
-		<!-- main content area start -->
+        <!-- sidebar menu area start -->
+        <jsp:include page="/WEB-INF/views/standard/adminSidebar.jsp"/>
+        <!-- sidebar menu area end -->
+        
+        <!-- main content area start -->
         <div class="main-content">
-			<!-- header area start -->
-			<jsp:include page="/WEB-INF/views/standard/adminHeader.jsp" />
-			<!-- header area end -->
-			<!-- page title area start -->
+            <!-- header area start -->
+            <jsp:include page="/WEB-INF/views/standard/adminHeader.jsp"/>
+            <!-- header area end -->
+            <!-- page title area start -->
             <div class="page-title-area">
                 <div class="row align-items-center">
                     <div class="col-sm-6">
                         <div class="breadcrumbs-area clearfix">
-                            <h4 class="page-title pull-left">일대일문의</h4>
+                            <h4 class="page-title pull-left">프로젝트 모집 관리</h4>
                             <ul class="breadcrumbs pull-left">
                                 <li><a href="${pageContext.request.contextPath }/admin/main">Home</a></li>
-                                <li><span>일대일문의</span></li>
+                                <li><span>프로젝트 모집</span></li>
                             </ul>
                         </div>
                     </div>
@@ -88,42 +89,27 @@
                                         <table class="table table-hover text-center">
                                             <thead class="text-uppercase">
                                                 <tr>
+                                                	<th scope="col">체크박스</th> 
                                                     <th scope="col">번호</th>                                                
-                                                	<th scope="col">상태</th>
-                                                    <th scope="col">제목</th>
-                                                    <th scope="col">글쓴이</th>
-                                                    <th scope="col">작성일</th>                                                    
+                                                	<th scope="col">제목</th>
+                                                    <th scope="col">작성자</th>
+                                                    <th scope="col">작성일</th>
+                                                    <th scope="col">조회수</th>
+                                                    <th scope="col">삭제버튼</th>                                                    
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                            	<c:forEach items="${list }" var="dto">
-                                            		<tr id="toDetail${dto.seq}">
+                                            	<c:forEach items="${list}" var="dto">
+                                            		<tr>
+                                            		<td><input type="checkbox"></td>
                                                     <td>${dto.seq}</td>                                            		
-                                                    <td scope="row">
-                                                    <c:choose>
-                                                    	<c:when test="${dto.count > 0}">
-                                                    		<p class="text-success"><strong>답변완료</strong></p>
-                                                    	</c:when>
-                                                    	<c:otherwise>
-                                                    		<p class="text-danger"><strong>답변대기중</strong></p>
-                                                    	</c:otherwise>
-                                                    </c:choose>
-                                                    </td>
-                                                    <td><strong>${dto.title}</strong></td>
+                                                    <td>${dto.title}</td>
                                                     <td>${dto.writer}</td>
-                                                    <td>${dto.formedDate}</td>
+                                                    <td>${dto.formedWriteDate }</td>
+                                                    <td>${dto.viewCount}</td>
+                                                    <td><i class="ti-trash"></i></td>
                                                		</tr>
-                                               		<script>
-                                               			$("#toDetail${dto.seq}").hover(function(){
-                                               				$("#toDetail${dto.seq}").css("cursor","pointer");
-                                               			})
-                                               			$("#toDetail${dto.seq}").on("click",function(){
-                                               				location.href = "inquiryDetailView?page=${page}&seq=${dto.seq}";
-                                               			})
-                                               		</script>
-                                            	</c:forEach>
-                                                
-                                                
+                                            	</c:forEach>                                                                                               
                                             </tbody>
                                         </table>
                                     </div>
@@ -147,8 +133,7 @@
                         
                     </div>
                     <!-- Hoverable Rows Table end -->
-                    
-               
+
             </div>
         </div>
         <!-- main content area end -->
@@ -157,7 +142,8 @@
         <!-- footer area end-->
     </div>
     <!-- page container area end -->
-   
+
+
     <!-- bootstrap 4 js -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
@@ -196,6 +182,6 @@
 		}
 		
 	});
-</script>
+	</script>
 </body>
 </html>

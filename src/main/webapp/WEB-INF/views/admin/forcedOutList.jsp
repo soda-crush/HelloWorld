@@ -26,6 +26,11 @@
 <script src="${pageContext.request.contextPath }/adRsc/vendor/modernizr-2.8.3.min.js"></script>
 <!-- jquery latest version -->
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<style>
+	.notification-area {
+		text-align:right;
+	}
+</style>
 </head>
 <body>
 	<!-- preloader area start -->
@@ -61,7 +66,7 @@
                             <img class="avatar user-thumb" src="${pageContext.request.contextPath }/adRsc/images/avatar.png" alt="avatar">
                             <h4 class="user-name dropdown-toggle" data-toggle="dropdown">Administrator <i class="fa fa-angle-down"></i></h4>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Log Out</a>
+                                <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/logout">Log Out</a>
                             </div>
                         </div>
                     </div>

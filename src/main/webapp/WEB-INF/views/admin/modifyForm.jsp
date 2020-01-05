@@ -24,6 +24,11 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath }/adRsc/css/responsive.css">
 <!-- modernizr css -->
 <script src="${pageContext.request.contextPath }/adRsc/vendor/modernizr-2.8.3.min.js"></script>
+<style>
+	.notification-area {
+		text-align:right;
+	}
+</style>
 </head>
 <body>
 	<!-- preloader area start -->
@@ -34,59 +39,13 @@
     <!-- page container area start -->
     <div class="page-container">
         <!-- sidebar menu area start -->
-        <div class="sidebar-menu">
-            <div class="sidebar-header">
-                <div class="logo">
-                    <a href="${pageContext.request.contextPath }/admin/main"><img src="${pageContext.request.contextPath }/adRsc/images/logo.png" alt="logo"></a>
-                </div>
-            </div>
-            <div class="main-menu">
-                <div class="menu-inner">
-                    <nav>
-                        <ul class="metismenu" id="menu">
-                            <li><a href="${pageContext.request.contextPath }/admin/main"><i class="ti-dashboard"></i><span>모니터링</span></a></li>
-                            <li><a href="${pageContext.request.contextPath }/admin/memberList"><i class="ti-user"></i><span>회원관리</span></a></li>
-                            
-                            <li>
-                                <a href="javascript:void(0)" aria-expanded="true"><i class="ti-menu"></i><span>게시판관리</span></a>
-                                <ul class="collapse">
-                                    <li><a href="#">대나무숲</a></li>
-                                    <li><a href="#">코드지식인</a></li>
-                                    <li><a href="#">업계현황</a></li>
-                                    <li><a href="#">프로젝트 모집</a></li>
-                                </ul>
-                            </li>
-                            
-                            <li><a href="${pageContext.request.contextPath }/admin/inquiryList"><i class="ti-help"></i><span>일대일문의</span></a></li>
-                            <li class="active"><a href="${pageContext.request.contextPath }/admin/modifyForm"><i class="ti-face-smile"></i><span>정보변경</span></a></li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-        </div>
+        <!-- sidebar menu area start -->
+        <jsp:include page="/WEB-INF/views/standard/adminSidebar.jsp"/>
         <!-- sidebar menu area end -->
         <!-- main content area start -->
         <div class="main-content">
             <!-- header area start -->
-            <div class="header-area">
-                <div class="row align-items-center">
-                    <!-- nav and search button -->
-                    <div class="col-md-6 col-sm-8 clearfix">
-                        <div class="nav-btn pull-left">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </div>
-                    </div>
-                    <!-- profile info & task notification -->
-                    <div class="col-md-6 col-sm-4 clearfix">
-                        <ul class="notification-area pull-right">
-                            <li id="full-view"><i class="ti-fullscreen"></i></li>
-                            <li id="full-view-exit"><i class="ti-zoom-out"></i></li>                                                
-                        </ul>
-                    </div>
-                </div>
-            </div>
+            <jsp:include page="/WEB-INF/views/standard/adminHeader.jsp"/>
             <!-- header area end -->
             <!-- page title area start -->
             <div class="page-title-area">
@@ -105,7 +64,7 @@
                             <img class="avatar user-thumb" src="${pageContext.request.contextPath }/adRsc/images/avatar.png" alt="avatar">
                             <h4 class="user-name dropdown-toggle" data-toggle="dropdown">Administrator <i class="fa fa-angle-down"></i></h4>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Log Out</a>
+                                <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/logout">Log Out</a>
                             </div>
                         </div>
                     </div>
@@ -146,11 +105,7 @@
         </div>
         <!-- main content area end -->
         <!-- footer area start-->
-        <footer>
-            <div class="footer-area">
-                <p>© Copyright 2018. All right reserved. Template by <a href="https://colorlib.com/wp/">Colorlib</a>.</p>
-            </div>
-        </footer>
+        <jsp:include page="/WEB-INF/views/standard/adminFooter.jsp"/>
         <!-- footer area end-->
     </div>
     <!-- page container area end -->
