@@ -36,7 +36,22 @@
 						<a class="btn btn-secondary" href="/project/list" role="button">게시판</a>
 						<a class="btn btn-secondary" href="/project/chart" role="button">그래픽</a>
 						<a class="btn btn-primary" href="/project/map" role="button">지도</a>
+
+<!-- 					<ul class="nav nav-tabs"> -->
+<!-- 					  <li class="nav-item"> -->
+<!-- 					    <a class="nav-link" href="/project/list">게시판</a> -->
+<!-- 					  </li> -->
+<!-- 					  <li class="nav-item"> -->
+<!-- 					    <a class="nav-link" href="/project/chart">일정</a> -->
+<!-- 					  </li> -->
+<!-- 					  <li class="nav-item"> -->
+<!-- 					    <a class="nav-link active" href="/project/map">지도</a> -->
+<!-- 					  </li> -->
+<!-- 					</ul> -->
+					
 					</div>
+					
+
 				</div>		
 				
             </div>           

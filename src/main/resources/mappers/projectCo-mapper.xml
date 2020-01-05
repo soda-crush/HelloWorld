@@ -4,10 +4,10 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ProjectCo">
 	<select id="getList" resultType="kh.hello.dto.ProjectCoDTO">
-		select * from projectComment where projectSeq=#{value}
+		select * from projectComment where projectSeq=#{value} order by seq
 	</select>
 	<insert id="insertProjectCo" parameterType="kh.hello.dto.ProjectCoDTO">
-		insert into projectComment values(projectCoSeq.nextval,#{projectSeq},#{writer},#{contents},sysdate)
+		insert into projectComment values(projectCommentSeq.nextval,#{projectSeq},#{writer},#{contents},sysdate)
 	</insert>
 	<update id="updateProjectCo" parameterType="kh.hello.dto.ProjectCoDTO">
 		update projectComment set contents=#{contents} where seq=#{seq}
