@@ -5,8 +5,18 @@
 <mapper namespace="Project">
 	<select id="getList" resultType="kh.hello.dto.ProjectDTO">
 <!-- 		select seq,title,location1,capacity,startDate,endDate,state,writer,writeDate,viewCount,(select count(*) from projectComment where projectSeq=project.seq) as commentCount from project order by seq desc -->
-		select project.*,(select count(*) from projectComment where projectSeq=project.seq) as commentCount from project order by seq desc
+		select project.*,(select count(*) from projectComment where projectSeq=project.seq) as commentCount from project order by seq desc		
 	</select>
+	
+	
+	<select id="getArticleCount" resultType="integer">
+		select count(*) from project
+	</select>
+	<select id="getListByPage" resultType="kh.hello.dto.ProjectDTO">
+		select * from (select project.*,(select count(*) from projectComment where projectSeq=project.seq) as commentCount, row_number() over (order by seq desc) as num from project) where num between #{start} and #{end}
+	</select>
+	
+	
 	
 	<select id="getProjectDetailView" resultType="kh.hello.dto.ProjectDTO">
 		select project.*,(select count(*) from projectApply where projectSeq=project.seq and approve in('W')) as applyCount from project where seq=#{value}
