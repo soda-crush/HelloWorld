@@ -12,6 +12,7 @@ public class CodeQuestionDTO {
 	private int point;
 	private int viewCount;
 	private Timestamp writeDate;
+	private int repCount;
 	
 	public CodeQuestionDTO() {
 		super();
@@ -81,5 +82,11 @@ public class CodeQuestionDTO {
 	public String getFormedDate() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
 		return sdf.format(writeDate);
+	}
+	public int getRepCount() {
+		return repCount;
+	}
+	public void setRepCount(int repCount) {
+		this.repCount = repCount;
 	}
 }

@@ -16,6 +16,7 @@ import kh.hello.dto.CodeCommentsDTO;
 import kh.hello.dto.CodeQuestionDTO;
 import kh.hello.dto.CodeReplyDTO;
 import kh.hello.dto.ProjectCoDTO;
+import kh.hello.dto.ProjectDTO;
 import kh.hello.services.CodeService;
 
 @Controller
@@ -29,20 +30,20 @@ public class CodeController {
 	
 	//질문 CodeQuestion
 	@RequestMapping("/codeQList.do")
-	public String codeList(Model m,HttpServletRequest request) {
+	public String codeList(Model m,String page) {
 		try {
-			String page = request.getParameter("cpage");
 			session.setAttribute("loginInfo", "oh");
-			int cpage = 1;
-			if(page != null) {
-				cpage = Integer.parseInt(page);
-			}
-			int start = cpage * Configuration.recordCountPerPage - (Configuration.recordCountPerPage-1);
-			int end = cpage * Configuration.recordCountPerPage;
+			int currentPage = 1;
+			if(page != null) currentPage = Integer.parseInt(page);
+			int end = currentPage * Configuration.recordCountPerPage;
+			int start = end - (Configuration.recordCountPerPage - 1);
 			List<CodeQuestionDTO> list = sv.selectQuestionAll(start,end);
-			String pageNavi = sv.pageNavi(page,start,end);
+			List<String> pageNavi = sv.getPageNavi(currentPage);
+//			List<CodeQuestionDTO> listCount = sv.selectAll();
 			m.addAttribute("list",list);
+//			m.addAttribute("listCount",listCount);
 			m.addAttribute("pageNavi",pageNavi);
+			m.addAttribute("page", currentPage);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -56,6 +57,7 @@ public class CodeController {
 	
 	@RequestMapping("/codeQWriteProc.do")
 	public String codeWriteProc(CodeQuestionDTO dto) {
+		System.out.println("dto:"+ dto.getSeq());
 		dto.setWriter((String)session.getAttribute("loginInfo"));
 		try {
 			String path = session.getServletContext().getRealPath("files");
@@ -93,6 +95,38 @@ public class CodeController {
 		return "redirect:codeQList.do";
 	}
 	
+	@RequestMapping("/modify.do")
+	public String codeModify(int seq, Model m) {
+		CodeQuestionDTO result;
+		try {
+			result = sv.detailQuestion(seq);
+			int parent_seq = seq;
+			m.addAttribute("parent_seq",parent_seq);
+			m.addAttribute("result", result);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "/code/codeQModify";
+	}
+	
+	@RequestMapping("/modifyProc.do")
+	public String codeModifyProc(CodeQuestionDTO dto) {
+//		System.out.println(dto.getWriter());
+//		dto.setWriter((String)session.getAttribute("loginInfo"));
+//		System.out.println(dto.getDivision());
+//		System.out.println(dto.getWriter());
+//		System.out.println(dto.getTitle());
+//		System.out.println(dto.getWriteDate());
+		try {
+			sv.modify(dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		int seq = dto.getSeq();
+		//return "redirect:codeQList.do";
+		return "redirect:/code/codeDetail.do?seq="+seq;
+	}
+	
 	//답글 CodeReply
 	
 //	@RequestMapping("/codeQList.do") List도 transaction걸어야함.
@@ -115,9 +149,9 @@ public class CodeController {
 	}
 	
 	@RequestMapping("/codeRWriteProc.do")
-	public String codeRWriteProc(CodeReplyDTO dto,CodeQuestionDTO Qdto,int parent_seq) {
-		int queSeq = parent_seq;
-		dto.setQueSeq(queSeq);
+	public String codeRWriteProc(CodeReplyDTO dto) {
+		System.out.println("dto 시작:"+ dto.getSeq());
+		System.out.println(dto.getQueSeq());
 		dto.setWriter((String)session.getAttribute("loginInfo"));
 		try {
 			//int queSeq = sv.selectParentSeq(parent_seq);
@@ -141,20 +175,25 @@ public class CodeController {
 	}
 	
 	//댓글 CodeReply
+	
 	@ResponseBody
-	@RequestMapping(value="/comment/writeProc",produces="text/html;charset=utf8")
+	@RequestMapping(value="/codeCWriteProc.do",produces="text/html;charset=utf8")
 	public String insertComment(CodeCommentsDTO dto) {
+		//int repSeq = parent_seq;
+		System.out.println(dto.getWriter());
+		System.out.println(dto.getContent());
 		return sv.insertComment(dto);		
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/comment/modifyProc",produces="text/html;charset=utf8")
+	@RequestMapping(value="/codeCModifyProc.do",produces="text/html;charset=utf8")
 	public String updateComment(CodeCommentsDTO dto) {
 		return sv.updateComment(dto);
 	}
 	
-	@RequestMapping("/comment/deleteProc")
-	public void deleteComment(int seq) {
+	@RequestMapping("/codeCDeleteProc.do")
+	public String deleteComment(int seq,int repSeq) {
 		sv.deleteComment(seq);
+		return "redirect:/code/codeQList.do?seq="+repSeq;
 	}
 }
