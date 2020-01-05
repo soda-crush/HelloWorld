@@ -69,7 +69,7 @@ public class AdminService {
 		
 		for(int i = startNavi; i <= endNavi; i++) {
 			StringBuilder sb = new StringBuilder();
-			sb.append("<aS class=page-link href='inquiryList?page="+ i +"'>");
+			sb.append("<a class=page-link href='inquiryList?page="+ i +"'>");
 			sb.append(i + " ");
 			sb.append("</a>");
 			pages.add(sb.toString());
