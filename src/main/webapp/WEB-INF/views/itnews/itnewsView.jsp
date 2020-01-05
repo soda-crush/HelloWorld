@@ -31,6 +31,7 @@
             
             <!--      몸통 시작!!!   -->
 
+
             <div class="container eleCon">
             	<div class=row>
             		<div class="col-12">${result.title}<hr></div>
