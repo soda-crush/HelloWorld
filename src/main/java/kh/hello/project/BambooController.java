@@ -26,7 +26,7 @@ public class BambooController {
 
 
 	//대나무숲 게시판
-	@RequestMapping("/bamboolist.do")
+	@RequestMapping("/bambooList.do")
 	public String bamboolistView (String cpage, Model m) {//대나무숲 게시판목록
 		session.setAttribute("loginInfo", "moon");
 		//List<BambooDTO> list = service.bambooList();
@@ -36,14 +36,6 @@ public class BambooController {
 		int currentPage = 1;		
 
 		if(cpage != null) currentPage = Integer.parseInt(cpage);
-
-		if(currentPage > 0 && currentPage <= Configuration.naviCountPerPage) {
-			m.addAttribute("currentPage", currentPage);
-		}else if(currentPage % Configuration.naviCountPerPage == 0) {
-			m.addAttribute("currentPage", Configuration.naviCountPerPage + 1);
-		}else {
-			m.addAttribute("currentPage", (currentPage % Configuration.naviCountPerPage + 1));
-		}
 
 		int end = currentPage * Configuration.recordCountPerPage;
 		int start = end - (Configuration.recordCountPerPage - 1);	
@@ -83,7 +75,7 @@ public class BambooController {
 	public String bambooWriteConfirm(BambooDTO dto) {
 		dto.setWriter((String)session.getAttribute("loginInfo"));
 		int seq = service.bambooWriteConfirm(dto);
-		return "redirect:/bamboo/bamboolist.do";
+		return "redirect:/bamboo/bambooList.do";
 	}
 
 	@RequestMapping("/bambooModify.do")
@@ -111,7 +103,7 @@ public class BambooController {
 	@ResponseBody
 	@RequestMapping(value="/comment/writeProc.do",produces="text/html;charset=utf8")
 	public String commentWriteConfirm(BambooCoDTO dto) {
-		return 	service.commentWriteConfirm(dto);
+		return service.commentWriteConfirm(dto);
 	}
 
 	@ResponseBody
@@ -122,7 +114,6 @@ public class BambooController {
 
 	@RequestMapping("/comment/deleteProc.do")
 	public String commentDeleteConfirm(int bamSeq,int seq) {
-		System.out.println(bamSeq);
 		service.commentDeleteConfirm(seq);
 		return "redirect:/bamboo/bambooDetailView.do?seq="+bamSeq;
 	}

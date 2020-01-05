@@ -44,11 +44,11 @@ public class BambooDAO {
 	public int recordBambooListTotalCount () {//대나무숲 전체리스트 수
 		return jdbc.selectOne("Bamboo.recordBambooListTotalCount");
 	}
-	public List<BambooDTO> BambooListByPage (int start, int end) {//대나무숲 목록 페이지네비
+	public List<BambooDTO> bambooListByPage (int start, int end) {//대나무숲 목록 페이지네비
 		Map<String, Integer> param = new HashMap<>();
 		param.put("start", start);
 		param.put("end", end);
-		return jdbc.selectList("Bamboo.BambooListByPage",param);
+		return jdbc.selectList("Bamboo.bambooListByPage",param);
 	}
 	
 	//대나무숲 댓글

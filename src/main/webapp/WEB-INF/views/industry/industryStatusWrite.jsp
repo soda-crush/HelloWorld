@@ -24,7 +24,17 @@
             </div>
             
             <!--      몸통 시작!!!   -->
-            	<form action="bambooWriteProc.do" method="post">
+            	<form action="industryStatusWriteProc.do" method="post">
+            	<select name="field" id="field">
+            		<option value="분야1">분야1</option>
+            		<option value="분야2">분야2</option>
+            		<option value="분야3">분야3</option>
+            	</select>
+            	<select name="duty" id="duty">
+            		<option value="직무1">직무1</option>
+            		<option value="직무2">직무2</option>
+            		<option value="직무3">직무3</option>
+            	</select>
             	제목<input type="text" id=title name=title><br>
             	내용<input type="textarea" id="content" name=content><br>
             	<input type="button" id="return" value="돌아가기">
@@ -44,7 +54,7 @@
         
         <script>
         	$("#return").on("click",function(){
-        		location.href="bambooList.do";
+        		location.href="industryStatusList.do";
         	})
         	$("#write").on("click",function(){
         		$("form").submit();

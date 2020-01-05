@@ -16,11 +16,11 @@
 	</select>
 	
 	<insert id="insertIndustryStatus" parameterType="kh.hello.dto.IndustryStatusDTO">
-		insert into industryStatus values(industryStatusSeq.nextval,#{title},#{field},#{duty},#{writer},#{title},#{content},sysdate,0)
+		insert into industryStatus values(industryStatusSeq.nextval,#{field},#{duty},#{writer},#{title},#{content},sysdate,0)
 	</insert>
 	
 	<update id="updateIndustryStatus" parameterType="kh.hello.dto.IndustryStatusDTO">
-		update industryStatus set title=#{title}, field=#{field}, duty=#{duty}, title=#{title}, content=#{content}  where seq=#{seq}
+		update industryStatus set field=#{field}, duty=#{duty}, title=#{title}, content=#{content}  where seq=#{seq}
 	</update>
 	
 	<update id="updateIndustryStatusViewCount">
@@ -30,4 +30,12 @@
 	<delete id="deleteIndustryStatus">
 		delete from industryStatus where seq=#{value}
 	</delete>
+	
+	<!-- 페이지네비 -->
+	<select id="recordIndustryListTotalCount" resultType="integer">
+		select count(seq) from bamboo
+	</select>
+	<select id="industryListByPage" resultType="kh.hello.dto.IndustryStatusDTO">
+		select * from (select industryStatus.*, row_number() over (order by seq desc) as rown from industryStatus) where rown between #{start} and #{end}
+	</select>
 </mapper>

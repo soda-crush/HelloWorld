@@ -35,9 +35,9 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 
                 <div class="navbar-nav box text-center" id="naviCon">
-                    <a class="nav-item nav-link active text-light" href="#">대나무숲</a>
+                    <a class="nav-item nav-link active text-light" href="${pageContext.request.contextPath}/bamboo/bambooList.do">대나무숲</a>
                     <a class="nav-item nav-link active text-light" href="${pageContext.request.contextPath}/code/codeQList.do">코드지식인</a>
-                    <a class="nav-item nav-link active text-light" href="#">업계현황</a>
+                    <a class="nav-item nav-link active text-light" href="${pageContext.request.contextPath}/industry/industryStatusList.do">업계현황</a>
                     <a class="nav-item nav-link active text-light" href="${pageContext.request.contextPath}/itnews/itnewsList">IT 뉴스</a>
                     <a class="nav-item nav-link active text-light" href="${pageContext.request.contextPath}/project/list">프로젝트</a>
                     <a class="nav-item nav-link active text-light" href="#">P-log</a>

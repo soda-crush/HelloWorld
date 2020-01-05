@@ -77,7 +77,7 @@
 				  </tbody>
 				</table>
 				<div class="text-right">
-					<a class="btn btn-primary" href="/bamboo/bambooWrite.do" role="button">글쓰기</a>					
+					<a class="btn btn-primary" href="/industry/industryStatusWrite.do" role="button">글쓰기</a>					
 				</div>
 				<nav aria-label="List navi">
 				  <ul class="pagination justify-content-center">
@@ -86,9 +86,9 @@
 				        <span aria-hidden="true">&laquo;</span>
 				      </a>
 				    </li>
-				    <li class="page-item"><a class="page-link" href="#">1</a></li>
-				    <li class="page-item active"><a class="page-link" href="#">2</a></li>
-				    <li class="page-item"><a class="page-link" href="#">3</a></li>
+				     <c:forEach items="${pageNavi}" var="navi">									
+						${navi}
+					</c:forEach>
 				    <li class="page-item">
 				      <a class="page-link" href="#" aria-label="Next">
 				        <span aria-hidden="true">&raquo;</span>

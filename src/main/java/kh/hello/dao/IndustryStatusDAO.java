@@ -1,6 +1,8 @@
 package kh.hello.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +40,17 @@ public class IndustryStatusDAO {
 		return jdbc.delete("Industry.deleteIndustryStatus", seq);
 	}
 	
-	//대나무숲 댓글
+	//페이지네비
+	public int recordIndustryListTotalCount () {// 전체리스트 수
+		return jdbc.selectOne("Industry.recordIndustryListTotalCount");
+	}
+	public List<IndustryStatusDTO> industryListByPage (int start, int end) {// 목록 페이지네비
+		Map<String, Integer> param = new HashMap<>();
+		param.put("start", start);
+		param.put("end", end);
+		return jdbc.selectList("Industry.industryListByPage",param);
+	}
+	//업계현황 댓글
 	
 	public List<IndustryStatusCoDTO> getCoList(int indSeq){
 		return jdbc.selectList("IndustryCo.getList", indSeq);
