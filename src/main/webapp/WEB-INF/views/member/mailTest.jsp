@@ -15,7 +15,7 @@
 <body>
 <div class="container">
   <h4>메일 보내기</h4>
-  <form action="${pageContext.request.contextPath}/mail/mailSending" method="post">
+  <form action="${pageContext.request.contextPath}/member/mailSending" method="post">
     <div align="center"><!-- 받는 사람 이메일 -->
       <input type="text" name="tomail" size="120" style="width:100%" placeholder="상대의 이메일" class="form-control" >
     </div>     

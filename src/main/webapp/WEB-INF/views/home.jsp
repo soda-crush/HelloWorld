@@ -25,6 +25,7 @@
             
             <!--      몸통 시작!!!   -->
             
+            <a href="${pageContext.request.contextPath}/member/mail">메일보내러~!</a>
             
             <!--       몸통 끝!!!   -->
             
