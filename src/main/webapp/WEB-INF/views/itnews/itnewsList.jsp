@@ -13,6 +13,17 @@
 <link rel="stylesheet" href="/css/mainBase.css">
 <link rel="stylesheet" type="text/css" href="/css/font-awesome/css/font-awesome.css">
 <link rel="stylesheet" href="/css/project/list.css" type="text/css"/>
+<style>
+	.pageNavi{
+		text-align:center;
+	}
+	.pageNavi a{
+		color:black;
+	}
+	#page${page}{
+		color:blue;
+	}
+</style>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/standard/header.jsp"/>
@@ -40,11 +51,11 @@
 					</div>
 					
 				  	<c:choose>
-				  		<c:when test="${itnewsList.size()==0 }">
+				  		<c:when test="${list.size()==0 }">
 				  		<div class="row"><div class="col-12">작성된 글이 없습니다.</div></div>
 				  		</c:when>
 				  		<c:otherwise>
-				  			<c:forEach items="${itnewsList}" var="dto">
+				  			<c:forEach items="${list}" var="dto">
 				  				<div class="row tableBody p-0">
 									<div class="col-md-1 d-none d-md-block order-md-1">${dto.seq}</div>
 					    			<div class="col-12 col-md-6 order-1 order-md-2"><a href="${pageContext.request.contextPath}/itnews/detail?seq=${dto.seq}">${dto.title}</a></a></div>
@@ -52,11 +63,15 @@
 					    			<div class="col-2 col-md-2 order-3 order-md-4">${dto.getDate()}</div>
 					    			<div class="col-1 col-md-1 order-4 order-md-5">${dto.viewCount}</div>
 					    			<div class="col-6 order-5 d-md-none"></div>		
-								</div>	
+								</div>
 				  			</c:forEach>
 				  		</c:otherwise>
 				  	</c:choose>				    
-				</div>								
+				</div>		
+				
+				<div class=row>
+					<div class="col-12 pageNavi">${navi}</div>
+				</div>		
 				<div class="pageListFooter text-right">
 					<a class="btn btn-primary" href="${pageContext.request.contextPath}/itnews/write" role="button">글쓰기</a>					
 				</div>
