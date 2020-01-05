@@ -30,7 +30,7 @@
 				<div id="pageTitle" class="row">
 					<div class="col-12 col-lg-4"><h1>프로젝트 모집</h1></div>
 					<div class="col-12 col-lg-8 pt-2">
-						<a class="btn btn-primary" href="/project/list" role="button">게시판</a>
+						<a class="btn btn-danger" href="/project/list" role="button">게시판</a>
 						<a class="btn btn-secondary" href="/project/chart" role="button">그래픽</a>
 						<a class="btn btn-secondary" href="/project/map" role="button">지도</a>
 					</div>
@@ -76,25 +76,9 @@
 				  	</c:choose>				    
 				</div>								
 				<div class="pageListFooter text-right">
-					<a class="btn btn-primary" href="/project/write" role="button">글쓰기</a>					
+					<a class="btn btn-success" href="/project/write" role="button">글쓰기</a>					
 				</div>
-				<nav aria-label="List navi" id="pPageNavi">
-				  <ul class="pagination justify-content-center">
-				    <li class="page-item">
-				      <a class="page-link" href="#" aria-label="Previous">
-				        <span aria-hidden="true">&laquo;</span>
-				      </a>
-				    </li>
-				    <li class="page-item"><a class="page-link" href="#">1</a></li>
-				    <li class="page-item active"><a class="page-link" href="#">2</a></li>
-				    <li class="page-item"><a class="page-link" href="#">3</a></li>
-				    <li class="page-item">
-				      <a class="page-link" href="#" aria-label="Next">
-				        <span aria-hidden="true">&raquo;</span>
-				      </a>
-				    </li>
-				  </ul>
-				</nav>
+				<nav aria-label="List navi" id="pPageNavi">${pageNavi }</nav>
 				
             </div>
             <!--       몸통 끝!!!   -->
@@ -108,5 +92,9 @@
         </div>
         
         <jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
+        
+        <script>
+        	$(".pNavi${currentPage}").addClass("active");
+        </script>
 </body>
 </html>

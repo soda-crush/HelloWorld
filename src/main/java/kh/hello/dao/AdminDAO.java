@@ -135,6 +135,21 @@ public class AdminDAO {
 		return jdbc.delete("Admin.forcedOutDel", seq);
 	}
 	
+	public List<MemberDTO> getSearchMemberListByPage(String col, String searchWord, int start, int end){
+		Map<String, Object> param = new HashMap<>();
+		param.put("start", start);
+		param.put("end", end);
+		param.put("col", col);
+		param.put("searchWord", "%"+searchWord+"%");
+		return jdbc.selectList("Admin.getSearchMemberListByPage", param);
+	}
+	
+	public int getSearchMemberResultTotal(String col, String searchWord) {
+		Map<String, String> param = new HashMap<>();
+		param.put("col", col);
+		param.put("searchWord", "%"+searchWord+"%");
+		return jdbc.selectOne("Admin.getSearchMemberResultTotal", param);
+	}
 }
 
 

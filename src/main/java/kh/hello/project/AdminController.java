@@ -72,15 +72,7 @@ public class AdminController {
 		int currentPage = 1;		
 		
 		if(page != null) currentPage = Integer.parseInt(page);
-		
-		if(currentPage > 0 && currentPage <= Configuration.naviCountPerPage) {
-			m.addAttribute("currentPage", currentPage);
-		}else if(currentPage % Configuration.naviCountPerPage == 0) {
-			m.addAttribute("currentPage", Configuration.naviCountPerPage + 1);
-		}else {
-			m.addAttribute("currentPage", (currentPage % Configuration.naviCountPerPage + 1));
-		}
-		
+				
 		int end = currentPage * Configuration.recordCountPerPage;
 		int start = end - (Configuration.recordCountPerPage - 1);	
 		
@@ -140,13 +132,13 @@ public class AdminController {
 		//회원 목록 받아오기(byPage)
 		int currentPage = 1;
 		if(page != null) currentPage = Integer.parseInt(page);
-		if(currentPage > 0 && currentPage <= Configuration.naviCountPerPage) {
-			m.addAttribute("currentPage", currentPage);
-		}else if(currentPage % Configuration.naviCountPerPage == 0) {
-			m.addAttribute("currentPage", Configuration.naviCountPerPage + 1);
-		}else {
-			m.addAttribute("currentPage", (currentPage % Configuration.naviCountPerPage + 1));
-		}
+//		if(currentPage > 0 && currentPage <= Configuration.naviCountPerPage) {
+//			m.addAttribute("currentPage", currentPage);
+//		}else if(currentPage % Configuration.naviCountPerPage == 0) {
+//			m.addAttribute("currentPage", Configuration.naviCountPerPage + 1);
+//		}else {
+//			m.addAttribute("currentPage", (currentPage % Configuration.naviCountPerPage + 1));
+//		}
 		
 		int end = currentPage * Configuration.recordCountPerPage;
 		int start = end - (Configuration.recordCountPerPage - 1);
@@ -207,13 +199,6 @@ public class AdminController {
 		//목록 받아오기(page)
 		int currentPage = 1;
 		if(page != null) currentPage = Integer.parseInt(page);
-		if(currentPage > 0 && currentPage <= Configuration.naviCountPerPage) {
-			m.addAttribute("currentPage", currentPage);
-		}else if(currentPage % Configuration.naviCountPerPage == 0) {
-			m.addAttribute("currentPage", Configuration.naviCountPerPage + 1);
-		}else {
-			m.addAttribute("currentPage", (currentPage % Configuration.naviCountPerPage + 1));
-		}
 		
 		int end = currentPage * Configuration.recordCountPerPage;
 		int start = end - (Configuration.recordCountPerPage - 1);
@@ -235,6 +220,28 @@ public class AdminController {
 		int result = as.forcedOutDel(seq);
 		m.addAttribute("result", result);
 		return "admin/forcedOutDelResult";
+	}
+	
+	@RequestMapping("/searchMember")
+	public String searchMember(String col, String searchWord, String page, Model m) {
+		System.out.println(col + " : " + searchWord);
+		//검색 후 목록 받아오기
+		int currentPage = 1;
+		if(page != null) currentPage = Integer.parseInt(page);
+		
+		int end = currentPage * Configuration.recordCountPerPage;
+		int start = end - (Configuration.recordCountPerPage - 1);
+		
+		List<MemberDTO> list = as.getSearchMemberListByPage(col, searchWord, start, end);
+		m.addAttribute("list", list);
+		
+		//페이지네비 받아오기
+		List<String> pageNavi = as.getSearchMemberListPageNavi(currentPage, col, searchWord);
+		m.addAttribute("pageNavi", pageNavi);
+		
+		m.addAttribute("page", currentPage);
+				
+		return "admin/searchMemberList";
 	}
 }
 
