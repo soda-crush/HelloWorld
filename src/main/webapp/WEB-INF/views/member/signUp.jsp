@@ -108,10 +108,13 @@
 		            	<p style="display:inline;">- 일반 메일일 경우  비실무자로 가입됩니다.</p>
 		            		&emsp;<br>&emsp;<input type=text name=empEmail id=empEmail placeholder="메일 주소 입력">
 		            		<img id=empEmailCheck style="display:none;">
+		            		<button type=button id=sendMail1>인증 메일 발송</button>
 	            	</div>
 	            	<div class="col-12 col-sm-6">
-		            	<h5><img src="/icon/doubleArrow.svg" class=arrow>인증 코드</h5>
-		            		&emsp;<input type=text name=empCode id=empCode placeholder="인증 코드 입력">
+		            	<h5 style="display:inline;"><img src="/icon/doubleArrow.svg" class=arrow>인증 코드</h5>
+		            	<p style="display:inline;">-메일로 전송된 코드를 입력해주세요.</p>
+		            		&emsp;<br>&emsp;<input type=text name=empCode id=empCode placeholder="인증 코드 입력">
+		            		<button type=button id = "certification1">인증</button>
 	            	</div>
            		 </div>
             </div>
@@ -121,10 +124,13 @@
 		            	<h5><img src="/icon/doubleArrow.svg" class=arrow>개인 메일</h5>
 		            		&emsp;<input type=text name=unempEmail id=unempEmail placeholder="메일 주소 입력">
 		            		<img id=unempEmailCheck style="display:none;">
+		            		<button type=button id=sendMail2>인증 메일 발송</button>
 	            	</div>
 	            	<div class="col-12 col-sm-6">
-		            	<h5><img src="/icon/doubleArrow.svg" class=arrow>인증 코드</h5>
-		            		&emsp;<input type=text name=unempCode id=unempCode placeholder="인증 코드 입력">
+		            	<h5 style="display:inline;"><img src="/icon/doubleArrow.svg" class=arrow>인증 코드</h5>
+		            	<p style="display:inline;">-메일로 전송된 코드를 입력해주세요.</p>
+		            		&emsp;<br>&emsp;<input type=text name=unempCode id=unempCode placeholder="인증 코드 입력">
+		            		<button type=button id = "certification2">인증</button>
 	            	</div>
            		 </div>
             </div>
@@ -483,6 +489,68 @@
               $("input:radio[name=gender]").click(function(){
 	           genderTest = 1;
 	        	});
+            
+            //이메일 인증코드 - 실무자
+            $("#sendMail1").on("click",function(){
+            		$.ajax({
+            			url:"${pageContext.request.contextPath}/member/mailSending",
+            			type:"post",
+            			data:{
+            				email : $("#empEmail").val()
+            			}
+            		}).done(function(data){
+            			alert("인증 메일이 전송되었습니다. 메일을 확인해주세요.");
+            		});
+            	})
+            	$("#certification1").on("click",function(){
+            		$.ajax({
+            			url:"${pageContext.request.contextPath}/member/ctfCodeProc",
+            			type:"post",
+            			data:{
+            				email : $("#empEmail").val(),
+            				code : $("#empCode").val()
+            			}
+            		}).done(function(data){
+            			console.log(data);
+            			if(data == "true"){
+            				alert("인증에 성공하셨습니다. 계속 진행하여 주십시오.");
+                			emailTest = 1;
+            			}else{
+            				alert("인증에 실패하였습니다. 코드를 다시 확인해주시기 바랍니다.");
+            			}
+            		});
+            	})
+            	
+            //이메일 인증코드 - 비실무자
+            $("#sendMail2").on("click",function(){
+            		$.ajax({
+            			url:"${pageContext.request.contextPath}/member/mailSending",
+            			type:"post",
+            			data:{
+            				email : $("#unempEmail").val()
+            			}
+            		}).done(function(data){
+            			alert("인증 메일이 전송되었습니다. 메일을 확인해주세요.");
+            		});
+            	})
+            	$("#certification2").on("click",function(){
+            		$.ajax({
+            			url:"${pageContext.request.contextPath}/member/ctfCodeProc",
+            			type:"post",
+            			data:{
+            				email : $("#unempEmail").val(),
+            				code : $("#unempCode").val()
+            			}
+            		}).done(function(data){
+            			console.log(data);
+            			if(data == "true"){
+            				alert("인증에 성공하셨습니다. 계속 진행하여 주십시오.");
+                			emailTest = 1;
+            			}else{
+            				alert("인증에 실패하였습니다. 코드를 다시 확인해주시기 바랍니다.");
+            			}
+            		});
+            	})
             
             //가입버튼 누르기전 마지막 체크
             	$("#send").on("click",function(){

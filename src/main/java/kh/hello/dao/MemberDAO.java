@@ -36,4 +36,19 @@ public class MemberDAO {
 			return jdbc.selectOne("Member.phoneDupleCheck", phone);
 		}
 	
+	//인증메일, 코드 디비 추가
+		public int insertCtfCode(String email, String ctfCode)throws Exception{
+			Map<String, String> param = new HashMap<>();
+			param.put("email", email);
+			param.put("certificationCode", ctfCode);
+			return jdbc.insert("Member.insertCode", param);
+		}
+		
+	//인증코드확인
+		public int selectCtfCode(String email, String ctfCode)throws Exception{
+			Map<String, String> param = new HashMap<>();
+			param.put("email", email);
+			param.put("certificationCode", ctfCode);
+			return jdbc.selectOne("Member.selectCode", param);
+		}
 }

@@ -30,5 +30,15 @@ public class MemberService {
 		public int phoneDupleCheck(String phone)throws Exception{
 			return mdao.phoneDupleCheck(phone);
 		}
+		
+	//인증메일, 코드 디비 추가
+		public int insertCtfCode(String email, String ctfCode)throws Exception{
+			return mdao.insertCtfCode(email, ctfCode);
+		}
+		
+	//인증코드 확인
+		public int confirmCode(String email, String code)throws Exception{
+			return mdao.selectCtfCode(email, code);
+		}
 	
 }
