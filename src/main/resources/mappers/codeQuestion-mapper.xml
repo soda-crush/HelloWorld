@@ -7,11 +7,22 @@
 		insert into codeQuestion
 		values(codeQuestionSeq.nextval,#{division},#{title},#{content},#{writer},#{point},0,sysdate)
 	</insert>
+		<select id="selectQuestionAll" resultType="kh.hello.dto.CodeQuestionDTO">
+			select codeQuestion.*,(select count(*) from codeReply where queSeq=codeQuestion.seq) as replyCount from (select codeQuestion.*, row_number() over(order by seq desc) rown from codeQuestion) codeQuestion where rown between 1 and 10 order by seq desc
+		</select>
 	
-	<select id="selectQuestionAll" resultType="kh.hello.dto.CodeQuestionDTO" parameterType="Integer">
-		select * from codeQuestion order by seq desc
-	</select>
+<!-- 	<select id="selectAll" resultType="kh.hello.dto.CodeQuestionDTO"> -->
+<!-- 		select codeQuestion.*,(select count(*) from codeReply where queSeq=codeQuestion.seq) as replyCount from codeQuestion order by seq desc -->
+<!-- 	</select> -->
 	
+<!-- 	<select id="selectQuestionAll" resultType="kh.hello.dto.CodeQuestionDTO"> -->
+<!-- 		select * from (select codeQuestion.*, row_number() over(order by seq desc) rown from codeQuestion) where rown between 1 and 10 -->
+<!-- 	</select> -->
+	
+	<select id="codeQuestionCount" resultType="Integer">
+  		select count(*) from codeQuestion
+  	</select>
+  	
 	<select id="selectSeq" parameterType="String" resultType="Integer">
 		select max(seq) from codeQuestion where writer = #{writer}
 	</select>
@@ -27,4 +38,8 @@
 	<delete id="delete" parameterType="Integer">
 		delete from codeQuestion where seq=#{seq}
 	</delete>
+	
+	<update id="modify" parameterType="kh.hello.dto.CodeQuestionDTO">
+		update codeQuestion set division=#{division},title=#{title},content=#{content},writer=#{writer},point=#{point},viewCount=#{viewCount},writeDate=sysdate where seq=#{seq}
+	</update>
 </mapper>
