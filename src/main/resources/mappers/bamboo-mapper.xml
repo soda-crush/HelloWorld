@@ -35,7 +35,7 @@
 	<select id="recordBambooListTotalCount" resultType="integer">
 		select count(seq) from bamboo
 	</select>
-	<select id="BambooListByPage" resultType="kh.hello.dto.BambooDTO">
+	<select id="bambooListByPage" resultType="kh.hello.dto.BambooDTO">
 		select * from (select bamboo.*, row_number() over (order by seq desc) as rown from bamboo) where rown between #{start} and #{end}
 	</select>
 </mapper>

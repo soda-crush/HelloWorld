@@ -38,7 +38,7 @@
 				  				<div>${bPage.viewCount}</div>
 				  				<div>${bPage.content}</div>
 			</c:if>
-				 <a class="btn btn-primary" href="/bamboo/bamboolist.do" role="button">돌아가기</a>
+				 <a class="btn btn-primary" href="/bamboo/bambooList.do" role="button">돌아가기</a>
 				 <a class="btn btn-primary" href="#" role="button">공유하기</a>
 				 <a class="btn btn-primary" href="#" role="button">스크랩</a>
 				 <a class="btn btn-primary" href="#" role="button">신고하기</a>

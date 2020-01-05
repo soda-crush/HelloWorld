@@ -10,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kh.hello.configuration.Configuration;
+import kh.hello.dto.BambooDTO;
 import kh.hello.dto.IndustryStatusCoDTO;
 import kh.hello.dto.IndustryStatusDTO;
 import kh.hello.services.IndustryStatusService;
@@ -24,11 +26,27 @@ public class IndustryStatusController {
 	
 	//대나무숲 게시판
 	@RequestMapping("/industryStatusList.do")
-	public String IndustryStatusListView (Model m) {//업계현황 게시판목록
+	public String IndustryStatusListView (String cpage, Model m) {//업계현황 게시판목록
 		session.setAttribute("loginInfo", "moon");
-		List<IndustryStatusDTO> list = service.industryStatusList();
+		//List<IndustryStatusDTO> list = service.industryStatusList();
 		
-		m.addAttribute("industryStatusList", list);
+		//페이지네비
+				int currentPage = 1;		
+
+				if(cpage != null) currentPage = Integer.parseInt(cpage);
+
+				int end = currentPage * Configuration.recordCountPerPage;
+				int start = end - (Configuration.recordCountPerPage - 1);	
+
+				List<IndustryStatusDTO> list = service.industryListByPage(start, end);
+				m.addAttribute("industryStatusList", list);
+
+				List<String> pageNavi = service.getIndustryListPageNavi(currentPage);
+				m.addAttribute("pageNavi", pageNavi);
+
+				m.addAttribute("cpage", currentPage);
+		
+		//m.addAttribute("industryStatusList", list);
 		return "/industry/industryStatusList";
 	}
 	@RequestMapping("/industryStatusDetailView.do")
@@ -87,8 +105,9 @@ public class IndustryStatusController {
 	}
 	
 	@RequestMapping("/comment/deleteProc.do")
-	public void commentDeleteConfirm(int seq) {
+	public String commentDeleteConfirm(int indSeq,int seq) {
 		service.commentDeleteConfirm(seq);
+		return "redirect:/industry/industryStatusDetailView.do?seq="+indSeq;
 	}
 	
 }

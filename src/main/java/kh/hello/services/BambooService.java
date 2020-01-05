@@ -53,7 +53,7 @@ public class BambooService {
 	//대나무숲 페이지네비
 
 	public List<BambooDTO> bambooListByPage(int start, int end) {//대나무숲 10개씩
-		return dao.BambooListByPage(start, end);
+		return dao.bambooListByPage(start, end);
 	}
 	public List<String> getBambooListPageNavi (int currentPage) {
 		int recordTotalCount = dao.recordBambooListTotalCount();
