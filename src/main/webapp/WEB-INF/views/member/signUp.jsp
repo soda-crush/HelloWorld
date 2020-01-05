@@ -552,9 +552,6 @@
             		});
             	})
             
-            
-            
-            
             //가입버튼 누르기전 마지막 체크
             	$("#send").on("click",function(){
             		if((idTest*pwTest*nickTest*phoneTest*jpTest*genderTest*nameTest) != 1){
