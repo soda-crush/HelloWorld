@@ -13,7 +13,7 @@
 	</select>
 	
 	<select id="detailReply" resultType="kh.hello.dto.CodeReplyDTO" parameterType="Integer">
-		select * from codeReply where seq = #{seq} order by 1 desc
+		select * from codeReply where queSeq = #{queSeq} order by 1 desc
 	</select>
 	
 	<delete id="deleteR" parameterType="Integer">

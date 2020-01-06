@@ -72,9 +72,9 @@ public class CodeController {
 	@RequestMapping("/codeDetail.do")
 	public String codeDetail(int seq, Model m) {
 		try {
-			CodeQuestionDTO qResult = sv.detailQuestion(seq);
-			List<CodeReplyDTO> rResult = sv.detailReply(seq);
-			List<CodeCommentsDTO> cResult = sv.commentList(seq);
+			CodeQuestionDTO qResult = sv.detailQuestion(seq); //queSeq
+			List<CodeReplyDTO> rResult = sv.detailReply(seq); //queSeq
+			List<CodeCommentsDTO> cResult = sv.commentList(seq); //reqSeq 받아야함 
 			
 			m.addAttribute("qResult", qResult);
 			m.addAttribute("rResult", rResult);
@@ -144,8 +144,7 @@ public class CodeController {
 	
 	@RequestMapping("/codeRWriteProc.do")
 	public String codeRWriteProc(CodeReplyDTO dto) {
-		System.out.println("dto 시작:"+ dto.getSeq());
-		System.out.println(dto.getQueSeq());
+		int queSeq = dto.getQueSeq();
 		dto.setWriter((String)session.getAttribute("loginInfo"));
 		try {
 			//int queSeq = sv.selectParentSeq(parent_seq);
@@ -155,9 +154,24 @@ public class CodeController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "redirect:codeDetail.do";
+		return "redirect:/code/codeDetail.do?seq="+queSeq;
 	}
 	
+	
+//	@RequestMapping("/codeRWriteProc.do")
+//	public String codeRriteProc2(CodeQuestionDTO dto) {
+//		System.out.println("dto:"+ dto.getSeq());
+//		dto.setWriter((String)session.getAttribute("loginInfo"));
+//		try {
+//			String path = session.getServletContext().getRealPath("files");
+//			sv.insert(dto);
+//			sv.imageUpload(dto, path);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		return "redirect:codeQList.do";
+//	}
+//	
 	@RequestMapping("/deleteR.do")
 	public String deleteR(int seq) {
 		try {
