@@ -502,7 +502,7 @@
             			alert("인증 메일이 전송되었습니다. 메일을 확인해주세요.");
             		});
             	})
-            	$("#certification1").on("click",function(){
+            $("#certification1").on("click",function(){
             		$.ajax({
             			url:"${pageContext.request.contextPath}/member/ctfCodeProc",
             			type:"post",

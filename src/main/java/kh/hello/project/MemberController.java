@@ -23,8 +23,6 @@ public class MemberController {
 	@Autowired
 	private MemberService ms;
 	
-	 @Autowired
-	 private JavaMailSender mailSender;
 
 	@RequestMapping("/login")
 	public String loginFrm(){ //로그인 폼이동
@@ -122,35 +120,9 @@ public class MemberController {
 	 @RequestMapping(value = "/mailSending", produces = "text/html; charset=utf-8")
 	 @ResponseBody
 	  public String mailSending(String email) {
-		String ctfCode = "0000"; 
 		 
-	    String setfrom = "sohyunKH4862@gmail.com";         
-	    String tomail  = email;     // 받는 사람 이메일
-	    String title   = "[Hello World!] This is your verification code.";      // 제목
-	    String content = "Please enter this code : ";    // 내용
-	  
-	    
-	    	//디비에 이메일이랑 인증코드 저장
-		    ms.insertCtfCode(email, ctfCode);
+		return ms.mailSending(email);
 		 
-		    try {
-		    	 MimeMessage message = mailSender.createMimeMessage();
-			      MimeMessageHelper messageHelper 
-			                        = new MimeMessageHelper(message, true, "UTF-8");
-			      
-			      messageHelper.setFrom(setfrom);  // 보내는사람 생략하거나 하면 정상작동을 안함
-			      messageHelper.setTo(tomail);     // 받는사람 이메일
-			      messageHelper.setSubject(title); // 메일제목은 생략이 가능하다
-			      messageHelper.setText(content);  // 메일 내용
-			     
-			      mailSender.send(message);
-
-				    return "send";
-		    }catch(Exception e){
-		    	System.out.println("메일 오류");
-		    	e.printStackTrace();
-		    	return "/WEB-INF/views/error.jsp";
-		    }
 	  }
 	 
 	 @RequestMapping("/ctfCodeProc")
