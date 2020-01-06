@@ -25,7 +25,7 @@ public class GuestBookController {
 	@RequestMapping("/insert.do")
 	public String insertWrite(GuestBookDTO gdto) {
 		gdto.setWriter(session.getAttribute("loginInfo").toString());
-		gs.insertWrite(gdto);
+		gs.insert(gdto);
 		return "redirect:selectList.do";
 	}
 	
