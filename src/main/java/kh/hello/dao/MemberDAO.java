@@ -7,6 +7,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kh.hello.dto.MemberDTO;
+
 @Repository
 public class MemberDAO {
 	
@@ -51,4 +53,9 @@ public class MemberDAO {
 			param.put("certificationCode", ctfCode);
 			return jdbc.selectOne("Member.selectCode", param);
 		}
+	//회원가입
+		public int insertMember(MemberDTO dto) {
+			return jdbc.insert("Member.insertMember", dto);
+		}
+		
 }

@@ -29,4 +29,8 @@
 		select count(*) from signupcertification where email = #{email} and certificationCode = #{certificationCode}
 	</select>
 	
+	<insert id="insertMember" parameterType="kh.hello.dto.MemberDTO">
+		insert into member values (#{id}, #{pw}, #{name}, #{nickName}, #{email}, #{phone}, #{postcode}
+		, #{addr1}, #{addr2}, #{joinPath}, #{gender}, #{memLevel}, #{reportCount}, #{point}, #{ifmOpenCheck}, sysdate, null, #{profileImg}, #{birth})
+	</insert>
 </mapper>

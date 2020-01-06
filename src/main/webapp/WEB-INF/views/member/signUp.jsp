@@ -13,6 +13,11 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/css/mainBase.css">
 <link rel="stylesheet" type="text/css" href="/css/font-awesome/css/font-awesome.css">
+
+<!-- 데이트피커 -->
+<script src="/js/bootstrap-datepicker.js"></script>
+<script src="/js/bootstrap-datepicker.ko.min.js"></script>
+<link rel="stylesheet" href="/css/bootstrap-datepicker.css">
 <style>
 	.arrow{
 		width:12px;
@@ -25,6 +30,9 @@
 	.redP{
 		font-size: 11px;
 		color:red;
+	}
+	#startInputDate{
+	width:130px;
 	}
 </style>
 </head>
@@ -132,7 +140,7 @@
              	<div class=row>
 	            	<div class="col-12 col-sm-6">
 		            	<h5 style="display:inline"><img src="/icon/doubleArrow.svg" class=arrow>개인 메일</h5><p class=redP style="display:inline">*</p>
-		            		&emsp;<br><input type=text name=unempEmail id=unempEmail placeholder="메일 주소 입력">
+		            		&emsp;<br>&emsp;<input type=text name=unempEmail id=unempEmail placeholder="메일 주소 입력">
 		            		<img id=unempEmailCheck style="display:none;">
 		            		<button type=button id=sendMail2>인증 메일 발송</button>
 	            	</div>
@@ -154,7 +162,8 @@
             		<h5><img src="/icon/doubleArrow.svg" class=arrow>개인정보 공개여부</h5>
             		&emsp;Programming Log(포트폴리오, Ko-How, 프로젝트 참여현황)를 타인이 열람하는 것에 동의합니다.<br>
             		&emsp;비동의 하실경우 Programmming Log에서 프로필 정보만 공개됩니다.<br>
-            		&emsp;동의합니다.<input type="checkbox" name="ifmOpenCheck" id="ifmOpenCheck" value="true">
+            		&emsp;동의합니다.<input type="checkbox" name="ifmOpenCheck" id="ifmOpenCheck" value="y">
+            		<input type="checkbox" name="ifmOpenCheck" id="ifmOpenCheckNone" value="n" style="display:none">
             	</div>
             </div> 
             
@@ -178,11 +187,23 @@
             </div>
             <div class=row>
             	<div class=col-12>
-            		<h5><img src="/icon/arrow.svg" class=arrow>닉네임</h5>
+            		<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow>닉네임</h5><p class=redP style="display:inline">*</p><br>
             		&emsp;<input type=text name=nickName id=nickName placeholder="닉네임 입력">
             		<img id=nickCheck style="display:none;">
             		<div id=nickMsg></div>
             	</div>
+            </div>
+             <div class=row>
+            	<div class=col-12>
+            		<br>
+            	</div>
+            </div>
+            <div class=row>
+            	<div class=col-12>
+            		<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow>생년월일</h5><p class=redP style="display:inline">*</p><br>
+            		<input type="text" id="startInputDate" class="form-control form-control-sm datePicker" placeholder="생년월일" name="startInputDate">
+            		<input type="hidden" id="startDate" name="startDate">
+            		</div>
             </div>
               <div class=row>
             	<div class=col-12>
@@ -204,7 +225,7 @@
             </div>
             <div class=row>
             	<div class=col-12>
-            		<h5><img src="/icon/arrow.svg" class=arrow>연락처</h5>
+            		<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow>연락처</h5><p class=redP style="display:inline">*</p><br>
             		&emsp;<input type=text name=phone id=phone placeholder="연락처 입력">
             		<img id=phoneCheck style="display:none;">
             		<div id=phoneMsg></div>
@@ -217,7 +238,7 @@
             </div>
             <div class=row>
             	<div class=col-12>
-            		<h5><img src="/icon/arrow.svg" class=arrow>가입 경로</h5>
+            		<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow>가입 경로</h5><p class=redP style="display:inline">*</p><br>
             		&emsp;<input type=radio name=joinPath value="jp1">지인 추천<br>
             		&emsp;<input type=radio name=joinPath value="jp2">'Hello World!' 검색<br>
             		&emsp;<input type=radio name=joinPath value="jp3">'프로젝트 모집' 검색<br>
@@ -232,9 +253,9 @@
             </div>
             <div class=row>
             	<div class=col-12>
-            		<h5><img src="/icon/arrow.svg" class=arrow>성별</h5>
-            		&emsp;<input type=radio name="gender" value="men">여성<br>
-            		&emsp;<input type=radio name="gender" value="women">남성
+            		<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow>성별</h5><p class=redP style="display:inline">*</p><br>
+            		&emsp;<input type=radio name="gender" value="women">여성<br>
+            		&emsp;<input type=radio name="gender" value="men">남성
             	</div>
             </div>
              <div class=row>
@@ -270,16 +291,25 @@
         <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
         <script>
         var idTest = 0;
+        var nameTest = 0;
         var pwTest = 0;
         var emailTest = 0;
         var nickTest = 0;
+        var birthTest = 0;
         var phoneTest = 0;
         var jpTest = 0;
         var genderTest = 0;
-        var nameTest = 0;
+        var emailTest2 = 0;
         
         //프로필 이미지 등록
         
+        //인증버튼 클릭전 메일보냈는지 확인
+        $("#empEmail").on("focusout",function(){
+        	emailTest2 = 0;
+        })
+         $("#unempEmail").on("focusout",function(){
+        	emailTest2 = 0;
+        })
         
         //실무자 비실무자 체크
 	        $("input:radio[name=empCheck]").click(function(){
@@ -511,6 +541,7 @@
  	 	                    if(result == null){
  	 	                    	alert("영리 단체 도메인(co.kr)이 아닙니다. 비실무자로 가입부탁드립니다.");
  	 	                    }else{
+ 	 	                    	emailTest2 = 1;
  	 	                    	$.ajax({
  	 	              			url:"${pageContext.request.contextPath}/member/mailSending",
  	 	              			type:"post",
@@ -543,6 +574,7 @@
  	                    	var data = $("#unempEmail").val();
  	 	                    var result = regex.exec(data);
  	 	                    if(result == null){
+ 	 	                    	emailTest2 = 1;
  	 	                    	$.ajax({
  	 	 	              			url:"${pageContext.request.contextPath}/member/mailSending",
  	 	 	              			type:"post",
@@ -563,6 +595,9 @@
             
             //이메일 인증코드 확인 - 실무자
             $("#certification1").on("click",function(){
+            	if(emailTest2 == 0){
+            		alert("인증 메일 발송부터 진행하여 주십시오.");
+            	}else{
             		$.ajax({
             			url:"${pageContext.request.contextPath}/member/ctfCodeProc",
             			type:"post",
@@ -579,41 +614,79 @@
             				alert("인증에 실패하였습니다. 코드를 다시 확인해주시기 바랍니다.");
             			}
             		});
+            	}
             	})
             	
             //이메일 인증코드 확인 - 비실무자
             	$("#certification2").on("click",function(){
-            		$.ajax({
-            			url:"${pageContext.request.contextPath}/member/ctfCodeProc",
-            			type:"post",
-            			data:{
-            				email : $("#unempEmail").val(),
-            				code : $("#unempCode").val()
-            			}
-            		}).done(function(data){
-            			console.log(data);
-            			if(data == "true"){
-            				alert("인증에 성공하셨습니다. 계속 진행하여 주십시오.");
-                			emailTest = 1;
-            			}else{
-            				alert("인증에 실패하였습니다. 코드를 다시 확인해주시기 바랍니다.");
-            			}
-            		});
+            		if(emailTest2 == 0){
+                		alert("인증 메일 발송부터 진행하여 주십시오.");
+                	}else{
+                		$.ajax({
+                			url:"${pageContext.request.contextPath}/member/ctfCodeProc",
+                			type:"post",
+                			data:{
+                				email : $("#unempEmail").val(),
+                				code : $("#unempCode").val()
+                			}
+                		}).done(function(data){
+                			console.log(data);
+                			if(data == "true"){
+                				alert("인증에 성공하셨습니다. 계속 진행하여 주십시오.");
+                    			emailTest = 1;
+                			}else{
+                				alert("인증에 실패하였습니다. 코드를 다시 확인해주시기 바랍니다.");
+                			}
+                		});
+                	}
             	})
             
+            //생년월일
+            $('.datePicker').datepicker({
+			    format: "yyyy-mm-dd",	//데이터 포맷 형식(yyyy : 년 mm : 월 dd : 일 )
+			    startDate: '-100y',	//달력에서 선택 할 수 있는 가장 빠른 날짜. 이전으로는 선택 불가능 ( d : 일 m : 달 y : 년 w : 주)
+			    endDate: '+0y',	//달력에서 선택 할 수 있는 가장 느린 날짜. 이후로 선택 불가 ( d : 일 m : 달 y : 년 w : 주)
+			    autoclose : true,	//사용자가 날짜를 클릭하면 자동 캘린더가 닫히는 옵션
+			    calendarWeeks : false, //캘린더 옆에 몇 주차인지 보여주는 옵션 기본값 false 보여주려면 true
+			    clearBtn : false, //날짜 선택한 값 초기화 해주는 버튼 보여주는 옵션 기본값 false 보여주려면 true			    
+			    disableTouchKeyboard : false,	//모바일에서 플러그인 작동 여부 기본값 false 가 작동 true가 작동 안함.
+			    immediateUpdates: false,	//사용자가 보는 화면으로 바로바로 날짜를 변경할지 여부 기본값 :false 
+			    multidate : false, //여러 날짜 선택할 수 있게 하는 옵션 기본값 :false 
+			    multidateSeparator :",", //여러 날짜를 선택했을 때 사이에 나타나는 글짜 2019-05-01,2019-06-01
+			    templates : {
+			        leftArrow: '&laquo;',
+			        rightArrow: '&raquo;'
+			    }, //다음달 이전달로 넘어가는 화살표 모양 커스텀 마이징 
+			    showWeekDays : true ,// 위에 요일 보여주는 옵션 기본값 : true
+			    todayHighlight : true ,	//오늘 날짜에 하이라이팅 기능 기본값 :false 
+			    toggleActive : true,	//이미 선택된 날짜 선택하면 기본값 : false인경우 그대로 유지 true인 경우 날짜 삭제
+			    weekStart : 0 ,//달력 시작 요일 선택하는 것 기본값은 0인 일요일 
+			    language : "ko"	//달력의 언어 선택, 그에 맞는 js로 교체해줘야한다.			    
+			}).on("changeDate", function(e) {
+                changeDate : true	//사용자가 클릭해서 날짜가 변경되면 호출 (개인적으로 가장 많이 사용함)
+                console.log(e); 
+				birthTest = 1;
+			});	
+            	
+            	
             //가입버튼 누르기전 마지막 체크
             	$("#send").on("click",function(){
-            		if((idTest*pwTest*nickTest*phoneTest*jpTest*genderTest*nameTest) != 1){
+            		if((idTest*pwTest*birthTest*nickTest*phoneTest*jpTest*genderTest*nameTest) != 1){
                     	alert("조건에 만족하지 않는 문항이 있습니다. 확인부탁드립니다.")
                     }else{
                     	var result = confirm("이대로 회원가입하시겠습니까?");
                     	if(result){
+							$("#startDate").val($("#startInputDate").val()+" 00:00:00.000000000");
+							//체크 안돼있으면 ifmOpenCheckNone으로 바꾸기
+							var ifmChk = $("#ifmOpenCheck").prop("checked");
+							if(ifmChk == false){
+								$("#ifmOpenCheckNone").prop("checked", true);
+							}
                     		$("#frm").submit();
                     	}
                     }
             	})
             	
-            
         </script>
 </body>
 </html>

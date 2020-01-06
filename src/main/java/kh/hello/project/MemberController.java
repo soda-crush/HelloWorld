@@ -1,5 +1,7 @@
 package kh.hello.project;
 
+import java.sql.Timestamp;
+
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
 
@@ -54,17 +56,21 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/signUpProc")
-	public String signUpProc(MemberDTO mdto, String empCheck, String empEmail, String unempEmail, 
-			String empCode, String unempCode , String ifmOpenCheck, String otherJoinPath) { //회원가입 프로세스
-		System.out.println(mdto);
-		System.out.println("재직여부 : " + empCheck);
-		System.out.println("재직자 메일 : " + empEmail);
-		System.out.println("재직자 코드 : " + empCode);
-		System.out.println("비재직자 메일 : " + unempEmail);
-		System.out.println("비재직자 코드 : " + unempCode);
-		System.out.println("기타 사유 " + otherJoinPath);
+	public String signUpProc(MemberDTO mdto, String empCheck, String empEmail, String unempEmail 
+			,String otherJoinPath, Timestamp startDate) { //회원가입 프로세스
+//		System.out.println(mdto);
+//		System.out.println("재직여부 : " + empCheck);
+//		System.out.println("재직자 메일 : " + empEmail);
+//		System.out.println("재직자 코드 : " + empCode);
+//		System.out.println("비재직자 메일 : " + unempEmail);
+//		System.out.println("비재직자 코드 : " + unempCode);
+//		System.out.println("기타 사유 " + otherJoinPath);
+//		System.out.println("생년월일 : " + startDate);
+//		System.out.println("체크값 : " + mdto.getIfmOpenCheck());
+			
+		ms.signUp(mdto, empCheck, empEmail, unempEmail, otherJoinPath, startDate);
 		
-		return "얍";
+		return "redirect:/";
 		
 	}
 	
