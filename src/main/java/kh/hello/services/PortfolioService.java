@@ -26,4 +26,12 @@ public class PortfolioService {
 		return pdao.selectBySeq(seq);
 	}
 
+	public void update(PortfolioDTO pdto) {
+		pdao.update(pdto);
+	}
+	
+	public void delete(int seq) {
+		pdao.delete(seq);
+	}
+
 }

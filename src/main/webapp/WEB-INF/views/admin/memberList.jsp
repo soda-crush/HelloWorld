@@ -109,8 +109,7 @@
                                                 	<div class="row d-none d-sm-block">닉네임(아이디)</div>
                                                 	</th>
                                                     <th scope="col">최종방문일</th>   
-                                                    <th scope="col">레벨</th>  
-                                                    <th scope="col">신고횟수</th>                                             
+                                                    <th scope="col">레벨</th>                                               
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -138,7 +137,6 @@
                                                     </td>
                                                     <td>dto.lastLogin</td>
                                                     <td>${dto.memLevel}</td>
-                                                    <td>${dto.reportCount}</td>
                                                		</tr>
                                                		<form action="${pageContext.request.contextPath}/admin/memberOut" method="post" id="frm${dto.id}">
                                                			<input type="hidden" name="id" value="${dto.id}">

@@ -5,9 +5,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kh.hello.configuration.Configuration;
 import kh.hello.dao.AdBoardDAO;
+import kh.hello.dto.ProjectCoDTO;
 import kh.hello.dto.ProjectDTO;
 
 @Service
@@ -65,6 +67,24 @@ public class AdBoardService {
 			pages.add("<a class=page-link href='${pageContext.request.contextPath)/adBoard/projectList?page=\" + (endNavi + 1) + \"'>> </a>");
 		}
 		return pages;
+	}
+	
+	@Transactional("txManager")
+	public int delProject(int seq) {
+		bdao.delProjectAllCo(seq);
+		return bdao.delProject(seq);
+	}
+	
+	public ProjectDTO detailViewProject(int seq) {
+		return bdao.detailViewProject(seq);
+	}
+	
+	public List<ProjectCoDTO> getProjectCo(int projectSeq){
+		return bdao.getProjectCo(projectSeq);
+	}
+	
+	public int delProjectCo(int seq) {
+		return bdao.delProjectCo(seq);
 	}
 
 }

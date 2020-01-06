@@ -1,5 +1,7 @@
 package kh.hello.services;
 
+import java.sql.Timestamp;
+
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,8 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import kh.hello.dao.MemberDAO;
+import kh.hello.dto.MemberDTO;
+import kh.hello.utils.Utils;
 
 @Service
 public class MemberService {
@@ -46,5 +50,36 @@ public class MemberService {
 			return mdao.selectCtfCode(email, code);
 		}
 		
-	
+	//회원가입
+		public int signUp(MemberDTO mdto, String empCheck, String empEmail, String unempEmail 
+				,String otherJoinPath, Timestamp startDate) {
+			
+			//이메일 설정
+			if(empCheck.contentEquals("employee")){
+				mdto.setEmail(empEmail);
+				mdto.setMemLevel(3);
+			}else {
+				mdto.setEmail(unempEmail);
+				mdto.setMemLevel(2);
+			}
+			//가입경로 설정
+			if(mdto.getJoinPath().contentEquals("jp1")) {
+				mdto.setJoinPath("지인 추천");
+			}else if(mdto.getJoinPath().contentEquals("jp2")) {
+				mdto.setJoinPath("'Hello World!' 검색");
+			}else if(mdto.getJoinPath().contentEquals("jp3")) {
+				mdto.setJoinPath("'프로젝트 모집' 검색");
+			}else{
+				mdto.setJoinPath(otherJoinPath);
+			}
+			//기본설정
+			mdto.setReportCount(0);
+			mdto.setPoint(1000);
+			mdto.setProfileImg("/img/profile" + Utils.getRandomNum(1, 5) + ".jpg");
+			mdto.setBirth(startDate);
+			
+			return mdao.insertMember(mdto);
+			
+		}
+		
 }

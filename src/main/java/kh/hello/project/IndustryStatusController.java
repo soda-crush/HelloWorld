@@ -2,6 +2,7 @@ package kh.hello.project;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,7 +74,7 @@ public class IndustryStatusController {
 	@RequestMapping("/industryStatusModify.do")
 	public String industryStatusModify(int seq, Model m) {
 		IndustryStatusDTO result = service.industryStatusDetailView(seq);
-		m.addAttribute("industryPage", result);
+		m.addAttribute("iPage", result);
 		return "/industry/industryStatusModify";
 	}
 	
@@ -81,13 +82,13 @@ public class IndustryStatusController {
 	public String industryStatusModifyConfirm(IndustryStatusDTO dto) {
 		service.industryStatusModifyConfirm(dto);
 		int seq = dto.getSeq();
-		return "redirect:/industry/industryStatusDetailView?seq="+seq;
+		return "redirect:/industry/industryStatusDetailView.do?seq="+seq;
 	}
 	
 	@RequestMapping("/industryStatusDeleteProc.do")
 	public String industryStatusDeleteConfirm(int seq) {
 		service.industryStatusDeleteConfirm(seq);
-		return "redirect:/industry/industryList";
+		return "redirect:/industry/industryStatusList.do";
 	}
 	
 	//댓글
@@ -110,4 +111,12 @@ public class IndustryStatusController {
 		return "redirect:/industry/industryStatusDetailView.do?seq="+indSeq;
 	}
 	
+	//게시판 목록 검색
+		@RequestMapping("/industrySearch.do")
+		public String industrySearch(String search, HttpServletRequest request, Model m) {
+			System.out.println(request.getParameter("value")+" - "+search);
+			String value = request.getParameter("value");
+			m.addAttribute("industryStatusList", service.industrySearch(value, search));
+			return "/industry/industryStatusList";
+		}
 }

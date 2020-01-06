@@ -29,8 +29,11 @@
 #home-tab:hover{
 cursor:default;
 }
-	.notification-area {
-		text-align:right;
+.notification-area {
+text-align:right;
+}
+	.contentCard{
+		max-width: 1000px;
 	}
 </style>
 
@@ -79,7 +82,7 @@ cursor:default;
                 <!-- MAIN CONTENT GOES HERE -->
                 <div class="main-content-inner">
                 <div class="row">
-                    <div class="col-lg-12 mt-5">
+                    <div class="col-lg-12 mt-5 contentCard">
                         <div class="card">
                             <div class="card-body">
                                 <div class="invoice-area">
@@ -113,7 +116,7 @@ cursor:default;
                         </div>                       
                     </div>
                      <!-- basic form start -->
-                            <div class="col-12 mt-5">
+                            <div class="col-12 mt-5 contentCard">
                                 <div class="card" id="replyAppend">
                                 	<c:forEach items="${reply }" var="reply">
                              

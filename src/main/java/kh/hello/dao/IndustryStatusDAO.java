@@ -8,6 +8,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kh.hello.dto.BambooCoDTO;
+import kh.hello.dto.BambooDTO;
 import kh.hello.dto.IndustryStatusCoDTO;
 import kh.hello.dto.IndustryStatusDTO;
 
@@ -57,7 +59,10 @@ public class IndustryStatusDAO {
 	}
 	public int insertIndustryStatusCo(IndustryStatusCoDTO dto) {
 		return jdbc.insert("IndustryCo.insertIndustryStatusCo", dto);
-	}	
+	}
+	public IndustryStatusCoDTO getComment(int indSeq) {
+		return jdbc.selectOne("IndustryCo.getComment", indSeq);
+	}
 	public int updateIndustryStatusCo(IndustryStatusCoDTO dto) {
 		return jdbc.update("IndustryCo.updateIndustryStatusCo", dto);
 	}	
@@ -67,4 +72,12 @@ public class IndustryStatusDAO {
 	public int deleteIndustryStatusAllCo(int indSeq) {
 		return jdbc.delete("IndustryCo.deleteIndustryStatusAllCo", indSeq);
 	}
+	
+	//조건별 게시판목록 검색
+		public List<IndustryStatusDTO> industrySearch(String value,String search) {
+			Map<String, String> param = new HashMap<>();
+			param.put("value", value);
+			param.put("search", search);
+			return jdbc.selectList("Industry.industrySearch", param);
+		}
 }

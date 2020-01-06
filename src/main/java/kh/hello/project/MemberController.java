@@ -1,7 +1,8 @@
 package kh.hello.project;
 
+import java.sql.Timestamp;
+
 import javax.mail.internet.MimeMessage;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import com.google.gson.JsonObject;
 
 import kh.hello.dto.MemberDTO;
 import kh.hello.services.MemberService;
+import kh.hello.utils.Utils;
 
 @Controller
 @RequestMapping("/member")
@@ -54,17 +56,21 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/signUpProc")
-	public String signUpProc(MemberDTO mdto, String empCheck, String empEmail, String unempEmail, 
-			String empCode, String unempCode , String ifmOpenCheck, String otherJoinPath) { //회원가입 프로세스
-		System.out.println(mdto);
-		System.out.println("재직여부 : " + empCheck);
-		System.out.println("재직자 메일 : " + empEmail);
-		System.out.println("재직자 코드 : " + empCode);
-		System.out.println("비재직자 메일 : " + unempEmail);
-		System.out.println("비재직자 코드 : " + unempCode);
-		System.out.println("기타 사유 " + otherJoinPath);
+	public String signUpProc(MemberDTO mdto, String empCheck, String empEmail, String unempEmail 
+			,String otherJoinPath, Timestamp startDate) { //회원가입 프로세스
+//		System.out.println(mdto);
+//		System.out.println("재직여부 : " + empCheck);
+//		System.out.println("재직자 메일 : " + empEmail);
+//		System.out.println("재직자 코드 : " + empCode);
+//		System.out.println("비재직자 메일 : " + unempEmail);
+//		System.out.println("비재직자 코드 : " + unempCode);
+//		System.out.println("기타 사유 " + otherJoinPath);
+//		System.out.println("생년월일 : " + startDate);
+//		System.out.println("체크값 : " + mdto.getIfmOpenCheck());
+			
+		ms.signUp(mdto, empCheck, empEmail, unempEmail, otherJoinPath, startDate);
 		
-		return "얍";
+		return "redirect:/";
 		
 	}
 	
@@ -123,12 +129,11 @@ public class MemberController {
 	 @ResponseBody
 	  public String mailSending(String email) {
 		 try {
-				String ctfCode = "0000"; 
-				 
+				String ctfCode = Utils.getRandomCode();
 			    String setfrom = "sohyunKH4862@gmail.com";         
 			    String tomail  = email;     // 받는 사람 이메일
 			    String title   = "[Hello World!] This is your verification code.";      // 제목
-			    String content = "Please enter this code : ";    // 내용
+			    String content = "Please enter this code : " + ctfCode;    // 내용
 			  
 			    
 			    	//디비에 이메일이랑 인증코드 저장

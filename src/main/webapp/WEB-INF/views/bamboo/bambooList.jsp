@@ -76,7 +76,19 @@
 				  	</c:choose>				    
 				  </tbody>
 				</table>
+				<div class="text-left">
+					<form action="/bamboo/bambooSearch.do" method="post">
+					<select name=value>
+						<option value="all">전체</option>
+						<option value="writer">작성자</option>
+						<option value="title">제목</option>
+					</select>
+					<input type="text" name=search>
+					<input type="button" id=search value="검색">
+					</form>
+				</div>
 				<div class="text-right">
+					
 					<a class="btn btn-primary" href="/bamboo/bambooWrite.do" role="button">글쓰기</a>					
 				</div>
 				<nav aria-label="List navi">
@@ -114,4 +126,9 @@
         
         <jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
 </body>
+	<script>
+		$("#search").on("click",function(){
+			$("form").submit();
+		})
+	</script>
 </html>

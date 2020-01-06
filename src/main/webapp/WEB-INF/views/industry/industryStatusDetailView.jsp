@@ -32,6 +32,8 @@
 				
             <c:if  test="${iPage.seq !=null }">
 				  				<div>${iPage.seq}</div>
+				  				분야<div>${iPage.field }</div>
+				  				직무<div>${iPage.duty }</div>
 				  				<h3>${iPage.title}</h3>
 				  				<div>익명</div>
 				  				<div>${iPage.writeDate}</div>
@@ -53,8 +55,8 @@
 			</c:if>
            	</div>		
             <c:if test="${iPage.writer == sessionScope.loginInfo}">
-							<a class="btn btn-primary" href="/industry/industryStatusDetailView.do?seq=${iPage.seq }" role="button">수정하기</a>
-							<a class="btn btn-primary" href="#" role="button">삭제하기</a>
+							<a class="btn btn-primary" href="/industry/industryStatusModify.do?seq=${iPage.seq }" role="button">수정하기</a>
+							<a class="btn btn-primary" href="/industry/industryStatusDeleteProc.do?seq=${iPage.seq}" role="button">삭제하기</a>
 						</c:if>
 						<br>
 						

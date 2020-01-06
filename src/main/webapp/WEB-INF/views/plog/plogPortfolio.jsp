@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Hello World!</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
@@ -28,6 +29,8 @@
             }
             .card{
                 margin-top:20px;
+                width:200px;
+                text-align:center;
             }
             .myprofile{
                 float: left;
@@ -68,36 +71,36 @@
 				<h1> Programming-Log</h1>
 	            <ul class="nav nav-tabs d-none d-sm-block">
 	                <li class="nav-item">
-	                    <a class="nav-link" href="#">내 포트폴리오</a>
+	                    <a class="nav-link active" href="${pageContext.request.contextPath}/Portfolio/toPlogmain.do">내 포트폴리오</a>
 	                </li>
 	                <li class="nav-item">
-	                    <a class="nav-link" href="#">내 지식인</a>
+	                    <a class="nav-link" href="${pageContext.request.contextPath}/Plog/toPlogCohow.do">내 지식인</a>
 	                </li>
 	                <li class="nav-item">
-	                    <a class="nav-link" href="#">내 스크랩</a>
+	                    <a class="nav-link" href="${pageContext.request.contextPath}/Plog/toPlogScrap.do">내 스크랩</a>
 	                </li>
 	                <li class="nav-item">
-	                    <a class="nav-link" href="#">내 팀 프로젝트</a>
+	                    <a class="nav-link" href="${pageContext.request.contextPath}/Plog/toPlogProject.do">내 팀 프로젝트</a>
 	                </li>
 	                <li class="nav-item">
-	                    <a class="nav-link active" href="#">방명록</a>
+	                    <a class="nav-link" href="${pageContext.request.contextPath}/Plog/toGuestBook.do">방명록</a>
 	                </li>
 	            </ul>
 	            <ul class="nav nav-tabs d-sm-none">
 	                <li class="nav-item">
-	                    <a class="nav-link" href="#" style="padding:7px;">내 포트폴리오</a>
+	                    <a class="nav-link active" href="${pageContext.request.contextPath}/Portfolio/toPlogmain.do" style="padding:7px;">내 포트폴리오</a>
 	                </li>
 	                <li class="nav-item">
-	                    <a class="nav-link" href="#" style="padding:7px;">내 지식인</a>
+	                    <a class="nav-link" href="${pageContext.request.contextPath}/Plog/toPlogCohow.do" style="padding:7px;">내 지식인</a>
 	                </li>
 	                <li class="nav-item">
-	                    <a class="nav-link" href="#" style="padding:7px;">내 스크랩</a>
+	                    <a class="nav-link" href="${pageContext.request.contextPath}/Plog/toPlogScrap.do" style="padding:7px;">내 스크랩</a>
 	                </li>
 	                <li class="nav-item">
-	                    <a class="nav-link" href="#" style="padding:7px;">내 팀 프로젝트</a>
+	                    <a class="nav-link"href="${pageContext.request.contextPath}/Plog/toPlogProject.do" style="padding:7px;">내 팀 프로젝트</a>
 	                </li>
 	                <li class="nav-item">
-	                    <a class="nav-link active" href="#" style="padding:7px;">방명록</a>
+	                    <a class="nav-link" href="${pageContext.request.contextPath}/Plog/toGuestBook.do" style="padding:7px;">방명록</a>
 	                </li>
 	            </ul>
 	            <div class="row">
@@ -114,11 +117,11 @@
                     	</div>
 	                </div>
 	                <div class ="col-12 col-md-8 col-lg-9 wrapportfolio">
-	                	<c:forEach items="${list }" var="dto">
+	                	<c:forEach items="${list}"  var="dto">
 	                		<div class="cardwrap col-6 col-xl-4">
 		                        <div class="card">
 		                            <img src="${dto.image1}" class="card-img-top" alt="..." style="height: inherit;width: 160px;height: 170px;margin:15px;">
-		                            <div class="card-body" style="padding: 5px;width:190px;height:115px;">
+		                            <div class="card-body" style="padding: 5px;width:190px;height:115px;text-align:left;">
 		                                <h5 class="card-title" style="white-space:nowrap;overflow: hidden;text-overflow:ellipsis;width:100%;height:16px;"><a href="${pageContext.request.contextPath}/Portfolio/detail.do?seq=${dto.seq}">${dto.portfolioTitle}</a></h5>
 		                                <p class="card-text" style="overflow: hidden;width:100%;height:60%;text-overflow: ellipsis;">${dto.purpose }</p>
 	                                <div style="text-align: end;">
