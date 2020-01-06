@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Hello World!</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
@@ -13,7 +14,9 @@
 <link rel="stylesheet" href="/css/mainBase.css">
 <link rel="stylesheet" type="text/css" href="/css/font-awesome/css/font-awesome.css">
 <style>
-	
+	.btnM{
+		width:120px;
+	}
 </style>
 </head>
 <body>
@@ -33,13 +36,15 @@
 				<div class="row">
 					<div class="col-12">
 						<h1>마이페이지</h1>
+						<hr>
 					</div>
 				</div>
             <div class="row">
-            	<div class=col-12>
-	            	<button type="button" class="btn btn-light text-center" id=modify>내 정보 수정</button><br>
-	            	<button type="button" class="btn btn-light text-center" id=personalQ>1:1 문의</button><br>
-	            	<button type="button" class="btn btn-light text-center" id=withdrawal>회원탈퇴</button>
+            	<div class="col-12 text-center">
+            	<hr>
+	            	<button type="button" class="btn btn-light btnM" id=modify>내 정보 수정</button><br><br>
+	            	<button type="button" class="btn btn-light btnM" id=personalQ>1:1 문의</button><br><br>
+	            	<button type="button" class="btn btn-light btnM" id=withdrawal>회원탈퇴</button>
             	</div>
             </div>
             
