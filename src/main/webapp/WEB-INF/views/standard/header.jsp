@@ -11,7 +11,7 @@
 			</c:when>
 			<c:otherwise>
 			 <div class="row" id="loginCon">
-                <div class="col-12 text-right"><a href="#">마이페이지</a> | <a href="#" id="${pageContext.request.contextPath}/member/logout">로그아웃</a></div>
+                <div class="col-12 text-right"><a href="${pageContext.request.contextPath}/member/mypage">마이페이지</a> | <a href="${pageContext.request.contextPath}/member/logout">로그아웃</a></div>
             </div>
 			</c:otherwise>
 	</c:choose>

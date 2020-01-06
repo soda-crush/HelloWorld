@@ -189,9 +189,11 @@ public class MemberController {
 			return "localhost/error.jsp";
 			//수정필요
 		}
-		 
-		
-	 }
+		}
 	
+	 @RequestMapping("/mypage")
+	 public String myPage(){
+		 return "member/mypage";
+	 }
 	
 }
