@@ -14,7 +14,7 @@ public class MemberDAO {
 	private SqlSessionTemplate jdbc;
 	
 	//로그인
-	public int login(String id, String pw)throws Exception{
+	public int login(String id, String pw){
 		Map<String, String> param = new HashMap<>();
 		param.put("id", id);
 		param.put("pw", pw);
@@ -22,22 +22,22 @@ public class MemberDAO {
 	}
 	
 	//아이디 중복체크
-	public int dupleCheck(String id)throws Exception{
+	public int dupleCheck(String id){
 		return jdbc.selectOne("Member.dupleCheck", id);
 	}
 	
 	//닉네임 중복체크
-	public int nickDupleCheck(String nickName)throws Exception{
+	public int nickDupleCheck(String nickName){
 		return jdbc.selectOne("Member.nickDupleCheck", nickName);
 	}
 	
 	//연락처 중복체크
-		public int phoneDupleCheck(String phone)throws Exception{
+		public int phoneDupleCheck(String phone){
 			return jdbc.selectOne("Member.phoneDupleCheck", phone);
 		}
 	
 	//인증메일, 코드 디비 추가
-		public int insertCtfCode(String email, String ctfCode)throws Exception{
+		public int insertCtfCode(String email, String ctfCode){
 			Map<String, String> param = new HashMap<>();
 			param.put("email", email);
 			param.put("certificationCode", ctfCode);
@@ -45,7 +45,7 @@ public class MemberDAO {
 		}
 		
 	//인증코드확인
-		public int selectCtfCode(String email, String ctfCode)throws Exception{
+		public int selectCtfCode(String email, String ctfCode){
 			Map<String, String> param = new HashMap<>();
 			param.put("email", email);
 			param.put("certificationCode", ctfCode);
