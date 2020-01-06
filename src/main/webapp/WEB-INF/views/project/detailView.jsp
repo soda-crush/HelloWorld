@@ -17,7 +17,40 @@
 <link rel="stylesheet" href="/css/project/projectBase.css" type="text/css"/>
 <link rel="stylesheet" href="/css/project/detailView.css" type="text/css"/>
 <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.css" type="text/css"/>
-
+<style>
+.pPageComments{
+	margin-top:30px;
+}
+.commentDiv{
+	background-color:#fff;
+	margin-top:2px;
+	margin-bottom:2px;
+	padding:0;
+	padding-bottom:5px;
+	border-radius:10px;
+}
+.commentInfo{
+	font-size:13px;
+	padding-left:10px;
+}
+.commentWriter,.commentWriteDate{
+	padding-left:0px;
+}
+.commentWriteDate{
+	color: darkgray;
+}
+.coModBtn,.coDelBtn,.coReplyBtn{
+	width: 45px;
+	height: 25px;
+	font-size: 11px;
+	font-weight: bold;
+	padding:0px;
+}
+.commentContent{
+	margin-top:10px;
+	margin-bottom:15px;
+}
+</style>
 </head>
 
 <body>
@@ -87,12 +120,35 @@
 							    <div class="col-12">광고자리</div>
 							 </div>
 							
-							
+							<div class="pPageComments">
 							<c:if test="${comments.size()>0 }">
 								<c:forEach items="${comments }" var="c">
-									${c.contents }<br>
+									<div class="row commentDiv commentBox${c.seq } p-0 pb-2 m-2">
+										<div class="col-12">
+											<div class="row">
+												<div class="col-1 profileBox pl-1 pt-2"><img src="/img/profileSample.jpg" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>
+												<div class="col-7 pt-1">
+													<div class="row commentInfo">
+														<div class="col-12 commentWriter">${c.writer }</div>
+														<div class="col-12 commentWriteDate">${c.formedWriteDate }</div>
+													</div>
+												</div>				
+												<div class="col-4 pt-2 text-right commentBtns">
+													<button type="button" class="btn btn-warning coReplyBtn">답글</button>
+													<c:if test="${c.writer==sessionScope.loginInfo }">
+														<button type="button" class="btn btn-info coModBtn">수정</button>
+														<a class="btn btn-danger coDelBtn" href="#" onclick="coDelFunction(${c.seq});return false;" role="button">삭제</a>
+													</c:if>
+												</div>								
+											</div>											
+											<div class="row commentContent">
+												<div class="col-12 pt-1 pl-4">${c.contents }</div>
+											</div>
+										</div>
+									</div>								
 								</c:forEach>
 							</c:if>
+							</div>
 							
 							<div id="pCoInput" class="row">
 								<div class="col-9 col-lg-10"><textarea class="form-control" placeholder="댓글 내용을 입력해주세요" id="pCoContents"></textarea></div>
@@ -120,7 +176,7 @@
 					<span class="float-right">
 						<c:if test="${pPage.writer == sessionScope.loginInfo}">
 							<a class="btn btn-info" href="/project/modifyProc?seq=${pPage.seq }" role="button">수정</a>
-							<button type="button" class="btn btn-info" id="pDelBtn">삭제</button>
+							<button type="button" class="btn btn-danger" id="pDelBtn">삭제</button>
 						</c:if>
 						<a class="btn btn-secondary" href="/project/list" role="button">목록</a>
 					</span>
@@ -153,15 +209,59 @@
            			location.href="/project/deleteProc?seq=${pPage.seq}";
            		}
            	});
-           
-
-			$("#coCancel").on("click",function(){
+           	
+           	$("#coReplyBtn").on("click",function(){           		
+           	});//답댓기능.
+           	
+           	function coDelFunction(seq){
+           		var check = confirm("정말 삭제하시겠습니까?");
+           		if(check){
+           			$.ajax({
+           				url : "/project/comment/deleteProc",
+           				type : "post",
+           				dataType : "json",
+           				data :{
+           					seq:seq,
+           					projectSeq : "${pPage.seq}"
+           				}
+           			}).done(function(resp){
+    					$(".pPageComments").html("");
+    					commentRecall(resp);
+           			}).fail(function(resp){
+    					console.log("실패");
+    					console.log(resp);
+           			})
+           		}
+           	}
+           	$("#coCancel").on("click",function(){
 				var check = confirm("정말 취소하시겠습니까?");
 				if(check){
 					$("#pCoContents").val("");
 				}
 			});
-			$("#coWriteBtn").on("click",function(){						
+			$("#coWriteBtn").on("click",function(){
+				$("#pCoContents").val($.trim($("#pCoContents").val()));
+				if($("#pCoContents").val()==""){
+					alert("댓글 내용을 입력해주세요.");
+					return false;
+				}
+				
+				$.ajax({
+					url : "/project/comment/writeProc",
+					type : "post",
+					dataType : "json",
+					data :{
+						projectSeq : "${pPage.seq}",
+						contents : $("#pCoContents").val(),						
+					}
+				}).done(function(resp){
+					$("#pCoContents").val("");
+					$(".pPageComments").html("");
+					commentRecall(resp);
+				}).fail(function(resp){
+					console.log("실패");
+					console.log(resp);
+				})
 			});
 			
 			var result = ${data};
@@ -210,6 +310,33 @@
 				$('#pApplyModal').modal('hide');
 				return false;				
 			});
+			
+			function commentRecall(resp){
+				var loginInfo = "${sessionScope.loginInfo}";
+				for(var i=0;i<resp.length;i++){
+					var html = [];
+					html.push(
+							'<div class="row commentDiv commentBox'+resp[i].seq+' p-0 pb-2 m-2"><div class="col-12"><div class="row">',
+							'<div class="col-1 profileBox pl-1 pt-2"><img src="/img/profileSample.jpg" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>',
+							'<div class="col-7 pt-1"><div class="row commentInfo">',
+							'<div class="col-12 commentWriter">'+resp[i].writer+'</div>',
+							'<div class="col-12 commentWriteDate">'+resp[i].formedWriteDate+'</div></div></div>',
+							'<div class="col-4 pt-2 text-right commentBtns">',
+							'<button type="button" class="btn btn-warning coReplyBtn">답글</button>\n'
+							);
+					if(resp[i].writer==loginInfo){
+						html.push(
+								'<button type="button" class="btn btn-info coModBtn">수정</button>\n',
+								'<a class="btn btn-danger coDelBtn" href="#" onclick="coDelFunction('+resp[i].seq+');return false;" role="button">삭제</a>'
+								);
+					}
+					html.push(
+							'</div></div>',
+							'<div class="row commentContent"><div class="col-12 pt-1 pl-4">'+resp[i].contents+'</div></div></div></div>'
+							);
+					$(".pPageComments").append(html.join(""));	
+				}
+			}
          </script>            
             
 </body>
