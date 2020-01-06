@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Hello World!</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
@@ -58,6 +59,10 @@
         #funcname1,#funcname2,#funcname3{
             margin-bottom: 8px;
         }
+        textarea{
+            background-color:lightgray;
+        }
+
     </style>
 </head>
 <body>
@@ -73,12 +78,13 @@
             
             <!--      몸통 시작!!!   -->
 
-            <form action="${pageContext.request.contextPath}/Portfolio/update.do" method="post">
+            <form action="${pageContext.request.contextPath}/Portfolio/toModify.do?" method="post">
+            	<input type="hidden" value="${pdto.seq}" name="seq">
 	            <div class="container">
 		            <h1> 포 트 폴 리 오</h1>
 		            <div class="row">
 		                <div class="col-3 col-md-2"> 프로젝트명  </div>
-		                <div class="col-9 col-md-10"><div name="portfolioTitle"> ${pdto.portfolioTitle } </div> </div>               
+		                <div class="col-9 col-md-10"><div> ${pdto.portfolioTitle }</div> </div>               
 		            </div>
 		            <div class="interval"></div>
 		            <div class="row">
@@ -88,32 +94,32 @@
 		            <div class="interval"></div>
 		            <div class="row">
 		                <div class="col-3 col-md-2"> 개발 목표 </div>
-		                <div class="col-9 col-md-10"> <div name="purpose">${pdto.purpose } </div> </div>               
+		                <div class="col-9 col-md-10"> <div>${pdto.purpose } </div> </div>               
 		            </div>
 		            <div class="interval"></div>
 		            <div class="row">
 		                <div class="col-3 col-md-2 theme"> 개발 환경 </div>
-		                <div class="col-9 col-md-10"> <textarea name="environment"> ${pdto.environment }</textarea></div>               
+		                <div class="col-9 col-md-10"> <textarea name="environment" readonly> ${pdto.environment }</textarea></div>               
 		            </div>
 		            <div class="interval"></div>
 		            <div class="row">
 		                <div class="col-3 col-md-2 theme"> 구현 기능 </div>
-		                <div class="col-9 col-md-10"> <textarea name="allFunction">${pdto.allFunction }</textarea></div>               
+		                <div class="col-9 col-md-10"> <textarea name="allFunction" readonly>${pdto.allFunction }</textarea></div>               
 		            </div>
 		            <div class="interval"></div>
 		            <div class="row">
 		                <div class="col-3 col-md-2 theme">  DB 설계 </div>
-		                <div class="col-9 col-md-10"> <textarea name="dbUnitPlan">${pdto.dbUnitPlan }</textarea></div>               
+		                <div class="col-9 col-md-10"> <textarea name="dbUnitPlan" readonly>${pdto.dbUnitPlan }</textarea></div>               
 		            </div>
 		            <div class="interval"></div>
 		            <div class="row">
 		                <div class="col-3 col-md-2 theme"> 담당 역할 </div>
-		                <div class="col-9 col-md-10"> <textarea name="role">${pdto.role }</textarea></div>               
+		                <div class="col-9 col-md-10"> <textarea name="role" readonly>${pdto.role }</textarea></div>               
 		            </div>
 		            <div class="interval"></div>
 		            <div class="row">
 		                <div class="col-3 col-md-2 theme"> 참여/기여도 </div>
-		                <div class="col-9 col-md-10"> <textarea name="contribution">${pdto.contribution }</textarea></div>               
+		                <div class="col-9 col-md-10"> <textarea name="contribution" readonly>${pdto.contribution }</textarea></div>               
 		            </div>
 		            <h4>구현 기능</h4>
 		            <div class="row">
@@ -121,35 +127,35 @@
 		                <div class="col-9">
 		                    <div class="row">
 		                        <div class="col-2 col-sm-2  col-lg-1" id="funcname"></div>
-		                        <div class="col-10 col-sm-10 col-lg-11" id="funcname1"><div name="function1" style="height:18px margin-bottom:">${pdto.function1 } </div> </div>
+		                        <div class="col-10 col-sm-10 col-lg-11" id="funcname1"><div style="height:18px margin-bottom:">${pdto.function1 } </div> </div>
 		                        <div class="col-2 col-sm-2  col-lg-1" id="funcexpl" > 설명</div>
-		                        <div class="col-10 col-sm-10 col-lg-11"><textarea name="explanation1" style="height:150px;">${pdto.explanation1 }</textarea>
+		                        <div class="col-10 col-sm-10 col-lg-11"><textarea name="explanation1" style="height:150px;" readonly>${pdto.explanation1 }</textarea>
 		                        </div>
 		                    </div>
 		                </div>
 		            </div>
 		            <div class="interval"></div>
 		            <div class="row">
-		                <div class="col-3"><img src="lion.png" style="height: 100%;width:100%;max-height: 180px;"><input type="hidden" name ="image2"></div>
+		                <div class="col-3"><img src="${pdto.image2}" style="height: 100%;width:100%;max-height: 180px;"><input type="hidden" name ="image2"></div>
 		                <div class="col-9">
 		                    <div class="row">
 		                        <div class="col-2 col-sm-2  col-lg-1" id="funcname"> 기능명</div>
-		                        <div class="col-10 col-sm-10 col-lg-11" id="funcname2"><div name="function2" style="height:18px margin-bottom:">${pdto.function2 } </div></div>
+		                        <div class="col-10 col-sm-10 col-lg-11" id="funcname2"><div style="height:18px margin-bottom:">${pdto.function2 } </div></div>
 		                        <div class="col-2 col-sm-2  col-lg-1" id="funcexpl" > 설명</div>
-		                        <div class="col-10 col-sm-10 col-lg-11"><textarea name="explanation2" style="height:150px;">${pdto.explanation2 }</textarea>
+		                        <div class="col-10 col-sm-10 col-lg-11"><textarea name="explanation2" style="height:150px;" readonly>${pdto.explanation2 }</textarea>
 		                        </div>
 		                    </div>
 		                </div>
 		            </div>
 		            <div class="interval"></div>
 		            <div class="row">
-		                <div class="col-3"><img src="lion.png" style="height: 100%;width:100%;max-height: 180px;"> <input type="hidden" name ="image3"></div>
+		                <div class="col-3"><img src="${pdto.image3}" style="height: 100%;width:100%;max-height: 180px;"> <input type="hidden" name ="image3"></div>
 		                <div class="col-9">
 		                    <div class="row">
 		                        <div class="col-2 col-sm-2  col-lg-1" id="funcname"> 기능명</div>
-		                        <div class="col-10 col-sm-10 col-lg-11 " id="funcname3"><div name="function3" style="height:18px margin-bottom:">${pdto.function3 } </div> </div>
+		                        <div class="col-10 col-sm-10 col-lg-11 " id="funcname3"><div style="height:18px margin-bottom:">${pdto.function3 } </div> </div>
 		                        <div class="col-2 col-sm-2  col-lg-1" id="funcexpl" > 설명</div>
-		                        <div class="col-10 col-sm-10 col-lg-11"><textarea name="explanation3" style="height:150px;">${pdto.explanation3 }</textarea>
+		                        <div class="col-10 col-sm-10 col-lg-11"><textarea name="explanation3" style="height:150px;" readonly>${pdto.explanation3 }</textarea>
 		                        </div>
 		                    </div>
 		                </div>
@@ -157,10 +163,10 @@
 		            <div class="interval"></div>
 		             <div class="row">
 		                <div class="col-3 col-md-2"> 깃 링크  </div>
-		                <div class="col-9 col-md-10"><div name="git">${pdto.git }</div></div>               
+		                <div class="col-9 col-md-10"><div>${pdto.git }</div></div>               
 		            </div>
 		            <div class="interval"></div>
-		            <div style="text-align: end;"><button type="button" id="return">돌아가기</button><button id="update">수정 완료</button></div>
+		            <div style="text-align: end;"><button type="button" id="return">목록으로 돌아가기</button><button>수정하기</button></div>
 		            
 		        </div>
 			</form>

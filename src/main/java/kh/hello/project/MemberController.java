@@ -1,7 +1,6 @@
 package kh.hello.project;
 
 import javax.mail.internet.MimeMessage;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +14,7 @@ import com.google.gson.JsonObject;
 
 import kh.hello.dto.MemberDTO;
 import kh.hello.services.MemberService;
+import kh.hello.utils.Utils;
 
 @Controller
 @RequestMapping("/member")
@@ -123,12 +123,11 @@ public class MemberController {
 	 @ResponseBody
 	  public String mailSending(String email) {
 		 try {
-				String ctfCode = "0000"; 
-				 
+				String ctfCode = Utils.getRandomCode();
 			    String setfrom = "sohyunKH4862@gmail.com";         
 			    String tomail  = email;     // 받는 사람 이메일
 			    String title   = "[Hello World!] This is your verification code.";      // 제목
-			    String content = "Please enter this code : ";    // 내용
+			    String content = "Please enter this code : " + ctfCode;    // 내용
 			  
 			    
 			    	//디비에 이메일이랑 인증코드 저장
