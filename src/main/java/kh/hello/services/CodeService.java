@@ -76,8 +76,8 @@ public class CodeService {
 		dao.delete(seq);
 	}
 	
-	public int modify(CodeQuestionDTO dto) throws Exception{
-		return dao.modify(dto);
+	public void modify(CodeQuestionDTO dto) throws Exception{
+		dao.modify(dto);
 	}
 	
 	//답글 CodeReply

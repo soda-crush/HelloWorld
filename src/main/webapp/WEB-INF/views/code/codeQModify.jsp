@@ -53,6 +53,7 @@ $(function(){
 
 		<!--      몸통 시작!!!   -->
 		<form action="modifyProc.do" method="post" id="writeForm">
+		<input type="hidden" name="seq" value="${result.seq}">
 		<input type="hidden" name="writer" value="${result.writer}">
 			<div class=container>
 				<div class=row>
@@ -64,11 +65,11 @@ $(function(){
 							<option value="">언어 선택</option>
 							<option value="java" <c:if test="${result.division eq 'java'}">selected</c:if>>java</option>
 							<option value="php" <c:if test="${result.division eq 'php'}">selected</c:if>>php</option>
-							<option value="c" <c:if test="${result.division eq 'c'}">selected</c:if>>c/c++/c#</option>
+							<option value="c/c++/c#" <c:if test="${result.division eq 'c/c++/c#'}">selected</c:if>>c/c++/c#</option>
 							<option value="android" <c:if test="${result.division eq 'android'}">selected</c:if>>android</option>
 							<option value="ios" <c:if test="${result.division eq 'ios'}">selected</c:if>>ios</option>
-							<option value="db" <c:if test="${result.division eq 'db'}">selected</c:if>>db(oracle/mysql/mssql)</option>
-							<option value="etc" <c:if test="${result.division eq 'etc'}">selected</c:if>>기타</option>
+							<option value="database" <c:if test="${result.division eq 'database'}">selected</c:if>>db(oracle/mysql/mssql)</option>
+							<option value="기타" <c:if test="${result.division eq '기타'}">selected</c:if>>기타</option>
 						</select>
 					</div>
 					<div class="col-3 division">
@@ -103,7 +104,7 @@ $(function(){
 				
 				<div class=row>
 					<div class="col-12 btn" style="text-align:right;">
-						<button class="btn btn-primary" type="submit">작성완료</button>
+						<button class="btn btn-primary" type="button" id="modify">수정완료</button>
 						<button class="btn btn-primary" type="button" id="cancle">작성취소</button>
 					</div>
 				</div>
@@ -127,6 +128,18 @@ $(function(){
 		})
 		$("#cancle").on("click",function(){
 			location.href="${pageContext.request.contextPath}/code/codeDetail.do?seq=${parent_seq}";
+		})
+		$("#modify").on("click", function() {
+			$("#title").val($.trim($("#title").val())); 
+			if (($("#division").val()== "" || $("#point").val()== "" || $("#title").val()=="" || $(".note-editable").text()== "")) {
+				alert("작성 하지 않는 문항이 있습니다. 다시 한번 확인해주세요.");
+				return false;
+			} else {
+				var result = confirm("이대로 수정 하시겠습니까?");
+				if (result) {
+					$("#writeForm").submit();
+				}
+			}
 		})
 	</script>
 </body>

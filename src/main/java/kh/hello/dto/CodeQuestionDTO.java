@@ -12,7 +12,7 @@ public class CodeQuestionDTO {
 	private int point;
 	private int viewCount;
 	private Timestamp writeDate;
-	private int repCount;
+	private int replyCount;
 	
 	public CodeQuestionDTO() {
 		super();
@@ -83,10 +83,10 @@ public class CodeQuestionDTO {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
 		return sdf.format(writeDate);
 	}
-	public int getRepCount() {
-		return repCount;
+	public int getReplyCount() {
+		return replyCount;
 	}
-	public void setRepCount(int repCount) {
-		this.repCount = repCount;
+	public void setReplyCount(int repCount) {
+		this.replyCount = repCount;
 	}
 }

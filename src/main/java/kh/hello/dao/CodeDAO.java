@@ -64,8 +64,8 @@ public class CodeDAO {
 		return jdbc.delete("Code.delete",seq);
 	}
 	
-	public int modify(CodeQuestionDTO dto) {
-		return jdbc.update("Code.modify", dto);
+	public void modify(CodeQuestionDTO dto) {
+		jdbc.update("Code.modify", dto);
 	}
 	
 	//답글 ( CodeReply ) 
