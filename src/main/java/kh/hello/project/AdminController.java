@@ -29,6 +29,11 @@ public class AdminController {
 	@Autowired
 	private HttpSession session;
 	
+	@RequestMapping("/error")
+	public String errorPage() {
+		return "error";
+	}
+	
 	@RequestMapping("/login")
 	public String login(String name, String password) {
 		int result = as.validLogin(name, password);
