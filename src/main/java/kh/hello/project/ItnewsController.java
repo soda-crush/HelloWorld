@@ -36,16 +36,11 @@ public class ItnewsController {
 				int start = end - (Configuration.recordCountPerPage - 1);	
 				
 				List<ItnewsDTO> list;
-				try {
 					list = is.itnewsListTrim(start, end);
 					m.addAttribute("list", list);
 					
 					String pageNavi = is.getPageNavi(realCpage);
 					m.addAttribute("navi", pageNavi);
-				} catch (Exception e) {
-					e.printStackTrace();
-					return "error";
-				}
 				
 				m.addAttribute("page", realCpage);
 				
@@ -60,14 +55,9 @@ public class ItnewsController {
 	@RequestMapping("/detail")
 	public String itnewsDetail(Model m, int seq) {
 		ItnewsDTO result;
-		try {
 			result = is.itnewsDetail(seq);
 			m.addAttribute("result", result);
 			return "/itnews/itnewsView";
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "../error";
-		}
 	}
 	
 }

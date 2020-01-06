@@ -16,26 +16,26 @@ public class ItnewsDAO {
 	@Autowired 
 	private SqlSessionTemplate jdbc;
 	
-	public List<ItnewsDTO> getItnewsList()throws Exception{
+	public List<ItnewsDTO> getItnewsList(){
 		return jdbc.selectList("Itnews.getList");
 	}
 	
-	public ItnewsDTO getItnewsDTO(int seq)throws Exception{
+	public ItnewsDTO getItnewsDTO(int seq){
 		return jdbc.selectOne("Itnews.getDTO", seq);
 	}
 	
-	public String getPageNavi(int cpage)throws Exception{
+	public String getPageNavi(int cpage){
 		return "";
 	}
 	
-	public List<ItnewsDTO> selectByPage(int start, int end)throws Exception{
+	public List<ItnewsDTO> selectByPage(int start, int end){
 		Map<String, Integer> param = new HashMap<>();
 		param.put("start", start);
 		param.put("end", end);
 		return jdbc.selectList("Itnews.selectByPage", param);
 	}
 
-	public int getItnewsTotal()throws Exception{
+	public int getItnewsTotal(){
 		return jdbc.selectOne("Itnews.getTotal");
 	}
 	

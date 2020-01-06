@@ -16,19 +16,19 @@ public class ItnewsService {
 	@Autowired
 	private ItnewsDAO dao;
 	
-	public List<ItnewsDTO> itnewsList()throws Exception{
+	public List<ItnewsDTO> itnewsList(){
 		return dao.getItnewsList();
 	}
 	
-	public ItnewsDTO itnewsDetail(int seq)throws Exception{
+	public ItnewsDTO itnewsDetail(int seq){
 		return dao.getItnewsDTO(seq);
 	}
 	
-	public List<ItnewsDTO> itnewsListTrim(int start, int end)throws Exception{
+	public List<ItnewsDTO> itnewsListTrim(int start, int end){
 		return dao.selectByPage(start, end);
 	}
 	
-	public String getPageNavi(int cpage)throws Exception{
+	public String getPageNavi(int cpage){
 		int recordTotalCount = dao.getItnewsTotal();
 		int pageTotalCount = 0;
 		

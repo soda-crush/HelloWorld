@@ -33,7 +33,6 @@ public class MemberController {
 	
 	@RequestMapping("/loginProc")
 	public String loginProc(String id, String pw, HttpSession session){ //로그인 프로세스
-		try {
 			int result = ms.login(id, pw);
 			if(result > 0) {
 				session.setAttribute("loginInfo", id);
@@ -41,10 +40,6 @@ public class MemberController {
 			}else {
 				return "error";
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "error";
-		}
 	}
 	
 	@RequestMapping("/logout")
@@ -77,7 +72,6 @@ public class MemberController {
 	@RequestMapping("/duplCheck")
 	@ResponseBody
 	public String duplCheck(String id) { //아이디 중복검사
-		try {
 			int result = ms.dupleCheck(id);
 			if(result > 0) {
 				JsonObject jobj = new JsonObject();
@@ -88,16 +82,11 @@ public class MemberController {
 				jobj.addProperty("result", "false");
 				return jobj.toString();
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "error";
-		}
 	}
 	
 	@RequestMapping("/nickDuplCheck")
 	@ResponseBody
 	public String nickDuplCheck(String nickName) { //닉네임 중복검사
-		try {
 			int result = ms.nickDupleCheck(nickName);
 			if(result > 0) {
 				JsonObject jobj = new JsonObject();
@@ -108,16 +97,11 @@ public class MemberController {
 				jobj.addProperty("result", "false");
 				return jobj.toString();
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "error";
-		}
 	}
 	
 	@RequestMapping("/phoneDuplCheck")
 	@ResponseBody
 	public String phoneDuplCheck(String phone) { //휴대폰 중복검사
-		try {
 			int result = ms.phoneDupleCheck(phone);
 			if(result > 0) {
 				JsonObject jobj = new JsonObject();
@@ -128,10 +112,6 @@ public class MemberController {
 				jobj.addProperty("result", "false");
 				return jobj.toString();
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "error";
-		}
 	}
 	
 	@RequestMapping("/mail")
@@ -150,45 +130,38 @@ public class MemberController {
 	    String content = "Please enter this code : ";    // 내용
 	  
 	    
-	    try {
 	    	//디비에 이메일이랑 인증코드 저장
 		    ms.insertCtfCode(email, ctfCode);
-		    
-	      MimeMessage message = mailSender.createMimeMessage();
-	      MimeMessageHelper messageHelper 
-	                        = new MimeMessageHelper(message, true, "UTF-8");
-	      
-	      messageHelper.setFrom(setfrom);  // 보내는사람 생략하거나 하면 정상작동을 안함
-	      messageHelper.setTo(tomail);     // 받는사람 이메일
-	      messageHelper.setSubject(title); // 메일제목은 생략이 가능하다
-	      messageHelper.setText(content);  // 메일 내용
-	     
-	      mailSender.send(message);
+		 
+		    try {
+		    	 MimeMessage message = mailSender.createMimeMessage();
+			      MimeMessageHelper messageHelper 
+			                        = new MimeMessageHelper(message, true, "UTF-8");
+			      
+			      messageHelper.setFrom(setfrom);  // 보내는사람 생략하거나 하면 정상작동을 안함
+			      messageHelper.setTo(tomail);     // 받는사람 이메일
+			      messageHelper.setSubject(title); // 메일제목은 생략이 가능하다
+			      messageHelper.setText(content);  // 메일 내용
+			     
+			      mailSender.send(message);
 
-		    return "send";
-	    } catch(Exception e){
-	      System.out.println(e);
-	      return "localhost/error.jsp";
-	      //수정필요
-	    }
-	   
+				    return "send";
+		    }catch(Exception e){
+		    	System.out.println("메일 오류");
+		    	e.printStackTrace();
+		    	return "/WEB-INF/views/error.jsp";
+		    }
 	  }
 	 
 	 @RequestMapping("/ctfCodeProc")
 	 @ResponseBody
 	 public String ctfCodeProc(String email, String code) {
-		try {
 			int result =  ms.confirmCode(email, code);
 			if(result > 0) {
 				return "true";
 			}else {
 				return "false";
 			}
-		}catch(Exception e) {
-			e.printStackTrace();
-			return "localhost/error.jsp";
-			//수정필요
-		}
 		}
 	
 	 @RequestMapping("/mypage")
