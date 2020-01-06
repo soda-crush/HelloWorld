@@ -15,4 +15,8 @@
 		select * from portfolio where seq = #{seq}
 	</select>
 	
+	<update id="update" parameterType="kh.hello.dto.PortfolioDTO">
+		update portfolio set portfolioTitle=#{portfolioTitle}, startDate=#{startDate}, endDate=#{endDate}, purpose=#{purpose}, environment=#{environment}, allFunction=#{allFunction}, dbUnitPlan=#{dbUnitPlan}, role=#{role}, contribution=#{contribution}, image1=#{image1}, function1=#{function1}, explanation1=#{explanation1}, image2=#{image2} , function2=#{function2} , explanation2=#{explanation2} , image3=#{image3} , function3=#{function3} , explanation3=#{explanation3}, git=#{git} where seq=#{seq}
+	</update>
+	
 </mapper>

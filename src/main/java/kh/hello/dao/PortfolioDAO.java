@@ -26,4 +26,7 @@ public class PortfolioDAO {
 		return jdbc.selectOne("Portfolio.selectBySeq", seq);
 	}
 	
+	public void update(PortfolioDTO pdto) {
+		jdbc.update("Portfolio.update", pdto);
+	}
 }
