@@ -29,5 +29,9 @@ public class PortfolioService {
 	public void update(PortfolioDTO pdto) {
 		pdao.update(pdto);
 	}
+	
+	public void delete(int seq) {
+		pdao.delete(seq);
+	}
 
 }

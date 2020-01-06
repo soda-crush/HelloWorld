@@ -14,8 +14,8 @@ public class GuestBookService {
 	@Autowired
 	private GuestBookDAO gdao;
 	
-	public void insertWrite(GuestBookDTO gdto) {
-		gdao.insertWrite(gdto);
+	public void insert(GuestBookDTO gdto) {
+		gdao.insert(gdto);
 	}
 
 	public List<GuestBookDTO> selectList(){
