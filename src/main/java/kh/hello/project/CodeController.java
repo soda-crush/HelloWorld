@@ -111,12 +111,6 @@ public class CodeController {
 	
 	@RequestMapping("/modifyProc.do")
 	public String codeModifyProc(CodeQuestionDTO dto) {
-//		System.out.println(dto.getWriter());
-//		dto.setWriter((String)session.getAttribute("loginInfo"));
-//		System.out.println(dto.getDivision());
-//		System.out.println(dto.getWriter());
-//		System.out.println(dto.getTitle());
-//		System.out.println(dto.getWriteDate());
 		try {
 			sv.modify(dto);
 		} catch (Exception e) {
