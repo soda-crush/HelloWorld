@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Hello World!</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
@@ -28,6 +29,8 @@
             }
             .card{
                 margin-top:20px;
+                width:200px;
+                text-align:center;
             }
             .myprofile{
                 float: left;
@@ -114,7 +117,7 @@
                     	</div>
 	                </div>
 	                <div class ="col-12 col-md-8 col-lg-9 wrapportfolio">
-	                	<c:forEach items="${list }" var="dto">
+	                	<c:forEach items="${list}"  var="dto">
 	                		<div class="cardwrap col-6 col-xl-4">
 		                        <div class="card">
 		                            <img src="${dto.image1}" class="card-img-top" alt="..." style="height: inherit;width: 160px;height: 170px;margin:15px;">
