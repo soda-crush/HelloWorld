@@ -14,6 +14,7 @@
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/css/projectBase.css" type="text/css" />
+<link rel="stylesheet" href="/css/mainBase.css">
 <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.css" type="text/css" />
 
 <style>
@@ -110,13 +111,15 @@ span:nth-child(4) {
 	font-size: 50px;
 	font-weight: 100;
 }
-
+.contentDivBot{
+	text-align:left;
+}
 </style>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/standard/header.jsp" />
 
-	<div id=baseBackgroundColor>
+	<div id=baseBackgroundColor style="text-align:left;">
 		<div class=container>
 			<div class=row>
 				<div class="col-12" id=aroundContent></div>
@@ -164,29 +167,66 @@ span:nth-child(4) {
 		
 				<div class="topQ">
 					<c:forEach items="${rResult}" var="r">
+					
+						<input type="hidden" id="seqSelect" data-cartNum="${r.seq}"> 
+						
 						<div style="font-size: 40px; font-weight: 100;">${r.writer}님의 답변입니다.</div>
 						<br>
-						<div id="content">${r.content}</div>
+						<div id="content">${r.content}</div>									
 						<br>
 							<c:if test="${cResult.size()>0 }">
 								<c:forEach items="${cResult }" var="c">
 									${c.content}<br>
 								</c:forEach>
 							</c:if>
-						<div>${r.writeDate}
-							<button class="btn btn-dark" id="comments">댓글</button>
-						</div>
-						<c:choose>
-							<c:when test="${qResult.writer==sessionScope.loginInfo}">
-									<button class="btn btn-dark" class="btnDIv2" id="modifyR">수정</button>
-									<button class="btn btn-danger" class="btnDIv2" id="deleteR" onclick ="deleteR(${r.seq})">삭제</button>
-<%-- 									<button type="button" onclick="location.href='${pageContext.request.contextPath}/board/boardDelete.do?seq=${Bresult.seq}'">삭제</button> --%>
-							</c:when>
-						</c:choose>
-						<br>
-						<hr>
+						<div>${r.writeDate}</div>
+						<div><button class="btn btn-dark" id="commentBtn">댓글</button></div>		
 					</c:forEach>
 				</div>
+<!-- 댓글리스트 -->
+					<div id="commentList"></div>
+					<div class="contentDivBot">
+						<c:forEach items="${cResult}" var="co">
+							<div class="row commentDiv${co.seq} commentBox">
+								<div class="col-12">
+									<div class="row" style="font-size: 13px;">
+										<div class="col-3">관리자</div>
+										<div class="col-3">${co.writeDate }</div>
+										<div class="col-6" align="right">
+<%-- 											<c:choose> --%>
+<%-- 												<c:when test="${cResult.writer == sessionScope.loginInfo}"> --%>
+<!-- 													<input type="button" value="수정" id="toCoModify" -->
+<%-- 														onclick="modifyComment(${co.seq},'${co.content}')"> --%>
+<!-- 													<input type="button" value="삭제" id="toCoDelete" -->
+<%-- 														onclick="deleteComment(${readDTO.ask_seq},${co.co_seq})"> --%>
+<%-- 												</c:when> --%>
+<%-- 											</c:choose> --%>
+						            <c:if test="${cResult.writer == sessionScope.loginInfo}">
+<%-- 													<a class="btn btn-primary" href="/code/codeDetail.do?seq=${co.seq }" role="button">수정하기</a> --%>
+														<a class="btn btn-primary" href="#" role="button">수정하기</a> 
+													<a class="btn btn-primary" href="#" role="button">삭제하기</a>
+									</c:if>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-12 commentView${co.co_seq}">${co.contents }</div>
+									</div>
+								</div>
+							</div>
+						</c:forEach>
+					</div>
+					<br>
+							<div class="contentDivBot" style="display:none;"><textarea maxlength="1000" name="content"></textarea><button id="commentWrite">전송</button></div>			
+<%-- 						<c:choose> --%>
+<%-- 							<c:when test="${sessionScope.loginInfo}"> --%>
+<!-- 									<button class="btn btn-dark" class="btnDIv2" id="modifyR">수정</button> -->
+<%-- 									<button class="btn btn-danger" class="btnDIv2" id="deleteR" onclick ="deleteR(${r.seq})">삭제</button> --%>
+<%-- <%-- 									<button type="button" onclick="location.href='${pageContext.request.contextPath}/board/boardDelete.do?seq=${Bresult.seq}'">삭제</button> --%> 
+<%-- 							</c:when> --%>
+<%-- 						</c:choose> --%>
+						<br>
+						<hr>
+				
 			</div>
 		</div>
 		<!--       몸통 끝!!!   -->
@@ -198,11 +238,10 @@ span:nth-child(4) {
 		</div>
 
 	</div>
-	<jsp:include page="/WEB-INF/views/standard/footer.jsp" />
 	
 	<script>
 		$("#modify").on("click",function(){
-			
+			location.href="${pageContext.request.contextPath}/code/modify.do?seq=${qResult.seq}";
 		})
 		$("#delete").on("click",function(){
 			var cf = confirm("삭제하시겠습니까?");
@@ -213,10 +252,19 @@ span:nth-child(4) {
 		$("#modifyR").on("click",function(){
 			
 		})
-		
-		$("#comments").on("click",function(){
-			$("#content").append("<input type='text'><button>전송</button>");
-		})
+		flag = true;
+		var b = $(".contentDivBot");
+	
+		$("#commentBtn").click(function(){
+		        if(flag == false){
+		            b.hide();
+		            flag = true;
+		        }
+		        else{
+		            b.show();﻿
+		            flag = false;
+		        };
+		});
 		
 		function deleteR(seq){
 			var cf = confirm("삭제하시겠습니까?");
@@ -224,5 +272,22 @@ span:nth-child(4) {
 				location.href="${pageContext.request.contextPath}/code/deleteR.do?seq="+seq;
 			}
         }
+		
+    	$("#commentWrite").on("click",function(){
+    		$.ajax({
+				url:"/code/codeCWriteProc.do",
+				type:"post",
+				data:{
+					content : $("#content").val(),
+					repSeq: $("#seqSelect").attr("data-cartNum"),
+					writer: "${sessionScope.loginInfo}"
+				},
+				dataType:"json"
+			}).done(function(data){
+				$("#commentList").append("<div>" + data.writer + "</div><br>" + "<div>" + data.content + "</div><br>" + "<div>" + data.writeDate + "</div><br><a class=\"btn btn-primary\" href=/code/codeCDeleteProc.do?repSeq="+data.repSeq+"&seq="+data.seq+" role=\"button\">댓글 삭제</a>");
+				$("#content").val("");
+			});
+    	})
 	</script>
+	<jsp:include page="/WEB-INF/views/standard/footer.jsp" />
 </html>

@@ -128,12 +128,15 @@ badge-success
 								</tr>
 							</c:when>
 							<c:otherwise>
-								<c:forEach items="${list }" var="dto">
+								<c:forEach items="${list}" var="dto">
 									<tr>
 										<th scope="row">${dto.seq}</th>
 										<td class="badge badge-pill badge-success"
 											style="margin: 10; padding: 10; width: 40px;">${dto.division}</td>
 										<td><a href="/code/codeDetail.do?seq=${dto.seq }">${dto.title}</a>
+<%-- 											<c:if test="${dto.repCount>0 }"> --%>
+<%-- 					  							<span class="pComment font-weight-bold">${dto.repCount}</span> --%>
+<%-- 					  						</c:if>	 --%>
 											<span class="badge badge-pill badge-danger">N</span></td>
 										<td>${dto.writer}  
 										 <span class="badge badge-pill badge-info">실무자</span></td>
@@ -154,15 +157,28 @@ badge-success
 						<li class="page-item"><a class="page-link" href="#"
 							aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
 						</a></li>
-						<li id="page-navi" class="page-item" align="center">${pageNavi}</li>
-<!-- 						<li id="page-navi" class="page-item"><a class="page-link" href="#">1</a></li> -->
-<!-- 						<li class="page-item active"><a class="page-link" href="#">2</a></li> -->
-<!-- 						<li class="page-item"><a class="page-link" href="#">3</a></li> -->
+						<c:forEach items="${pageNavi}" var="navi">									
+							<li id="page-navi" class="page-item pageNavi" align="center">${navi}</li>
+						</c:forEach>
 						<li class="page-item"><a class="page-link" href="#"
 							aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 						</a></li>
 					</ul>
 				</nav>
+					
+<!-- 					  <div class="card"> -->
+<!--                             <div class="card-body"> -->
+<!--                                 <nav aria-label="Page navigation example"> -->
+<!--                                     <ul class="pagination justify-content-center"> -->
+<%-- 										<c:forEach items="${pageNavi}" var="navi">									 --%>
+<%-- 											<li class="page-item pageNavi">${navi}</li> --%>
+<%-- 										</c:forEach> --%>
+
+
+<!--                                     </ul> -->
+<!--                                 </nav> -->
+<!--                             </div> -->
+<!--                         </div> -->
 
 			</div>
 			<!--       몸통 끝!!!   -->
@@ -173,7 +189,19 @@ badge-success
 				</div>
 			</div>
 		</div>
-		
+<script>
+	$(function(){
+		var element = $(".pageNavi");
+		var page = "${page}";
+		if(page > 0 && page <= 10){
+			element[page-1].classList.add('active');
+		}else if(page % 10 == 0){
+			element[10].classList.add('active');
+		}else{
+			element[page % 10].classList.add('active');
+		}	
+	});
+</script>
 		<jsp:include page="/WEB-INF/views/standard/footer.jsp" />
 </body>
 </html>

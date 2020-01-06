@@ -103,7 +103,7 @@ $(function(){
 				<div class=row>
 					<div class="col-12 btn" style="text-align:right;">
 						<button class="btn btn-primary" type="submit">작성완료</button>
-						<button class="btn btn-primary" type="button">작성취소</button>
+						<button class="btn btn-primary" type="button" id="cancle">작성취소</button>
 					</div>
 				</div>
 			</div>
@@ -123,6 +123,9 @@ $(function(){
 	<script>
 		$('#summernote').summernote({
 			height: 500
+		})
+		$("#cancle").on("click",function(){
+			location.href="${pageContext.request.contextPath}/code/codeQList.do";
 		})
 	</script>
 </body>

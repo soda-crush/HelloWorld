@@ -2,6 +2,7 @@ package kh.hello.services;
 
 import java.io.DataOutputStream;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -14,7 +15,9 @@ import org.springframework.util.Base64Utils;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 
+import kh.hello.configuration.Configuration;
 import kh.hello.dao.CodeDAO;
+import kh.hello.dto.BambooDTO;
 import kh.hello.dto.CodeCommentsDTO;
 import kh.hello.dto.CodeQuestionDTO;
 import kh.hello.dto.CodeReplyDTO;
@@ -26,6 +29,10 @@ public class CodeService {
 	private CodeDAO dao;
 	
 	//질문 CodeQuestion
+//	public List<CodeQuestionDTO> selectAll() throws Exception{
+//		return dao.selectAll();
+//	}
+	
 	public List<CodeQuestionDTO> selectQuestionAll(int start,int end) throws Exception{
 			return dao.selectQuestionAll(start,end);
 	}
@@ -67,6 +74,10 @@ public class CodeService {
 	
 	public void delete(int seq) throws Exception{
 		dao.delete(seq);
+	}
+	
+	public int modify(CodeQuestionDTO dto) throws Exception{
+		return dao.modify(dto);
 	}
 	
 	//답글 CodeReply
@@ -115,13 +126,52 @@ public class CodeService {
 		return dao.detailReply(seq);
 	}
 	
-	public String pageNavi(String page,int start,int end) throws Exception{
-		int cpage = 1;
-		if(page != null) {
-			cpage = Integer.parseInt(page);
+	public List<String> getPageNavi(int currentPage) {				
+		int recordTotalCount = dao.codeQuestionCount();
+		int pageTotalCount = 0;
+		
+		if(recordTotalCount% Configuration.recordCountPerPage > 0) {
+			pageTotalCount = recordTotalCount / Configuration.recordCountPerPage + 1;
+		}else {
+			pageTotalCount = recordTotalCount / Configuration.recordCountPerPage;
 		}
-		String pageNavi = dao.getPageNavi(cpage,start,end);		
-		return pageNavi;
+		
+		if(currentPage < 1) {
+			currentPage = 1;
+		}else if(currentPage > pageTotalCount) {
+			currentPage = pageTotalCount;
+		}
+		
+		int startNavi = (currentPage - 1) / Configuration.naviCountPerPage * Configuration.naviCountPerPage + 1;
+		int endNavi = startNavi + (Configuration.naviCountPerPage - 1);
+		
+		if(endNavi > pageTotalCount) {
+			endNavi = pageTotalCount;
+		}
+		
+		boolean needPrev = true;
+		if(startNavi == 1) {
+			needPrev = false;
+		}
+		boolean needNext = true;
+		if(endNavi == pageTotalCount) {
+			needNext = false;
+		}
+		
+		List<String> pages = new ArrayList<>();
+		if(needPrev) pages.add("<a class=page-link href='codeQList.do?page=" + (startNavi - 1) + "'>< </a>");
+		
+		for(int i = startNavi; i <= endNavi; i++) {
+			StringBuilder sb = new StringBuilder();
+			sb.append("<a class=page-link href='codeQList.do?page="+ i +"'>");
+			sb.append(i + " ");
+			sb.append("</a>");
+			pages.add(sb.toString());
+		}
+		
+		if(needNext) pages.add("<a class=page-link href='codeQList.do?page=" + (endNavi + 1) + "'>> </a>");
+	
+		return pages;
 	}
 	
 	

@@ -54,14 +54,14 @@ $(function(){
 		<!--      몸통 시작!!!   -->
 		<form action="codeRWriteProc.do" method="post" id="writeForm">
 			<div class=container>
-		
 				<div class=row>
 					<div class="col-12 title">
 					<input type="hidden" name=title value="">
 						<h4>${sessionScope.loginInfo}님 답변해주세요.</h4>
 					</div>
 				</div>
-				<input type="hidden" name=parent_seq value="${parent_seq}">
+<!-- 			<input type="hidden" name="seq" value="1"> -->
+				<input type="hidden" name="queSeq" value="${parent_seq}">
 				<div class=row>
 					<div class="col-12 content">
 						<textarea name="content" id="content" style="display:none"></textarea>
@@ -72,7 +72,7 @@ $(function(){
 				<div class=row>
 					<div class="col-12 btn" style="text-align:right;">
 						<button class="btn btn-primary" type="submit">답변등록</button>
-						<button class="btn btn-primary" type="button">취소</button>
+						<button class="btn btn-primary" type="button" id="cancle">취소</button>
 					</div>
 				</div>
 			</div>
@@ -92,6 +92,9 @@ $(function(){
 	<script>
 		$('#summernote').summernote({
 			height: 500
+		})
+		$("#cancle").on("click",function(){
+			location.href="${pageContext.request.contextPath}/code/codeDetail.do?seq=${parent_seq}";
 		})
 	</script>
 </body>

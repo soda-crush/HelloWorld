@@ -7,7 +7,7 @@
 		insert into codeComments values(codeCommentsSeq.nextval,#{repSeq},#{content},#{writer},sysdate)
 	</insert>
 	<select id="commentsList" resultType="kh.hello.dto.CodeCommentsDTO">
-		select * from codeComments where repSeq=#{repSeq}
+		select * from codeComments where repSeq=#{repSeq}	
 	</select>
 	<update id="updateComment" parameterType="kh.hello.dto.CodeCommentsDTO">
 		update codeComments set content=#{content} where seq=#{seq}
@@ -15,4 +15,7 @@
 	<delete id="deleteComment">
 		delete from codeComments where seq=#{seq}
 	</delete>
+	<select id="selectRepSeq" parameterType="String" resultType="Integer">
+		select max(seq) from codeQuestion where writer = #{writer}
+	</select>
 </mapper>
