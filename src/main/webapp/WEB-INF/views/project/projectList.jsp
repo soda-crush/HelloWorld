@@ -45,7 +45,7 @@
 					    <div class="col-xl-2 col-md-4 d-none d-md-block">기간</div>
 					    <div class="col-xl-1 d-none d-xl-block">작성자</div>
 					    <div class="col-xl-1 d-none d-xl-block">작성일</div>
-					    <div class="col-xl-1 d-none d-xl-block">조회수</div>					    
+					    <div class="col-xl-1 d-none d-xl-block">조회</div>					    
 					</div>
 					
 				  	<c:choose>

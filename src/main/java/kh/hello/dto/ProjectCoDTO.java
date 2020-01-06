@@ -9,6 +9,8 @@ public class ProjectCoDTO {
 	private String writer;
 	private String contents;
 	private Timestamp writeDate;
+	private String formedWriteDate;
+	
 	public ProjectCoDTO() {
 		super();
 	}
@@ -50,11 +52,12 @@ public class ProjectCoDTO {
 	public void setWriteDate(Timestamp writeDate) {
 		this.writeDate = writeDate;
 	}
-	
-	
 	public String getFormedWriteDate() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
-		String result = sdf.format(this.writeDate);
-		return result;
+		this.formedWriteDate = sdf.format(this.writeDate);
+		return this.formedWriteDate;
 	}
+	public void setFormedWriteDate(Timestamp writeDate) {
+		this.formedWriteDate = getFormedWriteDate();
+	}	
 }

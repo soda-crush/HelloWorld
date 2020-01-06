@@ -123,6 +123,7 @@ public class ProjectController {
 	@ResponseBody
 	@RequestMapping(value="/comment/writeProc",produces="text/html;charset=utf8")
 	public String commentWriteConfirm(ProjectCoDTO dto) {
+		dto.setWriter((String)session.getAttribute("loginInfo"));
 		return svc.commentWriteConfirm(dto);		
 	}
 	
@@ -132,9 +133,10 @@ public class ProjectController {
 		return svc.commentModifyConfirm(dto);
 	}
 	
-	@RequestMapping("/comment/deleteProc")
-	public void commentDeleteConfirm(int seq) {
-		svc.commentDeleteConfirm(seq);
+	@ResponseBody
+	@RequestMapping(value="/comment/deleteProc",produces="text/html;charset=utf8")
+	public String commentDeleteConfirm(int seq, int projectSeq) {
+		return svc.commentDeleteConfirm(seq, projectSeq);		
 	}
 	
 	

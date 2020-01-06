@@ -139,28 +139,33 @@ public class ProjectService {
 	public String commentWriteConfirm(ProjectCoDTO dto) {
 		dao.insertProjectCo(dto);
 		Gson gson = new Gson();
-		JsonArray array = new JsonArray();
 		List<ProjectCoDTO> result = dao.getCoList(dto.getProjectSeq());
 		for(ProjectCoDTO p : result) {
-			array.add(gson.toJson(p));
+			p.setFormedWriteDate(p.getWriteDate());
 		}
-		return array.toString();
+		return gson.toJson(result);
 	}
 	
 	@Transactional("txManager")
 	public String commentModifyConfirm(ProjectCoDTO dto) {
 		dao.updateProjectCo(dto);
 		Gson gson = new Gson();
-		JsonArray array = new JsonArray();
 		List<ProjectCoDTO> result = dao.getCoList(dto.getProjectSeq());
 		for(ProjectCoDTO p : result) {
-			array.add(gson.toJson(p));
+			p.setFormedWriteDate(p.getWriteDate());
 		}
-		return array.toString();
+		return gson.toJson(result);
 	}
 	
-	public int commentDeleteConfirm(int seq) {
-		return dao.deleteProjectCo(seq);
+	@Transactional("txManager")
+	public String commentDeleteConfirm(int seq, int projectSeq) {
+		dao.deleteProjectCo(seq);
+		Gson gson = new Gson();
+		List<ProjectCoDTO> result = dao.getCoList(projectSeq);
+		for(ProjectCoDTO p : result) {
+			p.setFormedWriteDate(p.getWriteDate());
+		}
+		return gson.toJson(result);
 	}
 	
 	public int commentsDeleteConfirm(int projectSeq) {
