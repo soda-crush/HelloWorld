@@ -27,4 +27,18 @@ public class MemberInquiryDAO {
 	public int getMyInquiryTotal(String id) {
 		return jdbc.selectOne("MemberInquiry.getMyInquiryTotal", id);
 	}
+	
+	public int getInquirySeq() {
+		return jdbc.selectOne("MemberInquiry.getInquirySeq");
+	}
+	
+	public int insertImg(int boardSeq, String sysName) {
+		Map<String, Object> param = new HashMap<>();
+		param.put("boardSeq", boardSeq);
+		param.put("sysName", sysName);
+		return jdbc.insert("MemberInquiry.insertImg", param);
+	}
+	public int writeInquiry(InquiryDTO dto) {
+		return jdbc.insert("MemberInquiry.writeInquiry", dto);
+	}
 }

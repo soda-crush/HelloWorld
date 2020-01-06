@@ -25,6 +25,7 @@ public class MemberInquiryController {
 	
 	@RequestMapping("/myInquiry")
 	public String getMyInquiryList(String page, Model m){
+		//나중에 지우기
 		session.setAttribute("loginInfo", "글슨사람");
 		String id = (String)session.getAttribute("loginInfo");
 		
@@ -43,6 +44,35 @@ public class MemberInquiryController {
 		m.addAttribute("page", currentPage);
 		
 		return "member/inquiryList";
+	}
+	
+	@RequestMapping("/toInquiryForm")
+	public String toInquiryForm(String page, Model m) {
+		m.addAttribute("page", page);
+		return "member/inquiryForm";
+	}
+	
+	@RequestMapping("/writeInquiry")
+	public String writeInquiry(String page, InquiryDTO dto) {
+		//나중에 지우기
+		session.setAttribute("loginInfo", "글슨사람");
+		String id = (String)session.getAttribute("loginInfo");
+		dto.setWriter(id);		
+		String path = session.getServletContext().getRealPath("attached");
+		
+		int result = 0;
+		try {
+			result = ms.writeInquiry(path, dto);
+			if(result > 0) {
+				return "redirect:myInquiry";
+			}else {
+				return "redirect:../error";
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			return "redirect:../error";
+		}
+
 	}
 
 }

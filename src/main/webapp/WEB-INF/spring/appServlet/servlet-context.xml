@@ -22,6 +22,7 @@
 	<mvc:resources location="/resources/adRsc/" mapping="/adRsc/**" />
 	<mvc:resources location="/resources/js/" mapping="/js/**" />
 	<mvc:resources location="/files/" mapping="/files/**" />
+	<mvc:resources location="/attached/" mapping="/attached/**" />
 
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/views/" />

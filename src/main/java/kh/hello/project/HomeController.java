@@ -18,5 +18,10 @@ public class HomeController {
 		return "admin/loginForm";
 	}
 	
+	@RequestMapping("/error")
+	public String error() {
+		return "error";
+	}
+	
 }
 
