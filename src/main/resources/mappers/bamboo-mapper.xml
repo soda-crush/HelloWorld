@@ -38,4 +38,37 @@
 	<select id="bambooListByPage" resultType="kh.hello.dto.BambooDTO">
 		select * from (select bamboo.*, row_number() over (order by seq desc) as rown from bamboo) where rown between #{start} and #{end}
 	</select>
+	
+	<!-- 조건별 게시판목록 검색 -->
+	<select id="bambooSearchTotalCount" parameterType="java.util.Map" resultType="integer">
+		 select count(seq) from bamboo
+		 <choose>
+		 <when test="value == 'all'">								
+			 where (writer like '%${search}%') or (title like '%${search}%')
+		</when>
+		<when test="value == 'writer'">								
+			 where (writer like '%${search}%')
+		</when>
+		<when test="value == 'title'">								
+			 where (title like '%${search}%')
+		</when>
+		</choose>
+	</select>
+	
+	<select id="bambooSearchByPage" resultType="kh.hello.dto.BambooDTO" parameterType="java.util.Map">
+		select * 
+		<choose>
+		 <when test="value == 'all'">								
+			 from (select bamboo.*, row_number() over (order by seq desc) as rown from bamboo where (writer like '%${search}%') or (title like '%${search}%')) where rown between #{start} and #{end}
+			 
+		</when>
+		<when test="value == 'writer'">
+			 from (select bamboo.*, row_number() over (order by seq desc) as rown from bamboo where (writer like '%${search}%')) where rown between #{start} and #{end}
+										
+		</when>
+		<when test="value == 'title'">								
+			 from (select bamboo.*, row_number() over (order by seq desc) as rown from bamboo where (title like '%${search}%')) where rown between #{start} and #{end}
+		</when>
+		</choose>
+	</select>
 </mapper>

@@ -48,13 +48,14 @@
 									<div>익명</div><br>
 									<div>${c.content }</div><br>
 									<div>${c.writeDate }</div>
+									<a id="commentModify" class="btn btn-primary" href="#" role="button">댓글 수정</a>
 									<a class="btn btn-primary" href="/bamboo/comment/deleteProc.do?seq=${c.seq }&bamSeq=${c.bamSeq}" role="button">댓글 삭제</a>
 								</c:forEach>
 			</c:if>
            	</div>		
             <c:if test="${bPage.writer == sessionScope.loginInfo}">
-							<a class="btn btn-primary" href="/bamboo/bambooDetailView.do?seq=${bPage.seq }" role="button">수정하기</a>
-							<a class="btn btn-primary" href="#" role="button">삭제하기</a>
+							<a class="btn btn-primary" href="/bamboo/bambooModify.do?seq=${bPage.seq }" role="button">수정하기</a>
+							<a class="btn btn-primary" href="/bamboo/bambooDeleteProc.do?seq=${bPage.seq }" role="button">삭제하기</a>
 						</c:if>
 						<br>
 						
@@ -89,6 +90,24 @@
 					$("#commentList").append("<div>" + data.writer + "</div><br>" + "<div>" + data.content + "</div><br>" + "<div>" + data.writeDate + "</div><br><a class=\"btn btn-primary\" href=/bamboo/comment/deleteProc.do?bamSeq="+data.bamSeq+"&seq="+data.seq+" role=\"button\">댓글 삭제</a>");
 					$("#content").val("");
 				});
+        	})
+        	
+        	$("#commentModify").on("click",function(){
+        		$.ajax({
+        			url:"/bamboo/comment/modifyProc.do",
+					type:"post",
+					data:{
+						seq : ${b.seq},
+						bamSeq : ${b.bamSeq},
+						writer: "${sessionScope.loginInfo}"
+					},
+					dataType:"json"
+				}).done(function(data){
+					console.log(data);
+				});
+        		
+        		
+        		
         	})
         </script>
 </body>

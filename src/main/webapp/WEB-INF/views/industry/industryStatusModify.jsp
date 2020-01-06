@@ -24,13 +24,23 @@
             </div>
             
             <!--      몸통 시작!!!   -->
-            	 <c:if  test="${bPage.seq !=null }">
+            	 <c:if  test="${iPage.seq !=null }">
 		
-            	<form action="bambooModifyProc.do" method="post">
-            	<input type="hidden" name="writer" value="${bPage.writer}">
-            	<input type="hidden" name="seq" value="${bPage.seq}">
-            	제목<input type="text" id=title name=title value=${bPage.title}><br>
-            	내용<input type="textarea" id="content" name=content value=${bPage.content}><br>
+            	<form action="industryStatusModifyProc.do" method="post">
+            	<input type="hidden" name="writer" value="${iPage.writer}">
+            	<input type="hidden" name="seq" value="${iPage.seq}">
+            	<select name="field" id="field">
+            		<option value="분야1">분야1</option>
+            		<option value="분야2">분야2</option>
+            		<option value="분야3">분야3</option>
+            	</select>
+            	<select name="duty" id="duty">
+            		<option value="직무1">직무1</option>
+            		<option value="직무2">직무2</option>
+            		<option value="직무3">직무3</option>
+            	</select>
+            	제목<input type="text" id=title name=title value=${iPage.title}><br>
+            	내용<input type="textarea" id="content" name=content value=${iPage.content}><br>
             	<input type="button" id="return" value="돌아가기">
             	<input type="button" id="write" value="작성">
             	</form>
@@ -51,7 +61,7 @@
 
 	<script>
         	$("#return").on("click",function(){
-        		location.href="bambooDetailView.do?seq=${bPage.seq}";
+        		location.href="industryStatusDetailView.do?seq=${iPage.seq}";
         	})
         	$("#write").on("click",function(){
         		$("form").submit();
