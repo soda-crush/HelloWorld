@@ -39,7 +39,7 @@
 .commentWriteDate{
 	color: darkgray;
 }
-.coModBtn,.coDelBtn{
+.coModBtn,.coDelBtn,.coReplyBtn{
 	width: 45px;
 	height: 25px;
 	font-size: 11px;
@@ -134,7 +134,7 @@
 													</div>
 												</div>				
 												<div class="col-4 pt-2 text-right commentBtns">
-													
+													<button type="button" class="btn btn-warning coReplyBtn">답글</button>
 													<c:if test="${c.writer==sessionScope.loginInfo }">
 														<button type="button" class="btn btn-info coModBtn">수정</button>
 														<a class="btn btn-danger coDelBtn" href="#" onclick="coDelFunction(${c.seq});return false;" role="button">삭제</a>
@@ -209,10 +209,13 @@
            			location.href="/project/deleteProc?seq=${pPage.seq}";
            		}
            	});
+           	
+           	$("#coReplyBtn").on("click",function(){           		
+           	});//답댓기능.
+           	
            	function coDelFunction(seq){
            		var check = confirm("정말 삭제하시겠습니까?");
            		if(check){
-//            			$(this).parents(".commentDiv").remove();
            			$.ajax({
            				url : "/project/comment/deleteProc",
            				type : "post",
@@ -318,7 +321,8 @@
 							'<div class="col-7 pt-1"><div class="row commentInfo">',
 							'<div class="col-12 commentWriter">'+resp[i].writer+'</div>',
 							'<div class="col-12 commentWriteDate">'+resp[i].formedWriteDate+'</div></div></div>',
-							'<div class="col-4 pt-2 text-right commentBtns">'
+							'<div class="col-4 pt-2 text-right commentBtns">',
+							'<button type="button" class="btn btn-warning coReplyBtn">답글</button>\n'
 							);
 					if(resp[i].writer==loginInfo){
 						html.push(
