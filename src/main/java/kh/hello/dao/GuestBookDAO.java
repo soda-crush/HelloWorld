@@ -14,7 +14,7 @@ public class GuestBookDAO {
 	@Autowired
 	private SqlSessionTemplate jdbc;
 	
-	public void insertWrite(GuestBookDTO gdto) {
+	public void insert(GuestBookDTO gdto) {
 		jdbc.insert("GuestBook/insert", gdto );
 	}
 	public List<GuestBookDTO> selectList() {

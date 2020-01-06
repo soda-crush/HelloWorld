@@ -16,7 +16,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/css/mainBase.css">
 <link rel="stylesheet" type="text/css" href="/css/font-awesome/css/font-awesome.css">
-	<style>
+       <style>
             h1{
                 text-align: center;
                 padding-top: 50px;
@@ -25,6 +25,10 @@
             ul{
                 background-color: lightgray;
                 font-size: 13px;
+            }
+            .container{
+                margin:auto;
+                background-color: #efefef;
             }
             .card{
                 width:200px;
@@ -75,6 +79,9 @@
             .commentlist>div>div{
                 margin-right: 5px;
             }
+            #commentForm{
+            	height:100%;
+            }
         </style>
 </head>
 <body>
@@ -95,40 +102,40 @@
 				<h1> Programming-Log</h1>
 	            <ul class="nav nav-tabs d-none d-sm-block">
 	                <li class="nav-item">
-	                    <a class="nav-link" href="#">내 포트폴리오</a>
+	                    <a class="nav-link" href="${pageContext.request.contextPath}/Portfolio/toPlogmain.do">내 포트폴리오</a>
 	                </li>
 	                <li class="nav-item">
-	                    <a class="nav-link" href="#">내 지식인</a>
+	                    <a class="nav-link" href="${pageContext.request.contextPath}/Plog/toPlogCohow.do">내 지식인</a>
 	                </li>
 	                <li class="nav-item">
-	                    <a class="nav-link" href="#">내 스크랩</a>
+	                    <a class="nav-link" href="${pageContext.request.contextPath}/Plog/toPlogScrap.do">내 스크랩</a>
 	                </li>
 	                <li class="nav-item">
-	                    <a class="nav-link" href="#">내 팀 프로젝트</a>
+	                    <a class="nav-link" href="${pageContext.request.contextPath}/Plog/toPlogProject.do">내 팀 프로젝트</a>
 	                </li>
 	                <li class="nav-item">
-	                    <a class="nav-link active" href="#">방명록</a>
+	                    <a class="nav-link active" href="${pageContext.request.contextPath}/Plog/toGuestBook.do">방명록</a>
 	                </li>
 	            </ul>
 	            <ul class="nav nav-tabs d-sm-none">
 	                <li class="nav-item">
-	                    <a class="nav-link" href="#" style="padding:7px;">내 포트폴리오</a>
+	                    <a class="nav-link" href="${pageContext.request.contextPath}/Portfolio/toPlogmain.do" style="padding:7px;">내 포트폴리오</a>
 	                </li>
 	                <li class="nav-item">
-	                    <a class="nav-link" href="#" style="padding:7px;">내 지식인</a>
+	                    <a class="nav-link" href="${pageContext.request.contextPath}/Plog/toPlogCohow.do" style="padding:7px;">내 지식인</a>
 	                </li>
 	                <li class="nav-item">
-	                    <a class="nav-link" href="#" style="padding:7px;">내 스크랩</a>
+	                    <a class="nav-link" href="${pageContext.request.contextPath}/Plog/toPlogScrap.do" style="padding:7px;">내 스크랩</a>
 	                </li>
 	                <li class="nav-item">
-	                    <a class="nav-link" href="#" style="padding:7px;">내 팀 프로젝트</a>
+	                    <a class="nav-link"href="${pageContext.request.contextPath}/Plog/toPlogProject.do" style="padding:7px;">내 팀 프로젝트</a>
 	                </li>
 	                <li class="nav-item">
-	                    <a class="nav-link active" href="#" style="padding:7px;">방명록</a>
+	                    <a class="nav-link active" href="${pageContext.request.contextPath}/Plog/toGuestBook.do" style="padding:7px;">방명록</a>
 	                </li>
 	            </ul>
 	            <div class="row">
-	                <div class="col-12 col-sm-6 col-md-4 col-lg-3 myprofile">
+	                <div class="col-12 col-md-4 col-lg-3 myprofile">
 	                    <div class="card" id="mycard">
 	                        <img src="lion.png" class="card-img-top" alt="..." style="width: 170px;height: 170px;margin:15px;">
 	                        <div class="card-body">
@@ -141,9 +148,12 @@
 	
 	
 	                    <div class="commentwrite">
-	                        <div class="row"></div>
-	                        <textarea class="col-10 content" placeholder="내용을 입력해주세요"></textarea>
-	                        <button class="col-2 sendbt">작성</button>
+	                    	<form action="${pageContext.request.contextPath}/Plog/insert.do" method="post" id="commentForm">
+		                        <div class="row"></div>
+		                        <input type="hidden" name="owner" value="test"> <!-- 여기다 세션값 받아서 저장할것. -->
+		                        <textarea class="col-10 content" placeholder="내용을 입력해주세요"></textarea>
+		                        <button class="col-2 sendbt">작성</button>
+	                    	</form>	
 	                    </div>
 	                    <div class="commentlist" style="float: left">
 	                        <div class="row" style="margin:5px;">

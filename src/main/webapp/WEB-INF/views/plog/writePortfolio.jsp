@@ -59,6 +59,9 @@
         #funcname1,#funcname2,#funcname3{
             margin-bottom: 8px;
         }
+        .redStar{
+        	color:red;
+        }
     </style>
 </head>
 <body>
@@ -74,12 +77,12 @@
             
             <!--      몸통 시작!!!   -->
 
-            <form action="${pageContext.request.contextPath}/Portfolio/insert.do" method="post">
+            <form action="${pageContext.request.contextPath}/Portfolio/insert.do" method="post" id="writeForm">
 	            <div class="container">
 		            <h1> 포 트 폴 리 오</h1>
 		            <div class="row">
-		                <div class="col-3 col-md-2"> 프로젝트명  </div>
-		                <div class="col-9 col-md-10"><input name="portfolioTitle" value="Hello World(세미 프로젝트)"> </div>               
+		                <div class="col-3 col-md-2"><span class=redStar>*</span>프로젝트명  </div>
+		                <div class="col-9 col-md-10"><input id="portfolioTitle" name="portfolioTitle" value="Hello World(세미 프로젝트)"></div>               
 		            </div>
 		            <div class="interval"></div>
 		            <div class="row">
@@ -89,8 +92,8 @@
 		            </div>
 		            <div class="interval"></div>
 		            <div class="row">
-		                <div class="col-3 col-md-2"> 개발 목표 </div>
-		                <div class="col-9 col-md-10"> <input name="purpose" value="Hello World(세미 프로젝트)Hello World(세미 프로젝트)Hello World(세미 프로젝트)"> </div>               
+		                <div class="col-3 col-md-2"><span class=redStar>*</span>개발 목표 </div>
+		                <div class="col-9 col-md-10"><input id="purpose" name="purpose" value="Hello World(세미 프로젝트)Hello World(세미 프로젝트)Hello World(세미 프로젝트)"></div>               
 		            </div>
 		            <div class="interval"></div>
 		            <div class="row">
@@ -121,7 +124,7 @@
 		            <div class="row">
 		                <div class="col-3">
                        		<input type="file" id="fileUpload1" name="fileUpload1">
-		                	<img id="fileImg1"src="" style="height: 100%;width:100%;max-height: 180px;">
+		                	<img id="fileImg1"src="/files/noImage.png" style="height: 100%;width:100%;max-height: 180px;">
 		                	<input type="hidden" name ="image1" id="file1">
 		                </div>
 		                <div class="col-9">
@@ -225,7 +228,7 @@
                 });
                 
                 $("#return").on("click",function(){
-                	location.href="${pageContext.request.contextPath}/Portfolio/selectList.do";
+                	location.href="${pageContext.request.contextPath}/Portfolio/toPlogmain.do";
                 })
 	  			$("#fileUpload1").on("change",function(){
 	  				var data = new FormData();
@@ -286,6 +289,14 @@
 	  			    	console.log("실패함");
 	  			    	console.log(fail);
 	  			    })
+                })
+                $("#insert").on("click",function(){
+                	console.log($("#portfolioTitle").val());
+                	if($("#portfolioTitle").val() && $("#purpose").val()){
+                		$("#writeForm").submit();
+                	}else{
+                		alert("프로젝트명과  개발 목표는 필수 입력 사항입니다.")
+                	}
                 })
 		</script>	
 </body>

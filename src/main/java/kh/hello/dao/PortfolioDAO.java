@@ -29,4 +29,8 @@ public class PortfolioDAO {
 	public void update(PortfolioDTO pdto) {
 		jdbc.update("Portfolio.update", pdto);
 	}
+	
+	public void delete(int seq) {
+		jdbc.delete("Portfolio.delete", seq);
+	}
 }

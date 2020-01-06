@@ -166,7 +166,7 @@
 		                <div class="col-9 col-md-10"><div>${pdto.git }</div></div>               
 		            </div>
 		            <div class="interval"></div>
-		            <div style="text-align: end;"><button type="button" id="return">목록으로 돌아가기</button><button>수정하기</button></div>
+		            <div style="text-align: end;"><button type="button" id="return">목록으로 돌아가기</button><button type="button" id="delete">삭제하기</button><button>수정하기</button></div>
 		            
 		        </div>
 			</form>
@@ -187,7 +187,10 @@
         <script>
                 
                 $("#return").on("click",function(){
-                	location.href="${pageContext.request.contextPath}/Portfolio/selectList.do";
+                	location.href="${pageContext.request.contextPath}/Portfolio/toPlogmain.do";
+                })
+                $("#delete").on("click",function(){
+                	location.href="${pageContext.request.contextPath}/Portfolio/delete.do?seq=${pdto.seq}";
                 })
 		</script>	
 </body>

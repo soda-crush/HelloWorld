@@ -110,33 +110,31 @@ public class PortfolioController {
 			pdto.setWriter("test");
 			ps.insertWrite(pdto);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return "redirect:selectList.do";
+		return "redirect:toPlogmain.do";
 	}
 	
-	@RequestMapping("/selectList.do")
-	public String selectList() {
+	@RequestMapping("/toPlogmain.do")
+	public String toPlogmain() {
 		try {
 			request.setCharacterEncoding("UTF-8");
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-//		String writer = session.getAttribute("loginInfo").toString();
 		String writer = "test";
 		List<PortfolioDTO> list = ps.selectList(writer);
 		request.setAttribute("list", list);
 		return "/plog/plogPortfolio";
 	}
 	
+	
+	
 	@RequestMapping("detail.do")
 	public String viewDetail(int seq) {
 		try {
 			request.setCharacterEncoding("UTF-8");
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		PortfolioDTO pdto = ps.selectBySeq(seq);
@@ -178,14 +176,15 @@ public class PortfolioController {
 			pdto.setWriter("test");
 			
 			ps.update(pdto);
-			
-			//update 쿼리 쏴야함
-			
-			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return "redirect:selectList.do";
+		return "redirect:toPlogmain.do";
+	}
+	
+	@RequestMapping("/delete.do")
+	public String delete(int seq) {
+		ps.delete(seq);
+		return "redirect:toPlogmain.do";
 	}
 }

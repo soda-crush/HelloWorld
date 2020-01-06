@@ -74,13 +74,13 @@
             
             <!--      몸통 시작!!!   -->
 
-            <form action="${pageContext.request.contextPath}/Portfolio/update.do" method="post">
+            <form action="${pageContext.request.contextPath}/Portfolio/update.do" method="post" id="updateForm">
             	<input type="hidden" value="${pdto.seq}" name="seq">
 	            <div class="container">
 		            <h1> 포 트 폴 리 오</h1>
 		            <div class="row">
 		                <div class="col-3 col-md-2"> 프로젝트명  </div>
-		                <div class="col-9 col-md-10"><input name="portfolioTitle" value="${pdto.portfolioTitle }"> </div>               
+		                <div class="col-9 col-md-10"><input id="portfolioTitle" name="portfolioTitle" value="${pdto.portfolioTitle }"> </div>               
 		            </div>
 		            <div class="interval"></div>
 		            <div class="row">
@@ -92,7 +92,7 @@
 		            <div class="interval"></div>
 		            <div class="row">
 		                <div class="col-3 col-md-2"> 개발 목표 </div>
-		                <div class="col-9 col-md-10"> <input name="purpose" value="${pdto.purpose }"></div>               
+		                <div class="col-9 col-md-10"> <input id="purpose" name="purpose" value="${pdto.purpose }"></div>               
 		            </div>
 		            <div class="interval"></div>
 		            <div class="row">
@@ -173,7 +173,7 @@
 		                <div class="col-9 col-md-10"><input type="text" name="git" value="${pdto.git }"></div>               
 		            </div>
 		            <div class="interval"></div>
-		            <div style="text-align: end;"><button type="button" id="return">목록으로 돌아가기</button><button>수정 완료</button></div>
+		            <div style="text-align: end;"><button type="button" id="return">목록으로 돌아가기</button><button id=update type="button">수정 완료</button></div>
 		            
 		        </div>
 			</form>
@@ -225,7 +225,7 @@
             $('#datepicker2').datepicker('setDate', '${end}'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)
         });   
            	$("#return").on("click",function(){
-                	location.href="${pageContext.request.contextPath}/Portfolio/selectList.do";
+                	location.href="${pageContext.request.contextPath}/Portfolio/toPlogmain.do";
             })
             
             $("#fileUpload1").on("change",function(){
@@ -287,6 +287,15 @@
 	  			    	console.log("실패함");
 	  			    	console.log(fail);
 	  			    })
+                })
+                
+       			$("#update").on("click",function(){
+                	console.log($("#portfolioTitle").val());
+                	if($("#portfolioTitle").val() && $("#purpose").val()){
+                		$("#updateForm").submit();
+                	}else{
+                		alert("프로젝트명과  개발 목표는 필수 입력 사항입니다.")
+                	}
                 })
 		</script>	
 </body>
