@@ -71,4 +71,20 @@ public class BambooDAO {
 	public int deleteBambooAllCo(int bamSeq) {//대나무숲 댓글 삭제(글에 달린 모든댓글)
 		return jdbc.delete("BambooCo.deleteBambooAllCo", bamSeq);
 	}
+	
+	//조건별 게시판목록 검색
+	public int bambooSearchTotalCount(String value,String search) {
+		Map<String, String> param = new HashMap<>();
+		param.put("value", value);
+		param.put("search", search);
+		return jdbc.selectOne("Bamboo.bambooSearchTotalCount", param);
+	}
+	public List<BambooDTO> bambooSearchListByPage (String start, String end, String value, String search) {//검색한 대나무숲 목록 페이지네비
+		Map<String, String> param = new HashMap<>();
+		param.put("start", start);
+		param.put("end", end);
+		param.put("value", value);
+		param.put("search", search);
+		return jdbc.selectList("Bamboo.bambooSearchByPage",param);
+	}
 }

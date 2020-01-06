@@ -33,9 +33,25 @@
 	
 	<!-- 페이지네비 -->
 	<select id="recordIndustryListTotalCount" resultType="integer">
-		select count(seq) from bamboo
+		select count(seq) from industryStatus
 	</select>
 	<select id="industryListByPage" resultType="kh.hello.dto.IndustryStatusDTO">
 		select * from (select industryStatus.*, row_number() over (order by seq desc) as rown from industryStatus) where rown between #{start} and #{end}
+	</select>
+	
+	<!-- 조건별 게시판목록 검색 -->
+	<select id="industrySearch" parameterType="java.util.Map" resultType="kh.hello.dto.IndustryStatusDTO">
+		 select * from industryStatus
+		 <choose>
+		 <when test="value == 'all'">								
+			 where (writer like '%${search}%') or (title like '%${search}%')
+		</when>
+		<when test="value == 'writer'">								
+			 where (writer like '%${search}%')
+		</when>
+		<when test="value == 'title'">								
+			 where (title like '%${search}%')
+		</when>
+		</choose>
 	</select>
 </mapper>

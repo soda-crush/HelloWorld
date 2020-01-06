@@ -46,6 +46,7 @@
 				  <thead class="thead-light">
 				    <tr>
 				      <th scope="col">글번호</th>
+				      <th scope="col">분야/직무</th>
 				      <th scope="col">제목</th>
 				      <th scope="col">작성자</th>
 				      <th scope="col">작성날짜</th>
@@ -61,6 +62,7 @@
 				  			<c:forEach items="${industryStatusList }" var="i">
 				  				<tr>
 				  					<th scope="row">${i.seq }</th>
+				  					<td>${i.field }/${i.duty }</td>
 				  					<td><a href="/industry/industryStatusDetailView.do?seq=${i.seq }">${i.title } 
 				  						<c:if test="${i.commentCount>0 }">
 				  							<span class="pComment font-weight-bold">${i.commentCount }</span>
@@ -76,6 +78,17 @@
 				  	</c:choose>				    
 				  </tbody>
 				</table>
+				<div class="text-left">
+					<form action="/industry/industrySearch.do" method="post">
+					<select name=value>
+						<option value="all">전체</option>
+						<option value="writer">작성자</option>
+						<option value="title">제목</option>
+					</select>
+					<input type="text" name=search>
+					<input type="button" id=search value="검색">
+					</form>
+				</div>
 				<div class="text-right">
 					<a class="btn btn-primary" href="/industry/industryStatusWrite.do" role="button">글쓰기</a>					
 				</div>
@@ -110,4 +123,9 @@
         
         <jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
 </body>
+		<script>
+		$("#search").on("click",function(){
+			$("form").submit();
+		})
+		</script>
 </html>

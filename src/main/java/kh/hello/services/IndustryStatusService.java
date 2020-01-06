@@ -9,10 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 import kh.hello.configuration.Configuration;
 import kh.hello.dao.IndustryStatusDAO;
-import kh.hello.dto.BambooDTO;
 import kh.hello.dto.IndustryStatusCoDTO;
 import kh.hello.dto.IndustryStatusDTO;
 
@@ -49,7 +49,7 @@ public class IndustryStatusService {
 	}
 	
 	
-	//대나무숲 페이지네비
+	// 페이지네비
 
 		public List<IndustryStatusDTO> industryListByPage(int start, int end) {// 10개씩
 			return dao.industryListByPage(start, end);
@@ -110,13 +110,14 @@ public class IndustryStatusService {
 		@Transactional("txManager")
 		public String commentWriteConfirm(IndustryStatusCoDTO dto) {
 			dao.insertIndustryStatusCo(dto);
-			Gson gson = new Gson();
-			JsonArray array = new JsonArray();
-			List<IndustryStatusCoDTO> result = dao.getCoList(dto.getIndSeq());
-			for(IndustryStatusCoDTO i : result) {
-				array.add(gson.toJson(i));
-			}
-			return array.toString();
+			IndustryStatusCoDTO comment = dao.getComment(dto.getIndSeq());
+			JsonObject jobj = new JsonObject();
+			jobj.addProperty("seq", comment.getSeq());
+			jobj.addProperty("indSeq", comment.getIndSeq());
+			jobj.addProperty("writer", comment.getWriter());
+			jobj.addProperty("content", comment.getContent());
+			jobj.addProperty("writeDate", comment.getWriteDate().toString());
+			return jobj.toString();
 		}
 		
 		@Transactional("txManager")
@@ -137,5 +138,11 @@ public class IndustryStatusService {
 		
 		public int commentsDeleteConfirm(int indSeq) {
 			return dao.deleteIndustryStatusAllCo(indSeq);
+		}
+		
+		//조건별 게시판목록 검색
+		public List<IndustryStatusDTO> industrySearch(String value, String search) {
+			return dao.industrySearch(value, search);
+			
 		}
 }

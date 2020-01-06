@@ -7,8 +7,11 @@
 		select * from industryComments where indSeq=#{value}
 	</select>
 	<insert id="insertIndustryStatusCo" parameterType="kh.hello.dto.IndustryStatusCoDTO">
-		insert into IndustryComments values(IndustryStatusCommentsSeq.nextval,#{indSeq},#{writer},#{content},sysdate)
+		insert into IndustryComments values(IndustryCommentsSeq.nextval,#{indSeq},#{writer},#{content},sysdate)
 	</insert>
+	<select id="getComment" resultType="kh.hello.dto.IndustryStatusCoDTO">
+		SELECT * FROM (SELECT * FROM industryComments where indSeq=#{value} ORDER BY writedate DESC) WHERE ROWNUM = 1
+	</select>
 	<update id="updateIndustryStatusCo" parameterType="kh.hello.dto.IndustryStatusCoDTO">
 		update industryComments set content=#{content} where seq=#{seq}
 	</update>

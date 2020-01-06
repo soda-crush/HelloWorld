@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import kh.hello.configuration.Configuration;
@@ -92,7 +91,7 @@ public class BambooService {
 
 		for(int i = startNavi; i <= endNavi; i++) {
 			StringBuilder sb = new StringBuilder();
-			sb.append("<li class=\"page-item\"><a class=page-link href='bamboolist.do?cpage="+ i +"'>");
+			sb.append("<li class=\"page-item\"><a class=page-link href='bambooList.do?cpage="+ i +"'>");
 			sb.append(i + " ");
 			sb.append("</a></li>");
 			pages.add(sb.toString());
@@ -142,4 +141,59 @@ public class BambooService {
 	public int commentsDeleteConfirm(int bamSeq) {
 		return dao.deleteBambooAllCo(bamSeq);
 	}
+	
+	//조건별 게시판목록 검색
+	public List<BambooDTO> bambooSearchListByPage(int start, int end,String value, String search) {//대나무숲 10개씩
+		System.out.println(dao.bambooSearchListByPage(Integer.toString(start), Integer.toString(end),value,search).toString());
+		return dao.bambooSearchListByPage(Integer.toString(start), Integer.toString(end),value,search);
+	}
+	public List<String> getBambooSearchListPageNavi (int currentPage,String value, String search) {
+		int recordTotalCount = dao.bambooSearchTotalCount(value,search);
+		System.out.println("서비스에서"+recordTotalCount);
+		int pageTotalCount = 0;
+
+		if(recordTotalCount% Configuration.recordCountPerPage > 0) {
+			pageTotalCount = recordTotalCount / Configuration.recordCountPerPage + 1;
+		}else {
+			pageTotalCount = recordTotalCount / Configuration.recordCountPerPage;
+		}
+
+		if(currentPage < 1) {
+			currentPage = 1;
+		}else if(currentPage > pageTotalCount) {
+			currentPage = pageTotalCount;
+		}
+
+		int startNavi = (currentPage - 1) / Configuration.naviCountPerPage * Configuration.naviCountPerPage + 1;
+		int endNavi = startNavi + (Configuration.naviCountPerPage - 1);
+
+		if(endNavi > pageTotalCount) {
+			endNavi = pageTotalCount;
+		}
+
+		boolean needPrev = true;
+		if(startNavi == 1) {
+			needPrev = false;
+		}
+		boolean needNext = true;
+		if(endNavi == pageTotalCount) {
+			needNext = false;
+		}
+
+		List<String> pages = new ArrayList<>();
+		if(needPrev) pages.add("<li class=\"page-item\"><a class=page-link href='bambooSearch.do?value="+value+"&cpage=" + (startNavi - 1) + "' >< </a></li>");
+
+		for(int i = startNavi; i <= endNavi; i++) {
+			StringBuilder sb = new StringBuilder();
+			sb.append("<li class=\"page-item\"><a class=page-link href='bambooSearch.do?value="+value+"&cpage="+ i +"'>");
+			sb.append(i + " ");
+			sb.append("</a></li>");
+			pages.add(sb.toString());
+		}
+
+		if(needNext) pages.add("<li class=\"page-item\"><a class=page-link href='bambooSearch.do?value="+value+"&cpage=" + (endNavi + 1) + "'>> </a></li>");
+
+		return pages;
+	}
+	
 }
