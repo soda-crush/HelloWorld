@@ -69,10 +69,6 @@ public class CodeDAO {
 	}
 	
 	//답글 ( CodeReply ) 
-//	public int selectParentSeq(int seq) throws Exception{
-//		return jdbc.selectOne("CodeR.selectParentSeq",seq);
-//	}
-
 	public int insertR(CodeReplyDTO dto) throws Exception{
 		return jdbc.insert("CodeR.insert",dto);
 	}
