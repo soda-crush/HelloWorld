@@ -136,7 +136,7 @@
 												<div class="col-4 pt-2 text-right commentBtns">
 													<button type="button" class="btn btn-warning coReplyBtn">답글</button>
 													<c:if test="${c.writer==sessionScope.loginInfo }">
-														<button type="button" class="btn btn-info coModBtn">수정</button>
+														<a class="btn btn-info coModBtn" href="#" onclick="coModFunction(${c.seq});return false;" role="button">수정</a>
 														<a class="btn btn-danger coDelBtn" href="#" onclick="coDelFunction(${c.seq});return false;" role="button">삭제</a>
 													</c:if>
 												</div>								
@@ -175,7 +175,7 @@
 					</c:if>
 					<span class="float-right">
 						<c:if test="${pPage.writer == sessionScope.loginInfo}">
-							<a class="btn btn-info" href="/project/modifyProc?seq=${pPage.seq }" role="button">수정</a>
+							<a class="btn btn-info" href="/project/modify?seq=${pPage.seq }" role="button">수정</a>
 							<button type="button" class="btn btn-danger" id="pDelBtn">삭제</button>
 						</c:if>
 						<a class="btn btn-secondary" href="/project/list" role="button">목록</a>
@@ -212,6 +212,12 @@
            	
            	$("#coReplyBtn").on("click",function(){           		
            	});//답댓기능.
+           	
+           	
+           	function coModFunction(seq){
+           		$(this).parents(".commentDiv").children(".commentContent").html("");
+           	}
+           	
            	
            	function coDelFunction(seq){
            		var check = confirm("정말 삭제하시겠습니까?");

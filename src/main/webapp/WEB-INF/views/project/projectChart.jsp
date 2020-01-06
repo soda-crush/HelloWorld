@@ -87,6 +87,7 @@ function drawChart() {
 				barLabelStyle:{fontSize:30},
 				showRowLabels: false,
 			},
+			height:'500'
   }
   chart.draw(dataTable,options);
 }
