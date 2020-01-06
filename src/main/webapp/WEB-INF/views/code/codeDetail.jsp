@@ -132,14 +132,14 @@ span:nth-child(4) {
 			<div class="topQ">
 				<span>Q</span> <span class="badge badge-pill badge-danger">${qResult.point}</span>
 				<span class="badge badge-pill badge-success"
-					style="margin: 10; padding: 10; width: 40px;">${qResult.division}</span>
+					style="margin: 10; padding: 10; width: 60px;">${qResult.division}</span>
 				<span>${qResult.title}</span>
 			</div>
 			<br>
 			<div>
 				<div class="contentDiv">${qResult.content}</div>
 				<br>
-				<div class="botD"><img src="/icon/Cicon.svg">${qResult.writer} ${qResult.writeDate} 조회수${qResult.viewCount}</div>
+				<div class="botD"><img src="/icon/Cicon.svg"> ${qResult.writer} ${qResult.formedDate} 조회수${qResult.viewCount}</div>
 				<br>
 				<!-- 아래 비로그인일때도 보이는지..? -->
 				<c:choose>
@@ -160,9 +160,8 @@ span:nth-child(4) {
 					</c:otherwise>
 				</c:choose>
 				<hr>
-				<div style="text-align: center; margin-right: 200px;">A2개</div>
+			<!-- <div style="text-align: center; margin-right: 200px;">A2개</div> -->
 				<hr>
-				
 			<!-- 답글 시작-->
 		
 				<div class="topQ">
@@ -249,9 +248,7 @@ span:nth-child(4) {
 				location.href="${pageContext.request.contextPath}/code/delete.do?seq=${qResult.seq}";
 			}
 		})
-		$("#modifyR").on("click",function(){
-			
-		})
+		
 		flag = true;
 		var b = $(".contentDivBot");
 	

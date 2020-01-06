@@ -9,4 +9,19 @@
 	<select id="getProjectTotal" resultType="integer">
 		select count(*) from project
 	</select>	
+	<delete id="delProjectAllCo">
+		delete from projectComment where projectSeq=#{seq}
+	</delete>
+	<delete id="delProject">
+		delete from project where seq=#{seq}
+	</delete>
+	<select id="detailViewProject" resultType="kh.hello.dto.ProjectDTO">
+		select * from project where seq=#{seq}
+	</select>
+	<select id="getProjectCo" resultType="kh.hello.dto.ProjectCoDTO">
+		select * from projectComment where projectSeq=#{projectSeq}
+	</select>
+	<delete id="delProjectCo">
+		delete from projectComment where seq=#{seq}
+	</delete>
 </mapper>

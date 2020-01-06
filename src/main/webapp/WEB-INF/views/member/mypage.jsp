@@ -66,7 +66,7 @@
         		location.href = "member/modify";
         	})
         	$("#personalQ").on("click",function(){
-        		location.href = "member/personalQ";
+        		location.href = "${pageContext.request.contextPath}/member1/myInquiry";
         	})
         	$("#withdrawal").on("click",function(){
         		location.href = "member/withdrawal";

@@ -21,6 +21,8 @@
 	<mvc:resources location="/resources/font/" mapping="/font/**" />
 	<mvc:resources location="/resources/adRsc/" mapping="/adRsc/**" />
 	<mvc:resources location="/resources/js/" mapping="/js/**" />
+	<mvc:resources location="/files/" mapping="/files/**" />
+	<mvc:resources location="/attached/" mapping="/attached/**" />
 
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/views/" />
@@ -54,7 +56,11 @@
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 	
-
+	
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="10485760"/>
+		<property name="defaultEncoding" value="utf8"/>
+	</bean>
 
 
 </beans>
