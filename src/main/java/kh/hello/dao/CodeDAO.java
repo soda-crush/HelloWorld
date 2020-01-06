@@ -64,15 +64,11 @@ public class CodeDAO {
 		return jdbc.delete("Code.delete",seq);
 	}
 	
-	public int modify(CodeQuestionDTO dto) {
-		return jdbc.update("Code.modify", dto);
+	public void modify(CodeQuestionDTO dto) {
+		jdbc.update("Code.modify", dto);
 	}
 	
 	//답글 ( CodeReply ) 
-//	public int selectParentSeq(int seq) throws Exception{
-//		return jdbc.selectOne("CodeR.selectParentSeq",seq);
-//	}
-
 	public int insertR(CodeReplyDTO dto) throws Exception{
 		return jdbc.insert("CodeR.insert",dto);
 	}

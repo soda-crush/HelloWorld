@@ -8,37 +8,47 @@
 <title>Hello World!</title>
 <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"> -->
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/css/mainBase.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css"
+	rel="stylesheet">
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
 <style>
 .division {
 	padding: 0px;
 	margin: 0px;
 }
 
-.sele{
-	width:200px;
+.sele {
+	width: 200px;
 }
-.btn{
-	margin:20px;
+
+.btn {
+	margin: 20px;
 }
-.btn-primary{
-	width:110px;
-	height:30px;
+
+.btn-primary {
+	width: 110px;
+	height: 30px;
 }
 </style>
 <script>
-$(function(){
-	$("#writeForm").on("submit",function(){
-		$("#content").val($(".note-editable").html());
+	$(function() {
+		$("#writeForm").on("submit", function() {
+			$("#content").val($(".note-editable").html());
+		})
 	})
-})
 </script>
 </head>
 <body>
@@ -59,14 +69,14 @@ $(function(){
 						<h4>Language</h4>
 					</div>
 					<div class="col-3 division">
-						<select name="division" class="sele">
+						<select name="division" class="sele" id="division">
 							<option value="">언어 선택</option>
 							<option value="java">java</option>
 							<option value="php">php</option>
-							<option value="c">c/c++/c#</option>
+							<option value="c/c++/c#">c/c++/c#</option>
 							<option value="android">android</option>
 							<option value="ios">ios</option>
-							<option value="db">db(oracle/mysql/mssql)</option>
+							<option value="database">db(oracle/mysql/mssql)</option>
 							<option value="기타">기타</option>
 						</select>
 					</div>
@@ -74,7 +84,7 @@ $(function(){
 						<h4>Get Point</h4>
 					</div>
 					<div class="col-3 division">
-						<select name="point" class="sele">
+						<select name="point" class="sele" id="point">
 							<option value="">point</option>
 							<option value="10">10</option>
 							<option value="30">30</option>
@@ -86,23 +96,23 @@ $(function(){
 
 				<div class=row>
 					<div class="col-2 title">
-						<h4>Q    질문</h4>
+						<h4>Q 질문</h4>
 					</div>
 					<div class="col-10 title">
-						<input type="text" name="title" style="width:100%">
+						<input type="text" name="title" style="width: 100%" id="title">
 					</div>
 				</div>
 
 				<div class=row>
 					<div class="col-12 content">
-						<textarea name="content" id="content" style="display:none"></textarea>
+						<textarea name="content" id="content" style="display: none"></textarea>
 						<div id="summernote"></div>
 					</div>
 				</div>
-				
+
 				<div class=row>
-					<div class="col-12 btn" style="text-align:right;">
-						<button class="btn btn-primary" type="submit">작성완료</button>
+					<div class="col-12 btn" style="text-align: right;">
+						<button class="btn btn-primary" type="button" id="write">작성완료</button>
 						<button class="btn btn-primary" type="button" id="cancle">작성취소</button>
 					</div>
 				</div>
@@ -116,16 +126,34 @@ $(function(){
 			<div class="col-12" id=aroundContent></div>
 		</div>
 	</div>
-	</div>
 
 	<jsp:include page="/WEB-INF/views/standard/footer.jsp" />
-	
+
 	<script>
+// 		var divisionTest = $("#division").val();
+// 		var pointTest = $("#point").val();
+// 		var titleTest = $("#title").val();
+// 		var contentTest = $(".note-editable").text();
+		
 		$('#summernote').summernote({
-			height: 500
+			height : 500
 		})
-		$("#cancle").on("click",function(){
-			location.href="${pageContext.request.contextPath}/code/codeQList.do";
+		
+		$("#cancle").on("click",function() {
+			location.href = "${pageContext.request.contextPath}/code/codeQList.do";
+		})
+		
+		$("#write").on("click", function() {
+			$("#title").val($.trim($("#title").val())); 						
+			if (($("#division").val()== "" || $("#point").val()== "" || $("#title").val()=="" || $(".note-editable").text()== "")) {
+				alert("작성 하지 않는 문항이 있습니다. 다시 한번 확인해주세요.");
+				return false;
+			} else {
+				var result = confirm("이대로 작성 하시겠습니까?");
+				if (result) {
+					$("#writeForm").submit();
+				}
+			}
 		})
 	</script>
 </body>

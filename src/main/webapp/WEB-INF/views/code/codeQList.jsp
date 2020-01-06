@@ -131,17 +131,17 @@ badge-success
 								<c:forEach items="${list}" var="dto">
 									<tr>
 										<th scope="row">${dto.seq}</th>
-										<td class="badge badge-pill badge-success"
-											style="margin: 10; padding: 10; width: 40px;">${dto.division}</td>
+										<td><span class="badge badge-pill badge-success"
+											style="margin: 10; width: 60px;">${dto.division}</span></td>
 										<td><a href="/code/codeDetail.do?seq=${dto.seq }">${dto.title}</a>
-<%-- 											<c:if test="${dto.repCount>0 }"> --%>
-<%-- 					  							<span class="pComment font-weight-bold">${dto.repCount}</span> --%>
-<%-- 					  						</c:if>	 --%>
+											<c:if test="${dto.replyCount>0 }">
+					  							<span class="pComment font-weight-bold">${dto.replyCount}</span>
+					  						</c:if>	
 											<span class="badge badge-pill badge-danger">N</span></td>
 										<td>${dto.writer}  
 										 <span class="badge badge-pill badge-info">실무자</span></td>
 										<td>${dto.point}</td>
-										<td>${dto.writeDate}</td>
+										<td>${dto.formedDate}</td>
 										<td>${dto.viewCount}</td>
 									</tr>
 								</c:forEach>
