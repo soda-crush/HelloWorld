@@ -17,40 +17,6 @@
 <link rel="stylesheet" href="/css/project/projectBase.css" type="text/css"/>
 <link rel="stylesheet" href="/css/project/detailView.css" type="text/css"/>
 <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.css" type="text/css"/>
-<style>
-.pPageComments{
-	margin-top:30px;
-}
-.commentDiv{
-	background-color:#fff;
-	margin-top:2px;
-	margin-bottom:2px;
-	padding:0;
-	padding-bottom:5px;
-	border-radius:10px;
-}
-.commentInfo{
-	font-size:13px;
-	padding-left:10px;
-}
-.commentWriter,.commentWriteDate{
-	padding-left:0px;
-}
-.commentWriteDate{
-	color: darkgray;
-}
-.coModBtn,.coDelBtn,.coReplyBtn{
-	width: 45px;
-	height: 25px;
-	font-size: 11px;
-	font-weight: bold;
-	padding:0px;
-}
-.commentContent{
-	margin-top:10px;
-	margin-bottom:15px;
-}
-</style>
 </head>
 
 <body>
@@ -77,7 +43,7 @@
 							<span class="ml-4" style="font-weight:bold;">${pPage.title}</span><br>
 							<label class="ml-4">작성자 : ${pPage.writer }</label>
 							<label class="ml-4">작성일 : ${pPage.formedWriteDate }</label>
-							<label class="ml-4">조회수 : ${pPage.viewCount }</label>
+							<label class="ml-4">조회 : ${pPage.viewCount }</label>
 						</div>
 						<hr>
 						<div id="pInfo">
@@ -297,6 +263,13 @@
 		        }
 		    });
 			$("#applyFrm").on("submit",function(){
+				var genderCheck = $("input:radio[name='gender']").is(":checked");
+				var workInCheck = $("input:radio[name='workIn']").is(":checked");
+				if($("#languages").val()==""|$("#age")==null|!genderCheck|!workInCheck){
+					alert("필수 입력 항목을 확인해주세요");
+					return false;
+				}				
+				
 				$.ajax({
 					type:"post",
 					url:"/project/apply/writeProc",

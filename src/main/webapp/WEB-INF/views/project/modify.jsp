@@ -60,6 +60,7 @@
 									</select>
 								</div>
 							</div>
+							
 							<div class="row">
 								<div class="col-md-2"><label class="pItem">모집인원</label><label class="star">*</label></div>
 								<div class="col-md-2">
@@ -74,9 +75,9 @@
 							<div class="row">
 								<div class="col-md-2"><label class="pItem">기간</label><label class="star">*</label></div>
 								<div class="col-md-10">
-	        						<input type="text" id="startInputDate" class="form-control form-control-sm datePicker" placeholder="시작일" name="startInputDate">
+	        						<input type="text" id="startInputDate" class="form-control form-control-sm datePicker" placeholder="시작일" name="startInputDate" value="${pPage.formedCalStartDate }">
 	        						<span> ~ </span>
-	        						<input type="text" id="endInputDate" class="form-control form-control-sm datePicker" placeholder="종료일" name="endInputDate">
+	        						<input type="text" id="endInputDate" class="form-control form-control-sm datePicker" placeholder="종료일" name="endInputDate" value="${pPage.formedCalEndDate }">
 	        						<input type="hidden" id="startDate" name="startDate">
 									<input type="hidden" id="endDate" name="endDate">
 	    						</div>
@@ -98,19 +99,19 @@
 							</div>
 							<div class="row">
 								<div class="col-md-2"><label class="pItem">메일주소</label></div>							
-								<div class="col-md-7"><input type="email" class="form-control form-control-sm" id="email" name="email"></div>
+								<div class="col-md-7"><input type="email" class="form-control form-control-sm" id="email" name="email" value="${pPage.email}" ></div>
 							</div>
 						</div>
 						<div id="pBody">
-							<div id="pTitleInput"><input type="text" class="form-control" placeholder="제목을 입력해주세요" name="title" id="title"></div>
-							<div id="pContentsInput"><textarea class="form-control summernote" name="contents" id="contents"></textarea></div>											
+							<div id="pTitleInput"><input type="text" class="form-control" placeholder="제목을 입력해주세요" name="title" id="title" value="${pPage.title }"></div>
+							<div id="pContentsInput"><textarea class="form-control summernote" name="contents" id="contents">${pPage.contents }</textarea></div>											
 						</div>					
 					</div>
 					<div id="pageFooter">
 						<span><a class="btn btn-secondary" href="/project/list" role="button">목록</a></span>
 						<span class="float-right">						
 							<a class="btn btn-secondary" href="/project/list" role="button">취소</a>
-							<input class="btn btn-primary" type="submit" value="글쓰기" id="modifyBtn">						
+							<input class="btn btn-primary" type="submit" value="글쓰기" id="modifyBtn">													
 						</span>
 					</div>
 				</form>          
@@ -128,14 +129,21 @@
         <jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
         
         <script>
+	        $("#location1").val("${pPage.location1}");
+			$("#location2").val("${pPage.location2}");
+			$("#capacity").val("${pPage.capacity}");
+			var fullPhone = "${pPage.phone}";
+			var phoneArr = fullPhone.split("-");
+			$("#phone1").val(phoneArr[0]);
+			$("#phone2").val(phoneArr[1]);
+			$("#phone3").val(phoneArr[2]);
+        
 			$('.summernote').summernote({
 		        placeholder: '내용을 입력해주세요',	        
-		        minHeight: 300,
-		        maxHeight: 300,
+		        minHeight: 400,
+		        maxHeight: 400,
 		        
 		    });
-			
-
 			
 			$('.datePicker').datepicker({
 			    format: "yyyy-mm-dd",	//데이터 포맷 형식(yyyy : 년 mm : 월 dd : 일 )
@@ -168,10 +176,8 @@
 				datumTokenizer: Bloodhound.tokenizers.obj.whitespace("text"),
 				queryTokenizer: Bloodhound.tokenizers.whitespace,
 				local: jQuery.parseJSON(data) //your can use json type
-			});
-		
-			task.initialize();
-		
+			});		
+			task.initialize();		
 			var elt = $("#languages");
 			elt.tagsinput({
 				itemValue: "value",
@@ -182,26 +188,28 @@
 				  source: task.ttAdapter()
 				}
 			});
+			var lang = "${pPage.languages}";
+			var langArr = lang.split(",");
+			for(var i=0;i<langArr.length;i++){
+				elt.tagsinput("add", {value: langArr[i],text: langArr[i]});
+			}
 			
 			$("#modifyBtn").on("click",function(){
-				var time = new Date($("#startInputDate").val()).getTime();
-				$("#phone").val($("#phone1").val()+"-"+$("#phone2").val()+"-"+$("#phone3").val());
+				var time = new Date($("#startInputDate").val()).getTime();				
 				$("#startDate").val($("#startInputDate").val()+" 00:00:00.000000000");
 				$("#endDate").val($("#endInputDate").val()+" 00:00:00.000000000");
 				if($("#location1").val()==null|$("#location2").val()==null|$("#capacity")==null|$("#startDate").val()==""|$("#endDate").val()==""|$("#languages").val()==""){
 					alert("필수 입력 항목을 확인해주세요");
 					return false;
-				}
-								
+				}								
 				$("#title").val($.trim($("#title").val())); 				
 				if($("#title").val()==""){
 					alert("제목을 입력해주세요");
 					return false;
 				}
-				
-			});
-			
-
+				$("#phone").val($("#phone1").val()+"-"+$("#phone2").val()+"-"+$("#phone3").val());
+				if($("#phone").val()=="--"){$("#phone").val("");}
+			});			
         </script>
 </body>
 </html>

@@ -130,12 +130,9 @@
         <script>
 			$('.summernote').summernote({
 		        placeholder: '내용을 입력해주세요',	        
-		        minHeight: 300,
-		        maxHeight: 300,
-		        
+		        minHeight: 400,
+		        maxHeight: 400,	        
 		    });
-			
-
 			
 			$('.datePicker').datepicker({
 			    format: "yyyy-mm-dd",	//데이터 포맷 형식(yyyy : 년 mm : 월 dd : 일 )
@@ -160,7 +157,7 @@
 			}).on("changeDate", function(e) {
                 changeDate : true	//사용자가 클릭해서 날짜가 변경되면 호출 (개인적으로 가장 많이 사용함)
                 console.log(e); 
-			});
+			});			
 			
 			var result = ${data};
 			var data = JSON.stringify(result);			
@@ -168,10 +165,8 @@
 				datumTokenizer: Bloodhound.tokenizers.obj.whitespace("text"),
 				queryTokenizer: Bloodhound.tokenizers.whitespace,
 				local: jQuery.parseJSON(data) //your can use json type
-			});
-		
-			task.initialize();
-		
+			});		
+			task.initialize();		
 			var elt = $("#languages");
 			elt.tagsinput({
 				itemValue: "value",
@@ -184,24 +179,21 @@
 			});
 			
 			$("#writeBtn").on("click",function(){
-				var time = new Date($("#startInputDate").val()).getTime();
-				$("#phone").val($("#phone1").val()+"-"+$("#phone2").val()+"-"+$("#phone3").val());
+				var time = new Date($("#startInputDate").val()).getTime();				
 				$("#startDate").val($("#startInputDate").val()+" 00:00:00.000000000");
 				$("#endDate").val($("#endInputDate").val()+" 00:00:00.000000000");
 				if($("#location1").val()==null|$("#location2").val()==null|$("#capacity")==null|$("#startDate").val()==""|$("#endDate").val()==""|$("#languages").val()==""){
 					alert("필수 입력 항목을 확인해주세요");
 					return false;
-				}
-								
+				}								
 				$("#title").val($.trim($("#title").val())); 				
 				if($("#title").val()==""){
 					alert("제목을 입력해주세요");
 					return false;
 				}
-				
+				$("#phone").val($("#phone1").val()+"-"+$("#phone2").val()+"-"+$("#phone3").val());
+				if($("#phone").val()=="--"){$("#phone").val("");}				
 			});
-			
-
-        </script>
+       </script>
 </body>
 </html>

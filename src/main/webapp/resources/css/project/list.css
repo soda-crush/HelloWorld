@@ -18,8 +18,7 @@
 .tableBody div:nth-child(3){text-align:left;cursor:pointer;}	
 .tableBody .N{color:limegreen;}
 .tableBody .Y{color:red;}
-.pComment{margin-left:3px;font-size:13px;color:orange;}
-a:hover{text-decoration:none;}    
+.pComment{margin-left:3px;font-size:13px;color:orange;}    
 .tableBody div{
     font-size: 0.9rem;
     color: #212529;
