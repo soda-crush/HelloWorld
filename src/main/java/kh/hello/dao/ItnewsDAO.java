@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kh.hello.dto.ItnewsCoDTO;
 import kh.hello.dto.ItnewsDTO;
 
 @Repository
@@ -37,6 +38,26 @@ public class ItnewsDAO {
 
 	public int getItnewsTotal(){
 		return jdbc.selectOne("Itnews.getTotal");
+	}
+	
+	public int getItnewsSeq() {
+		return jdbc.selectOne("Itnews.getItnewsSeq");
+	}
+	
+	public int writeItnews(ItnewsDTO dto) {
+		return jdbc.insert("Itnews.writeItnews", dto);
+	}
+	
+	public int removeItnews(int seq) {
+		return jdbc.delete("Itnews.remove", seq);
+	}
+	
+	public int coWrite(ItnewsCoDTO dto) {
+		return jdbc.insert("Itnews.insertComment", dto);
+	}
+	
+	public List<ItnewsDTO> commentList(int seq){
+		return jdbc.selectList("Itnews.coList", seq);
 	}
 	
 }

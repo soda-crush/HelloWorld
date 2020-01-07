@@ -20,4 +20,24 @@
 		select count(*) from itnews 
 	</select>
 	
+	<select id="getItnewsSeq" resultType="integer">
+		select itnewsSeq.nextval from dual
+	</select>
+	
+	<insert id="writeItnews" parameterType="kh.hello.dto.ItnewsDTO">
+		insert into itnews values(#{seq}, #{writer}, #{title}, #{content},  sysdate, 0)
+	</insert>
+	
+	<delete id="remove" parameterType="integer">
+		delete from itnews where seq=#{seq}
+	</delete>
+	
+	<insert id="insertComment" parameterType="kh.hello.dto.ItnewsCoDTO">
+		insert into itnewscomments values(itnewsCommentsSeq.nextval, #{itSeq}, #{writer}, #{content},sysdate)
+	</insert>
+	
+	<select id="coList" parameterType="integer" resultType="kh.hello.dto.ItnewsCoDTO">
+		select * from itnewscomments where itSeq=#{seq} 
+	</select>
+	
 </mapper> 
