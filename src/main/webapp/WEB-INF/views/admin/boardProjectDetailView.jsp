@@ -134,7 +134,7 @@ cursor:default;
                 										<li class="nav-item">
                     										<a class="nav-link active" id="home-tab" data-toggle="tab" href="#" role="tab" aria-controls="home" aria-selected="true"><strong>${reply.writer}</strong> <small>${reply.formedWriteDate}</small></a>
                											</li>  
-                    										<li class="text-center mt-2 pl-2"><a href="${pageContext.request.contextPath}/adBoard/delProjectCo?seq=${reply.seq}&projectSeq=${reply.projectSeq}">
+                    										<li class="text-center mt-2 pl-2"><a href="${pageContext.request.contextPath}/adBoard/delProjectCo?page=${page}&seq=${reply.seq}&projectSeq=${reply.projectSeq}">
                     										<i data-brackets-id="23054" class="fa fa-trash"></i></a></li>    
            											</ul>
 	            									<div class="tab-content mt-3" id="myTabContent">

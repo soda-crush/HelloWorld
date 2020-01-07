@@ -11,6 +11,7 @@ import kh.hello.configuration.Configuration;
 import kh.hello.dao.AdBoardDAO;
 import kh.hello.dto.BambooCoDTO;
 import kh.hello.dto.BambooDTO;
+import kh.hello.dto.IndustryStatusCoDTO;
 import kh.hello.dto.IndustryStatusDTO;
 import kh.hello.dto.ProjectCoDTO;
 import kh.hello.dto.ProjectDTO;
@@ -221,7 +222,24 @@ public class AdBoardService {
 		}
 		return pages;		
 	}
+	
+	@Transactional("txManager")
+	public int delIndustry(int seq) {
+		bdao.delIndustryAllCo(seq);
+		return bdao.delIndustry(seq);
+	}
+	
+	public IndustryStatusDTO detailViewIndustry(int seq) {
+		return bdao.detailViewIndustry(seq);
+	}
+	
+	public List<IndustryStatusCoDTO> getIndustryCo(int seq) {
+		return bdao.getIndustryCo(seq);
+	}
 
+	public int delIndustryCo(int seq) {
+		return bdao.delIndustryCo(seq);
+	}
 }
 
 

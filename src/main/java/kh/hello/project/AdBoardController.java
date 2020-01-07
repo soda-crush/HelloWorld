@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import kh.hello.configuration.Configuration;
 import kh.hello.dto.BambooCoDTO;
 import kh.hello.dto.BambooDTO;
+import kh.hello.dto.IndustryStatusCoDTO;
 import kh.hello.dto.IndustryStatusDTO;
 import kh.hello.dto.ProjectCoDTO;
 import kh.hello.dto.ProjectDTO;
@@ -45,12 +46,12 @@ public class AdBoardController {
 	}
 	
 	@RequestMapping("/delProject")
-	public String delProject(int seq) {
+	public String delProject(int seq, String page) {
 		int result = bs.delProject(seq);
 		if(result > 0) {
-			return "redirect:/adBoard/projectList";
+			return "redirect:/adBoard/projectList?page="+page;
 		}else {
-			return "redirect:/admin/error";
+			return "redirect:/admin/adminError";
 		}		
 	}
 	
@@ -65,13 +66,13 @@ public class AdBoardController {
 	}
 	
 	@RequestMapping("/delProjectCo")
-	public String delProjectCo(int seq, int projectSeq) {
+	public String delProjectCo(int seq, int projectSeq, String page) {
 		int result = bs.delProjectCo(seq);
 		
 		if(result > 0) {
-			return "redirect:detailViewProject?seq="+projectSeq;
+			return "redirect:detailViewProject?page="+page+"&seq="+projectSeq;
 		}else {
-			return "redirect:admin/error";
+			return "redirect:admin/adminError";
 		}
 	}
 	
@@ -99,12 +100,12 @@ public class AdBoardController {
 	}
 	
 	@RequestMapping("/delBamboo")
-	public String delBamboo(int seq) {
+	public String delBamboo(int seq, String page) {
 		int result = bs.delBamboo(seq);
 		if(result > 0) {
-			return "redirect:/adBoard/bambooList";
+			return "redirect:/adBoard/bambooList?page="+page;
 		}else {
-			return "redirect:/admin/error";
+			return "redirect:/admin/adminError";
 		}			
 	}
 	
@@ -119,13 +120,13 @@ public class AdBoardController {
 	}
 	
 	@RequestMapping("/delBambooCo")
-	public String delBambooCo(int seq, int bamSeq) {
+	public String delBambooCo(int seq, int bamSeq, String page) {
 		int result = bs.delBambooCo(seq);
 		
 		if(result > 0) {
-			return "redirect:detailViewBamboo?seq="+bamSeq;
+			return "redirect:detailViewBamboo?page="+page+"&seq="+bamSeq;
 		}else {
-			return "redirect:admin/error";
+			return "redirect:admin/adminError";
 		}
 	}
 	
@@ -136,7 +137,7 @@ public class AdBoardController {
 	@RequestMapping("/industryList")
 	public String industryMainList(String page, Model m) {
 		int currentPage = 1;
-		if(page!= null) currentPage = Integer.parseInt(page);
+		if(page!= null && page != "") currentPage = Integer.parseInt(page);
 		
 		int end = currentPage * (Configuration.recordCountPerPage);
 		int start = end - (Configuration.recordCountPerPage-1);
@@ -151,7 +152,38 @@ public class AdBoardController {
 		
 		m.addAttribute("page", currentPage);
 		
-		return "/admin/boardProjectList";		
+		return "/admin/boardIndustryList";		
+	}
+	
+	@RequestMapping("/delIndustry")
+	public String delIndustry(int seq, String page) {
+		int result = bs.delIndustry(seq);
+		if(result > 0) {
+			return "redirect:/adBoard/industryList?page="+page;
+		}else {
+			return "redirect:/admin/adminError";
+		}			
+	}
+	
+	@RequestMapping("/detailViewIndustry")
+	public String detailViewIndustry(String page, int seq, Model m) {
+		IndustryStatusDTO dto = bs.detailViewIndustry(seq);
+		m.addAttribute("dto", dto);
+		List<IndustryStatusCoDTO> list = bs.getIndustryCo(seq);
+		m.addAttribute("list", list);
+		m.addAttribute("page", page);
+		return "admin/boardIndustryDetailView";			
+	}
+	
+	@RequestMapping("/delIndustryCo")
+	public String delIndustryCo(int seq, int indSeq, String page) {
+		int result = bs.delIndustryCo(seq);
+		
+		if(result > 0) {
+			return "redirect:detailViewIndustry?page="+page+"&seq="+indSeq;
+		}else {
+			return "redirect:admin/adminError";
+		}
 	}
 }
 

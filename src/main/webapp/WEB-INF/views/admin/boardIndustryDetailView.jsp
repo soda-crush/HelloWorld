@@ -48,7 +48,8 @@ cursor:default;
         <!-- sidebar menu area start -->
         <jsp:include page="/WEB-INF/views/standard/adminSidebar.jsp"/>
         <!-- sidebar menu area end -->
-                <!-- main content area start -->
+        
+        <!-- main content area start -->
         <div class="main-content">
             <!-- header area start -->
             <jsp:include page="/WEB-INF/views/standard/adminHeader.jsp"/>
@@ -58,10 +59,10 @@ cursor:default;
                 <div class="row align-items-center">
                     <div class="col-sm-6">
                         <div class="breadcrumbs-area clearfix">
-                            <h4 class="page-title pull-left">대나무숲</h4>
+                            <h4 class="page-title pull-left">업계현황</h4>
                             <ul class="breadcrumbs pull-left">
                                 <li><a href="${pageContext.request.contextPath }/admin/main">Home</a></li>
-                                <li><span>대나무숲</span></li>
+                                <li><span>업계현황</span></li>
                             </ul>
                         </div>
                     </div>
@@ -110,8 +111,8 @@ cursor:default;
 	                                   
 	                                </div>
 	                                <div class="invoice-buttons text-right">
-	                                    <a href="${pageContext.request.contextPath}/adBoard/bambooList?page=${page}" class="invoice-btn">돌아가기</a>
-	                                    <a href="${pageContext.request.contextPath}/adBoard/delBamboo?seq=${dto.seq}" class="invoice-btn">삭제하기</a>
+	                                    <a href="${pageContext.request.contextPath}/adBoard/industryList?page=${page}" class="invoice-btn">돌아가기</a>
+	                                    <a href="${pageContext.request.contextPath}/adBoard/delIndustry?seq=${dto.seq}" class="invoice-btn">삭제하기</a>
 	                                </div>
 	                            </div>
 	                        </div>
@@ -126,7 +127,7 @@ cursor:default;
                 										<li class="nav-item">
                     										<a class="nav-link active" id="home-tab" data-toggle="tab" href="#" role="tab" aria-controls="home" aria-selected="true"><strong>${reply.writer}</strong> <small>${reply.formedWriteDateForAdmin}</small></a>
                											</li>  
-                    										<li class="text-center mt-2 pl-2"><a href="${pageContext.request.contextPath}/adBoard/delBambooCo?page=${page}&seq=${reply.seq}&bamSeq=${reply.bamSeq}">
+                    										<li class="text-center mt-2 pl-2"><a href="${pageContext.request.contextPath}/adBoard/delIndustryCo?page=${page}&seq=${reply.seq}&indSeq=${reply.indSeq}">
                     										<i data-brackets-id="23054" class="fa fa-trash"></i></a></li>    
            											</ul>
 	            									<div class="tab-content mt-3" id="myTabContent">
@@ -144,11 +145,10 @@ cursor:default;
                             <!-- basic form end -->  
 	                    
 	                </div>
-	                </div>
-	                </div>
+	                </div>                
+            </div>
         </div>
         <!-- main content area end -->
-
         <!-- footer area start-->
         <jsp:include page="/WEB-INF/views/standard/adminFooter.jsp"/>
         <!-- footer area end-->

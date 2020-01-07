@@ -102,7 +102,7 @@
                                                     <td class="toDetail${dto.seq}">${dto.seq}</td>                                            		
                                                     <td class="toDetail${dto.seq}">${dto.title}</td>
                                                     <td class="toDetail${dto.seq}">${dto.writer}</td>
-                                                    <td class="toDetail${dto.seq}">${dto.formedDateForAdmin }</td>
+                                                    <td class="toDetail${dto.seq}">${dto.formedWriteDateForAdmin }</td>
                                                     <td class="toDetail${dto.seq}">${dto.viewCount}</td>
                                                     <td><i class="ti-trash" id="delProc${dto.seq }"></i></td>
                                                		</tr>
@@ -110,7 +110,7 @@
                                                			$("#delProc${dto.seq}").on("click", function(){
                                                				var result = confirm("이 게시물을 삭제할까요?");
                                                				if(result){
-                                               					location.href = "${pageContext.request.contextPath}/adBoard/delIndustry?seq=${dto.seq}";
+                                               					location.href = "${pageContext.request.contextPath}/adBoard/delIndustry?page=${page}&seq=${dto.seq}";
                                                				}                                              				                                             				
                                                			})
                                                			$(".toDetail${dto.seq}").hover(function(){

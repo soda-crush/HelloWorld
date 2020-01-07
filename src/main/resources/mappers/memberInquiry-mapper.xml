@@ -16,6 +16,6 @@
 		insert into inquiryImgs values(inquiryImgsSeq.nextVal, #{boardSeq}, #{sysName})
 	</insert>
 	<insert id="writeInquiry" parameterType="kh.hello.dto.InquiryDTO">
-		insert into inquiry values(inquirySeq.nextval, #{title}, #{content}, #{writer}, sysdate, 0)
+		insert into inquiry values(#{seq}, #{title}, #{content}, #{writer}, sysdate, 0)
 	</insert>
 </mapper>

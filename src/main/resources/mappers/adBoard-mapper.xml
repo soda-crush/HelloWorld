@@ -57,4 +57,19 @@
 	<select id="getIndustryTotal" resultType="integer">
 		select count(*) from industryStatus
 	</select>
+	<delete id="delIndustryAllCo">
+		delete from industryComments where indSeq=#{indSeq}
+	</delete>	
+	<delete id="delIndustry">
+		delete from industryStatus where seq=#{seq}
+	</delete>
+	<select id="detailViewIndustry" resultType="kh.hello.dto.IndustryStatusDTO">
+		select * from industryStatus where seq=#{seq}
+	</select>
+	<select id="getIndustryCo" resultType="kh.hello.dto.IndustryStatusCoDTO">
+		select * from industryComments where indSeq=#{indSeq}
+	</select>
+	<delete id="delIndustryCo">
+		delete from industryComments where seq=#{seq}
+	</delete>
 </mapper>

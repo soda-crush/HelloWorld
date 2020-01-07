@@ -101,6 +101,7 @@ public class MemberInquiryService {
 	public int writeInquiry(String path, InquiryDTO dto) throws Exception{
 		//1. boardSeq 받아오기
 		int boardSeq = dao.getInquirySeq();
+		dto.setSeq(boardSeq);
 		//2. 이미지 저장하고 주소 변환
 		String content = imgUpload(path, boardSeq, dto.getContent());
 		dto.setContent(content);

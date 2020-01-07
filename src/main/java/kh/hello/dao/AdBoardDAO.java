@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import kh.hello.dto.BambooCoDTO;
 import kh.hello.dto.BambooDTO;
+import kh.hello.dto.IndustryStatusCoDTO;
 import kh.hello.dto.IndustryStatusDTO;
 import kh.hello.dto.ProjectCoDTO;
 import kh.hello.dto.ProjectDTO;
@@ -104,5 +105,25 @@ public class AdBoardDAO {
 	
 	public int getIndustryTotal() {
 		return jdbc.selectOne("AdBoard.getIndustryTotal");
+	}
+	
+	public int delIndustryAllCo(int indSeq) {
+		return jdbc.delete("AdBoard.delIndustryAllCo", indSeq);
+	}
+	
+	public int delIndustry(int seq) {
+		return jdbc.delete("AdBoard.delIndustry", seq);
+	}
+	
+	public IndustryStatusDTO detailViewIndustry(int seq) {
+		return jdbc.selectOne("AdBoard.detailViewIndustry", seq);
+	}
+	
+	public List<IndustryStatusCoDTO> getIndustryCo(int indSeq){
+		return jdbc.selectList("AdBoard.getIndustryCo", indSeq);
+	}
+	
+	public int delIndustryCo(int seq) {
+		return jdbc.delete("AdBoard.delIndustryCo", seq);
 	}
 }
