@@ -11,6 +11,18 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/css/mainBase.css">
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css"
+	rel="stylesheet">
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
+<script>
+	$(function() {
+		$('#writeForm').on('submit', function() {
+			$('#content').val($('.note-editable').html());
+		})
+	})
+</script>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/standard/header.jsp"/>
@@ -24,12 +36,28 @@
             </div>
             
             <!--      몸통 시작!!!   -->
-            	<form action="bambooWriteProc.do" method="post">
-            	제목<input type="text" id=title name=title><br>
-            	내용<input type="textarea" id="content" name=content><br>
-            	<input type="button" id="return" value="돌아가기">
-            	<input type="button" id="write" value="작성">
-            	</form>
+<!--             	<form action="bambooWriteProc.do" method="post"> -->
+<!--             	제목<input type="text" id=title name=title><br> -->
+<!--             	내용<textarea id="content" name=content></textarea><br> -->
+<!--             	<input type="button" id="return" value="돌아가기"> -->
+<!--             	<input type="button" id="write" value="작성"> -->
+<!--             	</form> -->
+
+				<form action="bambooWriteProc.do" method="post" enctype="multipart/form-data" id=writeForm>
+		제목<input type="text" name=title><br> 
+			<div id="summernote"></div>
+			<textarea style="display:none" name=content id=content></textarea>
+			<button type="submit">작성하기</button> 
+			<input type="button" id="return" value="돌아가기">
+	</form>
+	<script>
+		$("#return").on('click',function() {
+			location.href = "bambooList.do";
+						})
+		 $('#summernote').summernote({
+        
+     });
+	</script>
             <!--       몸통 끝!!!   -->
             
             <div class=container>
@@ -42,13 +70,13 @@
         
         <jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
         
-        <script>
-        	$("#return").on("click",function(){
-        		location.href="bambooList.do";
-        	})
-        	$("#write").on("click",function(){
-        		$("form").submit();
-        	})
-        </script>
+<!--         <script> -->
+//         	$("#return").on("click",function(){
+//         		location.href="bambooList.do";
+//         	})
+//         	$("#write").on("click",function(){
+//         		$("form").submit();
+//         	})
+<!--         </script> -->
 </body>
 </html>
