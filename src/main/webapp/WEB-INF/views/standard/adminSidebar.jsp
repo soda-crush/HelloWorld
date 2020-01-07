@@ -24,7 +24,7 @@
 					<li><a href="javascript:void(0)" aria-expanded="true"><i class="ti-menu"></i><span>게시판관리</span></a>
 						<ul class="collapse">
 							<li><a href="${pageContext.request.contextPath }/adBoard/bambooList">대나무숲</a></li>
-							<li><a href="#">코드지식인</a></li>
+							<li><a href="${pageContext.request.contextPath }/adBoard/cohowList">코드지식인</a></li>
 							<li><a href="${pageContext.request.contextPath }/adBoard/industryList">업계현황</a></li>
 							<li><a href="#">IT뉴스</a></li>
 							<li><a href="${pageContext.request.contextPath }/adBoard/projectList">프로젝트</a></li>

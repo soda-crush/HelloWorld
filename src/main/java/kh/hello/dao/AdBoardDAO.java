@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import kh.hello.dto.BambooCoDTO;
 import kh.hello.dto.BambooDTO;
+import kh.hello.dto.CodeQuestionDTO;
 import kh.hello.dto.IndustryStatusCoDTO;
 import kh.hello.dto.IndustryStatusDTO;
 import kh.hello.dto.ProjectCoDTO;
@@ -126,4 +127,21 @@ public class AdBoardDAO {
 	public int delIndustryCo(int seq) {
 		return jdbc.delete("AdBoard.delIndustryCo", seq);
 	}
+	
+	/* 
+	 * code-how
+	 */
+	
+	public List<CodeQuestionDTO> cohowListByPage(int start, int end){
+		Map<String, Integer> param = new HashMap<>();
+		param.put("start", start);
+		param.put("end", end);			
+		return jdbc.selectList("AdBoard.cohowListByPage", param);
+	}
+	
+	public int getCohowTotal() {
+		return jdbc.selectOne("AdBoard.getCohowTotal");
+	}
+	
+
 }

@@ -16,6 +16,7 @@ import org.springframework.util.Base64Utils;
 import kh.hello.configuration.Configuration;
 import kh.hello.dao.MemberInquiryDAO;
 import kh.hello.dto.InquiryDTO;
+import kh.hello.dto.InquiryReplyDTO;
 
 @Service
 public class MemberInquiryService {
@@ -36,23 +37,38 @@ public class MemberInquiryService {
 			String oriName = m.group(2);
 			String sysName = System.currentTimeMillis() + "_" + oriName;
 			
-			String imgString = m.group(1).split(",")[1];
-			byte[] imgByte = Base64Utils.decodeFromString(imgString);
+			int need = m.group(1).split(",").length;
 			
-			FileOutputStream fos = new FileOutputStream(new File(imgPath + "/" + sysName));
-			DataOutputStream dos = new DataOutputStream(fos);
-			
-			dos.write(imgByte);
-			dos.flush();
-			dos.close();
-							
-			//DB에 이미지 목록 저장하기
-			int result = dao.insertImg(boardSeq, sysName);
-			if(result > 0) {
-				content = content.replaceFirst(Pattern.quote(m.group(1)), "/attached/inquiry/"+sysName);
-			}
+			if(need > 1) {
+				String imgString = m.group(1).split(",")[1];
+				byte[] imgByte = Base64Utils.decodeFromString(imgString);
+				
+				FileOutputStream fos = new FileOutputStream(new File(imgPath + "/" + sysName));
+				DataOutputStream dos = new DataOutputStream(fos);
+				
+				dos.write(imgByte);
+				dos.flush();
+				dos.close();
+								
+				//DB에 이미지 목록 저장하기
+				int result = dao.insertImg(boardSeq, sysName);
+				if(result > 0) {
+					content = content.replaceFirst(Pattern.quote(m.group(1)), "/attached/inquiry/"+sysName);
+				}
+			}			
 		}
 		return content;
+	}
+	
+	private void imgDelete(String path, int boardSeq) throws Exception{
+		List<String> imgs = dao.getImgsByBoardSeq(boardSeq);
+		for(String tmp:imgs) {
+			System.out.println(path + " : " + tmp);
+			File file = new File(path+"/"+tmp);
+			if(file.exists()) {
+				file.delete();
+			}
+		}
 	}
 	
 	public List<InquiryDTO> getMyInquiryByPage(String id, int start, int end){
@@ -106,7 +122,37 @@ public class MemberInquiryService {
 		String content = imgUpload(path, boardSeq, dto.getContent());
 		dto.setContent(content);
 		//3. 글 업로드
-		return dao.writeInquiry(dto);
+		dao.writeInquiry(dto);
+		//4. 디테일뷰로 이동하기 위해 boardSeq 리턴
+		return boardSeq;
+	}
+	
+	public InquiryDTO getMyInquiryBySeq(int seq) {
+		return dao.getMyInquiryBySeq(seq);
+	}
+	
+	public List<InquiryReplyDTO> getMyInquiryCo(int boardSeq){
+		return dao.getMyInquiryCo(boardSeq);
+	}
+	
+	public int modifyInquiry(String path, InquiryDTO dto) throws Exception{
+		String content = imgUpload(path, dto.getSeq(), dto.getContent());
+		dto.setContent(content);
+		return dao.modifyInquiry(dto);
+	}
+	
+	@Transactional("txManager")
+	public int deleteInquiry(String path, int seq) throws Exception{
+		//글 삭제하기
+		//이미지 파일은 transaction관리 안되서 글 먼저 지움
+		int result = dao.deleteInquiry(seq);
+		if(result > 0) {
+			//이미지 파일 삭제하기
+			imgDelete(path, seq);
+			//이미지 기록 DB에서 삭제하기
+			dao.delImgsByBoardSeq(seq);
+		}
+		return result;
 	}
 	
 

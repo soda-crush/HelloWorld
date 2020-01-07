@@ -58,10 +58,14 @@
 				  					</c:choose>	
 				  					</div>			  					
 									<div class="col-1 d-none d-md-block">${dto.seq}</div>
-									<div class="col-8 col-md-6 pl-2">${dto.title}</div>
+									<div class="col-8 col-md-6 pl-2" id="toDetail${dto.seq}">${dto.title}</div>
 									<div class="col-2 d-none d-md-block">${dto.formedDate}</div>
-
-								</div>	
+								</div>
+								<script>
+									$("#toDetail${dto.seq}").on("click", function(){
+										location.href = "${pageContext.request.contextPath}/member1/detailViewInquiry?page=${page}&seq=${dto.seq}";
+									})
+								</script>	
 				  			</c:forEach>
 				  		</c:otherwise>
 				  	</c:choose>				    

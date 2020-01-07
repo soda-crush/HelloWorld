@@ -126,11 +126,7 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/deleteInquiryReply")
-	public String deleteInquiryReply(int seq, int boardSeq, int page) {
-		
-		System.out.println("seq : " + seq);
-		System.out.println("boardSeq : " + boardSeq);
-		System.out.println("page : " + page);
+	public String deleteInquiryReply(int seq, int boardSeq, int page) {		
 		//댓글 삭제하고
 		as.deleteInquiryReply(seq, boardSeq);
 		//boardSeq가지고 디테일뷰로 이동하기

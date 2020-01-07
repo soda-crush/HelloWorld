@@ -72,4 +72,12 @@
 	<delete id="delIndustryCo">
 		delete from industryComments where seq=#{seq}
 	</delete>
+	
+	<!--code-how -->
+	<select id="cohowListByPage" resultType="kh.hello.dto.CodeQuestionDTO">
+		select * from (select codeQuestion.*, row_number() over(order by seq desc) rown from codeQuestion) where rown between #{start} and #{end}
+	</select>
+	<select id="getCohowTotal" resultType="integer">
+		select count(*) from codeQuestion
+	</select>
 </mapper>
