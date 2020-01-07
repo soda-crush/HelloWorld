@@ -7,8 +7,8 @@
 <meta charset="UTF-8">
 <title>Hello World!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
@@ -33,6 +33,7 @@
             #commentForm{height:100%;}
             textarea{resize:none;}
             .page-item{padding:0px;height:10px;width:10px;}
+            .naviwrap>div{float:left;width:30px;}
         </style>
 </head>
 <body>
@@ -88,7 +89,7 @@
 	            <div class="row">
 	                <div class="col-12 col-md-4 col-lg-3 myprofile">
 	                    <div class="card" id="mycard">
-	                        <img src="/files/1578295891418_lion.png" class="card-img-top" alt="..." style="width: 170px;height: 170px;margin:15px;"><!-- 아이디에대한 이미지값 -->
+	                        <img src="/img/profileSample.jpg" class="card-img-top" alt="..." style="width: 170px;height: 170px;margin:15px;"><!-- 아이디에대한 이미지값 -->
 	                        <div class="card-body">
 	                            <h3 class="card-title" style="text-align: center;">라이언 님</h3><!--  세션값 -->
 	                            <p class="card-text" style="text-align: center;">point : 12,345</p><!--  세션에 대한 포인트값 -->
@@ -121,7 +122,7 @@
 		                        <div style="text-align:right"><button id="delete" onclick="location.href='${pageContext.request.contextPath}/GuestBook/delete.do?seq=${dto.seq}'">삭제하기</button></div>
 							</c:forEach>
 	                    </div>
-	                    <div style="width:100%;float:left;">
+	                    <div class="naviwrap"style="width:100%;float:left;">
 		                    <c:forEach items="${pageNavi}" var="navi">									
 								${navi}
 							</c:forEach>

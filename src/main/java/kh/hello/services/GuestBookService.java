@@ -58,17 +58,17 @@ public class GuestBookService {
 		}
 
 		List<String> pages = new ArrayList<>();
-		if(needPrev) pages.add("<div style=\"float:left\" class=\"page-item\"><a class=page-link  href='/GuestBook/selectList.do?cpage=" + (startNavi - 1) + "'>< </a></div>");
+		if(needPrev) pages.add("<div class=\"page-item\"><a class=page-link  href='/GuestBook/selectList.do?cpage=" + (startNavi - 1) + "'>< </a></div>");
 
 		for(int i = startNavi; i <= endNavi; i++) {
 			StringBuilder sb = new StringBuilder();
-			sb.append("<div style=\"float:left\" class=\"page-item\"><a class=page-link  href='/GuestBook/selectList.do?cpage="+ i +"'>");
+			sb.append("<div class=\"page-item\"><a class=page-link  href='/GuestBook/selectList.do?cpage="+ i +"'>");
 			sb.append(i + " ");
 			sb.append("</a></div>");
 			pages.add(sb.toString());
 		}
 
-		if(needNext) pages.add("<div style=\"float:left\" class=\"page-item\"><a class=page-link  href='/GuestBook/selectList.do?cpage=" + (endNavi + 1) + "'>> </a></div>");
+		if(needNext) pages.add("<div class=\"page-item\"><a class=page-link  href='/GuestBook/selectList.do?cpage=" + (endNavi + 1) + "'>> </a></div>");
 
 		return pages;
 	}
