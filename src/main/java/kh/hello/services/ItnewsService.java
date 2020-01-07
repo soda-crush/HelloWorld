@@ -1,13 +1,20 @@
 package kh.hello.services;
 
-import java.util.ArrayList;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Base64Utils;
 
 import kh.hello.configuration.Configuration;
 import kh.hello.dao.ItnewsDAO;
+import kh.hello.dto.ItnewsCoDTO;
 import kh.hello.dto.ItnewsDTO;
 
 @Service
@@ -75,6 +82,62 @@ public class ItnewsService {
 		return sb.toString();
 	}
 	
+	@Transactional("txManager")
+	public int writeItnews(String path, ItnewsDTO dto) throws Exception{
+		//1. boardSeq 받아오기
+		int boardSeq = dao.getItnewsSeq();
+		dto.setSeq(boardSeq);
+		//2. 이미지 저장하고 주소 변환
+		String content = this.imgUpload(path, boardSeq, dto.getContent());
+		dto.setContent(content);
+		//3. 글 업로드
+		dao.writeItnews(dto);
+		return boardSeq;
+	}
+	
+	private String imgUpload(String path, int boardSeq, String content) throws Exception{
+		File imgPath = new File(path + "/itnews");
+		if(!imgPath.exists()) {
+			imgPath.mkdirs();
+		}
+		
+		Pattern p = Pattern.compile("<img.+?src=\"(.+?)\".+?data-filename=\"(.+?)\".*?>");
+		Matcher m = p.matcher(content);
+		
+		while(m.find()) {
+			String oriName = m.group(2);
+			String sysName = System.currentTimeMillis() + "_" + oriName;
+			
+			String imgString = m.group(1).split(",")[1];
+			byte[] imgByte = Base64Utils.decodeFromString(imgString);
+			
+			FileOutputStream fos = new FileOutputStream(new File(imgPath + "/" + sysName));
+			DataOutputStream dos = new DataOutputStream(fos);
+			
+			dos.write(imgByte);
+			dos.flush();
+			dos.close();
+							
+			//DB에 이미지 목록 저장하기
+			//int result = dao.insertImg(boardSeq, sysName);
+			//if(result > 0) {
+				content = content.replaceFirst(Pattern.quote(m.group(1)), "/attached/itnews/"+sysName);
+			//}
+		}
+		return content;
+	}
+	
+	public int removeItnews(int seq) {
+		return dao.removeItnews(seq);
+	}
+	
+	public int coWrite(ItnewsCoDTO dto) {
+		return dao.coWrite(dto);
+	}
+	
+	public List<ItnewsDTO> commentList(int seq){
+		return dao.commentList(seq);
+	}
 	
 	
 }

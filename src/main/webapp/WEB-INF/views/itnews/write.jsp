@@ -79,7 +79,7 @@ $("#writeBtn").on("click", function(){
 $(".back").on("click", function(){
 	var result = confirm("모든 입력 내용이 사라집니다. 글쓰기를 취소할까요?");
 	if(result){
-		location.href="${pageContext.request.contextPath}/itnews/?page=${page}";
+		location.href="${pageContext.request.contextPath}/itnews/itnewsList?page=${page}";
 	}
 })
 </script>

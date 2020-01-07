@@ -8,9 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kh.hello.configuration.Configuration;
-import kh.hello.dto.InquiryDTO;
+import kh.hello.dto.ItnewsCoDTO;
 import kh.hello.dto.ItnewsDTO;
 import kh.hello.services.ItnewsService;
 
@@ -67,18 +68,31 @@ public class ItnewsController {
 	public String writeProc(String page, ItnewsDTO dto, HttpSession session){
 		String path = session.getServletContext().getRealPath("attached");
 		
-		int result = 0;
+		dto.setWriter((String)session.getAttribute("loginInfo"));
+		
 		try {
-			//result = is.writeItnews(path, dto);
-			if(result > 0) {//detailView 완성하면 경로 변경하기
-				return "redirect:myInquiry";
-			}else {
-				return "redirect:../error";
-			}
+			int boardSeq = is.writeItnews(path, dto);
+			return "redirect:detail?seq="+boardSeq;
 		}catch(Exception e) {
 			e.printStackTrace();
 			return "redirect:../error";
 		}
+	}
+	
+	@RequestMapping("/remove")
+	public String remove(int seq) {
+		is.removeItnews(seq);
+		return "redirect:itnewsList";
+	}
+	
+	@RequestMapping("/coWrite")
+	public String coWrite(ItnewsCoDTO dto, HttpSession session, Model m) {
+		dto.setWriter((String)session.getAttribute("loginInfo"));
+		is.coWrite(dto);
+		
+		List<ItnewsDTO> list = is.commentList(dto.getItSeq());
+		m.addAttribute("list", list);
+		return "/itnews/itnewsView";
 	}
 	
 }
