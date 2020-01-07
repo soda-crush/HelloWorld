@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -38,6 +39,7 @@ public class MemberController {
 			int result = ms.login(id, pw);
 			if(result > 0) {
 				session.setAttribute("loginInfo", id);
+				ms.updateLastLogin(id);
 				return "redirect:/";
 			}else {
 				return "error";
@@ -58,22 +60,14 @@ public class MemberController {
 	@RequestMapping(value = "/signUpProc")
 	public String signUpProc(MemberDTO mdto, String empCheck, String empEmail, String unempEmail 
 			,String otherJoinPath, Timestamp startDate) { //회원가입 프로세스
-//		System.out.println(mdto);
-//		System.out.println("재직여부 : " + empCheck);
-//		System.out.println("재직자 메일 : " + empEmail);
-//		System.out.println("재직자 코드 : " + empCode);
-//		System.out.println("비재직자 메일 : " + unempEmail);
-//		System.out.println("비재직자 코드 : " + unempCode);
-//		System.out.println("기타 사유 " + otherJoinPath);
-//		System.out.println("생년월일 : " + startDate);
-//		System.out.println("체크값 : " + mdto.getIfmOpenCheck());
-			
 		ms.signUp(mdto, empCheck, empEmail, unempEmail, otherJoinPath, startDate);
-		
-		return "redirect:/";
-		
+		return "redirect:signUpTemp";
 	}
 	
+	@RequestMapping("/signUpTemp")
+	public String signUpTemp() {
+		return "member/signUpTemp";
+	}
 	
 	@RequestMapping("/duplCheck")
 	@ResponseBody
@@ -173,5 +167,90 @@ public class MemberController {
 	 public String myPage(){
 		 return "member/mypage";
 	 }
+	 
+	 @RequestMapping("/findId")
+	 public String goFindIdFrm(){
+		 return "member/findId";
+	 }
+	 
+	 @RequestMapping("/findPw")
+	 public String goFindPwFrm(){
+		 return "member/findPw";
+	 }
+	 
+	 @RequestMapping(value = "/idFindmailSending", produces = "text/html; charset=utf-8")
+	 @ResponseBody
+	  public String idFindmailSending(String name, String email) { //아이디 찾기
+		 int result = ms.isEmailExist(name, email);
+		 if(result > 0){
+			 try {
+					String ctfCode = Utils.getRandomCode();
+				    String setfrom = "sohyunKH4862@gmail.com";         
+				    String tomail  = email;     // 받는 사람 이메일
+				    String title   = "[Hello World!] This is your verification code.";      // 제목
+				    String content = "Please enter this code : " + ctfCode;    // 내용
+				  
+				    
+				    	//디비에 이메일이랑 인증코드 저장
+					    ms.insertCtfCode(email, ctfCode);
+					 
+					    	 MimeMessage message = mailSender.createMimeMessage();
+						      MimeMessageHelper messageHelper 
+						                        = new MimeMessageHelper(message, true, "UTF-8");
+						      
+						      messageHelper.setFrom(setfrom);  // 보내는사람 생략하거나 하면 정상작동을 안함
+						      messageHelper.setTo(tomail);     // 받는사람 이메일
+						      messageHelper.setSubject(title); // 메일제목은 생략이 가능하다
+						      messageHelper.setText(content);  // 메일 내용
+						     
+						      mailSender.send(message);
+
+							  return "send";
+				}catch(Exception e) {
+					System.out.println("메일 오류");
+					e.printStackTrace();
+					return "WEB-INF/views/error.jsp";
+				}
+		 }else {
+			 return "false";
+		 }
+	}
+	 
+	 @RequestMapping("/isEmailALready")
+	 @ResponseBody
+	 public String isEmailALready(String email) {
+		 int result = ms.isEmailALready(email);
+		 if(result > 0) {
+			 return "true";
+		 }else {
+			 return "false";
+		 }
+	 }
+	 
+	
+	  @RequestMapping("/showId")
+	  public String showId(String email, Model m) {
+		  m.addAttribute("id", ms.selectIdByEmail(email));
+		  return "member/showId";
+	  }
+	  
+	  @RequestMapping("/showPw")
+	  public String showPw(String email, Model m) {
+		  m.addAttribute("id", ms.selectIdByEmail(email));
+		  return "member/showPw";
+	  }
+	  
+	 @RequestMapping("/showPwMdf")
+	 public String showPwMdf(String id, String pw) {
+		 ms.modifyPw(id, pw);
+		 return "redirect:afterFindPw";
+	 }
+	 
+	 @RequestMapping("/afterFindPw")
+	 public String afterFindPw(){
+		 return "member/showPwMdf";
+	 }
+	 
+	 
 	
 }

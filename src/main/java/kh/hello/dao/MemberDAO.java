@@ -57,5 +57,31 @@ public class MemberDAO {
 		public int insertMember(MemberDTO dto) {
 			return jdbc.insert("Member.insertMember", dto);
 		}
-		
+	//최근 로그인 날짜 갱신
+		public int updateLastLogin(String id) {
+			return jdbc.update("Member.updateLastLogin", id);
+		}
+
+	//이름, 이메일에 해당하는 정보 있는지	
+		public int selectEmail(String name, String email) {
+			Map<String, String> param = new HashMap<>();
+			param.put("name", name);
+			param.put("email", email);
+			return jdbc.selectOne("Member.selectEmailnName", param);
+		}
+	//가입전 이메일 있는지 확인
+		public int selectEmailAlready(String email) {
+			return jdbc.selectOne("Member.selectEmail", email);
+		}
+	//이메일로 아이디 찾기
+		public String selectIdByEmail(String email) {
+			return jdbc.selectOne("Member.selectIdByEmail", email);
+		}	
+	//비밀번호 변경
+		public int modifyPw(String id, String pw) {
+			Map<String, String> param = new HashMap<>();
+			param.put("id", id);
+			param.put("pw", pw);
+			return jdbc.update("Member.modifyPw", param);
+		}
 }

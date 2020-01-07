@@ -13,11 +13,6 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/css/mainBase.css">
 <link rel="stylesheet" type="text/css" href="/css/font-awesome/css/font-awesome.css">
-<style>
-	.btnM{
-		width:120px;
-	}
-</style>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/standard/header.jsp"/>
@@ -32,24 +27,40 @@
             
             <!--      몸통 시작!!!   -->
 
-            <div class="container">
-				<div class="row">
-					<div class="col-12">
-						<h1>마이페이지</h1>
-					</div>
-				</div>
-            <div class="row">
-            	<div class="col-12 text-center">
-            	<hr>
-            	<h3><br></h3>
-	            	<button type="button" class="btn btn-light btnM" id=modify>내 정보 수정</button><br><br>
-	            	<button type="button" class="btn btn-light btnM" id=personalQ>1:1 문의</button><br><br>
-	            	<button type="button" class="btn btn-light btnM" id=withdrawal>회원탈퇴</button>
-            	</div>
-            </div>
+            <form action="${pageContext.request.contextPath}/member/showPwMdf" method="post" id=frm>
+	            <div class="container eleCon">
+	            	<div class=row>
+	            		<div class=col-12>
+	            			<br>
+	            			<h1>비밀번호 찾기</h1>
+	            			<hr>
+	            			${id}님 비밀번호를 변경해주세요. <br>
+	            			<input type=text name=id style="display:none;" value="${id}">
+	            			<input type="text" name=pw id=pw placeholder="비밀번호 입력"><br>
+	            			<input type="text" name=pwRe id=pwRe placeholder="비밀번호 재입력"><br>
+	            			<button id=btn type=button>변경</button>
+	            		</div>
+	            	</div>
+	            </div>
+            </form>
             
-             </div>
-            
+            <script>
+            	$("#btn").on("click",function(){
+            		  var pw =$("#pw").val();
+                      var pwRe =$("#pwRe").val();
+
+                      if((pw == "")||(pwRe == "")){
+                    	  alert("모두 입력해주세요.");
+                      }else{
+                    	  if(pw == pwRe){
+      						  //디비에서 비번 변경
+      						$("#frm").submit();
+      					  }else{
+      						  alert("비밀번호가 일치하지않습니다.");
+      					  }
+                      }
+            	})
+            </script>
             <!--       몸통 끝!!!   -->
             
             <div class=container>
@@ -61,17 +72,5 @@
         </div>
         
         <jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
-        <script>
-        	$("#modify").on("click",function(){
-        		location.href = "member/modify";
-        	})
-        	$("#personalQ").on("click",function(){
-        		location.href = "${pageContext.request.contextPath}/member1/myInquiry";
-        	})
-        	$("#withdrawal").on("click",function(){
-        		location.href = "member/withdrawal";
-        	})
-        	
-        </script>
 </body>
 </html>

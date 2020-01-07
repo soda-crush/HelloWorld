@@ -13,11 +13,6 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/css/mainBase.css">
 <link rel="stylesheet" type="text/css" href="/css/font-awesome/css/font-awesome.css">
-<style>
-	.btnM{
-		width:120px;
-	}
-</style>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/standard/header.jsp"/>
@@ -32,23 +27,19 @@
             
             <!--      몸통 시작!!!   -->
 
-            <div class="container">
-				<div class="row">
-					<div class="col-12">
-						<h1>마이페이지</h1>
-					</div>
-				</div>
-            <div class="row">
-            	<div class="col-12 text-center">
-            	<hr>
-            	<h3><br></h3>
-	            	<button type="button" class="btn btn-light btnM" id=modify>내 정보 수정</button><br><br>
-	            	<button type="button" class="btn btn-light btnM" id=personalQ>1:1 문의</button><br><br>
-	            	<button type="button" class="btn btn-light btnM" id=withdrawal>회원탈퇴</button>
+            
+            <div class="container eleCon">
+            	<div class=row>
+            		<div class=col-12>
+            			<br>
+            			<h1>아이디 찾기</h1>
+            			<hr>
+            			아이디 : ${id} <br>
+            			<a href="${pageContext.request.contextPath}/member/login">로그인하러가기</a>&emsp;
+            			<a href="${pageContext.request.contextPath}/member/findPw">비밀번호 찾기</a>
+            		</div>
             	</div>
             </div>
-            
-             </div>
             
             <!--       몸통 끝!!!   -->
             
@@ -61,17 +52,5 @@
         </div>
         
         <jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
-        <script>
-        	$("#modify").on("click",function(){
-        		location.href = "member/modify";
-        	})
-        	$("#personalQ").on("click",function(){
-        		location.href = "${pageContext.request.contextPath}/member1/myInquiry";
-        	})
-        	$("#withdrawal").on("click",function(){
-        		location.href = "member/withdrawal";
-        	})
-        	
-        </script>
 </body>
 </html>

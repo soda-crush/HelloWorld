@@ -526,32 +526,48 @@
 							alert("올바른 이메일 형식이 아닙니다. 확인부탁드립니다.");
  	                     }else{
  	                    	//이메일 형식 맞는 경우
- 	                    	var regex = /^\w+@\w+.co.kr$/gm;
- 	                    	var data = $("#empEmail").val();
- 	 	                    var result = regex.exec(data);
- 	 	                    
- 	 	                    var regex2 = /^\w+@\w+.pe.kr$/gm;
-	 	                    var result2 = regex2.exec(data);
-	 	                    
-	 	                    if(result2 != null){
-	 	                    	alert("개인 도메인(예. pe.kr)을 상업적 목적으로 이용하실 경우 비실무자로 가입후 일대일문의를 통해 실무자 인증부탁드립니다.");
-	 	                    	return;
-	 	                    }
-	 	                    
- 	 	                    if(result == null){
- 	 	                    	alert("영리 단체 도메인(co.kr)이 아닙니다. 비실무자로 가입부탁드립니다.");
- 	 	                    }else{
- 	 	                    	emailTest2 = 1;
- 	 	                    	$.ajax({
- 	 	              			url:"${pageContext.request.contextPath}/member/mailSending",
- 	 	              			type:"post",
- 	 	              			data:{
- 	 	              				email : $("#empEmail").val()
- 	 	              			}
- 	 	              		}).done(function(data){
- 	 	              			alert("인증 메일이 전송되었습니다. 메일을 확인해주세요.");
- 	 	              		});
- 	 	                    }
+ 	                    	
+ 	                    	//디비에 있는지 먼저 확인
+ 	                    	$.ajax({
+ 	 	 	              			url:"${pageContext.request.contextPath}/member/isEmailALready",
+ 	 	 	              			type:"post",
+ 	 	 	              			data:{
+ 	 	 	              				email : $("#empEmail").val()
+ 	 	 	              			}
+ 	 	 	              		}).done(function(resp){
+ 	 	 	              			if(resp == "true"){
+ 	 	 	              				alert("이미 등록된 이메일입니다.");
+ 	 	 	              			}else{
+	 	 	 	              			var regex = /^\w+@\w+.co.kr$/gm;
+	 	 	 	                    	var data = $("#empEmail").val();
+	 	 	 	 	                    var result = regex.exec(data);
+	 	 	 	 	                    
+	 	 	 	 	                    var regex2 = /^\w+@\w+.pe.kr$/gm;
+	 	 		 	                    var result2 = regex2.exec(data);
+	 	 		 	                    
+	 	 		 	                    if(result2 != null){
+	 	 		 	                    	alert("개인 도메인(예. pe.kr)을 상업적 목적으로 이용하실 경우 비실무자로 가입후 일대일문의를 통해 실무자 인증부탁드립니다.");
+	 	 		 	                    	return;
+	 	 		 	                    }
+	 	 		 	                    
+	 	 	 	 	                    if(result == null){
+	 	 	 	 	                    	alert("영리 단체 도메인(co.kr)이 아닙니다. 비실무자로 가입부탁드립니다.");
+	 	 	 	 	                    }else{
+	 	 	 	 	                    	emailTest2 = 1;
+	 	 	 	 	                    	$.ajax({
+	 	 	 	 	              			url:"${pageContext.request.contextPath}/member/mailSending",
+	 	 	 	 	              			type:"post",
+	 	 	 	 	              			data:{
+	 	 	 	 	              				email : $("#empEmail").val()
+	 	 	 	 	              			}
+	 	 	 	 	              		}).done(function(data){
+	 	 	 	 	              			alert("인증 메일이 전송되었습니다. 메일을 확인해주세요.");
+	 	 	 	 	              		});
+	 	 	 	 	                    }
+ 	 	 	              			}
+ 	 	 	              		});
+ 	                    	
+ 	                    	
  	 	                    
  	                     }
  	                 })
@@ -570,23 +586,39 @@
 							alert("올바른 이메일 형식이 아닙니다. 확인부탁드립니다.");
  	                     }else{
  	                    	//이메일 형식 맞는 경우
- 	                    	var regex = /^\w+@\w+.co.kr$/gm;
- 	                    	var data = $("#unempEmail").val();
- 	 	                    var result = regex.exec(data);
- 	 	                    if(result == null){
- 	 	                    	emailTest2 = 1;
- 	 	                    	$.ajax({
- 	 	 	              			url:"${pageContext.request.contextPath}/member/mailSending",
+ 	                    	
+ 	                    	//디비에 있는지 먼저 확인
+ 	                    	$.ajax({
+ 	 	 	              			url:"${pageContext.request.contextPath}/member/isEmailALready",
  	 	 	              			type:"post",
  	 	 	              			data:{
  	 	 	              				email : $("#unempEmail").val()
  	 	 	              			}
  	 	 	              		}).done(function(data){
- 	 	 	              			alert("인증 메일이 전송되었습니다. 메일을 확인해주세요.\n개인 도메인(예시. pe.kr)을 상업적 목적으로 이용하실 경우 비실무자로 가입후 일대일문의를 통해 실무자 인증부탁드립니다.");
- 	 	 	              		});
- 	 	                    }else{
- 	 	                    	alert("영리단체 도메인(co.kr)은 실무자로 가입부탁드립니다.");
- 	 	                    }
+ 	 	 	              			if(data == "true"){
+ 	 	 	              				alert("이미 등록된 이메일입니다.");
+ 	 	 	              			}else{
+ 	 	 	              			var regex = /^\w+@\w+.co.kr$/gm;
+ 	 	 	                    	var data = $("#unempEmail").val();
+ 	 	 	 	                    var result = regex.exec(data);
+ 	 	 	 	                    if(result == null){
+ 	 	 	 	                    	emailTest2 = 1;
+ 	 	 	 	                    	$.ajax({
+ 	 	 	 	 	              			url:"${pageContext.request.contextPath}/member/mailSending",
+ 	 	 	 	 	              			type:"post",
+ 	 	 	 	 	              			data:{
+ 	 	 	 	 	              				email : $("#unempEmail").val()
+ 	 	 	 	 	              			}
+ 	 	 	 	 	              		}).done(function(data){
+ 	 	 	 	 	              			alert("인증 메일이 전송되었습니다. 메일을 확인해주세요.\n개인 도메인(예시. pe.kr)을 상업적 목적으로 이용하실 경우 비실무자로 가입후 일대일문의를 통해 실무자 인증부탁드립니다.");
+ 	 	 	 	 	              		});
+ 	 	 	 	                    }else{
+ 	 	 	 	                    	alert("영리단체 도메인(co.kr)은 실무자로 가입부탁드립니다.");
+ 	 	 	 	                    }
+ 	 	 	              			}
+ 	 	 	              		});	
+ 	                    	
+ 	                    	
  	 	                    
  	                     }
  	                 })
@@ -644,7 +676,7 @@
             //생년월일
             $('.datePicker').datepicker({
 			    format: "yyyy-mm-dd",	//데이터 포맷 형식(yyyy : 년 mm : 월 dd : 일 )
-			    startDate: '-100y',	//달력에서 선택 할 수 있는 가장 빠른 날짜. 이전으로는 선택 불가능 ( d : 일 m : 달 y : 년 w : 주)
+			    startDate: '-200y',	//달력에서 선택 할 수 있는 가장 빠른 날짜. 이전으로는 선택 불가능 ( d : 일 m : 달 y : 년 w : 주)
 			    endDate: '+0y',	//달력에서 선택 할 수 있는 가장 느린 날짜. 이후로 선택 불가 ( d : 일 m : 달 y : 년 w : 주)
 			    autoclose : true,	//사용자가 날짜를 클릭하면 자동 캘린더가 닫히는 옵션
 			    calendarWeeks : false, //캘린더 옆에 몇 주차인지 보여주는 옵션 기본값 false 보여주려면 true
