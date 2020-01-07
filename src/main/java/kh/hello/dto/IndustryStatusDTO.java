@@ -91,4 +91,10 @@ public class IndustryStatusDTO {
 		String result = sdf.format(this.writeDate);
 		return result;
 	}
+	
+	public String getFormedDateForAdmin() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+		String result = sdf.format(this.writeDate);
+		return result;
+	}
 }

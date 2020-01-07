@@ -8,6 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import kh.hello.configuration.Configuration;
+import kh.hello.dto.BambooCoDTO;
+import kh.hello.dto.BambooDTO;
+import kh.hello.dto.IndustryStatusDTO;
 import kh.hello.dto.ProjectCoDTO;
 import kh.hello.dto.ProjectDTO;
 import kh.hello.services.AdBoardService;
@@ -18,8 +21,11 @@ public class AdBoardController {
 	@Autowired
 	private AdBoardService bs;
 	
+	/* 
+	 * 프로젝트
+	 */
 	@RequestMapping("/projectList")
-	public String ProejctMainList(String page, Model m) {
+	public String projectMainList(String page, Model m) {
 		
 		int currentPage = 1;
 		if(page!= null) currentPage = Integer.parseInt(page);
@@ -42,7 +48,7 @@ public class AdBoardController {
 	public String delProject(int seq) {
 		int result = bs.delProject(seq);
 		if(result > 0) {
-			return "redirect:/admin/ProjectList";
+			return "redirect:/adBoard/projectList";
 		}else {
 			return "redirect:/admin/error";
 		}		
@@ -67,6 +73,85 @@ public class AdBoardController {
 		}else {
 			return "redirect:admin/error";
 		}
+	}
+	
+	/* 
+	 * 대나무숲
+	 */
+	
+	@RequestMapping("/bambooList")
+	public String bambooMainList(String page, Model m) {
+		int currentPage = 1;
+		if(page!= null) currentPage = Integer.parseInt(page);
+		
+		int end = currentPage * (Configuration.recordCountPerPage);
+		int start = end - (Configuration.recordCountPerPage-1);
+		
+		List<BambooDTO> result = bs.bambooListByPage(start, end);
+		m.addAttribute("list", result);
+		
+		List<String> pageNavi = bs.getBambooPageNavi(currentPage);
+		m.addAttribute("pageNavi", pageNavi);
+		
+		m.addAttribute("page", currentPage);
+		
+		return "admin/boardBambooList";
+	}
+	
+	@RequestMapping("/delBamboo")
+	public String delBamboo(int seq) {
+		int result = bs.delBamboo(seq);
+		if(result > 0) {
+			return "redirect:/adBoard/bambooList";
+		}else {
+			return "redirect:/admin/error";
+		}			
+	}
+	
+	@RequestMapping("/detailViewBamboo")
+	public String detailViewBamboo(String page, int seq, Model m) {
+		BambooDTO dto = bs.detailViewBamboo(seq);
+		m.addAttribute("dto", dto);
+		List<BambooCoDTO> list = bs.getBambooCo(seq);
+		m.addAttribute("list", list);
+		m.addAttribute("page", page);
+		return "admin/boardBambooDetailView";		
+	}
+	
+	@RequestMapping("/delBambooCo")
+	public String delBambooCo(int seq, int bamSeq) {
+		int result = bs.delBambooCo(seq);
+		
+		if(result > 0) {
+			return "redirect:detailViewBamboo?seq="+bamSeq;
+		}else {
+			return "redirect:admin/error";
+		}
+	}
+	
+	/* 
+	 * 업계현황
+	 */
+	
+	@RequestMapping("/industryList")
+	public String industryMainList(String page, Model m) {
+		int currentPage = 1;
+		if(page!= null) currentPage = Integer.parseInt(page);
+		
+		int end = currentPage * (Configuration.recordCountPerPage);
+		int start = end - (Configuration.recordCountPerPage-1);
+		
+		//List<ProjectDTO> result = bs.projectListperPage(start, end);
+		List<IndustryStatusDTO> result = bs.industryListByPage(start, end);
+		m.addAttribute("list", result);
+		
+		//List<String> pageNavi = bs.getProjectPageNavi(currentPage);
+		List<String> pageNavi = bs.getIndustryPageNavi(currentPage);
+		m.addAttribute("pageNavi", pageNavi);
+		
+		m.addAttribute("page", currentPage);
+		
+		return "/admin/boardProjectList";		
 	}
 }
 

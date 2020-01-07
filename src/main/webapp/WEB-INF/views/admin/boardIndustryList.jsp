@@ -27,6 +27,9 @@
 <!-- jquery latest version -->
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <style>
+	.contentCard{
+		max-width: 1000px;
+	}
 	.notification-area {
 		text-align:right;
 	}
@@ -54,10 +57,10 @@
                 <div class="row align-items-center">
                     <div class="col-sm-6">
                         <div class="breadcrumbs-area clearfix">
-                            <h4 class="page-title pull-left">모니터링</h4>
+                            <h4 class="page-title pull-left">업계현황</h4>
                             <ul class="breadcrumbs pull-left">
                                 <li><a href="${pageContext.request.contextPath }/admin/main">Home</a></li>
-                                <li><span>강퇴회원ID관리</span></li>
+                                <li><span>업계현황</span></li>
                             </ul>
                         </div>
                     </div>
@@ -75,61 +78,65 @@
             <!-- page title area end -->
             <div class="main-content-inner">
                 <!-- MAIN CONTENT GOES HERE -->
-                
-                <!-- Hoverable Rows Table start -->
-                    <div class="col-lg-6 mt-5">
+                 <!-- Hoverable Rows Table start -->
+                    <div class="col-lg-12 mt-5 contentCard">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="header-title">강퇴 ID 목록</h4>
+                                <h4 class="header-title">글 목록</h4>
                                 <div class="single-table">
                                     <div class="table-responsive">
-                                    	<c:choose>
-                                    		<c:when test="${list.size() == 0}">
-                                    			<div class="text-center">내용이 없습니다</div>                                    		
-                                    		</c:when>
-                                    		<c:otherwise>
-		                                        <table class="table table-hover text-center">
-		                                            <thead class="text-uppercase">
-		                                                <tr>
-		                                                    <th scope="col">ID</th>
-		                                                    <th scope="col">강퇴사유</th>
-		                                                    <th scope="col">강퇴날짜</th>
-		                                                    <th scope="col"></th>
-		                                                </tr>
-		                                            </thead>
-		                                            <tbody>
-			                                            	<c:forEach items="${list}" var="dto">
-			                                                <tr>
-			                                                    <th scope="row">${dto.id}</th>
-			                                                    <td>${dto.reason}</td>
-			                                                    <td>${dto.formedDate}</td>
-			                                                    <td><i class="ti-trash" id="forcedOutDel${dto.seq}"></i></td>
-			                                                </tr>
-			                                                <script>
-			                                                	$("#forcedOutDel${dto.seq}").on("click", function(){
-			                                                		var result = confirm("이 기록을 지울까요?");
-			                                                		if(result){
-			                                                			location.href="${pageContext.request.contextPath}/admin/forcedOutDel?seq=${dto.seq}";
-			                                                		}
-			                                                	})
-			                                                </script> 
-			                                                </c:forEach>                                              	                                                                                          
-		                                            </tbody>
-		                                        </table>                                    		
-                                    		</c:otherwise>
-                                    	</c:choose>                                    
+                                        <table class="table table-hover text-center">
+                                            <thead class="text-uppercase">
+                                                <tr>
+                                                    <th scope="col">번호</th>                                                
+                                                	<th scope="col">제목</th>
+                                                    <th scope="col">작성자</th>
+                                                    <th scope="col">작성일</th>
+                                                    <th scope="col">조회수</th>
+                                                    <th scope="col">삭제</th>                                                   
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            	<c:forEach items="${list}" var="dto">
+                                            		<tr>
+                                                    <td class="toDetail${dto.seq}">${dto.seq}</td>                                            		
+                                                    <td class="toDetail${dto.seq}">${dto.title}</td>
+                                                    <td class="toDetail${dto.seq}">${dto.writer}</td>
+                                                    <td class="toDetail${dto.seq}">${dto.formedDateForAdmin }</td>
+                                                    <td class="toDetail${dto.seq}">${dto.viewCount}</td>
+                                                    <td><i class="ti-trash" id="delProc${dto.seq }"></i></td>
+                                               		</tr>
+                                               		<script>
+                                               			$("#delProc${dto.seq}").on("click", function(){
+                                               				var result = confirm("이 게시물을 삭제할까요?");
+                                               				if(result){
+                                               					location.href = "${pageContext.request.contextPath}/adBoard/delIndustry?seq=${dto.seq}";
+                                               				}                                              				                                             				
+                                               			})
+                                               			$(".toDetail${dto.seq}").hover(function(){
+                                               				$(".toDetail${dto.seq}").css("cursor", "pointer");
+                                               			});
+                                               			$(".toDetail${dto.seq}").on("click",function(){
+                                               				location.href = "${pageContext.request.contextPath}/adBoard/detailViewIndustry?page=${page}&seq=${dto.seq}";
+                                               			})
+                                               		</script>
+                                            	</c:forEach>                                                                                               
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         
-                        <div class="card">
+                         <div class="card">
                             <div class="card-body">
                                 <nav aria-label="Page navigation example">
                                     <ul class="pagination justify-content-center">
 										<c:forEach items="${pageNavi}" var="navi">									
 											<li class="page-item pageNavi">${navi}</li>
 										</c:forEach>
+
+
                                     </ul>
                                 </nav>
                             </div>
@@ -137,7 +144,6 @@
                         
                     </div>
                     <!-- Hoverable Rows Table end -->
-                
             </div>
         </div>
         <!-- main content area end -->
@@ -172,7 +178,7 @@
     <!-- others plugins -->
     <script src="${pageContext.request.contextPath }/adRsc/js/plugins.js"></script>
     <script src="${pageContext.request.contextPath }/adRsc/js/scripts.js"></script>
-   	<script>
+    <script>
 	$(function(){
 		var element = $(".pageNavi");
 		var page = "${page}";
@@ -182,8 +188,9 @@
 			element[10].classList.add('active');
 		}else{
 			element[page % 10].classList.add('active');
-		}	
+		}
+		
 	});
-	</script>
+    </script>
 </body>
 </html>

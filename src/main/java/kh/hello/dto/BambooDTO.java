@@ -73,6 +73,12 @@ public class BambooDTO {
 		String result = sdf.format(this.writeDate);
 		return result;
 	}
+	
+	public String getFormedDateForAdmin() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+		String result = sdf.format(this.writeDate);
+		return result;
+	}
 	@Override
 	public String toString() {
 		return "BambooDTO [seq=" + seq + ", writer=" + writer + ", title=" + title + ", content=" + content
