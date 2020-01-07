@@ -1,11 +1,17 @@
 package kh.hello.services;
 
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Base64Utils;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -22,9 +28,7 @@ public class BambooService {
 	private BambooDAO dao;
 
 	//대나무숲 게시판 글
-	public List<BambooDTO> bambooList(){
-		return dao.selectAll();
-	}
+
 
 	@Transactional("txManager")
 	public BambooDTO bambooDetailView(int seq) {
@@ -32,13 +36,21 @@ public class BambooService {
 		return dao.getBambooDetailView(seq);
 	}
 
-	@Transactional("txManager")
-	public int bambooWriteConfirm(BambooDTO dto) {
-		dao.insertBamboo(dto);
-		return dao.latestSeq(dto.getWriter());
-	}
 
-	public int bambooModifyConfirm(BambooDTO dto) {
+	public int bambooModifyConfirm(BambooDTO dto, String path)throws Exception {
+		
+		//1. bamSeq 받아오기
+				//int bamSeq = dao.getBambooSeq();
+				//dto.setSeq(bamSeq);
+				//2. 이미지 저장하고 주소 변환
+				String content = imgUpload(path, dto.getSeq(), dto.getContent());
+				System.out.println(content);
+				dto.setContent(content);
+				//3. 글 수정
+				
+		
+		
+		
 		return dao.updateBamboo(dto);
 	}
 
@@ -125,13 +137,24 @@ public class BambooService {
 	@Transactional("txManager")
 	public String commentModifyConfirm(BambooCoDTO dto) {
 		dao.updateBambooCo(dto);
-		Gson gson = new Gson();
-		JsonArray array = new JsonArray();
-		List<BambooCoDTO> result = dao.getCoList(dto.getBamSeq());
-		for(BambooCoDTO b : result) {
-			array.add(gson.toJson(b));
-		}
-		return array.toString();
+//		Gson gson = new Gson();
+//		JsonArray array = new JsonArray();
+//		List<BambooCoDTO> result = dao.getCoList(dto.getBamSeq());
+//		for(BambooCoDTO b : result) {
+//			array.add(gson.toJson(b));
+//		}
+//		return array.toString();
+		System.out.println(dto.getBamSeq());
+		BambooCoDTO comment = dao.getComment(dto.getBamSeq());
+		System.out.println("서비스"+comment);
+		JsonObject jobj = new JsonObject();
+		jobj.addProperty("seq", comment.getSeq());
+		jobj.addProperty("bamSeq", comment.getBamSeq());
+		jobj.addProperty("writer", comment.getWriter());
+		jobj.addProperty("content", comment.getContent());
+		jobj.addProperty("writeDate", comment.getWriteDate().toString());
+
+		return jobj.toString();
 	}
 
 	public int commentDeleteConfirm(int seq) {
@@ -141,7 +164,7 @@ public class BambooService {
 	public int commentsDeleteConfirm(int bamSeq) {
 		return dao.deleteBambooAllCo(bamSeq);
 	}
-	
+
 	//조건별 게시판목록 검색
 	public List<BambooDTO> bambooSearchListByPage(int start, int end,String value, String search) {//대나무숲 10개씩
 		System.out.println(dao.bambooSearchListByPage(Integer.toString(start), Integer.toString(end),value,search).toString());
@@ -181,19 +204,67 @@ public class BambooService {
 		}
 
 		List<String> pages = new ArrayList<>();
-		if(needPrev) pages.add("<li class=\"page-item\"><a class=page-link href='bambooSearch.do?value="+value+"&cpage=" + (startNavi - 1) + "' >< </a></li>");
+		if(needPrev) pages.add("<li class=\"page-item\"><a class=page-link href='bambooSearch.do?search="+search+"&value="+value+"&cpage=" + (startNavi - 1) + "' >< </a></li>");
 
 		for(int i = startNavi; i <= endNavi; i++) {
 			StringBuilder sb = new StringBuilder();
-			sb.append("<li class=\"page-item\"><a class=page-link href='bambooSearch.do?value="+value+"&cpage="+ i +"'>");
+			sb.append("<li class=\"page-item\"><a class=page-link href='bambooSearch.do?search="+search+"&value="+value+"&cpage="+ i +"'>");
 			sb.append(i + " ");
 			sb.append("</a></li>");
 			pages.add(sb.toString());
 		}
 
-		if(needNext) pages.add("<li class=\"page-item\"><a class=page-link href='bambooSearch.do?value="+value+"&cpage=" + (endNavi + 1) + "'>> </a></li>");
+		if(needNext) pages.add("<li class=\"page-item\"><a class=page-link href='bambooSearch.do?search="+search+"&value="+value+"&cpage=" + (endNavi + 1) + "'>> </a></li>");
 
 		return pages;
 	}
-	
+
+	//이미지 업로드
+	private String imgUpload(String path, int bamSeq, String content) throws Exception{
+		File imgPath = new File(path + "/bamboo");
+		if(!imgPath.exists()) {
+			imgPath.mkdirs();
+		}
+
+		Pattern p = Pattern.compile("<img.+?src=\"(.+?)\".+?data-filename=\"(.+?)\".*?>");
+		Matcher m = p.matcher(content);
+
+		while(m.find()) {
+			String oriName = m.group(2);
+			String sysName = System.currentTimeMillis() + "_" + oriName;
+
+			int need = m.group(1).split(",").length;
+
+			if(need > 1) {
+				String imgString = m.group(1).split(",")[1];
+				byte[] imgByte = Base64Utils.decodeFromString(imgString);
+
+				FileOutputStream fos = new FileOutputStream(new File(imgPath + "/" + sysName));
+				DataOutputStream dos = new DataOutputStream(fos);
+
+				dos.write(imgByte);
+				dos.flush();
+				dos.close();
+
+				//DB에 이미지 목록 저장하기
+				int result = dao.insertImg(bamSeq, sysName);
+				if(result > 0) {
+					content = content.replaceFirst(Pattern.quote(m.group(1)), "/attached/bamboo/"+sysName);
+				}
+			}
+		}
+		return content;
+	}
+	@Transactional("txManager")
+	public int writeBamboo(String path, BambooDTO dto) throws Exception{
+		//1. bamSeq 받아오기
+		int bamSeq = dao.getBambooSeq();
+		dto.setSeq(bamSeq);
+		//2. 이미지 저장하고 주소 변환
+		String content = imgUpload(path, bamSeq, dto.getContent());
+		System.out.println(content);
+		dto.setContent(content);
+		//3. 글 업로드
+		return dao.insertBamboo(dto);
+	}
 }

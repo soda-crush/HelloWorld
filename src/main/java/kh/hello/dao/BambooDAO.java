@@ -17,16 +17,12 @@ public class BambooDAO {
 	private SqlSessionTemplate jdbc;
 	
 	//대나무숲 글
-	public List<BambooDTO> selectAll() {//대나무숲 게시판 목록
-		return jdbc.selectList("Bamboo.selectAll");
-	}
+	
 	
 	public BambooDTO getBambooDetailView(int seq) {//대나무숲 상세보기
 		return jdbc.selectOne("Bamboo.getBambooDetailView", seq);
 	}
-	public int latestSeq(String writer) {//작성자 가장 최근글(작성/수정 직후 디테일뷰)
-		return jdbc.selectOne("Bamboo.latestSeq", writer);
-	}
+	
 	public int insertBamboo(BambooDTO dto) {//대나무숲 글작성
 		return jdbc.insert("Bamboo.insertBamboo", dto);
 	}	
@@ -63,6 +59,7 @@ public class BambooDAO {
 		return jdbc.selectOne("BambooCo.getComment", bamSeq);
 	}
 	public int updateBambooCo(BambooCoDTO dto) {//대나무숲 댓글수정
+		System.out.println(dto.toString());
 		return jdbc.update("BambooCo.updateBambooCo", dto);
 	}	
 	public int deleteBambooCo(int seq) {//대나무숲 댓글 삭제(개별)
@@ -86,5 +83,16 @@ public class BambooDAO {
 		param.put("value", value);
 		param.put("search", search);
 		return jdbc.selectList("Bamboo.bambooSearchByPage",param);
+	}
+	
+	//이미지업로드
+	public int getBambooSeq() {
+		return jdbc.selectOne("Bamboo.getBambooSeq");
+	}
+	public int insertImg(int bamSeq, String fileName) {
+		Map<String, Object> param = new HashMap<>();
+		param.put("bamSeq", bamSeq);
+		param.put("fileName", fileName);
+		return jdbc.insert("Bamboo.insertImg", param);
 	}
 }

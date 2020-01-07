@@ -231,7 +231,6 @@ public class AdminService {
 	}
 	
 	public List<MemberDTO> getSearchMemberListByPage(String col, String searchWord, int start, int end){
-		//검색해서 열개씩 잘라서 가져와야하는데..
 		return adao.getSearchMemberListByPage(col, searchWord, start, end);
 	}
 	
@@ -272,6 +271,96 @@ public class AdminService {
 			pages.add(sb.toString());
 		}
 		if(needNext) pages.add("<a class=page-link href='searchMember?col="+col+"&searchWord="+searchWord+"&page=" + (endNavi + 1) + "'>> </a>");
+		
+		return pages;
+	}
+	
+	public List<MemberDTO> getBlackList(int start, int end){
+		return adao.getBlackList(start, end);
+	}
+	
+	public List<String> getBlackListPageNavi(int currentPage){
+		int blackListTotalCount = adao.getBlackListTotal();
+		int pageTotalCount = 0;
+		
+		if(blackListTotalCount % Configuration.recordCountPerPage > 0) {
+			pageTotalCount = blackListTotalCount / Configuration.recordCountPerPage + 1;
+		}else {
+			pageTotalCount = blackListTotalCount / Configuration.recordCountPerPage;
+		}
+		
+		int startNavi = (currentPage - 1) / Configuration.naviCountPerPage * Configuration.naviCountPerPage + 1;
+		int endNavi = startNavi + (Configuration.naviCountPerPage - 1);
+		
+		if(endNavi > pageTotalCount) {
+			endNavi = pageTotalCount;
+		}
+		boolean needPrev = true;
+		if(startNavi == 1) {
+			needPrev = false;
+		}
+		boolean needNext = true;
+		if(endNavi == pageTotalCount) {
+			needNext = false;
+		}
+		
+		List<String> pages = new ArrayList<>();
+
+		if(needPrev) pages.add("<a class=page-link href='blackList?page=" + (startNavi - 1) + "'>< </a>");
+		for(int i = startNavi; i <= endNavi; i++) {
+			StringBuilder sb = new StringBuilder();
+			sb.append("<a class=page-link href='blackList?page="+ i +"'>");
+			sb.append(i + " ");
+			sb.append("</a>");
+			
+			pages.add(sb.toString());
+		}
+		if(needNext) pages.add("<a class=page-link href='blackList?page=" + (endNavi + 1) + "'>> </a>");
+		
+		return pages;		
+	}
+	
+	public List<MemberDTO> searchBlackListByPage(String col, String searchWord, int start, int end){
+		return adao.getSearchBlackListByPage(col, searchWord, start, end);
+	}
+	
+	public List<String> getSearchBlackListPageNavi(int currentPage, String col, String searchWord){
+		int searchBlackTotalCount = adao.getSearchBlackResultTotal(col, searchWord);
+		int pageTotalCount = 0;
+		
+		if(searchBlackTotalCount % Configuration.recordCountPerPage > 0) {
+			pageTotalCount = searchBlackTotalCount / Configuration.recordCountPerPage + 1;
+		}else {
+			pageTotalCount = searchBlackTotalCount / Configuration.recordCountPerPage;
+		}
+		
+		int startNavi = (currentPage - 1) / Configuration.naviCountPerPage * Configuration.naviCountPerPage + 1;
+		int endNavi = startNavi + (Configuration.naviCountPerPage - 1);
+		
+		if(endNavi > pageTotalCount) {
+			endNavi = pageTotalCount;
+		}
+		boolean needPrev = true;
+		if(startNavi == 1) {
+			needPrev = false;
+		}
+		boolean needNext = true;
+		if(endNavi == pageTotalCount) {
+			needNext = false;
+		}
+		
+		List<String> pages = new ArrayList<>();
+
+		if(needPrev) pages.add("<a class=page-link href='searchBlack?col="+col+"&searchWord="+searchWord+"&page=" + (startNavi - 1) + "'>< </a>");
+		for(int i = startNavi; i <= endNavi; i++) {
+			StringBuilder sb = new StringBuilder();
+			sb.append("<a class=page-link href='searchBlack?col="+col+"&searchWord="+searchWord+"&page="+ i +"'>");
+			sb.append(i + " ");
+			sb.append("</a>");
+			
+			pages.add(sb.toString());
+		}
+		if(needNext) pages.add("<a class=page-link href='searchBlack?col="+col+"&searchWord="+searchWord+"&page=" + (endNavi + 1) + "'>> </a>");
 		
 		return pages;
 	}
