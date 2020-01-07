@@ -24,6 +24,10 @@ button{
 #kakaoLogin{
 	background-color: #f1c40f;
 }
+.aT{
+	font-size: 14px;
+	color: gray;
+}
 </style>
 </head>
 <body>
@@ -41,27 +45,38 @@ button{
             <form action="${pageContext.request.contextPath}/member/loginProc" method="post">
             <div class=container>
             	<div class="row">
-            	<div class="col-1"></div>
-            		<div class="col-5">
-            		<h4>로그인</h4>
-            		<div class="row">
-            			<div class="col-8">
-            				<input type="text" name="id" id="id" class="input1" placeholder="아이디 입력"><br>
-            				<input type="text" name="pw" id="pw" class="input1" placeholder="비밀번호 입력"><br>
-            				아이디를 기억합니다. <input type="checkbox" id="remID">
-            			</div>
-            			<div class="col-2">
-            			<button id=login>로그인</button>
-            			</div>
-            			<div class="col-2">
-            			<button id=kakaoLogin><span></span>로그인</button>
-            			</div>
+            	<div class="col-md-1 d-none d-md-block order-md-1"></div>
+            		<div class="col-12 col-md-5 order-1 order-md-2">
+	            		<img src="/icon/blackArrow.svg"><h4 style="display:inline">로그인</h4>
+	            		<div class="row">
+	            			<div class="col-8">
+	            				<br>
+	            				<input type="text" name="id" id="id" class="input1" placeholder="아이디 입력"><br>
+	            				<input type="text" name="pw" id="pw" class="input1" placeholder="비밀번호 입력"><br>
+	            				아이디를 기억합니다. <input type="checkbox" id="remID">
+	            			</div>
+	            			<div class="col-2">
+	            			<br>
+	            			<button id=login>로그인</button>
+	            			</div>
+	            			<div class="col-2">
+	            			<br>
+	            			<button id=kakaoLogin><span></span>로그인</button>
+	            			</div>
+	            		</div>
             		</div>
+            		<div class="col-md-1 d-none d-md-block order-md-3"></div>
+            		<div class="col-12 col-md-4 order-2 order-md-4">
+            			&emsp;<img src="/icon/whiteArrow.svg"><h4 style="display:inline">처음이신가요?</h4>
+            			<br>
+            			&emsp;&emsp;<a class=aT href="${pageContext.request.contextPath}/member/signUp">회원가입</a>
+            			<h1><br></h1>
+            			&emsp;<img src="/icon/whiteArrow.svg"><h4 style="display:inline">기억이 나지 않으신가요?</h4>
+            			<br>
+            			&emsp;&emsp;<a class=aT href="${pageContext.request.contextPath}/member/findId">아이디</a>ㆍ
+            			&emsp;&emsp;<a class=aT href="${pageContext.request.contextPath}/member/findPw">비밀번호 찾기</a>
             		</div>
-            		<div class="col-5">
-            		
-            		</div>
-            	<div class="col-1"></div>
+            	<div class="col-md-1 d-none d-md-block order-md-5"></div>
             	</div>
             </div>
             </form>

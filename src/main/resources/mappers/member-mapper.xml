@@ -34,4 +34,24 @@
 		, #{addr1}, #{addr2}, #{joinPath}, #{gender}, #{memLevel}, #{reportCount}, #{point}, #{ifmOpenCheck}, sysdate, null, #{profileImg}, #{birth})
 	</insert>
 	
+	<update id="updateLastLogin">
+		update member set lastLogin = sysdate where id=#{id}
+	</update>
+	
+	<select id="selectEmailnName" resultType="integer" parameterType="java.util.Map">
+		select count(*) from member where name=#{name} and email =#{email}
+	</select>
+	
+	<select id="selectEmail" resultType="integer" parameterType="string">
+		select count(*) from member where email =#{email}	
+	</select>
+	
+	<select id="selectIdByEmail" resultType="string" parameterType="string">
+		select id from member where email =#{email}	
+	</select>
+	
+	<update id="modifyPw" parameterType="java.util.Map">
+		update member set pw=#{pw} where id=#{id}
+	</update>
+	
 </mapper>
