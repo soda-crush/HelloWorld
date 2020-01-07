@@ -149,7 +149,9 @@ span:nth-child(4) {
 <%-- 						<c:forEach items="${rResult}" var="r"> --%>
 <%-- 							<c:set var="count" value="${qResult.replyCount==0}" /> --%>
 <%-- 							<c:if test="${sessionScope.loginInfo == count  == ${qResult.seq}"> --%>
-								<a class="btn btn-dark" href="/code/codeRWrite.do?seq=${qResult.seq}" role="button">답변</a>
+								<c:if test="${count==0}">
+									<a class="btn btn-dark" href="/code/codeRWrite.do?seq=${qResult.seq}" role="button">답변</a>
+								</c:if>
 <%-- 							</c:if> --%>
 <%-- 						</c:forEach> --%>
 							<button class="btn btn-dark">공유</button>
@@ -165,14 +167,16 @@ span:nth-child(4) {
 						</div>
 					</c:otherwise>
 				</c:choose>
-				<hr>
+<!-- 				<hr> -->
+<!-- 				<hr> -->
 			<!-- <div style="text-align: center; margin-right: 200px;">A2개</div> -->
-				<hr>
+	
 			<!-- 답글 시작-->
 		
 				<div class="topQ">
 					<c:forEach items="${rResult}" var="r">
-					
+					<hr>
+					<hr>
 						<input type="hidden" id="seqSelect" data-cartNum="${r.seq}"> 
 						
 						<div style="font-size: 40px; font-weight: 100;">${r.writer}님의 답변입니다.</div>
@@ -184,8 +188,15 @@ span:nth-child(4) {
 									${c.content}<br>
 								</c:forEach>
 							</c:if>
-						<div>${r.writeDate}</div>
-						<div><button class="btn btn-dark" id="commentBtn">댓글</button></div>		
+						<div>${r.formedDate}</div>
+						<c:if test="${r.writer == sessionScope.loginInfo}">
+							<div style="text-align:right;">
+								<button class="btn btn-dark" id="modifyR">수정</button>
+								<button class="btn btn-danger" id="deleteR">삭제</button>
+							</div>
+						</c:if>	
+						<br>
+						<div style="text-align:right;"><button class="btn btn-dark" id="commentBtn">댓글</button></div>	
 					</c:forEach>
 				</div>
 <!-- 댓글리스트 -->
@@ -209,7 +220,7 @@ span:nth-child(4) {
 						            <c:if test="${cResult.writer == sessionScope.loginInfo}">
 <%-- 													<a class="btn btn-primary" href="/code/codeDetail.do?seq=${co.seq }" role="button">수정하기</a> --%>
 														<a class="btn btn-primary" href="#" role="button">수정하기</a> 
-													<a class="btn btn-primary" href="#" role="button">삭제하기</a>
+													<a class="btn btn-danger" href="#" role="button">삭제하기</a>
 									</c:if>
 										</div>
 									</div>
