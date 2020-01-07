@@ -122,7 +122,7 @@ public class CodeService {
 	}
 	
 	public void deleteR(int seq) throws Exception{
-		dao.delete(seq);
+		dao.deleteR(seq);
 	}
 	
 	public List<CodeReplyDTO> detailReply(int queSeq) throws Exception{
@@ -177,6 +177,13 @@ public class CodeService {
 		return pages;
 	}
 	
+	public CodeReplyDTO selectOneDetail(int seq) throws Exception{
+		return dao.selectOneDetail(seq);
+	}
+	
+	public void modifyR(CodeReplyDTO dto) throws Exception{
+		dao.modifyR(dto);
+	}
 	
 	// 댓글 CodeComments
 	@Transactional("txManager")

@@ -17,13 +17,22 @@
 	</select>
 	
 	<delete id="deleteR" parameterType="Integer">
-		delete from codeReply where seq=#{seq}
+		delete from codeReply where seq = #{seq}
 	</delete>
+	
+<!-- 	답글 수정 -->
+	<select id="selectOneDetail" resultType="kh.hello.dto.CodeReplyDTO" parameterType="Integer">
+		select * from codeReply where seq = #{seq}
+	</select>
 	
 <!-- 	답글 하나만 쓰게 -->
 	<select id="replyOneCount" parameterType="java.util.Map" resultType="integer">
 		select count(*) from codeReply where queSeq = #{queSeq} and writer = #{writer}
 	</select>
+	
+	<update id="modifyR" parameterType="kh.hello.dto.CodeReplyDTO">
+		update CodeReply set content=#{content} where seq=#{seq}
+	</update>
 
 <!-- 	<select id="selectParentSeq" resultType="Integer" parameterType="Integer"> -->
 <!-- 		select seq from codeQuestion where seq = #{seq}  -->
