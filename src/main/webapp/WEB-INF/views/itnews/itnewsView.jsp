@@ -76,6 +76,7 @@
             		</div>
             	</div>
             	
+            	
             	<c:choose>
             		<c:when test="${list.size()==0}">
             			<div class="row">
