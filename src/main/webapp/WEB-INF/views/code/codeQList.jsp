@@ -112,13 +112,21 @@ badge-success
 				<table class="table table-hover">
 					<thead class="thead-light">
 						<tr>
-							<th scope="col-1">글번호</th>
-							<th scope="col-1">구분</th>
-							<th scope="col-4">게시판제목</th>
-							<th scope="col-1">작성자</th>
-							<th scope="col-1">포인트</th>
-							<th scope="col-3">날짜</th>
-							<th scope="col-1">조회수</th>
+<!-- 							<th scope="col-1">글번호</th> -->
+<!-- 							<th scope="col-1">구분</th> -->
+<!-- 							<th scope="col-4">게시판제목</th> -->
+<!-- 							<th scope="col-1">작성자</th> -->
+<!-- 							<th scope="col-1">포인트</th> -->
+<!-- 							<th scope="col-3">날짜</th> -->
+<!-- 							<th scope="col-1">조회수</th> -->
+							
+							<th scope="col">글번호</th>
+							<th scope="col">구분</th>
+							<th scope="col">게시판제목</th>
+							<th scope="col">작성자</th>
+							<th scope="col">포인트</th>
+							<th scope="col">날짜</th>
+							<th scope="col">조회수</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -159,7 +167,7 @@ badge-success
 							aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
 						</a></li>
 						<c:forEach items="${pageNavi}" var="navi">									
-							<li id="page-navi" class="page-item pageNavi" align="center">${navi}</li>
+							<li id="page-navi" class="page-item pageNavi">${navi}</li>
 						</c:forEach>
 						<li class="page-item"><a class="page-link" href="#"
 							aria-label="Next"> <span aria-hidden="true">&raquo;</span>

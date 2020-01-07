@@ -2,7 +2,6 @@ package kh.hello.project;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +14,6 @@ import kh.hello.configuration.Configuration;
 import kh.hello.dto.CodeCommentsDTO;
 import kh.hello.dto.CodeQuestionDTO;
 import kh.hello.dto.CodeReplyDTO;
-import kh.hello.dto.ProjectCoDTO;
-import kh.hello.dto.ProjectDTO;
 import kh.hello.services.CodeService;
 
 @Controller
@@ -70,15 +67,18 @@ public class CodeController {
 	}
 	
 	@RequestMapping("/codeDetail.do")
-	public String codeDetail(int seq, Model m) {
+	public String codeDetail(int seq, Model m,CodeReplyDTO dto) {
+		dto.setWriter((String)session.getAttribute("loginInfo"));
 		try {
 			CodeQuestionDTO qResult = sv.detailQuestion(seq); //queSeq
 			List<CodeReplyDTO> rResult = sv.detailReply(seq); //queSeq
-			List<CodeCommentsDTO> cResult = sv.commentList(seq); //reqSeq 받아야함 
+			List<CodeCommentsDTO> cResult = sv.commentList(dto.getSeq()); //reqSeq  
+			int count = sv.replyOneCount(seq, dto.getWriter()); //queSeq
 			
 			m.addAttribute("qResult", qResult);
 			m.addAttribute("rResult", rResult);
 			m.addAttribute("cResult", cResult);
+			m.addAttribute("count", count);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -182,7 +182,7 @@ public class CodeController {
 		return "redirect:codeDetail.do";
 	}
 	
-	//댓글 CodeReply
+	//댓글 CodeComments
 	
 	@ResponseBody
 	@RequestMapping(value="/codeCWriteProc.do",produces="text/html;charset=utf8")
