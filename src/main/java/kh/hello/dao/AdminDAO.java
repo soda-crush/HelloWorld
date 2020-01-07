@@ -150,6 +150,33 @@ public class AdminDAO {
 		param.put("searchWord", "%"+searchWord+"%");
 		return jdbc.selectOne("Admin.getSearchMemberResultTotal", param);
 	}
+	
+	public List<MemberDTO> getBlackList(int start, int end){
+		Map<String, Object> param = new HashMap<>();
+		param.put("start", start);
+		param.put("end", end);
+		return jdbc.selectList("Admin.getBlackList", param);
+	}
+	
+	public int getBlackListTotal() {
+		return jdbc.selectOne("Admin.getBlackListTotal");
+	}
+	
+	public List<MemberDTO> getSearchBlackListByPage(String col, String searchWord, int start, int end){
+		Map<String, Object> param = new HashMap<>();
+		param.put("start", start);
+		param.put("end", end);
+		param.put("col", col);
+		param.put("searchWord", "%"+searchWord+"%");
+		return jdbc.selectList("Admin.getSearchBlackListByPage", param);
+	}
+	
+	public int getSearchBlackResultTotal(String col, String searchWord) {
+		Map<String, String> param = new HashMap<>();
+		param.put("col", col);
+		param.put("searchWord", "%"+searchWord+"%");
+		return jdbc.selectOne("Admin.getSearchBlackResultTotal", param);
+	}
 }
 
 

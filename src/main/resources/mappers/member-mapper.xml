@@ -54,4 +54,12 @@
 		update member set pw=#{pw} where id=#{id}
 	</update>
 	
+		<update id="getPoint" parameterType="java.util.Map">
+		update member set point= point + #{point} where id = #{id}
+	</update>
+	
+	<update id="minusPoint" parameterType="java.util.Map">
+		update member set point= point - #{point} where id = #{id}
+	</update>
+	
 </mapper>

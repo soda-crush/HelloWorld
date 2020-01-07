@@ -7,9 +7,7 @@
 <meta charset="UTF-8">
 <title>Hello World!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
@@ -46,40 +44,22 @@
             
             <div class="container">
 				<h1> Programming-Log</h1>
-	            <ul class="nav nav-tabs d-none d-sm-block">
-	                <li class="nav-item">
-	                    <a class="nav-link" href="${pageContext.request.contextPath}/Portfolio/toPlogmain.do">내 포트폴리오</a>
-	                </li>
-	                <li class="nav-item">
-	                    <a class="nav-link" href="${pageContext.request.contextPath}/Plog/toPlogCohow.do">내 지식인</a>
-	                </li>
-	                <li class="nav-item">
-	                    <a class="nav-link active" href="${pageContext.request.contextPath}/Plog/toPlogScrap.do">내 스크랩</a>
-	                </li>
-	                <li class="nav-item">
-	                    <a class="nav-link" href="${pageContext.request.contextPath}/Plog/toPlogProject.do">내 팀 프로젝트</a>
-	                </li>
-	                <li class="nav-item">
-	                    <a class="nav-link" href="${pageContext.request.contextPath}/GuestBook/selectList.do">방명록</a>
-	                </li>
-	            </ul>
-	            <ul class="nav nav-tabs d-sm-none">
-	                <li class="nav-item">
-	                    <a class="nav-link" href="${pageContext.request.contextPath}/Portfolio/toPlogmain.do" style="padding:7px;">내 포트폴리오</a>
-	                </li>
-	                <li class="nav-item">
-	                    <a class="nav-link" href="${pageContext.request.contextPath}/Plog/toPlogCohow.do" style="padding:7px;">내 지식인</a>
-	                </li>
-	                <li class="nav-item">
-	                    <a class="nav-link active" href="${pageContext.request.contextPath}/Plog/toPlogScrap.do" style="padding:7px;">내 스크랩</a>
-	                </li>
-	                <li class="nav-item">
-	                    <a class="nav-link"href="${pageContext.request.contextPath}/Plog/toPlogProject.do" style="padding:7px;">내 팀 프로젝트</a>
-	                </li>
-	                <li class="nav-item">
-	                    <a class="nav-link" href="${pageContext.request.contextPath}/GuestBook/selectList.do" style="padding:7px;">방명록</a>
-	                </li>
-	            </ul>
+	            <nav class="navbar navbar-expand-md navbar-light" style="background-color: #008EDC;">
+		         	<a class="navbar-brand" href="#"></a>
+		  			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+		   				 <span class="navbar-toggler-icon"></span>
+		  			</button>
+		            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+		
+		                <div class="navbar-nav box text-center plogNavi" id="naviCon">
+		                    <a class="nav-item nav-link active text-light text-primary" href="${pageContext.request.contextPath}/Portfolio/toPlogmain.do">내 포트폴리오</a>
+		                    <a class="nav-item nav-link active text-light text-primary" href="${pageContext.request.contextPath}/Plog/toPlogCohow.do">내 지식인</a>
+		                    <a class="nav-item nav-link active text-light text-primary" href="${pageContext.request.contextPath}/Plog/toPlogScrap.do">내 스크랩</a>
+		                    <a class="nav-item nav-link active text-light text-primary" href="${pageContext.request.contextPath}/Plog/toPlogProject.do">내 프로젝트</a>
+		                    <a class="nav-item nav-link active text-light text-primary" href="${pageContext.request.contextPath}/GuestBook/selectList.do">방명록</a>
+		                </div>
+		            </div>
+		        </nav>
 	            <div class="row">
 	                <div class="col-12 col-md-4 col-lg-3 myprofile">
 	                    <div class="card" id="mycard">

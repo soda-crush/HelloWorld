@@ -126,11 +126,7 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/deleteInquiryReply")
-	public String deleteInquiryReply(int seq, int boardSeq, int page) {
-		
-		System.out.println("seq : " + seq);
-		System.out.println("boardSeq : " + boardSeq);
-		System.out.println("page : " + page);
+	public String deleteInquiryReply(int seq, int boardSeq, int page) {		
 		//댓글 삭제하고
 		as.deleteInquiryReply(seq, boardSeq);
 		//boardSeq가지고 디테일뷰로 이동하기
@@ -251,6 +247,69 @@ public class AdminController {
 		m.addAttribute("page", currentPage);
 				
 		return "admin/searchMemberList";
+	}
+	
+	@RequestMapping("/blackList")
+	public String blackList(String page, Model m) {//활동 점수가 0점 이하
+		//검색 후 목록 받아오기
+		int currentPage = 1;
+		if(page != null && page != "" && page !="null") currentPage = Integer.parseInt(page);
+		
+		int end = currentPage * Configuration.recordCountPerPage;
+		int start = end - (Configuration.recordCountPerPage - 1);
+		
+		List<MemberDTO> list = as.getBlackList(start, end);
+		m.addAttribute("list", list);
+		
+		//페이지네비 받아오기
+		List<String> pageNavi = as.getBlackListPageNavi(currentPage);
+		m.addAttribute("pageNavi", pageNavi);
+		
+		m.addAttribute("page", currentPage);
+				
+		return "admin/blackList";		
+	}
+	
+	@RequestMapping("/stopForBlack")
+	public String stopForBlack(String id, Model m) {
+		int result = as.memberStop(id);
+		m.addAttribute("result", result);
+		return "admin/blackStopResult";		
+	}
+	
+	@RequestMapping("/startForBlack")
+	public String startForBlack(String id, Model m) {
+		int result = as.memberStart(id);
+		m.addAttribute("result", result);
+		return "admin/blackStartResult";
+	}
+	
+	@RequestMapping("/blackOut")
+	public String outBlack(String id, String reason, Model m) {
+		int result = as.memberOut(id, reason);
+		m.addAttribute("result", result);
+		return "admin/blackOutResult";
+	}
+	
+	@RequestMapping("/searchBlack")
+	public String searchBlack(String col, String searchWord, String page, Model m) {
+		//검색 후 목록 받아오기
+		int currentPage = 1;
+		if(page != null) currentPage = Integer.parseInt(page);
+		
+		int end = currentPage * Configuration.recordCountPerPage;
+		int start = end - (Configuration.recordCountPerPage - 1);
+		
+		List<MemberDTO> list = as.searchBlackListByPage(col, searchWord, start, end);
+		m.addAttribute("list", list);
+		
+		//페이지네비 받아오기
+		List<String> pageNavi = as.getSearchBlackListPageNavi(currentPage, col, searchWord);
+		m.addAttribute("pageNavi", pageNavi);
+		
+		m.addAttribute("page", currentPage);
+				
+		return "admin/searchBlackList";
 	}
 }
 

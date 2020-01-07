@@ -97,21 +97,19 @@ text-align:right;
                                         </div>
                                     </div>
                                     <div class="row align-items-center">
-                                        <div class="col-md-6">
+                                        <div class="col-12">
                                             <div class="invoice-address">
                                                 <h3>${dto.title }</h3>
                                                 <h5>${dto.writer }</h5>
+                                                <p>${dto.formedDate }</p>
+                                                <hr>
                                                 <p>${dto.content }</p>
                                             </div>
                                         </div>
-                                        <div class="col-md-6 text-md-right">
-                                            <ul class="invoice-date">
-                                                <li>${dto.formedDate }</li>
-                                            </ul>
-                                        </div>
                                     </div>                                   
                                 </div> 
-                                <button type="button" class="btn btn-primary mt-4 pr-4 pl-4" id="back">목록으로</button>                              
+                                <hr>
+                                <button type="button" class="btn btn-primary pr-4 pl-4" id="back">목록으로</button>                              
                             </div>
                         </div>                       
                     </div>
@@ -138,10 +136,10 @@ text-align:right;
                                 	</c:forEach>
                                 
                                 
-                                    <div class="card-body">
+                                    <div class="card-body" id="writeBox">
                                         <h4 class="header-title">댓글쓰기</h4>                                        
                                             <input class="form-control form-control-lg mb-4" type="text" placeholder="댓글을 입력하세요" id="replyForm">
-                                            <button type="button" class="btn btn-primary mt-4 pr-4 pl-4" id="writeReply">댓글쓰기</button>
+                                            <button type="button" class="btn btn-primary pr-4 pl-4" id="writeReply">댓글쓰기</button>
                                     </div>
                                 </div>
                             </div>
@@ -204,7 +202,7 @@ text-align:right;
     				},
     				dataType: "json"   				
     			}).done(function(rs){
-    				var target = $("#replyAppend");
+    				var target = $("#writeBox");
     				
     				var dateA = $("<a class='nav-link active' id='home-tab' data-toggle='tab' href='#' role='tab' aria-controls='home' aria-selected='true'></a>");
     				dateA.append(rs.writeDate);
@@ -226,7 +224,8 @@ text-align:right;
     				finalDiv.append(dateUl);
     				finalDiv.append(replyContent);
     				
-    				target.prepend(finalDiv);
+    				target.before(finalDiv);
+    				document.getElementById("writeBox").scrollIntoView();
     			});
     		}
     	})

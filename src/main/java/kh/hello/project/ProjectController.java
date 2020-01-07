@@ -86,7 +86,12 @@ public class ProjectController {
 	public String projectWriteConfirm(ProjectDTO dto) {
 		dto.setWriter((String)session.getAttribute("loginInfo"));
 		String path = session.getServletContext().getRealPath("attached/project");
-		int seq = svc.projectWriteConfirm(dto, path);
+		int seq = 0;
+		try {
+			seq = svc.projectWriteConfirm(dto, path);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return "redirect:/project/detailView?seq="+seq;
 	}
 	
