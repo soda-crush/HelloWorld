@@ -17,48 +17,16 @@
 <link rel="stylesheet" href="/css/mainBase.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <style>
-        h1{
-            text-align: center;
-        }
-        .interval{
-            margin-top: 10px;
-            margin-bottom: 10px;
-            background-color:lightgray;
-            border-radius: 8px;
-            height:10px;
-        }
-        textarea{
-            border :0px;
-            width:100%;
-            height: 100px;
-            resize: none;
-        }
-        input{
-            width:100%;
-        }
-        #datepicker,#datepicker2{
-            width:20%
-        }
-        .theme{
-            line-height: 100px;
-        }
-        h4{
-            text-align: center;
-            background-color:lightgray;
-            padding-top: 10px;
-            padding-bottom: 10px;
-        }
-        #funcname, #funcexpl{
-            text-align: center;
-            font-size:10px;
-            line-height:20px;
-        }
-        #funcexpl{
-            line-height: 150px;
-        }
-        #funcname1,#funcname2,#funcname3{
-            margin-bottom: 8px;
-        }
+        h1{text-align: center;}
+        .interval{margin-top: 10px;margin-bottom: 10px;background-color:lightgray;border-radius: 8px;height:10px;}
+        textarea{border :0px;width:100%;height: 100px;resize: none;}
+        input{width:100%;}
+        #datepicker,#datepicker2{width:20%}
+        .theme{line-height: 100px;}
+        h4{text-align: center;background-color:lightgray;padding-top: 10px;padding-bottom: 10px;}
+        #funcname, #funcexpl{text-align: center;font-size:10px;line-height:20px;}
+        #funcexpl{line-height: 150px;}
+        #funcname1,#funcname2,#funcname3{margin-bottom: 8px;}
     </style>
 </head>
 <body>

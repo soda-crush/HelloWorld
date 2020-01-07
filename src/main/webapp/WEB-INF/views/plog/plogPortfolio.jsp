@@ -7,8 +7,8 @@
 <meta charset="UTF-8">
 <title>Hello World!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
@@ -18,40 +18,15 @@
 <link rel="stylesheet" type="text/css" href="/css/font-awesome/css/font-awesome.css">
 
 	<style>
-            h1{
-                text-align: center;
-                padding-top: 50px;
-                padding-bottom: 50px;
-            }
-            ul{
-                background-color: lightgray;
-                font-size: 13px;
-            }
-            .card{
-                margin-top:20px;
-                width:200px;
-                text-align:center;
-            }
-            .myprofile{
-                float: left;
-                margin-top: 20px;
-                margin-bottom: 30px;
-            }
-            #mycard{
-                height: 300px;
-                float:none;
-                display:flex;
-                margin: auto;
-                align-items:center;
-            }
-            .cardwrap{
-                float:left;
-            }
-            .card-img-top{
-                width: 80%;
-                margin:10%;
-            }
-        </style>
+		h1{text-align: center;padding-top: 50px;padding-bottom: 50px;}
+        ul{background-color: lightgray;font-size: 13px;}
+        .card{margin-top:20px;width:200px;text-align:center;}
+        .myprofile{float: left; margin-top: 20px;margin-bottom: 30px; }
+        #mycard{ height: 300px; float:none; display:flex; margin: auto;align-items:center;}
+        .cardwrap{float:left;}
+        .card-img-top{width: 80%;margin:10%;}
+        a:hover{text-decoration:none;}
+  	</style>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/standard/header.jsp"/>
@@ -83,7 +58,7 @@
 	                    <a class="nav-link" href="${pageContext.request.contextPath}/Plog/toPlogProject.do">내 팀 프로젝트</a>
 	                </li>
 	                <li class="nav-item">
-	                    <a class="nav-link" href="${pageContext.request.contextPath}/Plog/toGuestBook.do">방명록</a>
+	                    <a class="nav-link" href="${pageContext.request.contextPath}/GuestBook/selectList.do">방명록</a>
 	                </li>
 	            </ul>
 	            <ul class="nav nav-tabs d-sm-none">
@@ -100,13 +75,13 @@
 	                    <a class="nav-link"href="${pageContext.request.contextPath}/Plog/toPlogProject.do" style="padding:7px;">내 팀 프로젝트</a>
 	                </li>
 	                <li class="nav-item">
-	                    <a class="nav-link" href="${pageContext.request.contextPath}/Plog/toGuestBook.do" style="padding:7px;">방명록</a>
+	                    <a class="nav-link" href="${pageContext.request.contextPath}/GuestBook/selectList.do" style="padding:7px;">방명록</a>
 	                </li>
 	            </ul>
 	            <div class="row">
 	                <div class="col-12 col-md-4 col-lg-3 myprofile">
 	                    <div class="card" id="mycard">
-	                        <img src="lion.png" class="card-img-top" alt="..." style="width: 170px;height: 170px;margin:15px;">
+	                        <img src="/img/profileSample.jpg" class="card-img-top" alt="..." style="width: 170px;height: 170px;margin:15px;">
 	                        <div class="card-body">
 	                            <h3 class="card-title" style="text-align: center;">라이언 님</h3>
 	                            <p class="card-text" style="text-align: center;">point : 12,345</p>

@@ -29,9 +29,9 @@ public class AdminController {
 	@Autowired
 	private HttpSession session;
 	
-	@RequestMapping("/error")
+	@RequestMapping("/adminError")
 	public String errorPage() {
-		return "error";
+		return "adminError";
 	}
 	
 	@RequestMapping("/login")

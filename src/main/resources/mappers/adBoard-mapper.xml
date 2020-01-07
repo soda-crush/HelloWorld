@@ -3,6 +3,8 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="AdBoard">
+
+	<!--프로젝트-->
 	<select id="projectListByPage" resultType="kh.hello.dto.ProjectDTO">
 		select * from (select project.*,(select count(*) from projectComment where projectSeq=project.seq) as commentCount, row_number() over (order by seq desc) as num from project) where num between #{start} and #{end}
 	</select>
@@ -10,7 +12,7 @@
 		select count(*) from project
 	</select>	
 	<delete id="delProjectAllCo">
-		delete from projectComment where projectSeq=#{seq}
+		delete from projectComment where projectSeq=#{projectSeq}
 	</delete>
 	<delete id="delProject">
 		delete from project where seq=#{seq}
@@ -23,5 +25,51 @@
 	</select>
 	<delete id="delProjectCo">
 		delete from projectComment where seq=#{seq}
+	</delete>
+	
+	<!--대나무숲 -->	
+	<select id="bambooListByPage" resultType="kh.hello.dto.BambooDTO">
+		select * from (select bamboo.*, row_number() over (order by seq desc) as rown from bamboo) where rown between #{start} and #{end}
+	</select>
+	<select id="getBambooTotal" resultType="integer">
+		select count(*) from bamboo
+	</select>
+	<delete id="delBambooAllCo">
+		delete from bambooComments where bamSeq=#{bamSeq}
+	</delete>
+	<delete id="delBamboo">
+		delete from bamboo where seq=#{seq}
+	</delete>
+	<select id="detailViewBamboo" resultType="kh.hello.dto.BambooDTO">
+		select * from bamboo where seq=#{seq}
+	</select>
+	<select id="getBambooCo" resultType="kh.hello.dto.BambooCoDTO">
+		select * from bambooComments where bamSeq=#{bamSeq}
+	</select>
+	<delete id="delBambooCo">
+		delete from bambooComments where seq=#{seq}		
+	</delete>
+	
+	<!--업계현황 -->	
+	<select id="industryListByPage" resultType="kh.hello.dto.IndustryStatusDTO">
+		select * from (select industryStatus.*, row_number() over (order by seq desc) as rown from industryStatus) where rown between #{start} and #{end}
+	</select>
+	<select id="getIndustryTotal" resultType="integer">
+		select count(*) from industryStatus
+	</select>
+	<delete id="delIndustryAllCo">
+		delete from industryComments where indSeq=#{indSeq}
+	</delete>	
+	<delete id="delIndustry">
+		delete from industryStatus where seq=#{seq}
+	</delete>
+	<select id="detailViewIndustry" resultType="kh.hello.dto.IndustryStatusDTO">
+		select * from industryStatus where seq=#{seq}
+	</select>
+	<select id="getIndustryCo" resultType="kh.hello.dto.IndustryStatusCoDTO">
+		select * from industryComments where indSeq=#{indSeq}
+	</select>
+	<delete id="delIndustryCo">
+		delete from industryComments where seq=#{seq}
 	</delete>
 </mapper>

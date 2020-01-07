@@ -83,34 +83,41 @@
                                 <h4 class="header-title">강퇴 ID 목록</h4>
                                 <div class="single-table">
                                     <div class="table-responsive">
-                                        <table class="table table-hover text-center">
-                                            <thead class="text-uppercase">
-                                                <tr>
-                                                    <th scope="col">ID</th>
-                                                    <th scope="col">강퇴사유</th>
-                                                    <th scope="col">강퇴날짜</th>
-                                                    <th scope="col"></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                            	<c:forEach items="${list}" var="dto">
-                                                <tr>
-                                                    <th scope="row">${dto.id}</th>
-                                                    <td>${dto.reason}</td>
-                                                    <td>${dto.formedDate}</td>
-                                                    <td><i class="ti-trash" id="forcedOutDel${dto.seq}"></i></td>
-                                                </tr>
-                                                <script>
-                                                	$("#forcedOutDel${dto.seq}").on("click", function(){
-                                                		var result = confirm("이 기록을 지울까요?");
-                                                		if(result){
-                                                			location.href="${pageContext.request.contextPath}/admin/forcedOutDel?seq=${dto.seq}";
-                                                		}
-                                                	})
-                                                </script> 
-                                                </c:forEach>                                              
-                                            </tbody>
-                                        </table>
+                                    	<c:choose>
+                                    		<c:when test="${list.size() == 0}">
+                                    			<div class="text-center">내용이 없습니다</div>                                    		
+                                    		</c:when>
+                                    		<c:otherwise>
+		                                        <table class="table table-hover text-center">
+		                                            <thead class="text-uppercase">
+		                                                <tr>
+		                                                    <th scope="col">ID</th>
+		                                                    <th scope="col">강퇴사유</th>
+		                                                    <th scope="col">강퇴날짜</th>
+		                                                    <th scope="col"></th>
+		                                                </tr>
+		                                            </thead>
+		                                            <tbody>
+			                                            	<c:forEach items="${list}" var="dto">
+			                                                <tr>
+			                                                    <th scope="row">${dto.id}</th>
+			                                                    <td>${dto.reason}</td>
+			                                                    <td>${dto.formedDate}</td>
+			                                                    <td><i class="ti-trash" id="forcedOutDel${dto.seq}"></i></td>
+			                                                </tr>
+			                                                <script>
+			                                                	$("#forcedOutDel${dto.seq}").on("click", function(){
+			                                                		var result = confirm("이 기록을 지울까요?");
+			                                                		if(result){
+			                                                			location.href="${pageContext.request.contextPath}/admin/forcedOutDel?seq=${dto.seq}";
+			                                                		}
+			                                                	})
+			                                                </script> 
+			                                                </c:forEach>                                              	                                                                                          
+		                                            </tbody>
+		                                        </table>                                    		
+                                    		</c:otherwise>
+                                    	</c:choose>                                    
                                     </div>
                                 </div>
                             </div>

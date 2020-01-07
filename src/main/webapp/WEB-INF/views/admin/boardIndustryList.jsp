@@ -24,16 +24,14 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath }/adRsc/css/responsive.css">
 <!-- modernizr css -->
 <script src="${pageContext.request.contextPath }/adRsc/vendor/modernizr-2.8.3.min.js"></script>
+<!-- jquery latest version -->
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <style>
-#home-tab:hover{
-cursor:default;
-}
 	.contentCard{
 		max-width: 1000px;
 	}
-	.sign{
-		display: inline-block;
-		width: 90px;
+	.notification-area {
+		text-align:right;
 	}
 </style>
 </head>
@@ -48,7 +46,8 @@ cursor:default;
         <!-- sidebar menu area start -->
         <jsp:include page="/WEB-INF/views/standard/adminSidebar.jsp"/>
         <!-- sidebar menu area end -->
-                <!-- main content area start -->
+        
+        <!-- main content area start -->
         <div class="main-content">
             <!-- header area start -->
             <jsp:include page="/WEB-INF/views/standard/adminHeader.jsp"/>
@@ -58,10 +57,10 @@ cursor:default;
                 <div class="row align-items-center">
                     <div class="col-sm-6">
                         <div class="breadcrumbs-area clearfix">
-                            <h4 class="page-title pull-left">프로젝트 모집 관리</h4>
+                            <h4 class="page-title pull-left">업계현황</h4>
                             <ul class="breadcrumbs pull-left">
                                 <li><a href="${pageContext.request.contextPath }/admin/main">Home</a></li>
-                                <li><span>프로젝트 모집</span></li>
+                                <li><span>업계현황</span></li>
                             </ul>
                         </div>
                     </div>
@@ -79,92 +78,81 @@ cursor:default;
             <!-- page title area end -->
             <div class="main-content-inner">
                 <!-- MAIN CONTENT GOES HERE -->
-                	<div class="main-content-inner">
-	                <div class="row">
-	                    <div class="col-lg-12 mt-5 contentCard">
-	                        <div class="card">
-	                            <div class="card-body">
-	                                <div class="invoice-area">
-	                                    <div class="invoice-head">
-	                                        <div class="row">
-	                                            <div class="iv-left col-6">
-	                                                <span>글읽기</span>
-	                                            </div>
-	                                            <div class="iv-right col-6 text-md-right">
-	                                                <span>#${dto.seq}</span>
-	                                            </div>
-	                                        </div>
-	                                    </div>
-	                                    <div class="row align-items-center">
-	                                        <div class="col-12">
-	                                            <div class="invoice-address">
-	                                                <h3>${dto.title}</h3>
-	                                                <h5>${dto.writer}</h5>
-	                                                <p>${dto.formedWriteDate}
-	                                                <hr>
-	                                                	<p><label class="sign"><strong>지역</strong></label><span>${dto.location1} ${dto.location2}</span></p>
-	                                                	<p><label class="sign"><strong>모집인원</strong></label><span>${dto.capacity}</span></p>
-	                                                	<p><label class="sign"><strong>기간</strong></label><span>${dto.formedAllDate}</span></p>
-	                                                	<p><label class="sign"><strong>사용언어</strong></label><span>${dto.languages}</span></p>
-	                                                <hr>
-	                                                <p>${dto.contents }</p>
-	                                                <hr>
-	                                                	<p><label class="sign"><strong>연락처</strong></label><span>${dto.phone}</span></p>
-	                                                	<p><label class="sign"><strong>메일주소</strong></label><span>${dto.email}</span></p>
-	                                                <hr>
-	                                            </div>
-	                                        </div>
-	                                    </div>
-	                                   
-	                                </div>
-	                                <div class="invoice-buttons text-right">
-	                                    <a href="${pageContext.request.contextPath}/adBoard/projectList?page=${page}" class="invoice-btn">돌아가기</a>
-	                                    <a href="${pageContext.request.contextPath}/adBoard/delProject?seq=${dto.seq}" class="invoice-btn">삭제하기</a>
-	                                </div>
-	                            </div>
-	                        </div>
-	                    </div>
-	                    
-	                                         <!-- basic form start -->
-                            <div class="col-12 mt-5 contentCard">
-                                <div class="card pb-3" id="replyAppend">
-                                	<c:forEach items="${list}" var="reply">
-                             					<div class="card-body">
-            										<ul class="nav nav-tabs" id="myTab" role="tablist">
-                										<li class="nav-item">
-                    										<a class="nav-link active" id="home-tab" data-toggle="tab" href="#" role="tab" aria-controls="home" aria-selected="true"><strong>${reply.writer}</strong> <small>${reply.formedWriteDate}</small></a>
-               											</li>  
-                    										<li class="text-center mt-2 pl-2"><a href="${pageContext.request.contextPath}/adBoard/delProjectCo?page=${page}&seq=${reply.seq}&projectSeq=${reply.projectSeq}">
-                    										<i data-brackets-id="23054" class="fa fa-trash"></i></a></li>    
-           											</ul>
-	            									<div class="tab-content mt-3" id="myTabContent">
-	                									<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-	                    									<p>${reply.contents}</p>
-	                									</div>              
-	           										</div>
-       											</div>
-       											<script>
-       											
-       											</script>
-                                	</c:forEach>
+                 <!-- Hoverable Rows Table start -->
+                    <div class="col-lg-12 mt-5 contentCard">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="header-title">글 목록</h4>
+                                <div class="single-table">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover text-center">
+                                            <thead class="text-uppercase">
+                                                <tr>
+                                                    <th scope="col">번호</th>                                                
+                                                	<th scope="col">제목</th>
+                                                    <th scope="col">작성자</th>
+                                                    <th scope="col">작성일</th>
+                                                    <th scope="col">조회수</th>
+                                                    <th scope="col">삭제</th>                                                   
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            	<c:forEach items="${list}" var="dto">
+                                            		<tr>
+                                                    <td class="toDetail${dto.seq}">${dto.seq}</td>                                            		
+                                                    <td class="toDetail${dto.seq}">${dto.title}</td>
+                                                    <td class="toDetail${dto.seq}">${dto.writer}</td>
+                                                    <td class="toDetail${dto.seq}">${dto.formedWriteDateForAdmin }</td>
+                                                    <td class="toDetail${dto.seq}">${dto.viewCount}</td>
+                                                    <td><i class="ti-trash" id="delProc${dto.seq }"></i></td>
+                                               		</tr>
+                                               		<script>
+                                               			$("#delProc${dto.seq}").on("click", function(){
+                                               				var result = confirm("이 게시물을 삭제할까요?");
+                                               				if(result){
+                                               					location.href = "${pageContext.request.contextPath}/adBoard/delIndustry?page=${page}&seq=${dto.seq}";
+                                               				}                                              				                                             				
+                                               			})
+                                               			$(".toDetail${dto.seq}").hover(function(){
+                                               				$(".toDetail${dto.seq}").css("cursor", "pointer");
+                                               			});
+                                               			$(".toDetail${dto.seq}").on("click",function(){
+                                               				location.href = "${pageContext.request.contextPath}/adBoard/detailViewIndustry?page=${page}&seq=${dto.seq}";
+                                               			})
+                                               		</script>
+                                            	</c:forEach>                                                                                               
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
-                            <!-- basic form end -->  
-	                    
-	                </div>
-	                </div>
-	                </div>
+                        </div>
+                        
+                         <div class="card">
+                            <div class="card-body">
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination justify-content-center">
+										<c:forEach items="${pageNavi}" var="navi">									
+											<li class="page-item pageNavi">${navi}</li>
+										</c:forEach>
+
+
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <!-- Hoverable Rows Table end -->
+            </div>
         </div>
         <!-- main content area end -->
-
         <!-- footer area start-->
         <jsp:include page="/WEB-INF/views/standard/adminFooter.jsp"/>
         <!-- footer area end-->
     </div>
     <!-- page container area end -->
 
-    <!-- jquery latest version -->
-    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <!-- bootstrap 4 js -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
@@ -190,5 +178,19 @@ cursor:default;
     <!-- others plugins -->
     <script src="${pageContext.request.contextPath }/adRsc/js/plugins.js"></script>
     <script src="${pageContext.request.contextPath }/adRsc/js/scripts.js"></script>
+    <script>
+	$(function(){
+		var element = $(".pageNavi");
+		var page = "${page}";
+		if(page > 0 && page <= 10){
+			element[page-1].classList.add('active');
+		}else if(page % 10 == 0){
+			element[10].classList.add('active');
+		}else{
+			element[page % 10].classList.add('active');
+		}
+		
+	});
+    </script>
 </body>
 </html>

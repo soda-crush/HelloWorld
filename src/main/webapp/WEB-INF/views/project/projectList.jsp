@@ -58,13 +58,11 @@
 				  				<div class="row tableBody p-0">
 									<div class="col-xl-1 d-none d-xl-block">${p.seq }</div>
 									<div class="col-xl-1 col-2 col-md-2 col-lg-1 ${p.state }">${p.stateInKor }</div>
-									<div class="col-xl-3 col-8 col-md-5">
-										<a href="/project/detailView?seq=${p.seq }" class="text-decoration-none">${p.title } 
+										<div class="col-xl-3 col-8 col-md-5" onclick="location.href='/project/detailView?seq=${p.seq }'" class="text-decoration-none">${p.title } 
 					  						<c:if test="${p.commentCount>0 }">
 					  							<span class="pComment font-weight-bold">${p.commentCount }</span>
-					  						</c:if>
-					  					</a>
-									</div>
+					  						</c:if>					  					
+										</div>
 									<div class="col-xl-1 col-2 col-md-1">${p.location1 }</div>
 									<div class="col-xl-1 col-lg-1 d-none d-lg-block">${p.capacity }명</div>
 									<div class="col-xl-2 col-md-4 d-none d-md-block">${p.formedAllDate }</div>
@@ -75,9 +73,22 @@
 				  			</c:forEach>
 				  		</c:otherwise>
 				  	</c:choose>				    
-				</div>								
-				<div class="pageListFooter text-right">
-					<a class="btn btn-success" href="/project/write" role="button">글쓰기</a>					
+				</div>
+				<div class="row pageListFooter">
+					<div class="col-6">
+						  <form class="form-inline">
+							<select class="form-control searchSelect" name="searchOption" id="searchOption">
+								<option selected disabled>선택</option>
+							    <option value="제목">제목</option>
+							    <option value="내용">내용</option>							    
+							</select>
+						    <input class="form-control mr-sm-2" type="search" placeholder="검색어를 입력하세요" aria-label="Search">
+						    <button class="btn btn-dark my-2 my-sm-0" type="submit">검색</button>
+						  </form>
+					</div>								
+					<div class="col-6 text-right">
+						<a class="btn btn-success" href="/project/write" role="button">글쓰기</a>					
+					</div>
 				</div>
 				<nav aria-label="List navi" id="pPageNavi">${pageNavi }</nav>
 				

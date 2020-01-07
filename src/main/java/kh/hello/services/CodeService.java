@@ -17,11 +17,10 @@ import com.google.gson.JsonArray;
 
 import kh.hello.configuration.Configuration;
 import kh.hello.dao.CodeDAO;
-import kh.hello.dto.BambooDTO;
 import kh.hello.dto.CodeCommentsDTO;
 import kh.hello.dto.CodeQuestionDTO;
 import kh.hello.dto.CodeReplyDTO;
-import kh.hello.dto.ProjectCoDTO;
+
 
 @Service
 public class CodeService {
@@ -80,6 +79,10 @@ public class CodeService {
 		dao.modify(dto);
 	}
 	
+	public int replyOneCount(int queSeq,String writer) throws Exception{
+		return dao.replyOneCount(queSeq, writer);
+	}
+	
 	//답글 CodeReply
 //	public int selectParentSeq(int seq) throws Exception{
 //		return dao.selectParentSeq(seq);
@@ -119,7 +122,7 @@ public class CodeService {
 	}
 	
 	public void deleteR(int seq) throws Exception{
-		dao.delete(seq);
+		dao.deleteR(seq);
 	}
 	
 	public List<CodeReplyDTO> detailReply(int queSeq) throws Exception{
@@ -174,6 +177,13 @@ public class CodeService {
 		return pages;
 	}
 	
+	public CodeReplyDTO selectOneDetail(int seq) throws Exception{
+		return dao.selectOneDetail(seq);
+	}
+	
+	public void modifyR(CodeReplyDTO dto) throws Exception{
+		dao.modifyR(dto);
+	}
 	
 	// 댓글 CodeComments
 	@Transactional("txManager")

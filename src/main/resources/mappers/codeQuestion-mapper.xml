@@ -42,4 +42,8 @@
 	<update id="modify" parameterType="kh.hello.dto.CodeQuestionDTO">
 		update codeQuestion set division=#{division},title=#{title},content=#{content},point=#{point} where seq=#{seq}
 	</update>
+	
+	<update id="writePoint" parameterType="kh.hello.dto.MemberDTO">
+		update member set point=#{point} where id=#{id}
+	</update>
 </mapper>

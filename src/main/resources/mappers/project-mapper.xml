@@ -45,4 +45,14 @@
 	<update id="closeProject">
 		update project set state='Y' where seq=#{value}
 	</update>
+	
+	
+	
+	<update id="articleAddPoint" parameterType="java.util.Map">
+		update member set point=point+#{point} where id=#{id}
+	</update>
+	
+	<insert id="insertImage" parameterType="kh.hello.dto.ProjectImageDTO">
+		insert into projectImage values(projectImageSeq.nextval,#{projectSeq},#{oriName},#{sysName})
+	</insert>
 </mapper>

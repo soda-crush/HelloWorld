@@ -8,9 +8,11 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kh.hello.configuration.Configuration;
 import kh.hello.dto.ProjectApplyDTO;
 import kh.hello.dto.ProjectCoDTO;
 import kh.hello.dto.ProjectDTO;
+import kh.hello.dto.ProjectImageDTO;
 import kh.hello.dto.ProjectMyListDTO;
 
 @Repository
@@ -34,9 +36,6 @@ public class ProjectDAO {
 		param.put("end", end);
 		return jdbc.selectList("Project.getListByPage", param);
 	}
-	
-	
-	
 	public ProjectDTO getProjectDetailView(int seq) {//프로젝트 모집글 상세보기
 		return jdbc.selectOne("Project.getProjectDetailView", seq);
 	}
@@ -58,6 +57,13 @@ public class ProjectDAO {
 	public int closeProject(int seq) {
 		return jdbc.update("Project.closeProject", seq);
 	}
+	
+	//projectImage 테이블
+	public int insertImage(ProjectImageDTO dto) {
+		return jdbc.insert("Project.insertImage",dto);
+	}
+	
+	
 	
 	//projectComment 테이블
 	public List<ProjectCoDTO> getCoList(int projectSeq){//프로젝트 모집댓글 전체리스트(해당글에 대한)
@@ -108,5 +114,28 @@ public class ProjectDAO {
 	}
 	public int deleteProjectList(int seq) {//나의 프로젝트 삭제
 		return jdbc.delete("ProjectMyList.deleteProjectMyList", seq);
+	}
+	
+	
+	
+	
+	//기타테이블들
+	
+	//member 테이블 (글/댓글 포인트 추가/차감)
+	public int updatePoint(String option, String id) {
+		int point = 0;
+		if(option.contentEquals("articleAdd")) {
+			point = Configuration.articleAddPoint;
+		}else if(option.contentEquals("articleDel")) {
+			point = Configuration.articleDelPoint;
+		}else if(option.contentEquals("commentAdd")) {
+			point = Configuration.commentAddPoint;
+		}else if(option.contentEquals("commentDel")) {
+			point = Configuration.commentDelPoint;
+		}
+		Map<String, Object> param = new HashMap<>();
+		param.put("point", point);
+		param.put("id", id);
+		return jdbc.update("Project.articleAddPoint", param);
 	}
 }

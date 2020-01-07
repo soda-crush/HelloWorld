@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kh.hello.configuration.Configuration;
-import kh.hello.dto.BambooDTO;
 import kh.hello.dto.IndustryStatusCoDTO;
 import kh.hello.dto.IndustryStatusDTO;
 import kh.hello.services.IndustryStatusService;
@@ -67,7 +66,7 @@ public class IndustryStatusController {
 	@RequestMapping("/industryStatusWriteProc.do")
 	public String industryStatusWriteConfirm(IndustryStatusDTO dto) {
 		dto.setWriter((String)session.getAttribute("loginInfo"));
-		int seq = service.industryStatusWriteConfirm(dto);
+		service.industryStatusWriteConfirm(dto);
 		return "redirect:/industry/industryStatusList.do";
 	}
 	

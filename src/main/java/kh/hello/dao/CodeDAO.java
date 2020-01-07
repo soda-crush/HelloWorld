@@ -3,18 +3,12 @@ package kh.hello.dao;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
-import kh.hello.configuration.Configuration;
-import kh.hello.dto.BambooDTO;
 import kh.hello.dto.CodeCommentsDTO;
 import kh.hello.dto.CodeQuestionDTO;
 import kh.hello.dto.CodeReplyDTO;
-import kh.hello.dto.ProjectCoDTO;
-import kh.hello.dto.ProjectDTO;
 
 @Repository
 public class CodeDAO {
@@ -83,6 +77,21 @@ public class CodeDAO {
 	
 	public int deleteR(int seq) throws Exception{
 		return jdbc.delete("CodeR.deleteR",seq);
+	}
+	
+	public int replyOneCount(int queSeq,String writer) throws Exception{
+		Map<String,Object> map = new HashMap<>();
+		map.put("queSeq", queSeq);
+		map.put("writer", writer);
+		return jdbc.selectOne("CodeR.replyOneCount",map);
+	}
+	
+	public CodeReplyDTO selectOneDetail(int seq) throws Exception{
+		return jdbc.selectOne("CodeR.selectOneDetail",seq);
+	}
+	
+	public void modifyR(CodeReplyDTO dto) {
+		jdbc.update("CodeR.modifyR", dto);
 	}
 	
 	//CodeComment

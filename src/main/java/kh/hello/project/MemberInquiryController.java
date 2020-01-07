@@ -63,7 +63,7 @@ public class MemberInquiryController {
 		int result = 0;
 		try {
 			result = ms.writeInquiry(path, dto);
-			if(result > 0) {
+			if(result > 0) {//detailView 완성하면 경로 변경하기
 				return "redirect:myInquiry";
 			}else {
 				return "redirect:../error";

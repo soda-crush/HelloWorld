@@ -58,10 +58,10 @@ cursor:default;
                 <div class="row align-items-center">
                     <div class="col-sm-6">
                         <div class="breadcrumbs-area clearfix">
-                            <h4 class="page-title pull-left">프로젝트 모집 관리</h4>
+                            <h4 class="page-title pull-left">대나무숲</h4>
                             <ul class="breadcrumbs pull-left">
                                 <li><a href="${pageContext.request.contextPath }/admin/main">Home</a></li>
-                                <li><span>프로젝트 모집</span></li>
+                                <li><span>대나무숲</span></li>
                             </ul>
                         </div>
                     </div>
@@ -100,17 +100,9 @@ cursor:default;
 	                                            <div class="invoice-address">
 	                                                <h3>${dto.title}</h3>
 	                                                <h5>${dto.writer}</h5>
-	                                                <p>${dto.formedWriteDate}
+	                                                <p>${dto.formedWriteDateForAdmin}
 	                                                <hr>
-	                                                	<p><label class="sign"><strong>지역</strong></label><span>${dto.location1} ${dto.location2}</span></p>
-	                                                	<p><label class="sign"><strong>모집인원</strong></label><span>${dto.capacity}</span></p>
-	                                                	<p><label class="sign"><strong>기간</strong></label><span>${dto.formedAllDate}</span></p>
-	                                                	<p><label class="sign"><strong>사용언어</strong></label><span>${dto.languages}</span></p>
-	                                                <hr>
-	                                                <p>${dto.contents }</p>
-	                                                <hr>
-	                                                	<p><label class="sign"><strong>연락처</strong></label><span>${dto.phone}</span></p>
-	                                                	<p><label class="sign"><strong>메일주소</strong></label><span>${dto.email}</span></p>
+	                                                <p>${dto.content}</p>
 	                                                <hr>
 	                                            </div>
 	                                        </div>
@@ -118,8 +110,8 @@ cursor:default;
 	                                   
 	                                </div>
 	                                <div class="invoice-buttons text-right">
-	                                    <a href="${pageContext.request.contextPath}/adBoard/projectList?page=${page}" class="invoice-btn">돌아가기</a>
-	                                    <a href="${pageContext.request.contextPath}/adBoard/delProject?seq=${dto.seq}" class="invoice-btn">삭제하기</a>
+	                                    <a href="${pageContext.request.contextPath}/adBoard/bambooList?page=${page}" class="invoice-btn">돌아가기</a>
+	                                    <a href="${pageContext.request.contextPath}/adBoard/delBamboo?seq=${dto.seq}" class="invoice-btn">삭제하기</a>
 	                                </div>
 	                            </div>
 	                        </div>
@@ -132,14 +124,14 @@ cursor:default;
                              					<div class="card-body">
             										<ul class="nav nav-tabs" id="myTab" role="tablist">
                 										<li class="nav-item">
-                    										<a class="nav-link active" id="home-tab" data-toggle="tab" href="#" role="tab" aria-controls="home" aria-selected="true"><strong>${reply.writer}</strong> <small>${reply.formedWriteDate}</small></a>
+                    										<a class="nav-link active" id="home-tab" data-toggle="tab" href="#" role="tab" aria-controls="home" aria-selected="true"><strong>${reply.writer}</strong> <small>${reply.formedWriteDateForAdmin}</small></a>
                											</li>  
-                    										<li class="text-center mt-2 pl-2"><a href="${pageContext.request.contextPath}/adBoard/delProjectCo?page=${page}&seq=${reply.seq}&projectSeq=${reply.projectSeq}">
+                    										<li class="text-center mt-2 pl-2"><a href="${pageContext.request.contextPath}/adBoard/delBambooCo?page=${page}&seq=${reply.seq}&bamSeq=${reply.bamSeq}">
                     										<i data-brackets-id="23054" class="fa fa-trash"></i></a></li>    
            											</ul>
 	            									<div class="tab-content mt-3" id="myTabContent">
 	                									<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-	                    									<p>${reply.contents}</p>
+	                    									<p>${reply.content}</p>
 	                									</div>              
 	           										</div>
        											</div>

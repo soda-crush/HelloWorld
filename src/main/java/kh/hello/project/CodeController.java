@@ -2,7 +2,6 @@ package kh.hello.project;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +14,6 @@ import kh.hello.configuration.Configuration;
 import kh.hello.dto.CodeCommentsDTO;
 import kh.hello.dto.CodeQuestionDTO;
 import kh.hello.dto.CodeReplyDTO;
-import kh.hello.dto.ProjectCoDTO;
-import kh.hello.dto.ProjectDTO;
 import kh.hello.services.CodeService;
 
 @Controller
@@ -32,7 +29,8 @@ public class CodeController {
 	@RequestMapping("/codeQList.do")
 	public String codeList(Model m,String page) {
 		try {
-			session.setAttribute("loginInfo", "oh");
+			//session.setAttribute("loginInfo", "oh");
+			//session.setAttribute("loginInfo", "jack");
 			int currentPage = 1;
 			if(page != null) currentPage = Integer.parseInt(page);
 			int end = currentPage * Configuration.recordCountPerPage;
@@ -57,7 +55,7 @@ public class CodeController {
 	
 	@RequestMapping("/codeQWriteProc.do")
 	public String codeWriteProc(CodeQuestionDTO dto) {
-		System.out.println("dto:"+ dto.getSeq());
+		//System.out.println("dto:"+ dto.getSeq());
 		dto.setWriter((String)session.getAttribute("loginInfo"));
 		try {
 			String path = session.getServletContext().getRealPath("files");
@@ -70,15 +68,18 @@ public class CodeController {
 	}
 	
 	@RequestMapping("/codeDetail.do")
-	public String codeDetail(int seq, Model m) {
+	public String codeDetail(int seq, Model m,CodeReplyDTO dto) {
+		dto.setWriter((String)session.getAttribute("loginInfo"));
 		try {
 			CodeQuestionDTO qResult = sv.detailQuestion(seq); //queSeq
 			List<CodeReplyDTO> rResult = sv.detailReply(seq); //queSeq
-			List<CodeCommentsDTO> cResult = sv.commentList(seq); //reqSeq 받아야함 
+			List<CodeCommentsDTO> cResult = sv.commentList(dto.getSeq()); //reqSeq  
+			int count = sv.replyOneCount(seq, dto.getWriter()); //queSeq
 			
 			m.addAttribute("qResult", qResult);
 			m.addAttribute("rResult", rResult);
 			m.addAttribute("cResult", cResult);
+			m.addAttribute("count", count);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -173,16 +174,42 @@ public class CodeController {
 //	}
 //	
 	@RequestMapping("/deleteR.do")
-	public String deleteR(int seq) {
+	public String deleteR(int seq,int queSeq) {
+		//System.out.println(seq);
+		//System.out.println(queSeq);
 		try {
 			sv.deleteR(seq);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "redirect:codeDetail.do";
+		return "redirect:/code/codeDetail.do?seq="+queSeq;
 	}
 	
-	//댓글 CodeReply
+	@RequestMapping("/modifyR.do")
+	public String codeModifyR(int seq,int queSeq, Model m) {
+		try {
+			CodeReplyDTO dto = sv.selectOneDetail(seq);
+			int parent_seq = queSeq;
+			m.addAttribute("parent_seq",parent_seq);
+			m.addAttribute("dto", dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "/code/codeRModify";
+	}
+	
+	@RequestMapping("/modifyRProc.do")
+	public String codeModifyRProc(CodeReplyDTO dto) {
+		try {
+			sv.modifyR(dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		int queSeq = dto.getQueSeq();
+		return "redirect:/code/codeDetail.do?seq="+queSeq;
+	}
+	
+	//댓글 CodeComments
 	
 	@ResponseBody
 	@RequestMapping(value="/codeCWriteProc.do",produces="text/html;charset=utf8")

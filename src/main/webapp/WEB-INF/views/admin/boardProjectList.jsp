@@ -111,7 +111,7 @@
                                                			$("#delProc${dto.seq}").on("click", function(){
                                                				var result = confirm("이 게시물을 삭제할까요?");
                                                				if(result){
-                                               					location.href = "${pageContext.request.contextPath}/adBoard/delProject?seq=${dto.seq}";
+                                               					location.href = "${pageContext.request.contextPath}/adBoard/delProject?page=${page}&seq=${dto.seq}";
                                                				}                                              				                                             				
                                                			})
                                                			$(".toDetail${dto.seq}").hover(function(){
