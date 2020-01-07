@@ -18,40 +18,15 @@
 <link rel="stylesheet" type="text/css" href="/css/font-awesome/css/font-awesome.css">
 
 	<style>
-            h1{
-                text-align: center;
-                padding-top: 50px;
-                padding-bottom: 50px;
-            }
-            ul{
-                background-color: lightgray;
-                font-size: 13px;
-            }
-            .card{
-                margin-top:20px;
-                width:200px;
-                text-align:center;
-            }
-            .myprofile{
-                float: left;
-                margin-top: 20px;
-                margin-bottom: 30px;
-            }
-            #mycard{
-                height: 300px;
-                float:none;
-                display:flex;
-                margin: auto;
-                align-items:center;
-            }
-            .cardwrap{
-                float:left;
-            }
-            .card-img-top{
-                width: 80%;
-                margin:10%;
-            }
-        </style>
+		h1{text-align: center;padding-top: 50px;padding-bottom: 50px;}
+        ul{background-color: lightgray;font-size: 13px;}
+        .card{margin-top:20px;width:200px;text-align:center;}
+        .myprofile{float: left; margin-top: 20px;margin-bottom: 30px; }
+        #mycard{ height: 300px; float:none; display:flex; margin: auto;align-items:center;}
+        .cardwrap{float:left;}
+        .card-img-top{width: 80%;margin:10%;}
+        a:hover{text-decoration:none;}
+  	</style>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/standard/header.jsp"/>
@@ -83,7 +58,7 @@
 	                    <a class="nav-link" href="${pageContext.request.contextPath}/Plog/toPlogProject.do">내 팀 프로젝트</a>
 	                </li>
 	                <li class="nav-item">
-	                    <a class="nav-link" href="${pageContext.request.contextPath}/Plog/toGuestBook.do">방명록</a>
+	                    <a class="nav-link" href="${pageContext.request.contextPath}/GuestBook/selectList.do">방명록</a>
 	                </li>
 	            </ul>
 	            <ul class="nav nav-tabs d-sm-none">
@@ -100,7 +75,7 @@
 	                    <a class="nav-link"href="${pageContext.request.contextPath}/Plog/toPlogProject.do" style="padding:7px;">내 팀 프로젝트</a>
 	                </li>
 	                <li class="nav-item">
-	                    <a class="nav-link" href="${pageContext.request.contextPath}/Plog/toGuestBook.do" style="padding:7px;">방명록</a>
+	                    <a class="nav-link" href="${pageContext.request.contextPath}/GuestBook/selectList.do" style="padding:7px;">방명록</a>
 	                </li>
 	            </ul>
 	            <div class="row">
