@@ -17,11 +17,10 @@ import com.google.gson.JsonArray;
 
 import kh.hello.configuration.Configuration;
 import kh.hello.dao.CodeDAO;
-import kh.hello.dto.BambooDTO;
 import kh.hello.dto.CodeCommentsDTO;
 import kh.hello.dto.CodeQuestionDTO;
 import kh.hello.dto.CodeReplyDTO;
-import kh.hello.dto.ProjectCoDTO;
+
 
 @Service
 public class CodeService {
@@ -78,6 +77,10 @@ public class CodeService {
 	
 	public void modify(CodeQuestionDTO dto) throws Exception{
 		dao.modify(dto);
+	}
+	
+	public int replyOneCount(int queSeq,String writer) throws Exception{
+		return dao.replyOneCount(queSeq, writer);
 	}
 	
 	//답글 CodeReply
