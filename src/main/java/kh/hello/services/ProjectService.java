@@ -105,8 +105,9 @@ public class ProjectService {
 	
 	@Transactional("txManager")
 	public int projectWriteConfirm(ProjectDTO dto) {
-		dao.insertProject(dto);
-		
+		String option = "articleAdd";
+		dao.insertProject(dto);		
+		dao.updatePoint(option, dto.getWriter());
 		return dao.latestSeq(dto.getWriter());
 	}
 	
@@ -115,8 +116,10 @@ public class ProjectService {
 	}
 	
 	@Transactional("txManager")
-	public int projectDeleteConfirm(int seq) {
+	public int projectDeleteConfirm(int seq, String id) {
+		String option = "articleDel";
 		dao.deleteProjectAllCo(seq);
+		dao.updatePoint(option, id);
 		return dao.deleteProject(seq);
 	}
 	
@@ -138,7 +141,9 @@ public class ProjectService {
 	
 	@Transactional("txManager")
 	public String commentWriteConfirm(ProjectCoDTO dto) {
+		String option = "commentAdd";
 		dao.insertProjectCo(dto);
+		dao.updatePoint(option, dto.getWriter());
 		Gson gson = new Gson();
 		List<ProjectCoDTO> result = dao.getCoList(dto.getProjectSeq());
 		for(ProjectCoDTO p : result) {
@@ -159,8 +164,10 @@ public class ProjectService {
 	}
 	
 	@Transactional("txManager")
-	public String commentDeleteConfirm(int seq, int projectSeq) {
+	public String commentDeleteConfirm(int seq, int projectSeq, String id) {
+		String option = "commentDel";
 		dao.deleteProjectCo(seq);
+		dao.updatePoint(option, id);
 		Gson gson = new Gson();
 		List<ProjectCoDTO> result = dao.getCoList(projectSeq);
 		for(ProjectCoDTO p : result) {

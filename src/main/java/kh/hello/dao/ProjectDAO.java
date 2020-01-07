@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kh.hello.configuration.Configuration;
 import kh.hello.dto.ProjectApplyDTO;
 import kh.hello.dto.ProjectCoDTO;
 import kh.hello.dto.ProjectDTO;
@@ -115,8 +116,21 @@ public class ProjectDAO {
 	
 	//기타테이블들
 	
-	//member 테이블
-//	public int updatePoint() {
-//		
-//	}
+	//member 테이블 (글/댓글 포인트 추가/차감)
+	public int updatePoint(String option, String id) {
+		int point = 0;
+		if(option.contentEquals("articleAdd")) {
+			point = Configuration.articleAddPoint;
+		}else if(option.contentEquals("articleDel")) {
+			point = Configuration.articleDelPoint;
+		}else if(option.contentEquals("commentAdd")) {
+			point = Configuration.commentAddPoint;
+		}else if(option.contentEquals("commentDel")) {
+			point = Configuration.commentDelPoint;
+		}
+		Map<String, Object> param = new HashMap<>();
+		param.put("point", point);
+		param.put("id", id);
+		return jdbc.update("Project.articleAddPoint", param);
+	}
 }
