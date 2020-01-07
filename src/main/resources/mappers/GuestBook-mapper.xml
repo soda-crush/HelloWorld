@@ -11,19 +11,22 @@
 		select * from GuestBook
 	</select>
 
-	<select id="guestBookTotalCount" resultType="integer">
+	<select id="guestBookTotalCount" resultType="Integer">
 		select count(seq) from GuestBook where owner=#{owner}
 	</select>
 	<select id="guestBookListByPage" parameterType="Object" resultType="kh.hello.dto.GuestBookDTO">
 		select * from (select GuestBook.*, row_number() over (order by seq desc) as rown from GuestBook) where owner=#{owner} and rown between #{start} and #{end}
 	</select>
 	
-	<delete id="delete" parameterType="int">
+	<delete id="delete" parameterType="Integer">
 		delete GuestBook where seq = #{seq}
 	</delete>
-	
 	
 	<update id="update" parameterType="kh.hello.dto.GuestBookDTO">
 		update GuestBook set content=#{content} where seq=#{seq}
 	</update>
+	
+	<select id="selectBySeq" resultType="String" parameterType="Integer">
+		select writer from GuestBook where seq= #{seq}
+	</select>
 </mapper>

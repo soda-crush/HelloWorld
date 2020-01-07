@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import kh.hello.configuration.Configuration;
 import kh.hello.dao.GuestBookDAO;
+import kh.hello.dao.MemberDAO;
 import kh.hello.dto.GuestBookDTO;
 
 @Service
@@ -16,7 +17,11 @@ public class GuestBookService {
 	@Autowired
 	private GuestBookDAO gdao;
 	
+	@Autowired
+	private MemberDAO mdao;
+	
 	public void insert(GuestBookDTO gdto) {
+		mdao.getPoint(gdto.getWriter(),5);
 		gdao.insert(gdto);
 	}
 
@@ -74,6 +79,8 @@ public class GuestBookService {
 	}
 	
 	public void delete(int seq) {
+		String id = gdao.selectBySeq(seq);
+		mdao.minusPoint(id, 5);
 		gdao.delete(seq);
 	}
 	

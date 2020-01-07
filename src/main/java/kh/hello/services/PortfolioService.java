@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kh.hello.dao.MemberDAO;
 import kh.hello.dao.PortfolioDAO;
 import kh.hello.dto.PortfolioDTO;
 
@@ -14,7 +15,11 @@ public class PortfolioService {
 	@Autowired
 	private PortfolioDAO pdao;
 	
+	@Autowired
+	private MemberDAO mdao;
+	
 	public void insertWrite(PortfolioDTO pdto) {
+		mdao.getPoint(pdto.getWriter(), 30);
 		pdao.insertWrite(pdto);
 	}
 	
@@ -31,6 +36,8 @@ public class PortfolioService {
 	}
 	
 	public void delete(int seq) {
+		PortfolioDTO dto = pdao.selectBySeq(seq);
+		mdao.minusPoint(dto.getWriter(), 40);
 		pdao.delete(seq);
 	}
 
