@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kh.hello.dto.BambooDTO;
 import kh.hello.dto.CodeCommentsDTO;
 import kh.hello.dto.CodeQuestionDTO;
 import kh.hello.dto.CodeReplyDTO;
@@ -107,7 +108,10 @@ public class CodeDAO {
 	}
 	
 	//CodeComment
-
+	
+	public int selectRepSeq(int queSeq) { //repSeq구하기
+		return jdbc.selectOne("CodeC.selectRepSeq",queSeq);
+	}
 	public int insertComment(CodeCommentsDTO dto) {
 		return jdbc.insert("CodeC.insertComment", dto);
 	}
@@ -119,6 +123,22 @@ public class CodeDAO {
 	}	
 	public int deleteComment(int seq) {
 		return jdbc.delete("CodeC.deleteComment", seq);
+	}
+	
+	//조건별 게시판목록 검색
+	public int codeSearchTotalCount(String value,String search) {
+		Map<String, String> param = new HashMap<>();
+		param.put("value", value);
+		param.put("search", search);
+		return jdbc.selectOne("Code.codeSearchTotalCount", param);
+	}
+	public List<CodeQuestionDTO> codeSearchByPage (String start, String end, String value, String search) {//검색한 목록 페이지네비
+		Map<String, String> param = new HashMap<>();
+		param.put("start", start);
+		param.put("end", end);
+		param.put("value", value);
+		param.put("search", search);
+		return jdbc.selectList("Code.codeSearchByPage",param);
 	}
 	
 }

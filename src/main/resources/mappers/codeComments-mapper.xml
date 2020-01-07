@@ -15,8 +15,12 @@
 	<delete id="deleteComment">
 		delete from codeComments where seq=#{seq}
 	</delete>
-	<select id="selectRepSeq" parameterType="String" resultType="Integer">
-		select max(seq) from codeQuestion where writer = #{writer}
+<!-- 	<select id="selectRepSeq" parameterType="String" resultType="Integer"> -->
+<!-- 		select max(seq) from codeQuestion where writer = #{writer} -->
+<!-- 	</select> -->
+	
+	<select id="selectRepSeq" parameterType="Integer" resultType="Integer">
+		select seq from codeReply where queSeq = #{queSeq}
 	</select>
 	
 	<update id="writeCoPoint" parameterType="String">

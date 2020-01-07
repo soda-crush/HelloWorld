@@ -184,18 +184,19 @@ badge-success
 							<form action="${pageContext.request.contextPath}/code/codeSearch.do" method="get" id="frm">
 							<div class="form-group row mt-1 mb-1 justify-content-center">
 									<div class="col-sm-2 my-1 p-0 pl-1 pr-1">
-	                                <select class="form-control form-control-sm" name="col">
+	                                <select class="form-control form-control-sm" name="value">
+	                                	<option value="all">전체</option>
 	                                	<option value="division">구분</option>
 	                                    <option value="title">제목</option>
 	                                    <option value="writer">작성자</option>
 	                                </select>
 	                                </div>
 	                                <div class="col-sm-6 my-1 pl-1 pr-1">
-									<input type="text" class="form-control form-control-sm" id="searchWord" name="searchWord"
-									placeholder="검색어를 입력하세요">
+									<input type="text" class="form-control form-control-sm" name="search" placeholder="검색어를 입력하세요">
 									</div>
 									<div class="col-sm-2 my-1 p-0 pl-1 pr-1 text-center">
-									<button type="button" class="btn btn-primary btn-xs btn-block" id="searchBtn">검색</button>
+										<button class="btn btn-primary btn-xs btn-block" id="search">검색</button>
+<!-- 									<button type="button" class="btn btn-primary btn-xs btn-block" id="search">검색</button>  버튼안먹..? -->
 									</div>
 							</div>
 							</form>
@@ -235,6 +236,10 @@ badge-success
 			element[page % 10].classList.add('active');
 		}	
 	});
+	
+	$("#search").on("click",function(){
+		$("frm").submit();
+	})
 </script>
 		<jsp:include page="/WEB-INF/views/standard/footer.jsp" />
 </body>

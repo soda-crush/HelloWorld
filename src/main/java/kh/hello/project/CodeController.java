@@ -2,6 +2,7 @@ package kh.hello.project;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kh.hello.configuration.Configuration;
+import kh.hello.dto.BambooDTO;
 import kh.hello.dto.CodeCommentsDTO;
 import kh.hello.dto.CodeQuestionDTO;
 import kh.hello.dto.CodeReplyDTO;
@@ -29,8 +31,8 @@ public class CodeController {
 	//질문 CodeQuestion
 	@RequestMapping("/codeQList.do")
 	public String codeList(Model m,String page) {
-			System.out.println(session.getAttribute("loginInfo"));
-			//session.setAttribute("loginInfo", "oh");
+			//System.out.println(session.getAttribute("loginInfo"));
+			session.setAttribute("loginInfo", "oh");
 			//session.setAttribute("loginInfo", "jack");
 			int currentPage = 1;
 			if(page != null) currentPage = Integer.parseInt(page);
@@ -72,11 +74,13 @@ public class CodeController {
 			List<CodeReplyDTO> rResult = sv.detailReply(seq); //queSeq
 			List<CodeCommentsDTO> cResult = sv.commentList(dto.getSeq()); //reqSeq  
 			int count = sv.replyOneCount(seq, dto.getWriter()); //queSeq
+			int repSeq = sv.selectRepSeq(seq);
 			
 			m.addAttribute("qResult", qResult);
 			m.addAttribute("rResult", rResult);
 			m.addAttribute("cResult", cResult);
 			m.addAttribute("count", count);
+			m.addAttribute("repSeq", repSeq);
 		return "/code/codeDetail";
 	}
 	
@@ -102,6 +106,27 @@ public class CodeController {
 		int seq = dto.getSeq();
 		//return "redirect:codeQList.do";
 		return "redirect:/code/codeDetail.do?seq="+seq;
+	}
+	
+	//게시판 목록 검색
+	@RequestMapping("/codeSearch.do")
+	public String codeSearch(String search, HttpServletRequest request, Model m, String cpage) {
+		//System.out.println(request.getParameter("value")+" - "+search);
+		String value = request.getParameter("value");
+		//m.addAttribute("bambooList", service.bambooSearchTotalCount(value, search));
+
+		//페이지네비
+		int currentPage = 1;		
+		if(cpage != null) currentPage = Integer.parseInt(cpage);
+		int end = currentPage * Configuration.recordCountPerPage;
+		int start = end - (Configuration.recordCountPerPage - 1);	
+		List<CodeQuestionDTO> list = sv.codeSearchByPage(start, end, value, search);
+		List<String> pageNavi = sv.getCodeSearchListPageNavi(currentPage, value, search);
+		m.addAttribute("list",list);
+		m.addAttribute("pageNavi", pageNavi);
+		m.addAttribute("page", currentPage);
+		
+		return "/code/codeQList";
 	}
 	
 	//답글 CodeReply
