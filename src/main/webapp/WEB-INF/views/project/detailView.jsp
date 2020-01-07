@@ -92,8 +92,8 @@
 							<c:if test="${comments.size()>0 }">
 								<c:forEach items="${comments }" var="c">
 									<div class="row commentDiv commentBox${c.seq } p-0 pb-2 m-2">
-										<div class="col-12">
-											<div class="row">
+										<div class="col-12 commentInnerBox">
+											<div class="row commentHeader">
 												<div class="col-1 profileBox pl-1 pt-2"><img src="/img/profileSample.jpg" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>
 												<div class="col-7 pt-1">
 													<div class="row commentInfo">
@@ -164,6 +164,7 @@
 		<jsp:include page="/WEB-INF/views/project/jsp/applyModal.jsp"/>        
         <jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
 		<script>
+		var loginInfo = "${sessionScope.loginInfo}";
 			$("#pCloseBtn").on("click",function(){
 				var check = confirm("프로젝트 모집을 마감하시겠습니까?\n마감된 모집글은 상태를 변경할 수 없습니다.");
 				if(check){
@@ -183,12 +184,14 @@
            	
            	
            	function coModFunction(seq,contents){     
-           		$(".commentBox"+seq).find(".commentBtns").html("");
-           		$(".commentBox"+seq).find(".commentContent").html("");
+//            		$(".commentBox"+seq).find(".commentBtns").html("");
+//            		$(".commentBox"+seq).find(".commentContent").remove();
+				$(".commentBox"+seq).find(".commentBtns").hide();
+				$(".commentBox"+seq).find(".commentContent").hide();
            		$(".commentBox"+seq).wrap('<form action="/project/comment/modifyProc" method="post" id="coModFrm"></form>');
 				var html = [];
     			html.push(
-    					'<div class="col-12"><div class="row">',
+    					'<div class="col-12 coModBox mt-2"><div class="row">',
     					'<div class="col-9 col-md-10 col-xl-11 pr-0"><textarea class="form-control" placeholder="댓글 내용을 입력해주세요" id="pCoModContents" style="height:80px;" name="contents">'+contents+'</textarea></div>',
     					'<div class="col-3 col-md-2 col-xl-1"><input type="hidden" name="seq" value="'+seq+'"><input type="hidden" name="projectSeq" value="${pPage.seq }">',
     					'<div class="row">',
@@ -204,7 +207,11 @@
            	$(document).on("click","#coMoCancel",function(){
            		var check = confirm("수정을 취소하시겠습니까?");
            		if(check){
-           			
+           			$(this).closest(".commentDiv").unwrap();
+           			$(this).closest(".commentWrapBox").find(".commentHeader").find(".commentBtns").show();
+           			$(this).closest(".commentWrapBox").find(".commentContent").show();           			
+           			$(this).closest(".coModBox").remove();
+           			//$(this).closest(".commentWrapBox").append('<div class="row commentContent"><div class="col-12 pt-1 pl-4">${c.contents }</div></div>');
            		}
            	});
            	
@@ -275,7 +282,7 @@
 					}
 				}).done(function(resp){
 					$("#pCoContents").val("");
-					$(".pPageComments").html("");
+					$(".pPageComments").html("");					
 					commentRecall(resp);
 				}).fail(function(resp){
 					console.log("실패");
@@ -338,7 +345,32 @@
 			});
 			
 
-			
+			function commentRecall(resp){
+				var loginInfo = "${sessionScope.loginInfo}";
+				for(var i=0;i<resp.length;i++){
+					var html = [];
+					html.push(
+							'<div class="row commentDiv commentBox'+resp[i].seq+' p-0 pb-2 m-2"><div class="col-12 commentInnerBox"><div class="row commentHeader">',
+							'<div class="col-1 profileBox pl-1 pt-2"><img src="/img/profileSample.jpg" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>',
+							'<div class="col-7 pt-1"><div class="row commentInfo">',
+							'<div class="col-12 commentWriter">'+resp[i].writer+'</div>',
+							'<div class="col-12 commentWriteDate">'+resp[i].formedWriteDate+'</div></div></div>',
+							'<div class="col-4 pt-2 text-right commentBtns">',
+							'<button type="button" class="btn btn-warning coReplyBtn">답글</button>\n'
+							);
+					if(resp[i].writer==loginInfo){
+						html.push(
+								'<a class="btn btn-info coModBtn" href="#" onclick="coModFunction('+resp[i].seq+',\''+resp[i].contents+'\');return false;" role="button">수정</a>\n',
+								'<a class="btn btn-danger coDelBtn" href="#" onclick="coDelFunction('+resp[i].seq+');return false;" role="button">삭제</a>'
+								);
+					}
+					html.push(
+							'</div></div>',
+							'<div class="row commentContent"><div class="col-12 pt-1 pl-4">'+resp[i].contents+'</div></div></div></div>'
+							);
+					$(".pPageComments").append(html.join(""));	
+					}
+			}	
          </script>            
             
 </body>

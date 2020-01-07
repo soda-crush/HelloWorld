@@ -33,7 +33,7 @@ public class ProjectController {
 	public String projectMainList(String page, Model m) {
 //		session.setAttribute("loginInfo", "sooin");
 //		session.setAttribute("loginInfo", "sophie");
-		session.setAttribute("loginInfo", "eunwoo");
+//		session.setAttribute("loginInfo", "eunwoo");
 //		session.setAttribute("loginInfo", "jennie");
 		
 		int currentPage = 1;
@@ -107,7 +107,8 @@ public class ProjectController {
 	
 	@RequestMapping("/deleteProc")
 	public String projectDeleteConfirm(int seq) {
-		svc.projectDeleteConfirm(seq);
+		String id = (String)session.getAttribute("loginInfo");
+		svc.projectDeleteConfirm(seq, id);
 		return "redirect:/project/list";
 	}
 	
@@ -138,7 +139,8 @@ public class ProjectController {
 	@ResponseBody
 	@RequestMapping(value="/comment/deleteProc",produces="text/html;charset=utf8")
 	public String commentDeleteConfirm(int seq, int projectSeq) {
-		return svc.commentDeleteConfirm(seq, projectSeq);		
+		String id = (String)session.getAttribute("loginInfo");
+		return svc.commentDeleteConfirm(seq, projectSeq, id);		
 	}
 	
 	

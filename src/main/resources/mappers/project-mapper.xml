@@ -45,4 +45,10 @@
 	<update id="closeProject">
 		update project set state='Y' where seq=#{value}
 	</update>
+	
+	
+	
+	<update id="articleAddPoint" parameterType="java.util.Map">
+		update member set point=point+#{point} where id=#{id}
+	</update>
 </mapper>
