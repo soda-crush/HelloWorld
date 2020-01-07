@@ -288,10 +288,7 @@ span:nth-child(4) {
 		});
 	
 		function modifyRe(seq,queSeq){
-			var cf = confirm("수정하시겠습니까?");
-			if(cf){
 				location.href="${pageContext.request.contextPath}/code/modifyR.do?seq="+seq+"&queSeq="+queSeq;
-			}
         }
 
 		function deleteRe(seq,queSeq){

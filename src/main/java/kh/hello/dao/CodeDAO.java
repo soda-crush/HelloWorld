@@ -3,12 +3,15 @@ package kh.hello.dao;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
 import kh.hello.dto.CodeCommentsDTO;
 import kh.hello.dto.CodeQuestionDTO;
 import kh.hello.dto.CodeReplyDTO;
+import kh.hello.dto.MemberDTO;
 
 @Repository
 public class CodeDAO {
@@ -17,7 +20,7 @@ public class CodeDAO {
 	private SqlSessionTemplate jdbc;
 	
 	//글쓰기
-	public int insert(CodeQuestionDTO dto) throws Exception{
+	public int insert(CodeQuestionDTO dto) {
 		return jdbc.insert("Code.insert",dto);
 	}
 	
@@ -27,7 +30,7 @@ public class CodeDAO {
 //	}
 	
 	//게시판전체(페이징)
-	public List<CodeQuestionDTO> selectQuestionAll(int start,int end) throws Exception{
+	public List<CodeQuestionDTO> selectQuestionAll(int start,int end) {
 		Map<String, Integer> param = new HashMap<>();
 		param.put("start", start);
 		param.put("end", end);
@@ -39,22 +42,22 @@ public class CodeDAO {
 	}
 
 	//가장 최신 글 번호 찾기
-	public int selectSeq(String writer) throws Exception{
+	public int selectSeq(String writer) {
 		return jdbc.selectOne("Code.selectSeq",writer);
 	}
 	
 	//디테일
-	public CodeQuestionDTO detailQuestion(int seq) throws Exception{
+	public CodeQuestionDTO detailQuestion(int seq) {
 		return jdbc.selectOne("Code.detailQuestion",seq);
 	}
 	
 	//조회수 증가
-	public int incrementViewCount(int seq) throws Exception{
+	public int incrementViewCount(int seq) {
 		return jdbc.update("Code.incrementViewCount",seq);
 	}
 	
 	//게시판 삭제
-	public int delete(int seq) throws Exception{
+	public int delete(int seq) {
 		return jdbc.delete("Code.delete",seq);
 	}
 	
@@ -62,31 +65,40 @@ public class CodeDAO {
 		jdbc.update("Code.modify", dto);
 	}
 	
+	//포인트
+	public void writePoint(String id) {
+		jdbc.update("Code.writePoint", id);
+	}
+	
+	public void deleteWritePoint(String id) {
+		jdbc.update("Code.deleteWritePoint", id);
+	}
+	
 	//답글 ( CodeReply ) 
-	public int insertR(CodeReplyDTO dto) throws Exception{
+	public int insertR(CodeReplyDTO dto) {
 		return jdbc.insert("CodeR.insert",dto);
 	}
 	
-	public List<CodeReplyDTO> selectReplyAll() throws Exception{
+	public List<CodeReplyDTO> selectReplyAll() {
 		return jdbc.selectList("CodeR.selectReplyAll");
 	}
 	
-	public List<CodeReplyDTO> detailReply(int queSeq) throws Exception{
+	public List<CodeReplyDTO> detailReply(int queSeq) {
 		return jdbc.selectList("CodeR.detailReply",queSeq);
 	}
 	
-	public int deleteR(int seq) throws Exception{
+	public int deleteR(int seq) {
 		return jdbc.delete("CodeR.deleteR",seq);
 	}
 	
-	public int replyOneCount(int queSeq,String writer) throws Exception{
+	public int replyOneCount(int queSeq,String writer) {
 		Map<String,Object> map = new HashMap<>();
 		map.put("queSeq", queSeq);
 		map.put("writer", writer);
 		return jdbc.selectOne("CodeR.replyOneCount",map);
 	}
 	
-	public CodeReplyDTO selectOneDetail(int seq) throws Exception{
+	public CodeReplyDTO selectOneDetail(int seq) {
 		return jdbc.selectOne("CodeR.selectOneDetail",seq);
 	}
 	

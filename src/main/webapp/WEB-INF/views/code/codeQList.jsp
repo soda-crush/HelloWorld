@@ -153,7 +153,9 @@ badge-success
 											<span class="badge badge-pill badge-danger">N</span></td>
 										<td>${dto.writer}  
 										 <span class="badge badge-pill badge-info">실무자</span></td>
-										<td>${dto.point}</td>
+										<td>${dto.point}
+<!-- 											<span class="badge badge-pill badge-warning"></span> -->
+										</td>
 										<td>${dto.formedDate}</td>
 										<td>${dto.viewCount}</td>
 									</tr>

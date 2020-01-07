@@ -18,4 +18,12 @@
 	<select id="selectRepSeq" parameterType="String" resultType="Integer">
 		select max(seq) from codeQuestion where writer = #{writer}
 	</select>
+	
+	<update id="writeCoPoint" parameterType="String">
+		update member set point=point+5 where id=#{id}
+	</update>
+	<update id="deleteCoPoint" parameterType="String">
+		update member set point=point-5 where id=#{id}
+	</update>
+	
 </mapper>

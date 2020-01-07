@@ -20,6 +20,7 @@ import kh.hello.dao.CodeDAO;
 import kh.hello.dto.CodeCommentsDTO;
 import kh.hello.dto.CodeQuestionDTO;
 import kh.hello.dto.CodeReplyDTO;
+import kh.hello.dto.MemberDTO;
 
 
 @Service
@@ -32,12 +33,14 @@ public class CodeService {
 //		return dao.selectAll();
 //	}
 	
-	public List<CodeQuestionDTO> selectQuestionAll(int start,int end) throws Exception{
+	public List<CodeQuestionDTO> selectQuestionAll(int start,int end) {
 			return dao.selectQuestionAll(start,end);
 	}
 	
-	public void insert(CodeQuestionDTO dto) throws Exception{
+	@Transactional("txManager")
+	public void insert(CodeQuestionDTO dto,String id) {
 		dao.insert(dto);
+		dao.writePoint(id);
 	}
 	
 	public void imageUpload(CodeQuestionDTO dto,String path) throws Exception{
@@ -66,20 +69,22 @@ public class CodeService {
 	}
 	
 	@Transactional("txManager")
-	public CodeQuestionDTO detailQuestion(int seq) throws Exception{
+	public CodeQuestionDTO detailQuestion(int seq) {
 		dao.incrementViewCount(seq);
 		return dao.detailQuestion(seq);
 	}
 	
-	public void delete(int seq) throws Exception{
+	@Transactional("txManager")
+	public void delete(int seq,String id) {
 		dao.delete(seq);
+		dao.deleteWritePoint(id);
 	}
 	
-	public void modify(CodeQuestionDTO dto) throws Exception{
+	public void modify(CodeQuestionDTO dto) {
 		dao.modify(dto);
 	}
 	
-	public int replyOneCount(int queSeq,String writer) throws Exception{
+	public int replyOneCount(int queSeq,String writer){
 		return dao.replyOneCount(queSeq, writer);
 	}
 	
@@ -88,11 +93,11 @@ public class CodeService {
 //		return dao.selectParentSeq(seq);
 //	}
 	
-	public void insertR(CodeReplyDTO dto) throws Exception{
+	public void insertR(CodeReplyDTO dto) {
 		dao.insertR(dto);
 	}
 	
-	public List<CodeReplyDTO> selectReplyAll() throws Exception{
+	public List<CodeReplyDTO> selectReplyAll() {
 		return dao.selectReplyAll();
 	}
 	
@@ -121,11 +126,11 @@ public class CodeService {
 		}
 	}
 	
-	public void deleteR(int seq) throws Exception{
+	public void deleteR(int seq) {
 		dao.deleteR(seq);
 	}
 	
-	public List<CodeReplyDTO> detailReply(int queSeq) throws Exception{
+	public List<CodeReplyDTO> detailReply(int queSeq) {
 		return dao.detailReply(queSeq);
 	}
 	
@@ -177,11 +182,11 @@ public class CodeService {
 		return pages;
 	}
 	
-	public CodeReplyDTO selectOneDetail(int seq) throws Exception{
+	public CodeReplyDTO selectOneDetail(int seq) {
 		return dao.selectOneDetail(seq);
 	}
 	
-	public void modifyR(CodeReplyDTO dto) throws Exception{
+	public void modifyR(CodeReplyDTO dto) {
 		dao.modifyR(dto);
 	}
 	

@@ -43,7 +43,11 @@
 		update codeQuestion set division=#{division},title=#{title},content=#{content},point=#{point} where seq=#{seq}
 	</update>
 	
-	<update id="writePoint" parameterType="kh.hello.dto.MemberDTO">
-		update member set point=#{point} where id=#{id}
+	<update id="writePoint" parameterType="String">
+		update member set point=point+10 where id=#{id}
+	</update>
+	
+	<update id="deleteWritePoint" parameterType="String">
+		update member set point=point-15 where id=#{id}
 	</update>
 </mapper>

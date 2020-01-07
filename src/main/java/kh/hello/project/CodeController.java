@@ -14,6 +14,7 @@ import kh.hello.configuration.Configuration;
 import kh.hello.dto.CodeCommentsDTO;
 import kh.hello.dto.CodeQuestionDTO;
 import kh.hello.dto.CodeReplyDTO;
+import kh.hello.dto.MemberDTO;
 import kh.hello.services.CodeService;
 
 @Controller
@@ -28,7 +29,7 @@ public class CodeController {
 	//질문 CodeQuestion
 	@RequestMapping("/codeQList.do")
 	public String codeList(Model m,String page) {
-		try {
+			System.out.println(session.getAttribute("loginInfo"));
 			//session.setAttribute("loginInfo", "oh");
 			//session.setAttribute("loginInfo", "jack");
 			int currentPage = 1;
@@ -42,9 +43,6 @@ public class CodeController {
 //			m.addAttribute("listCount",listCount);
 			m.addAttribute("pageNavi",pageNavi);
 			m.addAttribute("page", currentPage);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 		return "code/codeQList";
 	}
 	
@@ -54,12 +52,12 @@ public class CodeController {
 	}
 	
 	@RequestMapping("/codeQWriteProc.do")
-	public String codeWriteProc(CodeQuestionDTO dto) {
+	public String codeWriteProc(CodeQuestionDTO dto,String id) {
 		//System.out.println("dto:"+ dto.getSeq());
-		dto.setWriter((String)session.getAttribute("loginInfo"));
-		try {
+			dto.setWriter((String)session.getAttribute("loginInfo"));
 			String path = session.getServletContext().getRealPath("files");
-			sv.insert(dto);
+			sv.insert(dto,(String)session.getAttribute("loginInfo"));
+		try {
 			sv.imageUpload(dto, path);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -70,7 +68,6 @@ public class CodeController {
 	@RequestMapping("/codeDetail.do")
 	public String codeDetail(int seq, Model m,CodeReplyDTO dto) {
 		dto.setWriter((String)session.getAttribute("loginInfo"));
-		try {
 			CodeQuestionDTO qResult = sv.detailQuestion(seq); //queSeq
 			List<CodeReplyDTO> rResult = sv.detailReply(seq); //queSeq
 			List<CodeCommentsDTO> cResult = sv.commentList(dto.getSeq()); //reqSeq  
@@ -80,43 +77,28 @@ public class CodeController {
 			m.addAttribute("rResult", rResult);
 			m.addAttribute("cResult", cResult);
 			m.addAttribute("count", count);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 		return "/code/codeDetail";
 	}
 	
 	@RequestMapping("/delete.do")
-	public String delete(int seq) {
-		try {
-			sv.delete(seq);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	public String delete(int seq,String id) {
+			sv.delete(seq,(String)session.getAttribute("loginInfo"));
 		return "redirect:codeQList.do";
 	}
 	
 	@RequestMapping("/modify.do")
 	public String codeModify(int seq, Model m) {
 		CodeQuestionDTO result;
-		try {
 			result = sv.detailQuestion(seq);
 			int parent_seq = seq;
 			m.addAttribute("parent_seq",parent_seq);
 			m.addAttribute("result", result);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 		return "/code/codeQModify";
 	}
 	
 	@RequestMapping("/modifyProc.do")
 	public String codeModifyProc(CodeQuestionDTO dto) {
-		try {
 			sv.modify(dto);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 		int seq = dto.getSeq();
 		//return "redirect:codeQList.do";
 		return "redirect:/code/codeDetail.do?seq="+seq;
@@ -147,10 +129,11 @@ public class CodeController {
 	public String codeRWriteProc(CodeReplyDTO dto) {
 		int queSeq = dto.getQueSeq();
 		dto.setWriter((String)session.getAttribute("loginInfo"));
-		try {
+
 			//int queSeq = sv.selectParentSeq(parent_seq);
 			String path = session.getServletContext().getRealPath("files");
 			sv.insertR(dto);
+		try {
 			sv.imageUploadR(dto, path);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -177,34 +160,22 @@ public class CodeController {
 	public String deleteR(int seq,int queSeq) {
 		//System.out.println(seq);
 		//System.out.println(queSeq);
-		try {
 			sv.deleteR(seq);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 		return "redirect:/code/codeDetail.do?seq="+queSeq;
 	}
 	
 	@RequestMapping("/modifyR.do")
 	public String codeModifyR(int seq,int queSeq, Model m) {
-		try {
 			CodeReplyDTO dto = sv.selectOneDetail(seq);
 			int parent_seq = queSeq;
 			m.addAttribute("parent_seq",parent_seq);
 			m.addAttribute("dto", dto);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 		return "/code/codeRModify";
 	}
 	
 	@RequestMapping("/modifyRProc.do")
 	public String codeModifyRProc(CodeReplyDTO dto) {
-		try {
 			sv.modifyR(dto);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 		int queSeq = dto.getQueSeq();
 		return "redirect:/code/codeDetail.do?seq="+queSeq;
 	}
