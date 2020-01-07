@@ -1,10 +1,6 @@
 package kh.hello.project;
 
-import java.io.DataOutputStream;
-import java.io.FileOutputStream;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -12,7 +8,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.Base64Utils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -34,9 +29,6 @@ public class BambooController {
 	@RequestMapping("/bambooList.do")
 	public String bamboolistView (String cpage, Model m) {//대나무숲 게시판목록
 		session.setAttribute("loginInfo", "moon");
-		//List<BambooDTO> list = service.bambooList();
-
-
 		//페이지네비
 		int currentPage = 1;		
 
@@ -48,16 +40,8 @@ public class BambooController {
 
 		List<String> pageNavi = service.getBambooListPageNavi(currentPage);
 		m.addAttribute("pageNavi", pageNavi);
-
 		m.addAttribute("cpage", currentPage);
 
-
-
-
-
-
-
-		//m.addAttribute("bambooList", list);
 		return "/bamboo/bambooList";
 	}
 	@RequestMapping("/bambooDetailView.do")
@@ -74,43 +58,24 @@ public class BambooController {
 		return "/bamboo/bambooWrite";
 	}
 
-//	@RequestMapping("/bambooWriteProc.do")
-//	public String bambooWriteConfirm(BambooDTO dto) {
-//		dto.setWriter((String)session.getAttribute("loginInfo"));
-//		service.bambooWriteConfirm(dto);
-//		return "redirect:/bamboo/bambooList.do";
-//	}
 	@RequestMapping("/bambooWriteProc.do")
-	public String bambooWriteConfirm(BambooDTO dto) {//섬머노트
+	public String writeBamboo(BambooDTO dto) {//섬머노트
 		dto.setWriter((String)session.getAttribute("loginInfo"));
-		service.bambooWriteConfirm(dto);
-		
-		//썸머노트 이미지 서버에 저장하고 띄우기
-				String path = session.getServletContext().getRealPath("resources/img");
-				System.out.println("asdf");
-				Pattern p = Pattern.compile("<img.+?src=\"(.+?)\".+?data-filename=\"(.+?)\".*?>");
-				Matcher m = p.matcher(dto.getContent());
-				try {
-					while(m.find()) {
-						String oriName = m.group(2);
-						String sysName = System.currentTimeMillis() + "_" + oriName;
-						String imageString = m.group(1).split(",")[1];
-						byte[] imgBytes = Base64Utils.decodeFromString(imageString);
-						FileOutputStream fos = new FileOutputStream(path + "/" + sysName);
-						DataOutputStream dos = new DataOutputStream(fos);
-						dos.write(imgBytes);
-						dos.flush();
-						dos.close();
-
-						System.out.println(dto.getContent().replaceFirst(Pattern.quote(m.group(1)), "/files/"+sysName));
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-		
-		return "redirect:/bamboo/bambooList.do";
+		String path = session.getServletContext().getRealPath("attached");
+		int result = 0;
+		try {
+			result = service.writeBamboo(path, dto);
+			if(result > 0) {
+				return "redirect:/bamboo/bambooList.do";
+			}else {
+				return "redirect:../error";
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			return "redirect:../error";
+		}
 	}
-	
+
 	@RequestMapping("/bambooModify.do")
 	public String bambooModify(int seq, Model m) {
 		BambooDTO result = service.bambooDetailView(seq);
@@ -121,9 +86,22 @@ public class BambooController {
 	@RequestMapping("/bambooModifyProc.do")
 	public String bambooModifyConfirm(BambooDTO dto) {
 		System.out.println(dto.toString());
-		service.bambooModifyConfirm(dto);
-		int seq = dto.getSeq();
-		return "redirect:/bamboo/bambooDetailView.do?seq="+seq;
+		String path = session.getServletContext().getRealPath("attached");
+		
+		int result = 0;
+		try {
+			result = service.bambooModifyConfirm(dto, path);
+			System.out.println(result);
+			if(result > 0) {
+				int seq = dto.getSeq();
+				return "redirect:/bamboo/bambooDetailView.do?seq="+seq;
+			}else {
+				return "redirect:../error";
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			return "redirect:../error";
+		}
 	}
 
 	@RequestMapping("/bambooDeleteProc.do")
@@ -137,13 +115,14 @@ public class BambooController {
 	@ResponseBody
 	@RequestMapping(value="/comment/writeProc.do",produces="text/html;charset=utf8")
 	public String commentWriteConfirm(BambooCoDTO dto) {
+		dto.setWriter((String)session.getAttribute("loginInfo"));
 		return service.commentWriteConfirm(dto);
 	}
 
 	@ResponseBody
 	@RequestMapping(value="/comment/modifyProc.do",produces="text/html;charset=utf8")
 	public String commentModifyConfirm(BambooCoDTO dto) {
-		System.out.println("댓글수정 도착 + " + dto.getSeq() + " : " + dto.getBamSeq() + " : " +dto.getWriter());
+		System.out.println("댓글수정 도착 + " + dto.getSeq() + " : " + dto.getBamSeq() + " : " +dto.getContent());
 		return service.commentModifyConfirm(dto);
 	}
 
