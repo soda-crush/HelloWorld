@@ -78,4 +78,16 @@
   <select id="getSearchMemberResultTotal" resultType="integer">
   	select count(*) from member where ${col} like #{searchWord}
   </select>
+  <select id="getBlackList" resultType="kh.hello.dto.MemberDTO">
+  	select * from member where point&lt;=0 or memLevel=1
+  </select>
+  <select id="getBlackListTotal" resultType="integer">
+  	select count(*) from member where point&lt;=0 or memLevel=1
+  </select>
+  <select id="getSearchBlackListByPage" resultType="kh.hello.dto.MemberDTO">
+  	select * from (select member.*, row_number() over(order by name) rown from member where ${col} like #{searchWord}) where rown between #{start} and #{end} and (point&lt;=0 or memLevel=1)
+  </select>
+  <select id="getSearchBlackResultTotal" resultType="integer">
+  	select count(*) from member where ${col} like #{searchWord} and (point&lt;=0 or memLevel=1)
+  </select>
 </mapper>
