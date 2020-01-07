@@ -148,7 +148,7 @@ public class MemberController {
 			}catch(Exception e) {
 				System.out.println("메일 오류");
 				e.printStackTrace();
-				return "WEB-INF/views/error.jsp";
+				return "에러";
 			}
 	  }
 	 
@@ -209,7 +209,7 @@ public class MemberController {
 				}catch(Exception e) {
 					System.out.println("메일 오류");
 					e.printStackTrace();
-					return "WEB-INF/views/error.jsp";
+					return "에러";
 				}
 		 }else {
 			 return "false";
