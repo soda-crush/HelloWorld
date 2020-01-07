@@ -112,18 +112,17 @@ public class ProjectService {
 	}
 	
 	@Transactional("txManager")
-	public int projectWriteConfirm(ProjectDTO dto,String path) {
+	public int projectWriteConfirm(ProjectDTO dto,String path) throws Exception {
 		String option = "articleAdd";
 		File filePath = new File(path);
-		if(!filePath.exists()) {
-			filePath.mkdir();
+		if(!filePath.exists()) {			
+			filePath.mkdirs();
 		}
 		String contents = dto.getContents();
 		Pattern p = Pattern.compile("<img.+?src=\"(.+?)\".+?data-filename=\"(.+?)\".*?>");
 		Matcher m = p.matcher(contents);
 		List<ProjectImageDTO> summers = new ArrayList<>();
 		int projectSeq = 0;
-		try {
 			while(m.find()) {
 				String oriName = m.group(2);
 				String sysName = "summer_"+System.currentTimeMillis()+"_"+oriName;
@@ -148,10 +147,6 @@ public class ProjectService {
 				s.setProjectSeq(projectSeq);
 				dao.insertImage(s);
 			}			
-			
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
 		return projectSeq;		
 	}
 	
