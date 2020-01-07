@@ -36,7 +36,7 @@
             		<option value="직무3">직무3</option>
             	</select>
             	제목<input type="text" id=title name=title><br>
-            	내용<input type="textarea" id="content" name=content><br>
+            	내용<textarea id="content" name=content></textarea><br>
             	<input type="button" id="return" value="돌아가기">
             	<input type="button" id="write" value="작성">
             	</form>

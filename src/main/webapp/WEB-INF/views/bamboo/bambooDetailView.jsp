@@ -87,7 +87,8 @@
 					},
 					dataType:"json"
 				}).done(function(data){
-					$("#commentList").append("<div>" + data.writer + "</div><br>" + "<div>" + data.content + "</div><br>" + "<div>" + data.writeDate + "</div><br><a class=\"btn btn-primary\" href=/bamboo/comment/deleteProc.do?bamSeq="+data.bamSeq+"&seq="+data.seq+" role=\"button\">댓글 삭제</a>");
+					$("#commentList").append("<div><input type=\"hidden\" value="+data.writer+">익명</div><br>" + "<div>" + data.content + "</div><br>" + "<div>" + data.writeDate + "</div><br><a class=\"btn btn-primary\" href=/bamboo/comment/modifyProc.do?bamSeq="+data.bamSeq+"&seq="+data.seq+" role=\"button\">댓글 수정</a><a class=\"btn btn-primary\" href=/bamboo/comment/deleteProc.do?bamSeq="+data.bamSeq+"&seq="+data.seq+" role=\"button\">댓글 삭제</a>");
+					
 					$("#content").val("");
 				});
         	})
@@ -97,8 +98,8 @@
         			url:"/bamboo/comment/modifyProc.do",
 					type:"post",
 					data:{
-						seq : ${b.seq},
-						bamSeq : ${b.bamSeq},
+						seq : data.seq,
+						bamSeq : data.bamSeq,
 						writer: "${sessionScope.loginInfo}"
 					},
 					dataType:"json"

@@ -1,6 +1,10 @@
 package kh.hello.project;
 
+import java.io.DataOutputStream;
+import java.io.FileOutputStream;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -8,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.Base64Utils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -69,13 +74,43 @@ public class BambooController {
 		return "/bamboo/bambooWrite";
 	}
 
+//	@RequestMapping("/bambooWriteProc.do")
+//	public String bambooWriteConfirm(BambooDTO dto) {
+//		dto.setWriter((String)session.getAttribute("loginInfo"));
+//		service.bambooWriteConfirm(dto);
+//		return "redirect:/bamboo/bambooList.do";
+//	}
 	@RequestMapping("/bambooWriteProc.do")
-	public String bambooWriteConfirm(BambooDTO dto) {
+	public String bambooWriteConfirm(BambooDTO dto) {//섬머노트
 		dto.setWriter((String)session.getAttribute("loginInfo"));
-		int seq = service.bambooWriteConfirm(dto);
+		service.bambooWriteConfirm(dto);
+		
+		//썸머노트 이미지 서버에 저장하고 띄우기
+				String path = session.getServletContext().getRealPath("resources/img");
+				
+				Pattern p = Pattern.compile("<img.+?src=\"(.+?)\".+?data-filename=\"(.+?)\".*?>");
+				Matcher m = p.matcher(dto.getContent());
+				try {
+					while(m.find()) {
+						String oriName = m.group(2);
+						String sysName = System.currentTimeMillis() + "_" + oriName;
+						String imageString = m.group(1).split(",")[1];
+						byte[] imgBytes = Base64Utils.decodeFromString(imageString);
+						FileOutputStream fos = new FileOutputStream(path + "/" + sysName);
+						DataOutputStream dos = new DataOutputStream(fos);
+						dos.write(imgBytes);
+						dos.flush();
+						dos.close();
+
+						System.out.println(dto.getContent().replaceFirst(Pattern.quote(m.group(1)), "/files/"+sysName));
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+		
 		return "redirect:/bamboo/bambooList.do";
 	}
-
+	
 	@RequestMapping("/bambooModify.do")
 	public String bambooModify(int seq, Model m) {
 		BambooDTO result = service.bambooDetailView(seq);

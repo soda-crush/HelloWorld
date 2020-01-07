@@ -39,8 +39,8 @@
             		<option value="직무2">직무2</option>
             		<option value="직무3">직무3</option>
             	</select>
-            	제목<input type="text" id=title name=title value=${iPage.title}><br>
-            	내용<input type="textarea" id="content" name=content value=${iPage.content}><br>
+            	제목<input type="text" id=title name=title value="${iPage.title}"><br>
+            	내용<textarea id="content" name=content>${iPage.content}</textarea><br>
             	<input type="button" id="return" value="돌아가기">
             	<input type="button" id="write" value="작성">
             	</form>
