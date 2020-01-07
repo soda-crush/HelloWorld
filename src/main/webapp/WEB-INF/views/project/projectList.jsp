@@ -13,6 +13,9 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/css/project/projectBase.css" type="text/css"/>
 <link rel="stylesheet" href="/css/project/list.css" type="text/css"/>
+<style>
+.searchOption{margin-right:5px;}
+</style>
 </head>
 
 <body>
@@ -51,7 +54,7 @@
 					
 				  	<c:choose>
 				  		<c:when test="${projectList.size()==0 }">
-				  		<div class="row"><div class="col-12">작성된 글이 없습니다.</div></div>
+				  		<div class="row text-center tableBody"><div class="col-12">작성된 글이 없습니다.</div></div>
 				  		</c:when>
 				  		<c:otherwise>
 				  			<c:forEach items="${projectList }" var="p">
@@ -77,10 +80,11 @@
 				<div class="row pageListFooter">
 					<div class="col-6">
 						  <form class="form-inline">
-							<select class="form-control searchSelect" name="searchOption" id="searchOption">
+							<select class="form-control searchSelect" name="searchOption" id="searchOption" name="searchOption" style="margin-right:5px;">
 								<option selected disabled>선택</option>
 							    <option value="제목">제목</option>
-							    <option value="내용">내용</option>							    
+							    <option value="내용">내용</option>
+							    <option value="지역">지역</option>								    
 							</select>
 						    <input class="form-control mr-sm-2" type="search" placeholder="검색어를 입력하세요" aria-label="Search">
 						    <button class="btn btn-dark my-2 my-sm-0" type="submit">검색</button>

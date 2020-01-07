@@ -66,7 +66,7 @@
 							
 							<c:if test="${pPage.writer == sessionScope.loginInfo}">
 								<div class="text-center checkBtn">
-									<button type="button" class="btn btn-warning">신청내역
+									<button type="button" class="btn btn-warning" id="applyCheckBtn">신청내역
 										<c:if test="${pPage.applyCount>0 }">
 					  						<span class="pApply font-weight-bold">${pPage.applyCount }</span>
 					  					</c:if>
@@ -167,6 +167,10 @@
 		<jsp:include page="/WEB-INF/views/project/jsp/applyConfirmModal.jsp"/>
         <jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
 		<script>
+		$("#applyCheckBtn").on("click",function(){
+			location.href="/project/applyCheck?projectSeq=${pPage.seq}";	
+		});
+		
 		var loginInfo = "${sessionScope.loginInfo}";
 			$("#pCloseBtn").on("click",function(){
 				var check = confirm("프로젝트 모집을 마감하시겠습니까?\n마감된 모집글은 상태를 변경할 수 없습니다.");

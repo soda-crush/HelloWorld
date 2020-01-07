@@ -15,6 +15,7 @@ public class ProjectApplyDTO {
 	private Timestamp writeDate;
 	private String approve;
 	private int proceeding;
+	private String portfolio;
 	
 	public ProjectApplyDTO() {
 		super();
@@ -105,5 +106,31 @@ public class ProjectApplyDTO {
 	}
 	public void setProceeding(int proceeding) {
 		this.proceeding = proceeding;
+	}
+	public String getPortfolio() {
+		return portfolio;
+	}
+	public void setPortfolio(String portfolio) {
+		this.portfolio = portfolio;
+	}
+	public String getPortfolioCheck() {
+		String p = this.portfolio;
+		if(p.equalsIgnoreCase("Y")) {
+			return "공개";
+		}else {
+			return "비공개";
+		}
+	}
+	public String getApproveInKor() {
+		String approve = this.approve;
+		if(approve.contentEquals("W")) {
+			return "대기중";
+		}else if(approve.contentEquals("O")) {
+			return "승인";
+		}else if(approve.contentEquals("X")) {
+			return "거절";
+		}else if(approve.contentEquals("C")) {
+			return "취소";
+		}return approve;
 	}
 }

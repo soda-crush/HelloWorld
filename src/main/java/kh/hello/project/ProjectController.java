@@ -124,6 +124,15 @@ public class ProjectController {
 		return "redirect:/project/detailView?seq="+seq;
 	}
 	
+	@RequestMapping("/applyCheck")
+	public String projectApplyCheck(int projectSeq, Model m) {
+		List<ProjectApplyDTO> result = svc.projectApplyList(projectSeq);
+		m.addAttribute("applyList", result);
+		return "/project/applyList";
+	}
+	
+	
+	
 	
 	/*
 	 * 댓글 
