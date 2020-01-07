@@ -109,4 +109,14 @@ public class ProjectDAO {
 	public int deleteProjectList(int seq) {//나의 프로젝트 삭제
 		return jdbc.delete("ProjectMyList.deleteProjectMyList", seq);
 	}
+	
+	
+	
+	
+	//기타테이블들
+	
+	//member 테이블
+//	public int updatePoint() {
+//		
+//	}
 }

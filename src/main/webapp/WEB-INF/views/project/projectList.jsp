@@ -75,9 +75,17 @@
 				  			</c:forEach>
 				  		</c:otherwise>
 				  	</c:choose>				    
-				</div>								
-				<div class="pageListFooter text-right">
-					<a class="btn btn-success" href="/project/write" role="button">글쓰기</a>					
+				</div>
+				<div class="row pageListFooter">
+					<div class="col-6">
+						  <form class="form-inline">
+						    <input class="form-control mr-sm-2" type="search" placeholder="검색어를 입력하세요" aria-label="Search">
+						    <button class="btn btn-dark my-2 my-sm-0" type="submit">검색</button>
+						  </form>
+					</div>								
+					<div class="col-6 text-right">
+						<a class="btn btn-success" href="/project/write" role="button">글쓰기</a>					
+					</div>
 				</div>
 				<nav aria-label="List navi" id="pPageNavi">${pageNavi }</nav>
 				

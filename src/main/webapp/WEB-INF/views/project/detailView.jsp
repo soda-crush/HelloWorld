@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Hello World!</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
@@ -17,6 +18,7 @@
 <link rel="stylesheet" href="/css/project/projectBase.css" type="text/css"/>
 <link rel="stylesheet" href="/css/project/detailView.css" type="text/css"/>
 <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.css" type="text/css"/>
+<script src="/js/project/projectCo.js"></script>
 </head>
 
 <body>
@@ -102,7 +104,7 @@
 												<div class="col-4 pt-2 text-right commentBtns">
 													<button type="button" class="btn btn-warning coReplyBtn">답글</button>
 													<c:if test="${c.writer==sessionScope.loginInfo }">
-														<a class="btn btn-info coModBtn" href="#" onclick="coModFunction(${c.seq});return false;" role="button">수정</a>
+														<a class="btn btn-info coModBtn" href="#" onclick="coModFunction(${c.seq},'${c.contents }');return false;" role="button">수정</a>
 														<a class="btn btn-danger coDelBtn" href="#" onclick="coDelFunction(${c.seq});return false;" role="button">삭제</a>
 													</c:if>
 												</div>								
@@ -180,9 +182,54 @@
            	});//답댓기능.
            	
            	
-           	function coModFunction(seq){
-           		$(this).parents(".commentDiv").children(".commentContent").html("");
+           	function coModFunction(seq,contents){     
+           		$(".commentBox"+seq).find(".commentBtns").html("");
+           		$(".commentBox"+seq).find(".commentContent").html("");
+           		$(".commentBox"+seq).wrap('<form action="/project/comment/modifyProc" method="post" id="coModFrm"></form>');
+				var html = [];
+    			html.push(
+    					'<div class="col-12"><div class="row">',
+    					'<div class="col-9 col-md-10 col-xl-11 pr-0"><textarea class="form-control" placeholder="댓글 내용을 입력해주세요" id="pCoModContents" style="height:80px;" name="contents">'+contents+'</textarea></div>',
+    					'<div class="col-3 col-md-2 col-xl-1"><input type="hidden" name="seq" value="'+seq+'"><input type="hidden" name="projectSeq" value="${pPage.seq }">',
+    					'<div class="row">',
+    					'<div class="col-12 text-center p-0">',
+    					'<button type="button" class="btn btn-secondary" style="margin-bottom:5px;width:80%;" id="coMoCancel">취소</button>',
+    					'</div></div>',
+    					'<div class="row"><div class="col-12 text-center p-0">',
+    					'<button type="button" class="btn btn-warning" style="width:80%;" id="coMoBtn">수정</button>',
+    					'</div></div></div></div></div>');
+    			$(".commentBox"+seq).append(html.join(""));    			
            	}
+           	
+           	$(document).on("click","#coMoCancel",function(){
+           		var check = confirm("수정을 취소하시겠습니까?");
+           		if(check){
+           			
+           		}
+           	});
+           	
+           	$(document).on("click","#coMoBtn",function(){
+				$("#pCoModContents").val($.trim($("#pCoModContents").val()));
+				if($("#pCoModContents").val()==""){
+					alert("댓글 내용을 입력해주세요.");
+					return false;
+				}
+				
+				$.ajax({
+					url : "/project/comment/modifyProc",
+					type : "post",
+					dataType : "json",
+					data : $("#coModFrm").serialize()
+				}).done(function(resp){
+					console.log("성공");
+					console.log(resp);
+					$(".pPageComments").html("");
+					commentRecall(resp);
+				}).fail(function(resp){
+					console.log("실패");
+					console.log(resp);
+				})
+           	});
            	
            	
            	function coDelFunction(seq){
@@ -290,32 +337,8 @@
 				return false;				
 			});
 			
-			function commentRecall(resp){
-				var loginInfo = "${sessionScope.loginInfo}";
-				for(var i=0;i<resp.length;i++){
-					var html = [];
-					html.push(
-							'<div class="row commentDiv commentBox'+resp[i].seq+' p-0 pb-2 m-2"><div class="col-12"><div class="row">',
-							'<div class="col-1 profileBox pl-1 pt-2"><img src="/img/profileSample.jpg" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>',
-							'<div class="col-7 pt-1"><div class="row commentInfo">',
-							'<div class="col-12 commentWriter">'+resp[i].writer+'</div>',
-							'<div class="col-12 commentWriteDate">'+resp[i].formedWriteDate+'</div></div></div>',
-							'<div class="col-4 pt-2 text-right commentBtns">',
-							'<button type="button" class="btn btn-warning coReplyBtn">답글</button>\n'
-							);
-					if(resp[i].writer==loginInfo){
-						html.push(
-								'<button type="button" class="btn btn-info coModBtn">수정</button>\n',
-								'<a class="btn btn-danger coDelBtn" href="#" onclick="coDelFunction('+resp[i].seq+');return false;" role="button">삭제</a>'
-								);
-					}
-					html.push(
-							'</div></div>',
-							'<div class="row commentContent"><div class="col-12 pt-1 pl-4">'+resp[i].contents+'</div></div></div></div>'
-							);
-					$(".pPageComments").append(html.join(""));	
-				}
-			}
+
+			
          </script>            
             
 </body>
