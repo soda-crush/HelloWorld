@@ -1,6 +1,8 @@
 package kh.hello.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +17,27 @@ public class GuestBookDAO {
 	private SqlSessionTemplate jdbc;
 	
 	public void insert(GuestBookDTO gdto) {
-		jdbc.insert("GuestBook/insert", gdto );
+		jdbc.insert("GuestBook.insert", gdto );
 	}
-	public List<GuestBookDTO> selectList() {
-		return jdbc.selectList("GuestBook.selectAll");
+	
+	public int TotalCount () {
+		return jdbc.selectOne("GuestBook.guestBookTotalCount");
 	}
+	
+	public List<GuestBookDTO> selectListByPage(String owner, int start, int end) {
+		Map<String, Object> param = new HashMap<>();
+		param.put("owner", owner);
+		param.put("start", start);
+		param.put("end", end);
+		return jdbc.selectList("GuestBook.guestBookListByPage", param);
+	}
+	
+	public void delete(int seq) {
+		jdbc.delete("GuestBook.delete",seq);
+	}
+	
+	
+	
+	
+	
 }

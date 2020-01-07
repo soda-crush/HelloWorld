@@ -4,11 +4,21 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="GuestBook">
 	<insert id="insert" parameterType="kh.hello.dto.GuestBookDTO">
-		insert into board values(GuestBookSeq.nextval,#{owner},#{writer},#{content},#{writeDate})
+		insert into GuestBook values(GuestBookSeq.nextval,#{owner},#{writer},#{content},sysdate)
 	</insert>
 	
 	<select id="selectAll" resultType="kh.hello.dto.GuestBookDTO">
 		select * from GuestBook
 	</select>
+
+	<select id="guestBookTotalCount" resultType="integer">
+		select count(seq) from GuestBook
+	</select>
+	<select id="guestBookListByPage" parameterType="Object" resultType="kh.hello.dto.GuestBookDTO">
+		select * from (select GuestBook.*, row_number() over (order by seq desc) as rown from GuestBook) where owner=#{owner} and rown between #{start} and #{end}
+	</select>
 	
+	<delete id="delete" parameterType="int">
+		delete GuestBook where seq = #{seq}
+	</delete>
 </mapper>
