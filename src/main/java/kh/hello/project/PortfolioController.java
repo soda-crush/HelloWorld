@@ -35,8 +35,6 @@ public class PortfolioController {
 		return "/plog/writePortfolio";
 	}
 	
-
-	
 	@RequestMapping(value ="/fileUpload1.do",produces="text/html;charset=utf8")
 	@ResponseBody
 	public String image1(MultipartFile fileUpload1) {
@@ -107,7 +105,7 @@ public class PortfolioController {
 		    String endDate = endDateTemp + " 00:00:00.0";
 			pdto.setStartDate(Timestamp.valueOf(startDate));
 			pdto.setEndDate(Timestamp.valueOf(endDate));
-			pdto.setWriter("test");
+			pdto.setWriter(session.getAttribute("loginInfo").toString());
 			ps.insertWrite(pdto);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -122,7 +120,7 @@ public class PortfolioController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		String writer = "test";
+		String writer = session.getAttribute("loginInfo").toString();
 		List<PortfolioDTO> list = ps.selectList(writer);
 		request.setAttribute("list", list);
 		return "/plog/plogPortfolio";
@@ -173,8 +171,7 @@ public class PortfolioController {
 		    String endDate = endDateTemp + " 00:00:00.0";
 			pdto.setStartDate(Timestamp.valueOf(startDate));
 			pdto.setEndDate(Timestamp.valueOf(endDate));
-			pdto.setWriter("test");
-			
+			pdto.setWriter(session.getAttribute("loginInfo").toString());
 			ps.update(pdto);
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -25,8 +25,8 @@ public class GuestBookService {
 	}
 	
 	//페이지 네비
-	public List<String> getGuestBookPageNavi (int currentPage) {
-		int recordTotalCount = gdao.TotalCount();
+	public List<String> getGuestBookPageNavi (String owner, int currentPage) {
+		int recordTotalCount = gdao.TotalCount(owner);
 		int pageTotalCount = 0;
 
 		if(recordTotalCount% Configuration.recordCountPerPage > 0) {
@@ -75,6 +75,10 @@ public class GuestBookService {
 	
 	public void delete(int seq) {
 		gdao.delete(seq);
+	}
+	
+	public void update(GuestBookDTO gdto) {
+		gdao.update(gdto);
 	}
 	
 }

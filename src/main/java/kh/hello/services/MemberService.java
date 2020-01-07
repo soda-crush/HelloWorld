@@ -82,4 +82,26 @@ public class MemberService {
 			
 		}
 		
+	//로그인시 최근 로그인 날짜 갱신
+		public int updateLastLogin(String id) {
+			return mdao.updateLastLogin(id);
+		}
+		
+	//이름, 이메일에 해당하는 정보 있는지
+		public int isEmailExist(String name, String email) {
+			return mdao.selectEmail(name, email);
+		}
+	//가입전 이메일 있는지 확인
+		public int isEmailALready(String email) {
+			return mdao.selectEmailAlready(email);
+		}
+	//이메일로 아이디 찾기
+		public String selectIdByEmail(String email) {
+			return mdao.selectIdByEmail(email);
+		}
+	//비밀번호 변경
+		public int modifyPw(String id, String pw) {
+			return mdao.modifyPw(id, pw);
+		}
+		
 }

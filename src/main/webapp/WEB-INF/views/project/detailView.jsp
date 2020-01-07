@@ -19,6 +19,8 @@
 <link rel="stylesheet" href="/css/project/detailView.css" type="text/css"/>
 <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.css" type="text/css"/>
 <script src="/js/project/projectCo.js"></script>
+<style>
+</style>
 </head>
 
 <body>
@@ -162,6 +164,7 @@
         </div>
 
 		<jsp:include page="/WEB-INF/views/project/jsp/applyModal.jsp"/>        
+		<jsp:include page="/WEB-INF/views/project/jsp/applyConfirmModal.jsp"/>
         <jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
 		<script>
 		var loginInfo = "${sessionScope.loginInfo}";
@@ -184,10 +187,8 @@
            	
            	
            	function coModFunction(seq,contents){     
-//            		$(".commentBox"+seq).find(".commentBtns").html("");
-//            		$(".commentBox"+seq).find(".commentContent").remove();
-				$(".commentBox"+seq).find(".commentBtns").hide();
-				$(".commentBox"+seq).find(".commentContent").hide();
+				$(".commentBox"+seq).find(".commentBtns").css("display","none");
+				$(".commentBox"+seq).find(".commentContent").css("display","none");
            		$(".commentBox"+seq).wrap('<form action="/project/comment/modifyProc" method="post" id="coModFrm"></form>');
 				var html = [];
     			html.push(
@@ -208,10 +209,9 @@
            		var check = confirm("수정을 취소하시겠습니까?");
            		if(check){
            			$(this).closest(".commentDiv").unwrap();
-           			$(this).closest(".commentWrapBox").find(".commentHeader").find(".commentBtns").show();
-           			$(this).closest(".commentWrapBox").find(".commentContent").show();           			
-           			$(this).closest(".coModBox").remove();
-           			//$(this).closest(".commentWrapBox").append('<div class="row commentContent"><div class="col-12 pt-1 pl-4">${c.contents }</div></div>');
+           			$(this).closest(".commentDiv").find(".commentInnerBox").find(".commentHeader").find(".commentBtns").show();
+           			$(this).closest(".commentDiv").find(".commentInnerBox").find(".commentContent").show();           			
+           			$(this).closest(".coModBox").remove();           			
            		}
            	});
            	
@@ -270,8 +270,7 @@
 				if($("#pCoContents").val()==""){
 					alert("댓글 내용을 입력해주세요.");
 					return false;
-				}
-				
+				}				
 				$.ajax({
 					url : "/project/comment/writeProc",
 					type : "post",
@@ -322,8 +321,7 @@
 				if($("#languages").val()==""|$("#age")==null|!genderCheck|!workInCheck){
 					alert("필수 입력 항목을 확인해주세요");
 					return false;
-				}				
-				
+				}								
 				$.ajax({
 					type:"post",
 					url:"/project/apply/writeProc",
@@ -331,16 +329,16 @@
 				}).done(function(resp){
 					console.log("성공");
 					console.log(resp);
-					alert("신청완료!");					
+					$(".pApplyInput").children('input').val("");
+					$(".bootstrap-tagsinput").children('.label-info').remove();
+					$(".pApplyInput").children('select').val("");
+					$('#pApplyModal').modal('hide');
+					$('#pApplyConfirmModal').modal('show');
 				}).fail(function(resp){
 					console.log("실패");
 					console.log(resp);
-					alert("신청실패!");
+					alert("신청 실패!");
 				});
-				$(".pApplyInput").children('input').val("");
-				$(".bootstrap-tagsinput").children('.label-info').remove();
-				$(".pApplyInput").children('select').val("");
-				$('#pApplyModal').modal('hide');
 				return false;				
 			});
 			

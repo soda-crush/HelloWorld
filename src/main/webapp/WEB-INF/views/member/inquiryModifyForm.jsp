@@ -31,20 +31,21 @@
             <!--      몸통 시작!!!   -->
             <div class=container id="projectPage">
 				<div id="pageTitle" class="mb-4">
-					<h1>IT News 글쓰기</h1>
+					<h1>일대일 문의 수정하기</h1>
 				</div>
 				
-				<form action="${pageContext.request.contextPath}/itnews/writeProc" method="post" id="writeFrm" enctype="multipart/form-data">
+				<form action="${pageContext.request.contextPath}/member1/modifyInquiry?page=${page}" method="post" id="writeFrm" enctype="multipart/form-data">
 					<div id="pageBody">					
 						<div id="pBody">
-							<div id="pTitleInput" class="mb-3"><input type="text" class="form-control" placeholder="제목을 입력해주세요" name="title" id="title"></div>
-							<div id="pContentsInput"><textarea class="form-control summernote" name="content" id="content"></textarea></div>											
+							<div id="pTitleInput" class="mb-3"><input type="text" class="form-control" placeholder="제목을 입력해주세요" name="title" id="title" value="${dto.title}"></div>
+							<div id="pContentsInput"><textarea class="form-control summernote" name="content" id="content">${dto.content}</textarea></div>											
 						</div>					
 					</div>
+					<input type="hidden" value="${dto.seq}" name="seq">
 					<div id="pageFooter" class="mt-3">
 						<span><button class="btn btn-secondary back" type="button">목록</button></span>
 						<span class="float-right">			
-							<input class="btn btn-primary" type="submit" value="글쓰기" id="writeBtn">			
+							<input class="btn btn-primary" type="submit" value="수정하기" id="writeBtn">			
 							<button class="btn btn-secondary back" type="button">취소</button>					
 						</span>
 					</div>
@@ -77,9 +78,9 @@ $("#writeBtn").on("click", function(){
 })
 
 $(".back").on("click", function(){
-	var result = confirm("모든 입력 내용이 사라집니다. 글쓰기를 취소할까요?");
+	var result = confirm("모든 입력 내용이 사라집니다. 수정을 취소할까요?");
 	if(result){
-		location.href="${pageContext.request.contextPath}/itnews/?page=${page}";
+		location.href="${pageContext.request.contextPath}/member1/myInquiry?page=${page}";
 	}
 })
 </script>

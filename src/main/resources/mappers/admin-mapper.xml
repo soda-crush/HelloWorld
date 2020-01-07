@@ -31,7 +31,7 @@
   	select * from inquiryReply where seq=#{seq}
   </select>
   <select id="getInquiryReply" resultType="kh.hello.dto.InquiryReplyDTO">
-  	select * from inquiryReply where boardSeq=#{boardSeq} order by seq desc
+  	select * from inquiryReply where boardSeq=#{boardSeq} order by seq
   </select>
   <delete id="deleteInquiryReply" parameterType="integer">
   	delete from inquiryReply where seq=#{seq}

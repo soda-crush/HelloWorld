@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
         <!-- Modal -->
-		<div class="modal fade" id="pApplyModal" tabindex="-1" role="dialog" aria-labelledby="pApplyModalLabel" aria-hidden="true">
+		<div class="modal fade" id="pApplyModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="pApplyModalLabel" aria-hidden="true">
 		  <div class="modal-dialog" role="document">
 		    <div class="modal-content">
 		      <div class="modal-header">

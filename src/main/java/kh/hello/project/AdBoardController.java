@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import kh.hello.configuration.Configuration;
 import kh.hello.dto.BambooCoDTO;
 import kh.hello.dto.BambooDTO;
+import kh.hello.dto.CodeQuestionDTO;
 import kh.hello.dto.IndustryStatusCoDTO;
 import kh.hello.dto.IndustryStatusDTO;
 import kh.hello.dto.ProjectCoDTO;
@@ -29,7 +30,7 @@ public class AdBoardController {
 	public String projectMainList(String page, Model m) {
 		
 		int currentPage = 1;
-		if(page!= null) currentPage = Integer.parseInt(page);
+		if(page!= null && page != "") currentPage = Integer.parseInt(page);
 		
 		int end = currentPage * (Configuration.recordCountPerPage);
 		int start = end - (Configuration.recordCountPerPage-1);
@@ -42,7 +43,7 @@ public class AdBoardController {
 		
 		m.addAttribute("page", currentPage);
 		
-		return "/admin/boardProjectList";
+		return "admin/boardProjectList";
 	}
 	
 	@RequestMapping("/delProject")
@@ -83,7 +84,7 @@ public class AdBoardController {
 	@RequestMapping("/bambooList")
 	public String bambooMainList(String page, Model m) {
 		int currentPage = 1;
-		if(page!= null) currentPage = Integer.parseInt(page);
+		if(page!= null && page != "") currentPage = Integer.parseInt(page);
 		
 		int end = currentPage * (Configuration.recordCountPerPage);
 		int start = end - (Configuration.recordCountPerPage-1);
@@ -142,17 +143,15 @@ public class AdBoardController {
 		int end = currentPage * (Configuration.recordCountPerPage);
 		int start = end - (Configuration.recordCountPerPage-1);
 		
-		//List<ProjectDTO> result = bs.projectListperPage(start, end);
 		List<IndustryStatusDTO> result = bs.industryListByPage(start, end);
 		m.addAttribute("list", result);
 		
-		//List<String> pageNavi = bs.getProjectPageNavi(currentPage);
 		List<String> pageNavi = bs.getIndustryPageNavi(currentPage);
 		m.addAttribute("pageNavi", pageNavi);
 		
 		m.addAttribute("page", currentPage);
 		
-		return "/admin/boardIndustryList";		
+		return "admin/boardIndustryList";		
 	}
 	
 	@RequestMapping("/delIndustry")
@@ -184,6 +183,33 @@ public class AdBoardController {
 		}else {
 			return "redirect:admin/adminError";
 		}
+	}
+	
+	/* 
+	 * Code-How
+	 */
+	
+	@RequestMapping("/cohowList")
+	public String cohowMainList(String page, Model m) {
+		int currentPage = 1;
+		if(page!= null && page != "") currentPage = Integer.parseInt(page);
+		
+		int end = currentPage * (Configuration.recordCountPerPage);
+		int start = end - (Configuration.recordCountPerPage-1);
+		
+		List<CodeQuestionDTO> result = bs.cohowListByPage(start, end);
+		m.addAttribute("list", result);
+		
+		List<String> pageNavi = bs.getCohowPageNavi(currentPage);
+		m.addAttribute("pageNavi", pageNavi);
+		
+		m.addAttribute("page", currentPage);
+		return "admin/boardCohowList";			
+	}
+	
+	@RequestMapping("/delCohow")
+	public void delCohow(int seq, String page) {
+
 	}
 }
 
