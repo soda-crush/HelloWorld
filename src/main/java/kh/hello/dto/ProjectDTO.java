@@ -169,8 +169,15 @@ public class ProjectDTO {
 	public String getFormedWriteDate() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
 		return sdf.format(this.writeDate);		
+	}	
+	public String getFormedCalStartDate() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		return sdf.format(this.startDate);
 	}
-	
+	public String getFormedCalEndDate() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		return sdf.format(this.endDate);
+	}
 	public String getFormedDate() {
 		SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm");
 		SimpleDateFormat sdfDay = new SimpleDateFormat("MM-dd");

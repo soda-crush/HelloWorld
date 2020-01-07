@@ -17,40 +17,6 @@
 <link rel="stylesheet" href="/css/project/projectBase.css" type="text/css"/>
 <link rel="stylesheet" href="/css/project/detailView.css" type="text/css"/>
 <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.css" type="text/css"/>
-<style>
-.pPageComments{
-	margin-top:30px;
-}
-.commentDiv{
-	background-color:#fff;
-	margin-top:2px;
-	margin-bottom:2px;
-	padding:0;
-	padding-bottom:5px;
-	border-radius:10px;
-}
-.commentInfo{
-	font-size:13px;
-	padding-left:10px;
-}
-.commentWriter,.commentWriteDate{
-	padding-left:0px;
-}
-.commentWriteDate{
-	color: darkgray;
-}
-.coModBtn,.coDelBtn,.coReplyBtn{
-	width: 45px;
-	height: 25px;
-	font-size: 11px;
-	font-weight: bold;
-	padding:0px;
-}
-.commentContent{
-	margin-top:10px;
-	margin-bottom:15px;
-}
-</style>
 </head>
 
 <body>
@@ -77,7 +43,7 @@
 							<span class="ml-4" style="font-weight:bold;">${pPage.title}</span><br>
 							<label class="ml-4">작성자 : ${pPage.writer }</label>
 							<label class="ml-4">작성일 : ${pPage.formedWriteDate }</label>
-							<label class="ml-4">조회수 : ${pPage.viewCount }</label>
+							<label class="ml-4">조회 : ${pPage.viewCount }</label>
 						</div>
 						<hr>
 						<div id="pInfo">
@@ -136,7 +102,7 @@
 												<div class="col-4 pt-2 text-right commentBtns">
 													<button type="button" class="btn btn-warning coReplyBtn">답글</button>
 													<c:if test="${c.writer==sessionScope.loginInfo }">
-														<button type="button" class="btn btn-info coModBtn">수정</button>
+														<a class="btn btn-info coModBtn" href="#" onclick="coModFunction(${c.seq});return false;" role="button">수정</a>
 														<a class="btn btn-danger coDelBtn" href="#" onclick="coDelFunction(${c.seq});return false;" role="button">삭제</a>
 													</c:if>
 												</div>								
@@ -175,7 +141,7 @@
 					</c:if>
 					<span class="float-right">
 						<c:if test="${pPage.writer == sessionScope.loginInfo}">
-							<a class="btn btn-info" href="/project/modifyProc?seq=${pPage.seq }" role="button">수정</a>
+							<a class="btn btn-info" href="/project/modify?seq=${pPage.seq }" role="button">수정</a>
 							<button type="button" class="btn btn-danger" id="pDelBtn">삭제</button>
 						</c:if>
 						<a class="btn btn-secondary" href="/project/list" role="button">목록</a>
@@ -212,6 +178,12 @@
            	
            	$("#coReplyBtn").on("click",function(){           		
            	});//답댓기능.
+           	
+           	
+           	function coModFunction(seq){
+           		$(this).parents(".commentDiv").children(".commentContent").html("");
+           	}
+           	
            	
            	function coDelFunction(seq){
            		var check = confirm("정말 삭제하시겠습니까?");
@@ -291,6 +263,13 @@
 		        }
 		    });
 			$("#applyFrm").on("submit",function(){
+				var genderCheck = $("input:radio[name='gender']").is(":checked");
+				var workInCheck = $("input:radio[name='workIn']").is(":checked");
+				if($("#languages").val()==""|$("#age")==null|!genderCheck|!workInCheck){
+					alert("필수 입력 항목을 확인해주세요");
+					return false;
+				}				
+				
 				$.ajax({
 					type:"post",
 					url:"/project/apply/writeProc",

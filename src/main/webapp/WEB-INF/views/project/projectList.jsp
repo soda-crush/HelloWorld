@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Hello World!</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
@@ -58,7 +59,7 @@
 									<div class="col-xl-1 d-none d-xl-block">${p.seq }</div>
 									<div class="col-xl-1 col-2 col-md-2 col-lg-1 ${p.state }">${p.stateInKor }</div>
 									<div class="col-xl-3 col-8 col-md-5">
-										<a href="/project/detailView?seq=${p.seq }">${p.title } 
+										<a href="/project/detailView?seq=${p.seq }" class="text-decoration-none">${p.title } 
 					  						<c:if test="${p.commentCount>0 }">
 					  							<span class="pComment font-weight-bold">${p.commentCount }</span>
 					  						</c:if>

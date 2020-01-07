@@ -91,8 +91,10 @@ public class ProjectController {
 	
 	@RequestMapping("/modify")
 	public String projectModify(int seq, Model m) {
+		String data = svc.projectWrite();
 		ProjectDTO result = svc.projectDetailView(seq);
-		m.addAttribute("projectPage", result);
+		m.addAttribute("data", data);
+		m.addAttribute("pPage", result);
 		return "/project/modify";
 	}
 	
