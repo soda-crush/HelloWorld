@@ -53,53 +53,21 @@ $(function(){
 		</div>
 
 		<!--      몸통 시작!!!   -->
-		<form action="modifyProc.do" method="post" id="writeForm">
-		<input type="hidden" name="seq" value="${result.seq}">
-		<input type="hidden" name="writer" value="${result.writer}">
+		<form action="modifyRProc.do" method="post" id="writeForm">
+		<input type="hidden" name="seq" value="${dto.seq}">
+		<input type="hidden" name="writer" value="${dto.writer}">
+		<input type="hidden" name="queSeq" value="${parent_seq}">
 			<div class=container>
 				<div class=row>
-					<div class="col-3 division">
-						<h4>Language</h4>
-					</div>
-					<div class="col-3 division">
-						<select name="division" class="sele">
-							<option value="">언어 선택</option>
-							<option value="java" <c:if test="${result.division eq 'java'}">selected</c:if>>java</option>
-							<option value="php" <c:if test="${result.division eq 'php'}">selected</c:if>>php</option>
-							<option value="c/c++/c#" <c:if test="${result.division eq 'c/c++/c#'}">selected</c:if>>c/c++/c#</option>
-							<option value="android" <c:if test="${result.division eq 'android'}">selected</c:if>>android</option>
-							<option value="ios" <c:if test="${result.division eq 'ios'}">selected</c:if>>ios</option>
-							<option value="database" <c:if test="${result.division eq 'database'}">selected</c:if>>db(oracle/mysql/mssql)</option>
-							<option value="기타" <c:if test="${result.division eq '기타'}">selected</c:if>>기타</option>
-						</select>
-					</div>
-					<div class="col-3 division">
-						<h4>Get Point</h4>
-					</div>
-					<div class="col-3 division">
-						<select name="point" class="sele">
-							<option value="">point</option>
-							<option value="10" <c:if test="${result.point == 10}">selected</c:if>>10</option>
-							<option value="30" <c:if test="${result.point == 30}">selected</c:if>>30</option>
-							<option value="50" <c:if test="${result.point == 50}">selected</c:if>>50</option>
-							<option value="100" <c:if test="${result.point == 100}">selected</c:if>>100</option>
-						</select>
-					</div>
-				</div>
-				
-				<div class=row>
-					<div class="col-2 title">
-						<h4>Q    질문${result.division}</h4>
-					</div>
-					<div class="col-10 title">
-						<input type="text" name="title" style="width:100%" value="${result.title}">
+					<div class="col-12 title">
+						<h4>${dto.writer}님의 답변입니다.</h4>
 					</div>
 				</div>
 
 				<div class=row>
 					<div class="col-12 content">
 						<textarea name="content" id="content" style="display:none"></textarea>
-						<div id="summernote">${result.content}</div>
+						<div id="summernote">${dto.content}</div>
 					</div>
 				</div>
 				
@@ -119,8 +87,7 @@ $(function(){
 			<div class="col-12" id=aroundContent></div>
 		</div>
 	</div>
-	</div>
-	
+
 	<jsp:include page="/WEB-INF/views/standard/footer.jsp" />
 	
 	<script>
@@ -131,9 +98,8 @@ $(function(){
 			location.href="${pageContext.request.contextPath}/code/codeDetail.do?seq=${parent_seq}";
 		})
 		$("#modify").on("click", function() {
-			$("#title").val($.trim($("#title").val())); 
-			if (($("#division").val()== "" || $("#point").val()== "" || $("#title").val()=="" || $(".note-editable").text()== "")) {
-				alert("작성 하지 않는 문항이 있습니다. 다시 한번 확인해주세요.");
+			if (($(".note-editable").text()== "")) {
+				alert("내용이 입력 되지 않았습니다. 다시 한번 확인해주세요.");
 				return false;
 			} else {
 				var result = confirm("이대로 수정 하시겠습니까?");

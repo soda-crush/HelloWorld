@@ -157,7 +157,7 @@ span:nth-child(4) {
 							<button class="btn btn-dark">공유</button>
 							<button class="btn btn-dark">스크랩</button>
 							<a class="btn btn-dark" href="/code/codeQList.do" role="button">목록</a>
-							<button class="btn btn-danger">신고</button>
+							<button class="btn btn-danger" id="report">신고</button>
 						</div>
 					</c:when>
 					<c:otherwise>
@@ -177,8 +177,8 @@ span:nth-child(4) {
 					<c:forEach items="${rResult}" var="r">
 					<hr>
 					<hr>
-						<input type="hidden" id="seqSelect" data-cartNum="${r.seq}"> 
-						
+						<input type="hidden" id="seqSelect" data-repNum="${r.seq}"> 
+<%-- 						<input type="hidden" class="parent${r.queSeq}" value="${r.queSeq}"> --%>
 						<div style="font-size: 40px; font-weight: 100;">${r.writer}님의 답변입니다.</div>
 						<br>
 						<div id="content">${r.content}</div>									
@@ -189,12 +189,19 @@ span:nth-child(4) {
 								</c:forEach>
 							</c:if>
 						<div>${r.formedDate}</div>
-						<c:if test="${r.writer == sessionScope.loginInfo}">
-							<div style="text-align:right;">
-								<button class="btn btn-dark" id="modifyR">수정</button>
-								<button class="btn btn-danger" id="deleteR">삭제</button>
-							</div>
-						</c:if>	
+						<c:choose>
+							<c:when test="${r.writer == sessionScope.loginInfo}">
+								<div style="text-align:right;">
+									<button class="btn btn-dark" id="modifyR" onclick="modifyRe(${r.seq},${r.queSeq})">수정</button>
+									<button class="btn btn-danger" id="deleteR" onclick="deleteRe(${r.seq},${r.queSeq})">삭제</button>
+								</div>
+							</c:when>
+							<c:otherwise>
+								<div style="text-align:right;">
+										<button class="btn btn-danger" id="reportR">신고</button>
+								</div>
+							</c:otherwise>
+						</c:choose>	
 						<br>
 						<div style="text-align:right;"><button class="btn btn-dark" id="commentBtn">댓글</button></div>	
 					</c:forEach>
@@ -279,11 +286,18 @@ span:nth-child(4) {
 		            flag = false;
 		        };
 		});
-		
-		function deleteR(seq){
+	
+		function modifyRe(seq,queSeq){
+			var cf = confirm("수정하시겠습니까?");
+			if(cf){
+				location.href="${pageContext.request.contextPath}/code/modifyR.do?seq="+seq+"&queSeq="+queSeq;
+			}
+        }
+
+		function deleteRe(seq,queSeq){
 			var cf = confirm("삭제하시겠습니까?");
 			if(cf){
-				location.href="${pageContext.request.contextPath}/code/deleteR.do?seq="+seq;
+				location.href="${pageContext.request.contextPath}/code/deleteR.do?seq="+seq+"&queSeq="+queSeq;
 			}
         }
 		
@@ -302,6 +316,7 @@ span:nth-child(4) {
 				$("#content").val("");
 			});
     	})
+    	
 	</script>
 	<jsp:include page="/WEB-INF/views/standard/footer.jsp" />
 </html>

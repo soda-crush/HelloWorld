@@ -86,6 +86,14 @@ public class CodeDAO {
 		return jdbc.selectOne("CodeR.replyOneCount",map);
 	}
 	
+	public CodeReplyDTO selectOneDetail(int seq) throws Exception{
+		return jdbc.selectOne("CodeR.selectOneDetail",seq);
+	}
+	
+	public void modifyR(CodeReplyDTO dto) {
+		jdbc.update("CodeR.modifyR", dto);
+	}
+	
 	//CodeComment
 
 	public int insertComment(CodeCommentsDTO dto) {

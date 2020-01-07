@@ -29,7 +29,8 @@ public class CodeController {
 	@RequestMapping("/codeQList.do")
 	public String codeList(Model m,String page) {
 		try {
-			session.setAttribute("loginInfo", "oh");
+			//session.setAttribute("loginInfo", "oh");
+			//session.setAttribute("loginInfo", "jack");
 			int currentPage = 1;
 			if(page != null) currentPage = Integer.parseInt(page);
 			int end = currentPage * Configuration.recordCountPerPage;
@@ -54,7 +55,7 @@ public class CodeController {
 	
 	@RequestMapping("/codeQWriteProc.do")
 	public String codeWriteProc(CodeQuestionDTO dto) {
-		System.out.println("dto:"+ dto.getSeq());
+		//System.out.println("dto:"+ dto.getSeq());
 		dto.setWriter((String)session.getAttribute("loginInfo"));
 		try {
 			String path = session.getServletContext().getRealPath("files");
@@ -173,13 +174,39 @@ public class CodeController {
 //	}
 //	
 	@RequestMapping("/deleteR.do")
-	public String deleteR(int seq) {
+	public String deleteR(int seq,int queSeq) {
+		//System.out.println(seq);
+		//System.out.println(queSeq);
 		try {
 			sv.deleteR(seq);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "redirect:codeDetail.do";
+		return "redirect:/code/codeDetail.do?seq="+queSeq;
+	}
+	
+	@RequestMapping("/modifyR.do")
+	public String codeModifyR(int seq,int queSeq, Model m) {
+		try {
+			CodeReplyDTO dto = sv.selectOneDetail(seq);
+			int parent_seq = queSeq;
+			m.addAttribute("parent_seq",parent_seq);
+			m.addAttribute("dto", dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "/code/codeRModify";
+	}
+	
+	@RequestMapping("/modifyRProc.do")
+	public String codeModifyRProc(CodeReplyDTO dto) {
+		try {
+			sv.modifyR(dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		int queSeq = dto.getQueSeq();
+		return "redirect:/code/codeDetail.do?seq="+queSeq;
 	}
 	
 	//댓글 CodeComments
