@@ -77,8 +77,8 @@ public class CodeDAO {
 		return jdbc.selectList("CodeR.selectReplyAll");
 	}
 	
-	public List<CodeReplyDTO> detailReply(int seq) throws Exception{
-		return jdbc.selectList("CodeR.detailReply",seq);
+	public List<CodeReplyDTO> detailReply(int queSeq) throws Exception{
+		return jdbc.selectList("CodeR.detailReply",queSeq);
 	}
 	
 	public int deleteR(int seq) throws Exception{

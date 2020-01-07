@@ -122,8 +122,8 @@ public class CodeService {
 		dao.delete(seq);
 	}
 	
-	public List<CodeReplyDTO> detailReply(int seq) throws Exception{
-		return dao.detailReply(seq);
+	public List<CodeReplyDTO> detailReply(int queSeq) throws Exception{
+		return dao.detailReply(queSeq);
 	}
 	
 	public List<String> getPageNavi(int currentPage) {				

@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Hello World!</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
@@ -145,7 +146,12 @@ span:nth-child(4) {
 				<c:choose>
 					<c:when test="${qResult.writer!=sessionScope.loginInfo}">
 						<div style="text-align: right;" class="btnDIv">
-							<a class="btn btn-dark" href="/code/codeRWrite.do?seq=${qResult.seq}" role="button">답변</a>
+<%-- 						<c:forEach items="${rResult}" var="r"> --%>
+<%-- 							<c:set var="count" value="${qResult.replyCount==0}" /> --%>
+<%-- 							<c:if test="${sessionScope.loginInfo == count  == ${qResult.seq}"> --%>
+								<a class="btn btn-dark" href="/code/codeRWrite.do?seq=${qResult.seq}" role="button">답변</a>
+<%-- 							</c:if> --%>
+<%-- 						</c:forEach> --%>
 							<button class="btn btn-dark">공유</button>
 							<button class="btn btn-dark">스크랩</button>
 							<a class="btn btn-dark" href="/code/codeQList.do" role="button">목록</a>
