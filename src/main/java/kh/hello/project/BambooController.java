@@ -87,7 +87,7 @@ public class BambooController {
 		
 		//썸머노트 이미지 서버에 저장하고 띄우기
 				String path = session.getServletContext().getRealPath("resources/img");
-				
+				System.out.println("asdf");
 				Pattern p = Pattern.compile("<img.+?src=\"(.+?)\".+?data-filename=\"(.+?)\".*?>");
 				Matcher m = p.matcher(dto.getContent());
 				try {
