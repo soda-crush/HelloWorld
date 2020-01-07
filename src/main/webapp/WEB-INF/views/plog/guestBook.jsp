@@ -7,9 +7,7 @@
 <meta charset="UTF-8">
 <title>Hello World!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
@@ -19,7 +17,6 @@
        <style>
             h1{text-align: center;padding-top: 50px; padding-bottom: 50px;}
             ul{background-color: lightgray;font-size: 13px;}
-            .container{margin:auto; background-color: #efefef;}
             .card{ width:200px;height:300px;margin: auto;margin-top:10px; float :left;}
             .myprofile{float: left;height: 350px;}
             #mycard{float:none;display:flex;align-items:center;}
@@ -33,12 +30,12 @@
             #commentForm{height:100%;}
             textarea{resize:none;}
             .page-item{padding:0px;height:10px;width:10px;}
-            .naviwrap>div{float:left;width:30px;}
+            .naviwrap>div{width:25px;display:inline-block;text-align:center;}
+            
         </style>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/standard/header.jsp"/>
-	
  		<div id=baseBackgroundColor>
             <div class=container>
                 <div class=row>
@@ -47,45 +44,24 @@
                 </div>
             </div>
             
-            <!--      몸통 시작!!!   -->
-
-            
             <div class="container">
 				<h1> Programming-Log</h1>
-	            <ul class="nav nav-tabs d-none d-sm-block">
-	                <li class="nav-item">
-	                    <a class="nav-link" href="${pageContext.request.contextPath}/Portfolio/toPlogmain.do">내 포트폴리오</a>
-	                </li>
-	                <li class="nav-item">
-	                    <a class="nav-link" href="${pageContext.request.contextPath}/Plog/toPlogCohow.do">내 지식인</a>
-	                </li>
-	                <li class="nav-item">
-	                    <a class="nav-link" href="${pageContext.request.contextPath}/Plog/toPlogScrap.do">내 스크랩</a>
-	                </li>
-	                <li class="nav-item">
-	                    <a class="nav-link" href="${pageContext.request.contextPath}/Plog/toPlogProject.do">내 팀 프로젝트</a>
-	                </li>
-	                <li class="nav-item">
-	                    <a class="nav-link active" href="${pageContext.request.contextPath}/GuestBook/selectList.do	">방명록</a>
-	                </li>
-	            </ul>
-	            <ul class="nav nav-tabs d-sm-none">
-	                <li class="nav-item">
-	                    <a class="nav-link" href="${pageContext.request.contextPath}/Portfolio/toPlogmain.do" style="padding:7px;">내 포트폴리오</a>
-	                </li>
-	                <li class="nav-item">
-	                    <a class="nav-link" href="${pageContext.request.contextPath}/Plog/toPlogCohow.do" style="padding:7px;">내 지식인</a>
-	                </li>
-	                <li class="nav-item">
-	                    <a class="nav-link" href="${pageContext.request.contextPath}/Plog/toPlogScrap.do" style="padding:7px;">내 스크랩</a>
-	                </li>
-	                <li class="nav-item">
-	                    <a class="nav-link"href="${pageContext.request.contextPath}/Plog/toPlogProject.do" style="padding:7px;">내 팀 프로젝트</a>
-	                </li>
-	                <li class="nav-item">
-	                    <a class="nav-link active" href="${pageContext.request.contextPath}/GuestBook/selectList.do" style="padding:7px;">방명록</a>
-	                </li>
-	            </ul>
+	            <nav class="navbar navbar-expand-md navbar-light" style="background-color: #008EDC;">
+		         	<a class="navbar-brand" href="#"></a>
+		  			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+		   				 <span class="navbar-toggler-icon"></span>
+		  			</button>
+		            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+		
+		                <div class="navbar-nav box text-center plogNavi" id="naviCon">
+		                    <a class="nav-item nav-link active text-light text-primary" href="${pageContext.request.contextPath}/Portfolio/toPlogmain.do">내 포트폴리오</a>
+		                    <a class="nav-item nav-link active text-light text-primary" href="${pageContext.request.contextPath}/Plog/toPlogCohow.do">내 지식인</a>
+		                    <a class="nav-item nav-link active text-light text-primary" href="${pageContext.request.contextPath}/Plog/toPlogScrap.do">내 스크랩</a>
+		                    <a class="nav-item nav-link active text-light text-primary" href="${pageContext.request.contextPath}/Plog/toPlogProject.do">내 프로젝트</a>
+		                    <a class="nav-item nav-link active text-light text-primary" href="${pageContext.request.contextPath}/GuestBook/selectList.do">방명록</a>
+		                </div>
+		            </div>
+		        </nav>
 	            <div class="row">
 	                <div class="col-12 col-md-4 col-lg-3 myprofile">
 	                    <div class="card" id="mycard">
@@ -96,13 +72,13 @@
 	                        </div>
 	                    </div>
 	                </div>
-	                <div class="col-12 col-sm-6 col-md-8 col-lg-9 commentwrap">
+	                <div class="col-12 col-md-8 col-lg-9 commentwrap">
 	
 	
 	                    <div class="commentwrite">
 	                    	<form action="${pageContext.request.contextPath}/GuestBook/insert.do" method="post" id="commentForm">
 		                        <div class="row"></div>
-<!-- 		                        <input type="hidden" name="owner" value="test"> 여기다 세션값 받아서 저장할것. -->
+		                        <input type="hidden" name="owner" value="${sessionScope.loginInfo}"> 
 		                        <textarea class="col-10 content" placeholder="내용을 입력해주세요" name="content"></textarea>
 		                        <button class="col-2 sendbt">작성</button>
 	                    	</form>	
@@ -117,24 +93,23 @@
 		                            <div id="writeDate"> ${dto.writeDate}</div>
 		                        </div>
 		                        <div class="row">
-		                            <textarea class="message" style="margin:10px;width:100%;height:100%"  onkeydown="resize(this)" onkeyup="resize(this)" readonly>${dto.content }</textarea>
+		                            <textarea id="list${dto.seq }" class="message" style="margin:10px;width:100%;height:100%" onkeydown="resize(this)" onkeyup="resize(this)" readonly>${dto.content }</textarea>
 		                        </div>
-		                        <div style="text-align:right"><button id="delete" onclick="location.href='${pageContext.request.contextPath}/GuestBook/delete.do?seq=${dto.seq}'">삭제하기</button></div>
+		                        <div style="text-align:right">
+		                        	<button id="update${dto.seq }" onclick="update(${dto.seq})" style="visibility:hidden;">수정완료</button>
+		                        	<button id="toModify${dto.seq }" onclick="modify(${dto.seq})">수정하기</button>
+		                        	<button id="delete" onclick="location.href='${pageContext.request.contextPath}/GuestBook/delete.do?seq=${dto.seq}'">삭제하기</button>
+		                        </div>
 							</c:forEach>
 	                    </div>
-	                    <div class="naviwrap"style="width:100%;float:left;">
+	                    <div class="naviwrap"style="width:100%;float:left;text-align:center;">
 		                    <c:forEach items="${pageNavi}" var="navi">									
 								${navi}
 							</c:forEach>
 	               		</div>
-	                   
 	                </div>
-	                
 	            </div>
             </div>
-            
-            <!--       몸통 끝!!!   -->
-            
             <div class=container>
                 <div class=row>
                     <div class="col-12" id=aroundContent>
@@ -142,12 +117,39 @@
                 </div>
             </div>
         </div>
-        
         <jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
         
-        
-        
         <script>
+        	function update(seq){
+        		var content = $('#list'+seq).val();
+        		$.ajax({
+        			url: "${pageContext.request.contextPath}/GuestBook/update.do",
+	  				type: "POST",
+	  				data: {
+	  					content : content,
+	  					seq : seq
+	  				},
+        		}).done(function(){
+            		$('#list'+seq).prop('readonly', true);
+            		$('#update'+seq).attr('style','visibility:hidden');
+            		$('#toModify'+seq).attr('style','visibility:visible');
+        		}).fail(function(){
+        			alert("실패하였습니다.");
+        		})
+        		
+        	}
+        
+        	function modify(seq){
+        		$('#list'+seq).prop('readonly', false);
+        		$('#update'+seq).attr('style','visibility:visible');
+        		$('#toModify'+seq).attr('style','visibility:hidden');
+        	}
+        	$(function(){
+        		var resizeList = document.getElementsByClassName("message");
+        		for(var i=0 ; i<resizeList.length;i++){
+        			resize(resizeList[i]);
+        		}
+        	})
        		function resize(obj) {
         	  obj.style.height = "1px";
         	  obj.style.height = (12+obj.scrollHeight)+"px";

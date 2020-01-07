@@ -84,4 +84,19 @@ public class MemberDAO {
 			param.put("pw", pw);
 			return jdbc.update("Member.modifyPw", param);
 		}
+	//포인트 적립
+		public void getPoint(String id,int point) {
+			Map<String, Object> param = new HashMap<>();
+			param.put("id", id);
+			param.put("point", point);
+			jdbc.update("Member.getPoint", param);
+		}
+	//포인트 차감
+		public void minusPoint(String id,int point) {
+			Map<String, Object> param = new HashMap<>();
+			param.put("id", id);
+			param.put("point", point);
+			jdbc.update("Member.minusPoint", param);
+		}	
+		
 }
