@@ -6,12 +6,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Hello World!</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/css/mainBase.css">
-<link rel="stylesheet" href="/css/projectBase.css" type="text/css"/>
+<link rel="stylesheet" href="/css/project/projectBase.css" type="text/css"/>
 <style>
 	#pageTitle{margin-bottom:20px;}
 	#pageTitle h1{display:inline;margin-right:10px;font-weight:bold;}
@@ -40,7 +41,14 @@
             <!--      몸통 시작!!!   -->
             <div class=container id="projectPage" style="background-color:white">
 				<div id="pageTitle">
-					<h1>대나무숲</h1>
+					<table>
+							<tr>
+								<td colspan="3" style="font-size: 60px; font-weight: 100;">대나무숲</td>
+								<td></td>
+								<td style="font-size: 15px; color: gray;">     자유롭게 익명으로 글을 남기는 게시판입니다.</td>
+								<td></td>
+							</tr>
+						</table>
 				</div>				
 				<table class="table table-hover">
 				  <thead class="thead-light">
@@ -80,7 +88,6 @@
 					<form action="/bamboo/bambooSearch.do" method="post">
 					<select name=value>
 						<option value="all">전체</option>
-						<option value="writer">작성자</option>
 						<option value="title">제목</option>
 					</select>
 					<input type="text" name=search>

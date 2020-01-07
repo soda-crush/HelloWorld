@@ -6,12 +6,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Hello World!</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/css/mainBase.css">
-<link rel="stylesheet" href="/css/projectBase.css" type="text/css"/>
+<link rel="stylesheet" href="/css/project/projectBase.css" type="text/css"/>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/standard/header.jsp"/>
@@ -27,7 +28,14 @@
             <!--      몸통 시작!!!   -->
             <div class=container id="industryPage">
 				<div id="pageTitle">
-					<h1>업계현황</h1>
+					<table>
+							<tr>
+								<td colspan="3" style="font-size: 60px; font-weight: 100;">업계현황</td>
+								<td></td>
+								<td style="font-size: 15px; color: gray;">     업계현황에 대한 정보를 나누는 게시판입니다.</td>
+								<td></td>
+							</tr>
+						</table>
 				</div>
 				
             <c:if  test="${iPage.seq !=null }">
