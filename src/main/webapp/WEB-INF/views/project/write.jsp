@@ -137,7 +137,7 @@
 			
 			$('.datePicker').datepicker({
 			    format: "yyyy-mm-dd",	//데이터 포맷 형식(yyyy : 년 mm : 월 dd : 일 )
-			    startDate: '-10d',	//달력에서 선택 할 수 있는 가장 빠른 날짜. 이전으로는 선택 불가능 ( d : 일 m : 달 y : 년 w : 주)
+			    startDate: '+1d',	//달력에서 선택 할 수 있는 가장 빠른 날짜. 이전으로는 선택 불가능 ( d : 일 m : 달 y : 년 w : 주)
 			    endDate: '+1y',	//달력에서 선택 할 수 있는 가장 느린 날짜. 이후로 선택 불가 ( d : 일 m : 달 y : 년 w : 주)
 			    autoclose : true,	//사용자가 날짜를 클릭하면 자동 캘린더가 닫히는 옵션
 			    calendarWeeks : false, //캘린더 옆에 몇 주차인지 보여주는 옵션 기본값 false 보여주려면 true
@@ -186,7 +186,11 @@
 				if($("#location1").val()==null|$("#location2").val()==null|$("#capacity")==null|$("#startDate").val()==""|$("#endDate").val()==""|$("#languages").val()==""){
 					alert("필수 입력 항목을 확인해주세요");
 					return false;
-				}								
+				}
+				if($("#startDate").val()>$("#endDate").val()){
+					alert("시작일이 종료일보다 늦은 날짜일 수 없습니다");
+					return false;
+				}				
 				$("#title").val($.trim($("#title").val())); 				
 				if($("#title").val()==""){
 					alert("제목을 입력해주세요");

@@ -77,6 +77,11 @@
 				<div class="row pageListFooter">
 					<div class="col-6">
 						  <form class="form-inline">
+							<select class="form-control searchSelect" name="searchOption" id="searchOption">
+								<option selected disabled>선택</option>
+							    <option value="제목">제목</option>
+							    <option value="내용">내용</option>							    
+							</select>
 						    <input class="form-control mr-sm-2" type="search" placeholder="검색어를 입력하세요" aria-label="Search">
 						    <button class="btn btn-dark my-2 my-sm-0" type="submit">검색</button>
 						  </form>
