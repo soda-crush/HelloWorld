@@ -2,6 +2,8 @@ package kh.hello.project;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,7 +50,8 @@ public class ItnewsController {
 	}
 	
 	@RequestMapping("/write")
-	public String itnewsWriteFrm() {
+	public String itnewsWriteFrm(String page,Model m) {
+		m.addAttribute("page", page);
 		return "/itnews/write";
 	}
 	
@@ -58,6 +61,24 @@ public class ItnewsController {
 			result = is.itnewsDetail(seq);
 			m.addAttribute("result", result);
 			return "/itnews/itnewsView";
+	}
+	
+	@RequestMapping("/writeProc")
+	public String writeProc(String page, ItnewsDTO dto, HttpSession session){
+		String path = session.getServletContext().getRealPath("attached");
+		
+		int result = 0;
+		try {
+			//result = is.writeItnews(path, dto);
+			if(result > 0) {//detailView 완성하면 경로 변경하기
+				return "redirect:myInquiry";
+			}else {
+				return "redirect:../error";
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			return "redirect:../error";
+		}
 	}
 	
 }
