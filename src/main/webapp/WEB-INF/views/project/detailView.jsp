@@ -184,10 +184,8 @@
            	
            	
            	function coModFunction(seq,contents){     
-//            		$(".commentBox"+seq).find(".commentBtns").html("");
-//            		$(".commentBox"+seq).find(".commentContent").remove();
-				$(".commentBox"+seq).find(".commentBtns").hide();
-				$(".commentBox"+seq).find(".commentContent").hide();
+				$(".commentBox"+seq).find(".commentBtns").css("display","none");
+				$(".commentBox"+seq).find(".commentContent").css("display","none");
            		$(".commentBox"+seq).wrap('<form action="/project/comment/modifyProc" method="post" id="coModFrm"></form>');
 				var html = [];
     			html.push(
@@ -208,10 +206,9 @@
            		var check = confirm("수정을 취소하시겠습니까?");
            		if(check){
            			$(this).closest(".commentDiv").unwrap();
-           			$(this).closest(".commentWrapBox").find(".commentHeader").find(".commentBtns").show();
-           			$(this).closest(".commentWrapBox").find(".commentContent").show();           			
-           			$(this).closest(".coModBox").remove();
-           			//$(this).closest(".commentWrapBox").append('<div class="row commentContent"><div class="col-12 pt-1 pl-4">${c.contents }</div></div>');
+           			$(this).closest(".commentDiv").find(".commentInnerBox").find(".commentHeader").find(".commentBtns").show();
+           			$(this).closest(".commentDiv").find(".commentInnerBox").find(".commentContent").show();           			
+           			$(this).closest(".coModBox").remove();           			
            		}
            	});
            	

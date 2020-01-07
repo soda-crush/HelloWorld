@@ -12,6 +12,7 @@ import kh.hello.configuration.Configuration;
 import kh.hello.dto.ProjectApplyDTO;
 import kh.hello.dto.ProjectCoDTO;
 import kh.hello.dto.ProjectDTO;
+import kh.hello.dto.ProjectImageDTO;
 import kh.hello.dto.ProjectMyListDTO;
 
 @Repository
@@ -35,9 +36,6 @@ public class ProjectDAO {
 		param.put("end", end);
 		return jdbc.selectList("Project.getListByPage", param);
 	}
-	
-	
-	
 	public ProjectDTO getProjectDetailView(int seq) {//프로젝트 모집글 상세보기
 		return jdbc.selectOne("Project.getProjectDetailView", seq);
 	}
@@ -59,6 +57,13 @@ public class ProjectDAO {
 	public int closeProject(int seq) {
 		return jdbc.update("Project.closeProject", seq);
 	}
+	
+	//projectImage 테이블
+	public int insertImage(ProjectImageDTO dto) {
+		return jdbc.insert("Project.insertImage",dto);
+	}
+	
+	
 	
 	//projectComment 테이블
 	public List<ProjectCoDTO> getCoList(int projectSeq){//프로젝트 모집댓글 전체리스트(해당글에 대한)

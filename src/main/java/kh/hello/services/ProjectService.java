@@ -1,10 +1,17 @@
 package kh.hello.services;
 
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Base64Utils;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -15,6 +22,7 @@ import kh.hello.dao.ProjectDAO;
 import kh.hello.dto.ProjectApplyDTO;
 import kh.hello.dto.ProjectCoDTO;
 import kh.hello.dto.ProjectDTO;
+import kh.hello.dto.ProjectImageDTO;
 
 @Service
 public class ProjectService {
@@ -104,11 +112,47 @@ public class ProjectService {
 	}
 	
 	@Transactional("txManager")
-	public int projectWriteConfirm(ProjectDTO dto) {
+	public int projectWriteConfirm(ProjectDTO dto,String path) {
 		String option = "articleAdd";
-		dao.insertProject(dto);		
-		dao.updatePoint(option, dto.getWriter());
-		return dao.latestSeq(dto.getWriter());
+		File filePath = new File(path);
+		if(!filePath.exists()) {
+			filePath.mkdir();
+		}
+		String contents = dto.getContents();
+		Pattern p = Pattern.compile("<img.+?src=\"(.+?)\".+?data-filename=\"(.+?)\".*?>");
+		Matcher m = p.matcher(contents);
+		List<ProjectImageDTO> summers = new ArrayList<>();
+		int projectSeq = 0;
+		try {
+			while(m.find()) {
+				String oriName = m.group(2);
+				String sysName = "summer_"+System.currentTimeMillis()+"_"+oriName;
+				String imgString = m.group(1).split(",")[1];
+				byte[] imgBytes = Base64Utils.decodeFromString(imgString);
+				FileOutputStream fos = new FileOutputStream(path+"/"+sysName);
+				DataOutputStream dos = new DataOutputStream(fos);
+				dos.write(imgBytes);
+				dos.flush();
+				dos.close();
+				contents = contents.replaceFirst(Pattern.quote(m.group(1)), "/attached/project/"+sysName);
+				ProjectImageDTO summer = new ProjectImageDTO();
+				summer.setOriName(oriName);
+				summer.setSysName(sysName);
+				summers.add(summer);
+			}	
+			dto.setContents(contents);
+			dao.insertProject(dto);		
+			dao.updatePoint(option, dto.getWriter());
+			projectSeq = dao.latestSeq(dto.getWriter());
+			for(ProjectImageDTO s : summers) {
+				s.setProjectSeq(projectSeq);
+				dao.insertImage(s);
+			}			
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return projectSeq;		
 	}
 	
 	public int projectModifyConfirm(ProjectDTO dto) {

@@ -85,7 +85,8 @@ public class ProjectController {
 	@RequestMapping("/writeProc")
 	public String projectWriteConfirm(ProjectDTO dto) {
 		dto.setWriter((String)session.getAttribute("loginInfo"));
-		int seq = svc.projectWriteConfirm(dto);
+		String path = session.getServletContext().getRealPath("attached/project");
+		int seq = svc.projectWriteConfirm(dto, path);
 		return "redirect:/project/detailView?seq="+seq;
 	}
 	
