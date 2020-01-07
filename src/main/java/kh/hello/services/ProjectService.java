@@ -106,6 +106,7 @@ public class ProjectService {
 	@Transactional("txManager")
 	public int projectWriteConfirm(ProjectDTO dto) {
 		dao.insertProject(dto);
+		
 		return dao.latestSeq(dto.getWriter());
 	}
 	

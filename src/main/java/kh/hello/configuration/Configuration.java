@@ -3,4 +3,14 @@ package kh.hello.configuration;
 public class Configuration {
 	public static int recordCountPerPage = 10;
 	public static int naviCountPerPage = 10;
+	
+	
+	//글 작성시 추가 포인트
+	public static int articleAddPoint = 10;
+	//글 작성시 삭감 포인트
+	public static int articleDelPoint = -15;
+	//댓글 작성시 추가 포인트
+	public static int commentAddPoint = 5;
+	//댓글 작성시 삭감 포인트
+	public static int commentDelPoint = -5;
 }
