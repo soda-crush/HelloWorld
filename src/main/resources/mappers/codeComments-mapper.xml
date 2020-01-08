@@ -13,7 +13,7 @@
 		update codeComments set content=#{content} where seq=#{seq}
 	</update>
 	<delete id="deleteComment">
-		delete from codeComments where seq=#{value}
+		delete from codeComments where seq=#{seq}
 	</delete>
 	<delete id="deleteReplyAllCo">
 		delete from codeComments where repSeq=#{value}

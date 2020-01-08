@@ -13,16 +13,12 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Base64Utils;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 
 import kh.hello.configuration.Configuration;
 import kh.hello.dao.CodeDAO;
-import kh.hello.dto.BambooCoDTO;
 import kh.hello.dto.CodeCommentsDTO;
 import kh.hello.dto.CodeQuestionDTO;
 import kh.hello.dto.CodeReplyDTO;
-import kh.hello.dto.ProjectCoDTO;
 
 
 @Service
@@ -257,10 +253,11 @@ public class CodeService {
 	
 	@Transactional("txManager")
 	public String insertComment(CodeCommentsDTO dto) {
-		String option = "commentAdd";
+//		String option = "commentAdd";
 		dao.insertComment(dto);
 		Gson gson = new Gson();
 		List<CodeCommentsDTO> result = dao.commentsList(dto.getQueSeq());
+		System.out.println("insert:"+gson.toJson(result));
 		return gson.toJson(result);
 	}
 	
@@ -282,7 +279,7 @@ public class CodeService {
 	public String updateComment(CodeCommentsDTO dto) {
 		dao.updateComment(dto);
 		Gson gson = new Gson();
-		List<CodeCommentsDTO> result = dao.commentsList(dto.getRepSeq());
+		List<CodeCommentsDTO> result = dao.commentsList(dto.getQueSeq());
 		return gson.toJson(result);
 //		System.out.println(dto.getRepSeq());
 //		CodeCommentsDTO comment = dao.getComment(dto.getRepSeq());
@@ -299,9 +296,10 @@ public class CodeService {
 		dao.deleteComment(dto.getSeq());
 		Gson gson = new Gson();
 		System.out.println(dto.getRepSeq());
-		List<CodeCommentsDTO> result = dao.commentsList(dto.getRepSeq());
+		List<CodeCommentsDTO> result = dao.commentsList(dto.getQueSeq());
 		System.out.println("에러잡자:"+gson.toJson(result));
 		return gson.toJson(result);
+
 	}
 	public int deleteReplyAllCo(int repSeq) {
 		return dao.deleteReplyAllCo(repSeq);

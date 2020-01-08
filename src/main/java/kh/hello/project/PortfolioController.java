@@ -14,7 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import kh.hello.dto.LoginInfoDTO;
+import kh.hello.dto.MemberDTO;
 import kh.hello.dto.PortfolioDTO;
+import kh.hello.services.MemberService;
 import kh.hello.services.PortfolioService;
 
 @Controller
@@ -23,6 +26,9 @@ public class PortfolioController {
 	
 	@Autowired
 	private PortfolioService ps;
+	
+	@Autowired
+	private MemberService ms;
 	
 	@Autowired
 	private HttpSession session;
@@ -105,7 +111,7 @@ public class PortfolioController {
 		    String endDate = endDateTemp + " 00:00:00.0";
 			pdto.setStartDate(Timestamp.valueOf(startDate));
 			pdto.setEndDate(Timestamp.valueOf(endDate));
-			pdto.setWriter(session.getAttribute("loginInfo").toString());
+			pdto.setWriter(((LoginInfoDTO)session.getAttribute("loginInfo")).getId());
 			ps.insertWrite(pdto);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -120,8 +126,10 @@ public class PortfolioController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		String writer = session.getAttribute("loginInfo").toString();
-		List<PortfolioDTO> list = ps.selectList(writer);
+		LoginInfoDTO info = (LoginInfoDTO)session.getAttribute("loginInfo");
+		List<PortfolioDTO> list = ps.selectList(info.getId());
+		MemberDTO mdto = ms.selectMember(info.getId());
+		request.setAttribute("point", mdto.getPoint());
 		request.setAttribute("list", list);
 		return "/plog/plogPortfolio";
 	}
