@@ -95,11 +95,18 @@
 		                        <div class="row">
 		                            <textarea id="list${dto.seq }" class="message" style="margin:10px;width:100%;height:100%" onkeydown="resize(this)" onkeyup="resize(this)" readonly>${dto.content }</textarea>
 		                        </div>
-		                        <div style="text-align:right">
-		                        	<button id="update${dto.seq }" onclick="update(${dto.seq})" style="visibility:hidden;">수정완료</button>
-		                        	<button id="toModify${dto.seq }" onclick="modify(${dto.seq})">수정하기</button>
-		                        	<button id="delete" onclick="location.href='${pageContext.request.contextPath}/GuestBook/delete.do?seq=${dto.seq}'">삭제하기</button>
-		                        </div>
+		                        <c:choose>
+									<c:when test="${dto.writer == loginInfo.nickName}">
+										<div style="text-align:right">
+				                        	<button id="update${dto.seq}" onclick="update(${dto.seq})" style="visibility:hidden;">수정완료</button>
+				                        	<button id="toModify${dto.seq }" onclick="modify(${dto.seq})">수정하기</button>
+				                        	<button id="delete" onclick="location.href='${pageContext.request.contextPath}/GuestBook/delete.do?seq=${dto.seq}'">삭제하기</button>
+				                        </div>
+									</c:when>
+									<c:otherwise>
+									</c:otherwise>
+								</c:choose>
+		                        
 							</c:forEach>
 	                    </div>
 	                    <div class="naviwrap"style="width:100%;float:left;text-align:center;">
