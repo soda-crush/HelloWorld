@@ -5,7 +5,7 @@
 <mapper namespace="Code">
 	<insert id="insert" parameterType="kh.hello.dto.CodeQuestionDTO">
 		insert into codeQuestion
-		values(codeQuestionSeq.nextval,#{division},#{title},#{content},#{writer},#{point},0,sysdate)
+		values(codeQuestionSeq.nextval,#{division},#{title},#{content},#{id},#{writer},#{point},0,sysdate)
 	</insert>
 	<select id="selectQuestionAll" resultType="kh.hello.dto.CodeQuestionDTO">
 		select codeQuestion.*,(select count(*) from codeReply where queSeq=codeQuestion.seq) as replyCount from (select codeQuestion.*, row_number() over(order by seq desc) rown from codeQuestion) codeQuestion where rown between #{start} and #{end} order by seq desc
@@ -67,9 +67,6 @@
 		<when test="value == 'writer'">								
 			 where (writer like '%${search}%')
 		</when>
-		<when test="value == 'title'">								
-			 where (title like '%${search}%')
-		</when>
 		</choose>
 	</select>
 	
@@ -91,4 +88,25 @@
 		</when>
 		</choose>
 	</select>
+	
+	<!-- 	이미지 업로드 -->
+	<select id="getCodeSeq" resultType="integer">
+		select codeQuestionSeq.nextval from dual
+	</select>
+	<insert id="insertImg" parameterType="java.util.Map">
+		insert into codeImgs values(codeImgsSeq.nextVal, #{queSeq}, #{fileName})
+	</insert>
+	
+<!-- 	스크랩 -->
+	<select id="scrapDupCheck" parameterType="kh.hello.dto.ScrapDTO" resultType="integer">
+		select count(*) from scrap where id=#{id} and category=#{category} and categorySeq=#{categorySeq}
+	</select>
+	
+	<select id="earlierSeq" resultType="integer">
+		select scrapSeq.nextval from dual
+	</select>
+	
+	<insert id="scrapCode">
+		insert into scrap values(#{seq}, #{id}, #{category}, #{categorySeq})
+	</insert>
 </mapper>

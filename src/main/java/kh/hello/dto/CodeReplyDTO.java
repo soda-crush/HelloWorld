@@ -8,6 +8,7 @@ public class CodeReplyDTO {
 	private int queSeq;
 	private String title;
 	private String content;
+	private String id;
 	private String writer;
 	private Timestamp writeDate;
 	
@@ -15,15 +16,18 @@ public class CodeReplyDTO {
 		super();
 	}
 	
-	public CodeReplyDTO(int seq, int queSeq, String title, String content, String writer, Timestamp writeDate) {
+	public CodeReplyDTO(int seq, int queSeq, String title, String content, String id, String writer,
+			Timestamp writeDate) {
 		super();
 		this.seq = seq;
 		this.queSeq = queSeq;
 		this.title = title;
 		this.content = content;
+		this.id = id;
 		this.writer = writer;
 		this.writeDate = writeDate;
 	}
+
 
 	public int getSeq() {
 		return seq;
@@ -48,6 +52,12 @@ public class CodeReplyDTO {
 	}
 	public void setContent(String content) {
 		this.content = content;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
 	}
 	public String getWriter() {
 		return writer;

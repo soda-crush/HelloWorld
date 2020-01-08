@@ -14,6 +14,7 @@ import kh.hello.dto.CodeCommentsDTO;
 import kh.hello.dto.CodeQuestionDTO;
 import kh.hello.dto.CodeReplyDTO;
 import kh.hello.dto.MemberDTO;
+import kh.hello.dto.ScrapDTO;
 
 @Repository
 public class CodeDAO {
@@ -124,6 +125,9 @@ public class CodeDAO {
 	public List<CodeCommentsDTO> commentsList(int queSeq){
 		return jdbc.selectList("CodeC.commentsList", queSeq);
 	}
+	public List<CodeCommentsDTO> commentsListUpdate(int repSeq){
+		return jdbc.selectList("CodeC.commentsList", repSeq);
+	}
 	public int insertComment(CodeCommentsDTO dto) {
 		return jdbc.insert("CodeC.insertComment", dto);
 	}
@@ -139,6 +143,15 @@ public class CodeDAO {
 	public int deleteReplyAllCo(int repSeq) {
 		return jdbc.delete("CodeC.deleteReplyAllCo", repSeq);
 	}
+	//댓글 포인트
+	public void writeCoPoint(String id) {
+		jdbc.update("CodeC.writeCoPoint", id);
+	}
+	
+	public void deleteCoPoint(String id) {
+		jdbc.update("CodeC.deleteCoPoint", id);
+	}
+	
 	
 	//조건별 게시판목록 검색
 	public int codeSearchTotalCount(String value,String search) {
@@ -155,5 +168,29 @@ public class CodeDAO {
 		param.put("search", search);
 		return jdbc.selectList("Code.codeSearchByPage",param);
 	}
+	
+	//이미지업로드
+		public int getCodeSeq() {
+			return jdbc.selectOne("Code.getCodeSeq");
+		}
+		public int insertImg(int queSeq, String fileName) {
+			Map<String, Object> param = new HashMap<>();
+			param.put("queSeq", queSeq);
+			param.put("fileName", fileName);
+			return jdbc.insert("Code.insertImg", param);
+		}
+		
+	//스크랩
+		public int scrapDupCheck(ScrapDTO dto) {
+			return jdbc.selectOne("Code.scrapDupCheck", dto);
+		}
+		
+		public int earlierSeq() {
+			return jdbc.selectOne("Code.earlierSeq");
+		}
+		
+		public int scrapCode(ScrapDTO dto) {
+			return jdbc.insert("Code.scrapCode", dto);
+		}
 	
 }

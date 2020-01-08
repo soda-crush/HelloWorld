@@ -4,16 +4,19 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="CodeC">
 	<select id="commentsList" resultType="kh.hello.dto.CodeCommentsDTO">
-		select * from codeComments where queSeq=#{queSeq} order by seq	
+		select * from codeComments where queSeq=#{value} order by seq	
+	</select>
+	<select id="commentsListUpdate" resultType="kh.hello.dto.CodeCommentsDTO">
+		select * from codeComments where repSeq=#{value} order by seq	
 	</select>
 	<insert id="insertComment" parameterType="kh.hello.dto.CodeCommentsDTO">
-		insert into codeComments values(codeCommentsSeq.nextval,#{queSeq},#{repSeq},#{content},#{writer},sysdate)
+		insert into codeComments values(codeCommentsSeq.nextval,#{queSeq},#{repSeq},#{content},#{id},#{writer},sysdate)
 	</insert>
 	<update id="updateComment" parameterType="kh.hello.dto.CodeCommentsDTO">
 		update codeComments set content=#{content} where seq=#{seq}
 	</update>
 	<delete id="deleteComment">
-		delete from codeComments where seq=#{seq}
+		delete from codeComments where seq=#{value}
 	</delete>
 	<delete id="deleteReplyAllCo">
 		delete from codeComments where repSeq=#{value}
