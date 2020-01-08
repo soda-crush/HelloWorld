@@ -40,6 +40,10 @@ public class GuestBookDAO {
 		jdbc.update("GuestBook.update",gdto);
 	}
 	
+	public String selectBySeq(int seq) {
+		return jdbc.selectOne("GuestBook.selectBySeq", seq);
+	}
+	
 	
 	
 	

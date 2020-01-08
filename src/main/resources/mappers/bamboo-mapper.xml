@@ -3,20 +3,16 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Bamboo">
-	<select id="selectAll" resultType="kh.hello.dto.BambooDTO">
-		select seq,writer,title,content,writeDate,viewCount,(select count(*) from bambooComments where bamSeq=bamboo.seq) as commentCount from bamboo order by seq desc
-	</select>
+	
 
 	<select id="getBambooDetailView" resultType="kh.hello.dto.BambooDTO">
 		select * from bamboo where seq=#{value}
 	</select>
 	
-	<select id="latestSeq" resultType="integer">
-		select max(seq) from bamboo where writer=#{value}
-	</select>
+	
 	
 	<insert id="insertBamboo" parameterType="kh.hello.dto.BambooDTO">
-		insert into bamboo values(bambooSeq.nextval,#{writer},#{title},#{content},sysdate,0)
+		insert into bamboo values(#{seq},#{writer},#{title},#{content},sysdate,0)
 	</insert>
 	
 	<update id="updateBamboo" parameterType="kh.hello.dto.BambooDTO">
@@ -44,7 +40,7 @@
 		 select count(seq) from bamboo
 		 <choose>
 		 <when test="value == 'all'">								
-			 where (writer like '%${search}%') or (title like '%${search}%')
+			 where (title like '%${search}%')
 		</when>
 		<when test="value == 'writer'">								
 			 where (writer like '%${search}%')
@@ -59,7 +55,7 @@
 		select * 
 		<choose>
 		 <when test="value == 'all'">								
-			 from (select bamboo.*, row_number() over (order by seq desc) as rown from bamboo where (writer like '%${search}%') or (title like '%${search}%')) where rown between #{start} and #{end}
+			 from (select bamboo.*, row_number() over (order by seq desc) as rown from bamboo where (title like '%${search}%')) where rown between #{start} and #{end}
 			 
 		</when>
 		<when test="value == 'writer'">
@@ -71,4 +67,12 @@
 		</when>
 		</choose>
 	</select>
+	
+<!-- 	이미지 업로드 -->
+	<select id="getBambooSeq" resultType="integer">
+		select bambooSeq.nextval from dual
+	</select>
+	<insert id="insertImg" parameterType="java.util.Map">
+		insert into bambooImgs values(bambooImgsSeq.nextVal, #{bamSeq}, #{fileName})
+	</insert>
 </mapper>

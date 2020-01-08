@@ -34,6 +34,14 @@
 		update CodeReply set content=#{content} where seq=#{seq}
 	</update>
 
+	<update id="writePoint" parameterType="String">
+		update member set point=point+10 where id=#{id}
+	</update>
+	
+	<update id="deleteWritePoint" parameterType="String">
+		update member set point=point-15 where id=#{id}
+	</update>
+	
 <!-- 	<select id="selectParentSeq" resultType="Integer" parameterType="Integer"> -->
 <!-- 		select seq from codeQuestion where seq = #{seq}  -->
 <!-- 	</select> -->

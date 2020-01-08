@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Hello World!</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
@@ -36,6 +37,16 @@
             </div>
             
             <!--      몸통 시작!!!   -->
+            <div id="pageTitle">
+					<table>
+							<tr>
+								<td colspan="3" style="font-size: 60px; font-weight: 100;">대나무숲</td>
+								<td></td>
+								<td style="font-size: 15px; color: gray;">     자유롭게 익명으로 글을 남기는 게시판입니다.</td>
+								<td></td>
+							</tr>
+						</table>
+				</div>
 <!--             	<form action="bambooWriteProc.do" method="post"> -->
 <!--             	제목<input type="text" id=title name=title><br> -->
 <!--             	내용<textarea id="content" name=content></textarea><br> -->
