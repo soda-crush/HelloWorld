@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kh.hello.dto.BambooDTO;
 import kh.hello.dto.IndustryStatusCoDTO;
 import kh.hello.dto.IndustryStatusDTO;
 
@@ -18,15 +19,11 @@ public class IndustryStatusDAO {
 	private SqlSessionTemplate jdbc;
 	
 	//업계현황 게시판
-	public List<IndustryStatusDTO> selectAll(){
-		return jdbc.selectList("Industry.selectAll");
-	}
+
 	public IndustryStatusDTO getIndustryStatusDetailView(int seq) {
 		return jdbc.selectOne("Industry.getIndustryStatusDetailView", seq);
 	}
-	public int latestSeq(String writer) {
-		return jdbc.selectOne("Industry.latestSeq", writer);
-	}
+	
 	public int insertIndustryStatus(IndustryStatusDTO dto) {
 		return jdbc.insert("Industry.insertIndustryStatus", dto);
 	}	
@@ -72,10 +69,29 @@ public class IndustryStatusDAO {
 	}
 	
 	//조건별 게시판목록 검색
-		public List<IndustryStatusDTO> industrySearch(String value,String search) {
-			Map<String, String> param = new HashMap<>();
-			param.put("value", value);
-			param.put("search", search);
-			return jdbc.selectList("Industry.industrySearch", param);
-		}
+	public int industrySearchTotalCount(String value,String search) {
+		Map<String, String> param = new HashMap<>();
+		param.put("value", value);
+		param.put("search", search);
+		return jdbc.selectOne("Industry.industrySearchTotalCount", param);
+	}
+	public List<IndustryStatusDTO> industrySearchListByPage (String start, String end, String value, String search) {//검색한 대나무숲 목록 페이지네비
+		Map<String, String> param = new HashMap<>();
+		param.put("start", start);
+		param.put("end", end);
+		param.put("value", value);
+		param.put("search", search);
+		return jdbc.selectList("Industry.industrySearchByPage",param);
+	}
+	
+	//이미지업로드
+	public int getIndustrySeq() {
+		return jdbc.selectOne("Industry.getIndustrySeq");
+	}
+	public int insertImg(int indSeq, String fileName) {
+		Map<String, Object> param = new HashMap<>();
+		param.put("indSeq", indSeq);
+		param.put("fileName", fileName);
+		return jdbc.insert("Industry.insertImg", param);
+	}
 }

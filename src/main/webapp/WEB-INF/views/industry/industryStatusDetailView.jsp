@@ -68,7 +68,7 @@
 										</div>
 									</div>
 									<div class="col-4 pt-2 text-right commentBtns">
-										<c:if test="${c.writer==sessionScope.loginInfo }">
+										<c:if test="${c.writer==sessionScope.loginInfo.nickName }">
 											<a class="btn btn-info coModBtn"
 												href="/bamboo/comment/modifyProc.do?seq=${c.seq }&bamSeq=${c.indSeq}"
 												onclick="coModFunction(${c.seq},'${c.content}',${c.indSeq });return false;"
@@ -101,7 +101,7 @@
 					</div>
 				</div>
 			</div>
-			<c:if test="${iPage.writer == sessionScope.loginInfo}">
+			<c:if test="${iPage.writer == sessionScope.loginInfo.nickName}">
 				<a class="btn btn-primary"
 					href="/industry/industryStatusModify.do?seq=${iPage.seq }"
 					role="button">수정하기</a>
@@ -135,9 +135,10 @@
 				type : "post",
 				dataType : "json",
 				data :{
-					bamSeq : "${iPage.seq}",
+					indSeq : "${iPage.seq}",
 					content : $("#pCoContents").val(),
-					writer: "${sessionScope.loginInfo}"
+					writer: "${sessionScope.loginInfo.nickName}",
+					id:"${sessionScope.loginInfo.id}"
 				}
 			}).done(function(resp){
 				$("#pCoContents").val("");
@@ -157,7 +158,7 @@
     			html.push(
     					'<div class="col-12 coModBox mt-2"><div class="row">',
     					'<div class="col-9 col-md-10 col-xl-11 pr-0"><textarea class="form-control" placeholder="댓글 내용을 입력해주세요" id="pCoModContents" style="height:80px;" name="content">'+contents+'</textarea></div>',
-    					'<div class="col-3 col-md-2 col-xl-1"><input type="hidden" name="seq" value="'+seq+'"><input type="hidden" name="bamSeq" value="'+indSeq+'">',
+    					'<div class="col-3 col-md-2 col-xl-1"><input type="hidden" name="seq" value="'+seq+'"><input type="hidden" name="indSeq" value="'+indSeq+'">',
     					'<div class="row">',
     					'<div class="col-12 text-center p-0">',
     					'<button type="button" class="btn btn-secondary" style="margin-bottom:5px;width:80%;" id="coMoCancel">취소</button>',
@@ -219,7 +220,7 @@
            		}
            	}
            	function commentRecall(resp){
-				var loginInfo = "${sessionScope.loginInfo}";
+				var loginInfo = "${sessionScope.loginInfo.nickName}";
 				for(var i=0;i<resp.length;i++){
 					var html = [];
 					html.push(
@@ -242,31 +243,6 @@
 					$(".pPageComments").append(html.join(""));	
            		}
 			}
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        	$("#commentWrite").on("click",function(){
-        		$.ajax({
-					url:"/industry/comment/writeProc.do",
-					type:"post",
-					data:{
-						content : $("#content").val(),
-						indSeq: ${iPage.seq},
-						writer: "${sessionScope.loginInfo}"
-					},
-					dataType:"json"
-				}).done(function(data){
-					console.log(data);
-					$("#commentList").append("<div>" + data.writer + "</div><br>" + "<div>" + data.content + "</div><br>" + "<div>" + data.writeDate + "</div><br><a class=\"btn btn-primary\" href=/industry/comment/deleteProc.do?indSeq="+data.indSeq+"&seq="+data.seq+" role=\"button\">댓글 삭제</a>");
-					$("#content").val("");
-				});
-        	})
         </script>
 </body>
 </html>

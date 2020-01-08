@@ -3,20 +3,16 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Industry">
-	<select id="selectAll" resultType="kh.hello.dto.IndustryStatusDTO">
-		select seq,field,duty,writer,title,content,writeDate,viewCount,(select count(*) from industryComments where indSeq=industryStatus.seq) as commentCount from industryStatus order by seq desc
-	</select>
+	
 	
 	<select id="getIndustryStatusDetailView" resultType="kh.hello.dto.IndustryStatusDTO">
 		select * from industryStatus where seq=#{value}
 	</select>
 	
-	<select id="latestSeq" resultType="integer">
-		select max(seq) from industryStatus where writer=#{value}
-	</select>
+	
 	
 	<insert id="insertIndustryStatus" parameterType="kh.hello.dto.IndustryStatusDTO">
-		insert into industryStatus values(industryStatusSeq.nextval,#{field},#{duty},#{writer},#{title},#{content},sysdate,0)
+		insert into industryStatus values(industryStatusSeq.nextval,#{field},#{duty},#{writer},#{title},#{content},sysdate,0,#{id})
 	</insert>
 	
 	<update id="updateIndustryStatus" parameterType="kh.hello.dto.IndustryStatusDTO">
@@ -36,22 +32,47 @@
 		select count(seq) from industryStatus
 	</select>
 	<select id="industryListByPage" resultType="kh.hello.dto.IndustryStatusDTO">
-		select * from (select industryStatus.*, row_number() over (order by seq desc) as rown from industryStatus) where rown between #{start} and #{end}
+			select industryStatus.*,(select count(*) from industryComments where indSeq=industryStatus.seq) as commentCount from (select industryStatus.*, row_number() over(order by seq desc) rown from industryStatus) industryStatus where rown between #{start} and #{end} order by seq desc
 	</select>
 	
 	<!-- 조건별 게시판목록 검색 -->
-	<select id="industrySearch" parameterType="java.util.Map" resultType="kh.hello.dto.IndustryStatusDTO">
-		 select * from industryStatus
-		 <choose>
-		 <when test="value == 'all'">								
-			 where (writer like '%${search}%') or (title like '%${search}%')
-		</when>
-		<when test="value == 'writer'">								
-			 where (writer like '%${search}%')
-		</when>
-		<when test="value == 'title'">								
-			 where (title like '%${search}%')
-		</when>
-		</choose>
+<!-- 	<select id="industrySearchTotalCount" parameterType="java.util.Map" resultType="integer"> -->
+<!-- 		 select count(seq) from industryStatus -->
+<!-- 		 <choose> -->
+<!-- 		 <when test="value == 'all'">								 -->
+<!-- 			 where (title like '%${search}%') -->
+<!-- 		</when> -->
+<!-- 		<when test="value == 'writer'">								 -->
+<!-- 			 where (writer like '%${search}%') -->
+<!-- 		</when> -->
+<!-- 		<when test="value == 'title'">								 -->
+<!-- 			 where (title like '%${search}%') -->
+<!-- 		</when> -->
+<!-- 		</choose> -->
+<!-- 	</select> -->
+	
+<!-- 	<select id="bambooSearchByPage" resultType="kh.hello.dto.BambooDTO" parameterType="java.util.Map"> -->
+<!-- 		select *  -->
+<!-- 		<choose> -->
+<!-- 		 <when test="value == 'all'">								 -->
+<!-- 			 from (select bamboo.*, row_number() over (order by seq desc) as rown from bamboo where (title like '%${search}%')) where rown between #{start} and #{end} -->
+			 
+<!-- 		</when> -->
+<!-- 		<when test="value == 'writer'"> -->
+<!-- 			 from (select bamboo.*, row_number() over (order by seq desc) as rown from bamboo where (writer like '%${search}%')) where rown between #{start} and #{end} -->
+										
+<!-- 		</when> -->
+<!-- 		<when test="value == 'title'">								 -->
+<!-- 			 from (select bamboo.*, row_number() over (order by seq desc) as rown from bamboo where (title like '%${search}%')) where rown between #{start} and #{end} -->
+<!-- 		</when> -->
+<!-- 		</choose> -->
+<!-- 	</select> -->
+	
+<!-- 	이미지 업로드 -->
+	<select id="getIndustrySeq" resultType="integer">
+		select industryStatusSeq.nextval from dual
 	</select>
+	<insert id="insertImg" parameterType="java.util.Map">
+		insert into industryImgs values(industryImgsSeq.nextVal, #{indSeq}, #{fileName})
+	</insert>
 </mapper>

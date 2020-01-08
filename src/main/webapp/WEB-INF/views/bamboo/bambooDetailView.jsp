@@ -65,7 +65,7 @@
 													</div>
 												</div>				
 												<div class="col-4 pt-2 text-right commentBtns">
-													<c:if test="${c.writer==sessionScope.loginInfo }">
+													<c:if test="${c.writer==sessionScope.loginInfo.id }">
 														<a class="btn btn-info coModBtn" href="/bamboo/comment/modifyProc.do?seq=${c.seq }&bamSeq=${c.bamSeq}" onclick="coModFunction(${c.seq},'${c.content}',${c.bamSeq });return false;" role="button">수정</a>
 														<a class="btn btn-danger coDelBtn" href="/bamboo/comment/deleteProc.do?seq=${c.seq }&bamSeq=${c.bamSeq}" onclick="coDelFunction(${c.seq});return false;" role="button">삭제</a>
 													</c:if>
@@ -92,7 +92,7 @@
 		        				</div>
 							</div>    	
            			
-            <c:if test="${bPage.writer == sessionScope.loginInfo}">
+            <c:if test="${bPage.writer == sessionScope.loginInfo.id}">
 							<a class="btn btn-primary" href="/bamboo/bambooModify.do?seq=${bPage.seq }" role="button">수정하기</a>
 							<a class="btn btn-primary" href="/bamboo/bambooDeleteProc.do?seq=${bPage.seq }" role="button">삭제하기</a>
 						</c:if>		
@@ -124,7 +124,7 @@
 				data :{
 					bamSeq : "${bPage.seq}",
 					content : $("#pCoContents").val(),
-					writer: "${sessionScope.loginInfo}"
+					writer: "${sessionScope.loginInfo.id}"
 				}
 			}).done(function(resp){
 				$("#pCoContents").val("");
@@ -207,7 +207,7 @@
            		}
            	}
            	function commentRecall(resp){
-				var loginInfo = "${sessionScope.loginInfo}";
+				var loginInfo = "${sessionScope.loginInfo.id}";
 				for(var i=0;i<resp.length;i++){
 					var html = [];
 					html.push(
