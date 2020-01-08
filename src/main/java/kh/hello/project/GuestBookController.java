@@ -35,8 +35,8 @@ public class GuestBookController {
 	
 	@RequestMapping("/insert.do")
 	public String insert(GuestBookDTO gdto) {
-		gdto.setWriter(((LoginInfoDTO)session.getAttribute("loginInfo")).getId());	
-		System.out.println(gdto.getOwner());
+		gdto.setWriter(((LoginInfoDTO)session.getAttribute("loginInfo")).getNickName());
+		gdto.setOwner(((LoginInfoDTO)session.getAttribute("loginInfo")).getId());
 		gs.insert(gdto);
 		return "redirect:selectList.do";
 	}
@@ -44,8 +44,6 @@ public class GuestBookController {
 	@RequestMapping("/selectList.do")
 	public String selectList(String cpage) {
 		String owner = ((LoginInfoDTO)session.getAttribute("loginInfo")).getId();
-		
-		
 		int currentPage = 1;		
 
 		if(cpage != null) currentPage = Integer.parseInt(cpage);
@@ -62,7 +60,6 @@ public class GuestBookController {
 	
 	@RequestMapping("delete.do")
 	public String delete(int seq) {
-		System.out.println(seq);
 		gs.delete(seq);
 		return "redirect:selectList.do";
 	}

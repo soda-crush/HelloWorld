@@ -24,7 +24,7 @@ public class ItnewsDTO {
 	         SimpleDateFormat sdf = new SimpleDateFormat("20yy-MM-dd");
 	         return sdf.format(processedWrite_date);
 	      }
-	   }
+	}
 	
 	public ItnewsDTO() {
 		super();
