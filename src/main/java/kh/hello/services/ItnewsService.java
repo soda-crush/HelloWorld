@@ -18,6 +18,7 @@ import kh.hello.configuration.Configuration;
 import kh.hello.dao.ItnewsDAO;
 import kh.hello.dto.ItnewsCoDTO;
 import kh.hello.dto.ItnewsDTO;
+import kh.hello.dto.ScrapDTO;
 
 @Service
 public class ItnewsService {
@@ -161,6 +162,11 @@ public class ItnewsService {
 		Gson gson = new Gson();
 		return gson.toJson(list);
 	}
+	public String coWriteAfter(int seq) {
+		List<ItnewsCoDTO> list = commentList(seq);
+		Gson gson = new Gson();
+		return gson.toJson(list);
+	}
 	
 	public int removeItnewsCo(String itSeq, String seq) {
 		int seq2 = Integer.parseInt(seq);
@@ -168,5 +174,30 @@ public class ItnewsService {
 		
 		return dao.removeItnewsCo(itSeq2, seq2);
 	}
+	
+	public int modifyItnewsCo(ItnewsCoDTO dto) {
+		return dao.modifyItnewsCo(dto);
+	}
+	
+	public int getItSeqBySeq(int seq) {
+		return dao.getItSeqBySeq(seq);
+	}
+	
+	public String scrap(ScrapDTO dto){
+		int scrapDupResult = dao.scrapDupCheck(dto);
+		if(scrapDupResult > 0) {
+			//중복
+			return "already";
+		}else {
+			dto.setSeq(dao.earlierSeq());
+			int scrapResult = dao.scrapItnews(dto);
+			if(scrapResult > 0) {
+				return "success";
+			}else {
+				return "fail";
+			}
+		}
+	}
+	
 	
 }

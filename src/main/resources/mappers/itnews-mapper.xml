@@ -52,4 +52,24 @@
 		delete from itnewscomment where itSeq=#{seq}
 	</delete>
 	
+	<update id="coModify"  parameterType="kh.hello.dto.ItnewsCoDTO">
+		update itnewscomments set content=#{content} where seq=#{seq}
+	</update>
+	
+	<select id="getItSeqBySeq" parameterType="integer" resultType="integer">
+		select itSeq from itnewscomments where seq = #{seq}
+	</select>
+	
+	<select id="scrapDupCheck" parameterType="kh.hello.dto.ScrapDTO" resultType="integer">
+		select count(*) from scrap where id=#{id} and category=#{category} and categorySeq=#{categorySeq}
+	</select>
+	
+	<select id="earlierSeq" resultType="integer">
+		select scrapSeq.nextval from dual
+	</select>
+	
+	<insert id="scrapItnews">
+		insert into scrap values(#{seq}, #{id}, #{category}, #{categorySeq})
+	</insert>
+	
 </mapper> 

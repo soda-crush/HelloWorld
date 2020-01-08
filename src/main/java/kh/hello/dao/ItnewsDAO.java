@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import kh.hello.dto.ItnewsCoDTO;
 import kh.hello.dto.ItnewsDTO;
+import kh.hello.dto.ScrapDTO;
 
 @Repository
 public class ItnewsDAO {
@@ -75,5 +76,23 @@ public class ItnewsDAO {
 		return jdbc.delete("Itnews.coAllRemove",seq);
 	}
 	
+	public int modifyItnewsCo(ItnewsCoDTO dto) {
+		return jdbc.delete("Itnews.coModify",dto);
+	}
 	
+	public int getItSeqBySeq(int seq) {
+		return jdbc.selectOne("Itnews.getItSeqBySeq", seq);
+	}
+	
+	public int scrapDupCheck(ScrapDTO dto) {
+		return jdbc.selectOne("Itnews.scrapDupCheck", dto);
+	}
+	
+	public int earlierSeq() {
+		return jdbc.selectOne("Itnews.earlierSeq");
+	}
+	
+	public int scrapItnews(ScrapDTO dto) {
+		return jdbc.insert("Itnews.scrapItnews", dto);
+	}
 }
