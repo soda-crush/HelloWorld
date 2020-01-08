@@ -25,8 +25,13 @@ public class ItnewsDTO {
 	         SimpleDateFormat sdf = new SimpleDateFormat("20yy-MM-dd");
 	         return sdf.format(processedWrite_date);
 	      }
+<<<<<<< HEAD
 	   }
 
+=======
+	}
+	
+>>>>>>> 824c742d47700c768f72573fdf35c93b089d969b
 	public ItnewsDTO() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -106,5 +111,13 @@ public class ItnewsDTO {
 				+ ", writeDate=" + writeDate + ", viewCount=" + viewCount + ", id=" + id + "]";
 	}
 	
+<<<<<<< HEAD
+=======
+	public String getFormedWriteDateForAdmin() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+		String result = sdf.format(this.writeDate);
+		return result;
+	}
+>>>>>>> 824c742d47700c768f72573fdf35c93b089d969b
 	
 }

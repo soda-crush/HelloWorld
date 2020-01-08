@@ -27,8 +27,9 @@
 							<li><a href="${pageContext.request.contextPath }/adBoard/bambooList">대나무숲</a></li>
 							<li><a href="${pageContext.request.contextPath }/adBoard/cohowList">코드지식인</a></li>
 							<li><a href="${pageContext.request.contextPath }/adBoard/industryList">업계현황</a></li>
-							<li><a href="#">IT뉴스</a></li>
+							<li><a href="${pageContext.request.contextPath }/adBoard/itnewsList">IT뉴스</a></li>
 							<li><a href="${pageContext.request.contextPath }/adBoard/projectList">프로젝트</a></li>
+							<li><a href="${pageContext.request.contextPath }/adBoard/guestBookList">P-log 방명록</a></li>
 						</ul>
 					</li>
 

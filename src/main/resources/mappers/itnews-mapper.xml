@@ -8,7 +8,7 @@
 	</select>
 	
 	<select id="getDTO" resultType="kh.hello.dto.ItnewsDTO">
-		select * from itnews where seq = ${seq}
+		select * from itnews where seq = #{seq}
 	</select>
 	
 	<select id="selectByPage"  resultType="kh.hello.dto.ItnewsDTO">
@@ -37,7 +37,7 @@
 	</insert>
 	
 	<select id="coList" parameterType="integer" resultType="kh.hello.dto.ItnewsCoDTO">
-		select * from itnewscomments where itSeq=#{seq} order by seq desc 
+		select * from itnewscomments where itSeq=#{seq}
 	</select>
 	
 	<delete id="coRemove" parameterType="java.util.Map">

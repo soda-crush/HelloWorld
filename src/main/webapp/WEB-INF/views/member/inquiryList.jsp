@@ -13,6 +13,16 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/css/project/projectBase.css" type="text/css"/>
 <link rel="stylesheet" href="/css/project/list.css" type="text/css"/>
+<link rel="stylesheet" type="text/css" href="/css/font-awesome/css/font-awesome.css">
+<style>
+	#titleLink:hover{
+		cursor:pointer;
+		color:gray;
+	}
+	#titleLink strong{
+		font-size:25px;
+	}
+</style>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/standard/header.jsp"/>
@@ -29,8 +39,19 @@
 
             
   				<div class=container id="projectPage">
-				<div id="pageTitle" class="row">
-					<div class="col-12 col-lg-4"><h1>내 일대일문의</h1></div>
+				<div id="pageTitle" class="row ml-1 mb-4">
+					<div class="col-12" id="titleLink">
+							<div class="row">
+							<div class="col-auto vertical-align:text-top p-0"><i class="fa fa-quote-left"></i></div>
+							<div class="col-auto vertical-align:text-top p-0"><strong>일대일문의</strong></div>
+							<div class="col-auto vertical-align:text-top p-0"><i class="fa fa-quote-right"></i></div>
+							</div>
+					</div>
+					<script>
+						$("#titleLink").on("click", function(){
+							location.href="${pageContext.request.contextPath}/member1/myInquiry?page=${page}";
+						})
+					</script>
 				</div>				
 				<div class="tableDiv">
 					<div class="row tableHead">					    

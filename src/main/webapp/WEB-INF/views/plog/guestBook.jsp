@@ -67,8 +67,8 @@
 	                    <div class="card" id="mycard">
 	                        <img src="/img/profileSample.jpg" class="card-img-top" alt="..." style="width: 170px;height: 170px;margin:15px;"><!-- 아이디에대한 이미지값 -->
 	                        <div class="card-body">
-	                            <h3 class="card-title" style="text-align: center;">라이언 님</h3><!--  세션값 -->
-	                            <p class="card-text" style="text-align: center;">point : 12,345</p><!--  세션에 대한 포인트값 -->
+	                            <h3 class="card-title" style="text-align: center;">${loginInfo.nickName} 님</h3><!--  세션값 -->
+	                            <p class="card-text" style="text-align: center;">point : ${point }</p><!--  세션에 대한 포인트값 -->
 	                        </div>
 	                    </div>
 	                </div>
@@ -78,7 +78,7 @@
 	                    <div class="commentwrite">
 	                    	<form action="${pageContext.request.contextPath}/GuestBook/insert.do" method="post" id="commentForm">
 		                        <div class="row"></div>
-		                        <input type="hidden" name="owner" value="${sessionScope.loginInfo}"> 
+<%-- 		                        <input type="hidden" name="owner" value="${sessionScope.loginInfo}">  --%>
 		                        <textarea class="col-10 content" placeholder="내용을 입력해주세요" name="content"></textarea>
 		                        <button class="col-2 sendbt">작성</button>
 	                    	</form>	
@@ -90,7 +90,7 @@
 		                            <div>작성자 : </div>
 		                            <div class="writer${dto.seq}"> ${dto.writer }</div>
 		                            <div>작성일 :</div>
-		                            <div id="writeDate"> ${dto.writeDate}</div>
+		                            <div id="writeDate"> ${dto.getDate()}</div>
 		                        </div>
 		                        <div class="row">
 		                            <textarea id="list${dto.seq }" class="message" style="margin:10px;width:100%;height:100%" onkeydown="resize(this)" onkeyup="resize(this)" readonly>${dto.content }</textarea>
