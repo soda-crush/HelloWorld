@@ -63,26 +63,26 @@
         
         <jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
         
-<script>
-$('.summernote').summernote({
-    minHeight: 300,
-    maxHeight: 300,   
-});     
-
-$("#modifyBtn").on("click", function(){
-	$("#title").val($.trim($("#title").val())); 
-	if($("#title").val()==""){
-		alert("제목을 입력해주세요");
-		return false;
-	}
-})
-
-$(".back").on("click", function(){
-	var result = confirm("모든 입력 내용이 사라집니다. 글쓰기를 취소할까요?");
-	if(result){
-		location.href="${pageContext.request.contextPath}/itnews/itnewsList?page=${page}";
-	}
-})
-</script>
+		<script>
+		$('.summernote').summernote({
+		    minHeight: 300,
+		    maxHeight: 300,   
+		});     
+		
+		$("#modifyBtn").on("click", function(){
+			$("#title").val($.trim($("#title").val())); 
+			if($("#title").val()==""){
+				alert("제목을 입력해주세요");
+				return false;
+			}
+		})
+		
+		$(".back").on("click", function(){
+			var result = confirm("모든 입력 내용이 사라집니다. 글쓰기를 취소할까요?");
+			if(result){
+				location.href="${pageContext.request.contextPath}/itnews/itnewsList?page=${page}";
+			}
+		})
+		</script>
 </body>
 </html>

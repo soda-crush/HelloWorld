@@ -31,7 +31,11 @@ public class MemberController {
 	private JavaMailSender mailSender;
 
 	@RequestMapping("/login")
-	public String loginFrm(){ //로그인 폼이동
+	public String loginFrm(Model m, String result){ //로그인 폼이동
+		if(result != null) {
+			m.addAttribute("result", result);
+			System.out.println(result);
+		}
 		return "member/login";
 	}
 	
@@ -43,7 +47,7 @@ public class MemberController {
 				ms.updateLastLogin(id);
 				return "redirect:/";
 			}else {
-				return "error";
+				return "redirect:login?result=false";
 			}
 	}
 	
