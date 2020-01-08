@@ -8,23 +8,25 @@ public class CodeCommentsDTO {
 	private int queSeq;
 	private int repSeq;
 	private String content;
+	private String id;
 	private String writer;
 	private Timestamp writeDate;
 	
 	public CodeCommentsDTO() {
 		super();
 	}
-	
-	public CodeCommentsDTO(int seq, int queSeq, int repSeq, String content, String writer, Timestamp writeDate) {
+
+	public CodeCommentsDTO(int seq, int queSeq, int repSeq, String content, String id, String writer,
+			Timestamp writeDate) {
 		super();
 		this.seq = seq;
 		this.queSeq = queSeq;
 		this.repSeq = repSeq;
 		this.content = content;
+		this.id = id;
 		this.writer = writer;
 		this.writeDate = writeDate;
 	}
-
 	public int getSeq() {
 		return seq;
 	}
@@ -48,6 +50,12 @@ public class CodeCommentsDTO {
 	}
 	public void setContent(String content) {
 		this.content = content;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
 	}
 	public String getWriter() {
 		return writer;
