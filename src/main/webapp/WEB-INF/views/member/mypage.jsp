@@ -63,13 +63,13 @@
         <jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
         <script>
         	$("#modify").on("click",function(){
-        		location.href = "member/modify";
+        		location.href = "${pageContext.request.contextPath}/member/modify";
         	})
         	$("#personalQ").on("click",function(){
         		location.href = "${pageContext.request.contextPath}/member1/myInquiry";
         	})
         	$("#withdrawal").on("click",function(){
-        		location.href = "member/withdrawal";
+        		location.href = "${pageContext.request.contextPath}/member/withdrawal";
         	})
         	
         </script>
