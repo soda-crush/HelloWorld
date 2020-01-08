@@ -20,6 +20,8 @@
 <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.css" type="text/css"/>
 <script src="/js/project/projectCo.js"></script>
 <style>
+#scrapDone{color:crimson;}
+#scrapDone,#scrapNull:hover{cursor:pointer;}
 </style>
 </head>
 
@@ -43,7 +45,16 @@
 					<c:if test="${pPage.seq !=null }">
 						<div id="pHeader">
 							<label class="${pPage.state } badge badge-pill ml-4" id="stateLabel">${pPage.stateInKor }</label>
-							<i class="fa fa-share-alt"></i><i class="fa fa-bookmark"></i><br>
+							<i class="fa fa-share-alt"></i>
+							<c:choose>
+								<c:when test="${scrap=='impossible' }">
+									<i class="fa fa-bookmark" id="scrapDone"></i>									
+								</c:when>
+								<c:otherwise>
+									<i class="fa fa-bookmark-o" id="scrapNull"></i>									
+								</c:otherwise>
+							</c:choose>
+							<br>
 							<span class="ml-4" style="font-weight:bold;">${pPage.title}</span><br>
 							<label class="ml-4">작성자 : ${pPage.writer }</label>
 							<label class="ml-4">작성일 : ${pPage.formedWriteDate }</label>
@@ -64,9 +75,9 @@
 							<div><label class="ml-4">연락처</label><span>${pPage.phone }</span></div>
 							<div><label class="ml-4">메일주소</label><span>${pPage.email }</span></div>
 							
-							<c:if test="${pPage.writer == sessionScope.loginInfo}">
+							<c:if test="${pPage.id == sessionScope.loginInfo.id}">
 								<div class="text-center checkBtn">
-									<button type="button" class="btn btn-warning">신청내역
+									<button type="button" class="btn btn-warning" id="applyCheckBtn">신청내역
 										<c:if test="${pPage.applyCount>0 }">
 					  						<span class="pApply font-weight-bold">${pPage.applyCount }</span>
 					  					</c:if>
@@ -79,7 +90,7 @@
 							
 							
 							
-							<c:if test="${pPage.writer != sessionScope.loginInfo && pPage.state=='N' }">
+							<c:if test="${pPage.id != sessionScope.loginInfo.id && pPage.state=='N' }">
 								<div class="text-center applyBtn">
 									<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#pApplyModal">신청하기</button>
 								</div>
@@ -105,7 +116,7 @@
 												</div>				
 												<div class="col-4 pt-2 text-right commentBtns">
 													<button type="button" class="btn btn-warning coReplyBtn">답글</button>
-													<c:if test="${c.writer==sessionScope.loginInfo }">
+													<c:if test="${c.id==sessionScope.loginInfo.id }">
 														<a class="btn btn-info coModBtn" href="#" onclick="coModFunction(${c.seq},'${c.contents }');return false;" role="button">수정</a>
 														<a class="btn btn-danger coDelBtn" href="#" onclick="coDelFunction(${c.seq});return false;" role="button">삭제</a>
 													</c:if>
@@ -140,11 +151,11 @@
 				</div>
 				
 				<div id="pageFooter">
-					<c:if test="${pPage.writer != sessionScope.loginInfo}">
+					<c:if test="${pPage.id != sessionScope.loginInfo.id}">
 						<span><a class="btn btn-danger" href="#" role="button">게시글 신고</a></span>
 					</c:if>
 					<span class="float-right">
-						<c:if test="${pPage.writer == sessionScope.loginInfo}">
+						<c:if test="${pPage.id == sessionScope.loginInfo.id}">
 							<a class="btn btn-info" href="/project/modify?seq=${pPage.seq }" role="button">수정</a>
 							<button type="button" class="btn btn-danger" id="pDelBtn">삭제</button>
 						</c:if>
@@ -167,6 +178,44 @@
 		<jsp:include page="/WEB-INF/views/project/jsp/applyConfirmModal.jsp"/>
         <jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
 		<script>
+		$(document).on("click","#scrapNull",function(){
+			$.ajax({
+				url : "/project/scrap",
+				type : "post",
+				data : {
+					categorySeq : "${pPage.seq}"
+				}
+			}).done(function(resp){
+				console.log("성공");
+				console.log(resp);
+				alert("스크랩되었습니다.");
+				$("#scrapNull").replaceWith('<i class="fa fa-bookmark" id="scrapDone"></i>');
+			}).fail(function(resp){
+				console.log("실패");
+				console.log(resp);
+			});
+		});
+		$(document).on("click","#scrapDone",function(){
+			$.ajax({
+				url : "/project/unScrap",
+				type : "post",
+				data : {
+					categorySeq : "${pPage.seq}"
+				}
+			}).done(function(resp){
+				console.log("성공");
+				console.log(resp);
+				alert("스크랩이 취소되었습니다.");
+				$("#scrapDone").replaceWith('<i class="fa fa-bookmark-o" id="scrapNull"></i>');
+			}).fail(function(resp){
+				console.log("실패");
+				console.log(resp);
+			});
+		});
+		$("#applyCheckBtn").on("click",function(){
+			location.href="/project/applyCheck?projectSeq=${pPage.seq}";	
+		});
+		
 		var loginInfo = "${sessionScope.loginInfo}";
 			$("#pCloseBtn").on("click",function(){
 				var check = confirm("프로젝트 모집을 마감하시겠습니까?\n마감된 모집글은 상태를 변경할 수 없습니다.");
@@ -329,11 +378,11 @@
 				}).done(function(resp){
 					console.log("성공");
 					console.log(resp);
+					$('#pApplyConfirmModal').modal('show');
 					$(".pApplyInput").children('input').val("");
 					$(".bootstrap-tagsinput").children('.label-info').remove();
 					$(".pApplyInput").children('select').val("");
 					$('#pApplyModal').modal('hide');
-					$('#pApplyConfirmModal').modal('show');
 				}).fail(function(resp){
 					console.log("실패");
 					console.log(resp);
@@ -344,7 +393,7 @@
 			
 
 			function commentRecall(resp){
-				var loginInfo = "${sessionScope.loginInfo}";
+				var loginInfo = "${sessionScope.loginInfo.id}";
 				for(var i=0;i<resp.length;i++){
 					var html = [];
 					html.push(
@@ -356,7 +405,7 @@
 							'<div class="col-4 pt-2 text-right commentBtns">',
 							'<button type="button" class="btn btn-warning coReplyBtn">답글</button>\n'
 							);
-					if(resp[i].writer==loginInfo){
+					if(resp[i].id==loginInfo){
 						html.push(
 								'<a class="btn btn-info coModBtn" href="#" onclick="coModFunction('+resp[i].seq+',\''+resp[i].contents+'\');return false;" role="button">수정</a>\n',
 								'<a class="btn btn-danger coDelBtn" href="#" onclick="coDelFunction('+resp[i].seq+');return false;" role="button">삭제</a>'

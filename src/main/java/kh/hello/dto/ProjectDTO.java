@@ -18,18 +18,20 @@ public class ProjectDTO {
 	private String phone;
 	private String email;
 	private String writer;
+	private String id;
 	private Timestamp writeDate;
 	private String state;
 	private int viewCount;
 	private int commentCount;
 	private int applyCount;
+	private int scrap;
 	
 	public ProjectDTO() {
 		super();
 	}	
-	public ProjectDTO(int seq, String title, String contents, String location1, String location2, int capacity, Timestamp startDate,
-			Timestamp endDate, String languages, String phone, String email, String writer, Timestamp writeDate,
-			String state, int viewCount) {
+	public ProjectDTO(int seq, String title, String contents, String location1, String location2, int capacity,
+			Timestamp startDate, Timestamp endDate, String languages, String phone, String email, String writer,
+			String id, Timestamp writeDate, String state, int viewCount, int commentCount, int applyCount) {
 		super();
 		this.seq = seq;
 		this.title = title;
@@ -43,9 +45,12 @@ public class ProjectDTO {
 		this.phone = phone;
 		this.email = email;
 		this.writer = writer;
+		this.id = id;
 		this.writeDate = writeDate;
 		this.state = state;
 		this.viewCount = viewCount;
+		this.commentCount = commentCount;
+		this.applyCount = applyCount;
 	}
 	public int getSeq() {
 		return seq;
@@ -119,6 +124,12 @@ public class ProjectDTO {
 	public void setWriter(String writer) {
 		this.writer = writer;
 	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	public Timestamp getWriteDate() {
 		return writeDate;
 	}
@@ -149,7 +160,12 @@ public class ProjectDTO {
 	public void setApplyCount(int applyCount) {
 		this.applyCount = applyCount;
 	}
-	
+	public int getScrap() {
+		return scrap;
+	}
+	public void setScrap(int scrap) {
+		this.scrap = scrap;
+	}
 	
 	public String getStateInKor() {
 		String state = this.state;
