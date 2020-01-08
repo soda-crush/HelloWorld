@@ -37,7 +37,11 @@
 	</insert>
 	
 	<select id="coList" parameterType="integer" resultType="kh.hello.dto.ItnewsCoDTO">
-		select * from itnewscomments where itSeq=#{seq} 
+		select * from itnewscomments where itSeq=#{seq} order by seq desc 
 	</select>
+	
+	<delete id="coRemove" parameterType="java.util.Map">
+		delete from itnewscomments where itSeq = #{itSeq} and seq=#{seq}
+	</delete>
 	
 </mapper> 
