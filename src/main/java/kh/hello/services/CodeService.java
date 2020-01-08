@@ -1,6 +1,7 @@
 package kh.hello.services;
 
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,9 +17,11 @@ import com.google.gson.Gson;
 
 import kh.hello.configuration.Configuration;
 import kh.hello.dao.CodeDAO;
+import kh.hello.dto.BambooDTO;
 import kh.hello.dto.CodeCommentsDTO;
 import kh.hello.dto.CodeQuestionDTO;
 import kh.hello.dto.CodeReplyDTO;
+import kh.hello.dto.ScrapDTO;
 
 
 @Service
@@ -41,30 +44,30 @@ public class CodeService {
 		dao.writePoint(id);
 	}
 	
-	public void imageUpload(CodeQuestionDTO dto,String path) throws Exception{
-		Pattern p = Pattern.compile("<img.+?src=\"(.+?)\".+?data-filename=\"(.+?)\".*?>");
-		Matcher m = p.matcher(dto.getContent());
-
-		String oriName = null;
-		String sysName = null;
-		while(m.find()) { 
-			oriName = m.group(2); 
-			if(oriName.equals("")) { 
-				break;
-			}
-			else {
-				sysName = System.currentTimeMillis() + "_" + oriName;
-				String imageString = m.group(1).split(",")[1];
-				byte[] imgByte = Base64Utils.decodeFromString(imageString); 
-				FileOutputStream fos = new FileOutputStream(path + "/" + sysName);
-				DataOutputStream dos = new DataOutputStream(fos);
-				dos.write(imgByte);
-				dos.flush();
-				dos.close();
-				String contents = dto.getContent().replaceFirst(Pattern.quote(m.group(1)), "/files/"+sysName);
-			}
-		}
-	}
+//	public void imageUpload(CodeQuestionDTO dto,String path) throws Exception{
+//		Pattern p = Pattern.compile("<img.+?src=\"(.+?)\".+?data-filename=\"(.+?)\".*?>");
+//		Matcher m = p.matcher(dto.getContent());
+//
+//		String oriName = null;
+//		String sysName = null;
+//		while(m.find()) { 
+//			oriName = m.group(2); 
+//			if(oriName.equals("")) { 
+//				break;
+//			}
+//			else {
+//				sysName = System.currentTimeMillis() + "_" + oriName;
+//				String imageString = m.group(1).split(",")[1];
+//				byte[] imgByte = Base64Utils.decodeFromString(imageString); 
+//				FileOutputStream fos = new FileOutputStream(path + "/" + sysName);
+//				DataOutputStream dos = new DataOutputStream(fos);
+//				dos.write(imgByte);
+//				dos.flush();
+//				dos.close();
+//				String contents = dto.getContent().replaceFirst(Pattern.quote(m.group(1)), "/files/"+sysName);
+//			}
+//		}
+//	}
 	
 	@Transactional("txManager")
 	public CodeQuestionDTO detailQuestion(int seq) {
@@ -145,8 +148,10 @@ public class CodeService {
 //		return dao.selectParentSeq(seq);
 //	}
 	
+	@Transactional("txManager")
 	public void insertR(CodeReplyDTO dto) {
 		dao.insertR(dto);
+		dao.writePoint(dto.getId());
 	}
 	
 	public List<CodeReplyDTO> selectReplyAll() {
@@ -178,8 +183,10 @@ public class CodeService {
 		}
 	}
 	
-	public void deleteR(int seq) {
+	@Transactional("txManager")
+	public void deleteR(int seq,String id) {
 		dao.deleteR(seq);
+		dao.deleteWritePoint(id);
 	}
 	
 	public List<CodeReplyDTO> detailReply(int queSeq) {
@@ -255,6 +262,7 @@ public class CodeService {
 	public String insertComment(CodeCommentsDTO dto) {
 //		String option = "commentAdd";
 		dao.insertComment(dto);
+		dao.writeCoPoint(dto.getId());
 		Gson gson = new Gson();
 		List<CodeCommentsDTO> result = dao.commentsList(dto.getQueSeq());
 		System.out.println("insert:"+gson.toJson(result));
@@ -281,6 +289,7 @@ public class CodeService {
 		Gson gson = new Gson();
 		List<CodeCommentsDTO> result = dao.commentsList(dto.getQueSeq());
 		return gson.toJson(result);
+		
 //		System.out.println(dto.getRepSeq());
 //		CodeCommentsDTO comment = dao.getComment(dto.getRepSeq());
 //		System.out.println("서비스"+comment);
@@ -294,14 +303,81 @@ public class CodeService {
 	
 	public String deleteComment(CodeCommentsDTO dto) {
 		dao.deleteComment(dto.getSeq());
+		dao.deleteCoPoint(dto.getId());
 		Gson gson = new Gson();
-		System.out.println(dto.getRepSeq());
 		List<CodeCommentsDTO> result = dao.commentsList(dto.getQueSeq());
-		System.out.println("에러잡자:"+gson.toJson(result));
 		return gson.toJson(result);
 
 	}
 	public int deleteReplyAllCo(int repSeq) {
 		return dao.deleteReplyAllCo(repSeq);
+	}
+	
+	//이미지 업로드
+	private String imgUpload(String path, int queSeq, String content) throws Exception{
+		File imgPath = new File(path + "/code");
+		if(!imgPath.exists()) {
+			imgPath.mkdirs();
+		}
+
+		Pattern p = Pattern.compile("<img.+?src=\"(.+?)\".+?data-filename=\"(.+?)\".*?>");
+		Matcher m = p.matcher(content);
+
+		while(m.find()) {
+			String oriName = m.group(2);
+			String sysName = System.currentTimeMillis() + "_" + oriName;
+
+			int need = m.group(1).split(",").length;
+
+			if(need > 1) {
+				String imgString = m.group(1).split(",")[1];
+				byte[] imgByte = Base64Utils.decodeFromString(imgString);
+
+				FileOutputStream fos = new FileOutputStream(new File(imgPath + "/" + sysName));
+				DataOutputStream dos = new DataOutputStream(fos);
+
+				dos.write(imgByte);
+				dos.flush();
+				dos.close();
+
+				//DB에 이미지 목록 저장하기
+				int result = dao.insertImg(queSeq, sysName);
+				if(result > 0) {
+					content = content.replaceFirst(Pattern.quote(m.group(1)), "/attached/code/"+sysName);
+				}
+			}
+		}
+		return content;
+	}
+	
+	@Transactional("txManager")
+	public int writeCode(String path, CodeQuestionDTO dto,String id) throws Exception{
+		//1. queSeq 받아오기
+		int queSeq = dao.getCodeSeq();
+		dto.setSeq(queSeq);
+		//2. 이미지 저장하고 주소 변환
+		String content = imgUpload(path, queSeq, dto.getContent());
+		//System.out.println(content);
+		dto.setContent(content);
+		//3. 글 업로드
+		dao.writePoint(id); //포인트
+		return dao.insert(dto);
+	}
+	
+	//스크랩
+	public String scrap(ScrapDTO dto){
+		int scrapDupResult = dao.scrapDupCheck(dto);
+		if(scrapDupResult > 0) {
+			//중복
+			return "already";
+		}else {
+			dto.setSeq(dao.earlierSeq());
+			int scrapResult = dao.scrapCode(dto);
+			if(scrapResult > 0) {
+				return "success";
+			}else {
+				return "fail";
+			}
+		}
 	}
 }

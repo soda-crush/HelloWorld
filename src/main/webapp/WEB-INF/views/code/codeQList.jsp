@@ -14,7 +14,6 @@
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/css/mainBase.css">
-<link rel="stylesheet" href="/css/projectBase.css" type="text/css" />
 <style>
 #pageTitle {
 	margin-bottom: 20px;
