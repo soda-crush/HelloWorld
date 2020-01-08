@@ -15,6 +15,7 @@ import kh.hello.dto.CodeQuestionDTO;
 import kh.hello.dto.GuestBookDTO;
 import kh.hello.dto.IndustryStatusCoDTO;
 import kh.hello.dto.IndustryStatusDTO;
+import kh.hello.dto.ItnewsCoDTO;
 import kh.hello.dto.ItnewsDTO;
 import kh.hello.dto.ProjectCoDTO;
 import kh.hello.dto.ProjectDTO;
@@ -96,6 +97,65 @@ public class AdBoardService {
 	
 	public int delProjectCo(int seq) {
 		return bdao.delProjectCo(seq);
+	}
+	
+	/* 
+	 * 방명록
+	 */
+	
+	public List<GuestBookDTO> guestBookListByPage(int start, int end){
+		return bdao.guestBookListByPage(start, end);
+	}
+	
+	public List<String> getGuestBookPageNavi(int currentPage){
+		int recordTotalCount = bdao.getGuestBookTotal();
+		int pageTotalCount = 0;		
+		if(recordTotalCount % Configuration.recordCountPerPage>0) {
+			pageTotalCount = recordTotalCount/Configuration.recordCountPerPage+1;
+		}else {
+			pageTotalCount = recordTotalCount/Configuration.recordCountPerPage;
+		}
+		if(currentPage < 1) {
+			currentPage = 1;
+		}else if(currentPage > pageTotalCount) {
+			currentPage = pageTotalCount;
+		}
+		
+		int startNavi = (currentPage-1) / Configuration.naviCountPerPage * Configuration.naviCountPerPage+1;
+		int endNavi = startNavi+(Configuration.naviCountPerPage-1);		
+		if(endNavi > pageTotalCount) {
+			endNavi = pageTotalCount;
+		}
+		
+		boolean needPrev = true;
+		boolean needNext = true;
+		if(startNavi==1) {
+			needPrev = false;
+		}
+		if(endNavi==pageTotalCount) {
+			needNext = false;
+		}
+		
+		List<String> pages = new ArrayList<>();
+
+		if(needPrev) {
+			pages.add("<a class=page-link href='../adBoard/guestBookList?page=" + (startNavi - 1) + "'>< </a>");		
+		}
+		for(int i=startNavi;i<=endNavi;i++) {
+			StringBuilder sb = new StringBuilder();
+			sb.append("<a class=page-link href='../adBoard/guestBookList?page="+ i +"'>");
+			sb.append(i + " ");
+			sb.append("</a>");
+			pages.add(sb.toString());		
+		}
+		if(needNext) {
+			pages.add("<a class=page-link href='../adBoard/guestBookList?page=" + (endNavi + 1) + "'>> </a>");
+		}
+		return pages;		
+	}
+	
+	public int delGuestBook(int seq) {
+		return bdao.delGuestBook(seq);
 	}
 	
 	/* 
@@ -245,6 +305,74 @@ public class AdBoardService {
 	}
 	
 	/* 
+	 * IT뉴스
+	 */
+	
+	public List<ItnewsDTO> itnewsListByPage(int start, int end){
+		return bdao.itnewsListByPage(start, end);
+	}
+	
+	public List<String> getItnewsPageNavi(int currentPage){
+		int recordTotalCount = bdao.getItnewsTotal();
+		int pageTotalCount = 0;		
+		if(recordTotalCount % Configuration.recordCountPerPage>0) {
+			pageTotalCount = recordTotalCount/Configuration.recordCountPerPage+1;
+		}else {
+			pageTotalCount = recordTotalCount/Configuration.recordCountPerPage;
+		}
+		if(currentPage < 1) {
+			currentPage = 1;
+		}else if(currentPage > pageTotalCount) {
+			currentPage = pageTotalCount;
+		}
+		
+		int startNavi = (currentPage-1) / Configuration.naviCountPerPage * Configuration.naviCountPerPage+1;
+		int endNavi = startNavi+(Configuration.naviCountPerPage-1);		
+		if(endNavi > pageTotalCount) {
+			endNavi = pageTotalCount;
+		}
+		
+		boolean needPrev = true;
+		boolean needNext = true;
+		if(startNavi==1) {
+			needPrev = false;
+		}
+		if(endNavi==pageTotalCount) {
+			needNext = false;
+		}
+		
+		List<String> pages = new ArrayList<>();
+
+		if(needPrev) {
+			pages.add("<a class=page-link href='../adBoard/itnewsList?page=" + (startNavi - 1) + "'>< </a>");		
+		}
+		for(int i=startNavi;i<=endNavi;i++) {
+			StringBuilder sb = new StringBuilder();
+			sb.append("<a class=page-link href='../adBoard/itnewsList?page="+ i +"'>");
+			sb.append(i + " ");
+			sb.append("</a>");
+			pages.add(sb.toString());		
+		}
+		if(needNext) {
+			pages.add("<a class=page-link href='../adBoard/itnewsList?page=" + (endNavi + 1) + "'>> </a>");
+		}
+		return pages;				
+	}
+	
+	public int delItnews(int seq) {
+		bdao.delItnewsAllCo(seq);
+		return bdao.delItnews(seq);
+	}
+	
+	public ItnewsDTO detailViewItnews(int seq) {
+		return bdao.detailViewItnews(seq);
+	}
+	
+	public List<ItnewsCoDTO> getItnewsCo(int seq){
+		return bdao.getItnewsCo(seq);
+	}
+	
+	/* 
 	 * Code-how
 	 */
 	
@@ -307,120 +435,6 @@ public class AdBoardService {
 		
 		//질문글 삭제
 			
-	}
-	
-	/* 
-	 * IT뉴스
-	 */
-	
-	public List<ItnewsDTO> itnewsListByPage(int start, int end){
-		return bdao.itnewsListByPage(start, end);
-	}
-	
-	public List<String> getItnewsPageNavi(int currentPage){
-		int recordTotalCount = bdao.getItnewsTotal();
-		int pageTotalCount = 0;		
-		if(recordTotalCount % Configuration.recordCountPerPage>0) {
-			pageTotalCount = recordTotalCount/Configuration.recordCountPerPage+1;
-		}else {
-			pageTotalCount = recordTotalCount/Configuration.recordCountPerPage;
-		}
-		if(currentPage < 1) {
-			currentPage = 1;
-		}else if(currentPage > pageTotalCount) {
-			currentPage = pageTotalCount;
-		}
-		
-		int startNavi = (currentPage-1) / Configuration.naviCountPerPage * Configuration.naviCountPerPage+1;
-		int endNavi = startNavi+(Configuration.naviCountPerPage-1);		
-		if(endNavi > pageTotalCount) {
-			endNavi = pageTotalCount;
-		}
-		
-		boolean needPrev = true;
-		boolean needNext = true;
-		if(startNavi==1) {
-			needPrev = false;
-		}
-		if(endNavi==pageTotalCount) {
-			needNext = false;
-		}
-		
-		List<String> pages = new ArrayList<>();
-
-		if(needPrev) {
-			pages.add("<a class=page-link href='../adBoard/itnewsList?page=" + (startNavi - 1) + "'>< </a>");		
-		}
-		for(int i=startNavi;i<=endNavi;i++) {
-			StringBuilder sb = new StringBuilder();
-			sb.append("<a class=page-link href='../adBoard/itnewsList?page="+ i +"'>");
-			sb.append(i + " ");
-			sb.append("</a>");
-			pages.add(sb.toString());		
-		}
-		if(needNext) {
-			pages.add("<a class=page-link href='../adBoard/itnewsList?page=" + (endNavi + 1) + "'>> </a>");
-		}
-		return pages;				
-	}
-	
-	/* 
-	 * 방명록
-	 */
-	
-	public List<GuestBookDTO> guestBookListByPage(int start, int end){
-		return bdao.guestBookListByPage(start, end);
-	}
-	
-	public List<String> getGuestBookPageNavi(int currentPage){
-		int recordTotalCount = bdao.getGuestBookTotal();
-		int pageTotalCount = 0;		
-		if(recordTotalCount % Configuration.recordCountPerPage>0) {
-			pageTotalCount = recordTotalCount/Configuration.recordCountPerPage+1;
-		}else {
-			pageTotalCount = recordTotalCount/Configuration.recordCountPerPage;
-		}
-		if(currentPage < 1) {
-			currentPage = 1;
-		}else if(currentPage > pageTotalCount) {
-			currentPage = pageTotalCount;
-		}
-		
-		int startNavi = (currentPage-1) / Configuration.naviCountPerPage * Configuration.naviCountPerPage+1;
-		int endNavi = startNavi+(Configuration.naviCountPerPage-1);		
-		if(endNavi > pageTotalCount) {
-			endNavi = pageTotalCount;
-		}
-		
-		boolean needPrev = true;
-		boolean needNext = true;
-		if(startNavi==1) {
-			needPrev = false;
-		}
-		if(endNavi==pageTotalCount) {
-			needNext = false;
-		}
-		
-		List<String> pages = new ArrayList<>();
-
-		if(needPrev) {
-			pages.add("<a class=page-link href='../adBoard/guestBookList?page=" + (startNavi - 1) + "'>< </a>");		
-		}
-		for(int i=startNavi;i<=endNavi;i++) {
-			StringBuilder sb = new StringBuilder();
-			sb.append("<a class=page-link href='../adBoard/guestBookList?page="+ i +"'>");
-			sb.append(i + " ");
-			sb.append("</a>");
-			pages.add(sb.toString());		
-		}
-		if(needNext) {
-			pages.add("<a class=page-link href='../adBoard/guestBookList?page=" + (endNavi + 1) + "'>> </a>");
-		}
-		return pages;		
-	}
-	
-	public int delGuestBook(int seq) {
-		return bdao.delGuestBook(seq);
 	}
 }
 

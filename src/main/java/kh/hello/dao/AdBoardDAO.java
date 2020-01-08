@@ -14,6 +14,7 @@ import kh.hello.dto.CodeQuestionDTO;
 import kh.hello.dto.GuestBookDTO;
 import kh.hello.dto.IndustryStatusCoDTO;
 import kh.hello.dto.IndustryStatusDTO;
+import kh.hello.dto.ItnewsCoDTO;
 import kh.hello.dto.ItnewsDTO;
 import kh.hello.dto.ProjectCoDTO;
 import kh.hello.dto.ProjectDTO;
@@ -56,6 +57,25 @@ public class AdBoardDAO {
 	
 	public int delProjectCo(int seq) {//댓글 하나 삭제
 		return jdbc.delete("AdBoard.delProjectCo", seq);
+	}
+	
+	/* 
+	 * 방명록
+	 */	
+	
+	public List<GuestBookDTO> guestBookListByPage(int start, int end){
+		Map<String, Integer> param = new HashMap<>();
+		param.put("start", start);
+		param.put("end", end);
+		return jdbc.selectList("AdBoard.guestBookListByPage", param);
+	}
+	
+	public int getGuestBookTotal() {
+		return jdbc.selectOne("AdBoard.getGuestBookTotal");
+	}
+	
+	public int delGuestBook(int seq) {
+		return jdbc.delete("AdBoard.delGuestBook", seq);
 	}
 	
 	/*
@@ -129,22 +149,7 @@ public class AdBoardDAO {
 	public int delIndustryCo(int seq) {
 		return jdbc.delete("AdBoard.delIndustryCo", seq);
 	}
-	
-	/* 
-	 * code-how
-	 */
-	
-	public List<CodeQuestionDTO> cohowListByPage(int start, int end){
-		Map<String, Integer> param = new HashMap<>();
-		param.put("start", start);
-		param.put("end", end);			
-		return jdbc.selectList("AdBoard.cohowListByPage", param);
-	}
-	
-	public int getCohowTotal() {
-		return jdbc.selectOne("AdBoard.getCohowTotal");
-	}
-	
+		
 	/* 
 	 * IT뉴스
 	 */
@@ -159,24 +164,36 @@ public class AdBoardDAO {
 	public int getItnewsTotal() {
 		return jdbc.selectOne("AdBoard.getItnewsTotal");
 	}
+	
+	public int delItnewsAllCo(int itSeq) {
+		return jdbc.delete("AdBoard.delItnewsAllCo", itSeq);
+	}
+	
+	public int delItnews(int seq) {
+		return jdbc.delete("AdBoard.delItnews", seq);
+	}
+	
+	public ItnewsDTO detailViewItnews(int seq) {
+		return jdbc.selectOne("AdBoard.detailViewItnews", seq);
+	}
+	
+	public List<ItnewsCoDTO> getItnewsCo(int itSeq){
+		return jdbc.selectList("AdBoard.getItnewsCo", itSeq);
+	}
 
 	/* 
-	 * 방명록
-	 */	
+	 * code-how
+	 */
 	
-	public List<GuestBookDTO> guestBookListByPage(int start, int end){
+	public List<CodeQuestionDTO> cohowListByPage(int start, int end){
 		Map<String, Integer> param = new HashMap<>();
 		param.put("start", start);
-		param.put("end", end);
-		return jdbc.selectList("AdBoard.guestBookListByPage", param);
+		param.put("end", end);			
+		return jdbc.selectList("AdBoard.cohowListByPage", param);
 	}
 	
-	public int getGuestBookTotal() {
-		return jdbc.selectOne("AdBoard.getGuestBookTotal");
-	}
-	
-	public int delGuestBook(int seq) {
-		return jdbc.delete("AdBoard.delGuestBook", seq);
+	public int getCohowTotal() {
+		return jdbc.selectOne("AdBoard.getCohowTotal");
 	}
 
 }

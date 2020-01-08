@@ -31,10 +31,10 @@ public class MemberInquiryController {
 		session.setAttribute("loginInfo", new LoginInfoDTO("글슨사람", "글슨사람닉네임"));		
 		LoginInfoDTO loginInfo = (LoginInfoDTO)session.getAttribute("loginInfo");
 		String id = loginInfo.getId();
-		//
 		System.out.println("페이지값:"+page+":");
+		//
 		int currentPage = 1;		
-		if(page != null && page !="" && page !="null") currentPage = Integer.parseInt(page);
+		if(page!= null && !page.equals("") && !page.equals("null")) currentPage = Integer.parseInt(page);
 				
 		int end = currentPage * Configuration.recordCountPerPage;
 		int start = end - (Configuration.recordCountPerPage - 1);	
@@ -133,5 +133,4 @@ public class MemberInquiryController {
 		}
 		
 	}
-
 }

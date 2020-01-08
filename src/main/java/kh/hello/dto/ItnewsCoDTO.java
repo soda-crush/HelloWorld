@@ -1,6 +1,7 @@
 package kh.hello.dto;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 public class ItnewsCoDTO {
 	private int seq;
@@ -54,6 +55,12 @@ public class ItnewsCoDTO {
 	public String toString() {
 		return "ItnewsCoDTO [seq=" + seq + ", itSeq=" + itSeq + ", writer=" + writer + ", content=" + content
 				+ ", writeDate=" + writeDate + "]";
+	}
+	
+	public String getFormedWriteDateForAdmin() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+		String result = sdf.format(this.writeDate);
+		return result;
 	}
 	
 	

@@ -14,6 +14,7 @@ import kh.hello.dto.CodeQuestionDTO;
 import kh.hello.dto.GuestBookDTO;
 import kh.hello.dto.IndustryStatusCoDTO;
 import kh.hello.dto.IndustryStatusDTO;
+import kh.hello.dto.ItnewsCoDTO;
 import kh.hello.dto.ItnewsDTO;
 import kh.hello.dto.ProjectCoDTO;
 import kh.hello.dto.ProjectDTO;
@@ -32,7 +33,7 @@ public class AdBoardController {
 	public String projectMainList(String page, Model m) {
 		
 		int currentPage = 1;
-		if(page!= null && page != "") currentPage = Integer.parseInt(page);
+		if(page!= null && !page.equals("") && !page.equals("null")) currentPage = Integer.parseInt(page);
 		
 		int end = currentPage * (Configuration.recordCountPerPage);
 		int start = end - (Configuration.recordCountPerPage-1);
@@ -80,13 +81,45 @@ public class AdBoardController {
 	}
 	
 	/* 
+	 * 방명록
+	 */
+	
+	@RequestMapping("/guestBookList")
+	public String guestBookMainList(String page, Model m) {
+		int currentPage = 1;
+		if(page!= null && !page.equals("") && !page.equals("null")) currentPage = Integer.parseInt(page);
+		
+		int end = currentPage * (Configuration.recordCountPerPage);
+		int start = end - (Configuration.recordCountPerPage-1);
+		
+		List<GuestBookDTO> result = bs.guestBookListByPage(start, end);
+		m.addAttribute("list", result);
+		
+		List<String> pageNavi = bs.getGuestBookPageNavi(currentPage);
+		m.addAttribute("pageNavi", pageNavi);
+		
+		m.addAttribute("page", currentPage);
+		return "admin/boardGuestBookList";	
+	}
+	
+	@RequestMapping("/delGuestBook")
+	public String delGuestBook(int seq, int page) {
+		int result = bs.delGuestBook(seq);
+		if(result > 0) {
+			return "redirect:/adBoard/guestList?page="+page;
+		}else {
+			return "redirect:/admin/adminError";
+		}	
+	}
+	
+	/* 
 	 * 대나무숲
 	 */
 	
 	@RequestMapping("/bambooList")
 	public String bambooMainList(String page, Model m) {
 		int currentPage = 1;
-		if(page!= null && page != "") currentPage = Integer.parseInt(page);
+		if(page!= null && !page.equals("") && !page.equals("null")) currentPage = Integer.parseInt(page);
 		
 		int end = currentPage * (Configuration.recordCountPerPage);
 		int start = end - (Configuration.recordCountPerPage-1);
@@ -140,7 +173,7 @@ public class AdBoardController {
 	@RequestMapping("/industryList")
 	public String industryMainList(String page, Model m) {
 		int currentPage = 1;
-		if(page!= null && page != "") currentPage = Integer.parseInt(page);
+		if(page!= null && !page.equals("") && !page.equals("null")) currentPage = Integer.parseInt(page);
 		
 		int end = currentPage * (Configuration.recordCountPerPage);
 		int start = end - (Configuration.recordCountPerPage-1);
@@ -186,6 +219,48 @@ public class AdBoardController {
 			return "redirect:admin/adminError";
 		}
 	}
+		
+	/* 
+	 * IT뉴스 ( 진행중 )
+	 */
+	
+	@RequestMapping("/itnewsList")
+	public String itnewsMainList(String page, Model m) {
+		int currentPage = 1;
+		if(page!= null && !page.equals("") && !page.equals("null")) currentPage = Integer.parseInt(page);
+		
+		int end = currentPage * (Configuration.recordCountPerPage);
+		int start = end - (Configuration.recordCountPerPage-1);
+		
+		List<ItnewsDTO> result = bs.itnewsListByPage(start, end);
+		m.addAttribute("list", result);
+		
+		List<String> pageNavi = bs.getItnewsPageNavi(currentPage);
+		m.addAttribute("pageNavi", pageNavi);
+		
+		m.addAttribute("page", currentPage);
+		return "admin/boardITnewsList";	
+	}
+	
+	@RequestMapping("delItnews")
+	public String delItnews(int seq, String page) {
+		int result = bs.delItnews(seq);
+		if(result > 0) {
+			return "redirect:/adBoard/itnewsList?page="+page;
+		}else {
+			return "redirect:/admin/adminError";
+		}			
+	}
+	
+	@RequestMapping("detailViewItnews")
+	public String detailViewItnews(String page, int seq, Model m) {
+		ItnewsDTO dto = bs.detailViewItnews(seq);
+		m.addAttribute("dto", dto);
+		List<ItnewsCoDTO> list = bs.getItnewsCo(seq);
+		m.addAttribute("list", list);
+		m.addAttribute("page", page);
+		return "admin/boardItnewsDetailView";			
+	}
 	
 	/* 
 	 * Code-How ( 진행중 )
@@ -194,7 +269,7 @@ public class AdBoardController {
 	@RequestMapping("/cohowList")
 	public String cohowMainList(String page, Model m) {
 		int currentPage = 1;
-		if(page!= null && page != "") currentPage = Integer.parseInt(page);
+		if(page!= null && !page.equals("") && !page.equals("null")) currentPage = Integer.parseInt(page);
 		
 		int end = currentPage * (Configuration.recordCountPerPage);
 		int start = end - (Configuration.recordCountPerPage-1);
@@ -214,58 +289,6 @@ public class AdBoardController {
 
 	}
 	
-	/* 
-	 * IT뉴스 ( 진행중 )
-	 */
-	
-	@RequestMapping("/itnewsList")
-	public String itnewsMainList(String page, Model m) {
-		int currentPage = 1;
-		if(page!= null && page != "" && page != "null") currentPage = Integer.parseInt(page);
-		
-		int end = currentPage * (Configuration.recordCountPerPage);
-		int start = end - (Configuration.recordCountPerPage-1);
-		
-		List<ItnewsDTO> result = bs.itnewsListByPage(start, end);
-		m.addAttribute("list", result);
-		
-		List<String> pageNavi = bs.getItnewsPageNavi(currentPage);
-		m.addAttribute("pageNavi", pageNavi);
-		
-		m.addAttribute("page", currentPage);
-		return "admin/boardITnewsList";	
-	}
-	
-	/* 
-	 * 방명록 ( 진행중 )
-	 */
-	
-	@RequestMapping("/guestBookList")
-	public String guestBookMainList(String page, Model m) {
-		int currentPage = 1;
-		if(page!= null && page != "" && page != "null") currentPage = Integer.parseInt(page);
-		
-		int end = currentPage * (Configuration.recordCountPerPage);
-		int start = end - (Configuration.recordCountPerPage-1);
-		
-		List<GuestBookDTO> result = bs.guestBookListByPage(start, end);
-		m.addAttribute("list", result);
-		
-		List<String> pageNavi = bs.getGuestBookPageNavi(currentPage);
-		m.addAttribute("pageNavi", pageNavi);
-		
-		m.addAttribute("page", currentPage);
-		return "admin/boardGuestBookList";	
-	}
-	
-	@RequestMapping("/delGuestBook")
-	public String delGuestBook(int seq, int page) {
-		int result = bs.delGuestBook(seq);
-		if(result > 0) {
-			return "redirect:/adBoard/guestBookList?page="+page;
-		}else {
-			return "redirect:/admin/adminError";
-		}	
-	}
+
 }
 

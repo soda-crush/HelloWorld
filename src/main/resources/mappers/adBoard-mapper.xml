@@ -26,7 +26,18 @@
 	<delete id="delProjectCo">
 		delete from projectComment where seq=#{seq}
 	</delete>
-	
+
+	<!--방명록 -->
+	<select id="guestBookListByPage" resultType="kh.hello.dto.GuestBookDTO">
+		select * from (select GuestBook.*, row_number() over (order by seq desc) as rown from GuestBook) where rown between #{start} and #{end}
+	</select>
+	<select id="getGuestBookTotal" resultType="integer">
+		select count(*) from GuestBook
+	</select>
+	<delete id="delGuestBook">
+		delete GuestBook where seq = #{seq}
+	</delete>
+		
 	<!--대나무숲 -->	
 	<select id="bambooListByPage" resultType="kh.hello.dto.BambooDTO">
 		select * from (select bamboo.*, row_number() over (order by seq desc) as rown from bamboo) where rown between #{start} and #{end}
@@ -73,30 +84,32 @@
 		delete from industryComments where seq=#{seq}
 	</delete>
 	
-	<!--code-how -->
-	<select id="cohowListByPage" resultType="kh.hello.dto.CodeQuestionDTO">
-		select * from (select codeQuestion.*, row_number() over(order by seq desc) rown from codeQuestion) where rown between #{start} and #{end}
-	</select>
-	<select id="getCohowTotal" resultType="integer">
-		select count(*) from codeQuestion
-	</select>
-	
-	<!--code-how -->
+	<!--IT뉴스 -->
 	<select id="itnewsListByPage" resultType="kh.hello.dto.ItnewsDTO">
 		select * from (select itnews.*, row_number() over(order by seq desc) rown from itnews) where rown between ${start} and ${end}
 	</select>
 	<select id="getItnewsTotal" resultType="integer">
 		select count(*) from itnews
 	</select>
-	
-	<!--방명록 -->
-	<select id="guestBookListByPage" resultType="kh.hello.dto.GuestBookDTO">
-		select * from (select GuestBook.*, row_number() over (order by seq desc) as rown from GuestBook) where rown between #{start} and #{end}
-	</select>
-	<select id="getGuestBookTotal" resultType="integer">
-		select count(*) from GuestBook
-	</select>
-	<delete id="delGuestBook">
-		delete GuestBook where seq = #{seq}
+	<delete id="delItnewsAllCo">
+		delete from itnewscomments where itSeq = #{itSeq}
 	</delete>
+	<delete id="delItnews">
+		delete from itnews where seq=#{seq}
+	</delete>
+	<select id="detailViewItnews" resultType="kh.hello.dto.ItnewsDTO">
+		select * from itnews where seq = #{seq}
+	</select>
+	<select id="getItnewsCo" resultType="kh.hello.dto.ItnewsCoDTO">
+		select * from itnewscomments where itSeq=#{itSeq}
+	</select>
+	
+	<!--code-how -->
+	<select id="cohowListByPage" resultType="kh.hello.dto.CodeQuestionDTO">
+		select * from (select codeQuestion.*, row_number() over(order by seq desc) rown from codeQuestion) where rown between #{start} and #{end}
+	</select>
+	<select id="getCohowTotal" resultType="integer">
+		select count(*) from codeQuestion
+	</select>	
+
 </mapper>
