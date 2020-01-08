@@ -1,6 +1,7 @@
 package kh.hello.project;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -57,7 +58,14 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/main")
-	public String main() {
+	public String main(Model m) {
+		try {
+			Map<String, Integer> count = as.getVisitorCount();
+			m.addAttribute("count", count);			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
 		return "admin/main";
 	}
 	

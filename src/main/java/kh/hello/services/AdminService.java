@@ -1,7 +1,9 @@
 package kh.hello.services;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kh.hello.configuration.Configuration;
 import kh.hello.dao.AdminDAO;
+import kh.hello.dao.CountDAO;
 import kh.hello.dto.ForcedOutMemberDTO;
 import kh.hello.dto.InquiryDTO;
 import kh.hello.dto.InquiryReplyDTO;
@@ -363,6 +366,14 @@ public class AdminService {
 		if(needNext) pages.add("<a class=page-link href='searchBlack?col="+col+"&searchWord="+searchWord+"&page=" + (endNavi + 1) + "'>> </a>");
 		
 		return pages;
+	}
+	
+	public Map<String, Integer> getVisitorCount() throws Exception{
+		CountDAO dao = CountDAO.getInstance();
+		Map<String, Integer> result = new HashMap<>();
+		result.put("today", dao.getVisitTodayCount());
+		result.put("total", dao.getVisitTotalCount());
+		return result;
 	}
 }
 
