@@ -26,6 +26,7 @@
 		.content{height:90%;float: left;resize: none;}
 		.sendbt{height:90%;float: left;}
 		#writer{text-underline-position: auto;margin-right: 30px;}
+		.coltheme{margin:30px;}
 	</style>
 </head>
 <body>
@@ -67,6 +68,46 @@
 	                    </div>
 	                </div>
 	                <div class="col-12 col-sm-6 col-md-8 col-lg-9 cohowwrap">
+	                	<div class="coltheme"> 내 지식인</div>
+	                	<table class="table table-hover">
+							<thead class="thead-light">
+								<tr>
+									<th scope="col">구분</th>
+									<th scope="col">게시판제목</th>
+									<th scope="col">작성자</th>
+									<th scope="col">날짜</th>
+									<th scope="col">조회수</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:choose>
+									<c:when test="${clist.size()==0 }">
+										<tr>
+											<td colspan="8">스크랩한 글이 없습니다.</td>
+										</tr>
+									</c:when>
+									<c:otherwise>
+										<c:forEach items="${clist}" var="dto">
+											<tr>
+												<td><span class="badge badge-pill badge-success"
+													style="margin: 10; width: 60px;">${dto.division}</span></td>
+												<td style="cursor:hand" onClick="location.href='${pageContext.request.contextPath}/code/codeDetail.do?seq=${dto.seq}'">
+													${dto.title}
+													<c:if test="${dto.replyCount>0 }">
+							  							<span class="pComment font-weight-bold">${dto.replyCount}</span>
+							  						</c:if>	
+													<span class="badge badge-pill badge-danger">N</span></td>
+												<td>${dto.writer}  
+													<span class="badge badge-pill badge-info">실무자</span>
+												</td>
+												<td>${dto.formedDate}</td>
+												<td>${dto.viewCount}</td>
+											</tr>
+										</c:forEach>
+									</c:otherwise>
+								</c:choose>
+							</tbody>
+						</table>
 	                </div>
 	          	</div>
             </div>
