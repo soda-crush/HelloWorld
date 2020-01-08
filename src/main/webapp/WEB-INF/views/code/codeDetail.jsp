@@ -240,7 +240,7 @@ span:nth-child(4) {
 <!-- 					</div> -->
 <!-- 					<br> -->
 <!-- 댓글 -->
-<!-- 					<div class="contentDivBot" style="display:none;"> -->
+					<div class="contentDivBot" style="display:none;">
 						<div class="pPageComments">
 							<c:if test="${cResult.size()>0 }">
 								<c:forEach items="${cResult }" var="c">
@@ -287,7 +287,7 @@ span:nth-child(4) {
 									</div>								
 		        				</div>
 							</div>
-<!-- 					</div> -->
+					</div>
 
 
 
@@ -329,19 +329,19 @@ span:nth-child(4) {
 			}
 		})
 		
-// 		flag = true;
-// 		var b = $(".contentDivBot");
+		flag = true;
+		var b = $(".contentDivBot");
 	
-// 		$("#commentBtn").click(function(){
-// 		        if(flag == false){
-// 		            b.hide();
-// 		            flag = true;
-// 		        }
-// 		        else{
-// 		            b.show();﻿
-// 		            flag = false;
-// 		        };
-// 		});
+		$("#commentBtn").click(function(){
+		        if(flag == false){
+		            b.hide();
+		            flag = true;
+		        }
+		        else{
+		            b.show();﻿
+		            flag = false;
+		        };
+		});
 	
 		function modifyRe(seq,queSeq){
 				location.href="${pageContext.request.contextPath}/code/modifyR.do?seq="+seq+"&queSeq="+queSeq;
@@ -411,10 +411,10 @@ span:nth-child(4) {
                       '<div class="col-3 col-md-2 col-xl-1"><input type="hidden" name="seq" value="'+seq+'"><input type="hidden" name="repSeq" value="'+repSeq+'">',
                       '<div class="row">',
                       '<div class="col-12 text-center p-0">',
-                      '<button type="button" class="btn btn-secondary" style="margin-bottom:5px;width:80%;" id="coMoCancel">취소</button>',
+                      '<button type="button" class="btn btn-info" style="width:80%;" id="coMoBtn">수정</button>',
                       '</div></div>',
                       '<div class="row"><div class="col-12 text-center p-0">',
-                      '<button type="button" class="btn btn-warning" style="width:80%;" id="coMoBtn">수정</button>',
+                      '<button type="button" class="btn btn-secondary" style="margin-bottom:5px;width:80%;" id="coMoCancel">취소</button>',
                       '</div></div></div></div></div>');
                 $(".commentBox"+seq).append(html.join(""));             
                  }
@@ -459,8 +459,9 @@ span:nth-child(4) {
                           type : "post",
                           dataType : "json",
                           data :{
-                             seq : seq,
-                             repSeq : "${repSeq}"
+                        	  queSeq : "${qResult.seq}", 
+                              seq : seq,
+                              repSeq : "${repSeq}"
                           }
                        }).done(function(resp){
                       $(".pPageComments").html("");
