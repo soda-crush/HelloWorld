@@ -102,5 +102,16 @@ public class MemberDAO {
 		public MemberDTO selectMember(String id) {
 			return jdbc.selectOne("Member.selectMember", id);
 		}
+	//탈퇴전 비번 체크
+		public int withdrawalCheck(String id, String pw) {
+			Map<String, Object> param = new HashMap<>();
+			param.put("id", id);
+			param.put("pw", pw);
+			return jdbc.selectOne("Member.withdrawalCheck",param);
+		}
 		
+	//탈퇴
+		public int withdrawal(String id) {
+			return jdbc.update("Member.withdrawal", id);
+		}
 }

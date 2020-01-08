@@ -256,6 +256,15 @@ public class MemberController {
 		 return "member/showPwMdf";
 	 }
 	 
+	 @RequestMapping("/withdrawal")
+	 public String withdrawalFrm() {
+		 return "member/withdrawal";
+	 }
 	 
+	 @RequestMapping(value = "/withdrawalCheck",produces="text/html;charset=utf8")
+	 @ResponseBody
+	 public String withdrawalCheck(String pw, HttpSession session) {
+		 return ms.withdrawalCheck(((LoginInfoDTO)session.getAttribute("loginInfo")).getId(), pw);
+	 }
 	
 }
