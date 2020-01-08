@@ -45,7 +45,6 @@ public class BambooService {
 		//dto.setSeq(bamSeq);
 		//2. 이미지 저장하고 주소 변환
 		String content = imgUpload(path, dto.getSeq(), dto.getContent());
-		System.out.println(content);
 		dto.setContent(content);
 		//3. 글 수정
 

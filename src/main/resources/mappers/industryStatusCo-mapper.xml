@@ -4,10 +4,10 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="IndustryCo">
 	<select id="getList" resultType="kh.hello.dto.IndustryStatusCoDTO">
-		select * from industryComments where indSeq=#{value}
+		select * from industryComments where indSeq=#{value} order by seq
 	</select>
 	<insert id="insertIndustryStatusCo" parameterType="kh.hello.dto.IndustryStatusCoDTO">
-		insert into IndustryComments values(IndustryCommentsSeq.nextval,#{indSeq},#{writer},#{content},sysdate)
+		insert into industryComments values(industryCommentsSeq.nextval,#{indSeq},#{writer},#{content},sysdate,#{id})
 	</insert>
 	<select id="getComment" resultType="kh.hello.dto.IndustryStatusCoDTO">
 		SELECT * FROM (SELECT * FROM industryComments where indSeq=#{value} ORDER BY writedate DESC) WHERE ROWNUM = 1
@@ -16,7 +16,7 @@
 		update industryComments set content=#{content} where seq=#{seq}
 	</update>
 	<delete id="deleteIndustryStatusCo">
-		delete from industryComments where seq=#{value}
+		delete from industryComments where seq=#{seq}
 	</delete>
 	<delete id="deleteIndustryStatusAllCo">
 		delete from industryComments where indSeq=#{value}
