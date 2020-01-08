@@ -7,7 +7,7 @@
 		select * from projectComment where projectSeq=#{value} order by seq
 	</select>
 	<insert id="insertProjectCo" parameterType="kh.hello.dto.ProjectCoDTO">
-		insert into projectComment values(projectCommentSeq.nextval,#{projectSeq},#{writer},#{contents},sysdate)
+		insert into projectComment values(projectCommentSeq.nextval,#{projectSeq},#{writer},#{id},#{contents},sysdate)
 	</insert>
 	<update id="updateProjectCo" parameterType="kh.hello.dto.ProjectCoDTO">
 		update projectComment set contents=#{contents} where seq=#{seq}

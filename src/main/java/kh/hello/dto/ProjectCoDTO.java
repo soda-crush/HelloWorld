@@ -7,6 +7,7 @@ public class ProjectCoDTO {
 	private int seq;
 	private int projectSeq;
 	private String writer;
+	private String id;
 	private String contents;
 	private Timestamp writeDate;
 	private String formedWriteDate;
@@ -14,13 +15,16 @@ public class ProjectCoDTO {
 	public ProjectCoDTO() {
 		super();
 	}
-	public ProjectCoDTO(int seq, int projectSeq, String writer, String contents, Timestamp writeDate) {
+	public ProjectCoDTO(int seq, int projectSeq, String writer, String id, String contents, Timestamp writeDate,
+			String formedWriteDate) {
 		super();
 		this.seq = seq;
 		this.projectSeq = projectSeq;
 		this.writer = writer;
+		this.id = id;
 		this.contents = contents;
 		this.writeDate = writeDate;
+		this.formedWriteDate = formedWriteDate;
 	}
 	public int getSeq() {
 		return seq;
@@ -40,6 +44,12 @@ public class ProjectCoDTO {
 	public void setWriter(String writer) {
 		this.writer = writer;
 	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}	
 	public String getContents() {
 		return contents;
 	}
@@ -59,5 +69,5 @@ public class ProjectCoDTO {
 	}
 	public void setFormedWriteDate(Timestamp writeDate) {
 		this.formedWriteDate = getFormedWriteDate();
-	}	
+	}
 }

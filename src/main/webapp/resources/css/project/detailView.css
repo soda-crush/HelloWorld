@@ -22,7 +22,7 @@
 .pApply{font-size:13px;color:red;}
 .checkBtn button:nth-child(2){margin-left:10px;}
 .adBoxDiv{height:150px;width:100%;background-color:darkgray;text-align:center;margin:0;margin-top:20px;}
-.pSelect{width:100px;}
+/* .pSelect{width:100px;} */
 #pPageContents{margin:40px;}
 .label-info {
 /* 	background-color: #17a2b8; */
@@ -61,6 +61,9 @@
 	font-size: 11px;
 	font-weight: bold;
 	padding:0px;
+}
+.commentHeader{
+	margin-top:10px;
 }
 .commentContent{
 	margin-top:10px;
