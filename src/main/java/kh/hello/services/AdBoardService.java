@@ -372,6 +372,10 @@ public class AdBoardService {
 		return bdao.getItnewsCo(seq);
 	}
 	
+	public int delItnewsCo(int seq) {
+		return bdao.delItnewsCo(seq);
+	}
+	
 	/* 
 	 * Code-how
 	 */

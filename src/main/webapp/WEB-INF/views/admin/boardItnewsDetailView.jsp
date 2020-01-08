@@ -110,8 +110,8 @@ cursor:default;
 	                                   
 	                                </div>
 	                                <div class="invoice-buttons text-right">
-	                                    <a href="${pageContext.request.contextPath}/adBoard/bambooList?page=${page}" class="invoice-btn">돌아가기</a>
-	                                    <a href="${pageContext.request.contextPath}/adBoard/delBamboo?seq=${dto.seq}" class="invoice-btn">삭제하기</a>
+	                                    <a href="${pageContext.request.contextPath}/adBoard/itnewsList?page=${page}" class="invoice-btn">돌아가기</a>
+	                                    <a href="${pageContext.request.contextPath}/adBoard/delItnews?seq=${dto.seq}" class="invoice-btn">삭제하기</a>
 	                                </div>
 	                            </div>
 	                        </div>
@@ -126,7 +126,7 @@ cursor:default;
                 										<li class="nav-item">
                     										<a class="nav-link active" id="home-tab" data-toggle="tab" href="#" role="tab" aria-controls="home" aria-selected="true"><strong>${reply.writer}</strong> <small>${reply.formedWriteDateForAdmin}</small></a>
                											</li>  
-                    										<li class="text-center mt-2 pl-2"><a href="${pageContext.request.contextPath}/adBoard/delBambooCo?page=${page}&seq=${reply.seq}&bamSeq=${reply.bamSeq}">
+                    										<li class="text-center mt-2 pl-2"><a href="${pageContext.request.contextPath}/adBoard/delItnewsCo?page=${page}&seq=${reply.seq}&itSeq=${reply.itSeq}">
                     										<i data-brackets-id="23054" class="fa fa-trash"></i></a></li>    
            											</ul>
 	            									<div class="tab-content mt-3" id="myTabContent">

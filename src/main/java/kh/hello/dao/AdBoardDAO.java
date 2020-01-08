@@ -180,6 +180,10 @@ public class AdBoardDAO {
 	public List<ItnewsCoDTO> getItnewsCo(int itSeq){
 		return jdbc.selectList("AdBoard.getItnewsCo", itSeq);
 	}
+	
+	public int delItnewsCo(int seq) {
+		return jdbc.delete("AdBoard.delItnewsCo", seq);
+	}
 
 	/* 
 	 * code-how

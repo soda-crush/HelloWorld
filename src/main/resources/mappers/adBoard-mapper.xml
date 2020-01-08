@@ -103,6 +103,9 @@
 	<select id="getItnewsCo" resultType="kh.hello.dto.ItnewsCoDTO">
 		select * from itnewscomments where itSeq=#{itSeq}
 	</select>
+	<delete id="delItnewsCo">
+		delete from itnewscomments where seq=#{seq}
+	</delete>
 	
 	<!--code-how -->
 	<select id="cohowListByPage" resultType="kh.hello.dto.CodeQuestionDTO">

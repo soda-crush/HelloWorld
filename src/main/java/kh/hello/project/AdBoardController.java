@@ -242,7 +242,7 @@ public class AdBoardController {
 		return "admin/boardITnewsList";	
 	}
 	
-	@RequestMapping("delItnews")
+	@RequestMapping("/delItnews")
 	public String delItnews(int seq, String page) {
 		int result = bs.delItnews(seq);
 		if(result > 0) {
@@ -252,7 +252,7 @@ public class AdBoardController {
 		}			
 	}
 	
-	@RequestMapping("detailViewItnews")
+	@RequestMapping("/detailViewItnews")
 	public String detailViewItnews(String page, int seq, Model m) {
 		ItnewsDTO dto = bs.detailViewItnews(seq);
 		m.addAttribute("dto", dto);
@@ -260,6 +260,17 @@ public class AdBoardController {
 		m.addAttribute("list", list);
 		m.addAttribute("page", page);
 		return "admin/boardItnewsDetailView";			
+	}
+	
+	@RequestMapping("delItnewsCo")
+	public String delItnewsCo(int seq, int itSeq, String page) {
+		int result = bs.delItnewsCo(seq);
+		
+		if(result > 0) {
+			return "redirect:detailViewItnews?page="+page+"&seq="+itSeq;
+		}else {
+			return "redirect:admin/adminError";
+		}		
 	}
 	
 	/* 
