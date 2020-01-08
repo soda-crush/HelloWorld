@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.JsonObject;
 
+import kh.hello.dto.LoginInfoDTO;
 import kh.hello.dto.MemberDTO;
 import kh.hello.services.MemberService;
 import kh.hello.utils.Utils;
@@ -38,7 +39,7 @@ public class MemberController {
 	public String loginProc(String id, String pw, HttpSession session){ //로그인 프로세스
 			int result = ms.login(id, pw);
 			if(result > 0) {
-				session.setAttribute("loginInfo", id);
+				session.setAttribute("loginInfo", new LoginInfoDTO(id, ms.selectMember(id).getNickName()));
 				ms.updateLastLogin(id);
 				return "redirect:/";
 			}else {
