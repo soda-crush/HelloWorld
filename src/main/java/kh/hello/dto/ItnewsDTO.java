@@ -18,20 +18,15 @@ public class ItnewsDTO {
 	      long sec = (exDate - processedWrite_date)/1000;
 	      int hour = (int)(sec/360.0) + 1;
 	      
-	      if(hour < 24) {
-	    	  SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
-		      return sdf.format(processedWrite_date);
+	      if(hour < 14) {
+	    	  SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+		         return sdf.format(processedWrite_date);
 	      }else {
-	         SimpleDateFormat sdf = new SimpleDateFormat("20yy-MM-dd");
-	         return sdf.format(processedWrite_date);
+	    	  SimpleDateFormat sdf = new SimpleDateFormat("20yy.MM.dd.");
+		         return sdf.format(processedWrite_date);
 	      }
-<<<<<<< HEAD
 	   }
-
-=======
-	}
 	
->>>>>>> 824c742d47700c768f72573fdf35c93b089d969b
 	public ItnewsDTO() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -111,13 +106,10 @@ public class ItnewsDTO {
 				+ ", writeDate=" + writeDate + ", viewCount=" + viewCount + ", id=" + id + "]";
 	}
 	
-<<<<<<< HEAD
-=======
 	public String getFormedWriteDateForAdmin() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
 		String result = sdf.format(this.writeDate);
 		return result;
 	}
->>>>>>> 824c742d47700c768f72573fdf35c93b089d969b
 	
 }
