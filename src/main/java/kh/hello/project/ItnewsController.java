@@ -70,7 +70,8 @@ public class ItnewsController {
 	@RequestMapping(value="/coWrite",produces="text/html;charset=utf8")
 	@ResponseBody
 	public String coWrite(ItnewsCoDTO dto, HttpSession session, String seq) {
-		dto.setWriter(((LoginInfoDTO)session.getAttribute("loginInfo")).getId());
+		dto.setId(((LoginInfoDTO)session.getAttribute("loginInfo")).getId());
+		dto.setWriter(((LoginInfoDTO)session.getAttribute("loginInfo")).getNickName());
 		is.coWrite(dto, seq);
 		return is.coWriteAfter(seq);
 	}
@@ -86,7 +87,8 @@ public class ItnewsController {
 	public String writeProc(String page, ItnewsDTO dto, HttpSession session){
 		String path = session.getServletContext().getRealPath("attached");
 		
-		dto.setWriter(((LoginInfoDTO)session.getAttribute("loginInfo")).getId());
+		dto.setWriter(((LoginInfoDTO)session.getAttribute("loginInfo")).getNickName());
+		dto.setId(((LoginInfoDTO)session.getAttribute("loginInfo")).getId());
 		
 		try {
 			int boardSeq = is.writeItnews(path, dto);

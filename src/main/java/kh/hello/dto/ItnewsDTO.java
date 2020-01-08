@@ -10,6 +10,7 @@ public class ItnewsDTO {
 	private String content;
 	private Timestamp writeDate;
 	private int viewCount;
+	private String id;
 	
 	public String getDate(){
 	      long exDate = System.currentTimeMillis();
@@ -25,13 +26,14 @@ public class ItnewsDTO {
 	         return sdf.format(processedWrite_date);
 	      }
 	   }
-	
+
 	public ItnewsDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public ItnewsDTO(int seq, String writer, String title, String content, Timestamp writeDate, int viewCount) {
+	public ItnewsDTO(int seq, String writer, String title, String content, Timestamp writeDate, int viewCount,
+			String id) {
 		super();
 		this.seq = seq;
 		this.writer = writer;
@@ -39,6 +41,7 @@ public class ItnewsDTO {
 		this.content = content;
 		this.writeDate = writeDate;
 		this.viewCount = viewCount;
+		this.id = id;
 	}
 
 	public int getSeq() {
@@ -89,12 +92,19 @@ public class ItnewsDTO {
 		this.viewCount = viewCount;
 	}
 
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	@Override
 	public String toString() {
 		return "ItnewsDTO [seq=" + seq + ", writer=" + writer + ", title=" + title + ", content=" + content
-				+ ", writeDate=" + writeDate + ", viewCount=" + viewCount + "]";
+				+ ", writeDate=" + writeDate + ", viewCount=" + viewCount + ", id=" + id + "]";
 	}
-	
 	
 	
 }

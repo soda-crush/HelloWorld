@@ -25,7 +25,7 @@
 	</select>
 	
 	<insert id="writeItnews" parameterType="kh.hello.dto.ItnewsDTO">
-		insert into itnews values(#{seq}, #{writer}, #{title}, #{content},  sysdate, 0)
+		insert into itnews values(#{seq}, #{writer}, #{title}, #{content},  sysdate, 0, #{id})
 	</insert>
 	
 	<delete id="remove" parameterType="integer">
@@ -33,7 +33,7 @@
 	</delete>
 	
 	<insert id="insertComment" parameterType="kh.hello.dto.ItnewsCoDTO">
-		insert into itnewscomments values(itnewsCommentsSeq.nextval, #{itSeq}, #{writer}, #{content},sysdate)
+		insert into itnewscomments values(itnewsCommentsSeq.nextval, #{itSeq}, #{writer}, #{content},sysdate, #{id})
 	</insert>
 	
 	<select id="coList" parameterType="integer" resultType="kh.hello.dto.ItnewsCoDTO">
@@ -49,7 +49,7 @@
 	</update>
 	
 	<delete id="coAllRemove" parameterType="integer">
-		delete from itnewscomment where seq=#{seq}
+		delete from itnewscomment where itSeq=#{seq}
 	</delete>
 	
 </mapper> 

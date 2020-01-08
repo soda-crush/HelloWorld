@@ -45,7 +45,7 @@
             	</div>
             	
             	<c:choose>
-            	<c:when test="${loginInfo.id==result.writer}">
+            	<c:when test="${loginInfo.nickName==result.writer}">
             	<div class="row">
             		<div class="col-12 text-center">
             			<button id=modify>수정</button><button id=remove>삭제</button>
@@ -72,7 +72,7 @@
 													</div>
 												</div>				
 												<div class="col-4 pt-2 text-right commentBtns">
-													<c:if test="${dto.writer==sessionScope.loginInfo.id }">
+													<c:if test="${dto.writer==sessionScope.loginInfo.nickName}">
 														<a class="btn btn-info coModBtn" href="#" onclick="coModFunction(${dto.seq},'${dto.content}');return false;" role="button">수정</a>
 														<a class="btn btn-danger coDelBtn" href="#" onclick="coDelFunction(${dto.seq});return false;" role="button">삭제</a>
 													</c:if>
@@ -184,7 +184,7 @@
             		
             		//댓글 에이작스 후 리콜
             		function commentRecall(resp){
-						var loginInfo = "${sessionScope.loginInfo.id}";
+						var loginInfo = "${sessionScope.loginInfo.nickName}";
 						for(var i=0;i<resp.length;i++){
 							var html = [];
 							html.push(
