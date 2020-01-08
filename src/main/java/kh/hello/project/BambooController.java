@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import kh.hello.configuration.Configuration;
 import kh.hello.dto.BambooCoDTO;
 import kh.hello.dto.BambooDTO;
+import kh.hello.dto.LoginInfoDTO;
 import kh.hello.services.BambooService;
 
 @Controller
@@ -28,7 +29,6 @@ public class BambooController {
 	//대나무숲 게시판
 	@RequestMapping("/bambooList.do")
 	public String bamboolistView (String cpage, Model m) {//대나무숲 게시판목록
-		session.setAttribute("loginInfo", "moon");
 		//페이지네비
 		int currentPage = 1;		
 
@@ -60,7 +60,8 @@ public class BambooController {
 
 	@RequestMapping("/bambooWriteProc.do")
 	public String writeBamboo(BambooDTO dto) {//섬머노트
-		dto.setWriter((String)session.getAttribute("loginInfo"));
+		LoginInfoDTO loginInfo = (LoginInfoDTO)session.getAttribute("loginInfo");
+		dto.setWriter(loginInfo.getId());
 		String path = session.getServletContext().getRealPath("attached");
 		int result = 0;
 		try {
@@ -125,7 +126,8 @@ public class BambooController {
 	@ResponseBody
 	@RequestMapping(value="/comment/writeProc.do",produces="text/html;charset=utf8")
 	public String commentWriteConfirm(BambooCoDTO dto) {
-		dto.setWriter((String)session.getAttribute("loginInfo"));
+		LoginInfoDTO loginInfo = (LoginInfoDTO)session.getAttribute("loginInfo");
+		dto.setWriter(loginInfo.getId());
 		return service.commentWriteConfirm(dto);
 	}
 

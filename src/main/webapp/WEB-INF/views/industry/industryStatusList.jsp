@@ -77,7 +77,7 @@
 				  						</c:if>
 				  						</a>
 				  					</td>
-				  					<td>익명</td>
+				  					<td>${i.writer }</td>
 				  					<td>${i.formedWriteDate }</td>
 				  					<td>${i.viewCount }</td>
 				  				</tr>
