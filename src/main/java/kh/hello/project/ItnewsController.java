@@ -137,7 +137,7 @@ public class ItnewsController {
 	@RequestMapping("/scrap")
 	@ResponseBody
 	public String scrap(ScrapDTO dto, HttpSession session) {
-		dto.setWriter(((LoginInfoDTO)session.getAttribute("loginInfo")).getId());
+		dto.setId(((LoginInfoDTO)session.getAttribute("loginInfo")).getId());
 		return is.scrap(dto);
 	}
 	

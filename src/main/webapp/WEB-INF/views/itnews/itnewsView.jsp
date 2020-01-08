@@ -141,35 +141,15 @@
         							categorySeq : ${result.seq}
         						}
         					}).done(function(resp){
-        						console.log(resp);
-        						if(resp == success){//스크랩 성공
-        							
-        						}else if(resp == already){//이미스크랩
-        							
+        						if(resp == "success"){//스크랩 성공
+        							alert("스크랩에 성공하셨습니다. P-log의 마이스크랩에서 확인해주세요.");
+        						}else if(resp == "already"){//이미스크랩
+        							alert("이미 스크랩된 글입니다. P-log의 마이스크랩에서 확인해주세요.");
         						}else{//실패
-        							
+        							alert("오류발생. 일대일문의에 문의해주세요.");
         						}
         					});
-        					
-//         					//스크랩하기
-//         					$.ajax({
-//         						url:"${pageContext.request.contextPath}/itnews/scrap",
-//         						type:"post",
-//         						data:{
-//         							seq:${result.seq}
-//         						}
-//         					}).done(function(result){
-//         						if(result == true){
-//         							alert("스크랩되었습니다. P-log의 마이스크랩에서 확인해주세요.");
-//         						}else{
-//         							alert("스크랩중 오류발생. 일대일문의를 통해 문의하세요.");
-//         						}
-//         					});
-        					
-        					
-        					
-         				}
-        	
+        				}
          			})
         
         			//게시글삭제
