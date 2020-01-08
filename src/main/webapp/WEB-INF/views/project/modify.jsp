@@ -15,6 +15,7 @@
 <link rel="stylesheet" href="/css/project/writeBase.css" type="text/css"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
+<script src="/js/summernote-ko-KR.js"></script>
 <script src="/js/bootstrap-datepicker.js"></script>
 <script src="/js/bootstrap-datepicker.ko.min.js"></script>
 <link rel="stylesheet" href="/css/bootstrap-datepicker.css">

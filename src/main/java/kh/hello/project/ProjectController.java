@@ -180,12 +180,17 @@ public class ProjectController {
 		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
 		dto.setWriter(sessionValue.getNickName());
 		dto.setId(sessionValue.getId());
+		System.out.println(dto.toString());
 		return svc.commentWriteConfirm(dto);		
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="/comment/modifyProc",produces="text/html;charset=utf8")
 	public String commentModifyConfirm(ProjectCoDTO dto) {
+		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
+		dto.setId(sessionValue.getId());
+		dto.setWriter(sessionValue.getNickName());
+		System.out.println(dto.toString());
 		return svc.commentModifyConfirm(dto);
 	}
 	
@@ -197,6 +202,16 @@ public class ProjectController {
 		return svc.commentDeleteConfirm(seq, projectSeq, id);		
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="/comment/replyWriteProc",produces="text/html;charset=utf8")
+	public String coReplyWriteConfirm(ProjectCoDTO dto) {
+		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
+		dto.setWriter(sessionValue.getNickName());
+		dto.setId(sessionValue.getId());
+		dto.setDepth(1);
+		System.out.println(dto.toString());
+		return svc.commentWriteConfirm(dto);
+	}
 	
 	
 	/*

@@ -76,7 +76,8 @@ public class ProjectDAO {
 		return jdbc.update("ProjectCo.updateProjectCo", dto);
 	}	
 	public int deleteProjectCo(int seq) {//프로젝트 모집댓글 삭제(개별)
-		return jdbc.delete("ProjectCo.deleteProjectCo", seq);
+//		return jdbc.delete("ProjectCo.deleteProjectCo", seq);
+		return jdbc.update("ProjectCo.updateNullProjectCo", seq);
 	}
 	public int deleteProjectAllCo(int projectSeq) {//프로젝트 모집댓글 삭제(글에 달린 모든댓글)
 		return jdbc.delete("ProjectCo.deleteProjectAllCo", projectSeq);

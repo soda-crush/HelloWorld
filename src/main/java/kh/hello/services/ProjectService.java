@@ -141,8 +141,8 @@ public class ProjectService {
 			}	
 			dto.setContents(contents);
 			dao.insertProject(dto);		
-			dao.updatePoint(option, dto.getId());
 			projectSeq = dao.latestSeq(dto.getId());
+			dao.updatePoint(option, dto.getId());			
 			for(ProjectImageDTO s : summers) {
 				s.setProjectSeq(projectSeq);
 				dao.insertImage(s);
@@ -214,7 +214,11 @@ public class ProjectService {
 		List<ProjectCoDTO> result = dao.getCoList(dto.getProjectSeq());
 		for(ProjectCoDTO p : result) {
 			p.setFormedWriteDate(p.getWriteDate());
+			if(p.getChangeDate()!=null) {
+				p.setFormedChangeDate(p.getChangeDate());
+			}			
 		}
+		System.out.println(gson.toJson(result));
 		return gson.toJson(result);
 	}
 	
