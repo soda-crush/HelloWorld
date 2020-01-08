@@ -62,8 +62,8 @@ public class BambooDAO {
 		System.out.println(dto.toString());
 		return jdbc.update("BambooCo.updateBambooCo", dto);
 	}	
-	public int deleteBambooCo(BambooCoDTO dto) {//대나무숲 댓글 삭제(개별)
-		return jdbc.delete("BambooCo.deleteBambooCo", dto);
+	public int deleteBambooCo(int seq) {//대나무숲 댓글 삭제(개별)
+		return jdbc.delete("BambooCo.deleteBambooCo", seq);
 	}
 	public int deleteBambooAllCo(int bamSeq) {//대나무숲 댓글 삭제(글에 달린 모든댓글)
 		return jdbc.delete("BambooCo.deleteBambooAllCo", bamSeq);

@@ -15,7 +15,7 @@
 	<update id="updateBambooCo" parameterType="kh.hello.dto.BambooCoDTO">
 		update bambooComments set content=#{content} where seq=#{seq}
 	</update>
-	<delete id="deleteBambooCo" parameterType="kh.hello.dto.BambooCoDTO">
+	<delete id="deleteBambooCo">
 		delete from bambooComments where seq=#{seq}
 	</delete>
 	<delete id="deleteBambooAllCo">

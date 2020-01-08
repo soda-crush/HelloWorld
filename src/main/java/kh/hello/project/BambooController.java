@@ -87,7 +87,7 @@ public class BambooController {
 	public String bambooModifyConfirm(BambooDTO dto) {
 		System.out.println(dto.toString());
 		String path = session.getServletContext().getRealPath("attached");
-		
+
 		int result = 0;
 		try {
 			result = service.bambooModifyConfirm(dto, path);
@@ -106,8 +106,18 @@ public class BambooController {
 
 	@RequestMapping("/bambooDeleteProc.do")
 	public String bambooDeleteConfirm(int seq) {
-		service.bambooDeleteConfirm(seq);
-		return "redirect:/bamboo/bambooList.do";
+		int result = 0;
+		try {
+			result = service.bambooDeleteConfirm(seq);		
+			if(result > 0) {
+				return "redirect:/bamboo/bambooList.do";
+			}else {
+				return "redirect:../error";
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			return "redirect:../error";
+		}
 	}
 
 	//댓글
@@ -122,27 +132,20 @@ public class BambooController {
 	@ResponseBody
 	@RequestMapping(value="/comment/modifyProc.do",produces="text/html;charset=utf8")
 	public String commentModifyConfirm(BambooCoDTO dto) {
-		System.out.println("댓글수정 도착 + " + dto.getSeq() + " : " + dto.getBamSeq() + " : " +dto.getContent());
 		return service.commentModifyConfirm(dto);
 	}
-	
+
 	@ResponseBody
-	@RequestMapping("/comment/deleteProc.do")
+	@RequestMapping(value="/comment/deleteProc.do",produces="text/html;charset=utf8")
 	public String commentDeleteConfirm(BambooCoDTO dto) {
-		System.out.println("delete comment       " + dto.getSeq() + " : " + dto.getBamSeq() + " : " +dto.getContent());
-		service.commentDeleteConfirm(dto);
 		return service.commentDeleteConfirm(dto);
 	}
-
 
 	//게시판 목록 검색
 	@RequestMapping("/bambooSearch.do")
 	public String bambooSearch(String search, HttpServletRequest request, Model m, String cpage) {
 		System.out.println(request.getParameter("value")+" - "+search);
 		String value = request.getParameter("value");
-		//m.addAttribute("bambooList", service.bambooSearchTotalCount(value, search));
-
-
 		//페이지네비
 		int currentPage = 1;		
 
@@ -154,9 +157,7 @@ public class BambooController {
 
 		List<String> pageNavi = service.getBambooSearchListPageNavi(currentPage, value, search);
 		m.addAttribute("pageNavi", pageNavi);
-
 		m.addAttribute("cpage", currentPage);
-
 
 		return "/bamboo/bambooList";
 	}
