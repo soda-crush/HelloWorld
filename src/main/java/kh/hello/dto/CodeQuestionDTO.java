@@ -8,6 +8,7 @@ public class CodeQuestionDTO {
 	private String division;
 	private String title;
 	private String content;
+	private String id;
 	private String writer;
 	private int point;
 	private int viewCount;
@@ -17,14 +18,15 @@ public class CodeQuestionDTO {
 	public CodeQuestionDTO() {
 		super();
 	}
-
-	public CodeQuestionDTO(int seq, String division, String title, String content, String writer, int point,
+	
+	public CodeQuestionDTO(int seq, String division, String title, String content, String id, String writer, int point,
 			int viewCount, Timestamp writeDate) {
 		super();
 		this.seq = seq;
 		this.division = division;
 		this.title = title;
 		this.content = content;
+		this.id = id;
 		this.writer = writer;
 		this.point = point;
 		this.viewCount = viewCount;
@@ -55,6 +57,12 @@ public class CodeQuestionDTO {
 	public void setContent(String content) {
 		this.content = content;
 	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	public String getWriter() {
 		return writer;
 	}
@@ -79,6 +87,7 @@ public class CodeQuestionDTO {
 	public void setWriteDate(Timestamp writeDate) {
 		this.writeDate = writeDate;
 	}
+	
 	public String getFormedDate() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
 		return sdf.format(writeDate);
@@ -88,11 +97,5 @@ public class CodeQuestionDTO {
 	}
 	public void setReplyCount(int repCount) {
 		this.replyCount = repCount;
-	}
-	
-	public String getFormedWriteDateForAdmin() {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
-		String result = sdf.format(this.writeDate);
-		return result;
 	}
 }

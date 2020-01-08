@@ -58,7 +58,7 @@ $(function(){
             <div class=row>
                <div class="col-12 title">
                <input type="hidden" name=title value="">
-                  <h4>${sessionScope.loginInfo}님 답변해주세요.</h4>
+                  <h4>${sessionScope.loginInfo.nickName}님 답변해주세요.</h4>
                </div>
             </div>
 <!--          <input type="hidden" name="seq" value="1"> -->

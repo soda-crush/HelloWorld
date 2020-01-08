@@ -5,7 +5,7 @@
 <mapper namespace="CodeR">
 	<insert id="insert" parameterType="kh.hello.dto.CodeReplyDTO">
 		insert into codeReply
-		values(codeReplySeq.nextval,#{queSeq},#{title},#{content},#{writer},sysdate)
+		values(codeReplySeq.nextval,#{queSeq},#{title},#{content},#{id},#{writer},sysdate)
 	</insert>
 <!-- 	리스트에 답글 보이게? -->
 	<select id="selectReplyAll" resultType="kh.hello.dto.CodeReplyDTO" parameterType="Integer">
