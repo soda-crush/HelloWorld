@@ -32,10 +32,11 @@ public class PlogController {
 		return "/plog/plogProject";
 	}
 
-	@RequestMapping("/toPlogScrap.do")
-	public String toplogScrap() {
-		return "/plog/plogScrap";
-	}
+//	@RequestMapping("/toPlogScrap.do")
+//	public String toplogScrap() {
+//		
+//		return "/plog/plogScrap";
+//	}
 
 	@RequestMapping("/toGuestBook.do")
 	public String toGuestBook() {

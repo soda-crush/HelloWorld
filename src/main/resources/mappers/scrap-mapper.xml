@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Scrap">
+	
+	<select id="selectIndustryStatus"  parameterType="String" resultType="kh.hello.dto.IndustryStatusDTO">
+		select * from (select * from scrap where category='industryStatus' and id=#{id}) cscrap inner join industryStatus on cscrap.categoryseq = industryStatus.seq
+	</select>
+	
+	<select id="selectCodeQuestion"  parameterType="String" resultType="kh.hello.dto.CodeQuestionDTO">
+		select * from (select * from scrap where category='cohow' and id=#{id}) cscrap inner join CodeQuestion on cscrap.categoryseq = CodeQuestion.seq
+	</select>
+	
+	<select id="selectProject"  parameterType="String" resultType="kh.hello.dto.ProjectDTO">
+		select * from (select * from scrap where category='project' and id=#{id}) cscrap inner join Project on cscrap.categoryseq = Project.seq
+	</select>
+	
+	<select id="selectItnews"  parameterType="String" resultType="kh.hello.dto.ItnewsDTO">
+		select * from (select * from scrap where category='itnews' and id=#{id}) cscrap inner join Itnews on cscrap.categoryseq = Itnews.seq
+	</select>
+	
+</mapper>
