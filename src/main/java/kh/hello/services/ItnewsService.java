@@ -78,7 +78,6 @@ public class ItnewsService {
 		
 		if(needNext) sb.append("<a href='itnewsList?cpage=" + (endNavi + 1) + "'>> </a>");
 	
-		System.out.println(sb.toString());
 		return sb.toString();
 	}
 	

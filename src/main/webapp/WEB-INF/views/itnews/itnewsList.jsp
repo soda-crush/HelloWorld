@@ -59,7 +59,7 @@
 				  			<c:forEach items="${list}" var="dto">
 				  				<div class="row tableBody p-0">
 									<div class="col-md-1 d-none d-md-block order-md-1">${dto.seq}</div>
-					    			<div class="col-12 col-md-6 order-1 order-md-2"><a href="${pageContext.request.contextPath}/itnews/detail?seq=${dto.seq}">${dto.title}</a></a></div>
+					    			<div class="col-12 col-md-6 order-1 order-md-2"><a href="${pageContext.request.contextPath}/itnews/detail?seq=${dto.seq}&page=${page}">${dto.title}</a></a></div>
 					    			<div class="col-3 col-md-2 order-2 order-md-3">${dto.writer}</div>
 					    			<div class="col-2 col-md-2 order-3 order-md-4">${dto.getDate()}</div>
 					    			<div class="col-1 col-md-1 order-4 order-md-5">${dto.viewCount}</div>
