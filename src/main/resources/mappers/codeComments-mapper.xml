@@ -3,24 +3,29 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="CodeC">
-	<insert id="insertComment" parameterType="kh.hello.dto.CodeCommentsDTO">
-		insert into codeComments values(codeCommentsSeq.nextval,#{repSeq},#{content},#{writer},sysdate)
-	</insert>
 	<select id="commentsList" resultType="kh.hello.dto.CodeCommentsDTO">
-		select * from codeComments where repSeq=#{repSeq}	
+		select * from codeComments where queSeq=#{queSeq} order by seq	
 	</select>
+	<insert id="insertComment" parameterType="kh.hello.dto.CodeCommentsDTO">
+		insert into codeComments values(codeCommentsSeq.nextval,#{queSeq},#{repSeq},#{content},#{writer},sysdate)
+	</insert>
 	<update id="updateComment" parameterType="kh.hello.dto.CodeCommentsDTO">
 		update codeComments set content=#{content} where seq=#{seq}
 	</update>
 	<delete id="deleteComment">
 		delete from codeComments where seq=#{seq}
 	</delete>
-<!-- 	<select id="selectRepSeq" parameterType="String" resultType="Integer"> -->
-<!-- 		select max(seq) from codeQuestion where writer = #{writer} -->
+	<delete id="deleteReplyAllCo">
+		delete from codeComments where repSeq=#{value}
+	</delete>
+<!-- 	ajax 맨위? -->
+
+<!-- 	<select id="getComment" resultType="kh.hello.dto.CodeCommentsDTO"> -->
+<!-- 		SELECT * FROM (SELECT * FROM codeComments where repSeq=#{value} ORDER BY writeDate DESC) WHERE ROWNUM = 1 -->
 <!-- 	</select> -->
-	
-	<select id="selectRepSeq" parameterType="Integer" resultType="Integer">
-		select seq from codeReply where queSeq = #{queSeq}
+
+	<select id="selectRepSeq" parameterType="java.util.Map" resultType="integer">
+		select seq from codeReply where queSeq = #{queSeq} and writer = #{writer}
 	</select>
 	
 	<update id="writeCoPoint" parameterType="String">

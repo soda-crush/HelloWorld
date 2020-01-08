@@ -12,11 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kh.hello.configuration.Configuration;
-import kh.hello.dto.BambooDTO;
 import kh.hello.dto.CodeCommentsDTO;
 import kh.hello.dto.CodeQuestionDTO;
 import kh.hello.dto.CodeReplyDTO;
-import kh.hello.dto.MemberDTO;
 import kh.hello.services.CodeService;
 
 @Controller
@@ -70,14 +68,16 @@ public class CodeController {
 	@RequestMapping("/codeDetail.do")
 	public String codeDetail(int seq, Model m,CodeReplyDTO dto) {
 		dto.setWriter((String)session.getAttribute("loginInfo"));
-			CodeQuestionDTO qResult = sv.detailQuestion(seq); //queSeq
-			List<CodeReplyDTO> rResult = sv.detailReply(seq); //queSeq
-			List<CodeCommentsDTO> cResult = sv.commentList(dto.getSeq()); //reqSeq  
+			CodeQuestionDTO qResult = sv.detailQuestion(seq); 
+			List<CodeReplyDTO> rResult = sv.detailReply(seq);
+			List<CodeCommentsDTO> cResult = sv.commentList(seq);   
 			int count = sv.replyOneCount(seq, dto.getWriter()); //queSeq
-			int repSeq = sv.selectRepSeq(seq);
-			
+//			System.out.println("seq:" + seq);
+//			System.out.println(dto.getWriter());
+			int repSeq = sv.selectRepSeq(seq,dto.getWriter());
 			m.addAttribute("qResult", qResult);
 			m.addAttribute("rResult", rResult);
+			
 			m.addAttribute("cResult", cResult);
 			m.addAttribute("count", count);
 			m.addAttribute("repSeq", repSeq);
@@ -210,9 +210,7 @@ public class CodeController {
 	@ResponseBody
 	@RequestMapping(value="/codeCWriteProc.do",produces="text/html;charset=utf8")
 	public String insertComment(CodeCommentsDTO dto) {
-		//int repSeq = parent_seq;
-		System.out.println(dto.getWriter());
-		System.out.println(dto.getContent());
+		dto.setWriter((String)session.getAttribute("loginInfo"));
 		return sv.insertComment(dto);		
 	}
 	
@@ -222,9 +220,9 @@ public class CodeController {
 		return sv.updateComment(dto);
 	}
 	
-	@RequestMapping("/codeCDeleteProc.do")
-	public String deleteComment(int seq,int repSeq) {
-		sv.deleteComment(seq);
-		return "redirect:/code/codeQList.do?seq="+repSeq;
+	@ResponseBody
+	@RequestMapping(value="/codeCDeleteProc.do",produces="text/html;charset=utf8")
+	public String deleteComment(CodeCommentsDTO dto) {
+		return sv.deleteComment(dto);	
 	}
 }
