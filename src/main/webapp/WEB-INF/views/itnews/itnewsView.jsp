@@ -54,6 +54,12 @@
             	</c:when>
             	</c:choose>
             	
+            	<div class=row>
+            		<div class="col-12 text-center">
+            			<button type="button" class="btn btn-warning" id=scrap style="width:120px;">스크랩</button>
+            		</div>
+            	</div>
+            	
             	<div class="row">
             		<div class="col-12" id=adver style="height:200px;background-color:green;color:white;">광고자리</div>
             	</div>
@@ -122,6 +128,50 @@
         <jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
         
         <script>
+        			//스크랩하기
+        			$("#scrap").on("click",function(){
+        				var result = confirm("스크랩하시겠습니까?");
+        				if(result){
+        					//이미 했는지 검사
+        					$.ajax({
+        						url:"${pageContext.request.contextPath}/itnews/scrap",
+        						type:"post",
+        						data:{
+        							category : "itnews",
+        							categorySeq : ${result.seq}
+        						}
+        					}).done(function(resp){
+        						console.log(resp);
+        						if(resp == success){//스크랩 성공
+        							
+        						}else if(resp == already){//이미스크랩
+        							
+        						}else{//실패
+        							
+        						}
+        					});
+        					
+//         					//스크랩하기
+//         					$.ajax({
+//         						url:"${pageContext.request.contextPath}/itnews/scrap",
+//         						type:"post",
+//         						data:{
+//         							seq:${result.seq}
+//         						}
+//         					}).done(function(result){
+//         						if(result == true){
+//         							alert("스크랩되었습니다. P-log의 마이스크랩에서 확인해주세요.");
+//         						}else{
+//         							alert("스크랩중 오류발생. 일대일문의를 통해 문의하세요.");
+//         						}
+//         					});
+        					
+        					
+        					
+         				}
+        	
+         			})
+        
         			//게시글삭제
             		$("#remove").on("click",function(){
             			var result = confirm("정말 삭제하시겠습니까?");
@@ -181,8 +231,59 @@
 			           		}
 		           	}
             		
+            		//댓글 수정
+            		function coModFunction(seq,contents){     
+						$(".commentBox"+seq).find(".commentBtns").css("display","none");
+						$(".commentBox"+seq).find(".commentContent").css("display","none");
+		           		$(".commentBox"+seq).wrap('<form action="/project/comment/modifyProc" method="post" id="coModFrm"></form>');
+						var html = [];
+		    			html.push(
+		    					'<div class="col-12 coModBox mt-2"><div class="row">',
+		    					'<div class="col-9 col-md-10 col-xl-11 pr-0"><textarea class="form-control" placeholder="댓글 내용을 입력해주세요" id="pCoModContents" style="height:80px;" name="content">'+contents+'</textarea></div>',
+		    					'<div class="col-3 col-md-2 col-xl-1"><input type="hidden" name="seq" value="'+seq+'"><input type="hidden" name="projectSeq" value="${pPage.seq }">',
+		    					'<div class="row">',
+		    					'<div class="col-12 text-center p-0">',
+		    					'<button type="button" class="btn btn-secondary" style="margin-bottom:5px;width:80%;" id="coMoCancel">취소</button>',
+		    					'</div></div>',
+		    					'<div class="row"><div class="col-12 text-center p-0">',
+		    					'<button type="button" class="btn btn-warning" style="width:80%;" id="coMoBtn">수정</button>',
+		    					'</div></div></div></div></div>');
+		    			$(".commentBox"+seq).append(html.join(""));    			
+		           	}
             		
-            		//댓글 에이작스 후 리콜
+            		$(document).on("click","#coMoCancel",function(){
+                   		var check = confirm("수정을 취소하시겠습니까?");
+                   		if(check){
+                   			$(this).closest(".commentDiv").unwrap();
+                   			$(this).closest(".commentDiv").find(".commentInnerBox").find(".commentHeader").find(".commentBtns").show();
+                   			$(this).closest(".commentDiv").find(".commentInnerBox").find(".commentContent").show();           			
+                   			$(this).closest(".coModBox").remove();           			
+                   		}
+                   	});
+                   	
+                   	$(document).on("click","#coMoBtn",function(){
+        				$("#pCoModContents").val($.trim($("#pCoModContents").val()));
+        				if($("#pCoModContents").val()==""){
+        					alert("댓글 내용을 입력해주세요.");
+        					return false;
+        				}
+        				
+        				$.ajax({
+        					url : "${pageContext.request.contextPath}/itnews/coModify",
+        					type : "post",
+        					dataType : "json",
+        					data : $("#coModFrm").serialize()
+        				}).done(function(resp){
+        					console.log("성공");
+        					$(".coContainer").html("");
+        					commentRecall(resp);
+        				}).fail(function(resp){
+        					console.log("실패");
+        					console.log(resp);
+        				})
+                   	});
+                   	
+                  //댓글 에이작스 후 리콜
             		function commentRecall(resp){
 						var loginInfo = "${sessionScope.loginInfo.nickName}";
 						for(var i=0;i<resp.length;i++){
@@ -207,8 +308,7 @@
 									);
 							$(".coContainer").append(html.join(""));	
 							}
-					}	
-            		
-        </script>
+					}			
+       	 </script>
 </body>
 </html>

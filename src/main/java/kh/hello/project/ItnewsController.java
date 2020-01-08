@@ -14,6 +14,7 @@ import kh.hello.configuration.Configuration;
 import kh.hello.dto.ItnewsCoDTO;
 import kh.hello.dto.ItnewsDTO;
 import kh.hello.dto.LoginInfoDTO;
+import kh.hello.dto.ScrapDTO;
 import kh.hello.services.ItnewsService;
 
 @Controller
@@ -83,6 +84,14 @@ public class ItnewsController {
 		return is.coWriteAfter(itSeq);
 	}
 	
+	@RequestMapping(value="/coModify",produces="text/html;charset=utf8")
+	@ResponseBody
+	public String coModify(ItnewsCoDTO dto) {
+		System.out.println(dto);
+		is.modifyItnewsCo(dto);
+		return is.coWriteAfter(is.getItSeqBySeq(dto.getSeq()));
+	}
+	
 	@RequestMapping("/writeProc")
 	public String writeProc(String page, ItnewsDTO dto, HttpSession session){
 		String path = session.getServletContext().getRealPath("attached");
@@ -125,6 +134,12 @@ public class ItnewsController {
 		return "itnews/modify";
 	}
 	
+	@RequestMapping("/scrap")
+	@ResponseBody
+	public String scrap(ScrapDTO dto, HttpSession session) {
+		dto.setWriter(((LoginInfoDTO)session.getAttribute("loginInfo")).getId());
+		return is.scrap(dto);
+	}
 	
 	
 }

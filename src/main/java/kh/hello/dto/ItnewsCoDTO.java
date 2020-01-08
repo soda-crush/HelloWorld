@@ -11,6 +11,12 @@ public class ItnewsCoDTO {
 	private Timestamp writeDate;
 	private String id;
 	
+	@Override
+	public String toString() {
+		return "ItnewsCoDTO [seq=" + seq + ", itSeq=" + itSeq + ", writer=" + writer + ", content=" + content
+				+ ", writeDate=" + writeDate + ", id=" + id + "]";
+	}
+
 	public ItnewsCoDTO() {
 		super();
 		// TODO Auto-generated constructor stub
