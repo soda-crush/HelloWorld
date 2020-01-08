@@ -12,11 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kh.hello.configuration.Configuration;
-import kh.hello.dto.BambooDTO;
 import kh.hello.dto.CodeCommentsDTO;
 import kh.hello.dto.CodeQuestionDTO;
 import kh.hello.dto.CodeReplyDTO;
-import kh.hello.dto.MemberDTO;
 import kh.hello.services.CodeService;
 
 @Controller
