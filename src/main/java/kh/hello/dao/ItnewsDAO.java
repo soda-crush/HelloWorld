@@ -48,6 +48,10 @@ public class ItnewsDAO {
 		return jdbc.insert("Itnews.writeItnews", dto);
 	}
 	
+	public int modifyItnews(ItnewsDTO dto) {
+		return jdbc.update("Itnews.updateItnews", dto);
+	}
+	
 	public int removeItnews(int seq) {
 		return jdbc.delete("Itnews.remove", seq);
 	}
@@ -66,5 +70,10 @@ public class ItnewsDAO {
 		param.put("seq", seq);
 		return jdbc.delete("Itnews.coRemove", param);
 	}
+	
+	public int removeItnewsCoAll(int seq) {
+		return jdbc.delete("Itnews.coAllRemove",seq);
+	}
+	
 	
 }

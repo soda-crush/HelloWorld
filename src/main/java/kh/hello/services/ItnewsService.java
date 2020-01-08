@@ -98,15 +98,12 @@ public class ItnewsService {
 	
 	@Transactional("txManager")
 	public int modifyItnews(String path, ItnewsDTO dto) throws Exception{
-		//1. boardSeq 받아오기
-		int boardSeq = dao.getItnewsSeq();
-		dto.setSeq(boardSeq);
-		//2. 이미지 저장하고 주소 변환
-		String content = this.imgUpload(path, boardSeq, dto.getContent());
+		//1. 이미지 저장하고 주소 변환
+		String content = this.imgUpload(path, dto.getSeq(), dto.getContent());
 		dto.setContent(content);
-		//3. 글 업로드
-		dao.writeItnews(dto);
-		return boardSeq;
+		//2. 글 업데이트
+		dao.modifyItnews(dto);
+		return dto.getSeq();
 	}
 	
 	private String imgUpload(String path, int boardSeq, String content) throws Exception{
@@ -141,8 +138,12 @@ public class ItnewsService {
 		return content;
 	}
 	
+	@Transactional("txManager")
 	public int removeItnews(int seq) {
-		return dao.removeItnews(seq);
+		//글삭제
+		dao.removeItnews(seq);
+		//댓글 삭제
+		return dao.removeItnewsCoAll(seq);
 	}
 	
 	public int coWrite(ItnewsCoDTO dto, String seq) {

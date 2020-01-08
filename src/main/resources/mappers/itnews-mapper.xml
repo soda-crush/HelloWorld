@@ -44,4 +44,12 @@
 		delete from itnewscomments where itSeq = #{itSeq} and seq=#{seq}
 	</delete>
 	
+	<update id="updateItnews"  parameterType="kh.hello.dto.ItnewsCoDTO">
+		update itnews set content=#{content}, title=#{title} where seq=#{seq}
+	</update>
+	
+	<delete id="coAllRemove" parameterType="integer">
+		delete from itnewscomment where seq=#{seq}
+	</delete>
+	
 </mapper> 

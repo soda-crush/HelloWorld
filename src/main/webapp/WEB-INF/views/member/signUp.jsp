@@ -162,7 +162,7 @@
             		<h5><img src="/icon/doubleArrow.svg" class=arrow>개인정보 공개여부</h5>
             		&emsp;Programming Log(포트폴리오, Ko-How, 프로젝트 참여현황)를 타인이 열람하는 것에 동의합니다.<br>
             		&emsp;비동의 하실경우 Programmming Log에서 프로필 정보만 공개됩니다.<br>
-            		&emsp;동의합니다.<input type="checkbox" name="ifmOpenCheck" id="ifmOpenCheck" value="y">
+            		&emsp;동의합니다.<input type="checkbox" name="ifmOpenCheck" id="ifmOpenCheck" value="Y">
             		<input type="checkbox" name="ifmOpenCheck" id="ifmOpenCheckNone" value="n" style="display:none">
             	</div>
             </div> 
@@ -638,7 +638,6 @@
             				code : $("#empCode").val()
             			}
             		}).done(function(data){
-            			console.log(data);
             			if(data == "true"){
             				alert("인증에 성공하셨습니다. 계속 진행하여 주십시오.");
                 			emailTest = 1;
@@ -662,7 +661,6 @@
                 				code : $("#unempCode").val()
                 			}
                 		}).done(function(data){
-                			console.log(data);
                 			if(data == "true"){
                 				alert("인증에 성공하셨습니다. 계속 진행하여 주십시오.");
                     			emailTest = 1;
@@ -696,7 +694,6 @@
 			    language : "ko"	//달력의 언어 선택, 그에 맞는 js로 교체해줘야한다.			    
 			}).on("changeDate", function(e) {
                 changeDate : true	//사용자가 클릭해서 날짜가 변경되면 호출 (개인적으로 가장 많이 사용함)
-                console.log(e); 
 				birthTest = 1;
 			});	
             	
