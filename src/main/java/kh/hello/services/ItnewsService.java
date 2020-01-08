@@ -93,6 +93,7 @@ public class ItnewsService {
 		dto.setContent(content);
 		//3. 글 업로드
 		dao.writeItnews(dto);
+		
 		return boardSeq;
 	}
 	
