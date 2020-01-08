@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import kh.hello.configuration.Configuration;
 import kh.hello.dto.ItnewsCoDTO;
 import kh.hello.dto.ItnewsDTO;
+import kh.hello.dto.LoginInfoDTO;
 import kh.hello.services.ItnewsService;
 
 @Controller
@@ -25,7 +26,7 @@ public class ItnewsController {
 	@RequestMapping("/itnewsList")
 	public String itnewsMainList(Model m, String cpage) {
 				int realCpage = 1;
-				if(cpage != null) realCpage = Integer.parseInt(cpage);
+				if(cpage!= null && !cpage.equals("") && !cpage.equals("null")) realCpage = Integer.parseInt(cpage);
 				
 				if(realCpage > 0 && realCpage <= Configuration.naviCountPerPage) {
 					m.addAttribute("currentPage", realCpage);
@@ -69,7 +70,7 @@ public class ItnewsController {
 	@RequestMapping(value="/coWrite",produces="text/html;charset=utf8")
 	@ResponseBody
 	public String coWrite(ItnewsCoDTO dto, HttpSession session, String seq) {
-		dto.setWriter((String)session.getAttribute("loginInfo"));
+		dto.setWriter(((LoginInfoDTO)session.getAttribute("loginInfo")).getId());
 		is.coWrite(dto, seq);
 		return is.coWriteAfter(seq);
 	}
@@ -85,7 +86,7 @@ public class ItnewsController {
 	public String writeProc(String page, ItnewsDTO dto, HttpSession session){
 		String path = session.getServletContext().getRealPath("attached");
 		
-		dto.setWriter((String)session.getAttribute("loginInfo"));
+		dto.setWriter(((LoginInfoDTO)session.getAttribute("loginInfo")).getId());
 		
 		try {
 			int boardSeq = is.writeItnews(path, dto);
@@ -96,19 +97,18 @@ public class ItnewsController {
 		}
 	}
 	
-//	@RequestMapping("/modifyProc")
-//	public String modifyProc(String page, ItnewsDTO dto, HttpSession session){
-//		System.out.println("수정 누르고 시퀀스 : " + dto.getSeq());
-//		String path = session.getServletContext().getRealPath("attached");
-//		
-//		try {
-//			int boardSeq = is.modifyItnews(path, dto);
-//			return "redirect:detail?seq="+boardSeq+"&page="+page;
-//		}catch(Exception e) {
-//			e.printStackTrace();
-//			return "redirect:../error";
-//		}
-//	}
+	@RequestMapping("/modifyProc")
+	public String modifyProc(String page, ItnewsDTO dto, HttpSession session){
+		String path = session.getServletContext().getRealPath("attached");
+		
+		try {
+			int boardSeq = is.modifyItnews(path, dto);
+			return "redirect:detail?seq="+boardSeq+"&page="+page;
+		}catch(Exception e) {
+			e.printStackTrace();
+			return "redirect:../error";
+		}
+	}
 	
 	@RequestMapping("/remove")
 	public String remove(int seq, String page) {
