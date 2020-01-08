@@ -17,7 +17,6 @@
 
 	<style>
 		body{font-size:12px;}
-		h5{font-size:15px;}
 		h1{text-align: center;padding-top: 50px;padding-bottom: 50px;}
         .card{margin-top:20px;width:200px;text-align:center;}
         .myprofile{float: left; margin-top: 20px;margin-bottom: 30px; }
@@ -53,7 +52,7 @@
 		                <div class="navbar-nav box text-center plogNavi" id="naviCon">
 		                    <a class="nav-item nav-link active text-light text-primary" href="${pageContext.request.contextPath}/Portfolio/toPlogmain.do">내 포트폴리오</a>
 		                    <a class="nav-item nav-link active text-light text-primary" href="${pageContext.request.contextPath}/Plog/toPlogCohow.do">내 지식인</a>
-		                    <a class="nav-item nav-link active text-light text-primary" href="${pageContext.request.contextPath}/Plog/toPlogScrap.do">내 스크랩</a>
+		                    <a class="nav-item nav-link active text-light text-primary" href="${pageContext.request.contextPath}/Scrap/toScrap.do">내 스크랩</a>
 		                    <a class="nav-item nav-link active text-light text-primary" href="${pageContext.request.contextPath}/Plog/toPlogProject.do">내 프로젝트</a>
 		                    <a class="nav-item nav-link active text-light text-primary" href="${pageContext.request.contextPath}/GuestBook/selectList.do">방명록</a>
 		                </div>
@@ -65,7 +64,7 @@
 	                        <img src="/img/profileSample.jpg" class="card-img-top" alt="..." style="width: 170px;height: 170px;margin:15px;">
 	                        <div class="card-body">
 	                            <h3 class="card-title" style="text-align: center;">라이언 님</h3>
-	                            <p class="card-text" style="text-align: center;">point : 12,345</p>
+	                            <p class="card-text" style="text-align: center;font-size:18px;">point : 12,345</p>
 	                        </div>
 	                    </div>
 						<div style = "text-align: end;margin-top: 10px;">
@@ -78,7 +77,7 @@
 		                        <div class="card">
 		                            <img src="${dto.image1}" class="card-img-top" alt="..." style="height: inherit;width: 160px;height: 170px;margin:15px;">
 		                            <div class="card-body" style="padding: 5px;width:190px;height:115px;text-align:left;">
-		                                <h5 class="card-title" style="white-space:nowrap;overflow: hidden;text-overflow:ellipsis;width:100%;height:16px;">
+		                                <h5 class="card-title" style="font-size:15px;white-space:nowrap;overflow: hidden;text-overflow:ellipsis;width:100%;height:16px;">
 		                                	<a href="${pageContext.request.contextPath}/Portfolio/detail.do?seq=${dto.seq}">${dto.portfolioTitle}</a>
 		                                </h5>
 		                                <p class="card-text" style="overflow: hidden;width:100%;height:60%;text-overflow: ellipsis;">${dto.purpose }</p>
