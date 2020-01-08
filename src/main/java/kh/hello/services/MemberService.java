@@ -79,7 +79,6 @@ public class MemberService {
 			mdto.setBirth(startDate);
 			
 			return mdao.insertMember(mdto);
-			
 		}
 		
 	//로그인시 최근 로그인 날짜 갱신
@@ -107,4 +106,23 @@ public class MemberService {
 		public MemberDTO selectMember(String id) {
 			return mdao.selectMember(id);
 		}
+		
+	//탈퇴전 비번 체크
+		public String withdrawalCheck(String id, String pw) {
+			int result = mdao.withdrawalCheck(id, pw);
+			if(result > 0) {
+				int result2 = mdao.withdrawal(id);
+				if(result2 > 0) {
+					return "success";
+				}else {
+					return "fail";
+				}
+			}else {
+				//비번 틀림
+				return "notEquals";
+			}
+			
+			
+		}
+		
 }

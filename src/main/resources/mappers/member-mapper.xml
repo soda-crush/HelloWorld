@@ -66,4 +66,13 @@
 		select * from member where id=#{id}
 	</select>
 	
+	<select id="withdrawalCheck"  parameterType="java.util.Map" resultType="integer">
+		select count(*) from member where id=#{id} and pw=#{pw}
+	</select>
+	
+	<update id="withdrawal" parameterType="string">
+		update member set pw=null, name=null,nickName=null,email=null,phone=null,postCode=null
+		,addr1=null,addr2=null,joinPath=null,gender=null,memLevel=null,reportCount=null,point=null
+		,ifmOpenCheck=null,joinDate=null,lastLogin=null,profileImg=null,birth=null where id=#{id} 
+	</update>
 </mapper>
