@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="BambooCo">
 	<select id="getList" resultType="kh.hello.dto.BambooCoDTO">
-		select * from bambooComments where bamSeq=#{value}
+		select * from bambooComments where bamSeq=#{value} order by seq
 	</select>
 	<insert id="insertBambooCo" parameterType="kh.hello.dto.BambooCoDTO">
 		insert into bambooComments values(bambooCommentsSeq.nextval,#{bamSeq},#{writer},#{content},sysdate)
@@ -16,9 +16,12 @@
 		update bambooComments set content=#{content} where seq=#{seq}
 	</update>
 	<delete id="deleteBambooCo">
-		delete from bambooComments where seq=#{value}
+		delete from bambooComments where seq=#{seq}
 	</delete>
 	<delete id="deleteBambooAllCo">
 		delete from bambooComments where bamSeq=#{value}
 	</delete>
+	
+	
+	
 </mapper>

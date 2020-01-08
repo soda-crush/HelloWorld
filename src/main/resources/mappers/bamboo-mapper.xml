@@ -32,7 +32,9 @@
 		select count(seq) from bamboo
 	</select>
 	<select id="bambooListByPage" resultType="kh.hello.dto.BambooDTO">
-		select * from (select bamboo.*, row_number() over (order by seq desc) as rown from bamboo) where rown between #{start} and #{end}
+<!-- 		select * from (select bamboo.*, row_number() over (order by seq desc) as rown from bamboo) where rown between #{start} and #{end} -->
+			select bamboo.*,(select count(*) from bambooComments where bamSeq=bamboo.seq) as commentCount from (select bamboo.*, row_number() over(order by seq desc) rown from bamboo) bamboo where rown between #{start} and #{end} order by seq desc
+	
 	</select>
 	
 	<!-- 조건별 게시판목록 검색 -->

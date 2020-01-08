@@ -43,6 +43,7 @@
 				  				분야<div>${iPage.field }</div>
 				  				직무<div>${iPage.duty }</div>
 				  				<h3>${iPage.title}</h3>
+				  				<input type="hidden" name="writer" value="${iPage.writer}">
 				  				<div>익명</div>
 				  				<div>${iPage.writeDate}</div>
 				  				<div>${iPage.viewCount}</div>
@@ -52,25 +53,62 @@
 				 <a class="btn btn-primary" href="#" role="button">공유하기</a>
 				 <a class="btn btn-primary" href="#" role="button">스크랩</a>
 				 <a class="btn btn-primary" href="#" role="button">신고하기</a>
-            <div id="commentList">
-            <c:if test="${comments.size()>0 }">
-								<c:forEach items="${comments }" var="c">
-									<div>익명</div><br>
-									<div>${c.content }</div><br>
-									<div>${c.writeDate }</div>
-									<a class="btn btn-primary" href="/industry/comment/deleteProc.do?seq=${c.seq }&indSeq=${c.indSeq}" role="button">댓글 삭제</a>
-								</c:forEach>
+
+			<div class="pPageComments">
+				<c:if test="${comments.size()>0 }">
+					<c:forEach items="${comments }" var="c">
+						<div class="row commentDiv commentBox${c.seq } p-0 pb-2 m-2">
+							<div class="col-12 commentInnerBox">
+								<div class="row commentHeader">
+
+									<div class="col-7 pt-1">
+										<div class="row commentInfo">
+											<div class="col-12 commentWriter">${c.writer }</div>
+											<div class="col-12 commentWriteDate">${c.writeDate }</div>
+										</div>
+									</div>
+									<div class="col-4 pt-2 text-right commentBtns">
+										<c:if test="${c.writer==sessionScope.loginInfo }">
+											<a class="btn btn-info coModBtn"
+												href="/bamboo/comment/modifyProc.do?seq=${c.seq }&bamSeq=${c.indSeq}"
+												onclick="coModFunction(${c.seq},'${c.content}',${c.indSeq });return false;"
+												role="button">수정</a>
+											<a class="btn btn-danger coDelBtn"
+												href="/bamboo/comment/deleteProc.do?seq=${c.seq }&bamSeq=${c.indSeq}"
+												onclick="coDelFunction(${c.seq});return false;"
+												role="button">삭제</a>
+										</c:if>
+									</div>
+								</div>
+								<div class="row commentContent">
+									<div class="col-12 pt-1 pl-4">${c.content }</div>
+								</div>
+							</div>
+						</div>
+					</c:forEach>
+				</c:if>
+			</div>
+			<div id="pCoInput" class="row">
+				<div class="col-9 col-lg-10">
+					<textarea class="form-control" placeholder="댓글 내용을 입력해주세요"
+						id="pCoContents"></textarea>
+				</div>
+				<div class="col-3 col-lg-2">
+					<div class="row">
+						<div class="col-12">
+							<button type="button" class="btn btn-primary" id="coWriteBtn">작성</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<c:if test="${iPage.writer == sessionScope.loginInfo}">
+				<a class="btn btn-primary"
+					href="/industry/industryStatusModify.do?seq=${iPage.seq }"
+					role="button">수정하기</a>
+				<a class="btn btn-primary"
+					href="/industry/industryStatusDeleteProc.do?seq=${iPage.seq}"
+					role="button">삭제하기</a>
 			</c:if>
-           	</div>		
-            <c:if test="${iPage.writer == sessionScope.loginInfo}">
-							<a class="btn btn-primary" href="/industry/industryStatusModify.do?seq=${iPage.seq }" role="button">수정하기</a>
-							<a class="btn btn-primary" href="/industry/industryStatusDeleteProc.do?seq=${iPage.seq}" role="button">삭제하기</a>
-						</c:if>
-						<br>
-						
-						<input type="text" id="content" placeholder="댓글을 입력해주세요">
-						<input type="button" id="commentWrite" value="등록">
-						
             </div>
             <!--       몸통 끝!!!   -->
             
@@ -85,6 +123,134 @@
         <jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
         
         <script>
+        $("#coWriteBtn").on("click",function(){
+			$("#pCoContents").val($.trim($("#pCoContents").val()));
+			if($("#pCoContents").val()==""){
+				alert("댓글 내용을 입력해주세요.");
+				return false;
+			}
+			
+			$.ajax({
+				url : "/industry/comment/writeProc.do",
+				type : "post",
+				dataType : "json",
+				data :{
+					bamSeq : "${iPage.seq}",
+					content : $("#pCoContents").val(),
+					writer: "${sessionScope.loginInfo}"
+				}
+			}).done(function(resp){
+				$("#pCoContents").val("");
+ 				$(".pPageComments").html("");
+				commentRecall(resp);
+			}).fail(function(resp){
+				console.log("실패");
+				console.log(resp);
+			})
+		});
+         	
+			function coModFunction(seq,contents,indSeq){     
+				$(".commentBox"+seq).find(".commentBtns").css("display","none");
+				$(".commentBox"+seq).find(".commentContent").css("display","none");
+           		$(".commentBox"+seq).wrap('<form action="/industry/comment/modifyProc.do" method="post" id="coModFrm"></form>');
+				var html = [];
+    			html.push(
+    					'<div class="col-12 coModBox mt-2"><div class="row">',
+    					'<div class="col-9 col-md-10 col-xl-11 pr-0"><textarea class="form-control" placeholder="댓글 내용을 입력해주세요" id="pCoModContents" style="height:80px;" name="content">'+contents+'</textarea></div>',
+    					'<div class="col-3 col-md-2 col-xl-1"><input type="hidden" name="seq" value="'+seq+'"><input type="hidden" name="bamSeq" value="'+indSeq+'">',
+    					'<div class="row">',
+    					'<div class="col-12 text-center p-0">',
+    					'<button type="button" class="btn btn-secondary" style="margin-bottom:5px;width:80%;" id="coMoCancel">취소</button>',
+    					'</div></div>',
+    					'<div class="row"><div class="col-12 text-center p-0">',
+    					'<button type="button" class="btn btn-warning" style="width:80%;" id="coMoBtn">수정</button>',
+    					'</div></div></div></div></div>');
+    			$(".commentBox"+seq).append(html.join(""));    			
+           	}
+           	
+           	$(document).on("click","#coMoCancel",function(){
+           		var check = confirm("수정을 취소하시겠습니까?");
+           		if(check){
+           			$(this).closest(".commentDiv").unwrap();
+           			$(this).closest(".commentDiv").find(".commentInnerBox").find(".commentHeader").find(".commentBtns").show();
+           			$(this).closest(".commentDiv").find(".commentInnerBox").find(".commentContent").show();           			
+           			$(this).closest(".coModBox").remove();           			
+           		}
+           	});
+           	
+           	$(document).on("click","#coMoBtn",function(){
+				$("#pCoModContents").val($.trim($("#pCoModContents").val()));
+				if($("#pCoModContents").val()==""){
+					alert("댓글 내용을 입력해주세요.");
+					return false;
+				}
+				console.log($("#coModFrm").serialize());
+				$.ajax({
+					url : "/industry/comment/modifyProc.do",
+					type : "post",
+					dataType : "json",
+					data : $("#coModFrm").serialize()
+				}).done(function(resp){
+					$(".pPageComments").html("");
+					commentRecall(resp);
+				}).fail(function(resp){
+					console.log("실패");
+					console.log(resp);
+				})
+           	});
+           	function coDelFunction(seq){
+           		var check = confirm("정말 삭제하시겠습니까?");
+           		if(check){
+           			$.ajax({
+           				url : "/industry/comment/deleteProc.do",
+           				type : "post",
+           				dataType : "json",
+           				data :{
+           					seq : seq,
+           					indSeq : "${iPage.seq}"
+           				}
+           			}).done(function(resp){
+    					$(".pPageComments").html("");
+    					commentRecall(resp);
+           			}).fail(function(resp){
+    					console.log("실패");
+    					console.log(resp);
+           			})
+           		}
+           	}
+           	function commentRecall(resp){
+				var loginInfo = "${sessionScope.loginInfo}";
+				for(var i=0;i<resp.length;i++){
+					var html = [];
+					html.push(
+							'<div class="row commentDiv commentBox'+resp[i].seq+' p-0 pb-2 m-2"><div class="col-12 commentInnerBox"><div class="row commentHeader">',
+							'<div class="col-7 pt-1"><div class="row commentInfo">',
+							'<div class="col-12 commentWriter">'+resp[i].writer+'</div>',
+							'<div class="col-12 commentWriteDate">'+resp[i].writeDate+'</div></div></div>',
+							'<div class="col-4 pt-2 text-right commentBtns">'
+							);
+					if(resp[i].writer==loginInfo){
+					html.push(
+								'<a class="btn btn-info coModBtn" href="/industry/comment/modifyProc.do?seq='+resp[i].seq+'&indSeq='+resp[i].indSeq+'" onclick="coModFunction('+resp[i].seq+',\''+resp[i].content+'\','+resp[i].indSeq+');return false;" role="button">수정</a>\n',
+								'<a class="btn btn-danger coDelBtn" href="/industry/comment/deleteProc.do?seq='+resp[i].seq+'&indSeq='+resp[i].indSeq+'" onclick="coDelFunction('+resp[i].seq+');return false;" role="button">삭제</a>'
+								);
+					}
+					html.push(
+							'</div></div>',
+							'<div class="row commentContent"><div class="col-12 pt-1 pl-4">'+resp[i].content+'</div></div></div></div>'
+							);
+					$(".pPageComments").append(html.join(""));	
+           		}
+			}
+        
+        
+        
+        
+        
+        
+        
+        
+        
         	$("#commentWrite").on("click",function(){
         		$.ajax({
 					url:"/industry/comment/writeProc.do",
