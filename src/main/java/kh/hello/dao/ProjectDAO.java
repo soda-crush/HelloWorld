@@ -39,8 +39,8 @@ public class ProjectDAO {
 	public ProjectDTO getProjectDetailView(int seq) {//프로젝트 모집글 상세보기
 		return jdbc.selectOne("Project.getProjectDetailView", seq);
 	}
-	public int latestSeq(String writer) {//작성자 가장 최근글(작성/수정 직후 디테일뷰)
-		return jdbc.selectOne("Project.latestSeq", writer);
+	public int latestSeq(String id) {//작성자 가장 최근글(작성/수정 직후 디테일뷰)
+		return jdbc.selectOne("Project.latestSeq", id);
 	}
 	public int insertProject(ProjectDTO dto) {//프로젝트 모집글 작성
 		return jdbc.insert("Project.insertProject", dto);
@@ -82,6 +82,7 @@ public class ProjectDAO {
 		return jdbc.delete("ProjectCo.deleteProjectAllCo", projectSeq);
 	}
 	
+	
 	//projectApply 테이블
 	public List<ProjectApplyDTO> getApplyList(int projectSeq) {//프로젝트 지원 전체리스트(해당글에 대한)
 		return jdbc.selectList("ProjectApply.getList", projectSeq);
@@ -98,11 +99,17 @@ public class ProjectDAO {
 	public int deleteProjectApply(int seq) {//프로젝트 지원 삭제
 		return jdbc.delete("ProjectApply.deleteProjectApply", seq);
 	}
-	public int closeProjectApply(int seq) {
+	public int closeProjectApply(int seq) {//프로젝트 모집 마감
 		return jdbc.update("ProjectApply.closeProjectApply", seq);
 	}
-	public int getCountInApprove(String writer) {
-		return jdbc.selectOne("ProjectApply.getCountInApprove", writer);
+//	public int getCountInApprove(String writer) {//승인된 개수가져오기
+//		return jdbc.selectOne("ProjectApply.getCountInApprove", writer);
+//	}
+	public int approveProjectApply(int seq) {//프로젝트 지원 승인처리
+		return jdbc.update("ProjectApply.approveApply", seq);
+	}
+	public int denyProjectApply(int seq) {//프로젝트 지원 승인거절
+		return jdbc.update("ProjectApply.approveDeny", seq);
 	}
 	
 	//projectMyList 테이블
@@ -138,4 +145,25 @@ public class ProjectDAO {
 		param.put("id", id);
 		return jdbc.update("Project.articleAddPoint", param);
 	}
+	
+	//scrap 테이블
+	public int insertScrap(String id, int seq) {
+		Map<String, Object> param = new HashMap<>();
+		param.put("id", id);
+		param.put("categorySeq", seq);		
+		return jdbc.insert("Project.scrap", param);
+	}
+	public int deleteScrap(String id, int seq) {
+		Map<String, Object> param = new HashMap<>();
+		param.put("id", id);
+		param.put("categorySeq", seq);		
+		return jdbc.delete("Project.unScrap", param);
+	}
+	public int checkScrap(String id, int seq) {
+		Map<String, Object> param = new HashMap<>();
+		param.put("id", id);
+		param.put("categorySeq", seq);		
+		return jdbc.selectOne("Project.scrapCheck", param);
+	}
+		
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kh.hello.configuration.Configuration;
+import kh.hello.dto.LoginInfoDTO;
 import kh.hello.dto.ProjectApplyDTO;
 import kh.hello.dto.ProjectCoDTO;
 import kh.hello.dto.ProjectDTO;
@@ -66,12 +67,17 @@ public class ProjectController {
 	
 	@RequestMapping("/detailView")
 	public String projectDetailView(int seq, Model m) {
-		ProjectDTO result = svc.projectDetailView(seq);
+		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
+		String id = sessionValue.getId();				
+		ProjectDTO result = svc.projectDetailView(seq);		
+		String scrap = svc.checkScrap(id, seq);
 		List<ProjectCoDTO> coResult = svc.commentList(seq); 
 		String data = svc.projectWrite();
 		m.addAttribute("data", data);
 		m.addAttribute("pPage", result);
 		m.addAttribute("comments", coResult);
+		m.addAttribute("scrap", scrap);
+		System.out.println(scrap);
 		return "/project/detailView";
 	}
 	
@@ -84,7 +90,12 @@ public class ProjectController {
 	
 	@RequestMapping("/writeProc")
 	public String projectWriteConfirm(ProjectDTO dto) {
-		dto.setWriter((String)session.getAttribute("loginInfo"));
+//		dto.setWriter((String)session.getAttribute("loginInfo"));
+		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
+		dto.setWriter(sessionValue.getNickName());
+		dto.setId(sessionValue.getId());
+		System.out.println(sessionValue.getNickName());
+		System.out.println(sessionValue.getId());
 		String path = session.getServletContext().getRealPath("attached/project");
 		int seq = 0;
 		try {
@@ -113,7 +124,8 @@ public class ProjectController {
 	
 	@RequestMapping("/deleteProc")
 	public String projectDeleteConfirm(int seq) {
-		String id = (String)session.getAttribute("loginInfo");
+		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
+		String id = sessionValue.getId();
 		svc.projectDeleteConfirm(seq, id);
 		return "redirect:/project/list";
 	}
@@ -124,6 +136,39 @@ public class ProjectController {
 		return "redirect:/project/detailView?seq="+seq;
 	}
 	
+	@RequestMapping("/applyCheck")
+	public String projectApplyCheck(int projectSeq, Model m) {
+		List<ProjectApplyDTO> result = svc.projectApplyList(projectSeq);
+		m.addAttribute("applyList", result);
+		return "/project/applyList";
+	}
+	
+	@ResponseBody
+	@RequestMapping("/scrap")
+	public String projectScrap(int categorySeq) {
+		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
+		String id = sessionValue.getId();		
+		int result = svc.projectScrap(id,categorySeq);
+		if(result>0) {
+			return "success";
+		}else {
+			return "redirect:/home/error";
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping("/unScrap")
+	public String projectUnScrap(int categorySeq) {
+		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
+		String id = sessionValue.getId();		
+		int result = svc.projectUnScrap(id, categorySeq);
+		if(result>0) {
+			return "success";
+		}else {
+			return "redirect:/home/error";	
+		}
+	}
+	
 	
 	/*
 	 * 댓글 
@@ -132,7 +177,9 @@ public class ProjectController {
 	@ResponseBody
 	@RequestMapping(value="/comment/writeProc",produces="text/html;charset=utf8")
 	public String commentWriteConfirm(ProjectCoDTO dto) {
-		dto.setWriter((String)session.getAttribute("loginInfo"));
+		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
+		dto.setWriter(sessionValue.getNickName());
+		dto.setId(sessionValue.getId());
 		return svc.commentWriteConfirm(dto);		
 	}
 	
@@ -145,7 +192,8 @@ public class ProjectController {
 	@ResponseBody
 	@RequestMapping(value="/comment/deleteProc",produces="text/html;charset=utf8")
 	public String commentDeleteConfirm(int seq, int projectSeq) {
-		String id = (String)session.getAttribute("loginInfo");
+		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
+		String id = sessionValue.getId();
 		return svc.commentDeleteConfirm(seq, projectSeq, id);		
 	}
 	
@@ -158,7 +206,9 @@ public class ProjectController {
 	@ResponseBody
 	@RequestMapping(value="/apply/writeProc",produces="text/html;charset=utf8")
 	public String projectApplyWriteProc(ProjectApplyDTO dto) {
-		dto.setWriter((String)session.getAttribute("loginInfo"));
+		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
+		dto.setWriter(sessionValue.getNickName());
+		dto.setId(sessionValue.getId());
 		return svc.projectApplyWriteProc(dto);
 	}
 	
@@ -172,12 +222,34 @@ public class ProjectController {
 	@RequestMapping("/apply/detailView")
 	public String projectApplyDetailView(int seq, Model m) {
 		ProjectApplyDTO result = svc.projectApplyDetailView(seq);
-		m.addAttribute("projectApplyPage", result);
+		m.addAttribute("aPage", result);
 		return "/project/applyDetailView";	
 	}
 	
 	@RequestMapping("/apply/deleteProc")
 	public void projectApplyDeleteConfirm(int seq) {
 		svc.projectApplyDeleteConfirm(seq);
+	}
+	
+	@ResponseBody
+	@RequestMapping("/apply/approveApply")
+	public String projectApplyApprove(int seq) {
+		int result = svc.projectApplyApprove(seq);
+		if(result>0) {
+			return "success";
+		}else {
+			return "redirect:/home/error";			
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping("/apply/denyApply")
+	public String projectApplyDeny(int seq) {
+		int result = svc.projectApplyDeny(seq);
+		if(result>0) {
+			return "success";
+		}else {
+			return "redirect:/home/error";			
+		}
 	}
 }

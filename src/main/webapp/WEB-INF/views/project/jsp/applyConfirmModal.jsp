@@ -13,7 +13,7 @@
       </div>
       <div class="modal-body text-center">
         <br><h4>신청이 <span style="color:limegreen;">완료</span>되었습니다!</h4>
-        <span>팀장 승인여부는 <span style="font-weight: bold;">[P-log] > [프로젝트 참여 현황]</span>에서</span><br><span>확인하실 수 있습니다.</span><br><br>          
+        <span>팀장 승인여부는 <span style="font-weight: bold;">[P-log] > [프로젝트 현황]</span>에서</span><br><span>확인하실 수 있습니다.</span><br><br>          
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" style="width: 100px;" data-dismiss="modal">확인</button>

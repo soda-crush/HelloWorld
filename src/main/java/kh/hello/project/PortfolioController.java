@@ -134,8 +134,6 @@ public class PortfolioController {
 		return "/plog/plogPortfolio";
 	}
 	
-	
-	
 	@RequestMapping("detail.do")
 	public String viewDetail(int seq) {
 		try {

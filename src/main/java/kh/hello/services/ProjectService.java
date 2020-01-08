@@ -94,7 +94,7 @@ public class ProjectService {
 	
 	@Transactional("txManager")
 	public ProjectDTO projectDetailView(int seq) {
-		dao.updateProjectViewCount(seq);
+		dao.updateProjectViewCount(seq);		
 		return dao.getProjectDetailView(seq);
 	}
 	
@@ -141,8 +141,8 @@ public class ProjectService {
 			}	
 			dto.setContents(contents);
 			dao.insertProject(dto);		
-			dao.updatePoint(option, dto.getWriter());
-			projectSeq = dao.latestSeq(dto.getWriter());
+			dao.updatePoint(option, dto.getId());
+			projectSeq = dao.latestSeq(dto.getId());
 			for(ProjectImageDTO s : summers) {
 				s.setProjectSeq(projectSeq);
 				dao.insertImage(s);
@@ -168,7 +168,23 @@ public class ProjectService {
 		dao.closeProjectApply(seq);
 	}
 	
+	@Transactional("txManager")
+	public String checkScrap(String id, int seq) {
+		int result = dao.checkScrap(id, seq);
+		if(result>0) {
+			return "impossible";
+		}else {
+			return "possible";
+		}
+	}
 	
+	public int projectScrap(String id, int seq) {
+		return dao.insertScrap(id, seq);
+	}
+	
+	public int projectUnScrap(String id, int seq) {
+		return dao.deleteScrap(id, seq);
+	}
 	
 	/*
 	 * 댓글 
@@ -182,7 +198,7 @@ public class ProjectService {
 	public String commentWriteConfirm(ProjectCoDTO dto) {
 		String option = "commentAdd";
 		dao.insertProjectCo(dto);
-		dao.updatePoint(option, dto.getWriter());
+		dao.updatePoint(option, dto.getId());
 		Gson gson = new Gson();
 		List<ProjectCoDTO> result = dao.getCoList(dto.getProjectSeq());
 		for(ProjectCoDTO p : result) {
@@ -245,5 +261,13 @@ public class ProjectService {
 	
 	public int projectApplyDeleteConfirm(int seq) {
 		return dao.deleteProjectApply(seq);
+	}
+	
+	public int projectApplyApprove(int seq) {
+		return dao.approveProjectApply(seq);
+	}
+	
+	public int projectApplyDeny(int seq) {
+		return dao.denyProjectApply(seq);
 	}
 }

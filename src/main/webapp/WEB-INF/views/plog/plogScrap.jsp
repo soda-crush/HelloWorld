@@ -169,7 +169,7 @@
 							  	</c:choose>				    
 							  </tbody>
 							</table>
-	                		<div class="coltheme"> 코드지식인</div>
+	                		<div class="coltheme"> 코드 지식인</div>
 					        	<table class="table table-hover">
 									<thead class="thead-light">
 										<tr>
@@ -182,13 +182,13 @@
 									</thead>
 									<tbody>
 										<c:choose>
-											<c:when test="${clist.size()==0 }">
+											<c:when test="${list.size()==0 }">
 												<tr>
 													<td colspan="8">스크랩한 글이 없습니다.</td>
 												</tr>
 											</c:when>
 											<c:otherwise>
-												<c:forEach items="${clist}" var="dto">
+												<c:forEach items="${list}" var="dto">
 													<tr>
 														<td><span class="badge badge-pill badge-success"
 															style="margin: 10; width: 60px;">${dto.division}</span></td>

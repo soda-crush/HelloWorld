@@ -23,11 +23,11 @@
 	</select>
 	
 	<select id="latestSeq" resultType="integer">
-		select max(seq) from project where writer=#{value}
+		select max(seq) from project where id=#{value}
 	</select>
 	
 	<insert id="insertProject" parameterType="kh.hello.dto.ProjectDTO">
-		insert into project values(projectSeq.nextval,#{title},#{contents},#{location1},#{location2},#{capacity},#{startDate},#{endDate},#{languages},#{phone},#{email},#{writer},sysdate,'N',0)
+		insert into project values(projectSeq.nextval,#{title},#{contents},#{location1},#{location2},#{capacity},#{startDate},#{endDate},#{languages},#{phone},#{email},#{writer},#{id},sysdate,'N',0)
 	</insert>
 	
 	<update id="updateProject" parameterType="kh.hello.dto.ProjectDTO">
@@ -55,4 +55,16 @@
 	<insert id="insertImage" parameterType="kh.hello.dto.ProjectImageDTO">
 		insert into projectImage values(projectImageSeq.nextval,#{projectSeq},#{oriName},#{sysName})
 	</insert>
+	
+	<select id="scrapCheck" parameterType="java.util.Map" resultType="integer">
+		select count(*) from scrap where id=#{id} and category='project' and categorySeq=#{categorySeq} 
+	</select>
+	
+	<insert id="scrap" parameterType="java.util.Map">
+		insert into scrap values(scrapSeq.nextval,#{id},'project',#{categorySeq})
+	</insert>
+	
+	<delete id="unScrap" parameterType="java.util.Map">
+		delete from scrap where id=#{id} and category='project' and categorySeq=#{categorySeq}
+	</delete>
 </mapper>
