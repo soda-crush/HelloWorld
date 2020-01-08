@@ -62,4 +62,8 @@
 		update member set point= point - #{point} where id = #{id}
 	</update>
 	
+	<select id="selectMember" parameterType="string" resultType="kh.hello.dto.MemberDTO">
+		select * from member where id=#{id}
+	</select>
+	
 </mapper>

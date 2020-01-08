@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Base64Utils;
 
+import com.google.gson.Gson;
+
 import kh.hello.configuration.Configuration;
 import kh.hello.dao.ItnewsDAO;
 import kh.hello.dto.ItnewsCoDTO;
@@ -78,12 +80,24 @@ public class ItnewsService {
 		
 		if(needNext) sb.append("<a href='itnewsList?cpage=" + (endNavi + 1) + "'>> </a>");
 	
-		System.out.println(sb.toString());
 		return sb.toString();
 	}
 	
 	@Transactional("txManager")
 	public int writeItnews(String path, ItnewsDTO dto) throws Exception{
+		//1. boardSeq 받아오기
+		int boardSeq = dao.getItnewsSeq();
+		dto.setSeq(boardSeq);
+		//2. 이미지 저장하고 주소 변환
+		String content = this.imgUpload(path, boardSeq, dto.getContent());
+		dto.setContent(content);
+		//3. 글 업로드
+		dao.writeItnews(dto);
+		return boardSeq;
+	}
+	
+	@Transactional("txManager")
+	public int modifyItnews(String path, ItnewsDTO dto) throws Exception{
 		//1. boardSeq 받아오기
 		int boardSeq = dao.getItnewsSeq();
 		dto.setSeq(boardSeq);
@@ -131,13 +145,26 @@ public class ItnewsService {
 		return dao.removeItnews(seq);
 	}
 	
-	public int coWrite(ItnewsCoDTO dto) {
+	public int coWrite(ItnewsCoDTO dto, String seq) {
+		dto.setItSeq(Integer.parseInt(seq));
 		return dao.coWrite(dto);
 	}
 	
-	public List<ItnewsDTO> commentList(int seq){
+	public List<ItnewsCoDTO> commentList(int seq){
 		return dao.commentList(seq);
 	}
 	
+	public String coWriteAfter(String seq) {
+		List<ItnewsCoDTO> list = commentList(Integer.parseInt(seq));
+		Gson gson = new Gson();
+		return gson.toJson(list);
+	}
+	
+	public int removeItnewsCo(String itSeq, String seq) {
+		int seq2 = Integer.parseInt(seq);
+		int itSeq2 = Integer.parseInt(itSeq);
+		
+		return dao.removeItnewsCo(itSeq2, seq2);
+	}
 	
 }
