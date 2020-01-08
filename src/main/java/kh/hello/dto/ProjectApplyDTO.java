@@ -6,6 +6,7 @@ public class ProjectApplyDTO {
 	private int seq;
 	private int projectSeq;
 	private String writer;
+	private String id;
 	private String languages;
 	private String gender;
 	private String age;
@@ -14,18 +15,22 @@ public class ProjectApplyDTO {
 	private String etc;
 	private Timestamp writeDate;
 	private String approve;
-	private int proceeding;
 	private String portfolio;
+	private String title;
 	
+
+
 	public ProjectApplyDTO() {
 		super();
 	}
-	public ProjectApplyDTO(int seq, int projectSeq, String writer, String languages, String gender, String age,
-			String workIn, String email, String etc, Timestamp writeDate, String approve) {
+	public ProjectApplyDTO(int seq, int projectSeq, String writer, String id, String languages, String gender,
+			String age, String workIn, String email, String etc, Timestamp writeDate, String approve, String portfolio,
+			String title) {
 		super();
 		this.seq = seq;
 		this.projectSeq = projectSeq;
 		this.writer = writer;
+		this.id = id;
 		this.languages = languages;
 		this.gender = gender;
 		this.age = age;
@@ -34,6 +39,8 @@ public class ProjectApplyDTO {
 		this.etc = etc;
 		this.writeDate = writeDate;
 		this.approve = approve;
+		this.portfolio = portfolio;
+		this.title = title;
 	}
 	public int getSeq() {
 		return seq;
@@ -52,6 +59,12 @@ public class ProjectApplyDTO {
 	}
 	public void setWriter(String writer) {
 		this.writer = writer;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
 	}
 	public String getLanguages() {
 		return languages;
@@ -100,22 +113,56 @@ public class ProjectApplyDTO {
 	}
 	public void setApprove(String approve) {
 		this.approve = approve;
-	}
-	public int getProceeding() {
-		return proceeding;
-	}
-	public void setProceeding(int proceeding) {
-		this.proceeding = proceeding;
-	}
+	}	
 	public String getPortfolio() {
 		return portfolio;
 	}
 	public void setPortfolio(String portfolio) {
 		this.portfolio = portfolio;
+	}	
+	public String getTitle() {
+		return title;
 	}
-	public String getPortfolioCheck() {
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	
+	
+	public String getFormedAge() {
+		String age = this.age;
+		if(age.contentEquals("1")) {
+			return "10대";
+		}else if(age.contentEquals("2")) {
+			return "20대";
+		}else if(age.contentEquals("3")) {
+			return "30대";
+		}else if(age.contentEquals("4")) {
+			return "40대 이상";
+		}else {
+			return "비공개";
+		}
+	}
+	public String getGenderInKor() {
+		String g = this.gender;
+		if(g.contentEquals("F")) {
+			return "여";
+		}else if(g.contentEquals("M")) {
+			return "남";
+		}else {
+			return "비공개";
+		}
+	}
+	public String getWorkInInKor() {
+		String w = this.workIn;
+		if(w.contentEquals("Y")) {
+			return "재직자";
+		}else {
+			return "비재직자";
+		}
+	}
+	public String getPortfolioInKor() {
 		String p = this.portfolio;
-		if(p.equalsIgnoreCase("Y")) {
+		if(p.contentEquals("Y")) {
 			return "공개";
 		}else {
 			return "비공개";

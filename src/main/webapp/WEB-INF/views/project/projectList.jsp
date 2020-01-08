@@ -14,7 +14,6 @@
 <link rel="stylesheet" href="/css/project/projectBase.css" type="text/css"/>
 <link rel="stylesheet" href="/css/project/list.css" type="text/css"/>
 <style>
-.searchOption{margin-right:5px;}
 </style>
 </head>
 
@@ -54,7 +53,7 @@
 					
 				  	<c:choose>
 				  		<c:when test="${projectList.size()==0 }">
-				  		<div class="row text-center tableBody"><div class="col-12">작성된 글이 없습니다.</div></div>
+				  		<div class="row text-center tableBodyNull"><div class="col-12">작성된 글이 없습니다.</div></div>
 				  		</c:when>
 				  		<c:otherwise>
 				  			<c:forEach items="${projectList }" var="p">

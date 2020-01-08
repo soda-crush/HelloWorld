@@ -11,8 +11,11 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/css/project/projectBase.css" type="text/css"/>
-<link rel="stylesheet" href="/css/project/list.css" type="text/css"/>
+<link rel="stylesheet" href="/css/project/applyList.css" type="text/css"/>
 <link rel="stylesheet" type="text/css" href="/css/font-awesome/css/font-awesome.css">
+<style>
+
+</style>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/standard/header.jsp"/>
@@ -33,29 +36,27 @@
            
            		<div class="tableDiv">
 					<div class="row tableHead">					    
-					    <div class="col-xl-1 d-none d-xl-block">번호</div>
-					    <div class="col-xl-2 col-2 col-md-2 col-lg-1">신청자</div>
-					    <div class="col-xl-4 col-8 col-md-5">사용가능언어</div>
-					    <div class="col-xl-1 col-2 col-md-1">재직여부</div>
-					    <div class="col-xl-2 col-lg-1 d-none d-lg-block">참여중 프로젝트</div>
-					    <div class="col-xl-1 col-md-4 d-none d-md-block">포트폴리오</div>
-					    <div class="col-xl-1 d-none d-xl-block">승인상태</div>
+					    <div class="col-1">번호</div>
+					    <div class="col-2">신청자</div>
+					    <div class="col-5">사용가능언어</div>
+					    <div class="col-2">재직여부</div>
+					    <div class="col-1">포트폴리오</div>
+					    <div class="col-1">승인상태</div>
 					</div>
 					
 				  	<c:choose>
 				  		<c:when test="${applyList.size()==0 }">
-				  		<div class="row text-center tableBody"><div class="col-12">신청내역이 없습니다.</div></div>
+				  		<div class="row text-center tableBodyNull"><div class="col-12">신청내역이 없습니다.</div></div>
 				  		</c:when>
 				  		<c:otherwise>
-				  			<c:forEach items="${applyList }" var="a">
-				  				<div class="row tableBody p-0">
-									<div class="col-xl-1 d-none d-xl-block">${a.seq }</div>
-									<div class="col-xl-2 col-2 col-md-2 col-lg-1">${a.writer }</div>
-									<div class="col-xl-4 col-8 col-md-5">${a.languages }</div>
-									<div class="col-xl-1 col-2 col-md-1">${a.workIn }</div>
-									<div class="col-xl-2 col-lg-1 d-none d-lg-block">${a.proceeding }개</div>
-									<div class="col-xl-1 col-md-4 d-none d-md-block">${a.portfolioCheck }</div>
-									<div class="col-xl-1 d-none d-xl-block">${p.approveInKor }</div>									
+				  			<c:forEach items="${applyList }" var="a">				  			
+				  				<div class="row tableBody p-0 applyRow${a.approve }" onclick="openApplyPage(${a.seq },'${a.approve}')" class="text-decoration-none">
+									<div class="col-1">${a.seq }</div>
+									<div class="col-2">${a.writer }</div>
+									<div class="col-5">${a.languages }</div>
+									<div class="col-2">${a.workInInKor }</div>									
+									<div class="col-1">${a.portfolioInKor }</div>
+									<div class="col-1 approve${a.approve }">${a.approveInKor }</div>									
 								</div>	
 				  			</c:forEach>
 				  		</c:otherwise>
@@ -72,5 +73,14 @@
         </div>
         
         <jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
+        
+        <script>
+        	function openApplyPage(seq,approve){
+        		if(approve=='X'){
+        			return false;
+        		}
+        		location.href='/project/apply/detailView?seq='+seq;
+        	}
+        </script>
 </body>
 </html>

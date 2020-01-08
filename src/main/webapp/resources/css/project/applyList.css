@@ -15,10 +15,7 @@
 }
 .tableHead,.tableBody,.tableBodyNull{text-align:center;height: 50px;line-height: 50px;}
 .tableBody div:nth-child(2){font-weight:bold;}
-.tableBody div:nth-child(3){text-align:left;cursor:pointer;}   
-.tableBody .N{color:limegreen;}
-.tableBody .Y{color:red;}
-.pComment{margin-left:3px;font-size:13px;color:orange;}    
+.tableBody div:nth-child(3){text-align:left;}
 .tableBody,.tableBodyNull div{
     font-size: 0.9rem;
     color: #212529;
@@ -30,6 +27,8 @@
     background-color:#ffffff90;    
 }    
 .tableHead div,.tableBody div{padding: 0;margin: 0;}
-.tableBody:hover{background-color: #bfac8e30}
+.tableBody:not(.applyRowX):hover{background-color: #bfac8e30;cursor:pointer}
+.tableBody .approveW{color:#ffc107;font-weight:bold;}
+.tableBody .approveO{color:#28a745;font-weight:bold;}
+.applyRowX div{color:lightgray;}
 .pageListFooter{margin-top:20px;}
-.searchOption{margin-right:5px;}
