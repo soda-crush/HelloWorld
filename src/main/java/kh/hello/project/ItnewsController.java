@@ -58,10 +58,27 @@ public class ItnewsController {
 	
 	@RequestMapping("/detail")
 	public String itnewsDetail(Model m, int seq, String page) {
-			ItnewsDTO result;
-			result = is.itnewsDetail(seq);
+			List<ItnewsCoDTO> list = is.commentList(seq);
+			ItnewsDTO result = is.itnewsDetail(seq);
+			m.addAttribute("list", list);
 			m.addAttribute("result", result);
+			m.addAttribute("page", page);
 			return "/itnews/itnewsView";
+	}
+	
+	@RequestMapping(value="/coWrite",produces="text/html;charset=utf8")
+	@ResponseBody
+	public String coWrite(ItnewsCoDTO dto, HttpSession session, String seq) {
+		dto.setWriter((String)session.getAttribute("loginInfo"));
+		is.coWrite(dto, seq);
+		return is.coWriteAfter(seq);
+	}
+	
+	@RequestMapping(value="/coRemove",produces="text/html;charset=utf8")
+	@ResponseBody
+	public String coRemove(String itSeq, String seq) {
+		is.removeItnewsCo(itSeq, seq);
+		return is.coWriteAfter(itSeq);
 	}
 	
 	@RequestMapping("/writeProc")
@@ -80,19 +97,11 @@ public class ItnewsController {
 	}
 	
 	@RequestMapping("/remove")
-	public String remove(int seq) {
+	public String remove(int seq, String page) {
 		is.removeItnews(seq);
-		return "redirect:itnewsList";
+		return "redirect:itnewsList?page="+page;
 	}
 	
-	@RequestMapping("/coWrite")
-	public String coWrite(ItnewsCoDTO dto, HttpSession session, Model m) {
-		dto.setWriter((String)session.getAttribute("loginInfo"));
-		is.coWrite(dto);
-		
-		List<ItnewsDTO> list = is.commentList(dto.getItSeq());
-		m.addAttribute("list", list);
-		return "/itnews/itnewsView";
-	}
+	
 	
 }

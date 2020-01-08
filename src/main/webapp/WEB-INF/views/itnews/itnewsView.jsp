@@ -58,25 +58,34 @@
             		<div class="col-12" id=adver style="height:200px;background-color:green;color:white;">광고자리</div>
             	</div>
             	
-            	<c:choose>
-            		<c:when test="${list.size()==0}">
-            			<div class="row">
-            				<div class=col-12>
-            					<h5>댓글이 없습니다.</h5>
-            				</div>
-            			</div>
-            		</c:when>
-           
-	            	<c:otherwise>
-	            		<c:forEach items="${list}" var="dto">
-	            			<div class="row">
-	            				<div class=col-12>
-	            					${dto.content}
-	            				</div>
-	            			</div>
-	            		</c:forEach>
-	            	</c:otherwise>
-            </c:choose>
+            	<div class="coContainer">
+	            	<c:if test="${list.size()>0 }">
+								<c:forEach items="${list}" var="dto">
+									<div class="row commentDiv commentBox${dto.seq} p-0 pb-2 m-2">
+										<div class="col-12 commentInnerBox">
+											<div class="row commentHeader">
+												<div class="col-1 profileBox pl-1 pt-2"><img src="/img/profileSample.jpg" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>
+												<div class="col-7 pt-1">
+													<div class="row commentInfo">
+														<div class="col-12 commentWriter">${dto.writer }</div>
+														<div class="col-12 commentWriteDate">${dto.writeDate }</div>
+													</div>
+												</div>				
+												<div class="col-4 pt-2 text-right commentBtns">
+													<c:if test="${dto.writer==sessionScope.loginInfo }">
+														<a class="btn btn-info coModBtn" href="#" onclick="coModFunction(${dto.seq},'${dto.content}');return false;" role="button">수정</a>
+														<a class="btn btn-danger coDelBtn" href="#" onclick="coDelFunction(${dto.seq});return false;" role="button">삭제</a>
+													</c:if>
+												</div>								
+											</div>											
+											<div class="row commentContent">
+												<div class="col-12 pt-1 pl-4">${dto.content}</div>
+											</div>
+										</div>
+									</div>								
+								</c:forEach>
+							</c:if>
+            	</div>
             	
             	<div class="row">
             		<div class="col-10">
@@ -115,7 +124,7 @@
         <script>
         			//게시글
             		$("#remove").on("click",function(){
-            			location.href="${pageContext.request.contextPath}/itnews/remove?seq=${result.seq}";
+            			location.href="${pageContext.request.contextPath}/itnews/remove?seq=${result.seq}&page=${page}";
             		})
             		$("#modify").on("click",function(){
             			
@@ -123,21 +132,79 @@
             		
             		//댓글
             		$("#coWrite").on("click",function(){
+            			$("#coContent").val($.trim($("#coContent").val()));
+            			if($("#coContents").val()==""){
+        					alert("댓글 내용을 입력해주세요.");
+        					return false;
+        				}
             			$.ajax({
             				url:"${pageContext.request.contextPath}/itnews/coWrite",
             				data:{
             					content : $("#coContent").val(),
-            					itSeq : ${result.seq}
+            					seq : ${result.seq}
             				},
             				dataType:"json",
             				type:"post"
-            			}).done(function(){
-            				console.log("성공");
-            			}).fail(function(){
+            			}).done(function(resp){
+            				$("#coContent").val("");
+            				$(".coContainer").html("");
+            				commentRecall(resp);
+            			}).fail(function(resp){
             				console.log("실패");
+            				console.log(resp);
             			});
             			
             		})
+            		
+            		//댓글 삭제
+            		function coDelFunction(seq){
+		           		var check = confirm("정말 삭제하시겠습니까?");
+			           		if(check){
+			           			$.ajax({
+			           				url : "${pageContext.request.contextPath}/itnews/coRemove",
+			           				type : "post",
+			           				dataType : "json",
+			           				data :{
+			           					seq: seq,
+			           					itSeq : "${result.seq}"
+			           				}
+			           			}).done(function(resp){
+			    					$(".coContainer").html("");
+			    					commentRecall(resp);
+			           			}).fail(function(resp){
+			    					console.log("실패");
+			    					console.log(resp);
+			           			})
+			           		}
+		           	}
+            		
+            		
+            		//댓글 에이작스 후 리콜
+            		function commentRecall(resp){
+						var loginInfo = "${sessionScope.loginInfo}";
+						for(var i=0;i<resp.length;i++){
+							var html = [];
+							html.push(
+									'<div class="row commentDiv commentBox'+resp[i].seq+' p-0 pb-2 m-2"><div class="col-12 commentInnerBox"><div class="row commentHeader">',
+									'<div class="col-1 profileBox pl-1 pt-2"><img src="/img/profileSample.jpg" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>',
+									'<div class="col-7 pt-1"><div class="row commentInfo">',
+									'<div class="col-12 commentWriter">'+resp[i].writer+'</div>',
+									'<div class="col-12 commentWriteDate">'+resp[i].witeDate+'</div></div></div>',
+									'<div class="col-4 pt-2 text-right commentBtns">'
+									);
+							if(resp[i].writer==loginInfo){
+								html.push(
+										'<a class="btn btn-info coModBtn" href="#" onclick="coModFunction('+resp[i].seq+',\''+resp[i].content+'\');return false;" role="button">수정</a>\n',
+										'<a class="btn btn-danger coDelBtn" href="#" onclick="coDelFunction('+resp[i].seq+');return false;" role="button">삭제</a>'
+										);
+							}
+							html.push(
+									'</div></div>',
+									'<div class="row commentContent"><div class="col-12 pt-1 pl-4">'+resp[i].content+'</div></div></div></div>'
+									);
+							$(".coContainer").append(html.join(""));	
+							}
+					}	
         </script>
 </body>
 </html>
