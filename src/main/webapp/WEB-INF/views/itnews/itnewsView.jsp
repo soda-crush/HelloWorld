@@ -122,12 +122,15 @@
         <jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
         
         <script>
-        			//게시글
+        			//게시글삭제
             		$("#remove").on("click",function(){
-            			location.href="${pageContext.request.contextPath}/itnews/remove?seq=${result.seq}&page=${page}";
+            			var result = confirm("정말 삭제하시겠습니까?");
+            			if(result){
+            				location.href="${pageContext.request.contextPath}/itnews/remove?seq=${result.seq}&page=${page}";
+            			}
             		})
             		$("#modify").on("click",function(){
-            			
+            			location.href="${pageContext.request.contextPath}/itnews/modify?seq=${result.seq}&page=${page}";
             		})
             		
             		//댓글

@@ -89,17 +89,38 @@ public class ItnewsController {
 		
 		try {
 			int boardSeq = is.writeItnews(path, dto);
-			return "redirect:detail?seq="+boardSeq;
+			return "redirect:detail?seq="+boardSeq+"&page="+page;
 		}catch(Exception e) {
 			e.printStackTrace();
 			return "redirect:../error";
 		}
 	}
 	
+//	@RequestMapping("/modifyProc")
+//	public String modifyProc(String page, ItnewsDTO dto, HttpSession session){
+//		System.out.println("수정 누르고 시퀀스 : " + dto.getSeq());
+//		String path = session.getServletContext().getRealPath("attached");
+//		
+//		try {
+//			int boardSeq = is.modifyItnews(path, dto);
+//			return "redirect:detail?seq="+boardSeq+"&page="+page;
+//		}catch(Exception e) {
+//			e.printStackTrace();
+//			return "redirect:../error";
+//		}
+//	}
+	
 	@RequestMapping("/remove")
 	public String remove(int seq, String page) {
 		is.removeItnews(seq);
-		return "redirect:itnewsList?page="+page;
+		return "redirect:itnewsList?cpage="+page;
+	}
+	
+	@RequestMapping("/modify")
+	public String modify(Model m, String page, String seq) {
+		m.addAttribute("dto", is.itnewsDetail(Integer.parseInt(seq)));
+		m.addAttribute("page", page);
+		return "itnews/modify";
 	}
 	
 	

@@ -103,5 +103,8 @@ public class MemberService {
 		public int modifyPw(String id, String pw) {
 			return mdao.modifyPw(id, pw);
 		}
-		
+	//아이디로 DTO꺼내기
+		public MemberDTO selectMember(String id) {
+			return mdao.selectMember(id);
+		}
 }

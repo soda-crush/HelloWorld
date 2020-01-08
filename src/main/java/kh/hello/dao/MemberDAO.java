@@ -98,5 +98,8 @@ public class MemberDAO {
 			param.put("point", point);
 			jdbc.update("Member.minusPoint", param);
 		}	
-		
+	//아이디로 DTO꺼내기
+		public MemberDTO selectMember(String id) {
+			return jdbc.selectOne("Member.selectMember", id);
+		}
 }
