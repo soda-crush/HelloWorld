@@ -102,4 +102,5 @@ public class MemberDAO {
 		public MemberDTO selectMember(String id) {
 			return jdbc.selectOne("Member.selectMember", id);
 		}
+		
 }
