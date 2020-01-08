@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kh.hello.dto.BambooCoDTO;
 import kh.hello.dto.BambooDTO;
 import kh.hello.dto.CodeCommentsDTO;
 import kh.hello.dto.CodeQuestionDTO;
@@ -109,20 +110,34 @@ public class CodeDAO {
 	
 	//CodeComment
 	
-	public int selectRepSeq(int queSeq) { //repSeq구하기
-		return jdbc.selectOne("CodeC.selectRepSeq",queSeq);
+	public int selectRepSeq(int queSeq,String writer) { //repSeq구하기
+		Map<String,Object> param = new HashMap<>();
+		param.put("queSeq", queSeq);
+		param.put("writer", writer);
+		Object result = jdbc.selectOne("CodeC.selectRepSeq",param);
+		if(result == null) { //int null값 방지
+			return 0;
+		}
+		return (int)result;
+	}
+	
+	public List<CodeCommentsDTO> commentsList(int queSeq){
+		return jdbc.selectList("CodeC.commentsList", queSeq);
 	}
 	public int insertComment(CodeCommentsDTO dto) {
 		return jdbc.insert("CodeC.insertComment", dto);
 	}
-	public List<CodeCommentsDTO> commentsList(int repSeq){
-		return jdbc.selectList("CodeC.commentsList", repSeq);
-	}
+//	public CodeCommentsDTO getComment(int repSeq) {
+//		return jdbc.selectOne("CodeC.getComment", repSeq);
+//	}
 	public int updateComment(CodeCommentsDTO dto) {
 		return jdbc.update("CodeC.updateComment", dto);
 	}	
 	public int deleteComment(int seq) {
 		return jdbc.delete("CodeC.deleteComment", seq);
+	}
+	public int deleteReplyAllCo(int repSeq) {
+		return jdbc.delete("CodeC.deleteReplyAllCo", repSeq);
 	}
 	
 	//조건별 게시판목록 검색

@@ -14,14 +14,15 @@ import org.springframework.util.Base64Utils;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 import kh.hello.configuration.Configuration;
 import kh.hello.dao.CodeDAO;
-import kh.hello.dto.BambooDTO;
+import kh.hello.dto.BambooCoDTO;
 import kh.hello.dto.CodeCommentsDTO;
 import kh.hello.dto.CodeQuestionDTO;
 import kh.hello.dto.CodeReplyDTO;
-import kh.hello.dto.MemberDTO;
+import kh.hello.dto.ProjectCoDTO;
 
 
 @Service
@@ -246,40 +247,63 @@ public class CodeService {
 	}
 	
 	// 댓글 CodeComments
-	public int selectRepSeq(int queSeq) {
-		return dao.selectRepSeq(queSeq);
+	public int selectRepSeq(int queSeq,String writer) {
+		return dao.selectRepSeq(queSeq,writer);
+	}
+	
+	public List<CodeCommentsDTO> commentList(int queSeq) {
+		return dao.commentsList(queSeq);
 	}
 	
 	@Transactional("txManager")
 	public String insertComment(CodeCommentsDTO dto) {
+		String option = "commentAdd";
 		dao.insertComment(dto);
 		Gson gson = new Gson();
-		JsonArray array = new JsonArray();
-		List<CodeCommentsDTO> result = dao.commentsList(dto.getRepSeq());
-		for(CodeCommentsDTO c : result) {
-			array.add(gson.toJson(c));
-		}
-		System.out.println("test :" +array.toString());
-		return array.toString();
+		List<CodeCommentsDTO> result = dao.commentsList(dto.getQueSeq());
+		return gson.toJson(result);
 	}
 	
-	public List<CodeCommentsDTO> commentList(int repSeq) {
-		return dao.commentsList(repSeq);
-	}
+//	@Transactional("txManager")
+//	public String getComment(CodeCommentsDTO dto) {
+//		dao.insertComment(dto);
+//		CodeCommentsDTO comment = dao.getComment(dto.getRepSeq());
+//		JsonObject jobj = new JsonObject();
+//		jobj.addProperty("seq", comment.getSeq());
+//		jobj.addProperty("repSeq", comment.getRepSeq());
+//		jobj.addProperty("content", comment.getContent());
+//		jobj.addProperty("writer", comment.getWriter());
+//		jobj.addProperty("writeDate", comment.getWriteDate().toString());
+//		
+//		return jobj.toString();
+//	}
 		
 	@Transactional("txManager")
 	public String updateComment(CodeCommentsDTO dto) {
 		dao.updateComment(dto);
 		Gson gson = new Gson();
-		JsonArray array = new JsonArray();
 		List<CodeCommentsDTO> result = dao.commentsList(dto.getRepSeq());
-		for(CodeCommentsDTO c : result) {
-			array.add(gson.toJson(c));
-		}
-		return array.toString();
+		return gson.toJson(result);
+//		System.out.println(dto.getRepSeq());
+//		CodeCommentsDTO comment = dao.getComment(dto.getRepSeq());
+//		System.out.println("서비스"+comment);
+//		JsonObject jobj = new JsonObject();
+//		jobj.addProperty("seq", comment.getSeq());
+//		jobj.addProperty("repSeq", comment.getRepSeq());
+//		jobj.addProperty("content", comment.getContent());
+//		jobj.addProperty("writer", comment.getWriter());
+//		jobj.addProperty("writeDate", comment.getWriteDate().toString());
 	}
 	
-	public int deleteComment(int seq) {
-		return dao.deleteComment(seq);
+	public String deleteComment(CodeCommentsDTO dto) {
+		dao.deleteComment(dto.getSeq());
+		Gson gson = new Gson();
+		System.out.println(dto.getRepSeq());
+		List<CodeCommentsDTO> result = dao.commentsList(dto.getRepSeq());
+		System.out.println("에러잡자:"+gson.toJson(result));
+		return gson.toJson(result);
+	}
+	public int deleteReplyAllCo(int repSeq) {
+		return dao.deleteReplyAllCo(repSeq);
 	}
 }
