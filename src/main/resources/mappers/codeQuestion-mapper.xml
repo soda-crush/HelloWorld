@@ -43,7 +43,52 @@
 		update codeQuestion set division=#{division},title=#{title},content=#{content},point=#{point} where seq=#{seq}
 	</update>
 	
-	<update id="writePoint" parameterType="kh.hello.dto.MemberDTO">
-		update member set point=#{point} where id=#{id}
+	<update id="writePoint" parameterType="String">
+		update member set point=point+10 where id=#{id}
 	</update>
+	
+	<update id="deleteWritePoint" parameterType="String">
+		update member set point=point-15 where id=#{id}
+	</update>
+	
+	<!-- 조건별 게시판목록 검색 -->
+	<select id="codeSearchTotalCount" parameterType="java.util.Map" resultType="integer">
+		 select count(seq) from codeQuestion
+		 <choose>
+		 <when test="value == 'all'">								
+			 where (division like '%${search}%') or (writer like '%${search}%') or (title like '%${search}%') 
+		</when>
+		<when test="value == 'division'">								
+			 where (division like '%${search}%')
+		</when>
+		<when test="value == 'title'">								
+			 where (title like '%${search}%')
+		</when>
+		<when test="value == 'writer'">								
+			 where (writer like '%${search}%')
+		</when>
+		<when test="value == 'title'">								
+			 where (title like '%${search}%')
+		</when>
+		</choose>
+	</select>
+	
+	<select id="codeSearchByPage" resultType="kh.hello.dto.CodeQuestionDTO" parameterType="java.util.Map">
+		select * 
+		<choose>
+		 <when test="value == 'all'">								
+			 from (select codeQuestion.*, row_number() over (order by seq desc) as rown from codeQuestion where (division like '%${search}%') or (writer like '%${search}%') or (title like '%${search}%')) where rown between #{start} and #{end}
+			 
+		</when>
+		<when test="value == 'division'">
+			 from (select codeQuestion.*, row_number() over (order by seq desc) as rown from codeQuestion where (division like '%${search}%')) where rown between #{start} and #{end}						
+		</when>
+		<when test="value == 'writer'">
+			 from (select codeQuestion.*, row_number() over (order by seq desc) as rown from codeQuestion where (writer like '%${search}%')) where rown between #{start} and #{end}						
+		</when>
+		<when test="value == 'title'">								
+			 from (select codeQuestion.*, row_number() over (order by seq desc) as rown from codeQuestion where (title like '%${search}%')) where rown between #{start} and #{end}
+		</when>
+		</choose>
+	</select>
 </mapper>
