@@ -17,9 +17,11 @@ import com.google.gson.JsonArray;
 
 import kh.hello.configuration.Configuration;
 import kh.hello.dao.CodeDAO;
+import kh.hello.dto.BambooDTO;
 import kh.hello.dto.CodeCommentsDTO;
 import kh.hello.dto.CodeQuestionDTO;
 import kh.hello.dto.CodeReplyDTO;
+import kh.hello.dto.MemberDTO;
 
 
 @Service
@@ -32,12 +34,14 @@ public class CodeService {
 //		return dao.selectAll();
 //	}
 	
-	public List<CodeQuestionDTO> selectQuestionAll(int start,int end) throws Exception{
+	public List<CodeQuestionDTO> selectQuestionAll(int start,int end) {
 			return dao.selectQuestionAll(start,end);
 	}
 	
-	public void insert(CodeQuestionDTO dto) throws Exception{
+	@Transactional("txManager")
+	public void insert(CodeQuestionDTO dto,String id) {
 		dao.insert(dto);
+		dao.writePoint(id);
 	}
 	
 	public void imageUpload(CodeQuestionDTO dto,String path) throws Exception{
@@ -66,21 +70,77 @@ public class CodeService {
 	}
 	
 	@Transactional("txManager")
-	public CodeQuestionDTO detailQuestion(int seq) throws Exception{
+	public CodeQuestionDTO detailQuestion(int seq) {
 		dao.incrementViewCount(seq);
 		return dao.detailQuestion(seq);
 	}
 	
-	public void delete(int seq) throws Exception{
+	@Transactional("txManager")
+	public void delete(int seq,String id) {
 		dao.delete(seq);
+		dao.deleteWritePoint(id);
 	}
 	
-	public void modify(CodeQuestionDTO dto) throws Exception{
+	public void modify(CodeQuestionDTO dto) {
 		dao.modify(dto);
 	}
 	
-	public int replyOneCount(int queSeq,String writer) throws Exception{
+	public int replyOneCount(int queSeq,String writer){
 		return dao.replyOneCount(queSeq, writer);
+	}
+	
+	//조건별 게시판목록 검색
+	public List<CodeQuestionDTO> codeSearchByPage(int start, int end,String value, String search) {//대나무숲 10개씩
+		//System.out.println(dao.codeSearchByPage(Integer.toString(start), Integer.toString(end),value,search).toString());
+		return dao.codeSearchByPage(Integer.toString(start), Integer.toString(end),value,search);
+	}
+	public List<String> getCodeSearchListPageNavi (int currentPage,String value, String search) {
+		int recordTotalCount = dao.codeSearchTotalCount(value,search);
+		//System.out.println("서비스에서"+recordTotalCount);
+		int pageTotalCount = 0;
+
+		if(recordTotalCount% Configuration.recordCountPerPage > 0) {
+			pageTotalCount = recordTotalCount / Configuration.recordCountPerPage + 1;
+		}else {
+			pageTotalCount = recordTotalCount / Configuration.recordCountPerPage;
+		}
+
+		if(currentPage < 1) {
+			currentPage = 1;
+		}else if(currentPage > pageTotalCount) {
+			currentPage = pageTotalCount;
+		}
+
+		int startNavi = (currentPage - 1) / Configuration.naviCountPerPage * Configuration.naviCountPerPage + 1;
+		int endNavi = startNavi + (Configuration.naviCountPerPage - 1);
+
+		if(endNavi > pageTotalCount) {
+			endNavi = pageTotalCount;
+		}
+
+		boolean needPrev = true;
+		if(startNavi == 1) {
+			needPrev = false;
+		}
+		boolean needNext = true;
+		if(endNavi == pageTotalCount) {
+			needNext = false;
+		}
+
+		List<String> pages = new ArrayList<>();
+		if(needPrev) pages.add("<li class=\"page-item\"><a class=page-link href='codeSearch.do?value="+value+"&cpage=" + (startNavi - 1) + "' >< </a></li>");
+
+		for(int i = startNavi; i <= endNavi; i++) {
+			StringBuilder sb = new StringBuilder();
+			sb.append("<li class=\"page-item\"><a class=page-link href='codeSearch.do?value="+value+"&cpage="+ i +"'>");
+			sb.append(i + " ");
+			sb.append("</a></li>");
+			pages.add(sb.toString());
+		}
+
+		if(needNext) pages.add("<li class=\"page-item\"><a class=page-link href='codeSearch.do?value="+value+"&cpage=" + (endNavi + 1) + "'>> </a></li>");
+
+		return pages;
 	}
 	
 	//답글 CodeReply
@@ -88,11 +148,11 @@ public class CodeService {
 //		return dao.selectParentSeq(seq);
 //	}
 	
-	public void insertR(CodeReplyDTO dto) throws Exception{
+	public void insertR(CodeReplyDTO dto) {
 		dao.insertR(dto);
 	}
 	
-	public List<CodeReplyDTO> selectReplyAll() throws Exception{
+	public List<CodeReplyDTO> selectReplyAll() {
 		return dao.selectReplyAll();
 	}
 	
@@ -121,11 +181,11 @@ public class CodeService {
 		}
 	}
 	
-	public void deleteR(int seq) throws Exception{
+	public void deleteR(int seq) {
 		dao.deleteR(seq);
 	}
 	
-	public List<CodeReplyDTO> detailReply(int queSeq) throws Exception{
+	public List<CodeReplyDTO> detailReply(int queSeq) {
 		return dao.detailReply(queSeq);
 	}
 	
@@ -177,15 +237,19 @@ public class CodeService {
 		return pages;
 	}
 	
-	public CodeReplyDTO selectOneDetail(int seq) throws Exception{
+	public CodeReplyDTO selectOneDetail(int seq) {
 		return dao.selectOneDetail(seq);
 	}
 	
-	public void modifyR(CodeReplyDTO dto) throws Exception{
+	public void modifyR(CodeReplyDTO dto) {
 		dao.modifyR(dto);
 	}
 	
 	// 댓글 CodeComments
+	public int selectRepSeq(int queSeq) {
+		return dao.selectRepSeq(queSeq);
+	}
+	
 	@Transactional("txManager")
 	public String insertComment(CodeCommentsDTO dto) {
 		dao.insertComment(dto);
@@ -195,6 +259,7 @@ public class CodeService {
 		for(CodeCommentsDTO c : result) {
 			array.add(gson.toJson(c));
 		}
+		System.out.println("test :" +array.toString());
 		return array.toString();
 	}
 	
@@ -217,6 +282,4 @@ public class CodeService {
 	public int deleteComment(int seq) {
 		return dao.deleteComment(seq);
 	}
-	
-
 }

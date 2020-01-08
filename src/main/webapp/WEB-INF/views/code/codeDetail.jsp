@@ -177,7 +177,7 @@ span:nth-child(4) {
 					<c:forEach items="${rResult}" var="r">
 					<hr>
 					<hr>
-						<input type="hidden" id="seqSelect" data-repNum="${r.seq}"> 
+<%-- 						<input type="hidden" id="seqSelect" data-repNum="${r.seq}">  --%>
 <%-- 						<input type="hidden" class="parent${r.queSeq}" value="${r.queSeq}"> --%>
 						<div style="font-size: 40px; font-weight: 100;">${r.writer}님의 답변입니다.</div>
 						<br>
@@ -224,7 +224,7 @@ span:nth-child(4) {
 <%-- 														onclick="deleteComment(${readDTO.ask_seq},${co.co_seq})"> --%>
 <%-- 												</c:when> --%>
 <%-- 											</c:choose> --%>
-						            <c:if test="${cResult.writer == sessionScope.loginInfo}">
+						            <c:if test="${co.writer == sessionScope.loginInfo}">
 <%-- 													<a class="btn btn-primary" href="/code/codeDetail.do?seq=${co.seq }" role="button">수정하기</a> --%>
 														<a class="btn btn-primary" href="#" role="button">수정하기</a> 
 													<a class="btn btn-danger" href="#" role="button">삭제하기</a>
@@ -239,7 +239,11 @@ span:nth-child(4) {
 						</c:forEach>
 					</div>
 					<br>
-							<div class="contentDivBot" style="display:none;"><textarea maxlength="1000" name="content"></textarea><button id="commentWrite">전송</button></div>			
+<!-- 댓글 -->
+							<div class="contentDivBot" style="display:none;">
+								<input type="text" id="contentCo" placeholder="댓글을 입력해주세요">
+								<input type="button" id="commentWrite" value="등록">
+							</div>			
 <%-- 						<c:choose> --%>
 <%-- 							<c:when test="${sessionScope.loginInfo}"> --%>
 <!-- 									<button class="btn btn-dark" class="btnDIv2" id="modifyR">수정</button> -->
@@ -288,10 +292,7 @@ span:nth-child(4) {
 		});
 	
 		function modifyRe(seq,queSeq){
-			var cf = confirm("수정하시겠습니까?");
-			if(cf){
 				location.href="${pageContext.request.contextPath}/code/modifyR.do?seq="+seq+"&queSeq="+queSeq;
-			}
         }
 
 		function deleteRe(seq,queSeq){
@@ -306,8 +307,8 @@ span:nth-child(4) {
 				url:"/code/codeCWriteProc.do",
 				type:"post",
 				data:{
-					content : $("#content").val(),
-					repSeq: $("#seqSelect").attr("data-cartNum"),
+					content : $("#contentCo").val(),
+					repSeq: ${repSeq},
 					writer: "${sessionScope.loginInfo}"
 				},
 				dataType:"json"
