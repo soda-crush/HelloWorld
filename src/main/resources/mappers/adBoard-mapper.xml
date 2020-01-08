@@ -80,4 +80,23 @@
 	<select id="getCohowTotal" resultType="integer">
 		select count(*) from codeQuestion
 	</select>
+	
+	<!--code-how -->
+	<select id="itnewsListByPage" resultType="kh.hello.dto.ItnewsDTO">
+		select * from (select itnews.*, row_number() over(order by seq desc) rown from itnews) where rown between ${start} and ${end}
+	</select>
+	<select id="getItnewsTotal" resultType="integer">
+		select count(*) from itnews
+	</select>
+	
+	<!--방명록 -->
+	<select id="guestBookListByPage" resultType="kh.hello.dto.GuestBookDTO">
+		select * from (select GuestBook.*, row_number() over (order by seq desc) as rown from GuestBook) where rown between #{start} and #{end}
+	</select>
+	<select id="getGuestBookTotal" resultType="integer">
+		select count(*) from GuestBook
+	</select>
+	<delete id="delGuestBook">
+		delete GuestBook where seq = #{seq}
+	</delete>
 </mapper>

@@ -11,8 +11,10 @@ import org.springframework.stereotype.Repository;
 import kh.hello.dto.BambooCoDTO;
 import kh.hello.dto.BambooDTO;
 import kh.hello.dto.CodeQuestionDTO;
+import kh.hello.dto.GuestBookDTO;
 import kh.hello.dto.IndustryStatusCoDTO;
 import kh.hello.dto.IndustryStatusDTO;
+import kh.hello.dto.ItnewsDTO;
 import kh.hello.dto.ProjectCoDTO;
 import kh.hello.dto.ProjectDTO;
 
@@ -143,5 +145,38 @@ public class AdBoardDAO {
 		return jdbc.selectOne("AdBoard.getCohowTotal");
 	}
 	
+	/* 
+	 * IT뉴스
+	 */
+	
+	public List<ItnewsDTO> itnewsListByPage(int start, int end){
+		Map<String, Integer> param = new HashMap<>();
+		param.put("start", start);
+		param.put("end", end);	
+		return jdbc.selectList("AdBoard.itnewsListByPage", param);
+	}
+	
+	public int getItnewsTotal() {
+		return jdbc.selectOne("AdBoard.getItnewsTotal");
+	}
+
+	/* 
+	 * 방명록
+	 */	
+	
+	public List<GuestBookDTO> guestBookListByPage(int start, int end){
+		Map<String, Integer> param = new HashMap<>();
+		param.put("start", start);
+		param.put("end", end);
+		return jdbc.selectList("AdBoard.guestBookListByPage", param);
+	}
+	
+	public int getGuestBookTotal() {
+		return jdbc.selectOne("AdBoard.getGuestBookTotal");
+	}
+	
+	public int delGuestBook(int seq) {
+		return jdbc.delete("AdBoard.delGuestBook", seq);
+	}
 
 }

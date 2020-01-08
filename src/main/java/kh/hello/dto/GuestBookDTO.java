@@ -1,6 +1,7 @@
 package kh.hello.dto;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 public class GuestBookDTO {
 	private int seq;
@@ -48,6 +49,11 @@ public class GuestBookDTO {
 	}
 	public void setWriteDate(Timestamp writeDate) {
 		this.writeDate = writeDate;
+	}
+	public String getFormedWriteDateForAdmin() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+		String result = sdf.format(this.writeDate);
+		return result;
 	}
 	
 }
