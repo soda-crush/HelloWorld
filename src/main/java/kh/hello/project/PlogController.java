@@ -15,7 +15,7 @@ public class PlogController {
 
 	@Autowired
 	private GuestBookService gs;
-
+	
 	@Autowired
 	private HttpSession session;
 	

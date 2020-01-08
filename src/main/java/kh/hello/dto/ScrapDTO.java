@@ -4,11 +4,11 @@ public class ScrapDTO {
 	private int seq;
 	private String writer;
 	private String category;
-	private String categorySeq;
+	private int categorySeq;
 	public ScrapDTO() {
 		super();
 	}
-	public ScrapDTO(int seq, String writer, String category, String categorySeq) {
+	public ScrapDTO(int seq, String writer, String category, int categorySeq) {
 		super();
 		this.seq = seq;
 		this.writer = writer;
@@ -33,10 +33,10 @@ public class ScrapDTO {
 	public void setCategory(String category) {
 		this.category = category;
 	}
-	public String getCategorySeq() {
+	public int getCategorySeq() {
 		return categorySeq;
 	}
-	public void setCategorySeq(String categorySeq) {
+	public void setCategorySeq(int categorySeq) {
 		this.categorySeq = categorySeq;
 	}
 	
