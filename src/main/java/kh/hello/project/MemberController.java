@@ -266,11 +266,5 @@ public class MemberController {
 	 public String withdrawalCheck(String pw, HttpSession session) {
 		 return ms.withdrawalCheck(((LoginInfoDTO)session.getAttribute("loginInfo")).getId(), pw);
 	 }
-	 
-//	 @RequestMapping("/withdrawal")
-//	 @ResponseBody
-//	 public String withdrawalProc() {
-//		 
-//	 }
 	
 }
