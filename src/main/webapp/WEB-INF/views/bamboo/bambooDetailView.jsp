@@ -89,7 +89,7 @@
 												<div class="col-4 pt-2 text-right commentBtns">
 <!-- 													<button type="button" class="btn btn-warning coReplyBtn">답글</button> -->
 													<c:if test="${c.writer==sessionScope.loginInfo }">
-														<a class="btn btn-info coModBtn" href="/bamboo/comment/modifyProc.do?seq=${c.seq }&bamSeq=${c.bamSeq}" onclick="coModFunction(${c.seq},'${c.content }');return false;" role="button">수정</a>
+														<a class="btn btn-info coModBtn" href="/bamboo/comment/modifyProc.do?seq=${c.seq }&bamSeq=${c.bamSeq}" onclick="coModFunction(${c.seq},'${c.content}',${c.bamSeq });return false;" role="button">수정</a>
 														<a class="btn btn-danger coDelBtn" href="/bamboo/comment/deleteProc.do?seq=${c.seq }&bamSeq=${c.bamSeq}" onclick="coDelFunction(${c.seq});return false;" role="button">삭제</a>
 													</c:if>
 												</div>								
@@ -206,7 +206,7 @@
 				}
 			}).done(function(resp){
 				$("#pCoContents").val("");
-// 				$(".pPageComments").html("");
+ 				$(".pPageComments").html("");
 				console.log("asdfasdfasfadsf"+resp);
 				commentRecall(resp);
 				console.log("이건되냐");
@@ -235,7 +235,7 @@
 // 				});
 //         	})
         	
-			function coModFunction(seq,contents){     
+			function coModFunction(seq,contents,bamSeq){     
 				$(".commentBox"+seq).find(".commentBtns").css("display","none");
 				$(".commentBox"+seq).find(".commentContent").css("display","none");
            		$(".commentBox"+seq).wrap('<form action="/bamboo/comment/modifyProc.do" method="post" id="coModFrm"></form>');
@@ -243,10 +243,10 @@
     			html.push(
     					'<div class="col-12 coModBox mt-2"><div class="row">',
     					'<div class="col-9 col-md-10 col-xl-11 pr-0"><textarea class="form-control" placeholder="댓글 내용을 입력해주세요" id="pCoModContents" style="height:80px;" name="content">'+contents+'</textarea></div>',
-    					'<div class="col-3 col-md-2 col-xl-1"><input type="hidden" name="seq" value="'+seq+'"><input type="hidden" name="bambooSeq" value="${bPage.seq }">',
+    					'<div class="col-3 col-md-2 col-xl-1"><input type="hidden" name="seq" value="'+seq+'"><input type="hidden" name="bamSeq" value="'+bamSeq+'">',
     					'<div class="row">',
     					'<div class="col-12 text-center p-0">',
-//     					'<button type="button" class="btn btn-secondary" style="margin-bottom:5px;width:80%;" id="coMoCancel">취소</button>',
+    					'<button type="button" class="btn btn-secondary" style="margin-bottom:5px;width:80%;" id="coMoCancel">취소</button>',
     					'</div></div>',
     					'<div class="row"><div class="col-12 text-center p-0">',
     					'<button type="button" class="btn btn-warning" style="width:80%;" id="coMoBtn">수정</button>',
@@ -286,37 +286,56 @@
 					console.log(resp);
 				})
            	});
+           	function coDelFunction(seq){
+           		var check = confirm("정말 삭제하시겠습니까?");
+           		if(check){
+           			$.ajax({
+           				url : "/bamboo/comment/deleteProc.do",
+           				type : "post",
+           				dataType : "json",
+           				data :{
+           					seq : seq,
+           					bamSeq : "${bPage.seq}"
+           				}
+           			}).done(function(resp){
+    					$(".pPageComments").html("");
+    					commentRecall(resp);
+           			}).fail(function(resp){
+    					console.log("실패");
+    					console.log(resp);
+           			})
+           		}
+           	}
            	function commentRecall(resp){
 				var loginInfo = "${sessionScope.loginInfo}";
 				console.log("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
 				console.log("1111111111111111111111111111111111111111"+resp);
 				console.log(resp.content);
-				
-				
+				for(var i=0;i<resp.length;i++){
 					var html = [];
 					html.push(
-							'<div class="row commentDiv commentBox'+resp.seq+' p-0 pb-2 m-2"><div class="col-12 commentInnerBox"><div class="row commentHeader">',
+							'<div class="row commentDiv commentBox'+resp[i].seq+' p-0 pb-2 m-2"><div class="col-12 commentInnerBox"><div class="row commentHeader">',
 // 							'<div class="col-1 profileBox pl-1 pt-2"></div>',
 							'<div class="col-7 pt-1"><div class="row commentInfo">',
-							'<div class="col-12 commentWriter">'+resp.writer+'</div>',
-							'<div class="col-12 commentWriteDate">'+resp.writeDate+'</div></div></div>',
+							'<div class="col-12 commentWriter">'+resp[i].writer+'</div>',
+							'<div class="col-12 commentWriteDate">'+resp[i].writeDate+'</div></div></div>',
 							'<div class="col-4 pt-2 text-right commentBtns">'
 // 							'<button type="button" class="btn btn-warning coReplyBtn">답글</button>\n'
 							);
-					if(resp.writer==loginInfo){
-						console.log("fffffffffffffffffffffffffffff");
+					if(resp[i].writer==loginInfo){
+						
 						html.push(
-								'<a class="btn btn-info coModBtn" href="/bamboo/comment/modifyProc.do?seq='+resp.seq+'&bamSeq='+resp.bamSeq+'" onclick="coModFunction('+resp.seq+',\''+resp.content+'\');return false;" role="button">수정</a>\n',
-								'<a class="btn btn-danger coDelBtn" href="/bamboo/comment/deleteProc.do?seq='+resp.seq+'&bamSeq='+resp.bamSeq+'" onclick="coDelFunction('+resp.seq+');return false;" role="button">삭제</a>'
+								'<a class="btn btn-info coModBtn" href="/bamboo/comment/modifyProc.do?seq='+resp[i].seq+'&bamSeq='+resp[i].bamSeq+'" onclick="coModFunction('+resp[i].seq+',\''+resp[i].content+'\','+resp[i].bamSeq+');return false;" role="button">수정</a>\n',
+								'<a class="btn btn-danger coDelBtn" href="/bamboo/comment/deleteProc.do?seq='+resp[i].seq+'&bamSeq='+resp[i].bamSeq+'" onclick="coDelFunction('+resp[i].seq+');return false;" role="button">삭제</a>'
 								);
 					}
 					
 					html.push(
 							'</div></div>',
-							'<div class="row commentContent"><div class="col-12 pt-1 pl-4">'+resp.content+'</div></div></div></div>'
+							'<div class="row commentContent"><div class="col-12 pt-1 pl-4">'+resp[i].content+'</div></div></div></div>'
 							);
 					$(".pPageComments").append(html.join(""));	
-					
+           		}
 			}
         </script>
 </body>

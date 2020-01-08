@@ -21,6 +21,7 @@ import kh.hello.configuration.Configuration;
 import kh.hello.dao.BambooDAO;
 import kh.hello.dto.BambooCoDTO;
 import kh.hello.dto.BambooDTO;
+import kh.hello.dto.ProjectCoDTO;
 
 @Service
 public class BambooService {
@@ -123,42 +124,48 @@ public class BambooService {
 	@Transactional("txManager")
 	public String commentWriteConfirm(BambooCoDTO dto) {
 		dao.insertBambooCo(dto);
-		BambooCoDTO comment = dao.getComment(dto.getBamSeq());
-		JsonObject jobj = new JsonObject();
-		jobj.addProperty("seq", comment.getSeq());
-		jobj.addProperty("bamSeq", comment.getBamSeq());
-		jobj.addProperty("writer", comment.getWriter());
-		jobj.addProperty("content", comment.getContent());
-		jobj.addProperty("writeDate", comment.getWriteDate().toString());
-
-		return jobj.toString();
+		Gson gson = new Gson();
+		List<BambooCoDTO> result = dao.getCoList(dto.getBamSeq());
+		
+		return gson.toJson(result);
+//		BambooCoDTO comment = dao.getComment(dto.getBamSeq());
+//		JsonObject jobj = new JsonObject();
+//		jobj.addProperty("seq", comment.getSeq());
+//		jobj.addProperty("bamSeq", comment.getBamSeq());
+//		jobj.addProperty("writer", comment.getWriter());
+//		jobj.addProperty("content", comment.getContent());
+//		jobj.addProperty("writeDate", comment.getWriteDate().toString());
+//
+//		return jobj.toString();
 	}
 
 	@Transactional("txManager")
 	public String commentModifyConfirm(BambooCoDTO dto) {
 		dao.updateBambooCo(dto);
-//		Gson gson = new Gson();
-//		JsonArray array = new JsonArray();
-//		List<BambooCoDTO> result = dao.getCoList(dto.getBamSeq());
-//		for(BambooCoDTO b : result) {
-//			array.add(gson.toJson(b));
-//		}
+		Gson gson = new Gson();
+		List<BambooCoDTO> result = dao.getCoList(dto.getBamSeq());
+		
+		return gson.toJson(result);
 //		return array.toString();
-		System.out.println(dto.getBamSeq());
-		BambooCoDTO comment = dao.getComment(dto.getBamSeq());
-		System.out.println("서비스"+comment);
-		JsonObject jobj = new JsonObject();
-		jobj.addProperty("seq", comment.getSeq());
-		jobj.addProperty("bamSeq", comment.getBamSeq());
-		jobj.addProperty("writer", comment.getWriter());
-		jobj.addProperty("content", comment.getContent());
-		jobj.addProperty("writeDate", comment.getWriteDate().toString());
-
-		return jobj.toString();
+//		System.out.println(dto.getBamSeq());
+//		BambooCoDTO comment = dao.getComment(dto.getBamSeq());
+//		System.out.println("서비스"+comment.getContent());
+//		JsonObject jobj = new JsonObject();
+//		jobj.addProperty("seq", comment.getSeq());
+//		jobj.addProperty("bamSeq", comment.getBamSeq());
+//		jobj.addProperty("writer", comment.getWriter());
+//		jobj.addProperty("content", comment.getContent());
+//		jobj.addProperty("writeDate", comment.getWriteDate().toString());
+//
+//		return jobj.toString();
 	}
 
-	public int commentDeleteConfirm(int seq) {
-		return dao.deleteBambooCo(seq);
+	public String commentDeleteConfirm(BambooCoDTO dto) {
+		dao.deleteBambooCo(dto);
+		Gson gson = new Gson();
+		List<BambooCoDTO> result = dao.getCoList(dto.getBamSeq());
+		
+		return gson.toJson(result);
 	}
 
 	public int commentsDeleteConfirm(int bamSeq) {

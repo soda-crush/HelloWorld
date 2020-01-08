@@ -125,11 +125,13 @@ public class BambooController {
 		System.out.println("댓글수정 도착 + " + dto.getSeq() + " : " + dto.getBamSeq() + " : " +dto.getContent());
 		return service.commentModifyConfirm(dto);
 	}
-
+	
+	@ResponseBody
 	@RequestMapping("/comment/deleteProc.do")
-	public String commentDeleteConfirm(int bamSeq,int seq) {
-		service.commentDeleteConfirm(seq);
-		return "redirect:/bamboo/bambooDetailView.do?seq="+bamSeq;
+	public String commentDeleteConfirm(BambooCoDTO dto) {
+		System.out.println("delete comment       " + dto.getSeq() + " : " + dto.getBamSeq() + " : " +dto.getContent());
+		service.commentDeleteConfirm(dto);
+		return service.commentDeleteConfirm(dto);
 	}
 
 
