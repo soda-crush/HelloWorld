@@ -110,12 +110,11 @@
 	                <div class="col-12 col-sm-6 col-md-8 col-lg-9 scraptwrap">
 	                	<div class="coltheme"> it 뉴스 </div>
 			         	<div class="tableDiv">
-							<div class="row tableHead">					    
-							    <div class="col-md-1 d-none d-md-block">번호</div>
-							    <div class="col-md-6 d-none d-md-block ">제목</div>
-							    <div class="col-md-2 d-none d-md-block ">작성자</div>
-							    <div class="col-md-2 d-none d-md-block ">작성일</div>
-							    <div class="col-md-1 d-none d-md-block">조회수</div>				    
+							<div class="row tableHead">
+							    <div class="col-md-6">제목</div>
+							    <div class="col-md-2">작성자</div>
+							    <div class="col-md-3">작성일</div>
+							    <div class="col-md-1">조회수</div>				    
 							</div>
 							
 						  	<c:choose>
@@ -125,12 +124,10 @@
 						  		<c:otherwise>
 						  			<c:forEach items="${nlist}" var="dto">
 						  				<div class="row tableBody p-0">
-											<div class="col-md-1 d-none d-md-block order-md-1">${dto.seq}</div>
-							    			<div class="col-12 col-md-6 order-1 order-md-2"><a href="${pageContext.request.contextPath}/itnews/detail?seq=${dto.seq}&page=${page}">${dto.title}</a></a></div>
+							    			<div class="col-6 order-1 order-md-2"><a href="${pageContext.request.contextPath}/itnews/detail?seq=${dto.seq}&page=${page}">${dto.title}</a></div>
 							    			<div class="col-3 col-md-2 order-2 order-md-3">${dto.writer}</div>
-							    			<div class="col-2 col-md-2 order-3 order-md-4">${dto.getDate()}</div>
-							    			<div class="col-1 col-md-1 order-4 order-md-5">${dto.viewCount}</div>
-							    			<div class="col-6 order-5 d-md-none"></div>		
+							    			<div class="col-2 col-md-3 order-3 order-md-4">${dto.getDate()}</div>
+							    			<div class="col-1 col-md-1 order-4 order-md-5">${dto.viewCount}</div>	
 										</div>
 						  			</c:forEach>
 						  		</c:otherwise>
@@ -141,7 +138,6 @@
 			         		<table class="table table-hover">
 							  <thead class="thead-light">
 							    <tr>
-							      <th scope="col">글번호</th>
 							      <th scope="col">분야/직무</th>
 							      <th scope="col">제목</th>
 							      <th scope="col">작성자</th>
@@ -157,7 +153,6 @@
 							  		<c:otherwise>
 							  			<c:forEach items="${ilist }" var="i">
 							  				<tr>
-							  					<th scope="row">${i.seq }</th>
 							  					<td>${i.field }/${i.duty }</td>
 							  					<td><a href="/industry/industryStatusDetailView.do?seq=${i.seq }">${i.title } 
 							  						<c:if test="${i.commentCount>0 }">
@@ -178,11 +173,9 @@
 					        	<table class="table table-hover">
 									<thead class="thead-light">
 										<tr>
-											<th scope="col">글번호</th>
 											<th scope="col">구분</th>
 											<th scope="col">게시판제목</th>
 											<th scope="col">작성자</th>
-											<th scope="col">포인트</th>
 											<th scope="col">날짜</th>
 											<th scope="col">조회수</th>
 										</tr>
@@ -197,7 +190,6 @@
 											<c:otherwise>
 												<c:forEach items="${clist}" var="dto">
 													<tr>
-														<th scope="row">${dto.seq}</th>
 														<td><span class="badge badge-pill badge-success"
 															style="margin: 10; width: 60px;">${dto.division}</span></td>
 														<td style="cursor:hand" onClick="location.href='${pageContext.request.contextPath}/code/codeDetail.do?seq=${dto.seq}'">
@@ -208,7 +200,6 @@
 															<span class="badge badge-pill badge-danger">N</span></td>
 														<td>${dto.writer}  
 														 <span class="badge badge-pill badge-info">실무자</span></td>
-														<td>${dto.point}
 														</td>
 														<td>${dto.formedDate}</td>
 														<td>${dto.viewCount}</td>

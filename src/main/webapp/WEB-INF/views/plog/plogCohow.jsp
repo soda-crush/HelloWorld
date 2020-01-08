@@ -61,8 +61,8 @@
 	                    <div class="card" id="mycard">
 	                        <img src="/img/profileSample.jpg" class="card-img-top" alt="..." style="width: 170px;height: 170px;margin:15px;">
 	                        <div class="card-body">
-	                            <h3 class="card-title" style="text-align: center;">라이언 님</h3>
-	                            <p class="card-text" style="text-align: center;">point : 12,345</p>
+	                            <h3 class="card-title" style="text-align: center;">${loginInfo.nickName} 님</h3>
+	                            <p class="card-text" style="text-align: center;">point : ${point }</p>
 	                        </div>
 	                    </div>
 	                </div>
