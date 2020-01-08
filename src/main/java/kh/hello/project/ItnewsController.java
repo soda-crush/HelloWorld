@@ -57,8 +57,8 @@ public class ItnewsController {
 	}
 	
 	@RequestMapping("/detail")
-	public String itnewsDetail(Model m, int seq) {
-		ItnewsDTO result;
+	public String itnewsDetail(Model m, int seq, String page) {
+			ItnewsDTO result;
 			result = is.itnewsDetail(seq);
 			m.addAttribute("result", result);
 			return "/itnews/itnewsView";
