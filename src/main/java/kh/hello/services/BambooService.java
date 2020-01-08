@@ -21,6 +21,7 @@ import kh.hello.configuration.Configuration;
 import kh.hello.dao.BambooDAO;
 import kh.hello.dto.BambooCoDTO;
 import kh.hello.dto.BambooDTO;
+import kh.hello.dto.ProjectCoDTO;
 
 @Service
 public class BambooService {
@@ -38,19 +39,16 @@ public class BambooService {
 
 
 	public int bambooModifyConfirm(BambooDTO dto, String path)throws Exception {
-		
+
 		//1. bamSeq 받아오기
-				//int bamSeq = dao.getBambooSeq();
-				//dto.setSeq(bamSeq);
-				//2. 이미지 저장하고 주소 변환
-				String content = imgUpload(path, dto.getSeq(), dto.getContent());
-				System.out.println(content);
-				dto.setContent(content);
-				//3. 글 수정
-				
-		
-		
-		
+		//int bamSeq = dao.getBambooSeq();
+		//dto.setSeq(bamSeq);
+		//2. 이미지 저장하고 주소 변환
+		String content = imgUpload(path, dto.getSeq(), dto.getContent());
+		System.out.println(content);
+		dto.setContent(content);
+		//3. 글 수정
+
 		return dao.updateBamboo(dto);
 	}
 
@@ -123,42 +121,24 @@ public class BambooService {
 	@Transactional("txManager")
 	public String commentWriteConfirm(BambooCoDTO dto) {
 		dao.insertBambooCo(dto);
-		BambooCoDTO comment = dao.getComment(dto.getBamSeq());
-		JsonObject jobj = new JsonObject();
-		jobj.addProperty("seq", comment.getSeq());
-		jobj.addProperty("bamSeq", comment.getBamSeq());
-		jobj.addProperty("writer", comment.getWriter());
-		jobj.addProperty("content", comment.getContent());
-		jobj.addProperty("writeDate", comment.getWriteDate().toString());
-
-		return jobj.toString();
+		Gson gson = new Gson();
+		List<BambooCoDTO> result = dao.getCoList(dto.getBamSeq());
+		return gson.toJson(result);
 	}
 
 	@Transactional("txManager")
 	public String commentModifyConfirm(BambooCoDTO dto) {
 		dao.updateBambooCo(dto);
-//		Gson gson = new Gson();
-//		JsonArray array = new JsonArray();
-//		List<BambooCoDTO> result = dao.getCoList(dto.getBamSeq());
-//		for(BambooCoDTO b : result) {
-//			array.add(gson.toJson(b));
-//		}
-//		return array.toString();
-		System.out.println(dto.getBamSeq());
-		BambooCoDTO comment = dao.getComment(dto.getBamSeq());
-		System.out.println("서비스"+comment);
-		JsonObject jobj = new JsonObject();
-		jobj.addProperty("seq", comment.getSeq());
-		jobj.addProperty("bamSeq", comment.getBamSeq());
-		jobj.addProperty("writer", comment.getWriter());
-		jobj.addProperty("content", comment.getContent());
-		jobj.addProperty("writeDate", comment.getWriteDate().toString());
-
-		return jobj.toString();
+		Gson gson = new Gson();
+		List<BambooCoDTO> result = dao.getCoList(dto.getBamSeq());	
+		return gson.toJson(result);
 	}
 
-	public int commentDeleteConfirm(int seq) {
-		return dao.deleteBambooCo(seq);
+	public String commentDeleteConfirm(BambooCoDTO dto) {
+		dao.deleteBambooCo(dto.getSeq());
+		Gson gson = new Gson();
+		List<BambooCoDTO> result = dao.getCoList(dto.getBamSeq());	
+		return gson.toJson(result);
 	}
 
 	public int commentsDeleteConfirm(int bamSeq) {
@@ -172,7 +152,6 @@ public class BambooService {
 	}
 	public List<String> getBambooSearchListPageNavi (int currentPage,String value, String search) {
 		int recordTotalCount = dao.bambooSearchTotalCount(value,search);
-		System.out.println("서비스에서"+recordTotalCount);
 		int pageTotalCount = 0;
 
 		if(recordTotalCount% Configuration.recordCountPerPage > 0) {
