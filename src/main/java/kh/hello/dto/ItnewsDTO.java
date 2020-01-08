@@ -95,6 +95,10 @@ public class ItnewsDTO {
 				+ ", writeDate=" + writeDate + ", viewCount=" + viewCount + "]";
 	}
 	
-	
+	public String getFormedWriteDateForAdmin() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+		String result = sdf.format(this.writeDate);
+		return result;
+	}
 	
 }

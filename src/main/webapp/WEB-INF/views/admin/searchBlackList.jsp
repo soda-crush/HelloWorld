@@ -119,11 +119,11 @@
 <!--                                             		<td class="align-self-center"><input type="checkbox"></td> -->
 	                                                <td scope="row">
 														<div class="btn-group dropright">
-														  <button class="btn btn-secondary btn-sm dropdown-toggle nameBtn p-0" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-														    ${dto.nickName}(${dto.id})
+														  <button class="btn btn-secondary btn-sm dropdown-toggle nameBtn p-0" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-boundary="viewport">
+														    ${dto.nickName}(${dto.id})&nbsp;&nbsp;&nbsp;<i class="fa fa-external-link"></i>
 														  </button>
 														  <div class="dropdown-menu">
-														    <p class="dropdown-item" id="memberInfo${dto.id}">회원정보 수정</p>
+														    <p class="dropdown-item" id="memberInfo${dto.id}">회원정보</p>
 														    <c:choose>
 														    	<c:when test="${dto.memLevel == '1'}">
 														    		<p class="dropdown-item" id="memberStart${dto.id}">활동정지 해제</p>	

@@ -11,11 +11,21 @@
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="/css/mainBase.css">
+<link rel="stylesheet" href="/css/project/projectBase.css" type="text/css"/>
+<link rel="stylesheet" href="/css/project/detailView.css" type="text/css"/>
 <link rel="stylesheet" type="text/css" href="/css/font-awesome/css/font-awesome.css">
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
+<style>
+	#titleLink:hover{
+		cursor:pointer;
+		color:gray;
+	}
+	#titleLink strong{
+		font-size:25px;
+	}
+</style>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/standard/header.jsp"/>
@@ -30,8 +40,19 @@
             
             <!--      몸통 시작!!!   -->
             <div class=container id="projectPage">
-				<div id="pageTitle" class="mb-4">
-					<h1>일대일 문의쓰기</h1>
+				<div id="pageTitle" class="row ml-1 mb-4">
+					<div class="col-12" id="titleLink">
+							<div class="row">
+							<div class="col-auto vertical-align:text-top p-0"><i class="fa fa-quote-left"></i></div>
+							<div class="col-auto vertical-align:text-top p-0"><strong>일대일문의</strong></div>
+							<div class="col-auto vertical-align:text-top p-0"><i class="fa fa-quote-right"></i></div>
+							</div>
+					</div>
+					<script>
+						$("#titleLink").on("click", function(){
+							location.href="${pageContext.request.contextPath}/member1/myInquiry?page=${page}";
+						})
+					</script>
 				</div>
 				
 				<form action="${pageContext.request.contextPath}/member1/writeInquiry" method="post" id="writeFrm" enctype="multipart/form-data">

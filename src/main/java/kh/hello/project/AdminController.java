@@ -82,7 +82,7 @@ public class AdminController {
 	public String inquiryList(String page, Model m) {
 		int currentPage = 1;		
 		
-		if(page != null) currentPage = Integer.parseInt(page);
+		if(page!= null && !page.equals("") && !page.equals("null")) currentPage = Integer.parseInt(page);
 				
 		int end = currentPage * Configuration.recordCountPerPage;
 		int start = end - (Configuration.recordCountPerPage - 1);	
@@ -137,7 +137,7 @@ public class AdminController {
 	public String memberList(String page, Model m) {
 		//회원 목록 받아오기(byPage)
 		int currentPage = 1;
-		if(page != null) currentPage = Integer.parseInt(page);
+		if(page!= null && !page.equals("") && !page.equals("null")) currentPage = Integer.parseInt(page);
 //		if(currentPage > 0 && currentPage <= Configuration.naviCountPerPage) {
 //			m.addAttribute("currentPage", currentPage);
 //		}else if(currentPage % Configuration.naviCountPerPage == 0) {
@@ -204,7 +204,7 @@ public class AdminController {
 	public String forcedOutList(String page, Model m) {
 		//목록 받아오기(page)
 		int currentPage = 1;
-		if(page != null) currentPage = Integer.parseInt(page);
+		if(page!= null && !page.equals("") && !page.equals("null")) currentPage = Integer.parseInt(page);
 		
 		int end = currentPage * Configuration.recordCountPerPage;
 		int start = end - (Configuration.recordCountPerPage - 1);
@@ -232,7 +232,7 @@ public class AdminController {
 	public String searchMember(String col, String searchWord, String page, Model m) {
 		//검색 후 목록 받아오기
 		int currentPage = 1;
-		if(page != null) currentPage = Integer.parseInt(page);
+		if(page!= null && !page.equals("") && !page.equals("null")) currentPage = Integer.parseInt(page);
 		
 		int end = currentPage * Configuration.recordCountPerPage;
 		int start = end - (Configuration.recordCountPerPage - 1);
@@ -253,7 +253,7 @@ public class AdminController {
 	public String blackList(String page, Model m) {//활동 점수가 0점 이하
 		//검색 후 목록 받아오기
 		int currentPage = 1;
-		if(page != null && page != "" && page !="null") currentPage = Integer.parseInt(page);
+		if(page!= null && !page.equals("") && !page.equals("null")) currentPage = Integer.parseInt(page);
 		
 		int end = currentPage * Configuration.recordCountPerPage;
 		int start = end - (Configuration.recordCountPerPage - 1);
@@ -295,7 +295,7 @@ public class AdminController {
 	public String searchBlack(String col, String searchWord, String page, Model m) {
 		//검색 후 목록 받아오기
 		int currentPage = 1;
-		if(page != null) currentPage = Integer.parseInt(page);
+		if(page!= null && !page.equals("") && !page.equals("null")) currentPage = Integer.parseInt(page);
 		
 		int end = currentPage * Configuration.recordCountPerPage;
 		int start = end - (Configuration.recordCountPerPage - 1);

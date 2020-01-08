@@ -52,15 +52,16 @@
 </head>
 <body>
 	<!-- preloader area start -->
-    <div id="preloader">
-        <div class="loader"></div>
-    </div>
-    <!-- preloader area end -->
-    <!-- page container area start -->
+	<div id="preloader">
+		<div class="loader"></div>
+	</div>
+	<!-- preloader area end -->
+	<!-- page container area start -->
     <div class="page-container">
         <!-- sidebar menu area start -->
         <jsp:include page="/WEB-INF/views/standard/adminSidebar.jsp"/>
         <!-- sidebar menu area end -->
+        
         <!-- main content area start -->
         <div class="main-content">
             <!-- header area start -->
@@ -71,10 +72,10 @@
                 <div class="row align-items-center">
                     <div class="col-sm-6">
                         <div class="breadcrumbs-area clearfix">
-                            <h4 class="page-title pull-left">회원관리</h4>
+                            <h4 class="page-title pull-left">P-log 방명록</h4>
                             <ul class="breadcrumbs pull-left">
                                 <li><a href="${pageContext.request.contextPath }/admin/main">Home</a></li>
-                                <li><span>불량 회원 관리</span></li>
+                                <li><span>P-log 방명록</span></li>
                             </ul>
                         </div>
                     </div>
@@ -92,132 +93,99 @@
             <!-- page title area end -->
             <div class="main-content-inner">
                 <!-- MAIN CONTENT GOES HERE -->
-                
-                <!-- Hoverable Rows Table start -->
+                 <!-- Hoverable Rows Table start -->
                     <div class="col-lg-12 mt-5 contentCard">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="header-title">불량회원목록</h4>
+                                <h4 class="header-title">글 목록</h4>
                                 <div class="single-table">
                                     <div class="table-responsive">
                                         <table class="table table-hover text-center">
                                             <thead class="text-uppercase">
                                                 <tr>
-<!--                                                 	<th scope="col"><input type="checkbox" id="checkAll" onclick="checkAll()"></th> -->
-                                                	<th scope="col">
-                                                	<div class="row d-sm-none"><div class="col-12">닉네임</div><div class="col-12">(아이디)</div></div>
-                                                	<div class="row d-none d-sm-block">닉네임(아이디)</div>
-                                                	</th>
-                                                    <th scope="col">최종방문일</th>   
-                                                    <th scope="col">레벨</th>                                               
+                                                    <th scope="col">번호</th>                                                                                   
+                                                    <th scope="col">P-log</th>
+                                                    <th scope="col">작성자</th>
+                                                    <th scope="col">내용</th>
+                                                    <th scope="col">날짜</th>
+                                                    <th scope="col">삭제</th>                                                   
                                                 </tr>
                                             </thead>
                                             <tbody>
                                             	<c:forEach items="${list}" var="dto">
                                             		<tr>
-<!--                                             		<td class="align-self-center"><input type="checkbox"></td> -->
-	                                                <td scope="row">
+                                                    <td>${dto.seq}</td> 
+                                                    <td>
 														<div class="btn-group dropright">
 														  <button class="btn btn-secondary btn-sm dropdown-toggle nameBtn p-0" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-boundary="viewport">
-														    ${dto.nickName}(${dto.id})&nbsp;&nbsp;&nbsp;<i class="fa fa-external-link"></i>
+														    ${dto.owner}&nbsp;&nbsp;&nbsp;<i class="fa fa-external-link"></i>
 														  </button>
 														  <div class="dropdown-menu">
-														    <p class="dropdown-item" id="memberInfo${dto.id}">회원정보</p>
-														    <c:choose>
-														    	<c:when test="${dto.memLevel == '1'}">
-														    		<p class="dropdown-item" id="memberStart${dto.id}">활동정지 해제</p>	
-														    	</c:when>
-														    	<c:otherwise>
-														    		<p class="dropdown-item" id="memberStop${dto.id}">활동정지</p>
-														    	</c:otherwise>
-														    </c:choose>														    
-														    <p class="dropdown-item" id="memberOut${dto.id}">강제탈퇴</p>
+														    <p class="dropdown-item" id="memberInfo${dto.owner}">회원정보</p>
 														  </div>
-														</div>
+														</div>                                                    
                                                     </td>
-                                                    <td>dto.lastLogin</td>
-                                                    <td>${dto.memLevel}</td>
-                                               		</tr>
-                                               		<form action="${pageContext.request.contextPath}/admin/blackOut" method="post" id="frm${dto.id}">
-                                               			<input type="hidden" name="id" value="${dto.id}">
-                                               			<input type="hidden" name="reason" id="reason${dto.id}">
-                                               		</form>
+                                                    <td>
+														<div class="btn-group dropright">
+														  <button class="btn btn-secondary btn-sm dropdown-toggle nameBtn p-0" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-boundary="viewport">
+														    ${dto.writer}&nbsp;&nbsp;&nbsp;<i class="fa fa-external-link"></i>
+														  </button>
+														  <div class="dropdown-menu">
+														    <p class="dropdown-item" id="memberInfo${dto.writer}">회원정보</p>
+														  </div>
+														</div>                                                    
+                                                    </td>                                                                                              		
+                                                    <td>${dto.content}</td>                                                    
+                                                    <td>${dto.formedWriteDateForAdmin}</td>
+                                                    <td><i class="ti-trash" id="delProc${dto.seq }"></i></td>
+                                               		</tr>                                            		
                                                		<script>
-                                               			$("#memberInfo${dto.id}").on("click", function(){
-                                               				window.open("${pageContext.request.contextPath}/admin/getMemberInfo?id=${dto.id}","","width=600px,height=602px,top=300px,left=600px");
-                                               			})
-                                               			$("#memberStop${dto.id}").on("click", function(){
-                                               				var result = confirm("${dto.nickName}(${dto.id}) 님을 활동정지 하시겠습니까?");
+                                               			$("#delProc${dto.seq}").on("click", function(){
+                                               				var result = confirm("이 방명록을 삭제할까요?");
                                                				if(result){
-                                               					location.href = "${pageContext.request.contextPath}/admin/stopForBlack?id=${dto.id}";
-                                               				};
-                                               			})
-                                               			$("#memberStart${dto.id}").on("click", function(){
-                                               				var result = confirm("${dto.nickName}(${dto.id}) 님 활동정지를 해제할까요?");
-                                               				if(result){
-                                               					location.href = "${pageContext.request.contextPath}/admin/startForBlack?id=${dto.id}";
-                                               				};
-                                               			})
-                                               			$("#memberOut${dto.id}").on("click", function(){
-                                               				var result = prompt("${dto.nickName}(${dto.id}) 님 강제 탈퇴 이유를 적어주세요");
-                                               				if(result == null){
-                                               					return false;
-                                               				}else if(result == ""){
-                                               					alert("강제 탈퇴 이유를 적어주세요");
-                                               				}else{
-                                               					$("#reason${dto.id}").val(result);
-                                               					$("#frm${dto.id}").submit();
-                                               				}
-                                               			})
+                                               					location.href = "${pageContext.request.contextPath}/adBoard/delGuestBook?page=${page}&seq=${dto.seq}";
+                                               				}                                              				                                             				
+                                               			})   
                                                			
+                                               			$("#memberInfo${dto.owner}").on("click", function(){
+                                               				window.open("${pageContext.request.contextPath}/admin/getMemberInfo?id=${dto.owner}","","width=600px,height=602px,top=300px,left=600px");
+                                               			})    
+                                               			
+                                               			$("#memberInfo${dto.writer}").on("click", function(){
+                                               				window.open("${pageContext.request.contextPath}/admin/getMemberInfo?id=${dto.writer}","","width=600px,height=602px,top=300px,left=600px");
+                                               			})                                                 			
                                                		</script>
-                                            	</c:forEach>                                                                                                
+                                            	</c:forEach>                                                                                               
                                             </tbody>
                                         </table>
                                     </div>
-                                </div>  
-                                <hr>
+                                </div>
+                            </div>
+                        </div>
+                        
+                         <div class="card">
+                            <div class="card-body">
                                 <nav aria-label="Page navigation example">
                                     <ul class="pagination justify-content-center">
 										<c:forEach items="${pageNavi}" var="navi">									
 											<li class="page-item pageNavi">${navi}</li>
 										</c:forEach>
+
+
                                     </ul>
                                 </nav>
-                            </div>                                                   
-                        </div>                        
-				</div>
+                            </div>
+                        </div>
+                        
+                    </div>
                     <!-- Hoverable Rows Table end -->
-               	<div class="col-lg-12 mt-1 contentCard">
-					<div class="card">
-						<div class="card-body pt-1 pb-1">
-							<form action="${pageContext.request.contextPath}/admin/searchBlack" method="get" id="frm">
-							<div class="form-group row mt-1 mb-1 justify-content-center">
-									<div class="col-sm-2 my-1 p-0 pl-1 pr-1">
-	                                <select class="form-control form-control-sm" name="col">
-	                                    <option value="id">아이디</option>
-	                                    <option value="nickName">닉네임</option>
-	                                </select>
-	                                </div>
-	                                <div class="col-sm-6 my-1 pl-1 pr-1">
-									<input type="text" class="form-control form-control-sm" id="searchWord" name="searchWord"
-									placeholder="검색어를 입력하세요">
-									</div>
-									<div class="col-sm-2 my-1 p-0 pl-1 pr-1 text-center">
-									<button type="button" class="btn btn-primary btn-xs btn-block" id="searchBtn">검색</button>
-									</div>
-							</div>
-							</form>
-						</div>
-					</div>
-				</div>
             </div>
         </div>
         <!-- main content area end -->
-		<!-- footer area start-->
-		<jsp:include page="/WEB-INF/views/standard/adminFooter.jsp" />
-		<!-- footer area end-->
-	</div>
+        <!-- footer area start-->
+        <jsp:include page="/WEB-INF/views/standard/adminFooter.jsp"/>
+        <!-- footer area end-->
+    </div>
     <!-- page container area end -->
 
     <!-- bootstrap 4 js -->
@@ -245,38 +213,19 @@
     <!-- others plugins -->
     <script src="${pageContext.request.contextPath }/adRsc/js/plugins.js"></script>
     <script src="${pageContext.request.contextPath }/adRsc/js/scripts.js"></script>
-	 <script>
-		$(function(){
-			var element = $(".pageNavi");
-			var page = "${page}";
-			if(page > 0 && page <= 10){
-				element[page-1].classList.add('active');
-			}else if(page % 10 == 0){
-				element[10].classList.add('active');
-			}else{
-				element[page % 10].classList.add('active');
-			}
-			
-		});
-	 
-	 function checkAll(){
-		 if($("#checkAll").is(':checked')){
-			 $("input[type=checkbox]").prop("checked", true);
-		 }else{
-			 $("input[type=checkbox]").prop("checked", false);
-		 }
-	 }
-	 
-	 $("#searchBtn").on("click", function(){	 
-		var regex = /^[\w,가-힣,ㄱ-ㅎ,ㅏ-ㅣ]+/g;
-		var data = $("#searchWord").val();
-		var result = regex.exec(data);
-		if(result == null){
-			alert("검색어를 다시 확인해주세요. 영어대소문자, 숫자, 한글만 가능합니다");
+    <script>
+	$(function(){
+		var element = $(".pageNavi");
+		var page = "${page}";
+		if(page > 0 && page <= 10){
+			element[page-1].classList.add('active');
+		}else if(page % 10 == 0){
+			element[10].classList.add('active');
 		}else{
-			$("#frm").submit();
+			element[page % 10].classList.add('active');
 		}
-	 });
-	</script>
+		
+	});
+    </script>
 </body>
 </html>
