@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Base64Utils;
 
+import com.google.gson.Gson;
+
 import kh.hello.configuration.Configuration;
 import kh.hello.dao.ItnewsDAO;
 import kh.hello.dto.ItnewsCoDTO;
@@ -130,13 +132,26 @@ public class ItnewsService {
 		return dao.removeItnews(seq);
 	}
 	
-	public int coWrite(ItnewsCoDTO dto) {
+	public int coWrite(ItnewsCoDTO dto, String seq) {
+		dto.setItSeq(Integer.parseInt(seq));
 		return dao.coWrite(dto);
 	}
 	
-	public List<ItnewsDTO> commentList(int seq){
+	public List<ItnewsCoDTO> commentList(int seq){
 		return dao.commentList(seq);
 	}
 	
+	public String coWriteAfter(String seq) {
+		List<ItnewsCoDTO> list = commentList(Integer.parseInt(seq));
+		Gson gson = new Gson();
+		return gson.toJson(list);
+	}
+	
+	public int removeItnewsCo(String itSeq, String seq) {
+		int seq2 = Integer.parseInt(seq);
+		int itSeq2 = Integer.parseInt(itSeq);
+		
+		return dao.removeItnewsCo(itSeq2, seq2);
+	}
 	
 }

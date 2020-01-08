@@ -56,8 +56,15 @@ public class ItnewsDAO {
 		return jdbc.insert("Itnews.insertComment", dto);
 	}
 	
-	public List<ItnewsDTO> commentList(int seq){
+	public List<ItnewsCoDTO> commentList(int seq){
 		return jdbc.selectList("Itnews.coList", seq);
+	}
+	
+	public int removeItnewsCo(int itSeq, int seq) {
+		Map<String, Integer> param = new HashMap<>(); 
+		param.put("itSeq", itSeq);
+		param.put("seq", seq);
+		return jdbc.delete("Itnews.coRemove", param);
 	}
 	
 }
