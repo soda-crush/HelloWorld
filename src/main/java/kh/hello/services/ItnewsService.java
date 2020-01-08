@@ -96,6 +96,19 @@ public class ItnewsService {
 		return boardSeq;
 	}
 	
+	@Transactional("txManager")
+	public int modifyItnews(String path, ItnewsDTO dto) throws Exception{
+		//1. boardSeq 받아오기
+		int boardSeq = dao.getItnewsSeq();
+		dto.setSeq(boardSeq);
+		//2. 이미지 저장하고 주소 변환
+		String content = this.imgUpload(path, boardSeq, dto.getContent());
+		dto.setContent(content);
+		//3. 글 업로드
+		dao.writeItnews(dto);
+		return boardSeq;
+	}
+	
 	private String imgUpload(String path, int boardSeq, String content) throws Exception{
 		File imgPath = new File(path + "/itnews");
 		if(!imgPath.exists()) {
