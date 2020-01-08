@@ -254,8 +254,8 @@
             <div class=row>
             	<div class=col-12>
             		<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow>성별</h5><p class=redP style="display:inline">*</p><br>
-            		&emsp;<input type=radio name="gender" value="women">여성<br>
-            		&emsp;<input type=radio name="gender" value="men">남성
+            		&emsp;<input type=radio name="gender" value="W">여성<br>
+            		&emsp;<input type=radio name="gender" value="M">남성
             	</div>
             </div>
              <div class=row>

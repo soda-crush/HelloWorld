@@ -55,8 +55,28 @@
             	</c:choose>
             	
             	<div class="row">
-            		<div class="col-12" id=adver style="height:200px;background-color:green;color:white;">광고자리<br><br></div>
+            		<div class="col-12" id=adver style="height:200px;background-color:green;color:white;">광고자리</div>
             	</div>
+            	
+            	<c:choose>
+            		<c:when test="${list.size()==0}">
+            			<div class="row">
+            				<div class=col-12>
+            					<h5>댓글이 없습니다.</h5>
+            				</div>
+            			</div>
+            		</c:when>
+           
+	            	<c:otherwise>
+	            		<c:forEach items="${list}" var="dto">
+	            			<div class="row">
+	            				<div class=col-12>
+	            					${dto.content}
+	            				</div>
+	            			</div>
+	            		</c:forEach>
+	            	</c:otherwise>
+            </c:choose>
             	
             	<div class="row">
             		<div class="col-10">
@@ -77,25 +97,7 @@
             	</div>
             	
             	
-           <c:choose>
-            		<c:when test="${list.size()==0}">
-            			<div class="row">
-            				<div class=col-12>
-            					<h5>댓글이 없습니다.</h5>
-            				</div>
-            			</div>
-            		</c:when>
            
-	            	<c:otherwise>
-	            		<c:forEach items="${list}" var="dto">
-	            			<div class="row">
-	            				<div class=col-12>
-	            					${dto.content}
-	            				</div>
-	            			</div>
-	            		</c:forEach>
-	            	</c:otherwise>
-            </c:choose>
             </div>
             
             <!--       몸통 끝!!!   -->
@@ -120,7 +122,7 @@
             		})
             		
             		//댓글
-            		$("#coCancel").on("click",function(){
+            		$("#coWrite").on("click",function(){
             			$.ajax({
             				url:"${pageContext.request.contextPath}/itnews/coWrite",
             				data:{
@@ -131,7 +133,10 @@
             				type:"post"
             			}).done(function(){
             				console.log("성공");
+            			}).fail(function(){
+            				console.log("실패");
             			});
+            			
             		})
         </script>
 </body>
