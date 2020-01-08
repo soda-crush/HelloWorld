@@ -26,6 +26,7 @@ public class PortfolioDTO {
 	private String function3;
 	private String explanation3;
 	private String git;
+	
 	public PortfolioDTO() {
 		super();
 	}

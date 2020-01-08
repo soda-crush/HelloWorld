@@ -10,6 +10,7 @@ public class ItnewsDTO {
 	private String content;
 	private Timestamp writeDate;
 	private int viewCount;
+	private String id;
 	
 	public String getDate(){
 	      long exDate = System.currentTimeMillis();
@@ -17,12 +18,12 @@ public class ItnewsDTO {
 	      long sec = (exDate - processedWrite_date)/1000;
 	      int hour = (int)(sec/360.0) + 1;
 	      
-	      if(hour < 24) {
-	    	  SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
-		      return sdf.format(processedWrite_date);
+	      if(hour < 14) {
+	    	  SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+		         return sdf.format(processedWrite_date);
 	      }else {
-	         SimpleDateFormat sdf = new SimpleDateFormat("20yy-MM-dd");
-	         return sdf.format(processedWrite_date);
+	    	  SimpleDateFormat sdf = new SimpleDateFormat("20yy.MM.dd.");
+		         return sdf.format(processedWrite_date);
 	      }
 	   }
 	
@@ -31,7 +32,8 @@ public class ItnewsDTO {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ItnewsDTO(int seq, String writer, String title, String content, Timestamp writeDate, int viewCount) {
+	public ItnewsDTO(int seq, String writer, String title, String content, Timestamp writeDate, int viewCount,
+			String id) {
 		super();
 		this.seq = seq;
 		this.writer = writer;
@@ -39,6 +41,7 @@ public class ItnewsDTO {
 		this.content = content;
 		this.writeDate = writeDate;
 		this.viewCount = viewCount;
+		this.id = id;
 	}
 
 	public int getSeq() {
@@ -89,10 +92,18 @@ public class ItnewsDTO {
 		this.viewCount = viewCount;
 	}
 
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	@Override
 	public String toString() {
 		return "ItnewsDTO [seq=" + seq + ", writer=" + writer + ", title=" + title + ", content=" + content
-				+ ", writeDate=" + writeDate + ", viewCount=" + viewCount + "]";
+				+ ", writeDate=" + writeDate + ", viewCount=" + viewCount + ", id=" + id + "]";
 	}
 	
 	public String getFormedWriteDateForAdmin() {

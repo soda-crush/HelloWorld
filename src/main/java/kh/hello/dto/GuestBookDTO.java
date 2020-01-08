@@ -9,6 +9,22 @@ public class GuestBookDTO {
 	private String writer;
 	private String content;
 	private Timestamp writeDate;
+	
+	public String getDate(){
+	      long exDate = System.currentTimeMillis();
+	      long processedWrite_date = writeDate.getTime();
+	      long sec = (exDate - processedWrite_date)/1000;
+	      int hour = (int)(sec/360.0) + 1;
+	      
+	      if(hour < 24) {
+	    	  SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
+		      return sdf.format(processedWrite_date);
+	      }else {
+	         SimpleDateFormat sdf = new SimpleDateFormat("20yy-MM-dd");
+	         return sdf.format(processedWrite_date);
+	      }
+	}
+	
 	public GuestBookDTO() {
 		super();
 	}
