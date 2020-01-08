@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import kh.hello.configuration.Configuration;
 import kh.hello.dto.InquiryDTO;
 import kh.hello.dto.InquiryReplyDTO;
+import kh.hello.dto.LoginInfoDTO;
 import kh.hello.services.MemberInquiryService;
 
 @Controller
@@ -27,9 +28,11 @@ public class MemberInquiryController {
 	@RequestMapping("/myInquiry")
 	public String getMyInquiryList(String page, Model m){
 		//나중에 지우기
-		session.setAttribute("loginInfo", "글슨사람");
-		String id = (String)session.getAttribute("loginInfo");
-		
+		session.setAttribute("loginInfo", new LoginInfoDTO("글슨사람", "글슨사람닉네임"));		
+		LoginInfoDTO loginInfo = (LoginInfoDTO)session.getAttribute("loginInfo");
+		String id = loginInfo.getId();
+		//
+		System.out.println("페이지값:"+page+":");
 		int currentPage = 1;		
 		if(page != null && page !="" && page !="null") currentPage = Integer.parseInt(page);
 				
@@ -56,8 +59,10 @@ public class MemberInquiryController {
 	@RequestMapping("/writeInquiry")
 	public String writeInquiry(String page, InquiryDTO dto) {
 		//나중에 지우기
-		session.setAttribute("loginInfo", "글슨사람");
-		String id = (String)session.getAttribute("loginInfo");
+		session.setAttribute("loginInfo", new LoginInfoDTO("글슨사람", "글슨사람닉네임"));		
+		LoginInfoDTO loginInfo = (LoginInfoDTO)session.getAttribute("loginInfo");
+		String id = loginInfo.getId();
+		//
 		dto.setWriter(id);		
 		String path = session.getServletContext().getRealPath("attached");
 		
