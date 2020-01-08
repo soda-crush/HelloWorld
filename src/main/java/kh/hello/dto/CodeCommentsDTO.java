@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 
 public class CodeCommentsDTO {
 	private int seq;
+	private int queSeq;
 	private int repSeq;
 	private String content;
 	private String writer;
@@ -14,9 +15,10 @@ public class CodeCommentsDTO {
 		super();
 	}
 	
-	public CodeCommentsDTO(int seq, int repSeq, String content, String writer, Timestamp writeDate) {
+	public CodeCommentsDTO(int seq, int queSeq, int repSeq, String content, String writer, Timestamp writeDate) {
 		super();
 		this.seq = seq;
+		this.queSeq = queSeq;
 		this.repSeq = repSeq;
 		this.content = content;
 		this.writer = writer;
@@ -28,6 +30,12 @@ public class CodeCommentsDTO {
 	}
 	public void setSeq(int seq) {
 		this.seq = seq;
+	}
+	public int getQueSeq() {
+		return queSeq;
+	}
+	public void setQueSeq(int queSeq) {
+		this.queSeq = queSeq;
 	}
 	public int getRepSeq() {
 		return repSeq;
