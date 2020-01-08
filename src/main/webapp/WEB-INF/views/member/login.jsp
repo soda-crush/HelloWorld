@@ -31,6 +31,13 @@ button{
 </style>
 </head>
 <body>
+	<c:choose>
+		<c:when test="${result==false}">
+			<script>
+				alert("아이디 혹은 비밀번호가 일치하지 않습니다. 다시시도하여 주십시오.");
+			</script>
+		</c:when>
+	</c:choose>
 	<jsp:include page="/WEB-INF/views/standard/header.jsp"/>
 	
  		<div id=baseBackgroundColor>
