@@ -48,13 +48,13 @@
             </div>
             
             <!--      몸통 시작!!!   -->
-            <form action="${pageContext.request.contextPath}/member/signUpProc" method="post" id=frm>
+            <form action="${pageContext.request.contextPath}/member/modifyProc" method="post" id=frm>
             <div class="container eleCon">
             
             <div class="row">
             	<div class="col-12">
             		<h4><br></h4>
-            		<h3><img src="/icon/whiteArrow.svg">회원가입</h3>
+            		<h3><img src="/icon/whiteArrow.svg">내 정보 수정</h3>
             		<p class=redP>&emsp;&emsp;* 은 필수표기정보입니다.</p> 
            		</div>
             </div>
@@ -66,7 +66,7 @@
             <div class=row>
             	<div class=col-12>
             		<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow>아이디</h5><p class=redP style="display:inline">*</p><br>
-            		&emsp;<input type=text name=id id=id placeholder="아이디 입력">
+            		&emsp;<h3>${dto.id}</h3>
             		<img id=idCheck style="display:none;">
             		<div id=idMsg></div>
             	</div>
@@ -79,7 +79,7 @@
             <div class=row>
             	<div class=col-12>
             		<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow>이름</h5><p class=redP style="display:inline">*</p><br>
-            		&emsp;<input type=text name=name id=name placeholder="이름 입력">
+            		&emsp;<input type=text name=name id=name value="${dto.name}">
             		<img id=nameCheck style="display:none;">
             		<div id=nameMsg></div>
             	</div>
@@ -105,13 +105,15 @@
             		<br>
             	</div>
             </div>
-             <div class=row>
+             <div class=row id=empContainer>
             	<div class=col-12>
             		<input type=radio name=empCheck value=unemployee class=emp><h5 style="display:inline">비실무자</h5>
             	</div>
             	<div class=col-12>
             		<br>
             		<input type=radio name=empCheck value=employee class=emp><h5 style="display:inline">실무자</h5>
+            		<input type=radio name=empCheck value=demotion class=emp style="display:none">
+            		<input type=text name=demotionMail id=demotionMail  style="display:none">
             		<hr>
             	</div>
             </div>
@@ -188,7 +190,7 @@
             <div class=row>
             	<div class=col-12>
             		<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow>닉네임</h5><p class=redP style="display:inline">*</p><br>
-            		&emsp;<input type=text name=nickName id=nickName placeholder="닉네임 입력">
+            		&emsp;<input type=text name=nickName id=nickName  value=${dto.nickName}>
             		<img id=nickCheck style="display:none;">
             		<div id=nickMsg></div>
             	</div>
@@ -217,10 +219,10 @@
             <div class=row>
             	<div class=col-12>
             		<h5><img src="/icon/arrow.svg" class=arrow>주소</h5>
-            		&emsp;<input type="text" id="postcode" name="postcode" placeholder="우편번호" readonly>
+            		&emsp;<input type="text" id="postcode" name="postcode" value="${dto.postcode}" readonly>
             		<input type="button" onclick="sample4_execDaumPostcode()" value="찾기"><br>
-            		&emsp;<input type="text" id="addr1" name=addr1 placeholder="도로명주소">
-            		<input type=text name=addr2 id=addr2 placeholder="상세주소">
+            		&emsp;<input type="text" id="addr1" name=addr1  value=${dto.addr1}>
+            		<input type=text name=addr2 id=addr2  value=${dto.addr2}>
             	</div>
             </div>  <div class=row>
             	<div class=col-12>
@@ -230,7 +232,7 @@
             <div class=row>
             	<div class=col-12>
             		<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow>연락처</h5><p class=redP style="display:inline">*</p><br>
-            		&emsp;<input type=text name=phone id=phone placeholder="연락처 입력">
+            		&emsp;<input type=text name=phone id=phone  value=${dto.phone}>
             		<img id=phoneCheck style="display:none;">
             		<div id=phoneMsg></div>
             	</div>
@@ -269,7 +271,7 @@
             </div>
             <div class=row>
             	<div class="col-12 text-center">
-            		<button type = button id=send>가입하기</button>
+            		<button type = button id=send>수정완료</button>
             	</div>
             </div>
             <div class=row>
@@ -406,86 +408,11 @@
                 
         	
         
-            //닉네임 중복검사
-           		  $("#nickName").on("focusout",function(){
-                   var regex = /^[a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ가-힣]{2,10}$/gm;
-                   var data =$("#nickName").val();
-                   var result = regex.exec(data);
-
-                    if(result == null){
-                        $("#nickMsg").html("&emsp;닉네임은 한글,영문자를 조합하여 2-10자로 입력해 주세요.");
-                    }else{
-                    	$("#nickMsg").html("");
-                    	$.ajax({
-                    		url : "${pageContext.request.contextPath}/member/nickDuplCheck",
-							type : "post",
-							data : {nickName : $("#nickName").val()},
-							dataType : "json"
-								}).done(function(data){
-									if (data.result == "true") {
-										$("#nickCheck").css("display","inline");
-										$("#nickCheck").attr("src","/icon/x.svg");
-									}else{
-										$("#nickCheck").css("display","inline");
-										$("#nickCheck").attr("src","/icon/check.svg");
-										nickTest = 1;
-									}
-								})
-                    }
-                })
-                $("#nickName").on("input",function(){
-                	$("#nickCheck").css("display","none");
-                })
+            
                 
-            //이름
-             $("#name").on("focusout",function(){
-                   var regex = /^[ㄱ-ㅎㅏ-ㅣ가-힣]{2,15}$/gm;
-                   var data =$("#name").val();
-                   var result = regex.exec(data);
-
-                    if(result == null){
-                    	$("#nameCheck").css("display","inline");
-						$("#nameCheck").attr("src","/icon/x.svg");
-                    }else{
-						$("#nameCheck").css("display","inline");
-						$("#nameCheck").attr("src","/icon/check.svg");
-						nameTest = 1;
-                    }
-                })
-                $("#nameName").on("input",function(){
-                	$("#nameCheck").css("display","none");
-                })
+            
                 
-            //휴대폰 번호 중복,유효성 검사
-            	$("#phone").on("focusout",function(){
-                   var regex = /^\d{10,11}$/gm;
-                   var data =$("#phone").val();
-                   var result = regex.exec(data);
-
-                    if(result == null){
-                        $("#phoneMsg").html("&emsp;올바른 휴대폰번호 형식이 아닙니다.");
-                    }else{
-                    	$("#phoneMsg").html("");
-                    	$.ajax({
-                    		url : "${pageContext.request.contextPath}/member/phoneDuplCheck",
-							type : "post",
-							data : {phone : $("#phone").val()},
-							dataType : "json"
-								}).done(function(data){
-									if (data.result == "true") {
-										$("#phoneCheck").css("display","inline");
-										$("#phoneCheck").attr("src","/icon/x.svg");
-									}else{
-										$("#phoneCheck").css("display","inline");
-										$("#phoneCheck").attr("src","/icon/check.svg");
-										phoneTest = 1;
-									}
-								})
-                    }
-                })
-                $("#phone").on("input",function(){
-                	$("#phoneCheck").css("display","none");
-                })
+            
                 
             //가입경로 체크
            	  $("input:radio[name=joinPath]").click(function(){
@@ -517,120 +444,129 @@
 	        	});
             
             //이메일 유효성 검사
-         	 $("input:radio[name=empCheck]").click(function(){
- 	            if($("input:radio[name=empCheck]:checked").val()=='employee'){
- 	            	$("#unempEmail").val("");
- 	            	$("#unempEmailCheck").css("display","none");
+            emailTest = 1;
  	               //실무자 체크했을때
  	            	 $("#sendMail1").on("click",function(){
  	                     var regex = /^\w+@[a-z]+(\.[a-z]+){1,2}$/gm;
  	                     var data = $("#empEmail").val();
  	                     var result = regex.exec(data);
+ 	                     var oriMail = '${dto.email}'; 
 
- 	                     if(result == null){
-							//이메일 형식 아닌경우
-							alert("올바른 이메일 형식이 아닙니다. 확인부탁드립니다.");
- 	                     }else{
- 	                    	//이메일 형식 맞는 경우
- 	                    	
- 	                    	//디비에 있는지 먼저 확인
- 	                    	$.ajax({
- 	 	 	              			url:"${pageContext.request.contextPath}/member/isEmailALready",
- 	 	 	              			type:"post",
- 	 	 	              			data:{
- 	 	 	              				email : $("#empEmail").val()
- 	 	 	              			}
- 	 	 	              		}).done(function(resp){
- 	 	 	              			if(resp == "true"){
- 	 	 	              				alert("이미 등록된 이메일입니다.");
- 	 	 	              			}else{
-	 	 	 	              			var regex = /^\w+@\w+.co.kr$/gm;
-	 	 	 	                    	var data = $("#empEmail").val();
-	 	 	 	 	                    var result = regex.exec(data);
-	 	 	 	 	                    
-	 	 	 	 	                    var regex2 = /^\w+@\w+.pe.kr$/gm;
-	 	 		 	                    var result2 = regex2.exec(data);
-	 	 		 	                    
-	 	 		 	                    if(result2 != null){
-	 	 		 	                    	alert("개인 도메인(예. pe.kr)을 상업적 목적으로 이용하실 경우 비실무자로 가입후 일대일문의를 통해 실무자 인증부탁드립니다.");
-	 	 		 	                    	return;
-	 	 		 	                    }
-	 	 		 	                    
-	 	 	 	 	                    if(result == null){
-	 	 	 	 	                    	alert("영리 단체 도메인(co.kr)이 아닙니다. 비실무자로 가입부탁드립니다.");
-	 	 	 	 	                    }else{
-	 	 	 	 	                    	emailTest2 = 1;
-	 	 	 	 	                    	$.ajax({
-	 	 	 	 	              			url:"${pageContext.request.contextPath}/member/mailSending",
-	 	 	 	 	              			type:"post",
-	 	 	 	 	              			data:{
-	 	 	 	 	              				email : $("#empEmail").val()
-	 	 	 	 	              			}
-	 	 	 	 	              		}).done(function(data){
-	 	 	 	 	              			alert("인증 메일이 전송되었습니다. 메일을 확인해주세요.");
-	 	 	 	 	              		});
-	 	 	 	 	                    }
- 	 	 	              			}
- 	 	 	              		});
- 	                    	
- 	                    	
- 	 	                    
+ 	                    if(data == oriMail){
+	                    	 alert("동일한 이메일은 재인증을 안하셔도 괜찮습니다.");
+	                    	 emailTest = 1;
+	                     }else{
+	                    	 if(result == null){
+	 							//이메일 형식 아닌경우
+	 							alert("올바른 이메일 형식이 아닙니다. 확인부탁드립니다.");
+	  	                     }else{
+	  	                    	//이메일 형식 맞는 경우
+	  	                    	
+	  	                    	//디비에 있는지 먼저 확인
+	  	                    	$.ajax({
+	  	 	 	              			url:"${pageContext.request.contextPath}/member/isEmailALready",
+	  	 	 	              			type:"post",
+	  	 	 	              			data:{
+	  	 	 	              				email : $("#empEmail").val()
+	  	 	 	              			}
+	  	 	 	              		}).done(function(resp){
+	  	 	 	              			if(resp == "true"){
+	  	 	 	              				alert("이미 등록된 이메일입니다.");
+	  	 	 	              			}else{
+	 	 	 	 	              			var regex = /^\w+@\w+.co.kr$/gm;
+	 	 	 	 	                    	var data = $("#empEmail").val();
+	 	 	 	 	 	                    var result = regex.exec(data);
+	 	 	 	 	 	                    
+	 	 	 	 	 	                    var regex2 = /^\w+@\w+.pe.kr$/gm;
+	 	 	 		 	                    var result2 = regex2.exec(data);
+	 	 	 		 	                    
+	 	 	 		 	                    if(result2 != null){
+	 	 	 		 	                    	alert("개인 도메인(예. pe.kr)을 상업적 목적으로 이용하실 경우 비실무자로 가입후 일대일문의를 통해 실무자 인증부탁드립니다.");
+	 	 	 		 	                    	return;
+	 	 	 		 	                    }
+	 	 	 		 	                    
+	 	 	 	 	 	                    if(result == null){
+	 	 	 	 	 	                    	alert("영리 단체 도메인(co.kr)이 아닙니다. 비실무자로 가입부탁드립니다.");
+	 	 	 	 	 	                    }else{
+	 	 	 	 	 	                    	emailTest2 = 1;
+	 	 	 	 	 	                    	$.ajax({
+	 	 	 	 	 	              			url:"${pageContext.request.contextPath}/member/mailSending",
+	 	 	 	 	 	              			type:"post",
+	 	 	 	 	 	              			data:{
+	 	 	 	 	 	              				email : $("#empEmail").val()
+	 	 	 	 	 	              			}
+	 	 	 	 	 	              		}).done(function(data){
+	 	 	 	 	 	              			alert("인증 메일이 전송되었습니다. 메일을 확인해주세요.");
+	 	 	 	 	 	              		});
+	 	 	 	 	 	                    }
+	  	 	 	              			}
+	  	 	 	              		});
+	                     }
+ 	                     
  	                     }
  	                 })
 
- 	            }else if($("input:radio[name=empCheck]:checked").val()=='unemployee'){
- 	            	$("#empEmail").val("");
- 	            	$("#empEmailCheck").css("display","none");
+ 	           
  	            	//비실무자 체크했을때
  	            	  $("#sendMail2").on("click",function(){
  	                     var regex = /^\w+@[a-z]+(\.[a-z]+){1,2}$/gm;
  	                     var data = $("#unempEmail").val();
  	                     var result = regex.exec(data);
-
- 	                    if(result == null){
-							//이메일 형식 아닌경우
-							alert("올바른 이메일 형식이 아닙니다. 확인부탁드립니다.");
+						 var oriMail = '${dto.email}'; 
+						 
+ 	                     if(data == oriMail){
+ 	                    	 alert("동일한 이메일은 재인증을 안하셔도 괜찮습니다.");
+ 	                    	 emailTest = 1;
  	                     }else{
- 	                    	//이메일 형식 맞는 경우
+ 	                    	if(result == null){
+ 								//이메일 형식 아닌경우
+ 								alert("올바른 이메일 형식이 아닙니다. 확인부탁드립니다.");
+ 	 	                     }else{
+ 	 	                    	//이메일 형식 맞는 경우
+ 	 	                    	
+ 	 	                    	//디비에 있는지 먼저 확인
+ 	 	                    	$.ajax({
+ 	 	 	 	              			url:"${pageContext.request.contextPath}/member/isEmailALready",
+ 	 	 	 	              			type:"post",
+ 	 	 	 	              			data:{
+ 	 	 	 	              				email : $("#unempEmail").val()
+ 	 	 	 	              			}
+ 	 	 	 	              		}).done(function(data){
+ 	 	 	 	              			if(data == "true"){
+ 	 	 	 	              				alert("이미 등록된 이메일입니다.");
+ 	 	 	 	              			}else{
+ 	 	 	 	              			var regex = /^\w+@\w+.co.kr$/gm;
+ 	 	 	 	                    	var data = $("#unempEmail").val();
+ 	 	 	 	 	                    var result = regex.exec(data);
+ 	 	 	 	 	                    if(result == null){
+ 	 	 	 	 	                    	emailTest2 = 1;
+ 	 	 	 	 	                    	$.ajax({
+ 	 	 	 	 	 	              			url:"${pageContext.request.contextPath}/member/mailSending",
+ 	 	 	 	 	 	              			type:"post",
+ 	 	 	 	 	 	              			data:{
+ 	 	 	 	 	 	              				email : $("#unempEmail").val()
+ 	 	 	 	 	 	              			}
+ 	 	 	 	 	 	              		}).done(function(data){
+ 	 	 	 	 	 	              			alert("인증 메일이 전송되었습니다. 메일을 확인해주세요.\n개인 도메인(예시. pe.kr)을 상업적 목적으로 이용하실 경우 비실무자로 가입후 일대일문의를 통해 실무자 인증부탁드립니다.");
+ 	 	 	 	 	 	              		});
+ 	 	 	 	 	                    }else{
+ 	 	 	 	 	                    	alert("영리단체 도메인(co.kr)은 실무자로 가입부탁드립니다.");
+ 	 	 	 	 	                    }
+ 	 	 	 	              			}
+ 	 	 	 	              		});	
+ 	 	                    	
+ 	                     }
  	                    	
- 	                    	//디비에 있는지 먼저 확인
- 	                    	$.ajax({
- 	 	 	              			url:"${pageContext.request.contextPath}/member/isEmailALready",
- 	 	 	              			type:"post",
- 	 	 	              			data:{
- 	 	 	              				email : $("#unempEmail").val()
- 	 	 	              			}
- 	 	 	              		}).done(function(data){
- 	 	 	              			console.log(data);
- 	 	 	              			if(data == "true"){
- 	 	 	              				alert("이미 등록된 이메일입니다.");
- 	 	 	              			}else{
- 	 	 	              			var regex = /^\w+@\w+.co.kr$/gm;
- 	 	 	                    	var data = $("#unempEmail").val();
- 	 	 	 	                    var result = regex.exec(data);
- 	 	 	 	                    if(result == null){
- 	 	 	 	                    	emailTest2 = 1;
- 	 	 	 	                    	$.ajax({
- 	 	 	 	 	              			url:"${pageContext.request.contextPath}/member/mailSending",
- 	 	 	 	 	              			type:"post",
- 	 	 	 	 	              			data:{
- 	 	 	 	 	              				email : $("#unempEmail").val()
- 	 	 	 	 	              			}
- 	 	 	 	 	              		}).done(function(data){
- 	 	 	 	 	              			alert("인증 메일이 전송되었습니다. 메일을 확인해주세요.\n개인 도메인(예시. pe.kr)을 상업적 목적으로 이용하실 경우 비실무자로 가입후 일대일문의를 통해 실무자 인증부탁드립니다.");
- 	 	 	 	 	              		});
- 	 	 	 	                    }else{
- 	 	 	 	                    	alert("영리단체 도메인(co.kr)은 실무자로 가입부탁드립니다.");
- 	 	 	 	                    }
- 	 	 	              			}
- 	 	 	              		});	
- 	                    	
- 	                    	
- 	 	                    
  	                     }
  	                 })
- 	            }
- 	        });
+ 	                 
+ 	                 //메일 내용 변경시 검사 0
+ 	                  $("#empEmail").on("input",function(){
+ 	                	  emailTest = 0;
+ 	                  })
+ 	                   $("#unempEmail").on("input",function(){
+ 	                	  emailTest = 0;
+ 	                  })
             
             //이메일 인증코드 확인 - 실무자
             $("#certification1").on("click",function(){
@@ -742,54 +678,227 @@
 				}
 				str += "<option value='N' selected='selected'>일</option>";	
 				$("#birthdayDay").html(str);
+				
+				
+				//다시 뿌려주는 정보
+				 //실무자 비실무자 체크
+				 if(${dto.memLevel==2}){//비실무자
+					 	$('input:radio[name=empCheck]:input[value=unemployee]').attr("checked", true);
+		            	$("#unempEle").css("display","block");
+			            $("#empEle").css("display","none");
+			            $("#unempEmail").val("${dto.email}");
+		            }else if(${dto.memLevel==3}){//실무자
+		            	$('input:radio[name=empCheck]:input[value=employee]').attr("checked", true);
+		            	$("#empEle").css("display","block");
+			            $("#unempEle").css("display","none");
+			            $("#empEmail").val("${dto.email}");
+		            }else{//강등
+		            	$('input:radio[name=empCheck]:input[value=demotion]').attr("checked", true);
+		            	$("#empContainer").css("display","none");
+		            }
+
+					//개인정보
+					if(${dto.ifmOpenCheck=='Y'}){
+						$("#ifmOpenCheck").attr("checked", true);
+					}
+					
+					//년도
+					var string = '${dto.birth}';
+					var date =string.split(' ')[0];
+					var eleDate = date.split('-');
+					$("#birthdayYear").val(eleDate[0]).prop("selected", true);
+					$("#birthdayMonth").val(eleDate[1]).prop("selected", true);
+					$("#birthdayDay").val(eleDate[2]).prop("selected", true);
+					
+					
+				//회원가입 유효성 검사
+				nameTest = 1;
+				//이름
+	             $("#name").on("focusout",function(){
+	                   var regex = /^[ㄱ-ㅎㅏ-ㅣ가-힣]{2,15}$/gm;
+	                   var data =$("#name").val();
+	                   var result = regex.exec(data);
+
+	                    if(result == null){
+	                    	$("#nameCheck").css("display","inline");
+							$("#nameCheck").attr("src","/icon/x.svg");
+	                    }else{
+							$("#nameCheck").css("display","inline");
+							$("#nameCheck").attr("src","/icon/check.svg");
+							nameTest = 1;
+	                    }
+	                })
+	                $("#nameName").on("input",function(){
+	                	nameTest = 0;
+	                	$("#nameCheck").css("display","none");
+	                })
+				
+	                //닉네임
+	                nickTest=1;
+	                //닉네임 중복검사
+	           		  $("#nickName").on("focusout",function(){
+	                   var regex = /^[a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ가-힣]{2,10}$/gm;
+	                   var data =$("#nickName").val();
+	                   var result = regex.exec(data);
+	                   var oriNick = '${dto.nickName}';
+	                   
+	                   if(oriNick == data){
+	                	   $("#nickCheck").css("display","inline");
+						   $("#nickCheck").attr("src","/icon/check.svg");
+						   nickTest = 1;
+	                   }else{
+	                	   if(result == null){
+		                        $("#nickMsg").html("&emsp;닉네임은 한글,영문자를 조합하여 2-10자로 입력해 주세요.");
+		                    }else{
+		                    	$("#nickMsg").html("");
+		                    	$.ajax({
+		                    		url : "${pageContext.request.contextPath}/member/nickDuplCheck",
+									type : "post",
+									data : {nickName : $("#nickName").val()},
+									dataType : "json"
+										}).done(function(data){
+											if (data.result == "true") {
+												$("#nickCheck").css("display","inline");
+												$("#nickCheck").attr("src","/icon/x.svg");
+											}else{
+												$("#nickCheck").css("display","inline");
+												$("#nickCheck").attr("src","/icon/check.svg");
+												nickTest = 1;
+											}
+										})
+		                    }
+	                   }
+	
+	                    
+	                })
+	                $("#nickName").on("input",function(){
+	                	nickTest=0;
+	                	$("#nickCheck").css("display","none");
+	                })
+	                
+	                //연락처
+	                phoneTest = 1;
+	           		//휴대폰 번호 중복,유효성 검사
+	              	$("#phone").on("focusout",function(){
+	                     var regex = /^\d{10,11}$/gm;
+	                     var data =$("#phone").val();
+	                     var result = regex.exec(data);
+	                     var oriPhone = '${dto.phone}';
+	                     
+	                     if(oriPhone == data){
+	                    	 $("#phoneCheck").css("display","inline");
+								$("#phoneCheck").attr("src","/icon/check.svg");
+								phoneTest = 1;
+	                     }else{
+	                    	 if(result == null){
+		                          $("#phoneMsg").html("&emsp;올바른 휴대폰번호 형식이 아닙니다.");
+		                      }else{
+		                      	$("#phoneMsg").html("");
+		                      	$.ajax({
+		                      		url : "${pageContext.request.contextPath}/member/phoneDuplCheck",
+		  							type : "post",
+		  							data : {phone : $("#phone").val()},
+		  							dataType : "json"
+		  								}).done(function(data){
+		  									if (data.result == "true") {
+		  										$("#phoneCheck").css("display","inline");
+		  										$("#phoneCheck").attr("src","/icon/x.svg");
+		  									}else{
+		  										$("#phoneCheck").css("display","inline");
+		  										$("#phoneCheck").attr("src","/icon/check.svg");
+		  										phoneTest = 1;
+		  									}
+		  								})
+		                      }
+	                     }
+	                  })
+	                  $("#phone").on("input",function(){
+	                	  phoneTest = 0;
+	                  	$("#phoneCheck").css("display","none");
+	                  })
+					
+					//생년 월일
+					birthYearTest = 1;
+	              	birthMonthTest = 1;
+	              	birthDayTest = 1;
+	              //생년월일 유효성 검사
+	    			$("#birthdayYear").on("change",function(){
+	    				if($("#birthdayYear").val() != "N"){
+	    					birthYearTest = 1;
+	    				}else{
+	    					birthYearTest = 0;
+	    				}
+	    			})
+	    			$("#birthdayMonth").on("change",function(){
+	    				if($("#birthdayMonth").val() != "N"){
+	    					birthMonthTest = 1;
+	    				}else{
+	    					birthMonthTest = 0;
+	    				}
+	    			})
+	    			$("#birthdayDay").on("change",function(){
+	    				if($("#birthdayDay").val() != "N"){
+	    					birthDayTest = 1;
+	    				}else{
+	    					birthDayTest = 0;
+	    				}
+	    			})
+	              	
+	                  
 			}
 
-			//생년월일 유효성 검사
-			$("#birthdayYear").on("change",function(){
-				if($("#birthdayYear").val() != "N"){
-					birthYearTest = 1;
-				}else{
-					birthYearTest = 0;
-				}
-			})
-			$("#birthdayMonth").on("change",function(){
-				if($("#birthdayMonth").val() != "N"){
-					birthMonthTest = 1;
-				}else{
-					birthMonthTest = 0;
-				}
-			})
-			$("#birthdayDay").on("change",function(){
-				if($("#birthdayDay").val() != "N"){
-					birthDayTest = 1;
-				}else{
-					birthDayTest = 0;
-				}
-			})
-
-            
+			
+			
             	
             //가입버튼 누르기전 마지막 체크
             	$("#send").on("click",function(){
-             		if((idTest*pwTest*birthYearTest*birthMonthTest*birthDayTest*nickTest*phoneTest*jpTest*genderTest*nameTest*emailTest) != 1){
-                     	alert("조건에 만족하지 않는 문항이 있습니다. 확인부탁드립니다.")
-                     }else{
-                    	var result = confirm("이대로 회원가입하시겠습니까?");
-                    	if(result){
-                    		//날짜 다시 2009-03-20 10:20:30.0
-                    		var date = $("#birthdayYear").val()+"-"+ $("#birthdayMonth").val()+"-"+ $("#birthdayDay").val()+" 00:00:00.0";
-                    		$("#birthday").val(date);
-                    		if($("#postcode").val()==""||$("#postcode").val()==null){
-                    			$("#postcode").val("");
-                    		}
-							//체크 안돼있으면 ifmOpenCheckNone으로 바꾸기
-							var ifmChk = $("#ifmOpenCheck").prop("checked");
-							if(ifmChk == false){
-								$("#ifmOpenCheckNone").prop("checked", true);
-							}
-                    		$("#frm").submit();
-                    	}
-                    }
+            		if(${dto.memLevel!=1}){
+            			if((pwTest*birthYearTest*birthMonthTest*birthDayTest*nickTest*phoneTest*jpTest*genderTest*nameTest*emailTest) != 1){
+            				console.log("pwTest*birthYearTest*birthMonthTest*birthDayTest*nickTest*phoneTest*jpTest*genderTest*nameTest");
+                			console.log(pwTest + " : " + birthYearTest + " : " + birthMonthTest + " : " + birthDayTest + " : " + nickTest + " : " + phoneTest + " : " + jpTest + " : " + genderTest + " : " + nameTest);
+            				alert("조건에 만족하지 않는 문항이 있습니다. 확인부탁드립니다.")
+                         }else{
+                        	var result = confirm("이대로 수정하시겠습니까?");
+                        	if(result){
+                        		//날짜 다시 2009-03-20 10:20:30.0
+                        		var date = $("#birthdayYear").val()+"-"+ $("#birthdayMonth").val()+"-"+ $("#birthdayDay").val()+" 00:00:00.0";
+                        		$("#birthday").val(date);
+                        		if($("#postcode").val()==""||$("#postcode").val()==null){
+                        			$("#postcode").val("");
+                        		}
+    							//체크 안돼있으면 ifmOpenCheckNone으로 바꾸기
+    							var ifmChk = $("#ifmOpenCheck").prop("checked");
+    							if(ifmChk == false){
+    								$("#ifmOpenCheckNone").prop("checked", true);
+    							}
+                        		$("#frm").submit();
+                        	}
+                        }
+            		}else{
+            			console.log("pwTest*birthYearTest*birthMonthTest*birthDayTest*nickTest*phoneTest*jpTest*genderTest*nameTest");
+            			console.log(pwTest + " : " + birthYearTest + " : " + birthMonthTest + " : " + birthDayTest + " : " + nickTest + " : " + phoneTest + " : " + jpTest + " : " + genderTest + " : " + nameTest);
+            			if((pwTest*birthYearTest*birthMonthTest*birthDayTest*nickTest*phoneTest*jpTest*genderTest*nameTest) != 1){
+                         	alert("조건에 만족하지 않는 문항이 있습니다. 확인부탁드립니다.")
+                         }else{
+                        	var result = confirm("이대로수정하시겠습니까?");
+                        	if(result){
+                        		//날짜 다시 2009-03-20 10:20:30.0
+                        		var date = $("#birthdayYear").val()+"-"+ $("#birthdayMonth").val()+"-"+ $("#birthdayDay").val()+" 00:00:00.0";
+                        		$("#birthday").val(date);
+                        		if($("#postcode").val()==""||$("#postcode").val()==null){
+                        			$("#postcode").val("");
+                        		}
+        		            	$("#demotionMail").val('${dto.email}');
+    							//체크 안돼있으면 ifmOpenCheckNone으로 바꾸기
+    							var ifmChk = $("#ifmOpenCheck").prop("checked");
+    							if(ifmChk == false){
+    								$("#ifmOpenCheckNone").prop("checked", true);
+    							}
+                        		$("#frm").submit();
+                        	}
+                        }
+            		}
+             		
             	})
             	
         </script>

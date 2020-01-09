@@ -64,14 +64,27 @@ public class MemberController {
 	
 	@RequestMapping(value = "/signUpProc")
 	public String signUpProc(MemberDTO mdto, String empCheck, String empEmail, String unempEmail 
-			,String otherJoinPath, Timestamp startDate) { //회원가입 프로세스
-		ms.signUp(mdto, empCheck, empEmail, unempEmail, otherJoinPath, startDate);
+			,String otherJoinPath, Timestamp birthday) { //회원가입 프로세스
+		ms.signUp(mdto, empCheck, empEmail, unempEmail, otherJoinPath, birthday);
 		return "redirect:signUpTemp";
+	}
+	
+	@RequestMapping(value = "/modifyProc")
+	public String signUpProc(MemberDTO mdto, String empCheck, String empEmail, String unempEmail 
+			,String otherJoinPath, Timestamp birthday, String demotionMail) { //회원가입 프로세스
+		System.out.println(mdto);
+		ms.modify(mdto, empCheck, empEmail, unempEmail, otherJoinPath, birthday, demotionMail);
+		return "redirect:modifyTemp";
 	}
 	
 	@RequestMapping("/signUpTemp")
 	public String signUpTemp() {
 		return "member/signUpTemp";
+	}
+	
+	@RequestMapping("/modifyTemp")
+	public String modifyTemp() {
+		return "member/modifyTemp";
 	}
 	
 	@RequestMapping("/duplCheck")
@@ -266,5 +279,26 @@ public class MemberController {
 	 public String withdrawalCheck(String pw, HttpSession session) {
 		 return ms.withdrawalCheck(((LoginInfoDTO)session.getAttribute("loginInfo")).getId(), pw);
 	 }
+	 
+	 @RequestMapping("/modifyCheck")
+	 public String toModifyCheckFrm() {
+		 return "member/modifyCheck";
+	 }
 	
+	 @RequestMapping("/modifyPwCheck")
+	 @ResponseBody
+		public String modifyPwCheck(String pw, HttpSession session){ 
+				int result = ms.login(((LoginInfoDTO)session.getAttribute("loginInfo")).getId(), pw);
+				if(result > 0) {
+					return "true";
+				}else {
+					return "false";
+				}
+		}
+	 
+	 @RequestMapping("/modify")
+	 public String toModifyFrm(Model m, HttpSession session) {
+		 m.addAttribute("dto",ms.selectMember(((LoginInfoDTO)session.getAttribute("loginInfo")).getId()));
+		 return "member/modify";
+	 }
 }

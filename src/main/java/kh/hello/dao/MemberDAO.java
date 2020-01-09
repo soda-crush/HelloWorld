@@ -114,4 +114,10 @@ public class MemberDAO {
 		public int withdrawal(String id) {
 			return jdbc.update("Member.withdrawal", id);
 		}
+		
+	//수정
+		public int modifyMember(MemberDTO dto) {
+			return jdbc.update("Member.modify", dto);
+		}
+		
 }

@@ -38,9 +38,9 @@
             </div>
             
             <!--      몸통 시작!!!   -->
- 			<div class=container>
+ 			<div class="container eleCon">
 				<div id="pageTitle" class="row">
-					<div class="col-12"><h1>IT News</h1>-IT 핫이슈를 공유하는 공간입니다.</div>
+					<div class="col-12"><h1><br>IT News</h1>-IT 핫이슈를 공유하는 공간입니다.</div>
 				</div>				
 				<div class="tableDiv">
 					<div class="row tableHead">					    
