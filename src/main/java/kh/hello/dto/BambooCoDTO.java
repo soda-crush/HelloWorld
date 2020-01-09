@@ -9,7 +9,11 @@ public class BambooCoDTO {
 	private String writer;
 	private String content;
 	private Timestamp writeDate;
+	private String formedWriteDate;
 	
+	public void setFormedWriteDate(String formedWriteDate) {
+		this.formedWriteDate = formedWriteDate;
+	}
 	public int getSeq() {
 		return seq;
 	}

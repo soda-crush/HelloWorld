@@ -14,6 +14,7 @@ import kh.hello.configuration.Configuration;
 import kh.hello.dto.IndustryStatusCoDTO;
 import kh.hello.dto.IndustryStatusDTO;
 import kh.hello.dto.LoginInfoDTO;
+import kh.hello.dto.ScrapDTO;
 import kh.hello.services.IndustryStatusService;
 
 @Controller
@@ -116,7 +117,8 @@ public class IndustryStatusController {
 
 	@RequestMapping("/industryStatusDeleteProc.do")
 	public String industryStatusDeleteConfirm(int seq) {
-		service.industryStatusDeleteConfirm(seq);
+		LoginInfoDTO loginInfo = (LoginInfoDTO)session.getAttribute("loginInfo");
+		service.industryStatusDeleteConfirm(seq, loginInfo.getId());
 		return "redirect:/industry/industryStatusList.do";
 	}
 
@@ -136,6 +138,8 @@ public class IndustryStatusController {
 	@ResponseBody
 	@RequestMapping(value="/comment/deleteProc.do",produces="text/html;charset=utf8")
 	public String commentDeleteConfirm(IndustryStatusCoDTO dto) {
+		LoginInfoDTO loginInfo = (LoginInfoDTO)session.getAttribute("loginInfo");
+		dto.setId(loginInfo.getId());
 		return service.commentDeleteConfirm(dto);
 	}
 
@@ -147,4 +151,13 @@ public class IndustryStatusController {
 	//		m.addAttribute("industryStatusList", service.industrySearch(value, search));
 	//		return "/industry/industryStatusList";
 	//	}
+	
+	
+	//스크랩
+	@RequestMapping("/scrap.do")
+	@ResponseBody
+	public String scrap(ScrapDTO dto, HttpSession session) {
+		dto.setId(((LoginInfoDTO)session.getAttribute("loginInfo")).getId());
+		return service.scrap(dto);
+	}
 }

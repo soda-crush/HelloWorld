@@ -12,6 +12,20 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/css/mainBase.css">
+<style>
+	.table{background-color:white;padding:0;text-align:center;}
+	.contentDiv {
+	/* 한 줄 자르기 */
+	display: block;
+	text-align: left;
+	width: 800px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	/* 여러 줄 자르기 추가 스타일 */
+	white-space: normal;
+}
+</style>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/standard/header.jsp"/>
@@ -25,7 +39,7 @@
             </div>
             
             <!--      몸통 시작!!!   -->
-            <div class=container id="bambooPage" class=eleCon>
+            <div class=container id="projectPage" style="background-color:white">
 				<div id="pageTitle">
 					<table>
 							<tr>
@@ -42,13 +56,17 @@
 				  				<h3>${bPage.title}</h3>
 				  				<input type="hidden" name="writer" value="${bPage.writer}">
 				  				<div>익명</div>
-				  				<div>${bPage.writeDate}</div>
+				  				<div>${bPage.formedWriteDate}</div>
 				  				<div>${bPage.viewCount}</div>
-				  				<div>${bPage.content}</div>
+				  				<div class="contentDiv">${bPage.content}</div>
 			</c:if>
 				 <a class="btn btn-primary" href="/bamboo/bambooList.do" role="button">돌아가기</a>
+				 <c:if test="${bPage.writer == sessionScope.loginInfo.id}">
+				 <a class="btn btn-primary" href="/bamboo/bambooModify.do?seq=${bPage.seq }" role="button">수정하기</a>
+				 <a class="btn btn-primary" href="/bamboo/bambooDeleteProc.do?seq=${bPage.seq }" role="button">삭제하기</a>
+				 </c:if>
 				 <a class="btn btn-primary" href="#" role="button">공유하기</a>
-				 <a class="btn btn-primary" href="#" role="button">스크랩</a>
+<!-- 		     <a class="sbtn btn-primary" href="#" role="button">스크랩</a> -->
 				 <a class="btn btn-primary" href="#" role="button">신고하기</a>
 
            	<div class="pPageComments">
@@ -60,8 +78,9 @@
 												
 												<div class="col-7 pt-1">
 													<div class="row commentInfo">
-														<div class="col-12 commentWriter">${c.writer }</div>
-														<div class="col-12 commentWriteDate">${c.writeDate }</div>
+													<input type="hidden" name="writer" value="${c.writer}">
+														<div class="col-12 commentWriter">익명</div>
+														<div class="col-12 commentWriteDate">${c.formedWriteDate  }</div>
 													</div>
 												</div>				
 												<div class="col-4 pt-2 text-right commentBtns">
@@ -80,7 +99,7 @@
 							</c:if>
 							</div>
 							
-							
+			<c:if test="${bPage.writer == sessionScope.loginInfo.id}">				
 							<div id="pCoInput" class="row">
 								<div class="col-9 col-lg-10"><textarea class="form-control" placeholder="댓글 내용을 입력해주세요" id="pCoContents"></textarea></div>
 								<div class="col-3 col-lg-2">
@@ -91,10 +110,6 @@
 									</div>								
 		        				</div>
 							</div>    	
-           			
-            <c:if test="${bPage.writer == sessionScope.loginInfo.id}">
-							<a class="btn btn-primary" href="/bamboo/bambooModify.do?seq=${bPage.seq }" role="button">수정하기</a>
-							<a class="btn btn-primary" href="/bamboo/bambooDeleteProc.do?seq=${bPage.seq }" role="button">삭제하기</a>
 						</c:if>		
             </div>
             <!--       몸통 끝!!!   -->
@@ -108,7 +123,7 @@
         </div>
         
         <jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
-        
+       
         <script>
         $("#coWriteBtn").on("click",function(){
 			$("#pCoContents").val($.trim($("#pCoContents").val()));
@@ -213,8 +228,9 @@
 					html.push(
 							'<div class="row commentDiv commentBox'+resp[i].seq+' p-0 pb-2 m-2"><div class="col-12 commentInnerBox"><div class="row commentHeader">',
 							'<div class="col-7 pt-1"><div class="row commentInfo">',
-							'<div class="col-12 commentWriter">'+resp[i].writer+'</div>',
-							'<div class="col-12 commentWriteDate">'+resp[i].writeDate+'</div></div></div>',
+							'<input type="hidden" name="writer" value='+resp[i].writer+'>',
+							'<div class="col-12 commentWriter">익명</div>',
+							'<div class="col-12 commentWriteDate">'+resp[i].formedWriteDate+'</div></div></div>',
 							'<div class="col-4 pt-2 text-right commentBtns">'
 							);
 					if(resp[i].writer==loginInfo){
