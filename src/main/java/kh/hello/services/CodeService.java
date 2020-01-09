@@ -3,8 +3,11 @@ package kh.hello.services;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -248,10 +251,6 @@ public class CodeService {
 		dao.modifyR(dto);
 	}
 	
-	public int replyCount(int queSeq) {
-		return dao.replyCount(queSeq);
-	}
-
 	// 댓글 CodeComments
 	public int selectRepSeq(int queSeq,String id) {
 		return dao.selectRepSeq(queSeq,id);
@@ -268,7 +267,11 @@ public class CodeService {
 		dao.writeCoPoint(dto.getId());
 		Gson gson = new Gson();
 		List<CodeCommentsDTO> result = dao.commentsList(dto.getQueSeq());
-		System.out.println("insert:"+gson.toJson(result));
+		for (CodeCommentsDTO c : result) {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+			c.setFormedWriteDate(sdf.format(c.getWriteDate()));
+		}
+		//System.out.println("insert:"+gson.toJson(result));
 		return gson.toJson(result);
 	}
 	
@@ -291,6 +294,10 @@ public class CodeService {
 		dao.updateComment(dto);
 		Gson gson = new Gson();
 		List<CodeCommentsDTO> result = dao.commentsList(dto.getQueSeq());
+		for (CodeCommentsDTO c : result) {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+			c.setFormedWriteDate(sdf.format(c.getWriteDate()));
+		}
 		return gson.toJson(result);
 		
 //		System.out.println(dto.getRepSeq());
@@ -309,6 +316,10 @@ public class CodeService {
 		dao.deleteCoPoint(dto.getId());
 		Gson gson = new Gson();
 		List<CodeCommentsDTO> result = dao.commentsList(dto.getQueSeq());
+		for (CodeCommentsDTO c : result) {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+			c.setFormedWriteDate(sdf.format(c.getWriteDate()));
+		}
 		return gson.toJson(result);
 
 	}
@@ -433,5 +444,31 @@ public class CodeService {
 				return "fail";
 			}
 		}
+	}
+	
+
+	
+//채택
+	public int replyCount(int queSeq) {
+		return dao.replyCount(queSeq);
+	}
+	
+	public int selectPoint(String id) {
+		return dao.selectPoint(id);
+	}
+	
+	@Transactional("txManager")
+	public Map<String, Integer> adopt(int adoptPoint,String writerId,String replyId){
+		int writePointStart = dao.selectPoint(writerId);
+		int resultPoint = writePointStart - adoptPoint; // 글쓴이 point 계산
+		
+		int writeReplyStart = dao.selectPoint(replyId); // 답글쓴사람 point 계산
+		int resultPoint2 = writeReplyStart+adoptPoint;
+		
+		Map<String, Integer> param = new HashMap<>();
+		param.put("resultPoint", resultPoint);
+		param.put("resultPoint2", resultPoint2);
+		
+		return param;
 	}
 }

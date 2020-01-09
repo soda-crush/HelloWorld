@@ -109,10 +109,6 @@ public class CodeDAO {
 		jdbc.update("CodeR.modifyR", dto);
 	}
 	
-	public int replyCount(int queSeq) {
-		return jdbc.selectOne("CodeR.replyCount",queSeq);
-	}
-	
 	
 	//CodeComment
 	
@@ -207,6 +203,15 @@ public class CodeDAO {
 		
 		public int scrapCode(ScrapDTO dto) {
 			return jdbc.insert("Code.scrapCode", dto);
+		}
+		
+//		채택
+		public int replyCount(int queSeq) {
+			return jdbc.selectOne("CodeR.replyCount",queSeq);
+		}
+		
+		public int selectPoint(String id) {
+			return jdbc.selectOne("CodeR.selectPoint",id);
 		}
 	
 }

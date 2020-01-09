@@ -31,10 +31,12 @@ public class CodeController {
 	//질문 CodeQuestion
 	@RequestMapping("/codeQList.do")
 	public String codeList(Model m,String page) {
-//			LoginInfoDTO dto = new LoginInfoDTO("test","닉네임");		
-//			session.setAttribute("loginInfo", dto);
-			//session.setAttribute("loginInfo", "oh");
-			//session.setAttribute("loginInfo", "jack");
+			LoginInfoDTO dto = new LoginInfoDTO("test","닉네임");		
+			//LoginInfoDTO dto = new LoginInfoDTO("test2","닉네임2");	
+			//LoginInfoDTO dto = new LoginInfoDTO("test3","닉네임3");	
+			
+			session.setAttribute("loginInfo", dto);
+
 			int currentPage = 1;
 			if(page != null) currentPage = Integer.parseInt(page);
 			int end = currentPage * Configuration.recordCountPerPage;
@@ -96,6 +98,7 @@ public class CodeController {
 			int count = sv.replyOneCount(seq, info.getId()); //queSeq
 			int repSeq = sv.selectRepSeq(seq,info.getId());
 			int repCount = sv.replyCount(seq); //답글 수 
+//			int nowPoint = sv.selectPoint(info.getId());
 			
 			m.addAttribute("qResult", qResult);
 			m.addAttribute("rResult", rResult);			
@@ -103,6 +106,7 @@ public class CodeController {
 			m.addAttribute("count", count);
 			m.addAttribute("repSeq", repSeq);
 			m.addAttribute("repCount", repCount);
+//			m.addAttribute("nowPoint", nowPoint);
 		return "/code/codeDetail";
 	}
 	
@@ -193,7 +197,6 @@ public class CodeController {
 	
 	@RequestMapping("/codeRWriteProc.do")
 	public String codeRWriteProc(CodeReplyDTO dto) {//섬머노트
-		System.out.println("도착");
 		LoginInfoDTO info = (LoginInfoDTO)session.getAttribute("loginInfo");
 		dto.setId(info.getId());
 		dto.setWriter(info.getNickName());
@@ -281,10 +284,17 @@ public class CodeController {
 	}
 	
 	//스크랩
-	@RequestMapping("/scrap")
+	@RequestMapping("/scrap.do")
 	@ResponseBody
 	public String scrap(ScrapDTO dto, HttpSession session) {
 		dto.setId(((LoginInfoDTO)session.getAttribute("loginInfo")).getId());
 		return sv.scrap(dto);
+	}
+	
+	//채택
+	@RequestMapping("/adopt.do")	
+	public String adopt(int adoptPoint,String writerId,String replyId) {
+		System.out.println("채택:"+adoptPoint + " : " + writerId + " : " + replyId);
+		return "";
 	}
 }
