@@ -17,8 +17,8 @@
        <style>
             h1{text-align: center;padding-top: 50px; padding-bottom: 50px;}
             ul{background-color: lightgray;font-size: 13px;}
-            .card{ width:200px;height:300px;margin: auto;margin-top:10px; float :left;}
-            .myprofile{float: left;height: 350px;}
+            .card{ width:200px;height:300px;margin: auto; float :left;}
+            .myprofile{float: left;height: 350px;margin-top: 20px;}
             #mycard{float:none;display:flex;align-items:center;}
             .commentwrite{width:100%; height:100px;padding: 0px;margin-top: 10px;float: left;}
             .commentlist{width:100%;padding: 0px;margin-top: 10px;float: left;}
@@ -60,8 +60,8 @@
 	                    <div class="card" id="mycard">
 	                        <img src="/img/profileSample.jpg" class="card-img-top" alt="..." style="width: 170px;height: 170px;margin:15px;"><!-- 아이디에대한 이미지값 -->
 	                        <div class="card-body">
-	                            <h3 class="card-title" style="text-align: center;">${loginInfo.nickName} 님</h3><!--  세션값 -->
-	                            <p class="card-text" style="text-align: center;">point : ${point }</p><!--  세션에 대한 포인트값 -->
+	                            <h3 class="card-title" style="text-align: center;">${ownerInfo.nickName} 님</h3><!--  세션값 -->
+	                            <p class="card-text" style="text-align: center;">point : ${ownerInfo.point }</p><!--  세션에 대한 포인트값 -->
 	                        </div>
 	                    </div>
 	                </div>

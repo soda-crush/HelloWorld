@@ -14,6 +14,7 @@ import kh.hello.dto.IndustryStatusDTO;
 import kh.hello.dto.ItnewsDTO;
 import kh.hello.dto.LoginInfoDTO;
 import kh.hello.dto.MemberDTO;
+import kh.hello.dto.OwnerInfoDTO;
 import kh.hello.dto.ProjectDTO;
 import kh.hello.services.MemberService;
 import kh.hello.services.ScrapService;
@@ -36,12 +37,12 @@ public class ScrapController {
 	
 	@RequestMapping("/toScrap.do")
 	public String toplogScrap() {
-		LoginInfoDTO info = (LoginInfoDTO)session.getAttribute("loginInfo");
-		List<IndustryStatusDTO> ilist = ss.selectIndustryStatus(info.getId());
-		List<CodeQuestionDTO> clist = ss.selectCodeQuestion(info.getId());
-		List<ProjectDTO> plist = ss.selectProject(info.getId());
-		List<ItnewsDTO> nlist = ss.selectItnews(info.getId());
-		MemberDTO mdto = ms.selectMember(info.getId());
+		OwnerInfoDTO ownerInfo = (OwnerInfoDTO)session.getAttribute("ownerInfo");
+		List<IndustryStatusDTO> ilist = ss.selectIndustryStatus(ownerInfo.getId());
+		List<CodeQuestionDTO> clist = ss.selectCodeQuestion(ownerInfo.getId());
+		List<ProjectDTO> plist = ss.selectProject(ownerInfo.getId());
+		List<ItnewsDTO> nlist = ss.selectItnews(ownerInfo.getId());
+		MemberDTO mdto = ms.selectMember(ownerInfo.getId());
 		request.setAttribute("point", mdto.getPoint());
 		request.setAttribute("ilist", ilist);
 		request.setAttribute("clist", clist);
@@ -49,6 +50,54 @@ public class ScrapController {
 		request.setAttribute("nlist", nlist);
 		return "plog/plogScrap";
 	}
+	
+	@RequestMapping("/itNews.do")
+	public String itNews() {
+		OwnerInfoDTO ownerInfo = (OwnerInfoDTO)session.getAttribute("ownerInfo");
+		List<ItnewsDTO> nlist = ss.selectItnews(ownerInfo.getId());
+		request.setAttribute("nlist", nlist);
+		return "plog/scrapItNews";
+	}
+	
+	@RequestMapping("/cohow.do")
+	public String cohow() {
+		OwnerInfoDTO ownerInfo = (OwnerInfoDTO)session.getAttribute("ownerInfo");
+		List<CodeQuestionDTO> clist = ss.selectCodeQuestion(ownerInfo.getId());
+		request.setAttribute("clist", clist);
+		return "plog/scrapCohow";
+	}
+	
+	@RequestMapping("/industryStatus.do")
+	public String industryStatus() {
+		OwnerInfoDTO ownerInfo = (OwnerInfoDTO)session.getAttribute("ownerInfo");
+		List<IndustryStatusDTO> ilist = ss.selectIndustryStatus(ownerInfo.getId());
+		request.setAttribute("ilist", ilist);
+		return "plog/scrapIndustryStatus";
+	}
+	
+	@RequestMapping("/project.do")
+	public String project() {
+		OwnerInfoDTO ownerInfo = (OwnerInfoDTO)session.getAttribute("ownerInfo");
+		List<ProjectDTO> plist = ss.selectProject(ownerInfo.getId());
+		request.setAttribute("plist", plist);
+		return "plog/scrapProject";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }

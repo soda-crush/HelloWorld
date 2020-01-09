@@ -34,41 +34,7 @@
         a:hover{text-decoration:none;}	
         .scrapnavi>div{margin:10px;height:30px;}
         .scrapnavi>div>a{color:black;}
-        .scrapnavi{background-color: lightgray;border-radius:5px;margin-top:30px;}
-		
-.table {
-	background-color: white;
-	padding: 0;
-	text-align: center;
-}
-
-.table tbody * {
-	font-weight: normal;
-}
-
-.table tbody td:nth-child(2) {
-	font-weight: bold;
-}
-
-.table tbody td:nth-child(3) {
-	text-align: left;
-	cursor: pointer;
-}
-
-.table tbody .N {
-	color: limegreen;
-}
-
-.table tbody .Y {
-	color: red;
-}
-
-.pComment {
-	margin-left: 3px;
-	font-size: 13px;
-	color: orange;
-}
-		
+        .scrapnavi{background-color: lightgray;border-radius:5px;margin-top:30px;}	
 	</style>
 </head>
 <body>
@@ -136,102 +102,6 @@
 						  		</c:otherwise>
 						  	</c:choose> 
 						</div>
-			                	
-			            <div class="coltheme"> 업계현황</div>
-			            	<div class="tableDiv">
-								<div class="row tableHead">
-								    <div class="col-2 d-none d-md-block">분야/직무</div>
-								    <div class="col-7 col-md-5">제목</div>
-								    <div class="col-2">작성자</div>
-								    <div class="col-3 col-lg-2">작성일</div>
-								    <div class="col-1 d-none d-lg-block">조회수</div>				    
-								</div>
-								
-							  	<c:choose>
-							  		<c:when test="${ilist.size()==0 }">
-							  		<div class="row"><div class="col-12">스크랩한 글이 없습니다.</div></div>
-							  		</c:when>
-							  		<c:otherwise>
-							  			<c:forEach items="${nlist}" var="dto">
-							  				<div class="row tableBody p-0">
-								   				<div class="col-2 d-none d-md-block">${i.field }/${i.duty }</div>
-								    			<div class="col-7 col-lg-5"><a href="${pageContext.request.contextPath}/itnews/detail?seq=${dto.seq}&page=${page}">${dto.title}</a></div>
-								    			<div class="col-2">${dto.writer}</div>
-								    			<div class="col-3 col-lg-2">${dto.getDate()}</div>
-								    			<div class="col-1 d-none d-lg-block">${dto.viewCount}</div>	
-											</div>
-							  			</c:forEach>
-							  		</c:otherwise>
-							  	</c:choose> 
-							</div>  	
-			         		<table class="table table-hover">
-							  <tbody>
-							  	<c:choose>
-							  		<c:when test="${ilist.size()==0 }">
-							  		<tr><td colspan="8">스크랩한 글이 없습니다.</td></tr>
-							  		</c:when>
-							  		<c:otherwise>
-							  			<c:forEach items="${ilist }" var="i">
-							  				<tr>
-							  					<td>${i.field }/${i.duty }</td>
-							  					<td><a href="/industry/industryStatusDetailView.do?seq=${i.seq }">${i.title } 
-							  						<c:if test="${i.commentCount>0 }">
-							  							<span class="pComment font-weight-bold">${i.commentCount }</span>
-							  						</c:if>
-							  						</a>
-							  					</td>
-							  					<td>익명</td>
-							  					<td>${i.formedWriteDate }</td>
-							  					<td>${i.viewCount }</td>
-							  				</tr>
-							  			</c:forEach>
-							  		</c:otherwise>
-							  	</c:choose>				    
-							  </tbody>
-							</table>
-	                		<div class="coltheme"> 코드 지식인</div>
-					        	<table class="table table-hover">
-									<thead class="thead-light">
-										<tr>
-											<th scope="col">구분</th>
-											<th scope="col">게시판제목</th>
-											<th scope="col">작성자</th>
-											<th scope="col">날짜</th>
-											<th scope="col">조회수</th>
-										</tr>
-									</thead>
-									<tbody>
-										<c:choose>
-											<c:when test="${clist.size()==0 }">
-												<tr>
-													<td colspan="8">스크랩한 글이 없습니다.</td>
-												</tr>
-											</c:when>
-											<c:otherwise>
-												<c:forEach items="${clist}" var="dto">
-													<tr>
-														<td><span class="badge badge-pill badge-success"
-															style="margin: 10; width: 60px;">${dto.division}</span></td>
-														<td style="cursor:hand" onClick="location.href='${pageContext.request.contextPath}/code/codeDetail.do?seq=${dto.seq}'">
-															${dto.title}
-															<c:if test="${dto.replyCount>0 }">
-									  							<span class="pComment font-weight-bold">${dto.replyCount}</span>
-									  						</c:if>	
-															<span class="badge badge-pill badge-danger">N</span></td>
-														<td>${dto.writer}  
-														 <span class="badge badge-pill badge-info">실무자</span></td>
-														</td>
-														<td>${dto.formedDate}</td>
-														<td>${dto.viewCount}</td>
-													</tr>
-												</c:forEach>
-											</c:otherwise>
-										</c:choose>
-									</tbody>
-								</table>
-	                		
-	                		<div class="coltheme"> 프로젝트</div>
-	                	
 	                </div>
 	          	</div>
             </div>

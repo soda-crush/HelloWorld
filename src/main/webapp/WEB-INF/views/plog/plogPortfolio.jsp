@@ -56,8 +56,8 @@
 	                    <div class="card" id="mycard">
 	                        <img src="/img/profileSample.jpg" class="card-img-top" alt="..." style="width: 170px;height: 170px;margin:15px;">
 	                        <div class="card-body">
-	                            <h3 class="card-title" style="text-align: center;">${loginInfo.nickName} 님</h3>
-	                            <p class="card-text" style="text-align: center;font-size:18px;">point : ${point }</p>
+	                            <h3 class="card-title" style="text-align: center;">${ownerInfo.nickName} 님</h3>
+	                            <p class="card-text" style="text-align: center;font-size:18px;">point : ${ownerInfo.point }</p>
 	                        </div>
 	                    </div>
 						<div style = "text-align: end;margin-top: 10px;">
