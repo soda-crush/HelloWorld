@@ -27,6 +27,9 @@
 		.sendbt{height:90%;float: left;}
 		#writer{text-underline-position: auto;margin-right: 30px;}
 		.coltheme{margin:30px;}
+		.navi{text-align: center;}
+		.nvlink{height:45px;line-height:45px;}
+        a:hover{text-decoration:none;}
 	</style>
 </head>
 <body>
@@ -41,22 +44,13 @@
             </div>
             <div class="container">
 				<h1> Programming-Log</h1>
-	            <nav class="navbar navbar-expand-md navbar-light" style="background-color: #008EDC;">
-		         	<a class="navbar-brand" href="#"></a>
-		  			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-		   				 <span class="navbar-toggler-icon"></span>
-		  			</button>
-		            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-		
-		                <div class="navbar-nav box text-center plogNavi" id="naviCon">
-		                    <a class="nav-item nav-link active text-light text-primary" href="${pageContext.request.contextPath}/Portfolio/toPlogmain.do">내 포트폴리오</a>
-		                    <a class="nav-item nav-link active text-light text-primary" href="${pageContext.request.contextPath}/Plog/toPlogCohow.do">내 지식인</a>
-		                    <a class="nav-item nav-link active text-light text-primary" href="${pageContext.request.contextPath}/Scrap/toScrap.do">내 스크랩</a>
-		                    <a class="nav-item nav-link active text-light text-primary" href="${pageContext.request.contextPath}/Plog/toPlogProject.do">내 프로젝트</a>
-		                    <a class="nav-item nav-link active text-light text-primary" href="${pageContext.request.contextPath}/GuestBook/selectList.do">방명록</a>
-		                </div>
-		            </div>
-		        </nav>
+	            <div class="row navi" style="background-color: #008EDC;">
+					<div class="col nvlink"><a class="text-light" href="${pageContext.request.contextPath}/Portfolio/toPlogmain.do">내 포트폴리오</a></div>
+					<div class="col nvlink"><a class="text-light" href="${pageContext.request.contextPath}/Plog/toPlogCohow.do">내 지식인</a></div>
+					<div class="col nvlink"><a class="text-light" href="${pageContext.request.contextPath}/Scrap/toScrap.do">내 스크랩</a></div>
+					<div class="col nvlink"><a class="text-light" href="${pageContext.request.contextPath}/Plog/toPlogProject.do">내 프로젝트</a></div>
+					<div class="col nvlink"><a class="text-light" href="${pageContext.request.contextPath}/GuestBook/selectList.do">방명록</a></div>
+				</div>
 	            <div class="row">
 	                <div class="col-12 col-md-4 col-lg-3 myprofile">
 	                    <div class="card" id="mycard">
