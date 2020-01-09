@@ -158,6 +158,9 @@
 		                    <div class="col-12">
                         <div class="card">
                             <div class="card-body">
+                                <div class="col-12">
+                                	<h4 class="header-title">새 게시글/삭제된 게시글 수</h4>
+                                </div>                                 
                                 <div id="ambarchart3"></div>
                             </div>
                         </div>
@@ -167,6 +170,9 @@
 		                    <div class="col-12 coin-distribution">
 		                        <div class="card">
 		                            <div class="card-body">
+		                                <div class="col-12">
+		                                	<h4 class="header-title">새 댓글/삭제된 댓글 수</h4>
+		                                </div>     		                            
 		                                <div id="ambarchart6"></div>
 		                            </div>
 		                        </div>
@@ -183,6 +189,9 @@
 							<div class="col-12">
 		                        <div class="card">
 		                            <div class="card-body">
+		                                <div class="col-12">
+		                                	<h4 class="header-title">가입 경로 순위</h4>
+		                                </div>		                            
 		                                <div id="ambarchart4"></div>
 		                            </div>
 		                        </div>
@@ -192,6 +201,9 @@
 		                    <div class="col-12">
                         <div class="card">
                             <div class="card-body">
+                                <div class="col-12">
+                                	<h4 class="header-title">재직자/비재직자 비율</h4>
+                                </div>
                                 <div id="ampiechart2"></div>
                             </div>
                         </div>
@@ -201,7 +213,10 @@
 		                    <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <div id="ampiechart3"></div>
+                                <div class="col-12">
+                                	<h4 class="header-title">회원 나이대</h4>
+                                </div>                            
+                                <div id="ambarchart5"></div>
                             </div>
                         </div>
 		                    </div>                        
@@ -252,6 +267,7 @@
     <script src="${pageContext.request.contextPath }/adRsc/js/plugins.js"></script>
     <script src="${pageContext.request.contextPath }/adRsc/js/scripts.js"></script>
     <script src="${pageContext.request.contextPath }/adRsc/js/bar-chart.js"></script>
+    
 <!-- Chart code -->
 <script>
 am4core.ready(function() {
@@ -289,10 +305,6 @@ chart.data = [{
     "name": "Rachel",
     "steps": 15465,
     "href": "https://www.amcharts.com/wp-content/uploads/2019/04/rachel.jpg"
-}, {
-    "name": "Chandler",
-    "steps": 11561,
-    "href": "https://www.amcharts.com/wp-content/uploads/2019/04/chandler.jpg"
 }];
 
 var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
@@ -385,68 +397,8 @@ chart.cursor.events.on("cursorpositionchanged", function (event) {
 
 }); // end am4core.ready()
 
-/*--------------  bar chart 11 amchart start ------------*/
 
-if ($('#ambarchart4').length > 0) {
-	var count0 = Number("${joinPath[0].pathCount}");
-	var count1 = Number("${joinPath[1].pathCount}");
-	var count2 = Number("${joinPath[2].pathCount}");
-	var count3 = Number("${joinPath[3].pathCount}");
-	
-	
-    var chart = AmCharts.makeChart("ambarchart4", {
-        "type": "serial",
-        "theme": "light",
-        "marginRight": 0,
-        "dataProvider": [{
-            "joinPath": "${joinPath[0].joinPath}",
-            "visits": count0,
-            "color": "#8918FE"
-        }, {
-            "joinPath": "${joinPath[1].joinPath}",
-            "visits": count1,
-            "color": "#7474F0"
-        }, {
-            "joinPath": "${joinPath[2].joinPath}",
-            "visits": count2,
-            "color": "#C5C5FD"
-        }, {
-            "joinPath": "${joinPath[3].joinPath}",
-            "visits": count3,
-            "color": "#FD9C21"
-        }],
-        "valueAxes": [{
-            "axisAlpha": 0,
-            "position": "left",
-            "title": false
-        }],
-        "startDuration": 1,
-        "graphs": [{
-            "balloonText": "<b>[[category]]: [[value]]</b>",
-            "fillColorsField": "color",
-            "fillAlphas": 0.9,
-            "lineAlpha": 0.2,
-            "type": "column",
-            "valueField": "visits"
-        }],
-        "chartCursor": {
-            "categoryBalloonEnabled": false,
-            "cursorAlpha": 0,
-            "zoomable": false
-        },
-        "categoryField": "joinPath",
-        "categoryAxis": {
-            "gridPosition": "start",
-            "labelRotation": 45
-        },
-        "export": {
-            "enabled": false
-        }
 
-    });
-}
-/*--------------  bar chart 11 amchart END ------------*/
-console.log("${joinPath[0].pathCount}");
 </script>
 </body>
 </html>

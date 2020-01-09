@@ -14,4 +14,12 @@
 	<select id="getJoinPath" resultType="kh.hello.dto.ChartJoinPathDTO">
 		select joinPath, count(joinPath) pathCount from member group by joinPath
 	</select>
+	<select id="getWorkRatio" resultType="kh.hello.dto.ChartWorkDTO">
+		select memLevel, count(memLevel) levelCount from member group by memLevel order by memLevel
+	</select>
+	<select id="getGenerationRatio" resultType="kh.hello.dto.ChartGenerationDTO">
+		select (substr((to_char(sysdate, 'YYYY') - to_char(birth, 'YYYY') + 1),1,1))||'0대' generation, 
+		count(substr((to_char(sysdate, 'YYYY') - to_char(birth, 'YYYY') + 1),1,1)) gCount 
+		from member group by substr((to_char(sysdate, 'YYYY') - to_char(birth, 'YYYY') + 1),1,1) order by 1
+	</select>
 </mapper>

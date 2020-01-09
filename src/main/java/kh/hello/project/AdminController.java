@@ -16,8 +16,10 @@ import com.google.gson.JsonObject;
 
 import kh.hello.configuration.Configuration;
 import kh.hello.dto.ChartGenderDTO;
+import kh.hello.dto.ChartGenerationDTO;
 import kh.hello.dto.ChartJoinPathDTO;
 import kh.hello.dto.ChartVisitChangeDTO;
+import kh.hello.dto.ChartWorkDTO;
 import kh.hello.dto.ForcedOutMemberDTO;
 import kh.hello.dto.InquiryDTO;
 import kh.hello.dto.InquiryReplyDTO;
@@ -81,6 +83,14 @@ public class AdminController {
 		//4-1. 가입경로
 		List<ChartJoinPathDTO> joinPath = as.getJoinPath();
 		m.addAttribute("joinPath", joinPath);
+		
+		//4-2. 재직자/비재직자 비율
+		List<ChartWorkDTO> workRatio = as.getWorkRatio();
+		m.addAttribute("workRatio", workRatio);
+		
+		//4-3. 나이 비율
+		List<ChartGenerationDTO> generationRatio = as.getGenerationRatio();
+		m.addAttribute("generationRatio", generationRatio);
 		
 		return "admin/main";
 	}

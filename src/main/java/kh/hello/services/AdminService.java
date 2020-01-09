@@ -14,8 +14,10 @@ import kh.hello.dao.AdminDAO;
 import kh.hello.dao.ChartDAO;
 import kh.hello.dao.CountDAO;
 import kh.hello.dto.ChartGenderDTO;
+import kh.hello.dto.ChartGenerationDTO;
 import kh.hello.dto.ChartJoinPathDTO;
 import kh.hello.dto.ChartVisitChangeDTO;
+import kh.hello.dto.ChartWorkDTO;
 import kh.hello.dto.ForcedOutMemberDTO;
 import kh.hello.dto.InquiryDTO;
 import kh.hello.dto.InquiryReplyDTO;
@@ -393,6 +395,14 @@ public class AdminService {
 	
 	public List<ChartJoinPathDTO> getJoinPath(){
 		return cdao.getJoinPath();
+	}
+	
+	public List<ChartWorkDTO> getWorkRatio(){
+		return cdao.getWorkRatio();
+	}
+	
+	public List<ChartGenerationDTO> getGenerationRatio(){
+		return cdao.getGenerationRatio();
 	}
 }
 
