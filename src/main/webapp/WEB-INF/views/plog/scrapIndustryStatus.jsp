@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+	<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
 <!DOCTYPE html>
@@ -89,7 +89,7 @@
 							
 						  	<c:choose>
 						  		<c:when test="${ilist.size()==0 }">
-						  		<div class="row"><div class="col-12">스크랩한 글이 없습니다.</div></div>
+						  		<div class="row text-center tableBodyNull"><div class="col-12">스크랩한 글이 없습니다.</div></div>
 						  		</c:when>
 						  		<c:otherwise>
 						  			<c:forEach items="${ilist}" var="dto">

@@ -92,6 +92,10 @@ public class CodeQuestionDTO {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
 		return sdf.format(writeDate);
 	}
+	public String getscrapDate() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+		return sdf.format(writeDate);
+	}
 	public int getReplyCount() {
 		return replyCount;
 	}
