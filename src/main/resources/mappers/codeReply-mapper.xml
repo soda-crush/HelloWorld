@@ -43,9 +43,13 @@
 	</update>
 	
 <!-- 채택 -->
-	<select id="replyCount" parameterType="java.util.Map" resultType="integer">
+	<select id="replyCount" parameterType="integer" resultType="integer">
 		select count(*) from codeReply where queSeq = #{value} 
 	</select>
+	<select id="selectPoint" parameterType="String" resultType="integer">
+		select point from member where id = #{value} 
+	</select>
+	
 	
 	<!-- 	이미지 업로드 -->
 	<select id="getCodeRSeq" resultType="integer">

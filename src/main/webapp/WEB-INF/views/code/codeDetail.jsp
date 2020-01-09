@@ -14,7 +14,6 @@
 	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="/css/projectBase.css" type="text/css" />
 <link rel="stylesheet" href="/css/mainBase.css">
 <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.css" type="text/css" />
 
@@ -173,8 +172,9 @@ span:nth-child(4) {
 	
 			<!-- 답글 시작-->
 		
-				<div class="topQ">
+				
 					<c:forEach items="${rResult}" var="r">
+					<div class="topQ">
 					<hr>
 					<hr>
 <%-- 						<input type="hidden" id="seqSelect" data-repNum="${r.seq}">  --%>
@@ -189,8 +189,16 @@ span:nth-child(4) {
 <%-- 								</c:forEach> --%>
 <%-- 							</c:if> --%>
 						<div>${r.formedDate}</div>
+<!-- 채택 -->
+						<c:if test="${repCount >0 && qResult.id == sessionScope.loginInfo.id}"> 
+								<div style="text-align:right;">
+										<button type="button" class="btn btn-primary" id="adopt" onclick="adopt('${r.id}')">채택하기</button>
+<%-- 										<a class="btn btn-info adopt" href="#" onclick="adopt('${r.id}');return false;" role="button">채택하기</a> --%>
+								</div>
+						</c:if>
+						<br>
 						<c:choose>
-							<c:when test="${r.writer == sessionScope.loginInfo.nickName}">
+							<c:when test="${r.id == sessionScope.loginInfo.id}">
 								<div style="text-align:right;">
 									<button class="btn btn-dark" id="modifyR" onclick="modifyRe(${r.seq},${r.queSeq})">수정</button>
 									<button class="btn btn-danger" id="deleteR" onclick="deleteRe(${r.seq},${r.queSeq})">삭제</button>
@@ -203,9 +211,9 @@ span:nth-child(4) {
 							</c:otherwise>
 						</c:choose>	
 						<br>
-						<div style="text-align:right;"><button class="btn btn-dark" id="commentBtn">댓글</button></div>	
+							<div style="text-align:right;"><button class="btn btn-dark" id="commentBtn" class="seq${r.seq}">댓글</button></div>	
+						</div>
 					</c:forEach>
-				</div>
 <!-- 댓글리스트 -->
 <!-- 					<div id="commentList"></div> -->
 <!-- 					<div class="contentDivBot"> -->
@@ -255,7 +263,7 @@ span:nth-child(4) {
 												</div>				
 												<div class="col-4 pt-2 text-right commentBtns">
 <!-- 													<button type="button" class="btn btn-warning coReplyBtn">답글</button> -->
-													<c:if test="${c.writer==sessionScope.loginInfo.nickName }">
+													<c:if test="${c.id==sessionScope.loginInfo.id }">
 														<a class="btn btn-info coModBtn" href="#" onclick="coModFunction(${c.seq},'${c.content}',${c.queSeq });return false;" role="button">수정</a>
 														<a class="btn btn-danger coDelBtn" href="#" onclick="coDelFunction(${c.seq});return false;" role="button">삭제</a>
 													</c:if>
@@ -326,11 +334,11 @@ span:nth-child(4) {
 		if(result){
 			//이미 했는지 검사
 			$.ajax({
-				url:"${pageContext.request.contextPath}/code/scrap",
+				url:"${pageContext.request.contextPath}/code/scrap.do",
 				type:"post",
 				data:{
 					category : "codeQuestion",
-					categorySeq : ${qResult.seq}
+					categorySeq : "${qResult.seq}"
 				}
 			}).done(function(resp){
 				if(resp == "success"){//스크랩 성공
@@ -343,6 +351,13 @@ span:nth-child(4) {
 			});
 		}
 	})
+	
+		function adopt(replyId){
+		var cf = confirm("채택하시겠습니까?");
+			if(cf){
+				location.href="${pageContext.request.contextPath}/code/adopt.do?adoptPoint="+${qResult.point}+"&writerId="+${qResult.id}+"&replyId="+replyId;
+			}	
+		}	
 	
 		$("#modify").on("click",function(){
 			location.href="${pageContext.request.contextPath}/code/modify.do?seq=${qResult.seq}";
@@ -511,7 +526,7 @@ span:nth-child(4) {
 //                         '<div class="col-1 profileBox pl-1 pt-2"></div>',
                         '<div class="col-7 pt-1"><div class="row commentInfo">',
                         '<div class="col-12 commentWriter">'+resp[i].writer+'</div>',
-                        '<div class="col-12 commentWriteDate">'+resp[i].writeDate+'</div></div></div>',
+                        '<div class="col-12 commentWriteDate">'+resp[i].formedWriteDate+'</div></div></div>',
                         '<div class="col-4 pt-2 text-right commentBtns">'
 //                         '<button type="button" class="btn btn-warning coReplyBtn">답글</button>\n'
                         );
