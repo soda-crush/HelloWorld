@@ -91,7 +91,7 @@
 		                <div class="col-3">
                        		<input type="file" id="fileUpload1" name="fileUpload1">
 		                	<img id="fileImg1"src="/files/noImage.png" style="height: 100%;width:100%;max-height: 180px;">
-		                	<input type="hidden" name ="image1" id="file1">
+		                	<input type="hidden" name ="image1" id="file1" value="/files/noImage.png">
 		                </div>
 		                <div class="col-9">
 		                    <div class="row">
