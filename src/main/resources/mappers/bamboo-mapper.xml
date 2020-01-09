@@ -42,7 +42,7 @@
 		 select count(seq) from bamboo
 		 <choose>
 		 <when test="value == 'all'">								
-			 where (title like '%${search}%')
+			 where (title like '%${search}%') or (content like '%${search}%')
 		</when>
 		<when test="value == 'writer'">								
 			 where (writer like '%${search}%')
@@ -57,12 +57,8 @@
 		select * 
 		<choose>
 		 <when test="value == 'all'">								
-			 from (select bamboo.*, row_number() over (order by seq desc) as rown from bamboo where (title like '%${search}%')) where rown between #{start} and #{end}
+			 from (select bamboo.*, row_number() over (order by seq desc) as rown from bamboo where (title like '%${search}%') or (content like '%${search}%')) where rown between #{start} and #{end}
 			 
-		</when>
-		<when test="value == 'writer'">
-			 from (select bamboo.*, row_number() over (order by seq desc) as rown from bamboo where (writer like '%${search}%')) where rown between #{start} and #{end}
-										
 		</when>
 		<when test="value == 'title'">								
 			 from (select bamboo.*, row_number() over (order by seq desc) as rown from bamboo where (title like '%${search}%')) where rown between #{start} and #{end}
@@ -77,4 +73,13 @@
 	<insert id="insertImg" parameterType="java.util.Map">
 		insert into bambooImgs values(bambooImgsSeq.nextVal, #{bamSeq}, #{fileName})
 	</insert>
+	
+<!-- 	포인트 점수 -->
+	<update id="writePoint" parameterType="String">
+		update member set point=point+10 where id=#{writer}
+	</update>
+	
+	<update id="deleteWritePoint" parameterType="String">
+		update member set point=point-15 where id=#{writer}
+	</update>
 </mapper>

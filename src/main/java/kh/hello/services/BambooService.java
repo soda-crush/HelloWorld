@@ -3,6 +3,7 @@ package kh.hello.services;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -14,14 +15,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Base64Utils;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 
 import kh.hello.configuration.Configuration;
 import kh.hello.dao.BambooDAO;
 import kh.hello.dto.BambooCoDTO;
 import kh.hello.dto.BambooDTO;
-import kh.hello.dto.ProjectCoDTO;
 
 @Service
 public class BambooService {
@@ -30,13 +28,11 @@ public class BambooService {
 
 	//대나무숲 게시판 글
 
-
 	@Transactional("txManager")
 	public BambooDTO bambooDetailView(int seq) {
 		dao.updateBambooViewCount(seq);
 		return dao.getBambooDetailView(seq);
 	}
-
 
 	public int bambooModifyConfirm(BambooDTO dto, String path)throws Exception {
 
@@ -52,11 +48,11 @@ public class BambooService {
 	}
 
 	@Transactional("txManager")
-	public int bambooDeleteConfirm(int seq) {
+	public int bambooDeleteConfirm(int seq,String writer) {
 		dao.deleteBambooAllCo(seq);
+		dao.deleteWritePoint(writer);
 		return dao.deleteBamboo(seq);
 	}
-
 
 	//대나무숲 페이지네비
 
@@ -118,10 +114,15 @@ public class BambooService {
 	}
 
 	@Transactional("txManager")
-	public String commentWriteConfirm(BambooCoDTO dto) {
+	public String commentWriteConfirm(BambooCoDTO dto, String writer) {
 		dao.insertBambooCo(dto);
+		dao.writePoint(writer);
 		Gson gson = new Gson();
 		List<BambooCoDTO> result = dao.getCoList(dto.getBamSeq());
+		for(BambooCoDTO b : result) {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+			b.setFormedWriteDate(sdf.format(b.getWriteDate()));
+		}
 		return gson.toJson(result);
 	}
 
@@ -130,13 +131,22 @@ public class BambooService {
 		dao.updateBambooCo(dto);
 		Gson gson = new Gson();
 		List<BambooCoDTO> result = dao.getCoList(dto.getBamSeq());	
+		for(BambooCoDTO b : result) {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+			b.setFormedWriteDate(sdf.format(b.getWriteDate()));
+		}
 		return gson.toJson(result);
 	}
 
-	public String commentDeleteConfirm(BambooCoDTO dto) {
+	public String commentDeleteConfirm(BambooCoDTO dto, String writer) {
 		dao.deleteBambooCo(dto.getSeq());
+		dao.deleteWritePoint(writer);
 		Gson gson = new Gson();
 		List<BambooCoDTO> result = dao.getCoList(dto.getBamSeq());	
+		for(BambooCoDTO b : result) {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+			b.setFormedWriteDate(sdf.format(b.getWriteDate()));
+		}
 		return gson.toJson(result);
 	}
 
@@ -240,8 +250,8 @@ public class BambooService {
 		dto.setSeq(bamSeq);
 		//2. 이미지 저장하고 주소 변환
 		String content = imgUpload(path, bamSeq, dto.getContent());
-		System.out.println(content);
 		dto.setContent(content);
+		dao.writePoint(dto.getWriter());
 		//3. 글 업로드
 		return dao.insertBamboo(dto);
 	}

@@ -75,4 +75,26 @@
 	<insert id="insertImg" parameterType="java.util.Map">
 		insert into industryImgs values(industryImgsSeq.nextVal, #{indSeq}, #{fileName})
 	</insert>
+	
+	<!-- 	포인트 점수 -->
+	<update id="writePoint" parameterType="String">
+		update member set point=point+10 where id=#{id}
+	</update>
+	
+	<update id="deleteWritePoint" parameterType="String">
+		update member set point=point-15 where id=#{id}
+	</update>
+	
+	<!-- 	스크랩 -->
+	<select id="scrapDupCheck" parameterType="kh.hello.dto.ScrapDTO" resultType="integer">
+		select count(*) from scrap where id=#{id} and category=#{category} and categorySeq=#{categorySeq}
+	</select>
+	
+	<select id="earlierSeq" resultType="integer">
+		select scrapSeq.nextval from dual
+	</select>
+	
+	<insert id="scrapCode">
+		insert into scrap values(#{seq}, #{id}, #{category}, #{categorySeq})
+	</insert>
 </mapper>

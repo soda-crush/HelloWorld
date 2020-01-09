@@ -15,14 +15,14 @@ import kh.hello.dto.BambooDTO;
 public class BambooDAO {
 	@Autowired
 	private SqlSessionTemplate jdbc;
-	
+
 	//대나무숲 글
-	
-	
+
+
 	public BambooDTO getBambooDetailView(int seq) {//대나무숲 상세보기
 		return jdbc.selectOne("Bamboo.getBambooDetailView", seq);
 	}
-	
+
 	public int insertBamboo(BambooDTO dto) {//대나무숲 글작성
 		return jdbc.insert("Bamboo.insertBamboo", dto);
 	}	
@@ -35,8 +35,8 @@ public class BambooDAO {
 	public int deleteBamboo(int seq) {//대나무숲 글삭제
 		return jdbc.delete("Bamboo.deleteBamboo", seq);
 	}
-	
-	
+
+
 	public int recordBambooListTotalCount () {//대나무숲 전체리스트 수
 		return jdbc.selectOne("Bamboo.recordBambooListTotalCount");
 	}
@@ -46,9 +46,9 @@ public class BambooDAO {
 		param.put("end", end);
 		return jdbc.selectList("Bamboo.bambooListByPage",param);
 	}
-	
+
 	//대나무숲 댓글
-	
+
 	public List<BambooCoDTO> getCoList(int bamSeq){//대나무숲 댓글리스트
 		return jdbc.selectList("BambooCo.getList", bamSeq);
 	}
@@ -68,7 +68,7 @@ public class BambooDAO {
 	public int deleteBambooAllCo(int bamSeq) {//대나무숲 댓글 삭제(글에 달린 모든댓글)
 		return jdbc.delete("BambooCo.deleteBambooAllCo", bamSeq);
 	}
-	
+
 	//조건별 게시판목록 검색
 	public int bambooSearchTotalCount(String value,String search) {
 		Map<String, String> param = new HashMap<>();
@@ -84,7 +84,7 @@ public class BambooDAO {
 		param.put("search", search);
 		return jdbc.selectList("Bamboo.bambooSearchByPage",param);
 	}
-	
+
 	//이미지업로드
 	public int getBambooSeq() {
 		return jdbc.selectOne("Bamboo.getBambooSeq");
@@ -94,5 +94,13 @@ public class BambooDAO {
 		param.put("bamSeq", bamSeq);
 		param.put("fileName", fileName);
 		return jdbc.insert("Bamboo.insertImg", param);
+	}
+
+	//포인트
+	public void writePoint(String writer) {
+		jdbc.update("Bamboo.writePoint", writer);
+	}
+	public void deleteWritePoint(String writer) {
+		jdbc.update("Bamboo.deleteWritePoint", writer);
 	}
 }
