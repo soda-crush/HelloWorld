@@ -329,7 +329,7 @@ span:nth-child(4) {
 				url:"${pageContext.request.contextPath}/code/scrap",
 				type:"post",
 				data:{
-					category : "code",
+					category : "codeQuestion",
 					categorySeq : ${qResult.seq}
 				}
 			}).done(function(resp){
@@ -342,7 +342,7 @@ span:nth-child(4) {
 				}
 			});
 		}
-		})
+	})
 	
 		$("#modify").on("click",function(){
 			location.href="${pageContext.request.contextPath}/code/modify.do?seq=${qResult.seq}";

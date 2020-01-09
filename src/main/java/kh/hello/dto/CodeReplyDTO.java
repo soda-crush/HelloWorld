@@ -11,13 +11,14 @@ public class CodeReplyDTO {
 	private String id;
 	private String writer;
 	private Timestamp writeDate;
+	private String adopt;
 	
 	public CodeReplyDTO() {
 		super();
 	}
-	
+
 	public CodeReplyDTO(int seq, int queSeq, String title, String content, String id, String writer,
-			Timestamp writeDate) {
+			Timestamp writeDate, String adopt) {
 		super();
 		this.seq = seq;
 		this.queSeq = queSeq;
@@ -26,9 +27,9 @@ public class CodeReplyDTO {
 		this.id = id;
 		this.writer = writer;
 		this.writeDate = writeDate;
+		this.adopt = adopt;
 	}
-
-
+	
 	public int getSeq() {
 		return seq;
 	}
@@ -71,8 +72,15 @@ public class CodeReplyDTO {
 	public void setWriteDate(Timestamp writeDate) {
 		this.writeDate = writeDate;
 	}
+	public String getAdopt() {
+		return adopt;
+	}
+	public void setAdopt(String adopt) {
+		this.adopt = adopt;
+	}
 	public String getFormedDate() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
 		return sdf.format(writeDate);
 	}
+	
 }
