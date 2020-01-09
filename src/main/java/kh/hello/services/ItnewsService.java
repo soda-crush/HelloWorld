@@ -39,6 +39,10 @@ public class ItnewsService {
 		return dao.selectByPage(start, end);
 	}
 	
+	public List<ItnewsDTO> itnewsListTrimSrch(int start, int end, String cate, String search){
+		return dao.selectByPage(start, end, cate, search);
+	}
+	
 	public String getPageNavi(int cpage){
 		int recordTotalCount = dao.getItnewsTotal();
 		int pageTotalCount = 0;

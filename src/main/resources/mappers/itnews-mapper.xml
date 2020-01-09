@@ -80,4 +80,9 @@
 		insert into itnewsImg values (itnewsImgSeq.nextVal, #{itSeq}, #{oriName}, #{sysName})
 	</insert>
 	
+	<select id="selectByPageSrch" resultType="kh.hello.dto.ItnewsDTO" parameterType="java.util.Map">
+		select * from (select itnews.*, row_number() over(order by seq desc) 
+		rown from itnews) where rown between ${start} and ${end}
+	</select>
+	
 </mapper> 
