@@ -12,8 +12,8 @@
 	<select id="getArticleCount" resultType="integer">
 		select count(*) from project
 	</select>
-	<select id="getListByPage" resultType="kh.hello.dto.ProjectDTO">
-		select * from (select project.*,(select count(*) from projectComment where projectSeq=project.seq) as commentCount, row_number() over (order by seq desc) as num from project) where num between #{start} and #{end}
+	<select id="getListByPage" resultType="kh.hello.dto.ProjectDTO" parameterType="java.util.Map">
+		select * from (select project.*,(select count(*) from projectComment where projectSeq=project.seq and contents is not null) as commentCount, row_number() over (order by seq desc) as num from project) where num between #{start} and #{end}
 	</select>
 	
 	
@@ -67,4 +67,23 @@
 	<delete id="unScrap" parameterType="java.util.Map">
 		delete from scrap where id=#{id} and category='project' and categorySeq=#{categorySeq}
 	</delete>
+	
+	
+	<select id="getMakeArticleCount" resultType="integer">
+		select count(*) from project where id=#{value}
+	</select>
+	
+	<select id="getPLogMakeListByPage" parameterType="java.util.Map" resultType="kh.hello.dto.ProjectDTO">
+		select * from (select project.*,(select count(*) from projectComment where projectSeq=project.seq and contents is not null) as commentCount, row_number() over (order by seq desc) as num from project) where id=#{id} and num between #{start} and #{end}
+	</select>
+	
+	
+<!-- 	페이징완료되면 삭제. -->
+	<select id="getPLogMakeList" resultType="kh.hello.dto.ProjectDTO">
+<!-- 		select * from project where id=#{value} order by seq desc -->
+<!-- 		select * from (select project.*,(select count(*) from projectComment where projectSeq=project.seq and contents is not null) as commentCount, row_number() over (order by seq desc) as num from project) where id=#{id} num between #{start} and #{end} -->
+		select project.*,(select count(*) from projectComment where projectSeq=project.seq and contents is not null) as commentCount from project where id=#{value} order by seq desc
+	</select>
+	
+	
 </mapper>

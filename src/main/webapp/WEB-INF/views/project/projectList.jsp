@@ -36,6 +36,7 @@
 						<a class="btn btn-danger" href="/project/list" role="button">게시판</a>
 						<a class="btn btn-secondary" href="/project/chart" role="button">그래픽</a>
 						<a class="btn btn-secondary" href="/project/map" role="button">지도</a>
+						<a class="btn btn-warning" href="/project/pLog/pLogProjectList" role="button">임시</a>
 					</div>
 				</div>				
 				<div class="tableDiv">

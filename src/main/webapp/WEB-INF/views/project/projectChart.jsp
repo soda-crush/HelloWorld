@@ -91,7 +91,7 @@ function drawChart() {
 				showRowLabels: false,
 			},
 			height:'500',
-			width: '1000'
+			width: '1100'
   }
   chart.draw(dataTable,options);
 }
