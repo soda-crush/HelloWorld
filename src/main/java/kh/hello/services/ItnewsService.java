@@ -18,6 +18,7 @@ import kh.hello.configuration.Configuration;
 import kh.hello.dao.ItnewsDAO;
 import kh.hello.dto.ItnewsCoDTO;
 import kh.hello.dto.ItnewsDTO;
+import kh.hello.dto.ItnewsImgDTO;
 import kh.hello.dto.ScrapDTO;
 
 @Service
@@ -132,10 +133,10 @@ public class ItnewsService {
 			dos.close();
 							
 			//DB에 이미지 목록 저장하기
-			//int result = dao.insertImg(boardSeq, sysName);
-			//if(result > 0) {
+			int result = dao.insertImg(new ItnewsImgDTO(0,boardSeq, oriName, sysName));
+			if(result > 0) {
 				content = content.replaceFirst(Pattern.quote(m.group(1)), "/attached/itnews/"+sysName);
-			//}
+			}
 		}
 		return content;
 	}
@@ -197,6 +198,10 @@ public class ItnewsService {
 				return "fail";
 			}
 		}
+	}
+	
+	public int increViewCount(int seq) {
+		return dao.increViewCount(seq);
 	}
 	
 	

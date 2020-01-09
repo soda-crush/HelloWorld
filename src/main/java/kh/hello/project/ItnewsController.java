@@ -60,6 +60,7 @@ public class ItnewsController {
 	
 	@RequestMapping("/detail")
 	public String itnewsDetail(Model m, int seq, String page) {
+			is.increViewCount(seq);
 			List<ItnewsCoDTO> list = is.commentList(seq);
 			ItnewsDTO result = is.itnewsDetail(seq);
 			m.addAttribute("list", list);

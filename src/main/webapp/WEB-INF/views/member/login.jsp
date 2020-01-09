@@ -68,7 +68,6 @@ button{
 	            			</div>
 	            			<div class="col-2">
 	            			<br>
-	            			<button id=kakaoLogin><span></span>로그인</button>
 	            			</div>
 	            		</div>
             		</div>

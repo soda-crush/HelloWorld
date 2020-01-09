@@ -72,4 +72,12 @@
 		insert into scrap values(#{seq}, #{id}, #{category}, #{categorySeq})
 	</insert>
 	
+	<update id="increViewCount" parameterType="integer">
+		update itnews set viewCount=(select viewCount from itnews where seq = #{seq})+1 where seq =#{seq}
+	</update>
+	
+	<insert id="insertImg" parameterType="kh.hello.dto.ItnewsImgDTO">
+		insert into itnewsImg values (itnewsImgSeq.nextVal, #{itSeq}, #{oriName}, #{sysName})
+	</insert>
+	
 </mapper> 

@@ -28,56 +28,43 @@
             <!--      몸통 시작!!!   -->
 
             
-            <div class="container eleCon">
-
-			<div class=row>
-				<div class=col-12>
-					<br>
-					<h1>회원탈퇴</h1>
-					<hr>
-					<p>회원탈퇴 진행시 탈퇴한 아이디로는 재가입이 불가능합니다. 비밀번호를 입력해 주세요.</p><br>
+            <div class="container">
+            
+	            <div class=row>
+					<div class=col-12>
+						<br>
+						<h1>내 정보 수정</h1>
+						<hr>
+						<p>비밀번호를 입력해주세요.</p><br>
+					</div>
+					<div class="col-12 text-center">
+						<input type="text" id=pw name=pw placeholder="비밀번호"><br>
+						<button type="button" class="btn btn-secondary" id="do">Secondary</button>
+					</div>
 				</div>
-				<div class="col-12 text-center">
-					<input type = text id = pw name=pw placeholder="비밀번호 입력">
-					<button type="button" class="btn btn-dark" id=do>탈퇴</button>
-				</div>
-			</div>
-
+				
             </div>
+            
             <script>
             	$("#do").on("click",function(){
-            		
             		var pw = $("#pw").val();
-            		if(pw == "" || pw == null){
-            			alert("비밀번호를 입력해주세요.");
-            			return false;
+            		if(pw!=null && pw!=""){
+                			$.ajax({
+                        		url : "${pageContext.request.contextPath}/member/modifyPwCheck",
+    							type : "post",
+    							data : {pw : $("#pw").val()}
+                		}).done(function(data){
+                			if (data == "true" || data ==true) {
+                				location.href="${pageContext.request.contextPath}/member/modify";
+                               }else{
+                               	alert("비밀번호가 일치하지않습니다.");
+                				}
+                		});
+            		}else{
+            		 	alert("비밀번호를 입력해주세요");
             		}
-            		
-            		var result = confirm("정말 탈퇴하시겠습니까?");
-            		if(result){
-            			$.ajax({
-                 			url : "${pageContext.request.contextPath}/member/withdrawalCheck",
-                 			data : {
-                 				pw : $("#pw").val()
-                 			},
-                 			type:"post"
-                 		}).done(function(resp){
-                 			if(resp == "notEquals"){
-                 				alert("비밀번호가 일치하지 않습니다.");
-                 			}else if(resp == "success"){
-                 				alert("탈퇴되었습니다.");
-                 				location.href="${pageContext.request.contextPath}/member/logout";
-                 			}else{
-                 				alert("탈퇴중 오류. 일대일 문의를 통해 문의해주세요.");
-                 			}
-                 		});
-            		}
-            		
             	})
-            	
-            	
             </script>
-            
             <!--       몸통 끝!!!   -->
             
             <div class=container>
