@@ -24,6 +24,7 @@
 #scrapDone,#scrapNull:hover{cursor:pointer;}
 .coLevel1{margin-left:60px;}
 .commentWriteDate{font-size:10px;}
+.commentWriter{font-weight:bold;}
 #pCoReplyInput{
     margin-left: 60px;
     background-color:#fff;
@@ -328,7 +329,7 @@
            		$(".commentBox"+seq).wrap('<form action="/project/comment/modifyProc" method="post" id="coModFrm"></form>');
 				var html = [];
     			html.push(
-    					'<div class="col-12 coModBox mt-2"><div class="row">',
+    					'<div class="col-12 coModBox mt-2 mb-2"><div class="row">',
     					'<div class="col-9 col-md-10 col-xl-11 pr-0"><textarea class="form-control" placeholder="댓글 내용을 입력해주세요" id="pCoModContents" style="height:80px;" name="contents">'+contents+'</textarea></div>',
     					'<div class="col-3 col-md-2 col-xl-1"><input type="hidden" name="seq" value="'+seq+'"><input type="hidden" name="projectSeq" value="${pPage.seq }">',
     					'<div class="row">',

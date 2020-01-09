@@ -131,9 +131,10 @@
         
         <script>
 			$('.summernote').summernote({
+				lang: 'ko-KR',
 		        placeholder: '내용을 입력해주세요',	        
 		        minHeight: 400,
-		        maxHeight: 400,	        
+		        maxHeight: 400	        
 		    });
 			
 			$('.datePicker').datepicker({

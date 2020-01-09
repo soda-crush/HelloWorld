@@ -15,6 +15,7 @@ import kh.hello.dto.LoginInfoDTO;
 import kh.hello.dto.ProjectApplyDTO;
 import kh.hello.dto.ProjectCoDTO;
 import kh.hello.dto.ProjectDTO;
+import kh.hello.dto.ProjectPLogDTO;
 import kh.hello.services.ProjectService;
 
 @Controller
@@ -76,8 +77,7 @@ public class ProjectController {
 		m.addAttribute("data", data);
 		m.addAttribute("pPage", result);
 		m.addAttribute("comments", coResult);
-		m.addAttribute("scrap", scrap);
-		System.out.println(scrap);
+		m.addAttribute("scrap", scrap);		
 		return "/project/detailView";
 	}
 	
@@ -94,8 +94,6 @@ public class ProjectController {
 		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
 		dto.setWriter(sessionValue.getNickName());
 		dto.setId(sessionValue.getId());
-		System.out.println(sessionValue.getNickName());
-		System.out.println(sessionValue.getId());
 		String path = session.getServletContext().getRealPath("attached/project");
 		int seq = 0;
 		try {
@@ -180,7 +178,6 @@ public class ProjectController {
 		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
 		dto.setWriter(sessionValue.getNickName());
 		dto.setId(sessionValue.getId());
-		System.out.println(dto.toString());
 		return svc.commentWriteConfirm(dto);		
 	}
 	
@@ -190,7 +187,6 @@ public class ProjectController {
 		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
 		dto.setId(sessionValue.getId());
 		dto.setWriter(sessionValue.getNickName());
-		System.out.println(dto.toString());
 		return svc.commentModifyConfirm(dto);
 	}
 	
@@ -209,7 +205,6 @@ public class ProjectController {
 		dto.setWriter(sessionValue.getNickName());
 		dto.setId(sessionValue.getId());
 		dto.setDepth(1);
-		System.out.println(dto.toString());
 		return svc.commentWriteConfirm(dto);
 	}
 	
@@ -266,5 +261,70 @@ public class ProjectController {
 		}else {
 			return "redirect:/home/error";			
 		}
+	}
+	
+	
+	
+	
+	/*
+	 * 프로젝트 현황(PLog용)
+	 */
+	
+	
+	@RequestMapping("/pLog/pLogProjectList")
+	public String pLogProjectList(){
+//		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
+//		String id = sessionValue.getId();				
+////		List<ProjectDTO> result = svc.makeProjectList(id);		
+//		int currentPage = 1;
+//		if(page!=null) {
+//			currentPage = Integer.parseInt(page);
+//		}
+//		int start = currentPage * (Configuration.pLogProjectRecordCountPerPage)-(Configuration.pLogProjectRecordCountPerPage-1);
+//		int end = currentPage * (Configuration.pLogProjectRecordCountPerPage);
+//		List<ProjectDTO> result = svc.makeProjectListPerPage(start, end, id);
+//		m.addAttribute("makeProjectList", result);
+//		String pageNavi = svc.getPLogProjectPageNavi(currentPage, id);
+//		m.addAttribute("pageNavi", pageNavi);
+//		m.addAttribute("currentPage", currentPage);
+		return "/project/projectPLogList";
+	}
+	
+	@RequestMapping("/pLog/makeProjectList")
+	public String makeProjectList(String page, Model m){
+		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
+		String id = sessionValue.getId();				
+//		List<ProjectDTO> result = svc.makeProjectList(id);		
+		int currentPage = 1;
+		if(page!=null) {
+			currentPage = Integer.parseInt(page);
+		}
+		int start = currentPage * (Configuration.pLogProjectRecordCountPerPage)-(Configuration.pLogProjectRecordCountPerPage-1);
+		int end = currentPage * (Configuration.pLogProjectRecordCountPerPage);
+		List<ProjectDTO> result = svc.makeProjectListPerPage(start, end, id);
+		m.addAttribute("makeProjectList", result);
+		String pageNavi = svc.getPLogProjectPageNavi(currentPage, id);
+		m.addAttribute("makePageNavi", pageNavi);
+		m.addAttribute("makeCurrentPage", currentPage);
+		return "/project/pLogMakeProject";
+	}
+	
+	@RequestMapping("/pLog/applyProjectList")
+	public String applyProjectList(String page, Model m){
+		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
+		String id = sessionValue.getId();				
+//		List<ProjectDTO> result = svc.makeProjectList(id);		
+		int currentPage = 1;
+		if(page!=null) {
+			currentPage = Integer.parseInt(page);
+		}
+		int start = currentPage * (Configuration.pLogProjectRecordCountPerPage)-(Configuration.pLogProjectRecordCountPerPage-1);
+		int end = currentPage * (Configuration.pLogProjectRecordCountPerPage);
+		List<ProjectDTO> result = svc.makeProjectListPerPage(start, end, id);
+		m.addAttribute("applyProjectList", result);
+		String pageNavi = svc.getPLogProjectPageNavi(currentPage, id);
+		m.addAttribute("applyPageNavi", pageNavi);
+		m.addAttribute("applyCurrentPage", currentPage);
+		return "/project/pLogMakeProject";
 	}
 }

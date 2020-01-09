@@ -5,6 +5,11 @@ public class Configuration {
 	public static int naviCountPerPage = 10;
 	
 	
+	//프로젝트(PLog용)
+	public static int pLogProjectRecordCountPerPage = 5;
+	public static int pLogProjectNaviCountPerPage = 10;
+	
+	
 	//글 작성시 추가 포인트
 	public static int articleAddPoint = 10;
 	//글 작성시 삭감 포인트

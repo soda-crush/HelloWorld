@@ -13,7 +13,6 @@ import kh.hello.dto.ProjectApplyDTO;
 import kh.hello.dto.ProjectCoDTO;
 import kh.hello.dto.ProjectDTO;
 import kh.hello.dto.ProjectImageDTO;
-import kh.hello.dto.ProjectMyListDTO;
 
 @Repository
 public class ProjectDAO {
@@ -113,16 +112,26 @@ public class ProjectDAO {
 		return jdbc.update("ProjectApply.approveDeny", seq);
 	}
 	
-	//projectMyList 테이블
-	public List<ProjectMyListDTO> getMyList(String id){//나의 프로젝트 전체리스트
-		return jdbc.selectList("ProjectMyList.getList", id);
+	//PLog용(Project, ProjectComment, ProjectApply 등 참고)
+	public List<ProjectDTO> getMakeProjectList(String id){//나의 프로젝트 전체리스트
+		return jdbc.selectList("Project.getPLogMakeList", id);
 	}
-	public int insertProjectList(ProjectMyListDTO dto) {//나의 프로젝트 등록
-		return jdbc.insert("ProjectMyList.insertProjectMyList", dto);
+	public int getMakeArticleCount(String id) {
+		return jdbc.selectOne("Project.getMakeArticleCount", id);
 	}
-	public int deleteProjectList(int seq) {//나의 프로젝트 삭제
-		return jdbc.delete("ProjectMyList.deleteProjectMyList", seq);
+	public List<ProjectDTO> getMakeProjectListPerPage(int start, int end, String id){
+		Map<String, Object> param = new HashMap<>();
+		param.put("id", id);		
+		param.put("start", start);
+		param.put("end", end);
+		return jdbc.selectList("Project.getPLogMakeListByPage", param);
 	}
+//	public int insertProjectList(ProjectPlogDTO dto) {//나의 프로젝트 등록
+//		return jdbc.insert("ProjectPlogList.insert", dto);
+//	}
+//	public int deleteProjectList(int seq) {//나의 프로젝트 삭제
+//		return jdbc.delete("ProjectPlogList.delete", seq);
+//	}
 	
 	
 	

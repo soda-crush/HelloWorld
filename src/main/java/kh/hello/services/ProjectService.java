@@ -203,6 +203,9 @@ public class ProjectService {
 		List<ProjectCoDTO> result = dao.getCoList(dto.getProjectSeq());
 		for(ProjectCoDTO p : result) {
 			p.setFormedWriteDate(p.getWriteDate());
+			if(p.getChangeDate()!=null) {
+				p.setFormedChangeDate(p.getChangeDate());
+			}	
 		}
 		return gson.toJson(result);
 	}
@@ -218,7 +221,6 @@ public class ProjectService {
 				p.setFormedChangeDate(p.getChangeDate());
 			}			
 		}
-		System.out.println(gson.toJson(result));
 		return gson.toJson(result);
 	}
 	
@@ -231,6 +233,9 @@ public class ProjectService {
 		List<ProjectCoDTO> result = dao.getCoList(projectSeq);
 		for(ProjectCoDTO p : result) {
 			p.setFormedWriteDate(p.getWriteDate());
+			if(p.getChangeDate()!=null) {
+				p.setFormedChangeDate(p.getChangeDate());
+			}	
 		}
 		return gson.toJson(result);
 	}
@@ -274,4 +279,67 @@ public class ProjectService {
 	public int projectApplyDeny(int seq) {
 		return dao.denyProjectApply(seq);
 	}
+	
+	
+//	
+//	나의 프로젝트
+//	
+	
+//	페이징네비되면삭제
+	public List<ProjectDTO> makeProjectList(String id){
+		return dao.getMakeProjectList(id);
+	}
+	
+	public String getPLogProjectPageNavi(int currentPage, String id) {
+		int recordTotalCount = dao.getMakeArticleCount(id);
+		int pageTotalCount = 0;		
+		if(recordTotalCount % Configuration.pLogProjectRecordCountPerPage>0) {
+			pageTotalCount = recordTotalCount/Configuration.pLogProjectRecordCountPerPage+1;
+		}else {
+			pageTotalCount = recordTotalCount/Configuration.pLogProjectRecordCountPerPage;
+		}
+		if(currentPage < 1) {
+			currentPage = 1;
+		}else if(currentPage > pageTotalCount) {
+			currentPage = pageTotalCount;
+		}
+		
+		int startNavi = (currentPage-1) / Configuration.pLogProjectNaviCountPerPage * Configuration.pLogProjectNaviCountPerPage+1;
+		int endNavi = startNavi+(Configuration.pLogProjectNaviCountPerPage-1);		
+		if(endNavi > pageTotalCount) {
+			endNavi = pageTotalCount;
+		}
+		
+		boolean needPrev = true;
+		boolean needNext = true;
+		if(startNavi==1) {
+			needPrev = false;
+		}
+		if(endNavi==pageTotalCount) {
+			needNext = false;
+		}
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append("<ul class='pagination justify-content-center'>");
+		if(needPrev) {
+			sb.append("<li class='page-item'>");
+			sb.append("<a class='page-link' href='/project/makeProjectList?page="+(startNavi-1)+"' aria-label='Previous'>"); 
+			sb.append("<span aria-hidden='true'>&laquo;</span></a></li>");			
+		}
+		for(int i=startNavi;i<=endNavi;i++) {
+			sb.append("<li class='page-item pNavi"+i+"'><a class='page-link' href='/project/makeProjectList?page="+i+"'>"+i+"</a></li>");			
+		}
+		if(needNext) {
+			sb.append("<li class='page-item'>");
+			sb.append("<a class='page-link' href='/project/makeProjectList?page="+(endNavi+1)+"' aria-label='Next'>");
+			sb.append("<span aria-hidden='true'>&raquo;</span></a></li>");			
+		}
+		sb.append("</ul>");
+		return sb.toString();
+	}
+	
+	public List<ProjectDTO> makeProjectListPerPage(int start, int end, String id){
+		return dao.getMakeProjectListPerPage(start, end, id);
+	}
+	
 }
