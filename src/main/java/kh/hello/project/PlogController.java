@@ -19,9 +19,6 @@ public class PlogController {
 	@Autowired
 	private HttpSession session;
 	
-//	@Autowired
-//	private ProjectService ps;
-
 	@RequestMapping("/toPlogCohow.do")
 	public String toPlogCohow() {
 		return "/plog/plogCohow";
@@ -32,24 +29,4 @@ public class PlogController {
 		return "/plog/plogProject";
 	}
 
-//	@RequestMapping("/toPlogScrap.do")
-//	public String toplogScrap() {
-//		
-//		return "/plog/plogScrap";
-//	}
-
-	@RequestMapping("/toGuestBook.do")
-	public String toGuestBook() {
-		return "/plog/guestBook";
-	}
-
-
-//	
-//	@RequestMapping("projectList.do")
-//	public String getProjectList() {
-//		
-//		// ps. 으로 서비스 받아올것.
-//		return "/plog/plogProject";
-//	}
-//	
 }

@@ -14,6 +14,8 @@ import kh.hello.configuration.Configuration;
 import kh.hello.dto.GuestBookDTO;
 import kh.hello.dto.LoginInfoDTO;
 import kh.hello.dto.MemberDTO;
+import kh.hello.dto.OwnerInfoDTO;
+import kh.hello.dto.PortfolioDTO;
 import kh.hello.services.GuestBookService;
 import kh.hello.services.MemberService;
 
@@ -35,15 +37,17 @@ public class GuestBookController {
 	
 	@RequestMapping("/insert.do")
 	public String insert(GuestBookDTO gdto) {
+		OwnerInfoDTO ownerInfo = (OwnerInfoDTO)session.getAttribute("ownerInfo");
 		gdto.setWriter(((LoginInfoDTO)session.getAttribute("loginInfo")).getNickName());
-		gdto.setOwner(((LoginInfoDTO)session.getAttribute("loginInfo")).getId());
+		gdto.setOwner(ownerInfo.getId());
 		gs.insert(gdto);
 		return "redirect:selectList.do";
 	}
 	
 	@RequestMapping("/selectList.do")
 	public String selectList(String cpage) {
-		String owner = ((LoginInfoDTO)session.getAttribute("loginInfo")).getId();
+		OwnerInfoDTO ownerInfo = (OwnerInfoDTO)session.getAttribute("ownerInfo");
+		String owner = ownerInfo.getId();
 		int currentPage = 1;		
 
 		if(cpage != null) currentPage = Integer.parseInt(cpage);
@@ -51,8 +55,6 @@ public class GuestBookController {
 		int start = end - (Configuration.recordCountPerPage - 1);
 		List<GuestBookDTO> list = gs.selectListByPage(owner,start,end);
 		List<String> pageNavi = gs.getGuestBookPageNavi(owner, currentPage);
-		MemberDTO mdto = ms.selectMember(owner);
-		request.setAttribute("point", mdto.getPoint());
 		request.setAttribute("list", list);
 		request.setAttribute("pageNavi", pageNavi);
 		return "plog/guestBook";
