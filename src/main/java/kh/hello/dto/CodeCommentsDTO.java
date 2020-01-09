@@ -11,6 +11,7 @@ public class CodeCommentsDTO {
 	private String id;
 	private String writer;
 	private Timestamp writeDate;
+	private String formedWriteDate;
 	
 	public CodeCommentsDTO() {
 		super();
@@ -68,6 +69,14 @@ public class CodeCommentsDTO {
 	}
 	public void setWriteDate(Timestamp writeDate) {
 		this.writeDate = writeDate;
+	}
+	
+	public String getFormedWriteDate() {
+		return formedWriteDate;
+	}
+
+	public void setFormedWriteDate(String formedWriteDate) {
+		this.formedWriteDate = formedWriteDate;
 	}
 	public String getFormedDate() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");

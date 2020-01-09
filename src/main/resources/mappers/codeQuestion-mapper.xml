@@ -23,9 +23,9 @@
   		select count(*) from codeQuestion
   	</select>
   	
-	<select id="selectSeq" parameterType="String" resultType="Integer">
-		select max(seq) from codeQuestion where writer = #{writer}
-	</select>
+<!-- 	<select id="selectSeq" parameterType="String" resultType="Integer"> -->
+<!-- 		select max(seq) from codeQuestion where id = #{id} -->
+<!-- 	</select> -->
 	
 	<select id="detailQuestion" resultType="kh.hello.dto.CodeQuestionDTO">
 		select * from codeQuestion where seq = #{seq} order by 1 desc

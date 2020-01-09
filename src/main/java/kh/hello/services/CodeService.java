@@ -3,8 +3,11 @@ package kh.hello.services;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -17,7 +20,6 @@ import com.google.gson.Gson;
 
 import kh.hello.configuration.Configuration;
 import kh.hello.dao.CodeDAO;
-import kh.hello.dto.BambooDTO;
 import kh.hello.dto.CodeCommentsDTO;
 import kh.hello.dto.CodeQuestionDTO;
 import kh.hello.dto.CodeReplyDTO;
@@ -85,8 +87,8 @@ public class CodeService {
 		dao.modify(dto);
 	}
 	
-	public int replyOneCount(int queSeq,String writer){
-		return dao.replyOneCount(queSeq, writer);
+	public int replyOneCount(int queSeq,String id){
+		return dao.replyOneCount(queSeq, id);
 	}
 	
 	//조건별 게시판목록 검색
@@ -250,8 +252,8 @@ public class CodeService {
 	}
 	
 	// 댓글 CodeComments
-	public int selectRepSeq(int queSeq,String writer) {
-		return dao.selectRepSeq(queSeq,writer);
+	public int selectRepSeq(int queSeq,String id) {
+		return dao.selectRepSeq(queSeq,id);
 	}
 	
 	public List<CodeCommentsDTO> commentList(int queSeq) {
@@ -265,7 +267,11 @@ public class CodeService {
 		dao.writeCoPoint(dto.getId());
 		Gson gson = new Gson();
 		List<CodeCommentsDTO> result = dao.commentsList(dto.getQueSeq());
-		System.out.println("insert:"+gson.toJson(result));
+		for (CodeCommentsDTO c : result) {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+			c.setFormedWriteDate(sdf.format(c.getWriteDate()));
+		}
+		//System.out.println("insert:"+gson.toJson(result));
 		return gson.toJson(result);
 	}
 	
@@ -288,6 +294,10 @@ public class CodeService {
 		dao.updateComment(dto);
 		Gson gson = new Gson();
 		List<CodeCommentsDTO> result = dao.commentsList(dto.getQueSeq());
+		for (CodeCommentsDTO c : result) {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+			c.setFormedWriteDate(sdf.format(c.getWriteDate()));
+		}
 		return gson.toJson(result);
 		
 //		System.out.println(dto.getRepSeq());
@@ -306,6 +316,10 @@ public class CodeService {
 		dao.deleteCoPoint(dto.getId());
 		Gson gson = new Gson();
 		List<CodeCommentsDTO> result = dao.commentsList(dto.getQueSeq());
+		for (CodeCommentsDTO c : result) {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+			c.setFormedWriteDate(sdf.format(c.getWriteDate()));
+		}
 		return gson.toJson(result);
 
 	}
@@ -313,7 +327,7 @@ public class CodeService {
 		return dao.deleteReplyAllCo(repSeq);
 	}
 	
-	//이미지 업로드
+	//이미지 업로드 섬머노트 파일명정리
 	private String imgUpload(String path, int queSeq, String content) throws Exception{
 		File imgPath = new File(path + "/code");
 		if(!imgPath.exists()) {
@@ -364,6 +378,57 @@ public class CodeService {
 		return dao.insert(dto);
 	}
 	
+	//이미지 업로드 답변 섬머노트 파일명정리
+		private String imgUploadR(String path, int repSeq, String content) throws Exception{
+			File imgPath = new File(path + "/codeR");
+			if(!imgPath.exists()) {
+				imgPath.mkdirs();
+			}
+
+			Pattern p = Pattern.compile("<img.+?src=\"(.+?)\".+?data-filename=\"(.+?)\".*?>");
+			Matcher m = p.matcher(content);
+
+			while(m.find()) {
+				String oriName = m.group(2);
+				String sysName = System.currentTimeMillis() + "_" + oriName;
+
+				int need = m.group(1).split(",").length;
+
+				if(need > 1) {
+					String imgString = m.group(1).split(",")[1];
+					byte[] imgByte = Base64Utils.decodeFromString(imgString);
+
+					FileOutputStream fos = new FileOutputStream(new File(imgPath + "/" + sysName));
+					DataOutputStream dos = new DataOutputStream(fos);
+
+					dos.write(imgByte);
+					dos.flush();
+					dos.close();
+
+					//DB에 이미지 목록 저장하기
+					int result = dao.insertRImg(repSeq, sysName);
+					if(result > 0) {
+						content = content.replaceFirst(Pattern.quote(m.group(1)), "/attached/codeR/"+sysName);
+					}
+				}
+			}
+			return content;
+		}
+		
+		@Transactional("txManager")
+		public int writeCodeR(String path, CodeReplyDTO dto,String id) throws Exception{
+			//1. repSeq 받아오기
+			int repSeq = dao.getCodeRSeq();
+			dto.setSeq(repSeq);
+			//2. 이미지 저장하고 주소 변환
+			String content = imgUploadR(path, repSeq, dto.getContent());
+			//System.out.println(content);
+			dto.setContent(content);
+			//3. 글 업로드
+			dao.writePoint(id); //포인트
+			return dao.insertR(dto);
+		}
+	
 	//스크랩
 	public String scrap(ScrapDTO dto){
 		int scrapDupResult = dao.scrapDupCheck(dto);
@@ -379,5 +444,31 @@ public class CodeService {
 				return "fail";
 			}
 		}
+	}
+	
+
+	
+//채택
+	public int replyCount(int queSeq) {
+		return dao.replyCount(queSeq);
+	}
+	
+	public int selectPoint(String id) {
+		return dao.selectPoint(id);
+	}
+	
+	@Transactional("txManager")
+	public Map<String, Integer> adopt(int adoptPoint,String writerId,String replyId){
+		int writePointStart = dao.selectPoint(writerId);
+		int resultPoint = writePointStart - adoptPoint; // 글쓴이 point 계산
+		
+		int writeReplyStart = dao.selectPoint(replyId); // 답글쓴사람 point 계산
+		int resultPoint2 = writeReplyStart+adoptPoint;
+		
+		Map<String, Integer> param = new HashMap<>();
+		param.put("resultPoint", resultPoint);
+		param.put("resultPoint2", resultPoint2);
+		
+		return param;
 	}
 }

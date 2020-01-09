@@ -17,8 +17,8 @@
        <style>
             h1{text-align: center;padding-top: 50px; padding-bottom: 50px;}
             ul{background-color: lightgray;font-size: 13px;}
-            .card{ width:200px;height:300px;margin: auto;margin-top:10px; float :left;}
-            .myprofile{float: left;height: 350px;}
+            .card{ width:200px;height:300px;margin: auto; float :left;}
+            .myprofile{float: left;height: 350px;margin-top: 20px;}
             #mycard{float:none;display:flex;align-items:center;}
             .commentwrite{width:100%; height:100px;padding: 0px;margin-top: 10px;float: left;}
             .commentlist{width:100%;padding: 0px;margin-top: 10px;float: left;}
@@ -30,7 +30,9 @@
             #commentForm{height:100%;}
             textarea{resize:none;}
             .page-item{padding:0px;height:10px;width:10px;}
-            .naviwrap>div{width:25px;display:inline-block;text-align:center;}
+			.navi{text-align: center;}
+			.nvlink{height:45px;line-height:45px;}
+        	a:hover{text-decoration:none;}
             
         </style>
 </head>
@@ -46,29 +48,20 @@
             
             <div class="container">
 				<h1> Programming-Log</h1>
-	            <nav class="navbar navbar-expand-md navbar-light" style="background-color: #008EDC;">
-		         	<a class="navbar-brand" href="#"></a>
-		  			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-		   				 <span class="navbar-toggler-icon"></span>
-		  			</button>
-		            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-		
-		                <div class="navbar-nav box text-center plogNavi" id="naviCon">
-		                    <a class="nav-item nav-link active text-light text-primary" href="${pageContext.request.contextPath}/Portfolio/toPlogmain.do">내 포트폴리오</a>
-		                    <a class="nav-item nav-link active text-light text-primary" href="${pageContext.request.contextPath}/Plog/toPlogCohow.do">내 지식인</a>
-		                    <a class="nav-item nav-link active text-light text-primary" href="${pageContext.request.contextPath}/Scrap/toScrap.do">내 스크랩</a>
-		                    <a class="nav-item nav-link active text-light text-primary" href="${pageContext.request.contextPath}/Plog/toPlogProject.do">내 프로젝트</a>
-		                    <a class="nav-item nav-link active text-light text-primary" href="${pageContext.request.contextPath}/GuestBook/selectList.do">방명록</a>
-		                </div>
-		            </div>
-		        </nav>
+	            <div class="row navi" style="background-color: #008EDC;">
+					<div class="col nvlink"><a class="text-light" href="${pageContext.request.contextPath}/Portfolio/toPlogmain.do">내 포트폴리오</a></div>
+					<div class="col nvlink"><a class="text-light" href="${pageContext.request.contextPath}/Plog/toPlogCohow.do">내 지식인</a></div>
+					<div class="col nvlink"><a class="text-light" href="${pageContext.request.contextPath}/Scrap/toScrap.do">내 스크랩</a></div>
+					<div class="col nvlink"><a class="text-light" href="${pageContext.request.contextPath}/Plog/toPlogProject.do">내 프로젝트</a></div>
+					<div class="col nvlink"><a class="text-light" href="${pageContext.request.contextPath}/GuestBook/selectList.do">방명록</a></div>
+				</div>
 	            <div class="row">
 	                <div class="col-12 col-md-4 col-lg-3 myprofile">
 	                    <div class="card" id="mycard">
 	                        <img src="/img/profileSample.jpg" class="card-img-top" alt="..." style="width: 170px;height: 170px;margin:15px;"><!-- 아이디에대한 이미지값 -->
 	                        <div class="card-body">
-	                            <h3 class="card-title" style="text-align: center;">${loginInfo.nickName} 님</h3><!--  세션값 -->
-	                            <p class="card-text" style="text-align: center;">point : ${point }</p><!--  세션에 대한 포인트값 -->
+	                            <h3 class="card-title" style="text-align: center;">${ownerInfo.nickName} 님</h3><!--  세션값 -->
+	                            <p class="card-text" style="text-align: center;">point : ${ownerInfo.point }</p><!--  세션에 대한 포인트값 -->
 	                        </div>
 	                    </div>
 	                </div>
