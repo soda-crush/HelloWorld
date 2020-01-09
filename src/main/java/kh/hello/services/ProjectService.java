@@ -285,10 +285,6 @@ public class ProjectService {
 //	나의 프로젝트
 //	
 	
-//	페이징네비되면삭제
-	public List<ProjectDTO> makeProjectList(String id){
-		return dao.getMakeProjectList(id);
-	}
 	
 	public String getPLogProjectPageNavi(int currentPage, String id) {
 		int recordTotalCount = dao.getMakeArticleCount(id);
@@ -342,4 +338,7 @@ public class ProjectService {
 		return dao.getMakeProjectListPerPage(start, end, id);
 	}
 	
+//	public List<ProjectPLogDTO> applyProjectListPerPage(int start, int end, String id){
+//		return 
+//	}
 }

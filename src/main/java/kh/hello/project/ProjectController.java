@@ -15,7 +15,6 @@ import kh.hello.dto.LoginInfoDTO;
 import kh.hello.dto.ProjectApplyDTO;
 import kh.hello.dto.ProjectCoDTO;
 import kh.hello.dto.ProjectDTO;
-import kh.hello.dto.ProjectPLogDTO;
 import kh.hello.services.ProjectService;
 
 @Controller

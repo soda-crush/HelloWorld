@@ -78,6 +78,14 @@
 	</select>
 	
 	
+	<select id="getApplyArticleCount" resultType="integer">
+		select count(*) from projectApply where id=#{value}
+	</select>
+	
+	<select id="getPLogApplyListByPage" parameterType="java.util.Map" resultType="kh.hello.dto.ProjectPLogDTO">
+		select 
+	</select>
+	
 <!-- 	페이징완료되면 삭제. -->
 	<select id="getPLogMakeList" resultType="kh.hello.dto.ProjectDTO">
 <!-- 		select * from project where id=#{value} order by seq desc -->
