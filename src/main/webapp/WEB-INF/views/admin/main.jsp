@@ -24,6 +24,12 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath }/adRsc/css/responsive.css">
 <!-- modernizr css -->
 <script src="${pageContext.request.contextPath }/adRsc/vendor/modernizr-2.8.3.min.js"></script>
+    <!-- start zingchart js -->
+    <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
+    <script>
+        zingchart.MODULESDIR = "https://cdn.zingchart.com/modules/";
+        ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "ee6b7db5b51705a13dc2339db3edaf6d"];
+    </script>
 <style>
 	.notification-area {
 		text-align:right;
@@ -81,44 +87,37 @@
                 <div class="visitor-area mt-5 mb-5">
                     <div class="row">
                         <div class="col-md-4">
-                        <!-- today -->
+                        <!-- today / total -->
                             <div class="col-12 mt-0 mb-3">
                                 <div class="card">
-                                    <div class="seo-fact sbg1">
+                                <div class="card-body">
+                                    <div class="seo-fact sbg1 mb-5">
                                         <div class="p-4 d-flex justify-content-between align-items-center">
                                             <div class="seofct-icon"><i class="ti-thumb-up"></i> TODAY</div>
                                             <h2>${count.today}</h2>                                        </div>
                                         
-                                    </div>
-                                </div>
-                            </div> 
-                        <!-- total -->
-                            <div class="col-12 mt-md-5 mb-3">
-                                <div class="card">
-                                    <div class="seo-fact sbg2">
+                                    </div>   
+                                    
+                                   	<div class="seo-fact sbg2">
                                         <div class="p-4 d-flex justify-content-between align-items-center">
-                                            <div class="seofct-icon"><i class="ti-share"></i> TOTAL</div>
+                                            <div class="seofct-icon"><i class="ti-bar-chart"></i> TOTAL</div>
                                             <h2>${count.total}</h2>
                                         </div>
-                                    </div>
+                                    </div> 
+                                    
                                 </div>
-                            </div>                        
+                                </div>
+                            </div>                     
                         </div>
                         <div class="col-md-8">
-		                    <div class="col-12">
-		                        <div class="card">
+		                        <div class="card col-12">
 		                            <div class="card-body">
 		                                <div class="d-flex justify-content-between align-items-center">
-		                                    <h4 class="header-title mb-0">Overview</h4>
-		                                    <select class="custome-select border-0 pr-3">
-		                                        <option selected>Last 24 Hours</option>
-		                                        <option value="0">01 July 2018</option>
-		                                    </select>
+		                                    <h4 class="header-title mb-0">방문자수 추이</h4>
 		                                </div>
-		                                <div id="verview-shart"></div>
+		                                <div id="visitChange"></div>
 		                            </div>
 		                        </div>
-		                    </div>
                         </div>                       
                     </div>
                 </div>
@@ -140,11 +139,11 @@
 		                    </div>                        
                         </div>
                         <div class="col-md-4">
-		                    <div class="col-12 coin-distribution">
+		                    <div class="col-12">
 		                        <div class="card h-full">
 		                            <div class="card-body">
-		                                <h4 class="header-title mb-0">Coin Distribution</h4>
-		                                <div id="coin_distribution"></div>
+		                                <h4 class="header-title mb-0">Hello World! 성별비율</h4>
+		                                <div id="genderRatio"></div>
 		                            </div>
 		                        </div>
 		                    </div>
@@ -181,13 +180,13 @@
                 <div class="visitor-area mt-5 mb-5">
                     <div class="row">
                         <div class="col-md-4">
-		                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <div id="ambarchart4"></div>
-                            </div>
-                        </div>
-		                    </div>                        
+							<div class="col-12">
+		                        <div class="card">
+		                            <div class="card-body">
+		                                <div id="ambarchart4"></div>
+		                            </div>
+		                        </div>
+                       		</div>
                         </div>
                         <div class="col-md-4">
 		                    <div class="col-12">
@@ -237,12 +236,7 @@
     <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
     <!-- start highcharts js -->
     <script src="https://code.highcharts.com/highcharts.js"></script>
-    <!-- start zingchart js -->
-    <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
-    <script>
-        zingchart.MODULESDIR = "https://cdn.zingchart.com/modules/";
-        ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "ee6b7db5b51705a13dc2339db3edaf6d"];
-    </script>
+
     <!-- start amchart js -->
     <script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
     <script src="https://www.amcharts.com/lib/3/pie.js"></script>
@@ -390,6 +384,69 @@ chart.cursor.events.on("cursorpositionchanged", function (event) {
 })
 
 }); // end am4core.ready()
+
+/*--------------  bar chart 11 amchart start ------------*/
+
+if ($('#ambarchart4').length > 0) {
+	var count0 = Number("${joinPath[0].pathCount}");
+	var count1 = Number("${joinPath[1].pathCount}");
+	var count2 = Number("${joinPath[2].pathCount}");
+	var count3 = Number("${joinPath[3].pathCount}");
+	
+	
+    var chart = AmCharts.makeChart("ambarchart4", {
+        "type": "serial",
+        "theme": "light",
+        "marginRight": 0,
+        "dataProvider": [{
+            "joinPath": "${joinPath[0].joinPath}",
+            "visits": count0,
+            "color": "#8918FE"
+        }, {
+            "joinPath": "${joinPath[1].joinPath}",
+            "visits": count1,
+            "color": "#7474F0"
+        }, {
+            "joinPath": "${joinPath[2].joinPath}",
+            "visits": count2,
+            "color": "#C5C5FD"
+        }, {
+            "joinPath": "${joinPath[3].joinPath}",
+            "visits": count3,
+            "color": "#FD9C21"
+        }],
+        "valueAxes": [{
+            "axisAlpha": 0,
+            "position": "left",
+            "title": false
+        }],
+        "startDuration": 1,
+        "graphs": [{
+            "balloonText": "<b>[[category]]: [[value]]</b>",
+            "fillColorsField": "color",
+            "fillAlphas": 0.9,
+            "lineAlpha": 0.2,
+            "type": "column",
+            "valueField": "visits"
+        }],
+        "chartCursor": {
+            "categoryBalloonEnabled": false,
+            "cursorAlpha": 0,
+            "zoomable": false
+        },
+        "categoryField": "joinPath",
+        "categoryAxis": {
+            "gridPosition": "start",
+            "labelRotation": 45
+        },
+        "export": {
+            "enabled": false
+        }
+
+    });
+}
+/*--------------  bar chart 11 amchart END ------------*/
+console.log("${joinPath[0].pathCount}");
 </script>
 </body>
 </html>

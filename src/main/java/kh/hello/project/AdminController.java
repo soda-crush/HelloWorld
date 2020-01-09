@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.JsonObject;
 
 import kh.hello.configuration.Configuration;
+import kh.hello.dto.ChartGenderDTO;
+import kh.hello.dto.ChartJoinPathDTO;
+import kh.hello.dto.ChartVisitChangeDTO;
 import kh.hello.dto.ForcedOutMemberDTO;
 import kh.hello.dto.InquiryDTO;
 import kh.hello.dto.InquiryReplyDTO;
@@ -59,12 +62,25 @@ public class AdminController {
 	
 	@RequestMapping("/main")
 	public String main(Model m) {
+		//1-1. 방문자 통계(today, total)
 		try {
 			Map<String, Integer> count = as.getVisitorCount();
 			m.addAttribute("count", count);			
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
+		
+		//1-2. 일일 방문자수 추이
+		List<ChartVisitChangeDTO> visitChange = as.getVisitChange();
+		m.addAttribute("visitChange", visitChange);
+		
+		//2-2. 회원성비
+		List<ChartGenderDTO> genderRatio = as.getGenderRatio();
+		m.addAttribute("genderRatio", genderRatio);
+		
+		//4-1. 가입경로
+		List<ChartJoinPathDTO> joinPath = as.getJoinPath();
+		m.addAttribute("joinPath", joinPath);
 		
 		return "admin/main";
 	}
