@@ -121,5 +121,4 @@ public class ItnewsDAO {
 		return jdbc.insert("Itnews.insertImg", dto);
 	}
 	
-	
 }
