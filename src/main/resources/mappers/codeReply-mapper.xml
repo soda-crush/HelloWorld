@@ -42,6 +42,11 @@
 		update member set point=point-15 where id=#{value}
 	</update>
 	
+<!-- 채택 -->
+	<select id="replyCount" parameterType="java.util.Map" resultType="integer">
+		select count(*) from codeReply where queSeq = #{value} 
+	</select>
+	
 	<!-- 	이미지 업로드 -->
 	<select id="getCodeRSeq" resultType="integer">
 		select codeReplySeq.nextval from dual

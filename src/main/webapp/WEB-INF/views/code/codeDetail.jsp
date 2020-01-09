@@ -342,7 +342,7 @@ span:nth-child(4) {
 				}
 			});
 		}
-		})
+	})
 	
 		$("#modify").on("click",function(){
 			location.href="${pageContext.request.contextPath}/code/modify.do?seq=${qResult.seq}";

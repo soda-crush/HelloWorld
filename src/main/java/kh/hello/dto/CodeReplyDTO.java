@@ -13,6 +13,10 @@ public class CodeReplyDTO {
 	private Timestamp writeDate;
 	private String adopt;
 	
+	public CodeReplyDTO() {
+		super();
+	}
+
 	public CodeReplyDTO(int seq, int queSeq, String title, String content, String id, String writer,
 			Timestamp writeDate, String adopt) {
 		super();

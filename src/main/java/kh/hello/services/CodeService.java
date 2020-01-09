@@ -248,6 +248,10 @@ public class CodeService {
 		dao.modifyR(dto);
 	}
 	
+	public int replyCount(int queSeq) {
+		return dao.replyCount(queSeq);
+	}
+
 	// 댓글 CodeComments
 	public int selectRepSeq(int queSeq,String id) {
 		return dao.selectRepSeq(queSeq,id);

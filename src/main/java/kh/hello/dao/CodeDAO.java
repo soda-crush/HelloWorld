@@ -109,6 +109,11 @@ public class CodeDAO {
 		jdbc.update("CodeR.modifyR", dto);
 	}
 	
+	public int replyCount(int queSeq) {
+		return jdbc.selectOne("CodeR.replyCount",queSeq);
+	}
+	
+	
 	//CodeComment
 	
 	public int selectRepSeq(int queSeq,String id) { //repSeq구하기

@@ -94,15 +94,15 @@ public class CodeController {
 			List<CodeReplyDTO> rResult = sv.detailReply(seq);
 			List<CodeCommentsDTO> cResult = sv.commentList(seq);   
 			int count = sv.replyOneCount(seq, info.getId()); //queSeq
-//			System.out.println("seq:" + seq);
-//			System.out.println(dto.getWriter());
 			int repSeq = sv.selectRepSeq(seq,info.getId());
-			m.addAttribute("qResult", qResult);
-			m.addAttribute("rResult", rResult);
+			int repCount = sv.replyCount(seq); //답글 수 
 			
+			m.addAttribute("qResult", qResult);
+			m.addAttribute("rResult", rResult);			
 			m.addAttribute("cResult", cResult);
 			m.addAttribute("count", count);
 			m.addAttribute("repSeq", repSeq);
+			m.addAttribute("repCount", repCount);
 		return "/code/codeDetail";
 	}
 	
@@ -193,7 +193,7 @@ public class CodeController {
 	
 	@RequestMapping("/codeRWriteProc.do")
 	public String codeRWriteProc(CodeReplyDTO dto) {//섬머노트
-		System.out.println("seq : " +dto.getQueSeq());
+		System.out.println("도착");
 		LoginInfoDTO info = (LoginInfoDTO)session.getAttribute("loginInfo");
 		dto.setId(info.getId());
 		dto.setWriter(info.getNickName());
