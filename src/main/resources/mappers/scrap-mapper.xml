@@ -9,7 +9,7 @@
 	</select>
 	
 	<select id="selectCodeQuestion"  parameterType="String" resultType="kh.hello.dto.CodeQuestionDTO">
-		select * from (select * from scrap where category='cohow' and id=#{id}) cscrap inner join CodeQuestion on cscrap.categoryseq = CodeQuestion.seq
+		select * from (select * from scrap where category='codeQuestion' and id=#{id}) cscrap inner join CodeQuestion on cscrap.categoryseq = CodeQuestion.seq
 	</select>
 	
 	<select id="selectProject"  parameterType="String" resultType="kh.hello.dto.ProjectDTO">

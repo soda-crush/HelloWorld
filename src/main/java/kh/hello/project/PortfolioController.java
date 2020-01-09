@@ -129,7 +129,10 @@ public class PortfolioController {
 		}
 		OwnerInfoDTO ownerInfo = (OwnerInfoDTO)session.getAttribute("ownerInfo");
 		List<PortfolioDTO> list = ps.selectList(ownerInfo.getId());
-
+		for (PortfolioDTO dto : list) {
+			System.out.println(dto.getPortfolioTitle());
+			System.out.println(dto.getPurpose());
+		}
 		request.setAttribute("list", list);
 		return "/plog/plogPortfolio";
 	}
