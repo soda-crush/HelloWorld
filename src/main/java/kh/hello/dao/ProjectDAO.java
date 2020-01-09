@@ -126,6 +126,10 @@ public class ProjectDAO {
 		param.put("end", end);
 		return jdbc.selectList("Project.getPLogMakeListByPage", param);
 	}
+	
+//	public int getApplyArticleCount(String id) {
+//		
+//	}
 //	public int insertProjectList(ProjectPlogDTO dto) {//나의 프로젝트 등록
 //		return jdbc.insert("ProjectPlogList.insert", dto);
 //	}
