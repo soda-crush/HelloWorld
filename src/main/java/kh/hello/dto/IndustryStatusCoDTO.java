@@ -10,7 +10,18 @@ public class IndustryStatusCoDTO {
 	private String content;
 	private Timestamp writeDate;
 	private String id;
+	private String formedWriteDate;
 	
+	public String getFormedWriteDate() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+		String result = sdf.format(this.writeDate);
+		return result;
+	}
+
+	public void setFormedWriteDate(String formedWriteDate) {
+		this.formedWriteDate = formedWriteDate;
+	}
+
 	public IndustryStatusCoDTO() {
 		super();
 	}

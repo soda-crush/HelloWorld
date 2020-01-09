@@ -31,8 +31,7 @@ public class BambooController {
 	public String bamboolistView (String cpage, Model m) {//대나무숲 게시판목록
 		//페이지네비
 		int currentPage = 1;		
-
-		if(cpage != null) currentPage = Integer.parseInt(cpage);
+		if(cpage!= null && !cpage.equals("") && !cpage.equals("null")) currentPage = Integer.parseInt(cpage);
 		int end = currentPage * Configuration.recordCountPerPage;
 		int start = end - (Configuration.recordCountPerPage - 1);	
 		List<BambooDTO> list = service.bambooListByPage(start, end);
@@ -107,9 +106,10 @@ public class BambooController {
 
 	@RequestMapping("/bambooDeleteProc.do")
 	public String bambooDeleteConfirm(int seq) {
+		LoginInfoDTO loginInfo = (LoginInfoDTO)session.getAttribute("loginInfo");
 		int result = 0;
 		try {
-			result = service.bambooDeleteConfirm(seq);		
+			result = service.bambooDeleteConfirm(seq,loginInfo.getId());		
 			if(result > 0) {
 				return "redirect:/bamboo/bambooList.do";
 			}else {
@@ -128,7 +128,7 @@ public class BambooController {
 	public String commentWriteConfirm(BambooCoDTO dto) {
 		LoginInfoDTO loginInfo = (LoginInfoDTO)session.getAttribute("loginInfo");
 		dto.setWriter(loginInfo.getId());
-		return service.commentWriteConfirm(dto);
+		return service.commentWriteConfirm(dto,dto.getWriter());
 	}
 
 	@ResponseBody
@@ -140,7 +140,9 @@ public class BambooController {
 	@ResponseBody
 	@RequestMapping(value="/comment/deleteProc.do",produces="text/html;charset=utf8")
 	public String commentDeleteConfirm(BambooCoDTO dto) {
-		return service.commentDeleteConfirm(dto);
+		LoginInfoDTO loginInfo = (LoginInfoDTO)session.getAttribute("loginInfo");
+		dto.setWriter(loginInfo.getId());
+		return service.commentDeleteConfirm(dto,dto.getWriter());
 	}
 
 	//게시판 목록 검색
@@ -151,7 +153,7 @@ public class BambooController {
 		//페이지네비
 		int currentPage = 1;		
 
-		if(cpage != null) currentPage = Integer.parseInt(cpage);
+		if(cpage!= null && !cpage.equals("") && !cpage.equals("null")) currentPage = Integer.parseInt(cpage);
 		int end = currentPage * Configuration.recordCountPerPage;
 		int start = end - (Configuration.recordCountPerPage - 1);	
 		List<BambooDTO> list = service.bambooSearchListByPage(start, end, value, search);

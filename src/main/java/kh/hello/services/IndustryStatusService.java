@@ -3,6 +3,7 @@ package kh.hello.services;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -19,6 +20,7 @@ import kh.hello.configuration.Configuration;
 import kh.hello.dao.IndustryStatusDAO;
 import kh.hello.dto.IndustryStatusCoDTO;
 import kh.hello.dto.IndustryStatusDTO;
+import kh.hello.dto.ScrapDTO;
 
 @Service
 public class IndustryStatusService {
@@ -38,7 +40,6 @@ public class IndustryStatusService {
 		//dto.setSeq(bamSeq);
 		//2. 이미지 저장하고 주소 변환
 		String content = imgUpload(path, dto.getSeq(), dto.getContent());
-		System.out.println(content);
 		dto.setContent(content);
 		//3. 글 수정
 
@@ -46,8 +47,9 @@ public class IndustryStatusService {
 	}
 
 	@Transactional("txManager")
-	public int industryStatusDeleteConfirm(int seq) {
+	public int industryStatusDeleteConfirm(int seq, String id) {
 		dao.deleteIndustryStatusAllCo(seq);
+		dao.deleteWritePoint(id);
 		return dao.deleteIndustryStatus(seq);
 	}
 
@@ -114,8 +116,13 @@ public class IndustryStatusService {
 	@Transactional("txManager")
 	public String commentWriteConfirm(IndustryStatusCoDTO dto) {
 		dao.insertIndustryStatusCo(dto);
+		dao.writePoint(dto.getId());
 		Gson gson = new Gson();
 		List<IndustryStatusCoDTO> result = dao.getCoList(dto.getIndSeq());
+		for(IndustryStatusCoDTO i : result) {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+			i.setFormedWriteDate(sdf.format(i.getWriteDate()));
+		}
 		return gson.toJson(result);
 	}
 
@@ -124,13 +131,22 @@ public class IndustryStatusService {
 		dao.updateIndustryStatusCo(dto);
 		Gson gson = new Gson();
 		List<IndustryStatusCoDTO> result = dao.getCoList(dto.getIndSeq());
+		for(IndustryStatusCoDTO i : result) {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+			i.setFormedWriteDate(sdf.format(i.getWriteDate()));
+		}
 		return gson.toJson(result);
 	}
 
 	public String commentDeleteConfirm(IndustryStatusCoDTO dto) {
 		dao.deleteIndustryStatusCo(dto.getSeq());
+		dao.deleteWritePoint(dto.getId());
 		Gson gson = new Gson();
 		List<IndustryStatusCoDTO> result = dao.getCoList(dto.getIndSeq());
+		for(IndustryStatusCoDTO i : result) {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+			i.setFormedWriteDate(sdf.format(i.getWriteDate()));
+		}
 		return gson.toJson(result);
 	}
 
@@ -234,9 +250,26 @@ public class IndustryStatusService {
 		dto.setSeq(indSeq);
 		//2. 이미지 저장하고 주소 변환
 		String content = imgUpload(path, indSeq, dto.getContent());
-		System.out.println(content);
 		dto.setContent(content);
+		dao.writePoint(dto.getId());
 		//3. 글 업로드
 		return dao.insertIndustryStatus(dto);
+	}
+
+	//스크랩
+	public String scrap(ScrapDTO dto){
+		int scrapDupResult = dao.scrapDupCheck(dto);
+		if(scrapDupResult > 0) {
+			//중복
+			return "already";
+		}else {
+			dto.setSeq(dao.earlierSeq());
+			int scrapResult = dao.scrapCode(dto);
+			if(scrapResult > 0) {
+				return "success";
+			}else {
+				return "fail";
+			}
+		}
 	}
 }
