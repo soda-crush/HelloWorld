@@ -85,5 +85,4 @@ public class BambooDTO {
 				+ ", writeDate=" + writeDate + ", viewCount=" + viewCount + ", commentCount=" + commentCount + "]";
 	}
 	
-	
 }

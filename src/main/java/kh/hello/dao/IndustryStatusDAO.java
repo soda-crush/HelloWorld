@@ -8,22 +8,22 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import kh.hello.dto.BambooDTO;
 import kh.hello.dto.IndustryStatusCoDTO;
 import kh.hello.dto.IndustryStatusDTO;
+import kh.hello.dto.ScrapDTO;
 
 @Repository
 public class IndustryStatusDAO {
-	
+
 	@Autowired
 	private SqlSessionTemplate jdbc;
-	
+
 	//업계현황 게시판
 
 	public IndustryStatusDTO getIndustryStatusDetailView(int seq) {
 		return jdbc.selectOne("Industry.getIndustryStatusDetailView", seq);
 	}
-	
+
 	public int insertIndustryStatus(IndustryStatusDTO dto) {
 		return jdbc.insert("Industry.insertIndustryStatus", dto);
 	}	
@@ -36,7 +36,7 @@ public class IndustryStatusDAO {
 	public int deleteIndustryStatus(int seq) {
 		return jdbc.delete("Industry.deleteIndustryStatus", seq);
 	}
-	
+
 	//페이지네비
 	public int recordIndustryListTotalCount () {// 전체리스트 수
 		return jdbc.selectOne("Industry.recordIndustryListTotalCount");
@@ -48,7 +48,7 @@ public class IndustryStatusDAO {
 		return jdbc.selectList("Industry.industryListByPage",param);
 	}
 	//업계현황 댓글
-	
+
 	public List<IndustryStatusCoDTO> getCoList(int indSeq){
 		return jdbc.selectList("IndustryCo.getList", indSeq);
 	}
@@ -67,7 +67,7 @@ public class IndustryStatusDAO {
 	public int deleteIndustryStatusAllCo(int indSeq) {
 		return jdbc.delete("IndustryCo.deleteIndustryStatusAllCo", indSeq);
 	}
-	
+
 	//조건별 게시판목록 검색
 	public int industrySearchTotalCount(String value,String search) {
 		Map<String, String> param = new HashMap<>();
@@ -83,7 +83,7 @@ public class IndustryStatusDAO {
 		param.put("search", search);
 		return jdbc.selectList("Industry.industrySearchByPage",param);
 	}
-	
+
 	//이미지업로드
 	public int getIndustrySeq() {
 		return jdbc.selectOne("Industry.getIndustrySeq");
@@ -93,5 +93,26 @@ public class IndustryStatusDAO {
 		param.put("indSeq", indSeq);
 		param.put("fileName", fileName);
 		return jdbc.insert("Industry.insertImg", param);
+	}
+
+	//포인트
+	public void writePoint(String id) {
+		jdbc.update("Industry.writePoint", id);
+	}
+	public void deleteWritePoint(String id) {
+		jdbc.update("Industry.deleteWritePoint", id);
+	}
+
+	//스크랩
+	public int scrapDupCheck(ScrapDTO dto) {
+		return jdbc.selectOne("Bamboo.scrapDupCheck", dto);
+	}
+
+	public int earlierSeq() {
+		return jdbc.selectOne("Bamboo.earlierSeq");
+	}
+
+	public int scrapCode(ScrapDTO dto) {
+		return jdbc.insert("Bamboo.scrapCode", dto);
 	}
 }
