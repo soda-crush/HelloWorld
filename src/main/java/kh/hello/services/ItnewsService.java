@@ -39,6 +39,10 @@ public class ItnewsService {
 		return dao.selectByPage(start, end);
 	}
 	
+	public List<ItnewsDTO> itnewsListTrimSrch(int start, int end, String cate, String search){
+		return dao.selectByPageSearch(start, end, cate, search);
+	}
+	
 	public String getPageNavi(int cpage){
 		int recordTotalCount = dao.getItnewsTotal();
 		int pageTotalCount = 0;
@@ -81,6 +85,52 @@ public class ItnewsService {
 		}
 		
 		if(needNext) sb.append("<a href='itnewsList?cpage=" + (endNavi + 1) + "'>> </a>");
+	
+		return sb.toString();
+	}
+	
+	public String getPageNaviSrch(int cpage, String cate,String search) {
+		int recordTotalCount = dao.getItnewsTotalSearch(cate, search);
+		int pageTotalCount = 0;
+		
+		if(recordTotalCount% Configuration.recordCountPerPage > 0) {
+			pageTotalCount = recordTotalCount / Configuration.recordCountPerPage + 1;
+		}else {
+			pageTotalCount = recordTotalCount / Configuration.recordCountPerPage;
+		}
+		
+		if(cpage < 1) {
+			cpage = 1;
+		}else if(cpage > pageTotalCount) {
+			cpage = pageTotalCount;
+		}
+		
+		int startNavi = (cpage - 1) / Configuration.naviCountPerPage * Configuration.naviCountPerPage + 1;
+		int endNavi = startNavi + (Configuration.naviCountPerPage - 1);
+		
+		if(endNavi > pageTotalCount) {
+			endNavi = pageTotalCount;
+		}
+		
+		boolean needPrev = true;
+		if(startNavi == 1) {
+			needPrev = false;
+		}
+		boolean needNext = true;
+		if(endNavi == pageTotalCount) {
+			needNext = false;
+		}
+
+		StringBuilder sb = new StringBuilder();
+		if(needPrev) sb.append("<a href='searchList?cpage=" + (startNavi - 1) + "&cate="+cate+"&search="+search+"'>< </a>");
+		
+		for(int i = startNavi; i <= endNavi; i++) {
+			sb.append("<a id=page"+i+" href='searchList?cpage="+ i +"&cate="+cate+"&search="+search+"'>");
+			sb.append(i + " ");
+			sb.append("</a>");
+		}
+		
+		if(needNext) sb.append("<a href='searchList?cpage=" + (endNavi + 1) + "&cate="+cate+"&search="+search+"'>> </a>");
 	
 		return sb.toString();
 	}
@@ -203,6 +253,7 @@ public class ItnewsService {
 	public int increViewCount(int seq) {
 		return dao.increViewCount(seq);
 	}
+	
 	
 	
 }

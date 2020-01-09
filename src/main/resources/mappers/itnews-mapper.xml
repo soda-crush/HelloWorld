@@ -80,4 +80,34 @@
 		insert into itnewsImg values (itnewsImgSeq.nextVal, #{itSeq}, #{oriName}, #{sysName})
 	</insert>
 	
+	<select id="selectByPageSrch" resultType="kh.hello.dto.ItnewsDTO" parameterType="java.util.Map">
+		select * 
+		<choose>
+		 <when test="cate == 'cateAll'">								
+			 from (select itnews.*, row_number() over (order by seq desc) as rown from itnews where (title like '%${search}%') or (writer like '%${search}%')) where rown between #{start} and #{end} 
+		</when>
+		<when test="cate == 'cateTitle'">								
+			 from (select itnews.*, row_number() over (order by seq desc) as rown from itnews where (title like '%${search}%')) where rown between #{start} and #{end}
+		</when>
+		<when test="cate == 'cateWriter'">								
+			 from (select itnews.*, row_number() over (order by seq desc) as rown from itnews where (writer like '%${search}%')) where rown between #{start} and #{end}
+		</when>
+		</choose>
+	</select>
+	
+	<select id="getTotalSearch" parameterType="java.util.Map" resultType="integer">
+		select count(*) from itnews
+		 <choose>
+		 <when test="cate == 'cateAll'">								
+			 where (title like '%${search}%') or (writer like '%${search}%')
+		</when>
+		<when test="cate == 'cateWriter'">								
+			 where (writer like '%${search}%')
+		</when>
+		<when test="cate == 'cateTitle'">								
+			 where (title like '%${search}%')
+		</when>
+		</choose>
+	</select>
+	
 </mapper> 
