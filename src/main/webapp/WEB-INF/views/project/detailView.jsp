@@ -22,6 +22,28 @@
 <style>
 #scrapDone{color:crimson;}
 #scrapDone,#scrapNull:hover{cursor:pointer;}
+.coLevel1{margin-left:60px;}
+.commentWriteDate{font-size:10px;}
+.commentWriter{font-weight:bold;}
+#pCoReplyInput{
+    margin-left: 60px;
+    background-color:#fff;
+	margin-top:2px;
+	margin-bottom:2px;
+	padding:0;
+	padding-bottom:5px;
+	border-radius:7px;    	
+/*     border:1px solid black; */
+}
+#pCoReplyContents{
+    margin-top:10px;
+	margin-bottom:15px;
+    margin-left: 20px;
+    height:100px; 
+}
+#pCoReplyInput button{
+    height:45px; width:90%;
+}  
 </style>
 </head>
 
@@ -48,10 +70,10 @@
 							<i class="fa fa-share-alt"></i>
 							<c:choose>
 								<c:when test="${scrap=='impossible' }">
-									<i class="fa fa-bookmark" id="scrapDone"></i>									
+									<i class="fa fa-bookmark" id="scrapDone" data-toggle="tooltip" title="스크랩"></i>									
 								</c:when>
 								<c:otherwise>
-									<i class="fa fa-bookmark-o" id="scrapNull"></i>									
+									<i class="fa fa-bookmark-o" id="scrapNull" data-toggle="tooltip" title="스크랩"></i>									
 								</c:otherwise>
 							</c:choose>
 							<br>
@@ -104,27 +126,41 @@
 							<div class="pPageComments">
 							<c:if test="${comments.size()>0 }">
 								<c:forEach items="${comments }" var="c">
-									<div class="row commentDiv commentBox${c.seq } p-0 pb-2 m-2">
-										<div class="col-12 commentInnerBox">
-											<div class="row commentHeader">
-												<div class="col-1 profileBox pl-1 pt-2"><img src="/img/profileSample.jpg" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>
-												<div class="col-7 pt-1">
-													<div class="row commentInfo">
-														<div class="col-12 commentWriter">${c.writer }</div>
-														<div class="col-12 commentWriteDate">${c.formedWriteDate }</div>
+									<div class="row commentDiv commentBox${c.seq } coLevel${c.depth } p-0 pb-1">
+										<div class="col-12 commentInnerBox pb-0">
+											<c:choose>
+												<c:when test="${c.contents!=null }">
+													<div class="row commentHeader">
+														<div class="col-1 profileBox pl-1 pt-2"><img src="/img/profileSample.jpg" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>
+														<div class="col-7 pt-1">
+															<div class="row commentInfo">
+																<div class="col-12 commentWriter">${c.writer }</div>
+																<div class="col-12 commentWriteDate">
+																	<span>${c.formedWriteDate }</span>
+																	<c:if test="${c.changeDate!=null }">
+																		<span style="margin-left: 10px;">(수정 ${c.formedChangeDate })</span>
+																	</c:if>
+																</div>
+															</div>
+														</div>				
+														<div class="col-4 pt-2 text-right commentBtns">
+															<c:if test="${c.depth==0 }">
+																<a class="btn btn-warning coReplyBtn" href="#" onclick="coReplyFunction(${c.seq});return false;" role="button">답글</a>
+															</c:if>													
+															<c:if test="${c.id==sessionScope.loginInfo.id }">
+																<a class="btn btn-info coModBtn" href="#" onclick="coModFunction(${c.seq},'${c.contents }');return false;" role="button">수정</a>
+																<a class="btn btn-danger coDelBtn" href="#" onclick="coDelFunction(${c.seq});return false;" role="button">삭제</a>
+															</c:if>
+														</div>								
 													</div>
-												</div>				
-												<div class="col-4 pt-2 text-right commentBtns">
-													<button type="button" class="btn btn-warning coReplyBtn">답글</button>
-													<c:if test="${c.id==sessionScope.loginInfo.id }">
-														<a class="btn btn-info coModBtn" href="#" onclick="coModFunction(${c.seq},'${c.contents }');return false;" role="button">수정</a>
-														<a class="btn btn-danger coDelBtn" href="#" onclick="coDelFunction(${c.seq});return false;" role="button">삭제</a>
-													</c:if>
-												</div>								
-											</div>											
-											<div class="row commentContent">
-												<div class="col-12 pt-1 pl-4">${c.contents }</div>
-											</div>
+													<div class="row commentContent">
+														<div class="col-12 pt-1 pl-4">${c.contents }</div>
+													</div>
+												</c:when>
+												<c:otherwise>
+													<span class="row align-middle m-2 mt-3">삭제된 댓글입니다.<span class="delCoDate" style="margin-left: 10px;color:darkgray;">(삭제일 : ${c.formedChangeDate })</span></span>
+												</c:otherwise>											
+											</c:choose>
 										</div>
 									</div>								
 								</c:forEach>
@@ -178,6 +214,62 @@
 		<jsp:include page="/WEB-INF/views/project/jsp/applyConfirmModal.jsp"/>
         <jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
 		<script>
+		function coReplyFunction(seq){
+			console.log("확인");
+			if($("#pCoReplyInput").length>0){
+				alert("현재 열려있는 답글 입력창이 있습니다.");
+				return false;
+			}
+			var html = [];
+			html.push(
+					'<div id="pCoReplyInput" class="row commentDiv commentBox p-0 pt-2 pb-2">',
+					'<div class="col-9 col-lg-10"><textarea class="form-control" placeholder="답글 내용을 입력해주세요" id="pCoReplyContents" name="contents"></textarea></div>',
+					'<div class="col-3 col-lg-2">',
+					'<div class="row">',
+					'<div class="col-12">',
+					'<button type="button" class="btn btn-secondary" style="margin-bottom:10px;margin-top:10px;" id="coReplyCancel">취소</button>',
+					'</div>',										
+					'</div>',
+					'<div class="row">',
+					'<div class="col-12"><input type="hidden" name="projectSeq" value="${pPage.seq}"><input type="hidden" name="parentSeq" value='+seq+'>',
+					'<button type="button" class="btn btn-warning" id="coReplyWriteBtn">작성</button>',
+					'</div>',										
+					'</div>',								
+				    '</div>',
+					'</div>'
+			);
+			$('.commentBox'+seq).after(html.join(""));
+			$("#pCoReplyInput").wrap('<form method="post" id="coReplyWriteFrm"></form>');
+			$("#pCoReplyContents").focus();
+		}//답댓기능.
+		$(document).on("click","#coReplyCancel",function(){
+			var check = confirm("답글 작성을 취소하시겠습니까?");
+			if(check){
+				$("#pCoReplyInput").unwrap();
+				$("#pCoReplyInput").remove();	
+			}
+		});
+		$(document).on("click","#coReplyWriteBtn",function(){
+			$("#pCoReplyContents").val($.trim($("#pCoReplyContents").val()));
+			if($("#pCoReplyContents").val()==""){
+				alert("답글 내용을 입력해주세요.");
+				return false;
+			}
+			$.ajax({
+				url: "/project/comment/replyWriteProc",
+				type: "post",
+				data: $("#coReplyWriteFrm").serialize(),
+				dataType: "json"
+			}).done(function(resp){
+				console.log("성공");
+				console.log(resp);
+				$(".pPageComments").html("");
+				commentRecall(resp);
+			}).fail(function(resp){
+				console.log("실패");
+				console.log(resp);
+			});
+		});
 		$(document).on("click","#scrapNull",function(){
 			$.ajax({
 				url : "/project/scrap",
@@ -231,17 +323,13 @@
            		}
            	});
            	
-           	$("#coReplyBtn").on("click",function(){           		
-           	});//답댓기능.
-           	
-           	
            	function coModFunction(seq,contents){     
 				$(".commentBox"+seq).find(".commentBtns").css("display","none");
 				$(".commentBox"+seq).find(".commentContent").css("display","none");
            		$(".commentBox"+seq).wrap('<form action="/project/comment/modifyProc" method="post" id="coModFrm"></form>');
 				var html = [];
     			html.push(
-    					'<div class="col-12 coModBox mt-2"><div class="row">',
+    					'<div class="col-12 coModBox mt-2 mb-2"><div class="row">',
     					'<div class="col-9 col-md-10 col-xl-11 pr-0"><textarea class="form-control" placeholder="댓글 내용을 입력해주세요" id="pCoModContents" style="height:80px;" name="contents">'+contents+'</textarea></div>',
     					'<div class="col-3 col-md-2 col-xl-1"><input type="hidden" name="seq" value="'+seq+'"><input type="hidden" name="projectSeq" value="${pPage.seq }">',
     					'<div class="row">',
@@ -249,9 +337,10 @@
     					'<button type="button" class="btn btn-secondary" style="margin-bottom:5px;width:80%;" id="coMoCancel">취소</button>',
     					'</div></div>',
     					'<div class="row"><div class="col-12 text-center p-0">',
-    					'<button type="button" class="btn btn-warning" style="width:80%;" id="coMoBtn">수정</button>',
-    					'</div></div></div></div></div>');
-    			$(".commentBox"+seq).append(html.join(""));    			
+    					'<button type="button" class="btn btn-warning" style="width:80%;" id="coMoConfirmBtn">수정</button>',
+    					'</div></div></div></div></div>'
+    			);
+    			$(".commentBox"+seq).append(html.join(""));    			    			
            	}
            	
            	$(document).on("click","#coMoCancel",function(){
@@ -264,7 +353,7 @@
            		}
            	});
            	
-           	$(document).on("click","#coMoBtn",function(){
+           	$(document).on("click","#coMoConfirmBtn",function(){
 				$("#pCoModContents").val($.trim($("#pCoModContents").val()));
 				if($("#pCoModContents").val()==""){
 					alert("댓글 내용을 입력해주세요.");
@@ -397,26 +486,54 @@
 				for(var i=0;i<resp.length;i++){
 					var html = [];
 					html.push(
-							'<div class="row commentDiv commentBox'+resp[i].seq+' p-0 pb-2 m-2"><div class="col-12 commentInnerBox"><div class="row commentHeader">',
-							'<div class="col-1 profileBox pl-1 pt-2"><img src="/img/profileSample.jpg" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>',
-							'<div class="col-7 pt-1"><div class="row commentInfo">',
-							'<div class="col-12 commentWriter">'+resp[i].writer+'</div>',
-							'<div class="col-12 commentWriteDate">'+resp[i].formedWriteDate+'</div></div></div>',
-							'<div class="col-4 pt-2 text-right commentBtns">',
-							'<button type="button" class="btn btn-warning coReplyBtn">답글</button>\n'
-							);
-					if(resp[i].id==loginInfo){
+							'<div class="row commentDiv commentBox'+resp[i].seq+' coLevel'+resp[i].depth+' p-0 pb-1">',
+							'<div class="col-12 commentInnerBox pb-0">'
+					);
+					if(resp[i].contents!=null){
 						html.push(
-								'<a class="btn btn-info coModBtn" href="#" onclick="coModFunction('+resp[i].seq+',\''+resp[i].contents+'\');return false;" role="button">수정</a>\n',
-								'<a class="btn btn-danger coDelBtn" href="#" onclick="coDelFunction('+resp[i].seq+');return false;" role="button">삭제</a>'
-								);
+								'<div class="row commentHeader">',
+								'<div class="col-1 profileBox pl-1 pt-2"><img src="/img/profileSample.jpg" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>',
+								'<div class="col-7 pt-1">',
+								'<div class="row commentInfo">',
+								'<div class="col-12 commentWriter">'+resp[i].writer+'</div>',
+								'<div class="col-12 commentWriteDate">',
+								'<span>'+resp[i].formedWriteDate+'</span>'
+						);
+						if(resp[i].changeDate!=null){
+							html.push(
+									'<span style="margin-left: 10px;">(수정 '+resp[i].formedChangeDate+')</span>'
+							);
+						}
+						html.push(
+								'</div></div></div>',
+								'<div class="col-4 pt-2 text-right commentBtns">'
+						);
+						if(resp[i].depth==0){
+							html.push(
+									'<a class="btn btn-warning coReplyBtn" href="#" onclick="coReplyFunction('+resp[i].seq+');return false;" role="button">답글</a>\n'	
+							);
+						}
+						if(resp[i].id==loginInfo){
+							html.push(
+									'<a class="btn btn-info coModBtn" href="#" onclick="coModFunction('+resp[i].seq+',\''+resp[i].contents+'\');return false;" role="button">수정</a>\n',
+									'<a class="btn btn-danger coDelBtn" href="#" onclick="coDelFunction('+resp[i].seq+');return false;" role="button">삭제</a>'
+							);
+						}
+						html.push(							
+							'</div></div>',
+							'<div class="row commentContent">',
+							'<div class="col-12 pt-1 pl-4">'+resp[i].contents+'</div></div>'	
+						);
+					}else{
+						html.push(
+								'<span class="row align-middle m-2 mt-3">삭제된 댓글입니다.<span class="delCoDate" style="margin-left: 10px;color:darkgray;">(삭제일 : '+resp[i].formedChangeDate+')</span></span>'							
+						);
 					}
 					html.push(
-							'</div></div>',
-							'<div class="row commentContent"><div class="col-12 pt-1 pl-4">'+resp[i].contents+'</div></div></div></div>'
-							);
+							'</div></div>'		
+					);
 					$(".pPageComments").append(html.join(""));	
-					}
+				}
 			}	
          </script>            
             

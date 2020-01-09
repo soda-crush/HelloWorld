@@ -31,7 +31,7 @@
             <!--      몸통 시작!!!   -->
             <div class="container" id="projectApplyPage">
             	<div id="pageTitle" class="row">
-					<div class="col-12"><h1>프로젝트 신청내역</h1></div>					
+					<div class="col-12"><h1>프로젝트 신청 내역</h1></div>					
 				</div>	           
            
            		<div class="tableDiv">
@@ -46,7 +46,7 @@
 					
 				  	<c:choose>
 				  		<c:when test="${applyList.size()==0 }">
-				  		<div class="row text-center tableBodyNull"><div class="col-12">신청내역이 없습니다.</div></div>
+				  		<div class="row text-center tableBodyNull"><div class="col-12">신청 내역이 없습니다.</div></div>
 				  		</c:when>
 				  		<c:otherwise>
 				  			<c:forEach items="${applyList }" var="a">				  			
