@@ -45,9 +45,9 @@ public class CodeDAO {
 	}
 
 	//가장 최신 글 번호 찾기
-	public int selectSeq(String writer) {
-		return jdbc.selectOne("Code.selectSeq",writer);
-	}
+//	public int selectSeq(String id) {
+//		return jdbc.selectOne("Code.selectSeq",id);
+//	}
 	
 	//디테일
 	public CodeQuestionDTO detailQuestion(int seq) {
@@ -94,10 +94,10 @@ public class CodeDAO {
 		return jdbc.delete("CodeR.deleteR",seq);
 	}
 	
-	public int replyOneCount(int queSeq,String writer) {
+	public int replyOneCount(int queSeq,String id) {
 		Map<String,Object> map = new HashMap<>();
 		map.put("queSeq", queSeq);
-		map.put("writer", writer);
+		map.put("id", id);
 		return jdbc.selectOne("CodeR.replyOneCount",map);
 	}
 	
@@ -111,10 +111,10 @@ public class CodeDAO {
 	
 	//CodeComment
 	
-	public int selectRepSeq(int queSeq,String writer) { //repSeq구하기
+	public int selectRepSeq(int queSeq,String id) { //repSeq구하기
 		Map<String,Object> param = new HashMap<>();
 		param.put("queSeq", queSeq);
-		param.put("writer", writer);
+		param.put("id", id);
 		Object result = jdbc.selectOne("CodeC.selectRepSeq",param);
 		if(result == null) { //int null값 방지
 			return 0;
@@ -169,7 +169,7 @@ public class CodeDAO {
 		return jdbc.selectList("Code.codeSearchByPage",param);
 	}
 	
-	//이미지업로드
+	//이미지업로드 질문
 		public int getCodeSeq() {
 			return jdbc.selectOne("Code.getCodeSeq");
 		}
@@ -178,6 +178,17 @@ public class CodeDAO {
 			param.put("queSeq", queSeq);
 			param.put("fileName", fileName);
 			return jdbc.insert("Code.insertImg", param);
+		}
+		
+	//이미지업로드 답글
+		public int getCodeRSeq() {
+			return jdbc.selectOne("CodeR.getCodeRSeq");
+		}
+		public int insertRImg(int repSeq, String fileName) {
+			Map<String, Object> param = new HashMap<>();
+			param.put("repSeq", repSeq);
+			param.put("fileName", fileName);
+			return jdbc.insert("CodeR.insertRImg", param);
 		}
 		
 	//스크랩

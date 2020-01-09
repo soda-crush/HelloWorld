@@ -88,17 +88,15 @@ public class CodeController {
 	}
 	
 	@RequestMapping("/codeDetail.do")
-	public String codeDetail(int seq, Model m,CodeReplyDTO dto) {
+	public String codeDetail(int seq, Model m) {
 			LoginInfoDTO info = (LoginInfoDTO)session.getAttribute("loginInfo");
-			dto.setId(info.getId());
-			dto.setWriter(info.getNickName());
 			CodeQuestionDTO qResult = sv.detailQuestion(seq); 
 			List<CodeReplyDTO> rResult = sv.detailReply(seq);
 			List<CodeCommentsDTO> cResult = sv.commentList(seq);   
-			int count = sv.replyOneCount(seq, dto.getWriter()); //queSeq
+			int count = sv.replyOneCount(seq, info.getId()); //queSeq
 //			System.out.println("seq:" + seq);
 //			System.out.println(dto.getWriter());
-			int repSeq = sv.selectRepSeq(seq,dto.getWriter());
+			int repSeq = sv.selectRepSeq(seq,info.getId());
 			m.addAttribute("qResult", qResult);
 			m.addAttribute("rResult", rResult);
 			
@@ -175,22 +173,44 @@ public class CodeController {
 		return "code/codeRWrite";
 	}
 	
+//	@RequestMapping("/codeRWriteProc.do")
+//	public String codeRWriteProc(CodeReplyDTO dto) {
+//			int queSeq = dto.getQueSeq();
+//			LoginInfoDTO info = (LoginInfoDTO)session.getAttribute("loginInfo");
+//			dto.setId(info.getId());
+//			dto.setWriter(info.getNickName());
+//
+//			//int queSeq = sv.selectParentSeq(parent_seq);
+//			String path = session.getServletContext().getRealPath("files");
+//			sv.insertR(dto);
+//		try {
+//			sv.imageUploadR(dto, path);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		return "redirect:/code/codeDetail.do?seq="+queSeq;
+//	}
+	
 	@RequestMapping("/codeRWriteProc.do")
-	public String codeRWriteProc(CodeReplyDTO dto) {
-			int queSeq = dto.getQueSeq();
-			LoginInfoDTO info = (LoginInfoDTO)session.getAttribute("loginInfo");
-			dto.setId(info.getId());
-			dto.setWriter(info.getNickName());
-
-			//int queSeq = sv.selectParentSeq(parent_seq);
-			String path = session.getServletContext().getRealPath("files");
-			sv.insertR(dto);
+	public String codeRWriteProc(CodeReplyDTO dto) {//섬머노트
+		System.out.println("seq : " +dto.getQueSeq());
+		LoginInfoDTO info = (LoginInfoDTO)session.getAttribute("loginInfo");
+		dto.setId(info.getId());
+		dto.setWriter(info.getNickName());
+		int queSeq = dto.getQueSeq();
+		String path = session.getServletContext().getRealPath("attached");
+		int result = 0;
 		try {
-			sv.imageUploadR(dto, path);
-		} catch (Exception e) {
+			result = sv.writeCodeR(path, dto,dto.getId());
+			if(result > 0) {
+				return "redirect:/code/codeDetail.do?seq="+queSeq;
+			}else {
+				return "redirect:../error";
+			}
+		}catch(Exception e) {
 			e.printStackTrace();
+			return "redirect:../error";
 		}
-		return "redirect:/code/codeDetail.do?seq="+queSeq;
 	}
 	
 	

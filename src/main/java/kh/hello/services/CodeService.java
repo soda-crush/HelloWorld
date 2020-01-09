@@ -17,7 +17,6 @@ import com.google.gson.Gson;
 
 import kh.hello.configuration.Configuration;
 import kh.hello.dao.CodeDAO;
-import kh.hello.dto.BambooDTO;
 import kh.hello.dto.CodeCommentsDTO;
 import kh.hello.dto.CodeQuestionDTO;
 import kh.hello.dto.CodeReplyDTO;
@@ -85,8 +84,8 @@ public class CodeService {
 		dao.modify(dto);
 	}
 	
-	public int replyOneCount(int queSeq,String writer){
-		return dao.replyOneCount(queSeq, writer);
+	public int replyOneCount(int queSeq,String id){
+		return dao.replyOneCount(queSeq, id);
 	}
 	
 	//조건별 게시판목록 검색
@@ -250,8 +249,8 @@ public class CodeService {
 	}
 	
 	// 댓글 CodeComments
-	public int selectRepSeq(int queSeq,String writer) {
-		return dao.selectRepSeq(queSeq,writer);
+	public int selectRepSeq(int queSeq,String id) {
+		return dao.selectRepSeq(queSeq,id);
 	}
 	
 	public List<CodeCommentsDTO> commentList(int queSeq) {
@@ -313,7 +312,7 @@ public class CodeService {
 		return dao.deleteReplyAllCo(repSeq);
 	}
 	
-	//이미지 업로드
+	//이미지 업로드 섬머노트 파일명정리
 	private String imgUpload(String path, int queSeq, String content) throws Exception{
 		File imgPath = new File(path + "/code");
 		if(!imgPath.exists()) {
@@ -363,6 +362,57 @@ public class CodeService {
 		dao.writePoint(id); //포인트
 		return dao.insert(dto);
 	}
+	
+	//이미지 업로드 답변 섬머노트 파일명정리
+		private String imgUploadR(String path, int repSeq, String content) throws Exception{
+			File imgPath = new File(path + "/codeR");
+			if(!imgPath.exists()) {
+				imgPath.mkdirs();
+			}
+
+			Pattern p = Pattern.compile("<img.+?src=\"(.+?)\".+?data-filename=\"(.+?)\".*?>");
+			Matcher m = p.matcher(content);
+
+			while(m.find()) {
+				String oriName = m.group(2);
+				String sysName = System.currentTimeMillis() + "_" + oriName;
+
+				int need = m.group(1).split(",").length;
+
+				if(need > 1) {
+					String imgString = m.group(1).split(",")[1];
+					byte[] imgByte = Base64Utils.decodeFromString(imgString);
+
+					FileOutputStream fos = new FileOutputStream(new File(imgPath + "/" + sysName));
+					DataOutputStream dos = new DataOutputStream(fos);
+
+					dos.write(imgByte);
+					dos.flush();
+					dos.close();
+
+					//DB에 이미지 목록 저장하기
+					int result = dao.insertRImg(repSeq, sysName);
+					if(result > 0) {
+						content = content.replaceFirst(Pattern.quote(m.group(1)), "/attached/codeR/"+sysName);
+					}
+				}
+			}
+			return content;
+		}
+		
+		@Transactional("txManager")
+		public int writeCodeR(String path, CodeReplyDTO dto,String id) throws Exception{
+			//1. repSeq 받아오기
+			int repSeq = dao.getCodeRSeq();
+			dto.setSeq(repSeq);
+			//2. 이미지 저장하고 주소 변환
+			String content = imgUploadR(path, repSeq, dto.getContent());
+			//System.out.println(content);
+			dto.setContent(content);
+			//3. 글 업로드
+			dao.writePoint(id); //포인트
+			return dao.insertR(dto);
+		}
 	
 	//스크랩
 	public String scrap(ScrapDTO dto){

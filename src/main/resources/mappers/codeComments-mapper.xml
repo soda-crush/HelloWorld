@@ -28,14 +28,14 @@
 <!-- 	</select> -->
 
 	<select id="selectRepSeq" parameterType="java.util.Map" resultType="integer">
-		select seq from codeReply where queSeq = #{queSeq} and writer = #{writer}
+		select seq from codeReply where queSeq = #{queSeq} and id = #{id}
 	</select>
 	
 	<update id="writeCoPoint" parameterType="String">
-		update member set point=point+5 where id=#{id}
+		update member set point=point+5 where id=#{value}
 	</update>
 	<update id="deleteCoPoint" parameterType="String">
-		update member set point=point-5 where id=#{id}
+		update member set point=point-5 where id=#{value}
 	</update>
 	
 </mapper>
