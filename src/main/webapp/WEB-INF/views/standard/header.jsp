@@ -40,7 +40,7 @@
                     <a class="nav-item nav-link active text-light" href="${pageContext.request.contextPath}/industry/industryStatusList.do">업계현황</a>
                     <a class="nav-item nav-link active text-light" href="${pageContext.request.contextPath}/itnews/itnewsList">IT 뉴스</a>
                     <a class="nav-item nav-link active text-light" href="${pageContext.request.contextPath}/project/list">프로젝트</a>
-                    <a class="nav-item nav-link active text-light" href="${pageContext.request.contextPath}/Portfolio/toPlogmain.do">P-log</a>
+                    <a class="nav-item nav-link active text-light" href="${pageContext.request.contextPath}/Portfolio/toPlog.do?owner=${loginInfo.id}">P-log</a>
                 </div>
             </div>
         </nav>

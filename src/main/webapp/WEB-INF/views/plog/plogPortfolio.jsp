@@ -16,14 +16,16 @@
 <link rel="stylesheet" type="text/css" href="/css/font-awesome/css/font-awesome.css">
 
 	<style>
-		body{font-size:12px;}
 		h1{text-align: center;padding-top: 50px;padding-bottom: 50px;}
         .card{margin-top:20px;width:200px;text-align:center;}
         .myprofile{float: left; margin-top: 20px;margin-bottom: 30px; }
         #mycard{ height: 300px; float:none; display:flex; margin: auto;align-items:center;}
         .cardwrap{float:left;}
+        .card-text{font-size:12px;}
         .card-img-top{width: 80%;margin:10%;}
         a:hover{text-decoration:none;}
+		.navi{text-align: center;}
+		.nvlink{height:45px;line-height:45px;}       
   	</style>
 </head>
 <body>
@@ -42,22 +44,13 @@
             
             <div class="container">
 				<h1> Programming-Log</h1>
- 				<nav class="navbar navbar-expand-md navbar-light" style="background-color: #008EDC;">
-		         	<a class="navbar-brand" href="#"></a>
-		  			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-		   				 <span class="navbar-toggler-icon"></span>
-		  			</button>
-		            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-		
-		                <div class="navbar-nav box text-center plogNavi" id="naviCon">
-		                    <a class="nav-item nav-link active text-light text-primary" href="${pageContext.request.contextPath}/Portfolio/toPlogmain.do">내 포트폴리오</a>
-		                    <a class="nav-item nav-link active text-light text-primary" href="${pageContext.request.contextPath}/Plog/toPlogCohow.do">내 지식인</a>
-		                    <a class="nav-item nav-link active text-light text-primary" href="${pageContext.request.contextPath}/Scrap/toScrap.do">내 스크랩</a>
-		                    <a class="nav-item nav-link active text-light text-primary" href="${pageContext.request.contextPath}/Plog/toPlogProject.do">내 프로젝트</a>
-		                    <a class="nav-item nav-link active text-light text-primary" href="${pageContext.request.contextPath}/GuestBook/selectList.do">방명록</a>
-		                </div>
-		            </div>
-		        </nav>
+ 				<div class="row navi" style="background-color: #008EDC;">
+					<div class="col nvlink"><a class="text-light" href="${pageContext.request.contextPath}/Portfolio/toPlogmain.do">내 포트폴리오</a></div>
+					<div class="col nvlink"><a class="text-light" href="${pageContext.request.contextPath}/Plog/toPlogCohow.do">내 지식인</a></div>
+					<div class="col nvlink"><a class="text-light" href="${pageContext.request.contextPath}/Scrap/toScrap.do">내 스크랩</a></div>
+					<div class="col nvlink"><a class="text-light" href="${pageContext.request.contextPath}/Plog/toPlogProject.do">내 프로젝트</a></div>
+					<div class="col nvlink"><a class="text-light" href="${pageContext.request.contextPath}/GuestBook/selectList.do">방명록</a></div>
+				</div>
 	            <div class="row">
 	                <div class="col-12 col-md-4 col-lg-3 myprofile">
 	                    <div class="card" id="mycard">
