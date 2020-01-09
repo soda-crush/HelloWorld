@@ -25,8 +25,8 @@ public class GuestBookService {
 		gdao.insert(gdto);
 	}
 
-	public List<GuestBookDTO> selectListByPage(String owner, int start, int end){
-		return gdao.selectListByPage(owner,start,end);
+	public List<GuestBookDTO> selectListByPage(String ownerID, int start, int end){
+		return gdao.selectListByPage(ownerID,start,end);
 	}
 	
 	//페이지 네비

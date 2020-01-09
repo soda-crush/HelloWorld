@@ -15,8 +15,10 @@ import kh.hello.dto.ItnewsDTO;
 import kh.hello.dto.LoginInfoDTO;
 import kh.hello.dto.MemberDTO;
 import kh.hello.dto.OwnerInfoDTO;
+import kh.hello.dto.ProjectCoDTO;
 import kh.hello.dto.ProjectDTO;
 import kh.hello.services.MemberService;
+import kh.hello.services.ProjectService;
 import kh.hello.services.ScrapService;
 
 @Controller
@@ -28,6 +30,9 @@ public class ScrapController {
 
 	@Autowired
 	private MemberService ms;
+	
+	@Autowired
+	private ProjectService ps;
 	
 	@Autowired
 	private HttpSession session;
@@ -79,6 +84,15 @@ public class ScrapController {
 	public String project() {
 		OwnerInfoDTO ownerInfo = (OwnerInfoDTO)session.getAttribute("ownerInfo");
 		List<ProjectDTO> plist = ss.selectProject(ownerInfo.getId());
+//		String id = ownerInfo.getId();				
+//		ProjectDTO result = ps.projectDetailView(seq);		
+//		String scrap = ps.checkScrap(id, seq);
+//		List<ProjectCoDTO> coResult = ps.commentList(seq); 
+//		String data = ps.projectWrite();
+//		request.setAttribute("data", data);
+//		request.setAttribute("pPage", result);
+//		request.setAttribute("comments", coResult);
+//		request.setAttribute("scrap", scrap);		
 		request.setAttribute("plist", plist);
 		return "plog/scrapProject";
 	}

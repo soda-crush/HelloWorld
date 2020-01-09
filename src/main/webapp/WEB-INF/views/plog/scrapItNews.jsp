@@ -88,7 +88,7 @@
 							
 						  	<c:choose>
 						  		<c:when test="${nlist.size()==0 }">
-						  		<div class="row"><div class="col-12">스크랩한 글이 없습니다.</div></div>
+						  		<div class="row text-center tableBodyNull"><div class="col-12">스크랩한 글이 없습니다.</div></div>
 						  		</c:when>
 						  		<c:otherwise>
 						  			<c:forEach items="${nlist}" var="dto">
