@@ -77,7 +77,38 @@
 	                	</div>
 	                </div>
 	                <div class="col-12 col-md-8 col-lg-9 scraptwrap">
-	                	
+	                	<div class="tableDiv">
+	                		<div class="coltheme"> 코드 지식인</div>
+							<div class="row tableHead">
+								<div class="col-2 col-lg-1">구분</div>
+							    <div class="col-5 col-lg-7">제목</div>
+							    <div class="col-2 col-lg-1">작성자</div>
+							    <div class="col-3 col-lg-2">작성일</div>	
+							    <div class="col-1 d-none d-lg-block">조회수</div>					    
+							</div>
+							
+						  	<c:choose>
+						  		<c:when test="${clist.size()==0 }">
+						  		<div class="row text-center tableBodyNull"><div class="col-12">스크랩한 글이 없습니다.</div></div>
+						  		</c:when>
+						  		<c:otherwise>
+						  			<c:forEach items="${clist }" var="dto">
+						  				<div class="row tableBody p-0">
+						  					<div class="col-2 col-lg-1"><span class="badge badge-pill badge-success"
+											style="margin: 10; width: 60px;">${dto.division}</span></div>
+											<div class="col-5 col-lg-6 text-decoration-none" onclick="location.href='${pageContext.request.contextPath}/code/codeDetail.do?seq=${dto.seq}'">${dto.title} 
+							  					<c:if test="${dto.replyCount>0 }">
+							  						<span class="pComment font-weight-bold">${dto.replyCount}</span>
+							  					</c:if>					  					
+											</div>
+											<div class="col-2 col-lg-1" style="text-align:center;">${dto.writer}</div>
+											<div class="col-3">${dto.scrapDate}</div>
+											<div class="col-1 d-none d-lg-block">${dto.viewCount}</div>
+										</div>	
+						  			</c:forEach>
+						  		</c:otherwise>
+						  	</c:choose>				    
+						</div>
 	                </div>
 	          	</div>
             </div>
