@@ -61,7 +61,7 @@
 				  				<div class="row tableBody p-0">
 									<div class="col-xl-1 d-none d-xl-block">${p.seq }</div>
 									<div class="col-xl-1 col-2 col-md-2 col-lg-1 ${p.state }">${p.stateInKor }</div>
-										<div class="col-xl-3 col-8 col-md-5" onclick="location.href='/project/detailView?seq=${p.seq }'" class="text-decoration-none">${p.title } 
+										<div class="col-xl-3 col-8 col-md-5 text-decoration-none" onclick="location.href='/project/detailView?seq=${p.seq }'">${p.title } 
 					  						<c:if test="${p.commentCount>0 }">
 					  							<span class="pComment font-weight-bold">${p.commentCount }</span>
 					  						</c:if>					  					

@@ -15,15 +15,14 @@
 <link rel="stylesheet" href="/css/project/pLogList.css" type="text/css"/>
 <style>
 body{background-color:#f2f2f2;}
+#pageTitle{margin-bottom:20px;}
+#pageTitle h4{font-weight:bold;}
 </style>
 </head>
 <body>
-
+			<div>
 				<div id="pageTitle" class="row">
-					<div class="col-12 col-lg-4"><h4>내가 모집한 프로젝트</h4></div>
-					<div class="col-12 col-lg-8 pt-2">
-					
-					</div>
+					<div class="col-12"><h4>내가 모집한 프로젝트</h4></div>					
 				</div>
 				<div class="tableDiv" style="width:100%;">
 					<div class="row tableHead">					    
@@ -44,7 +43,7 @@ body{background-color:#f2f2f2;}
 				  			<c:forEach items="${makeProjectList }" var="m">
 				  				<div class="row tableBody p-0">
 									<div class="col-2 ${m.state }">${m.stateInKor }</div>
-										<div class="col-3" onclick="location.href='/project/detailView?seq=${m.seq }'" class="text-decoration-none">${m.title } 
+										<div class="col-3 text-decoration-none" onclick="popUp('/project/detailView?seq=${m.seq }')">${m.title } 
 					  						<c:if test="${m.commentCount>0 }">
 					  							<span class="pComment font-weight-bold">${m.commentCount }</span>
 					  						</c:if>					  					
@@ -77,7 +76,11 @@ body{background-color:#f2f2f2;}
 					</div>
 				</div>
 				<nav aria-label="List navi" id="pPageNavi">${makePageNavi }</nav>
+			</div>
 		<script>
+			function popUp(link){
+				window.open(link,"_blank");
+			}
         	$(".pNavi${makeCurrentPage}").addClass("active");
         </script>
 </body>
