@@ -77,18 +77,16 @@
 	                	</div>
 	                </div>
 	                <div class="col-12 col-md-8 col-lg-9 scraptwrap">
-	                	<div class="coltheme"> it 뉴스 </div>
+	                	<div class="coltheme"> 프로젝트 </div>
 			         	<div class="tableDiv">
 							<div class="row tableHead">
-							    <div class="col-xl-1 col-2 col-md-2 col-lg-1">모집상태</div>
-							    <div class="col-xl-5 col-8 col-md-5">제목</div>
-							    <div class="col-xl-1 col-2 col-md-1">지역</div>
+							    <div class="col-xl-1 col-2 col-md-2 col-lg-2">모집상태</div>
+							    <div class="col-xl-5 col-8 col-md-5 col-lg-4">제목</div>
+							    <div class="col-xl-1 col-2 col-md-1 d-none d-md-block">지역</div>
 							    <div class="col-xl-1 col-lg-1 d-none d-lg-block">인원</div>
-							    <div class="col-xl-2 col-md-4 d-none d-md-block">기간</div>
-							    <div class="col-xl-1 d-none d-xl-block">작성자</div>
-							    <div class="col-xl-1 d-none d-xl-block">작성일</div>					    
+							    <div class="col-xl-1 col-2">작성자</div>
+							    <div class="col-xl-1 col-md-2 d-none d-md-block">작성일</div>					    
 							</div>
-							
 						  	<c:choose>
 						  		<c:when test="${plist.size()==0 }">
 						  		<div class="row text-center tableBodyNull"><div class="col-12">작성된 글이 없습니다.</div></div>
@@ -96,17 +94,16 @@
 						  		<c:otherwise>
 						  			<c:forEach items="${plist }" var="p">
 						  				<div class="row tableBody p-0">
-											<div class="col-xl-1 col-2 col-md-2 col-lg-1 ${p.state }">${p.stateInKor }</div>
-												<div class="col-xl-5 col-8 col-md-5" onclick="location.href='/project/detailView?seq=${p.seq }'" class="text-decoration-none">${p.title } 
+											<div class="col-xl-1 col-2 col-md-2 col-lg-2 ${p.state }">${p.stateInKor }</div>
+												<div class="col-xl-5 col-8 col-md-5 col-lg-4" onclick="location.href='${pageContext.request.contextPath}/project/detailView?seq=${p.seq }'" class="text-decoration-none">${p.title } 
 							  						<c:if test="${p.commentCount>0 }">
 							  							<span class="pComment font-weight-bold">${p.commentCount }</span>
 							  						</c:if>					  					
 												</div>
-											<div class="col-xl-1 col-2 col-md-1">${p.location1 }</div>
+											<div class="col-xl-1 col-md-1 col-2  d-none d-md-block">${p.location1 }</div>
 											<div class="col-xl-1 col-lg-1 d-none d-lg-block">${p.capacity }명</div>
-											<div class="col-xl-2 col-md-4 d-none d-md-block">${p.formedAllDate }</div>
-											<div class="col-xl-1 d-none d-xl-block">${p.writer }</div>
-											<div class="col-xl-1 d-none d-xl-block">${p.formedWriteDate }</div>
+											<div class="col-xl-1 col-2">${p.writer }</div>
+											<div class="col-xl-1 col-md-2 d-none d-md-block">${p.formedWriteDate }</div>
 										</div>	
 						  			</c:forEach>
 						  		</c:otherwise>

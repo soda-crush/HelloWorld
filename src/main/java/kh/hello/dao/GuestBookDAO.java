@@ -24,9 +24,9 @@ public class GuestBookDAO {
 		return jdbc.selectOne("GuestBook.guestBookTotalCount",owner);
 	}
 	
-	public List<GuestBookDTO> selectListByPage(String owner, int start, int end) {
+	public List<GuestBookDTO> selectListByPage(String ownerID, int start, int end) {
 		Map<String, Object> param = new HashMap<>();
-		param.put("owner", owner);
+		param.put("ownerID", ownerID);
 		param.put("start", start);
 		param.put("end", end);
 		return jdbc.selectList("GuestBook.guestBookListByPage", param);
