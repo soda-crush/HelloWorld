@@ -73,13 +73,13 @@
 				<div class=row>
 					<div class="col-12 pageNavi">${navi}</div>
 				</div>		
-				<form action="${pageContext.request.contextPath}/itnews/searchList" method="post">
+				<form action="${pageContext.request.contextPath}/itnews/searchList" method="get">
 					<div class=row>
 						<div class=col-6>
 							<select id=cate name=cate>
+								<option value="cateAll">전체</option>
 								<option value="cateTitle">제목</option>
 								<option value="cateWriter">작성자</option>
-								<option value="cateAll">전체</option>
 							</select>
 							<input type="text" name="search" id=search>
 							<button class="btn btn-secondary" id=searchBtn>검색</button>

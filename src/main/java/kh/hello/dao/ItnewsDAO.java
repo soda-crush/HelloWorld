@@ -38,7 +38,7 @@ public class ItnewsDAO {
 		return jdbc.selectList("Itnews.selectByPage", param);
 	}
 	
-	public List<ItnewsDTO> selectByPage(int start, int end, String cate, String search){
+	public List<ItnewsDTO> selectByPageSearch(int start, int end, String cate, String search){
 		Map<String, Object> param = new HashMap<>();
 		param.put("start", start);
 		param.put("end", end);
@@ -49,6 +49,13 @@ public class ItnewsDAO {
 
 	public int getItnewsTotal(){
 		return jdbc.selectOne("Itnews.getTotal");
+	}
+	
+	public int getItnewsTotalSearch(String cate, String search) {
+		Map<String, String> param = new HashMap<>();
+		param.put("cate", cate);
+		param.put("search", search);
+		return jdbc.selectOne("Itnews.getTotalSearch", param);
 	}
 	
 	public int getItnewsSeq() {
@@ -113,5 +120,6 @@ public class ItnewsDAO {
 	public int insertImg(ItnewsImgDTO dto){
 		return jdbc.insert("Itnews.insertImg", dto);
 	}
+	
 	
 }
