@@ -54,7 +54,6 @@ public class MemberService {
 		public int signUp(MemberDTO mdto, String empCheck, String empEmail, String unempEmail 
 				,String otherJoinPath, Timestamp birthDate) {
 			
-			
 			//이메일 설정
 			if(empCheck.contentEquals("employee")){
 				mdto.setEmail(empEmail);
