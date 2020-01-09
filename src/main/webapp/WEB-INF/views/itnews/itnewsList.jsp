@@ -73,11 +73,22 @@
 				<div class=row>
 					<div class="col-12 pageNavi">${navi}</div>
 				</div>		
-				<div class="pageListFooter text-right">
-					<a class="btn btn-primary" href="${pageContext.request.contextPath}/itnews/write?page=${page}" role="button">글쓰기</a>					
-				</div>
-				
-				
+				<form action="${pageContext.request.contextPath}/itnews/searchList" method="get">
+					<div class=row>
+						<div class=col-6>
+							<select id=cate name=cate>
+								<option value="cateAll">전체</option>
+								<option value="cateTitle">제목</option>
+								<option value="cateWriter">작성자</option>
+							</select>
+							<input type="text" name="search" id=search>
+							<button class="btn btn-secondary" id=searchBtn>검색</button>
+						</div>
+						<div class="col-6 pageListFooter text-right">
+							<a class="btn btn-primary" href="${pageContext.request.contextPath}/itnews/write?page=${page}" role="button">글쓰기</a>	
+						</div>
+					</div>
+				</form>
             </div>
             <!--       몸통 끝!!!   -->
             

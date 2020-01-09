@@ -40,8 +40,7 @@ public class ItnewsController {
 				int end = realCpage * Configuration.recordCountPerPage;
 				int start = end - (Configuration.recordCountPerPage - 1);	
 				
-				List<ItnewsDTO> list;
-					list = is.itnewsListTrim(start, end);
+				List<ItnewsDTO> list = is.itnewsListTrim(start, end);
 					m.addAttribute("list", list);
 					
 					String pageNavi = is.getPageNavi(realCpage);
@@ -50,6 +49,32 @@ public class ItnewsController {
 				m.addAttribute("page", realCpage);
 				
 				return "itnews/itnewsList";
+	}
+	
+	@RequestMapping("/searchList")
+	public String searchList(Model m, String cpage, String cate, String search) {
+		int realCpage = 1;
+		if(cpage!= null && !cpage.equals("") && !cpage.equals("null")) realCpage = Integer.parseInt(cpage);
+		
+		if(realCpage > 0 && realCpage <= Configuration.naviCountPerPage) {
+			m.addAttribute("currentPage", realCpage);
+		}else if(realCpage % Configuration.naviCountPerPage == 0) {
+			m.addAttribute("currentPage", Configuration.naviCountPerPage + 1);
+		}else {
+			m.addAttribute("currentPage", (realCpage % Configuration.naviCountPerPage + 1));
+		}
+		
+		int end = realCpage * Configuration.recordCountPerPage;
+		int start = end - (Configuration.recordCountPerPage - 1);	
+		
+		List<ItnewsDTO> list = is.itnewsListTrimSrch(start, end, cate, search);
+		m.addAttribute("list", list);
+		String pageNavi = is.getPageNaviSrch(realCpage, cate, search);
+		m.addAttribute("navi", pageNavi);
+		
+		m.addAttribute("page", realCpage);
+		
+		return "itnews/itnewsList";
 	}
 	
 	@RequestMapping("/write")

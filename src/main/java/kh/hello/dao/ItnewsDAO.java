@@ -37,9 +37,25 @@ public class ItnewsDAO {
 		param.put("end", end);
 		return jdbc.selectList("Itnews.selectByPage", param);
 	}
+	
+	public List<ItnewsDTO> selectByPageSearch(int start, int end, String cate, String search){
+		Map<String, Object> param = new HashMap<>();
+		param.put("start", start);
+		param.put("end", end);
+		param.put("cate", cate);
+		param.put("search", search);
+		return jdbc.selectList("Itnews.selectByPageSrch", param);
+	}
 
 	public int getItnewsTotal(){
 		return jdbc.selectOne("Itnews.getTotal");
+	}
+	
+	public int getItnewsTotalSearch(String cate, String search) {
+		Map<String, String> param = new HashMap<>();
+		param.put("cate", cate);
+		param.put("search", search);
+		return jdbc.selectOne("Itnews.getTotalSearch", param);
 	}
 	
 	public int getItnewsSeq() {

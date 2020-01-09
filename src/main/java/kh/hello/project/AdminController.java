@@ -1,6 +1,7 @@
 package kh.hello.project;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -14,6 +15,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.JsonObject;
 
 import kh.hello.configuration.Configuration;
+import kh.hello.dto.BoardLogDTO;
+import kh.hello.dto.ChartGenderDTO;
+import kh.hello.dto.ChartGenerationDTO;
+import kh.hello.dto.ChartJoinPathDTO;
+import kh.hello.dto.ChartVisitChangeDTO;
+import kh.hello.dto.ChartWorkDTO;
+import kh.hello.dto.CommentLogDTO;
 import kh.hello.dto.ForcedOutMemberDTO;
 import kh.hello.dto.InquiryDTO;
 import kh.hello.dto.InquiryReplyDTO;
@@ -57,7 +65,47 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/main")
-	public String main() {
+	public String main(Model m) {
+		//1-1. 방문자 통계(today, total)
+		try {
+			Map<String, Integer> count = as.getVisitorCount();
+			m.addAttribute("count", count);			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		//1-2. 일일 방문자수 추이
+		List<ChartVisitChangeDTO> visitChange = as.getVisitChange();
+		m.addAttribute("visitChange", visitChange);
+		
+		//2-1. 회원 활동점수 TOP5
+		List<MemberDTO> top5List = as.getTop5List();
+		m.addAttribute("top5List", top5List);
+		
+		//2-2. 회원성비
+		List<ChartGenderDTO> genderRatio = as.getGenderRatio();
+		m.addAttribute("genderRatio", genderRatio);
+		
+		//3-1. 게시물 수(어제부터 5일간의 기록)
+		List<BoardLogDTO> boardLog = as.getBoardLog();
+		m.addAttribute("boardLog", boardLog);
+		
+		//3-2. 댓글 수(5일)
+		List<CommentLogDTO> comLog = as.getComLog();
+		m.addAttribute("comLog", comLog);
+		
+		//4-1. 가입경로
+		List<ChartJoinPathDTO> joinPath = as.getJoinPath();
+		m.addAttribute("joinPath", joinPath);
+		
+		//4-2. 재직자/비재직자 비율
+		List<ChartWorkDTO> workRatio = as.getWorkRatio();
+		m.addAttribute("workRatio", workRatio);
+		
+		//4-3. 나이 비율
+		List<ChartGenerationDTO> generationRatio = as.getGenerationRatio();
+		m.addAttribute("generationRatio", generationRatio);
+		
 		return "admin/main";
 	}
 	

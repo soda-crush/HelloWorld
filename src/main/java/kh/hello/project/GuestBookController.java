@@ -38,8 +38,11 @@ public class GuestBookController {
 	@RequestMapping("/insert.do")
 	public String insert(GuestBookDTO gdto) {
 		OwnerInfoDTO ownerInfo = (OwnerInfoDTO)session.getAttribute("ownerInfo");
-		gdto.setWriter(((LoginInfoDTO)session.getAttribute("loginInfo")).getNickName());
-		gdto.setOwner(ownerInfo.getId());
+		LoginInfoDTO loginInfo = (LoginInfoDTO)session.getAttribute("loginInfo");
+		gdto.setWriterID(loginInfo.getId());
+		gdto.setWriter(loginInfo.getNickName());
+		gdto.setOwnerID(ownerInfo.getId());
+		gdto.setOwner(ownerInfo.getNickName());
 		gs.insert(gdto);
 		return "redirect:selectList.do";
 	}
@@ -47,14 +50,14 @@ public class GuestBookController {
 	@RequestMapping("/selectList.do")
 	public String selectList(String cpage) {
 		OwnerInfoDTO ownerInfo = (OwnerInfoDTO)session.getAttribute("ownerInfo");
-		String owner = ownerInfo.getId();
+		String ownerID = ownerInfo.getId();
 		int currentPage = 1;		
-
+		
 		if(cpage != null) currentPage = Integer.parseInt(cpage);
 		int end = currentPage * Configuration.recordCountPerPage;
 		int start = end - (Configuration.recordCountPerPage - 1);
-		List<GuestBookDTO> list = gs.selectListByPage(owner,start,end);
-		List<String> pageNavi = gs.getGuestBookPageNavi(owner, currentPage);
+		List<GuestBookDTO> list = gs.selectListByPage(ownerID,start,end);
+		List<String> pageNavi = gs.getGuestBookPageNavi(ownerID, currentPage);
 		request.setAttribute("list", list);
 		request.setAttribute("pageNavi", pageNavi);
 		return "plog/guestBook";

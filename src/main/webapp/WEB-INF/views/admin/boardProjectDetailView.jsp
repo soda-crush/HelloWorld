@@ -99,7 +99,7 @@ cursor:default;
 	                                        <div class="col-12">
 	                                            <div class="invoice-address">
 	                                                <h3>${dto.title}</h3>
-	                                                <h5>${dto.writer}</h5>
+	                                                <h5>${dto.writer}(${dto.id})</h5>
 	                                                <p>${dto.formedWriteDate}
 	                                                <hr>
 	                                                	<p><label class="sign"><strong>지역</strong></label><span>${dto.location1} ${dto.location2}</span></p>
@@ -132,7 +132,7 @@ cursor:default;
                              					<div class="card-body">
             										<ul class="nav nav-tabs" id="myTab" role="tablist">
                 										<li class="nav-item">
-                    										<a class="nav-link active" id="home-tab" data-toggle="tab" href="#" role="tab" aria-controls="home" aria-selected="true"><strong>${reply.writer}</strong> <small>${reply.formedWriteDate}</small></a>
+                    										<a class="nav-link active" id="home-tab" data-toggle="tab" href="#" role="tab" aria-controls="home" aria-selected="true"><strong>${reply.writer}(${reply.id})</strong> <small>${reply.formedWriteDate}</small></a>
                											</li>  
                     										<li class="text-center mt-2 pl-2"><a href="${pageContext.request.contextPath}/adBoard/delProjectCo?page=${page}&seq=${reply.seq}&projectSeq=${reply.projectSeq}">
                     										<i data-brackets-id="23054" class="fa fa-trash"></i></a></li>    

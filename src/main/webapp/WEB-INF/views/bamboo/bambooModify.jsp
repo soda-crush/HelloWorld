@@ -24,6 +24,12 @@ $(function() {
 	})
 })
 </script>
+<style>
+	#pageTitle{margin-bottom:20px;}
+	#pageTitle h1{display:inline;margin-right:10px;font-weight:bold;}
+	#pageTitle .btn{margin-left:5px;}
+	.table{background-color:white;padding:0;text-align:center;}	
+</style>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/standard/header.jsp"/>
@@ -34,9 +40,9 @@ $(function() {
                     <div class="col-12" id=aroundContent>
                     </div>
                 </div>
-            </div>
-            
+            </div>      
             <!--      몸통 시작!!!   -->
+            <div class=container id="projectPage" style="background-color:white">
             <div id="pageTitle">
 					<table>
 							<tr>
@@ -48,21 +54,49 @@ $(function() {
 						</table>
 				</div>
 		<form action="bambooModifyProc.do" method="post" enctype="multipart/form-data" id=writeForm>
-			<input type="hidden" name="writer" value="${bPage.writer}">
+			<div class=row>
+				<div class="col-2 title">
+					<h4>제목</h4>
+				</div>
+				<input type="hidden" name="writer" value="${bPage.writer}">
              <input type="hidden" name="seq" value="${bPage.seq}"> 
-		제목<input type="text" id=title name=title value="${bPage.title}"><br> 
+				<div class="col-10 title" >
+					<input type="text" id=title name=title style="width: 100%" value="${bPage.title}">
+				</div>
+			</div>
+			<div class=row>
+					<div class="col-12 content">
 			<div id="summernote">${bPage.content}</div>
-			<textarea style="display:none" name=content id=content></textarea>
-			<button type="submit">작성하기</button> 
-			<input type="button" id="return" value="돌아가기">
+			<textarea style="display: none" name=content id=content></textarea>
+					</div>
+				</div> 
+			<div class=row>
+				<div class="col-12 btn" style="text-align: right;">
+					<button class="btn btn-primary" type="button" id="write">작성하기</button>
+					<button class="btn btn-primary" type="button" id="return">돌아가기</button>
+				</div>
+			</div>
 		</form>
+		</div>
 		<script>
 		$("#return").on('click',function() {
 			location.href = "bambooDetailView.do?seq=${bPage.seq}";
 						})
-		 $('#summernote').summernote({
-        
+		$('#summernote').summernote({
+			 height : 500
      	});
+		$("#write").on("click", function() {
+			$("#title").val($.trim($("#title").val())); 						
+			if (($("#title").val()=="" || $(".note-editable").text()== "")) {
+				alert("작성 하지 않는 문항이 있습니다. 다시 한번 확인해주세요.");
+				return false;
+			} else {
+				var result = confirm("이대로 작성 하시겠습니까?");
+				if (result) {
+					$("#writeForm").submit();
+				}
+			}
+		})
 		</script>
             
             <!--       몸통 끝!!!   -->
