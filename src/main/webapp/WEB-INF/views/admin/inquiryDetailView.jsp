@@ -100,7 +100,7 @@ text-align:right;
                                         <div class="col-12">
                                             <div class="invoice-address">
                                                 <h3>${dto.title }</h3>
-                                                <h5>${dto.writer }</h5>
+                                                <h5>${dto.writer}(${dto.id})</h5>
                                                 <p>${dto.formedDate }</p>
                                                 <hr>
                                                 <p>${dto.content }</p>

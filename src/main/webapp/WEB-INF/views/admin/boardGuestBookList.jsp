@@ -103,59 +103,71 @@
                                         <table class="table table-hover text-center">
                                             <thead class="text-uppercase">
                                                 <tr>
-                                                    <th scope="col">번호</th>                                                                                   
+                                                    <th scope="col">번호</th> 
+                                                    <th scope="col">내용</th>                                                                                  
                                                     <th scope="col">P-log</th>
-                                                    <th scope="col">작성자</th>
-                                                    <th scope="col">내용</th>
+                                                    <th scope="col">작성자</th>                                                    
                                                     <th scope="col">날짜</th>
                                                     <th scope="col">삭제</th>                                                   
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                            	<c:forEach items="${list}" var="dto">
-                                            		<tr>
-                                                    <td>${dto.seq}</td> 
-                                                    <td>
-														<div class="btn-group dropright">
-														  <button class="btn btn-secondary btn-sm dropdown-toggle nameBtn p-0" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-boundary="viewport">
-														    ${dto.owner}&nbsp;&nbsp;&nbsp;<i class="fa fa-external-link"></i>
-														  </button>
-														  <div class="dropdown-menu">
-														    <p class="dropdown-item" id="memberInfo${dto.owner}">회원정보</p>
-														  </div>
-														</div>                                                    
-                                                    </td>
-                                                    <td>
-														<div class="btn-group dropright">
-														  <button class="btn btn-secondary btn-sm dropdown-toggle nameBtn p-0" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-boundary="viewport">
-														    ${dto.writer}&nbsp;&nbsp;&nbsp;<i class="fa fa-external-link"></i>
-														  </button>
-														  <div class="dropdown-menu">
-														    <p class="dropdown-item" id="memberInfo${dto.writer}">회원정보</p>
-														  </div>
-														</div>                                                    
-                                                    </td>                                                                                              		
-                                                    <td>${dto.content}</td>                                                    
-                                                    <td>${dto.formedWriteDateForAdmin}</td>
-                                                    <td><i class="ti-trash" id="delProc${dto.seq }"></i></td>
-                                               		</tr>                                            		
-                                               		<script>
-                                               			$("#delProc${dto.seq}").on("click", function(){
-                                               				var result = confirm("이 방명록을 삭제할까요?");
-                                               				if(result){
-                                               					location.href = "${pageContext.request.contextPath}/adBoard/delGuestBook?page=${page}&seq=${dto.seq}";
-                                               				}                                              				                                             				
-                                               			})   
-                                               			
-                                               			$("#memberInfo${dto.owner}").on("click", function(){
-                                               				window.open("${pageContext.request.contextPath}/admin/getMemberInfo?id=${dto.owner}","","width=600px,height=602px,top=300px,left=600px");
-                                               			})    
-                                               			
-                                               			$("#memberInfo${dto.writer}").on("click", function(){
-                                               				window.open("${pageContext.request.contextPath}/admin/getMemberInfo?id=${dto.writer}","","width=600px,height=602px,top=300px,left=600px");
-                                               			})                                                 			
-                                               		</script>
-                                            	</c:forEach>                                                                                               
+                                            	<c:choose>
+                                            		<c:when test="${list.size() ==0}">
+                                            			<tr><th colspan='6'>게시물이 없습니다<th></tr>
+                                            		</c:when>
+                                            		<c:otherwise>
+		                                            	<c:forEach items="${list}" var="dto">
+		                                            		<tr>
+		                                                    <td>${dto.seq}</td> 
+		                                                    <td>${dto.content}</td> 
+		                                                    <td>
+																<div class="btn-group dropright">
+																  <button class="btn btn-secondary btn-sm dropdown-toggle nameBtn p-0" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-boundary="viewport">
+																    ${dto.owner}(${dto.ownerID})&nbsp;&nbsp;&nbsp;<i class="fa fa-external-link"></i>
+																  </button>
+																  <div class="dropdown-menu">
+																    <p class="dropdown-item" id="memberInfoO${dto.ownerID}">회원정보</p>
+																  </div>
+																</div>                                                    
+		                                                    </td>
+		                                                    <td>
+																<div class="btn-group dropright">
+																  <button class="btn btn-secondary btn-sm dropdown-toggle nameBtn p-0" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-boundary="viewport">
+																    ${dto.writer}(${dto.writerID})&nbsp;&nbsp;&nbsp;<i class="fa fa-external-link"></i>
+																  </button>
+																  <div class="dropdown-menu">
+																    <p class="dropdown-item" id="memberInfoW${dto.writerID}">회원정보</p>
+																  </div>
+																</div>                                                    
+		                                                    </td>  	                                                                                                      
+		                                                    <td>${dto.formedWriteDateForAdmin}</td>
+		                                                    <td><i class="ti-trash" id="delProc${dto.seq }"></i></td>
+		                                               		</tr>                                            		
+		                                               		<script>
+		                                               			$("#delProc${dto.seq}").on("click", function(){
+		                                               				var result = confirm("이 방명록을 삭제할까요?");
+		                                               				if(result){
+		                                               					location.href = "${pageContext.request.contextPath}/adBoard/delGuestBook?page=${page}&seq=${dto.seq}";
+		                                               				}                                              				                                             				
+		                                               			})   
+		                                               			
+		                                               			$("#memberInfoO${dto.ownerID}").on("click", function(){		                                               			
+		                                               				window.open("${pageContext.request.contextPath}/admin/getMemberInfo?id=${dto.ownerID}","","width=600px,height=534px,top=300px,left=600px");
+		                                               			})    
+		                                               			
+		                
+			                                               		$("#memberInfoW${dto.writerID}").on("click", function(){			                          
+			                                               			window.open("${pageContext.request.contextPath}/admin/getMemberInfo?id=${dto.writerID}","","width=600px,height=534px,top=300px,left=600px");
+			                                               		}) 		                                               				
+
+                                                			
+		                                               		</script>
+		                                            	</c:forEach>                                             		                                            		
+                                            		</c:otherwise>
+                                            	</c:choose>
+                                            
+                                                                                              
                                             </tbody>
                                         </table>
                                     </div>
@@ -167,11 +179,13 @@
                             <div class="card-body">
                                 <nav aria-label="Page navigation example">
                                     <ul class="pagination justify-content-center">
-										<c:forEach items="${pageNavi}" var="navi">									
-											<li class="page-item pageNavi">${navi}</li>
-										</c:forEach>
-
-
+                                    	<c:choose>
+                                    		<c:when test="${pageNavi.size() > 0}">
+												<c:forEach items="${pageNavi}" var="navi">									
+													<li class="page-item pageNavi">${navi}</li>
+												</c:forEach>                                    		
+                                    		</c:when>
+                                    	</c:choose>  
                                     </ul>
                                 </nav>
                             </div>
@@ -214,18 +228,17 @@
     <script src="${pageContext.request.contextPath }/adRsc/js/plugins.js"></script>
     <script src="${pageContext.request.contextPath }/adRsc/js/scripts.js"></script>
     <script>
-	$(function(){
-		var element = $(".pageNavi");
-		var page = "${page}";
-		if(page > 0 && page <= 10){
-			element[page-1].classList.add('active');
-		}else if(page % 10 == 0){
-			element[10].classList.add('active');
-		}else{
-			element[page % 10].classList.add('active');
-		}
-		
-	});
+		if("${pageNavi.size() > 0}"){
+			var element = $(".pageNavi");
+			var page = "${page}";
+			if(page > 0 && page <= 10){
+				element[page-1].classList.add('active');
+			}else if(page % 10 == 0){
+				element[10].classList.add('active');
+			}else{
+				element[page % 10].classList.add('active');
+			}			
+		}		
     </script>
 </body>
 </html>
