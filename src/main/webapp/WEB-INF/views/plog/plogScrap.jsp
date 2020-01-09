@@ -29,6 +29,9 @@
 		#writer{text-underline-position: auto;margin-right: 30px;}
 		#page${page}{color:blue;}
 		.coltheme{margin:30px;}
+		.navi{text-align: center;}
+		.nvlink{height:45px;line-height:45px;}
+        a:hover{text-decoration:none;}		
 		
 .table {
 	background-color: white;
@@ -81,22 +84,13 @@
             
             <div class="container">
 				<h1> Programming-Log</h1>
-	            <nav class="navbar navbar-expand-md navbar-light" style="background-color: #008EDC;">
-		         	<a class="navbar-brand" href="#"></a>
-		  			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-		   				 <span class="navbar-toggler-icon"></span>
-		  			</button>
-		            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-		
-		                <div class="navbar-nav box text-center plogNavi" id="naviCon">
-		                    <a class="nav-item nav-link active text-light text-primary" href="${pageContext.request.contextPath}/Portfolio/toPlogmain.do">내 포트폴리오</a>
-		                    <a class="nav-item nav-link active text-light text-primary" href="${pageContext.request.contextPath}/Plog/toPlogCohow.do">내 지식인</a>
-		                    <a class="nav-item nav-link active text-light text-primary" href="${pageContext.request.contextPath}/Scrap/toScrap.do">내 스크랩</a>
-		                    <a class="nav-item nav-link active text-light text-primary" href="${pageContext.request.contextPath}/Plog/toPlogProject.do">내 프로젝트</a>
-		                    <a class="nav-item nav-link active text-light text-primary" href="${pageContext.request.contextPath}/GuestBook/selectList.do">방명록</a>
-		                </div>
-		            </div>
-		        </nav>
+	            <div class="row navi" style="background-color: #008EDC;">
+					<div class="col nvlink"><a class="text-light" href="${pageContext.request.contextPath}/Portfolio/toPlogmain.do">내 포트폴리오</a></div>
+					<div class="col nvlink"><a class="text-light" href="${pageContext.request.contextPath}/Plog/toPlogCohow.do">내 지식인</a></div>
+					<div class="col nvlink"><a class="text-light" href="${pageContext.request.contextPath}/Scrap/toScrap.do">내 스크랩</a></div>
+					<div class="col nvlink"><a class="text-light" href="${pageContext.request.contextPath}/Plog/toPlogProject.do">내 프로젝트</a></div>
+					<div class="col nvlink"><a class="text-light" href="${pageContext.request.contextPath}/GuestBook/selectList.do">방명록</a></div>
+				</div>
 	            <div class="row">
 	                <div class="col-12 col-md-4 col-lg-3 myprofile">
 	                    <div class="card" id="mycard">
@@ -107,14 +101,14 @@
 	                        </div>
 	                    </div>
 	                </div>
-	                <div class="col-12 col-sm-6 col-md-8 col-lg-9 scraptwrap">
+	                <div class="col-12 col-md-8 col-lg-9 scraptwrap">
 	                	<div class="coltheme"> it 뉴스 </div>
 			         	<div class="tableDiv">
 							<div class="row tableHead">
-							    <div class="col-md-6">제목</div>
-							    <div class="col-md-2">작성자</div>
-							    <div class="col-md-3">작성일</div>
-							    <div class="col-md-1">조회수</div>				    
+							    <div class="col-7 col-lg-5">제목</div>
+							    <div class="col-2">작성자</div>
+							    <div class="col-3">작성일</div>
+							    <div class="col-2 d-none d-lg-block">조회수</div>				    
 							</div>
 							
 						  	<c:choose>
@@ -124,27 +118,43 @@
 						  		<c:otherwise>
 						  			<c:forEach items="${nlist}" var="dto">
 						  				<div class="row tableBody p-0">
-							    			<div class="col-6 order-1 order-md-2"><a href="${pageContext.request.contextPath}/itnews/detail?seq=${dto.seq}&page=${page}">${dto.title}</a></div>
-							    			<div class="col-3 col-md-2 order-2 order-md-3">${dto.writer}</div>
-							    			<div class="col-2 col-md-3 order-3 order-md-4">${dto.getDate()}</div>
-							    			<div class="col-1 col-md-1 order-4 order-md-5">${dto.viewCount}</div>	
+							    			<div class="col-7 col-lg-5 "><a href="${pageContext.request.contextPath}/itnews/detail?seq=${dto.seq}&page=${page}">${dto.title}</a></div>
+							    			<div class="col-2">${dto.writer}</div>
+							    			<div class="col-3">${dto.getDate()}</div>
+							    			<div class="col-2 d-none d-lg-block">${dto.viewCount}</div>	
 										</div>
 						  			</c:forEach>
 						  		</c:otherwise>
 						  	</c:choose> 
 						</div>
 			                	
-			            <div class="coltheme"> 업계현황</div>   	
+			            <div class="coltheme"> 업계현황</div>
+			            	<div class="tableDiv">
+								<div class="row tableHead">
+								    <div class="col-2 d-none d-md-block">분야/직무</div>
+								    <div class="col-5 col-md-7">제목</div>
+								    <div class="col-2">작성자</div>
+								    <div class="col-2 col-lg-3">작성일</div>
+								    <div class="col-1 d-none d-lg-block">조회수</div>				    
+								</div>
+								
+							  	<c:choose>
+							  		<c:when test="${ilist.size()==0 }">
+							  		<div class="row"><div class="col-12">스크랩한 글이 없습니다.</div></div>
+							  		</c:when>
+							  		<c:otherwise>
+							  			<c:forEach items="${nlist}" var="dto">
+							  				<div class="row tableBody p-0">
+								    			<div class="col-5 col-lg-7"><a href="${pageContext.request.contextPath}/itnews/detail?seq=${dto.seq}&page=${page}">${dto.title}</a></div>
+								    			<div class="col-2">${dto.writer}</div>
+								    			<div class="col-3">${dto.getDate()}</div>
+								    			<div class="col-2 d-none d-lg-block">${dto.viewCount}</div>	
+											</div>
+							  			</c:forEach>
+							  		</c:otherwise>
+							  	</c:choose> 
+							</div>  	
 			         		<table class="table table-hover">
-							  <thead class="thead-light">
-							    <tr>
-							      <th scope="col">분야/직무</th>
-							      <th scope="col">제목</th>
-							      <th scope="col">작성자</th>
-							      <th scope="col">작성날짜</th>
-							      <th scope="col">조회수</th>
-							    </tr>
-							  </thead>
 							  <tbody>
 							  	<c:choose>
 							  		<c:when test="${ilist.size()==0 }">
@@ -182,13 +192,13 @@
 									</thead>
 									<tbody>
 										<c:choose>
-											<c:when test="${list.size()==0 }">
+											<c:when test="${clist.size()==0 }">
 												<tr>
 													<td colspan="8">스크랩한 글이 없습니다.</td>
 												</tr>
 											</c:when>
 											<c:otherwise>
-												<c:forEach items="${list}" var="dto">
+												<c:forEach items="${clist}" var="dto">
 													<tr>
 														<td><span class="badge badge-pill badge-success"
 															style="margin: 10; width: 60px;">${dto.division}</span></td>

@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kh.hello.dto.LoginInfoDTO;
 import kh.hello.dto.MemberDTO;
+import kh.hello.dto.OwnerInfoDTO;
 import kh.hello.dto.PortfolioDTO;
 import kh.hello.services.MemberService;
 import kh.hello.services.PortfolioService;
@@ -111,7 +112,7 @@ public class PortfolioController {
 		    String endDate = endDateTemp + " 00:00:00.0";
 			pdto.setStartDate(Timestamp.valueOf(startDate));
 			pdto.setEndDate(Timestamp.valueOf(endDate));
-			pdto.setWriter(((LoginInfoDTO)session.getAttribute("loginInfo")).getId());
+			pdto.setWriter(((OwnerInfoDTO)session.getAttribute("ownerInfo")).getId());
 			ps.insertWrite(pdto);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -126,13 +127,21 @@ public class PortfolioController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		LoginInfoDTO info = (LoginInfoDTO)session.getAttribute("loginInfo");
-		List<PortfolioDTO> list = ps.selectList(info.getId());
-		MemberDTO mdto = ms.selectMember(info.getId());
-		request.setAttribute("point", mdto.getPoint());
+		OwnerInfoDTO ownerInfo = (OwnerInfoDTO)session.getAttribute("ownerInfo");
+		List<PortfolioDTO> list = ps.selectList(ownerInfo.getId());
+
 		request.setAttribute("list", list);
 		return "/plog/plogPortfolio";
 	}
+	
+	@RequestMapping("/toPlog.do")
+	public String toPlog(String owner) {
+		MemberDTO mdto = ms.selectMember(owner);
+		OwnerInfoDTO odto = new OwnerInfoDTO(mdto.getId(),mdto.getNickName(),mdto.getPoint());
+		session.setAttribute("ownerInfo", odto);
+		return "redirect:toPlogmain.do";
+	}
+	
 	
 	@RequestMapping("detail.do")
 	public String viewDetail(int seq) {
