@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import kh.hello.dto.ItnewsCoDTO;
 import kh.hello.dto.ItnewsDTO;
+import kh.hello.dto.ItnewsImgDTO;
 import kh.hello.dto.ScrapDTO;
 
 @Repository
@@ -95,4 +96,13 @@ public class ItnewsDAO {
 	public int scrapItnews(ScrapDTO dto) {
 		return jdbc.insert("Itnews.scrapItnews", dto);
 	}
+	
+	public int increViewCount(int seq) {
+		return jdbc.update("Itnews.increViewCount", seq);
+	}
+	
+	public int insertImg(ItnewsImgDTO dto){
+		return jdbc.insert("Itnews.insertImg", dto);
+	}
+	
 }

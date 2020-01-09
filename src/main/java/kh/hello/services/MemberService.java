@@ -52,7 +52,7 @@ public class MemberService {
 		
 	//회원가입
 		public int signUp(MemberDTO mdto, String empCheck, String empEmail, String unempEmail 
-				,String otherJoinPath, Timestamp startDate) {
+				,String otherJoinPath, Timestamp birthDate) {
 			
 			//이메일 설정
 			if(empCheck.contentEquals("employee")){
@@ -75,11 +75,47 @@ public class MemberService {
 			//기본설정
 			mdto.setReportCount(0);
 			mdto.setPoint(1000);
-			mdto.setProfileImg("/img/profile" + Utils.getRandomNum(1, 5) + ".jpg");
-			mdto.setBirth(startDate);
+			mdto.setProfileImg("/img/profile" + Utils.getRandomNum(1, 5) + ".png");
+			mdto.setBirth(birthDate);
 			
 			return mdao.insertMember(mdto);
 		}
+		
+		//정보수정
+				public int modify(MemberDTO mdto, String empCheck, String empEmail, String unempEmail 
+						,String otherJoinPath, Timestamp birthDate, String demotionMail) {
+					//pw* / name* / nickName* / email* / phone* / postcode* / addr1* / addr2* / joinPath* / 
+					//gender* / memLevel / Reportcount / point / ifmOpenCheck* / jD / ll / img / birth*
+					
+					//이메일 설정
+					if(empCheck.contentEquals("employee")){
+						mdto.setEmail(empEmail);
+						mdto.setMemLevel(3);
+					}else if(empCheck.contentEquals("demotion")) {
+						mdto.setEmail(demotionMail);
+						mdto.setMemLevel(1);
+					}else {
+						mdto.setEmail(unempEmail);
+						mdto.setMemLevel(2);
+					}
+					//가입경로 설정
+					if(mdto.getJoinPath().contentEquals("jp1")) {
+						mdto.setJoinPath("지인 추천");
+					}else if(mdto.getJoinPath().contentEquals("jp2")) {
+						mdto.setJoinPath("'Hello World!' 검색");
+					}else if(mdto.getJoinPath().contentEquals("jp3")) {
+						mdto.setJoinPath("'프로젝트 모집' 검색");
+					}else{
+						mdto.setJoinPath(otherJoinPath);
+					}
+					//기본설정
+					mdto.setReportCount(0);
+					mdto.setPoint(1000);
+					mdto.setProfileImg("/img/profile" + Utils.getRandomNum(1, 5) + ".jpg");
+					mdto.setBirth(birthDate);
+					
+					return mdao.modifyMember(mdto);
+				}
 		
 	//로그인시 최근 로그인 날짜 갱신
 		public int updateLastLogin(String id) {
