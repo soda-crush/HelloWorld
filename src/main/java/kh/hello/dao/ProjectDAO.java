@@ -60,9 +60,16 @@ public class ProjectDAO {
 	//projectImage 테이블
 	public int insertImage(ProjectImageDTO dto) {
 		return jdbc.insert("Project.insertImage",dto);
+	}	
+	public List<ProjectImageDTO> getImages(int projectSeq) {
+		return jdbc.selectList("Project.getImages", projectSeq);
 	}
-	
-	
+	public int deleteImage(String sysName) {
+		return jdbc.delete("Project.deleteImage", sysName);
+	}
+	public int deleteImagesByProjectSeq(int projectSeq) {
+		return jdbc.delete("Project.deleteImagesByProjectSeq", projectSeq);
+	}
 	
 	//projectComment 테이블
 	public List<ProjectCoDTO> getCoList(int projectSeq){//프로젝트 모집댓글 전체리스트(해당글에 대한)

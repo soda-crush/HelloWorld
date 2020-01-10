@@ -114,7 +114,14 @@ public class ProjectController {
 	
 	@RequestMapping("/modifyProc")
 	public String projectModifyConfirm(ProjectDTO dto) {
-		svc.projectModifyConfirm(dto);
+		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
+		dto.setWriter(sessionValue.getNickName());
+		String path = session.getServletContext().getRealPath("attached/project");
+		try {
+			svc.projectModifyConfirm(dto, path);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		int seq = dto.getSeq();
 		return "redirect:/project/detailView?seq="+seq;
 	}
@@ -123,7 +130,8 @@ public class ProjectController {
 	public String projectDeleteConfirm(int seq) {
 		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
 		String id = sessionValue.getId();
-		svc.projectDeleteConfirm(seq, id);
+		String path = session.getServletContext().getRealPath("attached/project");
+		svc.projectDeleteConfirm(seq, id, path);
 		return "redirect:/project/list";
 	}
 	

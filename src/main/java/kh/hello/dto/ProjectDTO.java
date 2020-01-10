@@ -25,7 +25,8 @@ public class ProjectDTO {
 	private int commentCount;
 	private int applyCount;
 	private int scrap;
-	
+	private Timestamp changeDate;
+
 	public ProjectDTO() {
 		super();
 	}	
@@ -166,6 +167,13 @@ public class ProjectDTO {
 	public void setScrap(int scrap) {
 		this.scrap = scrap;
 	}
+	public Timestamp getChangeDate() {
+		return changeDate;
+	}
+	public void setChangeDate(Timestamp changeDate) {
+		this.changeDate = changeDate;
+	}
+	
 	
 	public String getStateInKor() {
 		String state = this.state;

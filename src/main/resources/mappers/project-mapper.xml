@@ -27,12 +27,20 @@
 	</select>
 	
 	<insert id="insertProject" parameterType="kh.hello.dto.ProjectDTO">
-		insert into project values(projectSeq.nextval,#{title},#{contents},#{location1},#{location2},#{capacity},#{startDate},#{endDate},#{languages},#{phone},#{email},#{writer},#{id},sysdate,'N',0)
+		insert into project values(projectSeq.nextval,#{title},#{contents},#{location1},#{location2},#{capacity},#{startDate},#{endDate},#{languages},#{phone},#{email},#{writer},#{id},sysdate,null,'N',0)
 	</insert>
 	
 	<update id="updateProject" parameterType="kh.hello.dto.ProjectDTO">
-		update project set title=#{title}, contents=#{contents}, location=#{location}, capacity=#{capacity}, startDate=#{startDate}, endDate=#{endDate}, languages=#{languages}, phone=#{phone}, email=#{email}, writer=#{writer}, writeDate=#{writeDate}, state=#{state} where seq=#{seq}
+		update project set title=#{title}, contents=#{contents}, location1=#{location1}, location2=#{location2}, capacity=#{capacity}, startDate=#{startDate}, endDate=#{endDate}, languages=#{languages}, phone=#{phone}, email=#{email}, writer=#{writer}, changeDate=sysdate where seq=#{seq}
 	</update>
+	
+	<select id="getImages" parameterType="integer" resultType="kh.hello.dto.ProjectImageDTO">
+		select * from projectImage where projectSeq=#{value}
+	</select>
+	
+	<delete id="deleteImage">
+		delete from projectImage where sysName=#{value}
+	</delete>
 	
 	<update id="updateProjectViewCount">
 		update project set viewCount=viewCount+1 where seq=#{value}
@@ -40,6 +48,10 @@
 	
 	<delete id="deleteProject">
 		delete from project where seq=#{value}
+	</delete>
+	
+	<delete id="deleteImagesByProjectSeq">
+		delete from projectImage where projectSeq=#{value}
 	</delete>
 	
 	<update id="closeProject">
@@ -83,7 +95,12 @@
 	</select>
 	
 	<select id="getPLogApplyListByPage" parameterType="java.util.Map" resultType="kh.hello.dto.ProjectPLogDTO">
-		select 
+		select * from 
+		(select state, title, project.writer, location1, startDate, endDate, capacity, approve, project.writeDate, row_number() over (order by projectApply.seq desc) as num from project 
+		inner join projectApply on project.seq = projectApply.projectSeq
+		inner join (select projectSeq, count(*) as commentCount from projectComment
+		where contents is not null group by projectSeq) pc on project.seq = pc.projectSeq where projectApply.id=#{id})
+        where num between #{start} and #{end}
 	</select>
 	
 <!-- 	페이징완료되면 삭제. -->
