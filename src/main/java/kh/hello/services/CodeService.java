@@ -252,9 +252,9 @@ public class CodeService {
 	}
 	
 	// 댓글 CodeComments
-	public int selectRepSeq(int queSeq,String id) {
-		return dao.selectRepSeq(queSeq,id);
-	}
+//	public int selectRepSeq(int queSeq,String id) {
+//		return dao.selectRepSeq(queSeq,id);
+//	}
 	
 	public List<CodeCommentsDTO> commentList(int queSeq) {
 		return dao.commentsList(queSeq);
@@ -262,11 +262,11 @@ public class CodeService {
 	
 	@Transactional("txManager")
 	public String insertComment(CodeCommentsDTO dto) {
-//		String option = "commentAdd";
 		dao.insertComment(dto);
 		dao.writeCoPoint(dto.getId());
 		Gson gson = new Gson();
-		List<CodeCommentsDTO> result = dao.commentsList(dto.getQueSeq());
+		List<CodeCommentsDTO> result = dao.commentsListTwo(dto.getRepSeq());
+		System.out.println("제발 ㅠㅠ" +result.toString());
 		for (CodeCommentsDTO c : result) {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
 			c.setFormedWriteDate(sdf.format(c.getWriteDate()));
@@ -293,7 +293,7 @@ public class CodeService {
 	public String updateComment(CodeCommentsDTO dto) {
 		dao.updateComment(dto);
 		Gson gson = new Gson();
-		List<CodeCommentsDTO> result = dao.commentsList(dto.getQueSeq());
+		List<CodeCommentsDTO> result = dao.commentsListTwo(dto.getRepSeq());
 		for (CodeCommentsDTO c : result) {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
 			c.setFormedWriteDate(sdf.format(c.getWriteDate()));
@@ -315,7 +315,7 @@ public class CodeService {
 		dao.deleteComment(dto.getSeq());
 		dao.deleteCoPoint(dto.getId());
 		Gson gson = new Gson();
-		List<CodeCommentsDTO> result = dao.commentsList(dto.getQueSeq());
+		List<CodeCommentsDTO> result = dao.commentsListTwo(dto.getRepSeq());
 		for (CodeCommentsDTO c : result) {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
 			c.setFormedWriteDate(sdf.format(c.getWriteDate()));

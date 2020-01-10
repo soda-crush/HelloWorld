@@ -25,6 +25,7 @@
 	rel="stylesheet">
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
+<script src="/js/summernote-ko-KR.js"></script>
 <style>
 .division {
 	padding: 0px;
@@ -137,7 +138,8 @@
 // 		var contentTest = $(".note-editable").text();
 		
 		$('#summernote').summernote({
-			height : 500
+			height : 500,
+			lang: 'ko-KR'
 		})
 		
 		$("#cancle").on("click",function() {

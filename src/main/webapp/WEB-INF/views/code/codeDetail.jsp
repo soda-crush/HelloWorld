@@ -170,10 +170,8 @@ span:nth-child(4) {
 <!-- 				<hr> -->
 			<!-- <div style="text-align: center; margin-right: 200px;">A2개</div> -->
 	
-			<!-- 답글 시작-->
-		
-				
-					<c:forEach items="${rResult}" var="r">
+<!-- 답글 시작-->
+			<c:forEach items="${rResult}" var="r">
 					<div class="topQ">
 					<hr>
 					<hr>
@@ -211,9 +209,64 @@ span:nth-child(4) {
 							</c:otherwise>
 						</c:choose>	
 						<br>
-							<div style="text-align:right;"><button class="btn btn-dark" id="commentBtn" class="seq${r.seq}">댓글</button></div>	
+						
+					<div style="text-align:right;"><button class="btn btn-dark" id="commentBtn" onclick="hideCo(${r.seq})">댓글</button></div>
+							
+					<div class="contentDivBot dSeq${r.seq}" style="display:none;">
+						<div class="pPageComments">
+							<c:if test="${cResult.size()>0 }">
+								<c:forEach items="${cResult }" var="c">
+								<!-- 										댓글seq = 답글seq 같은것만 보여지게 -->
+									<c:choose>
+										<c:when test="${c.repSeq == r.seq}">
+										<div class="row commentDiv commentBox${c.seq } p-0 pb-2 m-2">
+											<div class="col-12 commentInnerBox">
+												<div class="row commentHeader">
+													<div class="col-8 pt-3">
+														<div class="row commentInfo">
+															<div class="col-12 commentWriter">${c.writer }</div>
+															<div class="col-12 commentWriteDate">${c.formedDate }</div>
+														</div>
+													</div>				
+													<div class="col-4 pt-2 text-right commentBtns">
+	<!-- 													<button type="button" class="btn btn-warning coReplyBtn">답글</button> -->
+														<c:if test="${c.id==sessionScope.loginInfo.id }">
+															<a class="btn btn-info coModBtn" href="#" onclick="coModFunction(${c.seq},'${c.content}',${c.queSeq},${c.repSeq},${r.seq});return false;" role="button">수정</a>
+															<a class="btn btn-danger coDelBtn" href="#" onclick="coDelFunction(${c.seq},${c.repSeq},${r.seq});return false;" role="button">삭제</a>
+														</c:if>
+													</div>								
+												</div>											
+												<div class="row commentContent">
+													<div class="col-12 pt-1 pl-4">${c.content }</div>
+												</div>
+											</div>
+										</div>	
+										</c:when>
+									</c:choose>							
+								</c:forEach>
+							</c:if>
 						</div>
-					</c:forEach>
+							
+							<div id="pCoInput" class="row">
+								<div class="col-9 col-lg-10"><textarea class="form-control pCoContents${r.seq}" placeholder="댓글 내용을 입력해주세요"></textarea></div>
+								<div class="col-3 col-lg-2">
+									<div class="row">
+										<div class="col-12">
+											<button type="button" class="btn btn-primary" id="coWriteBtn" onclick="writeFunc(${r.seq})">작성</button>
+											<button type="button" class="btn btn-secondary" id="coCancel">취소</button>
+<!-- 											style="margin-bottom:10px;"  -->
+										</div>										
+									</div>
+									<div class="row">
+										<div class="col-12">
+											
+										</div>										
+									</div>								
+		        				</div>
+							</div>
+					</div>	
+				</div>
+			</c:forEach>
 <!-- 댓글리스트 -->
 <!-- 					<div id="commentList"></div> -->
 <!-- 					<div class="contentDivBot"> -->
@@ -248,55 +301,6 @@ span:nth-child(4) {
 <!-- 					</div> -->
 <!-- 					<br> -->
 <!-- 댓글 -->
-					<div class="contentDivBot" style="display:none;">
-						<div class="pPageComments">
-							<c:if test="${cResult.size()>0 }">
-								<c:forEach items="${cResult }" var="c">
-									<div class="row commentDiv commentBox${c.seq } p-0 pb-2 m-2">
-										<div class="col-12 commentInnerBox">
-											<div class="row commentHeader">
-												<div class="col-8 pt-3">
-													<div class="row commentInfo">
-														<div class="col-12 commentWriter">${c.writer }</div>
-														<div class="col-12 commentWriteDate">${c.formedDate }</div>
-													</div>
-												</div>				
-												<div class="col-4 pt-2 text-right commentBtns">
-<!-- 													<button type="button" class="btn btn-warning coReplyBtn">답글</button> -->
-													<c:if test="${c.id==sessionScope.loginInfo.id }">
-														<a class="btn btn-info coModBtn" href="#" onclick="coModFunction(${c.seq},'${c.content}',${c.queSeq });return false;" role="button">수정</a>
-														<a class="btn btn-danger coDelBtn" href="#" onclick="coDelFunction(${c.seq});return false;" role="button">삭제</a>
-													</c:if>
-												</div>								
-											</div>											
-											<div class="row commentContent">
-												<div class="col-12 pt-1 pl-4">${c.content }</div>
-											</div>
-										</div>
-									</div>								
-								</c:forEach>
-							</c:if>
-						</div>
-							
-							<div id="pCoInput" class="row">
-								<div class="col-9 col-lg-10"><textarea class="form-control" placeholder="댓글 내용을 입력해주세요" id="pCoContents"></textarea></div>
-								<div class="col-3 col-lg-2">
-									<div class="row">
-										<div class="col-12">
-											<button type="button" class="btn btn-primary" id="coWriteBtn">작성</button>
-											<button type="button" class="btn btn-secondary" id="coCancel">취소</button>
-<!-- 											style="margin-bottom:10px;"  -->
-										</div>										
-									</div>
-									<div class="row">
-										<div class="col-12">
-											
-										</div>										
-									</div>								
-		        				</div>
-							</div>
-					</div>
-
 
 
 <!-- 							<div class="contentDivBot" style="display:none;"> -->
@@ -369,20 +373,33 @@ span:nth-child(4) {
 			}
 		})
 		
+// 		flag = true;
+// 		var b = $(".contentDivBot");
+	
+// 		$("#commentBtn").click(function(){
+// 		        if(flag == false){
+// 		            b.hide();
+// 		            flag = true;
+// 		        }
+// 		        else{
+// 		            b.show();﻿
+// 		            flag = false;
+// 		        };
+// 		});
+		
 		flag = true;
-		var b = $(".contentDivBot");
-	
-		$("#commentBtn").click(function(){
-		        if(flag == false){
-		            b.hide();
-		            flag = true;
-		        }
-		        else{
-		            b.show();﻿
-		            flag = false;
-		        };
-		});
-	
+		function hideCo(seq){
+			var b = $(".dSeq"+seq);
+			if(flag == false){
+	            b.hide();
+	            flag = true;
+	        }
+	        else{
+	            b.show();﻿
+	            flag = false;
+	        };
+    	}
+		
 		function modifyRe(seq,queSeq){
 				location.href="${pageContext.request.contextPath}/code/modifyR.do?seq="+seq+"&queSeq="+queSeq;
         }
@@ -409,38 +426,70 @@ span:nth-child(4) {
 // 				$("#content").val("");
 // 			});
 //     	})
-
-
-        $("#coWriteBtn").on("click",function(){
-            $("#pCoContents").val($.trim($("#pCoContents").val()));
-            if($("#pCoContents").val()==""){
-               alert("댓글 내용을 입력해주세요.");
-               return false;
-            }
+	
+	//         $("#coWriteBtndssadw").on("click",function(){
+//             $("#pCoContents").val($.trim($("#pCoContents").val()));
+//             if($("#pCoContents").val()==""){
+//                alert("댓글 내용을 입력해주세요.");
+//                return false;
+//             }
             
-            $.ajax({
-               url : "/code/codeCWriteProc.do",
-               type : "post",
-               dataType : "json",
-               data :{
-            	  queSeq : "${qResult.seq}", 
-                  repSeq : "${repSeq}",
-                  content : $("#pCoContents").val(),
-                  writer: "${sessionScope.loginInfo.nickName}"
-               }
-            }).done(function(resp){
-               $("#pCoContents").val("");
-                $(".pPageComments").html("");
-               console.log("asdfasdfasfadsf"+resp);
-               commentRecall(resp);
-               console.log("이건되냐");
-            }).fail(function(resp){
-               console.log("실패");
-               console.log(resp);
-            })
-         });
+//             $.ajax({
+//                url : "/code/codeCWriteProc.do",
+//                type : "post",
+//                dataType : "json",
+//                data :{
+//             	  queSeq : "${qResult.seq}", 
+//                   repSeq : "${repSeq}",
+//                   content : $("#pCoContents").val(),
+//                   writer: "${sessionScope.loginInfo.nickName}"
+//                }
+//             }).done(function(resp){
+//                $("#pCoContents").val("");
+//                 $(".pPageComments").html("");
+//                console.log("asdfasdfasfadsf"+resp);
+//                commentRecall(resp);
+//                console.log("이건되냐");
+//             }).fail(function(resp){
+//                console.log("실패");
+//                console.log(resp);
+//             })
+//          });
+
+			function writeFunc(seq){
+				
+				console.log($(".pCoContents"+seq).val());
+		        $(".pCoContents"+seq).val($.trim($(".pCoContents"+seq).val()));
+		        if($(".pCoContents"+seq).val()==""){
+		           alert("댓글 내용을 입력해주세요.");
+		           return false;
+		        }
+		        
+		        $.ajax({
+		           url : "/code/codeCWriteProc.do",
+		           type : "post",
+		           dataType : "json",
+		           data :{
+		        	  queSeq : "${qResult.seq}", 
+		              repSeq : seq,
+		              content : $(".pCoContents"+seq).val(),
+		              writer: "${sessionScope.loginInfo.nickName}"
+		           }
+		        }).done(function(resp){
+		           $(".pCoContents"+seq).val("");
+		            $(".pPageComments").html("");
+		           console.log("asdfasdfasfadsf"+resp);
+		           
+		           commentRecall(resp);
+		           console.log("이건되냐");
+		        }).fail(function(resp){
+		           console.log("실패");
+		           console.log(resp);
+		        })
+		    }
+   
                  
-            function coModFunction(seq,contents,queSeq){     
+            function coModFunction(seq,contents,queSeq,repSeq,rSeq){     
                $(".commentBox"+seq).find(".commentBtns").css("display","none");
                $(".commentBox"+seq).find(".commentContent").css("display","none");
                     $(".commentBox"+seq).wrap('<form action="/code/codeCModifyProc.do" method="post" id="coModFrm"></form>');
@@ -448,7 +497,7 @@ span:nth-child(4) {
                 html.push(
                       '<div class="col-12 coModBox mt-2"><div class="row">',
                       '<div class="col-9 col-md-10 col-xl-11 pr-0"><textarea class="form-control" placeholder="댓글 내용을 입력해주세요" id="pCoModContents" style="height:80px;" name="content">'+contents+'</textarea></div>',
-                      '<div class="col-3 col-md-2 col-xl-1"><input type="hidden" name="seq" value="'+seq+'"><input type="hidden" name="queSeq" value="'+queSeq+'">',
+                      '<div class="col-3 col-md-2 col-xl-1"><input type="hidden" name="seq" value="'+seq+'"><input type="hidden" name="repSeq" value="'+repSeq+'"><input type="hidden" name="rSeq" value="'+rSeq+'">',
                       '<div class="row">',
                       '<div class="col-12 text-center p-0">',
                       '<button type="button" class="btn btn-info" style="width:80%;" id="coMoBtn">수정</button>',
@@ -492,7 +541,7 @@ span:nth-child(4) {
                })
                  });
                
-                 function coDelFunction(seq){
+                 function coDelFunction(seq,repSeq,rSeq){
                     var check = confirm("정말 삭제하시겠습니까?");
                     if(check){
                        $.ajax({
@@ -502,7 +551,8 @@ span:nth-child(4) {
                           data :{
                         	  queSeq : "${qResult.seq}", 
                               seq : seq,
-                              repSeq : "${repSeq}"
+                              repSeq : repSeq,
+                              rSeq : rSeq
                           }
                        }).done(function(resp){
                       $(".pPageComments").html("");
@@ -514,8 +564,8 @@ span:nth-child(4) {
                     }
                  }
                  
-               function commentRecall(resp){
-               var loginInfo = "${sessionScope.loginInfo.nickName}";
+               function commentRecall(resp){   
+               var loginInfo = "${sessionScope.loginInfo.id}";
                console.log("1111111111111111111111111111111111111111"+resp);
                console.log(resp.content);
                console.log(resp.writer);
@@ -530,11 +580,11 @@ span:nth-child(4) {
                         '<div class="col-4 pt-2 text-right commentBtns">'
 //                         '<button type="button" class="btn btn-warning coReplyBtn">답글</button>\n'
                         );
-                  if(resp[i].writer==loginInfo){
+                  if(resp[i].id==loginInfo){
                      
                      html.push(
-                           '<a class="btn btn-info coModBtn" href="/code/codeCModifyProc.do?seq='+resp[i].seq+'&repSeq='+resp[i].repSeq+'" onclick="coModFunction('+resp[i].seq+',\''+resp[i].content+'\','+resp[i].queSeq+');return false;" role="button">수정</a>\n',
-                           '<a class="btn btn-danger coDelBtn" href="/code/codeCDeleteProc.do?seq='+resp[i].seq+'&repSeq='+resp[i].repSeq+'" onclick="coDelFunction('+resp[i].seq+');return false;" role="button">삭제</a>'
+                           '<a class="btn btn-info coModBtn" href="/code/codeCModifyProc.do?seq='+resp[i].seq+'&queSeq='+resp[i].queSeq+'&repSeq='+resp[i].repSeq+'" onclick="coModFunction('+resp[i].seq+',\''+resp[i].content+'\','+resp[i].repSeq+');return false;" role="button">수정</a>\n',
+                           '<a class="btn btn-danger coDelBtn" href="/code/codeCDeleteProc.do?seq='+resp[i].seq+'&queSeq='+resp[i].queSeq+'&repSeq='+resp[i].repSeq+'" onclick="coDelFunction('+resp[i].seq+');return false;" role="button">삭제</a>'
                            );
                   }
                   
