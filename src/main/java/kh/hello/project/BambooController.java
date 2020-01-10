@@ -2,6 +2,7 @@ package kh.hello.project;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import kh.hello.configuration.Configuration;
 import kh.hello.dto.BambooCoDTO;
 import kh.hello.dto.BambooDTO;
-import kh.hello.dto.InquiryDTO;
+import kh.hello.dto.LoginInfoDTO;
 import kh.hello.services.BambooService;
 
 @Controller
@@ -26,43 +27,20 @@ public class BambooController {
 
 
 	//대나무숲 게시판
-	@RequestMapping("/bamboolist.do")
+	@RequestMapping("/bambooList.do")
 	public String bamboolistView (String cpage, Model m) {//대나무숲 게시판목록
-		session.setAttribute("loginInfo", "moon");
-		//List<BambooDTO> list = service.bambooList();
-
-
 		//페이지네비
 		int currentPage = 1;		
-
-		if(cpage != null) currentPage = Integer.parseInt(cpage);
-
-		if(currentPage > 0 && currentPage <= Configuration.naviCountPerPage) {
-			m.addAttribute("currentPage", currentPage);
-		}else if(currentPage % Configuration.naviCountPerPage == 0) {
-			m.addAttribute("currentPage", Configuration.naviCountPerPage + 1);
-		}else {
-			m.addAttribute("currentPage", (currentPage % Configuration.naviCountPerPage + 1));
-		}
-
+		if(cpage!= null && !cpage.equals("") && !cpage.equals("null")) currentPage = Integer.parseInt(cpage);
 		int end = currentPage * Configuration.recordCountPerPage;
 		int start = end - (Configuration.recordCountPerPage - 1);	
-
 		List<BambooDTO> list = service.bambooListByPage(start, end);
 		m.addAttribute("bambooList", list);
 
 		List<String> pageNavi = service.getBambooListPageNavi(currentPage);
 		m.addAttribute("pageNavi", pageNavi);
-
 		m.addAttribute("cpage", currentPage);
 
-
-
-
-
-
-
-		//m.addAttribute("bambooList", list);
 		return "/bamboo/bambooList";
 	}
 	@RequestMapping("/bambooDetailView.do")
@@ -80,30 +58,65 @@ public class BambooController {
 	}
 
 	@RequestMapping("/bambooWriteProc.do")
-	public String bambooWriteConfirm(BambooDTO dto) {
-		dto.setWriter((String)session.getAttribute("loginInfo"));
-		int seq = service.bambooWriteConfirm(dto);
-		return "redirect:/bamboo/bamboolist.do";
+	public String writeBamboo(BambooDTO dto) {//섬머노트
+		LoginInfoDTO loginInfo = (LoginInfoDTO)session.getAttribute("loginInfo");
+		dto.setWriter(loginInfo.getId());
+		String path = session.getServletContext().getRealPath("attached");
+		int result = 0;
+		try {
+			result = service.writeBamboo(path, dto);
+			if(result > 0) {
+				return "redirect:/bamboo/bambooList.do";
+			}else {
+				return "redirect:../error";
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			return "redirect:../error";
+		}
 	}
 
 	@RequestMapping("/bambooModify.do")
 	public String bambooModify(int seq, Model m) {
 		BambooDTO result = service.bambooDetailView(seq);
-		m.addAttribute("bambooPage", result);
+		m.addAttribute("bPage", result);
 		return "/bamboo/bambooModify";
 	}
 
 	@RequestMapping("/bambooModifyProc.do")
 	public String bambooModifyConfirm(BambooDTO dto) {
-		service.bambooModifyConfirm(dto);
-		int seq = dto.getSeq();
-		return "redirect:/bamboo/bambooDetailView?seq="+seq;
+		String path = session.getServletContext().getRealPath("attached");
+
+		int result = 0;
+		try {
+			result = service.bambooModifyConfirm(dto, path);
+			if(result > 0) {
+				int seq = dto.getSeq();
+				return "redirect:/bamboo/bambooDetailView.do?seq="+seq;
+			}else {
+				return "redirect:../error";
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			return "redirect:../error";
+		}
 	}
 
 	@RequestMapping("/bambooDeleteProc.do")
 	public String bambooDeleteConfirm(int seq) {
-		service.bambooDeleteConfirm(seq);
-		return "redirect:/bamboo/bambooList";
+		LoginInfoDTO loginInfo = (LoginInfoDTO)session.getAttribute("loginInfo");
+		int result = 0;
+		try {
+			result = service.bambooDeleteConfirm(seq,loginInfo.getId());		
+			if(result > 0) {
+				return "redirect:/bamboo/bambooList.do";
+			}else {
+				return "redirect:../error";
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			return "redirect:../error";
+		}
 	}
 
 	//댓글
@@ -111,7 +124,9 @@ public class BambooController {
 	@ResponseBody
 	@RequestMapping(value="/comment/writeProc.do",produces="text/html;charset=utf8")
 	public String commentWriteConfirm(BambooCoDTO dto) {
-		return 	service.commentWriteConfirm(dto);
+		LoginInfoDTO loginInfo = (LoginInfoDTO)session.getAttribute("loginInfo");
+		dto.setWriter(loginInfo.getId());
+		return service.commentWriteConfirm(dto,dto.getWriter());
 	}
 
 	@ResponseBody
@@ -120,10 +135,35 @@ public class BambooController {
 		return service.commentModifyConfirm(dto);
 	}
 
-	@RequestMapping("/comment/deleteProc.do")
-	public String commentDeleteConfirm(int bamSeq,int seq) {
-		System.out.println(bamSeq);
-		service.commentDeleteConfirm(seq);
-		return "redirect:/bamboo/bambooDetailView.do?seq="+bamSeq;
+	@ResponseBody
+	@RequestMapping(value="/comment/deleteProc.do",produces="text/html;charset=utf8")
+	public String commentDeleteConfirm(BambooCoDTO dto) {
+		LoginInfoDTO loginInfo = (LoginInfoDTO)session.getAttribute("loginInfo");
+		dto.setWriter(loginInfo.getId());
+		return service.commentDeleteConfirm(dto,dto.getWriter());
+	}
+
+	//게시판 목록 검색
+	@RequestMapping("/bambooSearch.do")
+	public String bambooSearch(String search, String value, Model m, String cpage) {
+		//페이지네비
+		int currentPage = 1;		
+
+		if(cpage!= null && !cpage.equals("") && !cpage.equals("null")) currentPage = Integer.parseInt(cpage);
+		int end = currentPage * Configuration.recordCountPerPage;
+		int start = end - (Configuration.recordCountPerPage - 1);	
+		List<BambooDTO> list = service.bambooSearchListByPage(start, end, value, search);
+		m.addAttribute("bambooList", list);
+
+		List<String> pageNavi = service.getBambooSearchListPageNavi(currentPage, value, search);
+		m.addAttribute("pageNavi", pageNavi);
+		m.addAttribute("cpage", currentPage);
+
+		return "/bamboo/bambooList";
+	}
+	
+	@RequestMapping("/kakao.do")
+	public String kakao ( ) {
+		return "/bamboo/kakao";
 	}
 }

@@ -59,7 +59,44 @@
 		        var thisAlert = $(input).parent();
 		        $(thisAlert).removeClass('alert-validate');
 		    }
+		    
+		    function cookieAsJson(){
+		    	var cookieJson = {};
+		    	var cookie = document.cookie;
+		    	var trimmedCookie = cookie.replace(/ /g, "");
+		    	var entryArr = trimmedCookie.split(";");
+		    	for(i=0; i <entryArr.length; i++){
+		    		var entry = entryArr[i].split("=");
+		    		cookieJson[entry[0]] = entry[1];
+		    	}
+		    	return cookieJson;
+		    }
+
+		    $("#ckb1").on("change", function(){
+			    	var exDate = new Date();
+			    
+			    	if($("#ckb1").prop("checked")){			    		
+			    		if($("#name").val() == ""){
+				    		$("#ckb1").prop("checked", false);
+				    		alert("아이디가 입력되지 않았습니다");
+				    	}else{
+				    		exDate.setDate(exDate.getDate() + 30);
+				    		var id = $("#name").val();
+				    		document.cookie = "adminId="+id+";expires="+exDate.toString();	
+				    	}
+			    	}else{
+			    		document.cookie = "adminId=;expires="+exDate.toString();
+			    	}	    		
+		    })
+		    
+		    if(document.cookie != ""){
+		    	var cookie = cookieAsJson();
+		    	$("#name").val(cookie.adminId);
+		    	$("#ckb1").prop("checked", true);
+		    }
+		    
 	})
+	
 </script>
 </head>
 <body>
@@ -86,7 +123,7 @@
 					<div class="flex-sb-m w-full p-t-3 p-b-24">
 						<div class="contact100-form-checkbox">
 							<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
-							<label class="label-checkbox100" for="ckb1">
+							<label class="label-checkbox100" for="ckb1" id="remID">
 								Remember me
 							</label>
 						</div>
@@ -108,6 +145,5 @@
 			</div>
 		</div>
 	</div>
-
 </body>
 </html>

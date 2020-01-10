@@ -30,6 +30,9 @@
 	.contentCard{
 		max-width: 1000px;
 	}
+	.notification-area {
+		text-align:right;
+	}
 </style>
 </head>
 <body>
@@ -65,7 +68,7 @@
                             <img class="avatar user-thumb" src="${pageContext.request.contextPath }/adRsc/images/avatar.png" alt="avatar">
                             <h4 class="user-name dropdown-toggle" data-toggle="dropdown">Administrator <i class="fa fa-angle-down"></i></h4>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Log Out</a>
+                                <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/logout">Log Out</a>
                             </div>
                         </div>
                     </div>
@@ -93,34 +96,39 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                            	<c:forEach items="${list }" var="dto">
-                                            		<tr id="toDetail${dto.seq}">
-                                                    <td>${dto.seq}</td>                                            		
-                                                    <td scope="row">
-                                                    <c:choose>
-                                                    	<c:when test="${dto.count > 0}">
-                                                    		<p class="text-success"><strong>답변완료</strong></p>
-                                                    	</c:when>
-                                                    	<c:otherwise>
-                                                    		<p class="text-danger"><strong>답변대기중</strong></p>
-                                                    	</c:otherwise>
-                                                    </c:choose>
-                                                    </td>
-                                                    <td><strong>${dto.title}</strong></td>
-                                                    <td>${dto.writer}</td>
-                                                    <td>${dto.formedDate}</td>
-                                               		</tr>
-                                               		<script>
-                                               			$("#toDetail${dto.seq}").hover(function(){
-                                               				$("#toDetail${dto.seq}").css("cursor","pointer");
-                                               			})
-                                               			$("#toDetail${dto.seq}").on("click",function(){
-                                               				location.href = "inquiryDetailView?page=${page}&seq=${dto.seq}";
-                                               			})
-                                               		</script>
-                                            	</c:forEach>
-                                                
-                                                
+                                            	<c:choose>
+                                            		<c:when test="${list.size() == 0}">
+                                            			<tr><th colspan='6'>게시물이 없습니다<th></tr>
+                                            		</c:when>
+                                            		<c:otherwise>
+		                                            	<c:forEach items="${list }" var="dto">
+		                                            		<tr id="toDetail${dto.seq}">
+		                                                    <td>${dto.seq}</td>                                            		
+		                                                    <td scope="row">
+		                                                    <c:choose>
+		                                                    	<c:when test="${dto.count > 0}">
+		                                                    		<p class="text-success"><strong>답변완료</strong></p>
+		                                                    	</c:when>
+		                                                    	<c:otherwise>
+		                                                    		<p class="text-danger"><strong>답변대기중</strong></p>
+		                                                    	</c:otherwise>
+		                                                    </c:choose>
+		                                                    </td>
+		                                                    <td><strong>${dto.title}</strong></td>
+		                                                    <td>${dto.writer}(${dto.writerID})</td>
+		                                                    <td>${dto.formedDate}</td>
+		                                               		</tr>
+		                                               		<script>
+		                                               			$("#toDetail${dto.seq}").hover(function(){
+		                                               				$("#toDetail${dto.seq}").css("cursor","pointer");
+		                                               			})
+		                                               			$("#toDetail${dto.seq}").on("click",function(){
+		                                               				location.href = "inquiryDetailView?page=${page}&seq=${dto.seq}";
+		                                               			})
+		                                               		</script>
+		                                            	</c:forEach>                                            		
+                                            		</c:otherwise>
+                                            	</c:choose>                                                                                               
                                             </tbody>
                                         </table>
                                     </div>
@@ -132,11 +140,13 @@
                             <div class="card-body">
                                 <nav aria-label="Page navigation example">
                                     <ul class="pagination justify-content-center">
-										<c:forEach items="${pageNavi}" var="navi">									
-											<li class="page-item pageNavi">${navi}</li>
-										</c:forEach>
-
-
+                                    	<c:choose>
+                                    		<c:when test="${pageNavi.size() > 0}">
+												<c:forEach items="${pageNavi}" var="navi">									
+													<li class="page-item pageNavi">${navi}</li>
+												</c:forEach>                                    		
+                                    		</c:when>
+                                    	</c:choose> 
                                     </ul>
                                 </nav>
                             </div>
@@ -181,7 +191,7 @@
     <script src="${pageContext.request.contextPath }/adRsc/js/plugins.js"></script>
     <script src="${pageContext.request.contextPath }/adRsc/js/scripts.js"></script>
     <script>
-	$(function(){
+	if("${pageNavi.size() > 0}"){
 		var element = $(".pageNavi");
 		var page = "${page}";
 		if(page > 0 && page <= 10){
@@ -190,9 +200,8 @@
 			element[10].classList.add('active');
 		}else{
 			element[page % 10].classList.add('active');
-		}
-		
-	});
+		}			
+	}	
 </script>
 </body>
 </html>

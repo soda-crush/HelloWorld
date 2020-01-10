@@ -23,7 +23,7 @@
 	text-align: center;
 	white-space: nowrap;
 	vertical-align: baseline;
-		border-radius: 0.25em; 
+	border-radius: 0.25em; 
 }
 .bootstrap-tagsinput .tag{color: white;}
 .bootstrap-tagsinput .tag [data-role="remove"]:after{color: red;font-weight: bold;padding: 0px;}

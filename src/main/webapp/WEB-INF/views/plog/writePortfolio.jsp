@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Hello World!</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
@@ -16,48 +17,17 @@
 <link rel="stylesheet" href="/css/mainBase.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <style>
-        h1{
-            text-align: center;
-        }
-        .interval{
-            margin-top: 10px;
-            margin-bottom: 10px;
-            background-color:lightgray;
-            border-radius: 8px;
-            height:10px;
-        }
-        textarea{
-            border :0px;
-            width:100%;
-            height: 100px;
-            resize: none;
-        }
-        input{
-            width:100%;
-        }
-        #datepicker,#datepicker2{
-            width:20%
-        }
-        .theme{
-            line-height: 100px;
-        }
-        h4{
-            text-align: center;
-            background-color:lightgray;
-            padding-top: 10px;
-            padding-bottom: 10px;
-        }
-        #funcname, #funcexpl{
-            text-align: center;
-            font-size:10px;
-            line-height:20px;
-        }
-        #funcexpl{
-            line-height: 150px;
-        }
-        #funcname1,#funcname2,#funcname3{
-            margin-bottom: 8px;
-        }
+		h1{text-align: center;}
+		.interval{margin-top: 10px;margin-bottom: 10px;background-color:lightgray;border-radius: 8px;height:10px;}
+		textarea{border :0px;width:100%;height: 100px;resize: none;}
+		input{width:100%;}
+		#datepicker,#datepicker2{width:20%}
+		.theme{line-height: 100px;}
+		h4{text-align: center;background-color:lightgray;padding-top: 10px;padding-bottom: 10px;}
+		#funcname, #funcexpl{text-align: center;font-size:10px;line-height:20px;}
+		#funcexpl{line-height: 150px;}
+		#funcname1,#funcname2,#funcname3{margin-bottom: 8px;}
+		.redStar{color:red;}
     </style>
 </head>
 <body>
@@ -73,12 +43,12 @@
             
             <!--      몸통 시작!!!   -->
 
-            <form action="${pageContext.request.contextPath}/Portfolio/insert.do" method="post">
+            <form action="${pageContext.request.contextPath}/Portfolio/insert.do" method="post" id="writeForm">
 	            <div class="container">
 		            <h1> 포 트 폴 리 오</h1>
 		            <div class="row">
-		                <div class="col-3 col-md-2"> 프로젝트명  </div>
-		                <div class="col-9 col-md-10"><input name="portfolioTitle" value="Hello World(세미 프로젝트)"> </div>               
+		                <div class="col-3 col-md-2"><span class=redStar>*</span>프로젝트명  </div>
+		                <div class="col-9 col-md-10"><input id="portfolioTitle" name="portfolioTitle" value="Hello World(세미 프로젝트)"></div>               
 		            </div>
 		            <div class="interval"></div>
 		            <div class="row">
@@ -88,8 +58,8 @@
 		            </div>
 		            <div class="interval"></div>
 		            <div class="row">
-		                <div class="col-3 col-md-2"> 개발 목표 </div>
-		                <div class="col-9 col-md-10"> <input name="purpose" value="Hello World(세미 프로젝트)Hello World(세미 프로젝트)Hello World(세미 프로젝트)"> </div>               
+		                <div class="col-3 col-md-2"><span class=redStar>*</span>개발 목표 </div>
+		                <div class="col-9 col-md-10"><input id="purpose" name="purpose" value="Hello World(세미 프로젝트)Hello World(세미 프로젝트)Hello World(세미 프로젝트)"></div>               
 		            </div>
 		            <div class="interval"></div>
 		            <div class="row">
@@ -118,7 +88,11 @@
 		            </div>
 		            <h4>구현 기능</h4>
 		            <div class="row">
-		                <div class="col-3"><img src="lion.png" style="height: 100%;width:100%;max-height: 180px;"><input type="hidden" name ="image1"></div>
+		                <div class="col-3">
+                       		<input type="file" id="fileUpload1" name="fileUpload1">
+		                	<img id="fileImg1"src="/files/noImage.png" style="height: 100%;width:100%;max-height: 180px;">
+		                	<input type="hidden" name ="image1" id="file1" value="/files/noImage.png">
+		                </div>
 		                <div class="col-9">
 		                    <div class="row">
 		                        <div class="col-2 col-sm-2  col-lg-1" id="funcname"> 기능명</div>
@@ -131,7 +105,11 @@
 		            </div>
 		            <div class="interval"></div>
 		            <div class="row">
-		                <div class="col-3"><img src="lion.png" style="height: 100%;width:100%;max-height: 180px;"><input type="hidden" name ="image2"></div>
+		                <div class="col-3">
+                       		<input type="file" id="fileUpload2" name="fileUpload2">
+		                	<img id="fileImg2"src="" style="height: 100%;width:100%;max-height: 180px;">
+		                	<input type="hidden" name ="image2" id="file2">
+		                </div>
 		                <div class="col-9">
 		                    <div class="row">
 		                        <div class="col-2 col-sm-2  col-lg-1" id="funcname"> 기능명</div>
@@ -144,7 +122,11 @@
 		            </div>
 		            <div class="interval"></div>
 		            <div class="row">
-		                <div class="col-3"><img src="lion.png" style="height: 100%;width:100%;max-height: 180px;"> <input type="hidden" name ="image3"></div>
+		                <div class="col-3">
+		                	<input type="file" id="fileUpload3" name="fileUpload3">
+		                	<img id="fileImg3"src="" style="height: 100%;width:100%;max-height: 180px;">
+		                	<input type="hidden" name ="image3" id="file3">
+		                </div>
 		                <div class="col-9">
 		                    <div class="row">
 		                        <div class="col-2 col-sm-2  col-lg-1" id="funcname"> 기능명</div>
@@ -161,7 +143,7 @@
 		                <div class="col-9 col-md-10"><input name="git" value="Hello World(세미 프로젝트)"> </div>               
 		            </div>
 		            <div class="interval"></div>
-		            <div style="text-align: end;"><button type="button" id="return">돌아가기</button><button id="insert">작성 완료</button></div>
+		            <div style="text-align: end;"><button type="button" id="return">돌아가기</button><button type="button" id="insert">작성 완료</button></div>
 		            
 		        </div>
 			</form>
@@ -212,7 +194,75 @@
                 });
                 
                 $("#return").on("click",function(){
-                	location.href="${pageContext.request.contextPath}/Portfolio/selectList.do";
+                	location.href="${pageContext.request.contextPath}/Portfolio/toPlogmain.do";
+                })
+	  			$("#fileUpload1").on("change",function(){
+	  				var data = new FormData();
+	  				data.append("fileUpload1", $('#fileUpload1').prop('files')[0]);
+	  				$.ajax({
+	  			        url: "${pageContext.request.contextPath}/Portfolio/fileUpload1.do",
+	  			        type: "POST",
+	  			        data: data,
+	  			        contentType: false,
+	  			        processData: false,
+	  			        cache: false
+	  			    }).done(function(resp){
+	  			    	console.log(resp);
+	  			    	$("#fileImg1").attr("src",resp);
+	  			    	$("#file1").val(resp);
+	  			    	console.log($("#file1").val);
+	  			    }).fail(function(fail){
+	  			    	console.log("실패함");
+	  			    	console.log(fail);
+	  			    })
+                })
+                $("#fileUpload2").on("change",function(){
+	  				var data = new FormData();
+	  				data.append("fileUpload2", $('#fileUpload2').prop('files')[0]);
+	  				$.ajax({
+	  			        url: "${pageContext.request.contextPath}/Portfolio/fileUpload2.do",
+	  			        type: "POST",
+	  			        data: data,
+	  			        contentType: false,
+	  			        processData: false,
+	  			        cache: false
+	  			    }).done(function(resp){
+	  			    	console.log(resp);
+	  			    	$("#fileImg2").attr("src",resp);
+	  			    	$("#file2").val(resp);
+	  			    	console.log($("#file2").val);
+	  			    }).fail(function(fail){
+	  			    	console.log("실패함");
+	  			    	console.log(fail);
+	  			    })
+                })
+                $("#fileUpload3").on("change",function(){
+	  				var data = new FormData();
+	  				data.append("fileUpload3", $('#fileUpload3').prop('files')[0]);
+	  				$.ajax({
+	  			        url: "${pageContext.request.contextPath}/Portfolio/fileUpload3.do",
+	  			        type: "POST",
+	  			        data: data,
+	  			        contentType: false,
+	  			        processData: false,
+	  			        cache: false
+	  			    }).done(function(resp){
+	  			    	console.log(resp);
+	  			    	$("#fileImg3").attr("src",resp);
+	  			    	$("#file3").val(resp);
+	  			    	console.log($("#file3").val);
+	  			    }).fail(function(fail){
+	  			    	console.log("실패함");
+	  			    	console.log(fail);
+	  			    })
+                })
+                $("#insert").on("click",function(){
+                	console.log($("#portfolioTitle").val());
+                	if($("#portfolioTitle").val() && $("#purpose").val()){
+                		$("#writeForm").submit();
+                	}else{
+                		alert("프로젝트명과  개발 목표는 필수 입력 사항입니다.")
+                	}
                 })
 		</script>	
 </body>

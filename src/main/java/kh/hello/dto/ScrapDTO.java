@@ -2,16 +2,16 @@ package kh.hello.dto;
 
 public class ScrapDTO {
 	private int seq;
-	private String writer;
+	private String id;
 	private String category;
-	private String categorySeq;
+	private int categorySeq;
 	public ScrapDTO() {
 		super();
 	}
-	public ScrapDTO(int seq, String writer, String category, String categorySeq) {
+	public ScrapDTO(int seq, String id, String category, int categorySeq) {
 		super();
 		this.seq = seq;
-		this.writer = writer;
+		this.id = id;
 		this.category = category;
 		this.categorySeq = categorySeq;
 	}
@@ -21,11 +21,11 @@ public class ScrapDTO {
 	public void setSeq(int seq) {
 		this.seq = seq;
 	}
-	public String getWriter() {
-		return writer;
+	public String getId() {
+		return id;
 	}
-	public void setWriter(String writer) {
-		this.writer = writer;
+	public void setId(String id) {
+		this.id = id;
 	}
 	public String getCategory() {
 		return category;
@@ -33,11 +33,12 @@ public class ScrapDTO {
 	public void setCategory(String category) {
 		this.category = category;
 	}
-	public String getCategorySeq() {
+	public int getCategorySeq() {
 		return categorySeq;
 	}
-	public void setCategorySeq(String categorySeq) {
+	public void setCategorySeq(int categorySeq) {
 		this.categorySeq = categorySeq;
 	}
+	
 	
 }

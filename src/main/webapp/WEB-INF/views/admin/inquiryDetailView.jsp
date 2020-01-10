@@ -29,6 +29,12 @@
 #home-tab:hover{
 cursor:default;
 }
+.notification-area {
+text-align:right;
+}
+	.contentCard{
+		max-width: 1000px;
+	}
 </style>
 
 </head>
@@ -65,7 +71,7 @@ cursor:default;
                             <img class="avatar user-thumb" src="${pageContext.request.contextPath }/adRsc/images/avatar.png" alt="avatar">
                             <h4 class="user-name dropdown-toggle" data-toggle="dropdown">Administrator <i class="fa fa-angle-down"></i></h4>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Log Out</a>
+                                <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/logout">Log Out</a>
                             </div>
                         </div>
                     </div>
@@ -76,7 +82,7 @@ cursor:default;
                 <!-- MAIN CONTENT GOES HERE -->
                 <div class="main-content-inner">
                 <div class="row">
-                    <div class="col-lg-12 mt-5">
+                    <div class="col-lg-12 mt-5 contentCard">
                         <div class="card">
                             <div class="card-body">
                                 <div class="invoice-area">
@@ -91,26 +97,24 @@ cursor:default;
                                         </div>
                                     </div>
                                     <div class="row align-items-center">
-                                        <div class="col-md-6">
+                                        <div class="col-12">
                                             <div class="invoice-address">
                                                 <h3>${dto.title }</h3>
-                                                <h5>${dto.writer }</h5>
+                                                <h5>${dto.writer}(${dto.writerID})</h5>
+                                                <p>${dto.formedDate }</p>
+                                                <hr>
                                                 <p>${dto.content }</p>
                                             </div>
                                         </div>
-                                        <div class="col-md-6 text-md-right">
-                                            <ul class="invoice-date">
-                                                <li>${dto.formedDate }</li>
-                                            </ul>
-                                        </div>
                                     </div>                                   
                                 </div> 
-                                <button type="button" class="btn btn-primary mt-4 pr-4 pl-4" id="back">목록으로</button>                              
+                                <hr>
+                                <button type="button" class="btn btn-primary pr-4 pl-4" id="back">목록으로</button>                              
                             </div>
                         </div>                       
                     </div>
                      <!-- basic form start -->
-                            <div class="col-12 mt-5">
+                            <div class="col-12 mt-5 contentCard">
                                 <div class="card" id="replyAppend">
                                 	<c:forEach items="${reply }" var="reply">
                              
@@ -132,10 +136,10 @@ cursor:default;
                                 	</c:forEach>
                                 
                                 
-                                    <div class="card-body">
+                                    <div class="card-body" id="writeBox">
                                         <h4 class="header-title">댓글쓰기</h4>                                        
                                             <input class="form-control form-control-lg mb-4" type="text" placeholder="댓글을 입력하세요" id="replyForm">
-                                            <button type="button" class="btn btn-primary mt-4 pr-4 pl-4" id="writeReply">댓글쓰기</button>
+                                            <button type="button" class="btn btn-primary pr-4 pl-4" id="writeReply">댓글쓰기</button>
                                     </div>
                                 </div>
                             </div>
@@ -198,7 +202,7 @@ cursor:default;
     				},
     				dataType: "json"   				
     			}).done(function(rs){
-    				var target = $("#replyAppend");
+    				var target = $("#writeBox");
     				
     				var dateA = $("<a class='nav-link active' id='home-tab' data-toggle='tab' href='#' role='tab' aria-controls='home' aria-selected='true'></a>");
     				dateA.append(rs.writeDate);
@@ -220,7 +224,8 @@ cursor:default;
     				finalDiv.append(dateUl);
     				finalDiv.append(replyContent);
     				
-    				target.prepend(finalDiv);
+    				target.before(finalDiv);
+    				document.getElementById("writeBox").scrollIntoView();
     			});
     		}
     	})

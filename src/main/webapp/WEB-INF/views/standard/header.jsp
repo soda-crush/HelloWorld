@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
  <div class=container>
   <c:choose>
-			<c:when test="${loginInfo ==null}">
+			<c:when test="${loginInfo.id ==null}">
 			 <div class="row" id="loginCon">
                 <div class="col-12 text-right"><a href="${pageContext.request.contextPath}/member/login">로그인</a> 
                 | <a href="${pageContext.request.contextPath}/member/signUp">회원가입</a></div>
@@ -11,7 +11,7 @@
 			</c:when>
 			<c:otherwise>
 			 <div class="row" id="loginCon">
-                <div class="col-12 text-right"><a href="#">마이페이지</a> | <a href="#" id="${pageContext.request.contextPath}/member/logout">로그아웃</a></div>
+                <div class="col-12 text-right"><a href="${pageContext.request.contextPath}/member/mypage">마이페이지</a> | <a href="${pageContext.request.contextPath}/member/logout">로그아웃</a></div>
             </div>
 			</c:otherwise>
 	</c:choose>
@@ -27,7 +27,7 @@
             </div>
         </div>
 
-        <nav class="navbar navbar-expand-md navbar-light" style="background-color: #499ed6;">
+        <nav class="navbar navbar-expand-md navbar-light" style="background-color: #499ed6;margin-bottom:0px;">
           <a class="navbar-brand" href="#"></a>
   			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
    				 <span class="navbar-toggler-icon"></span>
@@ -35,12 +35,12 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 
                 <div class="navbar-nav box text-center" id="naviCon">
-                    <a class="nav-item nav-link active text-light" href="#">대나무숲</a>
+                    <a class="nav-item nav-link active text-light" href="${pageContext.request.contextPath}/bamboo/bambooList.do">대나무숲</a>
                     <a class="nav-item nav-link active text-light" href="${pageContext.request.contextPath}/code/codeQList.do">코드지식인</a>
-                    <a class="nav-item nav-link active text-light" href="#">업계현황</a>
+                    <a class="nav-item nav-link active text-light" href="${pageContext.request.contextPath}/industry/industryStatusList.do">업계현황</a>
                     <a class="nav-item nav-link active text-light" href="${pageContext.request.contextPath}/itnews/itnewsList">IT 뉴스</a>
                     <a class="nav-item nav-link active text-light" href="${pageContext.request.contextPath}/project/list">프로젝트</a>
-                    <a class="nav-item nav-link active text-light" href="#">P-log</a>
+                    <a class="nav-item nav-link active text-light" href="${pageContext.request.contextPath}/Portfolio/toPlog.do?owner=${loginInfo.id}">P-log</a>
                 </div>
             </div>
         </nav>

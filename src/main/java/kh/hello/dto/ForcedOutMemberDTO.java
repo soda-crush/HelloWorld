@@ -47,4 +47,9 @@ public class ForcedOutMemberDTO {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
 		return sdf.format(outDate);
 	}
+	
+	@Override
+	public String toString() {
+		return "ForcedOutMemberDTO [seq=" + seq + ", id=" + id + ", reason=" + reason + ", outDate=" + outDate + "]";
+	}
 }

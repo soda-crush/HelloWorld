@@ -3,24 +3,17 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Industry">
-	<select id="selectAll" resultType="kh.hello.dto.IndustryStatusDTO">
-		select seq,field,duty,writer,title,content,writeDate,viewCount,(select count(*) from industryComments where indSeq=industryStatus.seq) as commentCount from industryStatus order by seq desc
-	</select>
-	
+
 	<select id="getIndustryStatusDetailView" resultType="kh.hello.dto.IndustryStatusDTO">
 		select * from industryStatus where seq=#{value}
 	</select>
 	
-	<select id="latestSeq" resultType="integer">
-		select max(seq) from industryStatus where writer=#{value}
-	</select>
-	
 	<insert id="insertIndustryStatus" parameterType="kh.hello.dto.IndustryStatusDTO">
-		insert into industryStatus values(industryStatusSeq.nextval,#{title},#{field},#{duty},#{writer},#{title},#{content},sysdate,0)
+		insert into industryStatus values(industryStatusSeq.nextval,#{field},#{duty},#{writer},#{title},#{content},sysdate,0,#{id})
 	</insert>
 	
 	<update id="updateIndustryStatus" parameterType="kh.hello.dto.IndustryStatusDTO">
-		update industryStatus set title=#{title}, field=#{field}, duty=#{duty}, title=#{title}, content=#{content}  where seq=#{seq}
+		update industryStatus set field=#{field}, duty=#{duty}, title=#{title}, content=#{content}  where seq=#{seq}
 	</update>
 	
 	<update id="updateIndustryStatusViewCount">
@@ -30,4 +23,89 @@
 	<delete id="deleteIndustryStatus">
 		delete from industryStatus where seq=#{value}
 	</delete>
+	
+	<!-- 페이지네비 -->
+	<select id="recordIndustryListTotalCount" resultType="integer">
+		select count(seq) from industryStatus
+	</select>
+	<select id="industryListByPage" resultType="kh.hello.dto.IndustryStatusDTO">
+			select industryStatus.*,(select count(*) from industryComments where indSeq=industryStatus.seq) as commentCount from (select industryStatus.*, row_number() over(order by seq desc) rown from industryStatus) industryStatus where rown between #{start} and #{end} order by seq desc
+	</select>
+	
+	<!-- 조건별 게시판목록 검색 -->
+	<select id="industrySearchTotalCount" parameterType="java.util.Map" resultType="integer">
+		 select count(seq) from industryStatus
+		 <choose>
+		 <when test="value == 'all'">								
+			 where (title like '%${search}%') or (content like '%${search}%')
+		</when>
+		<when test="value == 'field'">								
+			 where (field like '%${search}%')
+		</when>
+		<when test="value == 'duty'">								
+			 where (duty like '%${search}%')
+		</when>
+		<when test="value == 'writer'">								
+			 where (writer like '%${search}%')
+		</when>
+		<when test="value == 'title'">								
+			 where (title like '%${search}%')
+		</when>
+		</choose>
+	</select>
+	
+	<select id="industrySearchByPage" resultType="kh.hello.dto.IndustryStatusDTO" parameterType="java.util.Map">
+		select * 
+		<choose>
+		 <when test="value == 'all'">								
+			 from (select industryStatus.*, row_number() over (order by seq desc) as rown from industryStatus where (title like '%${search}%') or (content like '%${search}%')) where rown between #{start} and #{end}
+			 
+		</when>
+		<when test="value == 'field'">
+			 from (select industryStatus.*, row_number() over (order by seq desc) as rown from industryStatus where (field like '%${search}%')) where rown between #{start} and #{end}
+										
+		</when>
+		<when test="value == 'duty'">
+			 from (select industryStatus.*, row_number() over (order by seq desc) as rown from industryStatus where (duty like '%${search}%')) where rown between #{start} and #{end}
+										
+		</when>
+		<when test="value == 'writer'">
+			 from (select industryStatus.*, row_number() over (order by seq desc) as rown from industryStatus where (writer like '%${search}%')) where rown between #{start} and #{end}
+										
+		</when>
+		<when test="value == 'title'">								
+			 from (select industryStatus.*, row_number() over (order by seq desc) as rown from industryStatus where (title like '%${search}%')) where rown between #{start} and #{end}
+		</when>
+		</choose>
+	</select>
+	
+<!-- 	이미지 업로드 -->
+	<select id="getIndustrySeq" resultType="integer">
+		select industryStatusSeq.nextval from dual
+	</select>
+	<insert id="insertImg" parameterType="java.util.Map">
+		insert into industryImgs values(industryImgsSeq.nextVal, #{indSeq}, #{fileName})
+	</insert>
+	
+	<!-- 	포인트 점수 -->
+	<update id="writePoint" parameterType="String">
+		update member set point=point+10 where id=#{id}
+	</update>
+	
+	<update id="deleteWritePoint" parameterType="String">
+		update member set point=point-15 where id=#{id}
+	</update>
+	
+	<!-- 	스크랩 -->
+	<select id="scrapDupCheck" parameterType="kh.hello.dto.ScrapDTO" resultType="integer">
+		select count(*) from scrap where id=#{id} and category=#{category} and categorySeq=#{categorySeq}
+	</select>
+	
+	<select id="earlierSeq" resultType="integer">
+		select scrapSeq.nextval from dual
+	</select>
+	
+	<insert id="scrapCode">
+		insert into scrap values(#{seq}, #{id}, #{category}, #{categorySeq})
+	</insert>
 </mapper>

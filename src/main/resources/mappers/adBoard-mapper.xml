@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="AdBoard">
+
+	<!--프로젝트-->
+	<select id="projectListByPage" resultType="kh.hello.dto.ProjectDTO">
+		select * from (select project.*,(select count(*) from projectComment where projectSeq=project.seq) as commentCount, row_number() over (order by seq desc) as num from project) where num between #{start} and #{end}
+	</select>
+	<select id="getProjectTotal" resultType="integer">
+		select count(*) from project
+	</select>	
+	<delete id="delProjectAllCo">
+		delete from projectComment where projectSeq=#{projectSeq}
+	</delete>
+	<delete id="delProject">
+		delete from project where seq=#{seq}
+	</delete>
+	<select id="detailViewProject" resultType="kh.hello.dto.ProjectDTO">
+		select * from project where seq=#{seq}
+	</select>
+	<select id="getProjectCo" resultType="kh.hello.dto.ProjectCoDTO">
+		select * from projectComment where projectSeq=#{value} start with parentSeq=0 connect by prior seq=parentSeq
+	</select>
+	<update id="delProjectCo">
+		update projectComment set contents=null, changeDate=sysdate where seq=#{seq}
+	</update>
+
+	<!--방명록 -->
+	<select id="guestBookListByPage" resultType="kh.hello.dto.GuestBookDTO">
+		select * from (select GuestBook.*, row_number() over (order by seq desc) as rown from GuestBook) where rown between #{start} and #{end}
+	</select>
+	<select id="getGuestBookTotal" resultType="integer">
+		select count(*) from GuestBook
+	</select>
+	<delete id="delGuestBook">
+		delete GuestBook where seq = #{seq}
+	</delete>
+		
+	<!--대나무숲 -->	
+	<select id="bambooListByPage" resultType="kh.hello.dto.BambooDTO">
+		select * from (select bamboo.*, row_number() over (order by seq desc) as rown from bamboo) where rown between #{start} and #{end}
+	</select>
+	<select id="getBambooTotal" resultType="integer">
+		select count(*) from bamboo
+	</select>
+	<delete id="delBambooAllCo">
+		delete from bambooComments where bamSeq=#{bamSeq}
+	</delete>
+	<delete id="delBamboo">
+		delete from bamboo where seq=#{seq}
+	</delete>
+	<select id="detailViewBamboo" resultType="kh.hello.dto.BambooDTO">
+		select * from bamboo where seq=#{seq}
+	</select>
+	<select id="getBambooCo" resultType="kh.hello.dto.BambooCoDTO">
+		select * from bambooComments where bamSeq=#{bamSeq}
+	</select>
+	<delete id="delBambooCo">
+		delete from bambooComments where seq=#{seq}		
+	</delete>
+	
+	<!--업계현황 -->	
+	<select id="industryListByPage" resultType="kh.hello.dto.IndustryStatusDTO">
+		select * from (select industryStatus.*, row_number() over (order by seq desc) as rown from industryStatus) where rown between #{start} and #{end}
+	</select>
+	<select id="getIndustryTotal" resultType="integer">
+		select count(*) from industryStatus
+	</select>
+	<delete id="delIndustryAllCo">
+		delete from industryComments where indSeq=#{indSeq}
+	</delete>	
+	<delete id="delIndustry">
+		delete from industryStatus where seq=#{seq}
+	</delete>
+	<select id="detailViewIndustry" resultType="kh.hello.dto.IndustryStatusDTO">
+		select * from industryStatus where seq=#{seq}
+	</select>
+	<select id="getIndustryCo" resultType="kh.hello.dto.IndustryStatusCoDTO">
+		select * from industryComments where indSeq=#{indSeq}
+	</select>
+	<delete id="delIndustryCo">
+		delete from industryComments where seq=#{seq}
+	</delete>
+	
+	<!--IT뉴스 -->
+	<select id="itnewsListByPage" resultType="kh.hello.dto.ItnewsDTO">
+		select * from (select itnews.*, row_number() over(order by seq desc) rown from itnews) where rown between ${start} and ${end}
+	</select>
+	<select id="getItnewsTotal" resultType="integer">
+		select count(*) from itnews
+	</select>
+	<delete id="delItnewsAllCo">
+		delete from itnewscomments where itSeq = #{itSeq}
+	</delete>
+	<delete id="delItnews">
+		delete from itnews where seq=#{seq}
+	</delete>
+	<select id="detailViewItnews" resultType="kh.hello.dto.ItnewsDTO">
+		select * from itnews where seq = #{seq}
+	</select>
+	<select id="getItnewsCo" resultType="kh.hello.dto.ItnewsCoDTO">
+		select * from itnewscomments where itSeq=#{itSeq}
+	</select>
+	<delete id="delItnewsCo">
+		delete from itnewscomments where seq=#{seq}
+	</delete>
+	
+	<!--code-how -->
+	<select id="cohowListByPage" resultType="kh.hello.dto.CodeQuestionDTO">
+		select codeQuestion.*,(select count(*) from codeReply where queSeq=codeQuestion.seq) as replyCount from (select codeQuestion.*, row_number() over(order by seq desc) rown from codeQuestion) codeQuestion where rown between #{start} and #{end} order by seq desc
+	</select>
+	<select id="getCohowTotal" resultType="integer">
+		select count(*) from codeQuestion
+	</select>	
+	<delete id="delCohowAllCo">
+		delete from codeComments where queSeq=#{queSeq}
+	</delete>
+	<delete id="delCohowAllReply">
+		delete from codeReply where queSeq = #{queSeq}
+	</delete>
+	<delete id="delCohow">
+		delete from codeQuestion where seq=#{seq}
+	</delete>
+	<select id="detailViewCohow" resultType="kh.hello.dto.CodeQuestionDTO">
+		select * from codeQuestion where seq = #{seq}
+	</select>
+	<select id="getCohowReply" resultType="kh.hello.dto.CodeReplyDTO">
+		select * from codeReply where queSeq = #{queSeq} order by 1
+	</select>
+	<select id="getCohowCo" resultType="kh.hello.dto.CodeCommentsDTO">
+		select * from codeComments where queSeq=#{queSeq} order by seq
+	</select>
+</mapper>

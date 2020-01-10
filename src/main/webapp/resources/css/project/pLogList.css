@@ -1,0 +1,35 @@
+@charset "UTF-8";
+#pageTitle{margin-bottom:40px;}
+#pageTitle h1{display:inline;margin-right:10px;font-weight:bold;}
+#pageTitle .btn{margin-left:5px;}
+.tableDiv{border-radius:5px;}
+.tableHead{
+    font-size: 1rem;
+    font-weight: bold;
+    border-top: 1px solid #dee2e6;
+    vertical-align: bottom;
+    border-bottom: 2px solid #dee2e6;
+    color: #495057;
+    background-color: #e9ecef;
+    border-color: #dee2e6;
+}
+.tableHead,.tableBody,.tableBodyNull{text-align:center;height: 50px;line-height: 50px;}
+.tableBody div:nth-child(1){font-weight:bold;}
+.tableBody div:nth-child(2){text-align:left;cursor:pointer;}   
+.tableBody .N{color:limegreen;}
+.tableBody .Y{color:red;}
+.pComment{margin-left:3px;font-size:13px;color:orange;}    
+.tableBody,.tableBodyNull div{
+    font-size: 0.9rem;
+    color: #212529;
+    text-align: center;
+    box-sizing: border-box;
+    vertical-align: top;
+    border-bottom: 1px solid #dee2e6;
+    font-weight: normal;   
+    background-color:#ffffff90;    
+}    
+.tableHead div,.tableBody div{padding: 0;margin: 0;}
+.tableBody:hover{background-color: #bfac8e30}
+.pageListFooter{margin-top:20px;}
+.searchOption{margin-right:5px;}

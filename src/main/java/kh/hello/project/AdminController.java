@@ -1,6 +1,7 @@
 package kh.hello.project;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -14,6 +15,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.JsonObject;
 
 import kh.hello.configuration.Configuration;
+import kh.hello.dto.BoardLogDTO;
+import kh.hello.dto.ChartGenderDTO;
+import kh.hello.dto.ChartGenerationDTO;
+import kh.hello.dto.ChartJoinPathDTO;
+import kh.hello.dto.ChartVisitChangeDTO;
+import kh.hello.dto.ChartWorkDTO;
+import kh.hello.dto.CommentLogDTO;
 import kh.hello.dto.ForcedOutMemberDTO;
 import kh.hello.dto.InquiryDTO;
 import kh.hello.dto.InquiryReplyDTO;
@@ -29,11 +37,16 @@ public class AdminController {
 	@Autowired
 	private HttpSession session;
 	
+	@RequestMapping("/adminError")
+	public String errorPage() {
+		return "adminError";
+	}
+	
 	@RequestMapping("/login")
 	public String login(String name, String password) {
 		int result = as.validLogin(name, password);
 		if(result > 0) {
-			session.setAttribute("loginInfo", name);
+			session.setAttribute("AdminInfo", name);
 			return "redirect:main";
 		}else {
 			return "redirect:loginFail";
@@ -45,8 +58,54 @@ public class AdminController {
 		return "admin/loginFail";
 	}
 	
+	@RequestMapping("/logout")
+	public String logout() {
+		session.invalidate();
+		return "redirect:../manage";
+	}
+	
 	@RequestMapping("/main")
-	public String main() {
+	public String main(Model m) {
+		//1-1. 방문자 통계(today, total)
+		try {
+			Map<String, Integer> count = as.getVisitorCount();
+			m.addAttribute("count", count);			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		//1-2. 일일 방문자수 추이
+		List<ChartVisitChangeDTO> visitChange = as.getVisitChange();
+		m.addAttribute("visitChange", visitChange);
+		
+		//2-1. 회원 활동점수 TOP5
+		List<MemberDTO> top5List = as.getTop5List();
+		m.addAttribute("top5List", top5List);
+		
+		//2-2. 회원성비
+		List<ChartGenderDTO> genderRatio = as.getGenderRatio();
+		m.addAttribute("genderRatio", genderRatio);
+		
+		//3-1. 게시물 수(어제부터 5일간의 기록)
+		List<BoardLogDTO> boardLog = as.getBoardLog();
+		m.addAttribute("boardLog", boardLog);
+		
+		//3-2. 댓글 수(5일)
+		List<CommentLogDTO> comLog = as.getComLog();
+		m.addAttribute("comLog", comLog);
+		
+		//4-1. 가입경로
+		List<ChartJoinPathDTO> joinPath = as.getJoinPath();
+		m.addAttribute("joinPath", joinPath);
+		
+		//4-2. 재직자/비재직자 비율
+		List<ChartWorkDTO> workRatio = as.getWorkRatio();
+		m.addAttribute("workRatio", workRatio);
+		
+		//4-3. 나이 비율
+		List<ChartGenerationDTO> generationRatio = as.getGenerationRatio();
+		m.addAttribute("generationRatio", generationRatio);
+		
 		return "admin/main";
 	}
 	
@@ -71,7 +130,7 @@ public class AdminController {
 	public String inquiryList(String page, Model m) {
 		int currentPage = 1;		
 		
-		if(page != null) currentPage = Integer.parseInt(page);
+		if(page!= null && !page.equals("") && !page.equals("null")) currentPage = Integer.parseInt(page);
 				
 		int end = currentPage * Configuration.recordCountPerPage;
 		int start = end - (Configuration.recordCountPerPage - 1);	
@@ -104,7 +163,6 @@ public class AdminController {
 	@RequestMapping(value="/writeInquiry", produces="text/html; charset=utf8")
 	@ResponseBody
 	public String writeInquiry(String reply, int boardSeq) {
-		System.out.println("컨트롤러");
 		InquiryReplyDTO dto = as.writeInquiry(reply, boardSeq);
 		JsonObject obj = new JsonObject();
 		obj.addProperty("seq", dto.getSeq());
@@ -116,11 +174,7 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/deleteInquiryReply")
-	public String deleteInquiryReply(int seq, int boardSeq, int page) {
-		
-		System.out.println("seq : " + seq);
-		System.out.println("boardSeq : " + boardSeq);
-		System.out.println("page : " + page);
+	public String deleteInquiryReply(int seq, int boardSeq, int page) {		
 		//댓글 삭제하고
 		as.deleteInquiryReply(seq, boardSeq);
 		//boardSeq가지고 디테일뷰로 이동하기
@@ -131,7 +185,7 @@ public class AdminController {
 	public String memberList(String page, Model m) {
 		//회원 목록 받아오기(byPage)
 		int currentPage = 1;
-		if(page != null) currentPage = Integer.parseInt(page);
+		if(page!= null && !page.equals("") && !page.equals("null")) currentPage = Integer.parseInt(page);
 //		if(currentPage > 0 && currentPage <= Configuration.naviCountPerPage) {
 //			m.addAttribute("currentPage", currentPage);
 //		}else if(currentPage % Configuration.naviCountPerPage == 0) {
@@ -198,14 +252,14 @@ public class AdminController {
 	public String forcedOutList(String page, Model m) {
 		//목록 받아오기(page)
 		int currentPage = 1;
-		if(page != null) currentPage = Integer.parseInt(page);
+		if(page!= null && !page.equals("") && !page.equals("null")) currentPage = Integer.parseInt(page);
 		
 		int end = currentPage * Configuration.recordCountPerPage;
 		int start = end - (Configuration.recordCountPerPage - 1);
 		
 		List<ForcedOutMemberDTO> list = as.forcedOutListByPage(start, end);
 		m.addAttribute("list", list);
-		
+				
 		//페이지네비 받아오기
 		List<String> pageNavi = as.getForcedOutPageNavi(currentPage);
 		m.addAttribute("pageNavi", pageNavi);
@@ -226,7 +280,7 @@ public class AdminController {
 	public String searchMember(String col, String searchWord, String page, Model m) {
 		//검색 후 목록 받아오기
 		int currentPage = 1;
-		if(page != null) currentPage = Integer.parseInt(page);
+		if(page!= null && !page.equals("") && !page.equals("null")) currentPage = Integer.parseInt(page);
 		
 		int end = currentPage * Configuration.recordCountPerPage;
 		int start = end - (Configuration.recordCountPerPage - 1);
@@ -241,6 +295,69 @@ public class AdminController {
 		m.addAttribute("page", currentPage);
 				
 		return "admin/searchMemberList";
+	}
+	
+	@RequestMapping("/blackList")
+	public String blackList(String page, Model m) {//활동 점수가 0점 이하
+		//검색 후 목록 받아오기
+		int currentPage = 1;
+		if(page!= null && !page.equals("") && !page.equals("null")) currentPage = Integer.parseInt(page);
+		
+		int end = currentPage * Configuration.recordCountPerPage;
+		int start = end - (Configuration.recordCountPerPage - 1);
+		
+		List<MemberDTO> list = as.getBlackList(start, end);
+		m.addAttribute("list", list);
+		
+		//페이지네비 받아오기
+		List<String> pageNavi = as.getBlackListPageNavi(currentPage);
+		m.addAttribute("pageNavi", pageNavi);
+		
+		m.addAttribute("page", currentPage);
+				
+		return "admin/blackList";		
+	}
+	
+	@RequestMapping("/stopForBlack")
+	public String stopForBlack(String id, Model m) {
+		int result = as.memberStop(id);
+		m.addAttribute("result", result);
+		return "admin/blackStopResult";		
+	}
+	
+	@RequestMapping("/startForBlack")
+	public String startForBlack(String id, Model m) {
+		int result = as.memberStart(id);
+		m.addAttribute("result", result);
+		return "admin/blackStartResult";
+	}
+	
+	@RequestMapping("/blackOut")
+	public String outBlack(String id, String reason, Model m) {
+		int result = as.memberOut(id, reason);
+		m.addAttribute("result", result);
+		return "admin/blackOutResult";
+	}
+	
+	@RequestMapping("/searchBlack")
+	public String searchBlack(String col, String searchWord, String page, Model m) {
+		//검색 후 목록 받아오기
+		int currentPage = 1;
+		if(page!= null && !page.equals("") && !page.equals("null")) currentPage = Integer.parseInt(page);
+		
+		int end = currentPage * Configuration.recordCountPerPage;
+		int start = end - (Configuration.recordCountPerPage - 1);
+		
+		List<MemberDTO> list = as.searchBlackListByPage(col, searchWord, start, end);
+		m.addAttribute("list", list);
+		
+		//페이지네비 받아오기
+		List<String> pageNavi = as.getSearchBlackListPageNavi(currentPage, col, searchWord);
+		m.addAttribute("pageNavi", pageNavi);
+		
+		m.addAttribute("page", currentPage);
+				
+		return "admin/searchBlackList";
 	}
 }
 

@@ -5,20 +5,74 @@
 <mapper namespace="CodeR">
 	<insert id="insert" parameterType="kh.hello.dto.CodeReplyDTO">
 		insert into codeReply
-		values(codeReplySeq.nextval,#{queSeq},#{title},#{content},#{writer},sysdate)
+		values(codeReplySeq.nextval,#{queSeq},#{title},#{content},#{id},#{writer},sysdate,'N')
 	</insert>
-<!-- 	리스트에 답글 보이게? -->
-	<select id="selectReplyAll" resultType="kh.hello.dto.CodeReplyDTO" parameterType="Integer">
+
+	<select id="selectReplyAll" resultType="kh.hello.dto.CodeReplyDTO" parameterType="integer">
 		select * from codeReply
 	</select>
 	
-	<select id="detailReply" resultType="kh.hello.dto.CodeReplyDTO" parameterType="Integer">
-		select * from codeReply where seq = #{seq} order by 1 desc
+	<select id="detailReply" resultType="kh.hello.dto.CodeReplyDTO" parameterType="integer">
+		select * from codeReply where queSeq = #{value} order by 1 desc
 	</select>
 	
-	<delete id="deleteR" parameterType="Integer">
-		delete from codeReply where seq=#{seq}
+	<delete id="deleteR" parameterType="integer">
+		delete from codeReply where seq = #{value}
 	</delete>
+	
+<!-- 	답글 수정 -->
+	<select id="selectOneDetail" resultType="kh.hello.dto.CodeReplyDTO" parameterType="integer">
+		select * from codeReply where seq = #{value}
+	</select>
+	
+<!-- 	답글 하나만 쓰게 -->
+	<select id="replyOneCount" parameterType="java.util.Map" resultType="integer">
+		select count(*) from codeReply where queSeq = #{queSeq} and id = #{id}
+	</select>
+	
+	<update id="modifyR" parameterType="kh.hello.dto.CodeReplyDTO">
+		update CodeReply set content=#{content} where seq=#{seq}
+	</update>
+
+	<update id="writePoint" parameterType="String">
+		update member set point=point+10 where id=#{value}
+	</update>
+	
+	<update id="deleteWritePoint" parameterType="String">
+		update member set point=point-15 where id=#{value}
+	</update>
+	
+<!-- 	답글아이디찾기 -->
+<!-- 	<select id="selectRepId" resultType="kh.hello.dto.CodeReplyDTO" parameterType="integer"> -->
+<!-- 		select * from codeReply -->
+<!-- 	</select> -->
+	
+<!-- 채택 -->
+	<select id="replyCount" parameterType="integer" resultType="integer">
+		select count(*) from codeReply where queSeq = #{value} 
+	</select>
+	<select id="selectPoint" parameterType="String" resultType="integer">
+		select point from member where id = #{value} 
+	</select>
+
+	<update id="pointQResult" parameterType="java.util.Map">
+		update member set point = #{point} where id=#{id}
+	</update>
+	<update id="pointRResult" parameterType="java.util.Map">
+		update member set point = #{point} where id=#{id}
+	</update>
+	
+	<update id="updateRepCol" parameterType="java.util.Map">
+		update codeReply set adopt='Y' where id=#{id} and queSeq=#{queSeq}
+	</update>
+	
+	<!-- 	이미지 업로드 -->
+	<select id="getCodeRSeq" resultType="integer">
+		select codeReplySeq.nextval from dual
+	</select>
+	<insert id="insertRImg" parameterType="java.util.Map">
+		insert into codeRImgs values(codeRImgsSeq.nextVal, #{repSeq}, #{fileName})
+	</insert>
 	
 <!-- 	<select id="selectParentSeq" resultType="Integer" parameterType="Integer"> -->
 <!-- 		select seq from codeQuestion where seq = #{seq}  -->

@@ -2,6 +2,7 @@ package kh.hello.dto;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 
 public class ProjectDTO {
 
@@ -17,18 +18,21 @@ public class ProjectDTO {
 	private String phone;
 	private String email;
 	private String writer;
+	private String id;
 	private Timestamp writeDate;
 	private String state;
 	private int viewCount;
 	private int commentCount;
 	private int applyCount;
-	
+	private int scrap;
+	private Timestamp changeDate;
+
 	public ProjectDTO() {
 		super();
 	}	
-	public ProjectDTO(int seq, String title, String contents, String location1, String location2, int capacity, Timestamp startDate,
-			Timestamp endDate, String languages, String phone, String email, String writer, Timestamp writeDate,
-			String state, int viewCount) {
+	public ProjectDTO(int seq, String title, String contents, String location1, String location2, int capacity,
+			Timestamp startDate, Timestamp endDate, String languages, String phone, String email, String writer,
+			String id, Timestamp writeDate, String state, int viewCount, int commentCount, int applyCount) {
 		super();
 		this.seq = seq;
 		this.title = title;
@@ -42,9 +46,12 @@ public class ProjectDTO {
 		this.phone = phone;
 		this.email = email;
 		this.writer = writer;
+		this.id = id;
 		this.writeDate = writeDate;
 		this.state = state;
 		this.viewCount = viewCount;
+		this.commentCount = commentCount;
+		this.applyCount = applyCount;
 	}
 	public int getSeq() {
 		return seq;
@@ -118,6 +125,12 @@ public class ProjectDTO {
 	public void setWriter(String writer) {
 		this.writer = writer;
 	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	public Timestamp getWriteDate() {
 		return writeDate;
 	}
@@ -148,6 +161,18 @@ public class ProjectDTO {
 	public void setApplyCount(int applyCount) {
 		this.applyCount = applyCount;
 	}
+	public int getScrap() {
+		return scrap;
+	}
+	public void setScrap(int scrap) {
+		this.scrap = scrap;
+	}
+	public Timestamp getChangeDate() {
+		return changeDate;
+	}
+	public void setChangeDate(Timestamp changeDate) {
+		this.changeDate = changeDate;
+	}
 	
 	
 	public String getStateInKor() {
@@ -162,13 +187,60 @@ public class ProjectDTO {
 	
 	public String getFormedAllDate() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
-		String result = sdf.format(this.startDate)+" ~ "+sdf.format(this.endDate);
-		return result;
+		return sdf.format(this.startDate)+" ~ "+sdf.format(this.endDate);
 	}
 	
 	public String getFormedWriteDate() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
-		String result = sdf.format(this.writeDate);
-		return result;
+		return sdf.format(this.writeDate);		
+	}	
+	public String getFormedCalStartDate() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		return sdf.format(this.startDate);
+	}
+	public String getFormedCalEndDate() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		return sdf.format(this.endDate);
+	}
+	public String getFormedDate() {
+		SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm");
+		SimpleDateFormat sdfDay = new SimpleDateFormat("MM-dd");
+		SimpleDateFormat sdfYear = new SimpleDateFormat("yyyy-MM-dd");
+		
+		LocalDateTime writeDate = this.getWriteDate().toLocalDateTime();
+		int writeYear = writeDate.getYear();
+		int writeMonth = writeDate.getMonthValue();
+		int writeDay = writeDate.getDayOfMonth();
+		int writeHour = writeDate.getHour();
+		int writeMin = writeDate.getMinute();
+
+		LocalDateTime now = LocalDateTime.now();
+		int nowYear = now.getYear();
+		int nowMonth = now.getMonthValue();
+		int nowDay = now.getDayOfMonth();
+		int nowHour = now.getHour();
+		int nowMin = now.getMinute();
+		
+		if(nowYear==writeYear) {
+			if(nowMonth==writeMonth) {
+				if(nowDay==writeDay) {
+					if(nowHour-writeHour>=1) {
+						return sdfTime.format(this.getWriteDate());
+					}else {
+						if(nowMin-writeMin>5) {
+							return "1시간 이내";							
+						}else {
+							return "방금 전";
+						}
+					}
+				}else {
+					return sdfDay.format(this.getWriteDate());
+				}
+			}else {
+				return sdfDay.format(this.getWriteDate());
+			}			
+		}else {
+			return sdfYear.format(this.getWriteDate());
+		}	
 	}
 }

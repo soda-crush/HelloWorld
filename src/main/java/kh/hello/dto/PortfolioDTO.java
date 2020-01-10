@@ -3,6 +3,8 @@ package kh.hello.dto;
 import java.sql.Timestamp;
 
 public class PortfolioDTO {
+	
+	
 	private int seq;
 	private String writer;
 	private String portfolioTitle;
@@ -24,6 +26,7 @@ public class PortfolioDTO {
 	private String function3;
 	private String explanation3;
 	private String git;
+	
 	public PortfolioDTO() {
 		super();
 	}

@@ -28,6 +28,10 @@
 .main-content-inner{
 	padding: 30px 15px 30px;
 }
+.profileImg{
+	width:80px;
+	height:80px;
+}
 </style>
 </head>
 <body>
@@ -43,10 +47,9 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="media mb-5">
-                                    <img class="img-fluid mr-4" src="/img/profileSample.jpg" alt="image">
+                                    <img class="img-fluid mr-4 profileImg" src="${dto.profileImg}" alt="image">
                                     <div class="media-body">
-                                        <h4 class="mb-3">${dto.nickName}(${dto.id })</h4>
-                                        <button type="button" class="btn btn-primary mb-2 pt-2 pb-2">P-log</button>				
+                                        <h4 class="mb-3">${dto.nickName}(${dto.id })</h4>				
 									</div>
                                 </div>
                                 
@@ -63,9 +66,9 @@
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <th scope="row">dto.joinDate</th>
-                                                    <td>dto.lastLogin</td>
-                                                    <td>${dto.gender}/dto.getAge</td>
+                                                    <th scope="row">${dto.formedJoinDate}</th>
+                                                    <td>${dto.formedLastLogin}</td>
+                                                    <td>${dto.formedGender}/${dto.age}</td>
                                                     <td>${dto.point}</td>
                                                 </tr>
                                             </tbody>

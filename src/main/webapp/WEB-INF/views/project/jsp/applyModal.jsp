@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
         <!-- Modal -->
-		<div class="modal fade" id="pApplyModal" tabindex="-1" role="dialog" aria-labelledby="pApplyModalLabel" aria-hidden="true">
+		<div class="modal fade" id="pApplyModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="pApplyModalLabel" aria-hidden="true">
 		  <div class="modal-dialog" role="document">
 		    <div class="modal-content">
 		      <div class="modal-header">
@@ -38,7 +38,7 @@
 					<div class="row">
 						<div class="col-4"><label class="aItem">나이</label><label class="star">*</label></div>
 						<div class="col-4 pApplyInput">
-							<select class="form-control form-control-sm pSelect" name="age">
+							<select class="form-control form-control-sm pSelect" name="age" id="age">
 								<option selected>선택</option>
 							    <option value="1">10대</option>
 							    <option value="2">20대</option>
@@ -68,7 +68,7 @@
 					<div class="row">
 						<div class="col-12"><label class="aItem">하고 싶은 말</label></div>
 						<div class="col-12 pApplyInput" id="aContentsInput">
-							<textarea class="form-control form-control-sm" placeholder="내용을 입력해주세요" name="etc"></textarea>
+							<textarea class="form-control form-control-sm" placeholder="내용을 입력해주세요" name="etc" style="height:100px;"></textarea>
 							<input type=hidden name="projectSeq" value="${pPage.seq }">
 						</div>
 					</div>						

@@ -31,7 +31,7 @@
   	select * from inquiryReply where seq=#{seq}
   </select>
   <select id="getInquiryReply" resultType="kh.hello.dto.InquiryReplyDTO">
-  	select * from inquiryReply where boardSeq=#{boardSeq} order by seq desc
+  	select * from inquiryReply where boardSeq=#{boardSeq} order by seq
   </select>
   <delete id="deleteInquiryReply" parameterType="integer">
   	delete from inquiryReply where seq=#{seq}
@@ -40,10 +40,10 @@
   	update inquiry set count=count-1 where seq=#{seq}
   </update>
   <select id="memberListByPage" resultType="kh.hello.dto.MemberDTO">
-  	select * from (select member.*, row_number() over(order by name) rown from member) where rown between #{start} and #{end}
+  	select * from (select member.*, row_number() over(order by name) rown from member where pw is not null) where rown between #{start} and #{end}
   </select>
   <select id="getMemberTotal" resultType="integer">
-  	select count(*) from member
+  	select count(*) from member where pw is not null
   </select>
   <select id="getMemberInfo" resultType="kh.hello.dto.MemberDTO">
   	select * from member where id=#{member}
@@ -57,9 +57,11 @@
   <update id="memberStart">
   	update member set memLevel='2' where id=#{id}
   </update>
-  <delete id="memberOut">
-  	delete from member where id=#{id}
-  </delete>
+  <update id="memberOut">
+  	update member set pw=null, name=null,nickName=null,email=null,phone=null,postCode=null
+		,addr1=null,addr2=null,joinPath=null,gender=null,memLevel=null,reportCount=null,point=null
+		,ifmOpenCheck=null,joinDate=null,lastLogin=null,profileImg=null,birth=null where id=#{id} 
+  </update>
   <insert id="memberOutList" parameterType="java.util.Map">
   	insert into forcedOut values(forcedOutSeq.nextval, #{id}, #{reason}, sysdate)
   </insert>
@@ -73,9 +75,21 @@
   	delete from forcedOut where seq=#{seq}
   </delete>
   <select id="getSearchMemberListByPage" resultType="kh.hello.dto.MemberDTO">
-  	select * from (select member.*, row_number() over(order by name) rown from member where ${col} like #{searchWord}) where rown between #{start} and #{end}
+  	select * from (select member.*, row_number() over(order by name) rown from member where ${col} like #{searchWord} and pw is not null) where rown between #{start} and #{end}
   </select>
   <select id="getSearchMemberResultTotal" resultType="integer">
-  	select count(*) from member where ${col} like #{searchWord}
+  	select count(*) from member where ${col} like #{searchWord} and pw is not null
+  </select>
+  <select id="getBlackList" resultType="kh.hello.dto.MemberDTO">
+  	select * from member where (point&lt;=0 or memLevel=1) and pw is not null
+  </select>
+  <select id="getBlackListTotal" resultType="integer">
+  	select count(*) from member where (point&lt;=0 or memLevel=1) and pw is not null
+  </select>
+  <select id="getSearchBlackListByPage" resultType="kh.hello.dto.MemberDTO">
+  	select * from (select member.*, row_number() over(order by name) rown from member where ${col} like #{searchWord} and pw is not null) where rown between #{start} and #{end} and (point&lt;=0 or memLevel=1)
+  </select>
+  <select id="getSearchBlackResultTotal" resultType="integer">
+  	select count(*) from member where ${col} like #{searchWord} and (point&lt;=0 or memLevel=1) and pw is not null
   </select>
 </mapper>

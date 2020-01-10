@@ -1,6 +1,7 @@
 package kh.hello.dto;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 public class BambooCoDTO {
 	private int seq;
@@ -8,7 +9,11 @@ public class BambooCoDTO {
 	private String writer;
 	private String content;
 	private Timestamp writeDate;
+	private String formedWriteDate;
 	
+	public void setFormedWriteDate(String formedWriteDate) {
+		this.formedWriteDate = formedWriteDate;
+	}
 	public int getSeq() {
 		return seq;
 	}
@@ -49,6 +54,18 @@ public class BambooCoDTO {
 	}
 	public BambooCoDTO() {
 		super();
+	}
+	
+	public String getFormedWriteDate() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+		String result = sdf.format(this.writeDate);
+		return result;
+	}
+	
+	public String getFormedWriteDateForAdmin() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+		String result = sdf.format(this.writeDate);
+		return result;
 	}
 	
 	

@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Hello World!</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
@@ -14,6 +15,7 @@
 <link rel="stylesheet" href="/css/project/writeBase.css" type="text/css"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
+<script src="/js/summernote-ko-KR.js"></script>
 <script src="/js/bootstrap-datepicker.js"></script>
 <script src="/js/bootstrap-datepicker.ko.min.js"></script>
 <link rel="stylesheet" href="/css/bootstrap-datepicker.css">
@@ -37,7 +39,7 @@
             <!--      몸통 시작!!!   -->
             <div class=container id="projectPage">
 				<div id="pageTitle">
-					<h1>프로젝트 모집</h1>
+					<h1>프로젝트 모집 글 작성</h1>
 				</div>
 				
 				<form action="/project/writeProc" method="post" id="writeFrm">
@@ -129,17 +131,15 @@
         
         <script>
 			$('.summernote').summernote({
+				lang: 'ko-KR',
 		        placeholder: '내용을 입력해주세요',	        
-		        minHeight: 300,
-		        maxHeight: 300,
-		        
+		        minHeight: 400,
+		        maxHeight: 400	        
 		    });
-			
-
 			
 			$('.datePicker').datepicker({
 			    format: "yyyy-mm-dd",	//데이터 포맷 형식(yyyy : 년 mm : 월 dd : 일 )
-			    startDate: '-10d',	//달력에서 선택 할 수 있는 가장 빠른 날짜. 이전으로는 선택 불가능 ( d : 일 m : 달 y : 년 w : 주)
+			    startDate: '+1d',	//달력에서 선택 할 수 있는 가장 빠른 날짜. 이전으로는 선택 불가능 ( d : 일 m : 달 y : 년 w : 주)
 			    endDate: '+1y',	//달력에서 선택 할 수 있는 가장 느린 날짜. 이후로 선택 불가 ( d : 일 m : 달 y : 년 w : 주)
 			    autoclose : true,	//사용자가 날짜를 클릭하면 자동 캘린더가 닫히는 옵션
 			    calendarWeeks : false, //캘린더 옆에 몇 주차인지 보여주는 옵션 기본값 false 보여주려면 true
@@ -160,7 +160,7 @@
 			}).on("changeDate", function(e) {
                 changeDate : true	//사용자가 클릭해서 날짜가 변경되면 호출 (개인적으로 가장 많이 사용함)
                 console.log(e); 
-			});
+			});			
 			
 			var result = ${data};
 			var data = JSON.stringify(result);			
@@ -168,10 +168,8 @@
 				datumTokenizer: Bloodhound.tokenizers.obj.whitespace("text"),
 				queryTokenizer: Bloodhound.tokenizers.whitespace,
 				local: jQuery.parseJSON(data) //your can use json type
-			});
-		
-			task.initialize();
-		
+			});		
+			task.initialize();		
 			var elt = $("#languages");
 			elt.tagsinput({
 				itemValue: "value",
@@ -184,24 +182,25 @@
 			});
 			
 			$("#writeBtn").on("click",function(){
-				var time = new Date($("#startInputDate").val()).getTime();
-				$("#phone").val($("#phone1").val()+"-"+$("#phone2").val()+"-"+$("#phone3").val());
+				var time = new Date($("#startInputDate").val()).getTime();				
 				$("#startDate").val($("#startInputDate").val()+" 00:00:00.000000000");
 				$("#endDate").val($("#endInputDate").val()+" 00:00:00.000000000");
 				if($("#location1").val()==null|$("#location2").val()==null|$("#capacity")==null|$("#startDate").val()==""|$("#endDate").val()==""|$("#languages").val()==""){
 					alert("필수 입력 항목을 확인해주세요");
 					return false;
 				}
-								
+				if($("#startDate").val()>$("#endDate").val()){
+					alert("시작일이 종료일보다 늦은 날짜일 수 없습니다");
+					return false;
+				}				
 				$("#title").val($.trim($("#title").val())); 				
 				if($("#title").val()==""){
 					alert("제목을 입력해주세요");
 					return false;
 				}
-				
+				$("#phone").val($("#phone1").val()+"-"+$("#phone2").val()+"-"+$("#phone3").val());
+				if($("#phone").val()=="--"){$("#phone").val("");}				
 			});
-			
-
-        </script>
+       </script>
 </body>
 </html>

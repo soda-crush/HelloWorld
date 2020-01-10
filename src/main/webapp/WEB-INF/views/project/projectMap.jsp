@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Hello World!</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
@@ -36,7 +37,22 @@
 						<a class="btn btn-secondary" href="/project/list" role="button">게시판</a>
 						<a class="btn btn-secondary" href="/project/chart" role="button">그래픽</a>
 						<a class="btn btn-primary" href="/project/map" role="button">지도</a>
+
+<!-- 					<ul class="nav nav-tabs"> -->
+<!-- 					  <li class="nav-item"> -->
+<!-- 					    <a class="nav-link" href="/project/list">게시판</a> -->
+<!-- 					  </li> -->
+<!-- 					  <li class="nav-item"> -->
+<!-- 					    <a class="nav-link" href="/project/chart">일정</a> -->
+<!-- 					  </li> -->
+<!-- 					  <li class="nav-item"> -->
+<!-- 					    <a class="nav-link active" href="/project/map">지도</a> -->
+<!-- 					  </li> -->
+<!-- 					</ul> -->
+					
 					</div>
+					
+
 				</div>		
 				
             </div>           

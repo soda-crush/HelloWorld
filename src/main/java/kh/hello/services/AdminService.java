@@ -1,7 +1,9 @@
 package kh.hello.services;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +11,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kh.hello.configuration.Configuration;
 import kh.hello.dao.AdminDAO;
+import kh.hello.dao.ChartDAO;
+import kh.hello.dao.CountDAO;
+import kh.hello.dto.BoardLogDTO;
+import kh.hello.dto.ChartGenderDTO;
+import kh.hello.dto.ChartGenerationDTO;
+import kh.hello.dto.ChartJoinPathDTO;
+import kh.hello.dto.ChartVisitChangeDTO;
+import kh.hello.dto.ChartWorkDTO;
+import kh.hello.dto.CommentLogDTO;
 import kh.hello.dto.ForcedOutMemberDTO;
 import kh.hello.dto.InquiryDTO;
 import kh.hello.dto.InquiryReplyDTO;
@@ -19,6 +30,9 @@ public class AdminService {
 	
 	@Autowired
 	private AdminDAO adao;
+	
+	@Autowired
+	private ChartDAO cdao;
 	
 	public int validLogin(String adminId, String password) {
 		return adao.validLogin(adminId, password);
@@ -231,7 +245,6 @@ public class AdminService {
 	}
 	
 	public List<MemberDTO> getSearchMemberListByPage(String col, String searchWord, int start, int end){
-		//검색해서 열개씩 잘라서 가져와야하는데..
 		return adao.getSearchMemberListByPage(col, searchWord, start, end);
 	}
 	
@@ -274,6 +287,136 @@ public class AdminService {
 		if(needNext) pages.add("<a class=page-link href='searchMember?col="+col+"&searchWord="+searchWord+"&page=" + (endNavi + 1) + "'>> </a>");
 		
 		return pages;
+	}
+	
+	public List<MemberDTO> getBlackList(int start, int end){
+		return adao.getBlackList(start, end);
+	}
+	
+	public List<String> getBlackListPageNavi(int currentPage){
+		int blackListTotalCount = adao.getBlackListTotal();
+		int pageTotalCount = 0;
+		
+		if(blackListTotalCount % Configuration.recordCountPerPage > 0) {
+			pageTotalCount = blackListTotalCount / Configuration.recordCountPerPage + 1;
+		}else {
+			pageTotalCount = blackListTotalCount / Configuration.recordCountPerPage;
+		}
+		
+		int startNavi = (currentPage - 1) / Configuration.naviCountPerPage * Configuration.naviCountPerPage + 1;
+		int endNavi = startNavi + (Configuration.naviCountPerPage - 1);
+		
+		if(endNavi > pageTotalCount) {
+			endNavi = pageTotalCount;
+		}
+		boolean needPrev = true;
+		if(startNavi == 1) {
+			needPrev = false;
+		}
+		boolean needNext = true;
+		if(endNavi == pageTotalCount) {
+			needNext = false;
+		}
+		
+		List<String> pages = new ArrayList<>();
+
+		if(needPrev) pages.add("<a class=page-link href='blackList?page=" + (startNavi - 1) + "'>< </a>");
+		for(int i = startNavi; i <= endNavi; i++) {
+			StringBuilder sb = new StringBuilder();
+			sb.append("<a class=page-link href='blackList?page="+ i +"'>");
+			sb.append(i + " ");
+			sb.append("</a>");
+			
+			pages.add(sb.toString());
+		}
+		if(needNext) pages.add("<a class=page-link href='blackList?page=" + (endNavi + 1) + "'>> </a>");
+		
+		return pages;		
+	}
+	
+	public List<MemberDTO> searchBlackListByPage(String col, String searchWord, int start, int end){
+		return adao.getSearchBlackListByPage(col, searchWord, start, end);
+	}
+	
+	public List<String> getSearchBlackListPageNavi(int currentPage, String col, String searchWord){
+		int searchBlackTotalCount = adao.getSearchBlackResultTotal(col, searchWord);
+		int pageTotalCount = 0;
+		
+		if(searchBlackTotalCount % Configuration.recordCountPerPage > 0) {
+			pageTotalCount = searchBlackTotalCount / Configuration.recordCountPerPage + 1;
+		}else {
+			pageTotalCount = searchBlackTotalCount / Configuration.recordCountPerPage;
+		}
+		
+		int startNavi = (currentPage - 1) / Configuration.naviCountPerPage * Configuration.naviCountPerPage + 1;
+		int endNavi = startNavi + (Configuration.naviCountPerPage - 1);
+		
+		if(endNavi > pageTotalCount) {
+			endNavi = pageTotalCount;
+		}
+		boolean needPrev = true;
+		if(startNavi == 1) {
+			needPrev = false;
+		}
+		boolean needNext = true;
+		if(endNavi == pageTotalCount) {
+			needNext = false;
+		}
+		
+		List<String> pages = new ArrayList<>();
+
+		if(needPrev) pages.add("<a class=page-link href='searchBlack?col="+col+"&searchWord="+searchWord+"&page=" + (startNavi - 1) + "'>< </a>");
+		for(int i = startNavi; i <= endNavi; i++) {
+			StringBuilder sb = new StringBuilder();
+			sb.append("<a class=page-link href='searchBlack?col="+col+"&searchWord="+searchWord+"&page="+ i +"'>");
+			sb.append(i + " ");
+			sb.append("</a>");
+			
+			pages.add(sb.toString());
+		}
+		if(needNext) pages.add("<a class=page-link href='searchBlack?col="+col+"&searchWord="+searchWord+"&page=" + (endNavi + 1) + "'>> </a>");
+		
+		return pages;
+	}
+	
+	public Map<String, Integer> getVisitorCount() throws Exception{
+		CountDAO dao = CountDAO.getInstance();
+		Map<String, Integer> result = new HashMap<>();
+		result.put("today", dao.getVisitTodayCount());
+		result.put("total", dao.getVisitTotalCount());
+		return result;
+	}
+	
+	public List<ChartVisitChangeDTO> getVisitChange(){
+		return cdao.getVisitChange();
+	}
+	
+	public List<ChartGenderDTO> getGenderRatio(){
+		return cdao.getGenderRatio();
+	}
+	
+	public List<ChartJoinPathDTO> getJoinPath(){
+		return cdao.getJoinPath();
+	}
+	
+	public List<ChartWorkDTO> getWorkRatio(){
+		return cdao.getWorkRatio();
+	}
+	
+	public List<ChartGenerationDTO> getGenerationRatio(){
+		return cdao.getGenerationRatio();
+	}
+	
+	public List<MemberDTO> getTop5List(){
+		return cdao.getTop5List();
+	}
+	
+	public List<BoardLogDTO> getBoardLog(){
+		return cdao.getBoardLog();
+	}
+	
+	public List<CommentLogDTO> getComLog(){
+		return cdao.getComLog();
 	}
 }
 

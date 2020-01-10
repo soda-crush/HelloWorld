@@ -8,6 +8,106 @@
 	</select>
 	
 	<select id="getDTO" resultType="kh.hello.dto.ItnewsDTO">
-		select * from itnews where seq = ${seq}
+		select * from itnews where seq = #{seq}
 	</select>
+	
+	<select id="selectByPage"  resultType="kh.hello.dto.ItnewsDTO">
+		select * from (select itnews.*, row_number() over(order by seq desc) 
+		rown from itnews) where rown between ${start} and ${end}
+	</select>
+	
+	<select id="getTotal" resultType="integer">
+		select count(*) from itnews 
+	</select>
+	
+	<select id="getItnewsSeq" resultType="integer">
+		select itnewsSeq.nextval from dual
+	</select>
+	
+	<insert id="writeItnews" parameterType="kh.hello.dto.ItnewsDTO">
+		insert into itnews values(#{seq}, #{writer}, #{title}, #{content},  sysdate, 0, #{id})
+	</insert>
+	
+	<delete id="remove" parameterType="integer">
+		delete from itnews where seq=#{seq}
+	</delete>
+	
+	<insert id="insertComment" parameterType="kh.hello.dto.ItnewsCoDTO">
+		insert into itnewscomments values(itnewsCommentsSeq.nextval, #{itSeq}, #{writer}, #{content},sysdate, #{id})
+	</insert>
+	
+	<select id="coList" parameterType="integer" resultType="kh.hello.dto.ItnewsCoDTO">
+		select * from itnewscomments where itSeq=#{seq}
+	</select>
+	
+	<delete id="coRemove" parameterType="java.util.Map">
+		delete from itnewscomments where itSeq = #{itSeq} and seq=#{seq}
+	</delete>
+	
+	<update id="updateItnews"  parameterType="kh.hello.dto.ItnewsCoDTO">
+		update itnews set content=#{content}, title=#{title} where seq=#{seq}
+	</update>
+	
+	<delete id="coAllRemove" parameterType="integer">
+		delete from itnewscomment where itSeq=#{seq}
+	</delete>
+	
+	<update id="coModify"  parameterType="kh.hello.dto.ItnewsCoDTO">
+		update itnewscomments set content=#{content} where seq=#{seq}
+	</update>
+	
+	<select id="getItSeqBySeq" parameterType="integer" resultType="integer">
+		select itSeq from itnewscomments where seq = #{seq}
+	</select>
+	
+	<select id="scrapDupCheck" parameterType="kh.hello.dto.ScrapDTO" resultType="integer">
+		select count(*) from scrap where id=#{id} and category=#{category} and categorySeq=#{categorySeq}
+	</select>
+	
+	<select id="earlierSeq" resultType="integer">
+		select scrapSeq.nextval from dual
+	</select>
+	
+	<insert id="scrapItnews">
+		insert into scrap values(#{seq}, #{id}, #{category}, #{categorySeq})
+	</insert>
+	
+	<update id="increViewCount" parameterType="integer">
+		update itnews set viewCount=(select viewCount from itnews where seq = #{seq})+1 where seq =#{seq}
+	</update>
+	
+	<insert id="insertImg" parameterType="kh.hello.dto.ItnewsImgDTO">
+		insert into itnewsImg values (itnewsImgSeq.nextVal, #{itSeq}, #{oriName}, #{sysName})
+	</insert>
+	
+	<select id="selectByPageSrch" resultType="kh.hello.dto.ItnewsDTO" parameterType="java.util.Map">
+		select * 
+		<choose>
+		 <when test="cate == 'cateAll'">								
+			 from (select itnews.*, row_number() over (order by seq desc) as rown from itnews where (title like '%${search}%') or (writer like '%${search}%')) where rown between #{start} and #{end} 
+		</when>
+		<when test="cate == 'cateTitle'">								
+			 from (select itnews.*, row_number() over (order by seq desc) as rown from itnews where (title like '%${search}%')) where rown between #{start} and #{end}
+		</when>
+		<when test="cate == 'cateWriter'">								
+			 from (select itnews.*, row_number() over (order by seq desc) as rown from itnews where (writer like '%${search}%')) where rown between #{start} and #{end}
+		</when>
+		</choose>
+	</select>
+	
+	<select id="getTotalSearch" parameterType="java.util.Map" resultType="integer">
+		select count(*) from itnews
+		 <choose>
+		 <when test="cate == 'cateAll'">								
+			 where (title like '%${search}%') or (writer like '%${search}%')
+		</when>
+		<when test="cate == 'cateWriter'">								
+			 where (writer like '%${search}%')
+		</when>
+		<when test="cate == 'cateTitle'">								
+			 where (title like '%${search}%')
+		</when>
+		</choose>
+	</select>
+	
 </mapper> 

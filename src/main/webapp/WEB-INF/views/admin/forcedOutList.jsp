@@ -26,6 +26,11 @@
 <script src="${pageContext.request.contextPath }/adRsc/vendor/modernizr-2.8.3.min.js"></script>
 <!-- jquery latest version -->
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<style>
+	.notification-area {
+		text-align:right;
+	}
+</style>
 </head>
 <body>
 	<!-- preloader area start -->
@@ -61,7 +66,7 @@
                             <img class="avatar user-thumb" src="${pageContext.request.contextPath }/adRsc/images/avatar.png" alt="avatar">
                             <h4 class="user-name dropdown-toggle" data-toggle="dropdown">Administrator <i class="fa fa-angle-down"></i></h4>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Log Out</a>
+                                <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/logout">Log Out</a>
                             </div>
                         </div>
                     </div>
@@ -78,34 +83,42 @@
                                 <h4 class="header-title">강퇴 ID 목록</h4>
                                 <div class="single-table">
                                     <div class="table-responsive">
-                                        <table class="table table-hover text-center">
-                                            <thead class="text-uppercase">
-                                                <tr>
-                                                    <th scope="col">ID</th>
-                                                    <th scope="col">강퇴사유</th>
-                                                    <th scope="col">강퇴날짜</th>
-                                                    <th scope="col"></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                            	<c:forEach items="${list}" var="dto">
-                                                <tr>
-                                                    <th scope="row">${dto.id}</th>
-                                                    <td>${dto.reason}</td>
-                                                    <td>${dto.formedDate}</td>
-                                                    <td><i class="ti-trash" id="forcedOutDel${dto.seq}"></i></td>
-                                                </tr>
-                                                <script>
-                                                	$("#forcedOutDel${dto.seq}").on("click", function(){
-                                                		var result = confirm("이 기록을 지울까요?");
-                                                		if(result){
-                                                			location.href="${pageContext.request.contextPath}/admin/forcedOutDel?seq=${dto.seq}";
-                                                		}
-                                                	})
-                                                </script> 
-                                                </c:forEach>                                              
-                                            </tbody>
-                                        </table>
+		                                        <table class="table table-hover text-center">
+		                                            <thead class="text-uppercase">
+		                                                <tr>
+		                                                    <th scope="col">ID</th>
+		                                                    <th scope="col">강퇴사유</th>
+		                                                    <th scope="col">강퇴날짜</th>
+		                                                    <th scope="col"></th>
+		                                                </tr>
+		                                            </thead>
+		                                            <tbody>
+		                                            	<c:choose>
+		                                            		<c:when test="${list.size() == 0}">
+		                                            			<tr><th colspan='3'>강퇴한 회원이 없습니다<th></tr>
+		                                            		</c:when>
+		                                            		<c:otherwise>
+				                                            	<c:forEach items="${list}" var="dto">
+				                                                <tr>
+				                                                    <th scope="row">${dto.id}</th>
+				                                                    <td>${dto.reason}</td>
+				                                                    <td>${dto.formedDate}</td>
+				                                                    <td><i class="ti-trash" id="forcedOutDel${dto.seq}"></i></td>
+				                                                </tr>
+				                                                <script>
+				                                                	$("#forcedOutDel${dto.seq}").on("click", function(){
+				                                                		var result = confirm("이 기록을 지울까요?");
+				                                                		if(result){
+				                                                			location.href="${pageContext.request.contextPath}/admin/forcedOutDel?seq=${dto.seq}";
+				                                                		}
+				                                                	})
+				                                                </script> 
+				                                                </c:forEach> 		                                            		
+		                                            		</c:otherwise>
+		                                            	</c:choose>
+                                             	                                                                                          
+		                                            </tbody>
+		                                        </table>                                    		                                  
                                     </div>
                                 </div>
                             </div>

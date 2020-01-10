@@ -6,15 +6,33 @@
 <head>
 <meta charset="UTF-8">
 <title>Hello World!</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/css/mainBase.css">
 <link rel="stylesheet" type="text/css" href="/css/font-awesome/css/font-awesome.css">
+
+<!-- 데이트피커 -->
+<script src="/js/bootstrap-datepicker.js"></script>
+<script src="/js/bootstrap-datepicker.ko.min.js"></script>
+<link rel="stylesheet" href="/css/bootstrap-datepicker.css">
 <style>
 	.arrow{
 		width:12px;
+	}
+/* 	#imgCon{ */
+/* 		width:100px; */
+/* 		height: 100px; */
+/*  		display: none;  */
+/* 	} */
+	.redP{
+		font-size: 11px;
+		color:red;
+	}
+	#startInputDate{
+	width:130px;
 	}
 </style>
 </head>
@@ -37,6 +55,7 @@
             	<div class="col-12">
             		<h4><br></h4>
             		<h3><img src="/icon/whiteArrow.svg">회원가입</h3>
+            		<p class=redP>&emsp;&emsp;* 은 필수표기정보입니다.</p> 
            		</div>
             </div>
             <div class=row>
@@ -46,7 +65,7 @@
             </div>
             <div class=row>
             	<div class=col-12>
-            		<h5><img src="/icon/arrow.svg" class=arrow>아이디</h5>
+            		<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow>아이디</h5><p class=redP style="display:inline">*</p><br>
             		&emsp;<input type=text name=id id=id placeholder="아이디 입력">
             		<img id=idCheck style="display:none;">
             		<div id=idMsg></div>
@@ -59,7 +78,7 @@
             </div>
             <div class=row>
             	<div class=col-12>
-            		<h5><img src="/icon/arrow.svg" class=arrow>이름</h5>
+            		<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow>이름</h5><p class=redP style="display:inline">*</p><br>
             		&emsp;<input type=text name=name id=name placeholder="이름 입력">
             		<img id=nameCheck style="display:none;">
             		<div id=nameMsg></div>
@@ -72,11 +91,11 @@
             </div>
              <div class=row>
             	<div class="col-12 col-sm-6">
-            	<h5><img src="/icon/arrow.svg" class=arrow>비밀번호</h5>
+            	<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow>비밀번호</h5><p class=redP style="display:inline">*</p><br>
             		&emsp;<input type=text name=pw id=pw placeholder="비밀번호 입력">
             	</div>
             	<div class="col-12 col-sm-6">
-            	<h5><img src="/icon/arrow.svg" class=arrow>비밀번호 확인</h5>
+            	<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow>비밀번호 확인</h5><p class=redP style="display:inline">*</p><br>
             		&emsp;<input type=text name=pwRe id=pwRe placeholder="비밀번호 재입력">
             		<img id=pwCheck style="display:none;">
             	</div>
@@ -104,27 +123,32 @@
             <div id=empEle style="display:none;">
             	<div class=row>
 	            	<div class="col-12 col-sm-6">
-		            	<h5 style="display:inline;"><img src="/icon/doubleArrow.svg" class=arrow>회사 메일</h5>
-		            	<p style="display:inline;">- 일반 메일일 경우  비실무자로 가입됩니다.</p>
+		            	<h5 style="display:inline;"><img src="/icon/doubleArrow.svg" class=arrow>회사 메일</h5><p class=redP style="display:inline">* 오랜시간이 걸리니 메일 전송 경고창이 뜰때까지 기다려주세요.</p>
 		            		&emsp;<br>&emsp;<input type=text name=empEmail id=empEmail placeholder="메일 주소 입력">
 		            		<img id=empEmailCheck style="display:none;">
+		            		<button type=button id=sendMail1>인증 메일 발송</button>
 	            	</div>
 	            	<div class="col-12 col-sm-6">
-		            	<h5><img src="/icon/doubleArrow.svg" class=arrow>인증 코드</h5>
-		            		&emsp;<input type=text name=empCode id=empCode placeholder="인증 코드 입력">
+		            	<h5 style="display:inline;"><img src="/icon/doubleArrow.svg" class=arrow>인증 코드</h5><p class=redP style="display:inline">*</p>
+		            	<p style="display:inline;">-메일로 전송된 코드를 입력해주세요.</p>
+		            		&emsp;<br>&emsp;<input type=text name=empCode id=empCode placeholder="인증 코드 입력">
+		            		<button type=button id = "certification1">인증</button>
 	            	</div>
            		 </div>
             </div>
             <div id=unempEle style="display:none">
              	<div class=row>
 	            	<div class="col-12 col-sm-6">
-		            	<h5><img src="/icon/doubleArrow.svg" class=arrow>개인 메일</h5>
-		            		&emsp;<input type=text name=unempEmail id=unempEmail placeholder="메일 주소 입력">
+		            	<h5 style="display:inline"><img src="/icon/doubleArrow.svg" class=arrow>개인 메일</h5><p class=redP style="display:inline">* 오랜시간이 걸리니 메일 전송 경고창이 뜰때까지 기다려주세요.</p>
+		            		&emsp;<br>&emsp;<input type=text name=unempEmail id=unempEmail placeholder="메일 주소 입력">
 		            		<img id=unempEmailCheck style="display:none;">
+		            		<button type=button id=sendMail2>인증 메일 발송</button>
 	            	</div>
 	            	<div class="col-12 col-sm-6">
-		            	<h5><img src="/icon/doubleArrow.svg" class=arrow>인증 코드</h5>
-		            		&emsp;<input type=text name=unempCode id=unempCode placeholder="인증 코드 입력">
+		            	<h5 style="display:inline;"><img src="/icon/doubleArrow.svg" class=arrow>인증 코드</h5><p class=redP style="display:inline">*</p>
+		            	<p style="display:inline;">-메일로 전송된 코드를 입력해주세요.</p>
+		            		&emsp;<br>&emsp;<input type=text name=unempCode id=unempCode placeholder="인증 코드 입력">
+		            		<button type=button id = "certification2">인증</button>
 	            	</div>
            		 </div>
             </div>
@@ -138,9 +162,24 @@
             		<h5><img src="/icon/doubleArrow.svg" class=arrow>개인정보 공개여부</h5>
             		&emsp;Programming Log(포트폴리오, Ko-How, 프로젝트 참여현황)를 타인이 열람하는 것에 동의합니다.<br>
             		&emsp;비동의 하실경우 Programmming Log에서 프로필 정보만 공개됩니다.<br>
-            		&emsp;동의합니다.<input type="checkbox" name="ifmOpenCheck" id="ifmOpenCheck" value="true">
+            		&emsp;동의합니다.<input type="checkbox" name="ifmOpenCheck" id="ifmOpenCheck" value="Y">
+            		<input type="checkbox" name="ifmOpenCheck" id="ifmOpenCheckNone" value="N" style="display:none">
             	</div>
-            </div>
+            </div> 
+            
+<!--             <div class=row> -->
+<!--             	<div class=col-12> -->
+<!--             		<br> -->
+<!--             	</div> -->
+<!--             </div> -->
+<!--             <div class=row> -->
+<!--             	<div class=col-12> -->
+<!--             		<h5><img src="/icon/arrow.svg" class=arrow>프로필 사진</h5> -->
+<!--             		<div id=imgCon></div> -->
+<!--             		<input type=file id=img> -->
+<!--             	</div> -->
+<!--             </div> -->
+
               <div class=row>
             	<div class=col-12>
             		<br>
@@ -148,11 +187,27 @@
             </div>
             <div class=row>
             	<div class=col-12>
-            		<h5><img src="/icon/arrow.svg" class=arrow>닉네임</h5>
+            		<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow>닉네임</h5><p class=redP style="display:inline">*</p><br>
             		&emsp;<input type=text name=nickName id=nickName placeholder="닉네임 입력">
             		<img id=nickCheck style="display:none;">
             		<div id=nickMsg></div>
             	</div>
+            </div>
+             <div class=row>
+            	<div class=col-12>
+            		<br>
+            	</div>
+            </div>
+            <div class=row>
+            	<div class=col-12>
+            		<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow>생년월일</h5><p class=redP style="display:inline">*</p><br>
+<!--             		<input type="text" id="startInputDate" class="form-control form-control-sm datePicker" placeholder="생년월일" name="startInputDate"> -->
+<!--             		<input type="hidden" id="startDate" name="startDate"> -->
+						&emsp;<select id="birthdayYear" name=birthdayYear></select>
+						<select id="birthdayMonth" name=birthdayMonth></select>
+						<select id="birthdayDay" name=birthdayDay></select>
+						<input name="birthday" id="birthday" style="display:none"> 
+            		</div>
             </div>
               <div class=row>
             	<div class=col-12>
@@ -174,7 +229,7 @@
             </div>
             <div class=row>
             	<div class=col-12>
-            		<h5><img src="/icon/arrow.svg" class=arrow>연락처</h5>
+            		<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow>연락처</h5><p class=redP style="display:inline">*</p><br>
             		&emsp;<input type=text name=phone id=phone placeholder="연락처 입력">
             		<img id=phoneCheck style="display:none;">
             		<div id=phoneMsg></div>
@@ -187,7 +242,7 @@
             </div>
             <div class=row>
             	<div class=col-12>
-            		<h5><img src="/icon/arrow.svg" class=arrow>가입 경로</h5>
+            		<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow>가입 경로</h5><p class=redP style="display:inline">*</p><br>
             		&emsp;<input type=radio name=joinPath value="jp1">지인 추천<br>
             		&emsp;<input type=radio name=joinPath value="jp2">'Hello World!' 검색<br>
             		&emsp;<input type=radio name=joinPath value="jp3">'프로젝트 모집' 검색<br>
@@ -202,9 +257,9 @@
             </div>
             <div class=row>
             	<div class=col-12>
-            		<h5><img src="/icon/arrow.svg" class=arrow>성별</h5>
-            		&emsp;<input type=radio name="gender" value="men">여성<br>
-            		&emsp;<input type=radio name="gender" value="women">남성
+            		<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow>성별</h5><p class=redP style="display:inline">*</p><br>
+            		&emsp;<input type=radio name="gender" value="W">여성<br>
+            		&emsp;<input type=radio name="gender" value="M">남성
             	</div>
             </div>
              <div class=row>
@@ -240,14 +295,27 @@
         <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
         <script>
         var idTest = 0;
+        var nameTest = 0;
         var pwTest = 0;
         var emailTest = 0;
         var nickTest = 0;
+        var birthYearTest = 0;
+        var birthMonthTest = 0;
+        var birthDayTest = 0;
         var phoneTest = 0;
         var jpTest = 0;
         var genderTest = 0;
-        var nameTest = 0;
+        var emailTest2 = 0;
         
+        //프로필 이미지 등록
+        
+        //인증버튼 클릭전 메일보냈는지 확인
+        $("#empEmail").on("focusout",function(){
+        	emailTest2 = 0;
+        })
+         $("#unempEmail").on("focusout",function(){
+        	emailTest2 = 0;
+        })
         
         //실무자 비실무자 체크
 	        $("input:radio[name=empCheck]").click(function(){
@@ -336,43 +404,7 @@
                 	}
                 }) 
                 
-        	//이메일 유효성 검사
-        	 $("input:radio[name=empCheck]").click(function(){
-	            if($("input:radio[name=empCheck]:checked").val()=='employee'){
-	            	$("#unempEmail").val("");
-	            	 $("#unempEmailCheck").css("display","none");
-	               //실무자 체크했을때
-	            	 $("#empEmail").on("focusout",function(){
-	                     var regex = /^\w+@[a-z]+(\.[a-z]+){1,2}$/gm;
-	                     var data = $("#empEmail").val();
-	                     var result = regex.exec(data);
-
-	                     if(result == null){
-	                    	 $("#empEmailCheck").css("display","inline");
-	 						 $("#empEmailCheck").attr("src","/icon/x.svg");
-	                     }else{
-	                    	 $("#empEmailCheck").css("display","none");
-	                     }
-	                 })
-
-	            }else if($("input:radio[name=empCheck]:checked").val()=='unemployee'){
-	            	$("#empEmail").val("");
-	            	 $("#empEmailCheck").css("display","none");
-	            	//비실무자 체크했을때
-	            	 $("#unempEmail").on("focusout",function(){
-	                     var regex = /^\w+@[a-z]+(\.[a-z]+){1,2}$/gm;
-	                     var data = $("#unempEmail").val();
-	                     var result = regex.exec(data);
-
-	                     if(result == null){
-	                    	 $("#unempEmailCheck").css("display","inline");
-	 						 $("#unempEmailCheck").attr("src","/icon/x.svg");
-	                     }else{
-	                    	 $("#unempEmailCheck").css("display","none");
-	                     }
-	                 })
-	            }
-	        });
+        	
         
             //닉네임 중복검사
            		  $("#nickName").on("focusout",function(){
@@ -484,19 +516,282 @@
 	           genderTest = 1;
 	        	});
             
+            //이메일 유효성 검사
+         	 $("input:radio[name=empCheck]").click(function(){
+ 	            if($("input:radio[name=empCheck]:checked").val()=='employee'){
+ 	            	$("#unempEmail").val("");
+ 	            	$("#unempEmailCheck").css("display","none");
+ 	               //실무자 체크했을때
+ 	            	 $("#sendMail1").on("click",function(){
+ 	                     var regex = /^\w+@[a-z]+(\.[a-z]+){1,2}$/gm;
+ 	                     var data = $("#empEmail").val();
+ 	                     var result = regex.exec(data);
+
+ 	                     if(result == null){
+							//이메일 형식 아닌경우
+							alert("올바른 이메일 형식이 아닙니다. 확인부탁드립니다.");
+ 	                     }else{
+ 	                    	//이메일 형식 맞는 경우
+ 	                    	
+ 	                    	//디비에 있는지 먼저 확인
+ 	                    	$.ajax({
+ 	 	 	              			url:"${pageContext.request.contextPath}/member/isEmailALready",
+ 	 	 	              			type:"post",
+ 	 	 	              			data:{
+ 	 	 	              				email : $("#empEmail").val()
+ 	 	 	              			}
+ 	 	 	              		}).done(function(resp){
+ 	 	 	              			if(resp == "true"){
+ 	 	 	              				alert("이미 등록된 이메일입니다.");
+ 	 	 	              			}else{
+	 	 	 	              			var regex = /^\w+@\w+.co.kr$/gm;
+	 	 	 	                    	var data = $("#empEmail").val();
+	 	 	 	 	                    var result = regex.exec(data);
+	 	 	 	 	                    
+	 	 	 	 	                    var regex2 = /^\w+@\w+.pe.kr$/gm;
+	 	 		 	                    var result2 = regex2.exec(data);
+	 	 		 	                    
+	 	 		 	                    if(result2 != null){
+	 	 		 	                    	alert("개인 도메인(예. pe.kr)을 상업적 목적으로 이용하실 경우 비실무자로 가입후 일대일문의를 통해 실무자 인증부탁드립니다.");
+	 	 		 	                    	return;
+	 	 		 	                    }
+	 	 		 	                    
+	 	 	 	 	                    if(result == null){
+	 	 	 	 	                    	alert("영리 단체 도메인(co.kr)이 아닙니다. 비실무자로 가입부탁드립니다.");
+	 	 	 	 	                    }else{
+	 	 	 	 	                    	emailTest2 = 1;
+	 	 	 	 	                    	$.ajax({
+	 	 	 	 	              			url:"${pageContext.request.contextPath}/member/mailSending",
+	 	 	 	 	              			type:"post",
+	 	 	 	 	              			data:{
+	 	 	 	 	              				email : $("#empEmail").val()
+	 	 	 	 	              			}
+	 	 	 	 	              		}).done(function(data){
+	 	 	 	 	              			alert("인증 메일이 전송되었습니다. 메일을 확인해주세요.");
+	 	 	 	 	              		});
+	 	 	 	 	                    }
+ 	 	 	              			}
+ 	 	 	              		});
+ 	                    	
+ 	                    	
+ 	 	                    
+ 	                     }
+ 	                 })
+
+ 	            }else if($("input:radio[name=empCheck]:checked").val()=='unemployee'){
+ 	            	$("#empEmail").val("");
+ 	            	$("#empEmailCheck").css("display","none");
+ 	            	//비실무자 체크했을때
+ 	            	  $("#sendMail2").on("click",function(){
+ 	                     var regex = /^\w+@[a-z]+(\.[a-z]+){1,2}$/gm;
+ 	                     var data = $("#unempEmail").val();
+ 	                     var result = regex.exec(data);
+
+ 	                    if(result == null){
+							//이메일 형식 아닌경우
+							alert("올바른 이메일 형식이 아닙니다. 확인부탁드립니다.");
+ 	                     }else{
+ 	                    	//이메일 형식 맞는 경우
+ 	                    	
+ 	                    	//디비에 있는지 먼저 확인
+ 	                    	$.ajax({
+ 	 	 	              			url:"${pageContext.request.contextPath}/member/isEmailALready",
+ 	 	 	              			type:"post",
+ 	 	 	              			data:{
+ 	 	 	              				email : $("#unempEmail").val()
+ 	 	 	              			}
+ 	 	 	              		}).done(function(data){
+ 	 	 	              			console.log(data);
+ 	 	 	              			if(data == "true"){
+ 	 	 	              				alert("이미 등록된 이메일입니다.");
+ 	 	 	              			}else{
+ 	 	 	              			var regex = /^\w+@\w+.co.kr$/gm;
+ 	 	 	                    	var data = $("#unempEmail").val();
+ 	 	 	 	                    var result = regex.exec(data);
+ 	 	 	 	                    if(result == null){
+ 	 	 	 	                    	emailTest2 = 1;
+ 	 	 	 	                    	$.ajax({
+ 	 	 	 	 	              			url:"${pageContext.request.contextPath}/member/mailSending",
+ 	 	 	 	 	              			type:"post",
+ 	 	 	 	 	              			data:{
+ 	 	 	 	 	              				email : $("#unempEmail").val()
+ 	 	 	 	 	              			}
+ 	 	 	 	 	              		}).done(function(data){
+ 	 	 	 	 	              			alert("인증 메일이 전송되었습니다. 메일을 확인해주세요.\n개인 도메인(예시. pe.kr)을 상업적 목적으로 이용하실 경우 비실무자로 가입후 일대일문의를 통해 실무자 인증부탁드립니다.");
+ 	 	 	 	 	              		});
+ 	 	 	 	                    }else{
+ 	 	 	 	                    	alert("영리단체 도메인(co.kr)은 실무자로 가입부탁드립니다.");
+ 	 	 	 	                    }
+ 	 	 	              			}
+ 	 	 	              		});	
+ 	                    	
+ 	                    	
+ 	 	                    
+ 	                     }
+ 	                 })
+ 	            }
+ 	        });
+            
+            //이메일 인증코드 확인 - 실무자
+            $("#certification1").on("click",function(){
+            	if(emailTest2 == 0){
+            		alert("인증 메일 발송부터 진행하여 주십시오.");
+            	}else{
+            		$.ajax({
+            			url:"${pageContext.request.contextPath}/member/ctfCodeProc",
+            			type:"post",
+            			data:{
+            				email : $("#empEmail").val(),
+            				code : $("#empCode").val()
+            			}
+            		}).done(function(data){
+            			if(data == "true"){
+            				alert("인증에 성공하셨습니다. 계속 진행하여 주십시오.");
+                			emailTest = 1;
+            			}else{
+            				alert("인증에 실패하였습니다. 코드를 다시 확인해주시기 바랍니다.");
+            			}
+            		});
+            	}
+            	})
+            	
+            //이메일 인증코드 확인 - 비실무자
+            	$("#certification2").on("click",function(){
+            		if(emailTest2 == 0){
+                		alert("인증 메일 발송부터 진행하여 주십시오.");
+                	}else{
+                		$.ajax({
+                			url:"${pageContext.request.contextPath}/member/ctfCodeProc",
+                			type:"post",
+                			data:{
+                				email : $("#unempEmail").val(),
+                				code : $("#unempCode").val()
+                			}
+                		}).done(function(data){
+                			if(data == "true"){
+                				alert("인증에 성공하셨습니다. 계속 진행하여 주십시오.");
+                    			emailTest = 1;
+                			}else{
+                				alert("인증에 실패하였습니다. 코드를 다시 확인해주시기 바랍니다.");
+                			}
+                		});
+                	}
+            	})
+            
+//             //생년월일
+//             $('.datePicker').datepicker({
+// 			    format: "yyyy-mm-dd",	//데이터 포맷 형식(yyyy : 년 mm : 월 dd : 일 )
+// 			    startDate: '-200y',	//달력에서 선택 할 수 있는 가장 빠른 날짜. 이전으로는 선택 불가능 ( d : 일 m : 달 y : 년 w : 주)
+// 			    endDate: '+0y',	//달력에서 선택 할 수 있는 가장 느린 날짜. 이후로 선택 불가 ( d : 일 m : 달 y : 년 w : 주)
+// 			    autoclose : true,	//사용자가 날짜를 클릭하면 자동 캘린더가 닫히는 옵션
+// 			    calendarWeeks : false, //캘린더 옆에 몇 주차인지 보여주는 옵션 기본값 false 보여주려면 true
+// 			    clearBtn : false, //날짜 선택한 값 초기화 해주는 버튼 보여주는 옵션 기본값 false 보여주려면 true			    
+// 			    disableTouchKeyboard : false,	//모바일에서 플러그인 작동 여부 기본값 false 가 작동 true가 작동 안함.
+// 			    immediateUpdates: false,	//사용자가 보는 화면으로 바로바로 날짜를 변경할지 여부 기본값 :false 
+// 			    multidate : false, //여러 날짜 선택할 수 있게 하는 옵션 기본값 :false 
+// 			    multidateSeparator :",", //여러 날짜를 선택했을 때 사이에 나타나는 글짜 2019-05-01,2019-06-01
+// 			    templates : {
+// 			        leftArrow: '&laquo;',
+// 			        rightArrow: '&raquo;'
+// 			    }, //다음달 이전달로 넘어가는 화살표 모양 커스텀 마이징 
+// 			    showWeekDays : true ,// 위에 요일 보여주는 옵션 기본값 : true
+// 			    todayHighlight : true ,	//오늘 날짜에 하이라이팅 기능 기본값 :false 
+// 			    toggleActive : true,	//이미 선택된 날짜 선택하면 기본값 : false인경우 그대로 유지 true인 경우 날짜 삭제
+// 			    weekStart : 0 ,//달력 시작 요일 선택하는 것 기본값은 0인 일요일 
+// 			    language : "ko"	//달력의 언어 선택, 그에 맞는 js로 교체해줘야한다.			    
+// 			}).on("changeDate", function(e) {
+//                 changeDate : true	//사용자가 클릭해서 날짜가 변경되면 호출 (개인적으로 가장 많이 사용함)
+// 				birthTest = 1;
+// 			});	
+            	
+            //생년월일 2
+            //생년월일 select
+			window.onload = function(){
+
+				var toDay = new Date();
+				var year  = toDay.getFullYear();
+				var month = (toDay.getMonth()+1);
+				var day   = toDay.getDate();
+
+				var str = "";
+				// 년도 설정
+				for (var i=year-1; i>=1900; i--) {
+					str += "<option value='" + i + "' selected='selected'>" + i + "</option>";
+				}
+				str += "<option value='N' selected='selected'>년</option>";	
+				$("#birthdayYear").html(str);
+				
+				
+				// 월, 일 설정
+				str = "";
+				for (var i=12; i > 9; i--) {
+					str += "<option value='" + i + "' selected='selected'>" + i + "</option>";
+				}
+				for (var i=9; i > 0; i--) {
+					str += "<option value='0" + i + "' selected='selected'>" + i + "</option>";
+				}
+				str += "<option value='N' selected='selected'>월</option>";	
+				$("#birthdayMonth").html(str);
+				
+				str = "";
+				for (var i=31; i > 9; i--) {
+					str += "<option value='" + i + "' selected='selected'>" + i + "</option>";
+				}
+				for (var i=9; i > 0; i--) {
+					str += "<option value='0" + i + "' selected='selected'>" + i + "</option>";
+				}
+				str += "<option value='N' selected='selected'>일</option>";	
+				$("#birthdayDay").html(str);
+			}
+
+			//생년월일 유효성 검사
+			$("#birthdayYear").on("change",function(){
+				if($("#birthdayYear").val() != "N"){
+					birthYearTest = 1;
+				}else{
+					birthYearTest = 0;
+				}
+			})
+			$("#birthdayMonth").on("change",function(){
+				if($("#birthdayMonth").val() != "N"){
+					birthMonthTest = 1;
+				}else{
+					birthMonthTest = 0;
+				}
+			})
+			$("#birthdayDay").on("change",function(){
+				if($("#birthdayDay").val() != "N"){
+					birthDayTest = 1;
+				}else{
+					birthDayTest = 0;
+				}
+			})
+
+            
+            	
             //가입버튼 누르기전 마지막 체크
             	$("#send").on("click",function(){
-            		if((idTest*pwTest*nickTest*phoneTest*jpTest*genderTest*nameTest) != 1){
-                    	alert("조건에 만족하지 않는 문항이 있습니다. 확인부탁드립니다.")
-                    }else{
+             		if((idTest*pwTest*birthYearTest*birthMonthTest*birthDayTest*nickTest*phoneTest*jpTest*genderTest*nameTest*emailTest) != 1){
+                     	alert("조건에 만족하지 않는 문항이 있습니다. 확인부탁드립니다.")
+                     }else{
                     	var result = confirm("이대로 회원가입하시겠습니까?");
                     	if(result){
+                    		//날짜 다시 2009-03-20 10:20:30.0
+                    		var date = $("#birthdayYear").val()+"-"+ $("#birthdayMonth").val()+"-"+ $("#birthdayDay").val()+" 00:00:00.0";
+                    		$("#birthday").val(date);
+                    		if($("#postcode").val()==""||$("#postcode").val()==null){
+                    			$("#postcode").val("");
+                    		}
+							//체크 안돼있으면 ifmOpenCheckNone으로 바꾸기
+							var ifmChk = $("#ifmOpenCheck").prop("checked");
+							if(ifmChk == false){
+								$("#ifmOpenCheckNone").prop("checked", true);
+							}
                     		$("#frm").submit();
                     	}
                     }
             	})
             	
-            
         </script>
 </body>
 </html>

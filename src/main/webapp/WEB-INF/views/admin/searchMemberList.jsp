@@ -48,6 +48,11 @@
 	.notification-area {
 		text-align:right;
 	}
+    .table-responsive {
+        overflow: visible;
+        overflow-y:auto;
+    }
+
 </style>
 </head>
 <body>
@@ -83,7 +88,7 @@
                             <img class="avatar user-thumb" src="${pageContext.request.contextPath }/adRsc/images/avatar.png" alt="avatar">
                             <h4 class="user-name dropdown-toggle" data-toggle="dropdown">Administrator <i class="fa fa-angle-down"></i></h4>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Log Out</a>
+                                <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/logout">Log Out</a>
                             </div>
                         </div>
                     </div>
@@ -119,11 +124,12 @@
 <!--                                             		<td class="align-self-center"><input type="checkbox"></td> -->
 	                                                <td scope="row">
 														<div class="btn-group dropright">
-														  <button class="btn btn-secondary btn-sm dropdown-toggle nameBtn p-0" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-														    ${dto.nickName}(${dto.id})
+														  <button class="btn btn-secondary btn-sm dropdown-toggle nameBtn p-0" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+														  data-boundary="viewport">
+														    ${dto.nickName}(${dto.id})&nbsp;&nbsp;&nbsp;<i class="fa fa-external-link"></i>
 														  </button>
-														  <div class="dropdown-menu">
-														    <p class="dropdown-item" id="memberInfo${dto.id}">회원정보 수정</p>
+														  <div class="dropdown-menu memberInfo">
+														    <p class="dropdown-item" id="memberInfo${dto.id}">회원정보</p>
 														    <c:choose>
 														    	<c:when test="${dto.memLevel == '1'}">
 														    		<p class="dropdown-item" id="memberStart${dto.id}">활동정지 해제</p>	
@@ -146,7 +152,7 @@
                                                		</form>
                                                		<script>
                                                			$("#memberInfo${dto.id}").on("click", function(){
-                                               				window.open("${pageContext.request.contextPath}/admin/getMemberInfo?id=${dto.id}","","width=600px,height=602px,top=300px,left=600px");
+                                               				window.open("${pageContext.request.contextPath}/admin/getMemberInfo?id=${dto.id}","","width=600px,height=534px,top=300px,left=600px");
                                                			})
                                                			$("#memberStop${dto.id}").on("click", function(){
                                                				var result = confirm("${dto.nickName}(${dto.id}) 님을 활동정지 하시겠습니까?");
@@ -271,6 +277,7 @@
 			$("#frm").submit();
 		}
 	 });
+	 
 	</script>
 </body>
 </html>
