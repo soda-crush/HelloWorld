@@ -61,9 +61,12 @@ public class MemberInquiryController {
 		//나중에 지우기
 		session.setAttribute("loginInfo", new LoginInfoDTO("글슨사람", "글슨사람닉네임"));		
 		LoginInfoDTO loginInfo = (LoginInfoDTO)session.getAttribute("loginInfo");
+		
+		String nickName = loginInfo.getNickName();
 		String id = loginInfo.getId();
 		//
-		dto.setWriter(id);		
+		dto.setWriter(nickName);		
+		dto.setWriterID(id);
 		String path = session.getServletContext().getRealPath("attached");
 		
 		try {
@@ -103,6 +106,14 @@ public class MemberInquiryController {
 	@RequestMapping("/modifyInquiry")
 	public String modifyInquiry(String page, InquiryDTO dto) {
 		String path = session.getServletContext().getRealPath("attached");
+		
+		//나중에 지우기
+		session.setAttribute("loginInfo", new LoginInfoDTO("글슨사람", "글슨사람닉네임"));		
+		LoginInfoDTO loginInfo = (LoginInfoDTO)session.getAttribute("loginInfo");
+				
+		String nickName = loginInfo.getNickName();
+		dto.setWriter(nickName);
+		
 		try {
 			int result = ms.modifyInquiry(path, dto);
 			if(result > 0) {
@@ -119,6 +130,8 @@ public class MemberInquiryController {
 	@RequestMapping("/deleteInquiry")
 	public String deleteInquiry(String page, int seq, Model m) {
 		String path = session.getServletContext().getRealPath("attached/inquiry");
+		
+		
 		try {
 			int result = ms.deleteInquiry(path, seq);
 			m.addAttribute("result", result);

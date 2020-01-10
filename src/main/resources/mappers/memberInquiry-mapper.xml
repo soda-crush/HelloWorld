@@ -16,7 +16,7 @@
 		insert into inquiryImgs values(inquiryImgsSeq.nextVal, #{boardSeq}, #{sysName})
 	</insert>
 	<insert id="writeInquiry" parameterType="kh.hello.dto.InquiryDTO">
-		insert into inquiry values(#{seq}, #{title}, #{content}, #{writer}, sysdate, 0)
+		insert into inquiry values(#{seq}, #{title}, #{content}, #{writer}, #{writerID}, sysdate, 0)
 	</insert>
 	<select id="getMyInquiryBySeq" resultType="kh.hello.dto.InquiryDTO">
 		select * from inquiry where seq=#{seq}
@@ -25,7 +25,7 @@
 		select * from inquiryReply where boardSeq=#{boardSeq}
 	</select>
 	<update id="modifyInquiry" parameterType="kh.hello.dto.InquiryDTO">
-		update inquiry set title=#{title}, content=#{content}, writeDate=sysdate where seq=#{seq}
+		update inquiry set title=#{title}, content=#{content}, writer=#{writer}, writeDate=sysdate where seq=#{seq}
 	</update>
 	<select id="getImgsByBoardSeq" resultType="String">
 		select sysName from inquiryImgs where boardSeq=#{boardSeq}

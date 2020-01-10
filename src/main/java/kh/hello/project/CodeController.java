@@ -31,11 +31,11 @@ public class CodeController {
 	//질문 CodeQuestion
 	@RequestMapping("/codeQList.do")
 	public String codeList(Model m,String page) {
-			LoginInfoDTO dto = new LoginInfoDTO("test","닉네임");		
+			//LoginInfoDTO dto = new LoginInfoDTO("test","닉네임");		
 			//LoginInfoDTO dto = new LoginInfoDTO("test2","닉네임2");	
 			//LoginInfoDTO dto = new LoginInfoDTO("test3","닉네임3");	
 			
-			session.setAttribute("loginInfo", dto);
+			//session.setAttribute("loginInfo", dto);
 
 			int currentPage = 1;
 			if(page != null) currentPage = Integer.parseInt(page);

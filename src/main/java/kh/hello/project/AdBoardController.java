@@ -221,7 +221,7 @@ public class AdBoardController {
 	}
 		
 	/* 
-	 * IT뉴스 ( 진행중 )
+	 * IT뉴스 ( 완료 )
 	 */
 	
 	@RequestMapping("/itnewsList")

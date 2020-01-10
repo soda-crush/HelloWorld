@@ -115,7 +115,7 @@
 		                                                    </c:choose>
 		                                                    </td>
 		                                                    <td><strong>${dto.title}</strong></td>
-		                                                    <td>${dto.writer}(${dto.id})</td>
+		                                                    <td>${dto.writer}(${dto.writerID})</td>
 		                                                    <td>${dto.formedDate}</td>
 		                                               		</tr>
 		                                               		<script>
