@@ -55,8 +55,8 @@ public class AdBoardDAO {
 		return jdbc.selectList("AdBoard.getProjectCo", projectSeq);
 	}
 	
-	public int delProjectCo(int seq) {//댓글 하나 삭제
-		return jdbc.delete("AdBoard.delProjectCo", seq);
+	public int delProjectCo(int seq) {//댓글 하나 삭제(내용을 null로 set)
+		return jdbc.update("AdBoard.delProjectCo", seq);
 	}
 	
 	/* 

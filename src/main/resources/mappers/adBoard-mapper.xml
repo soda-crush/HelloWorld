@@ -21,11 +21,11 @@
 		select * from project where seq=#{seq}
 	</select>
 	<select id="getProjectCo" resultType="kh.hello.dto.ProjectCoDTO">
-		select * from projectComment where projectSeq=#{projectSeq}
+		select * from projectComment where projectSeq=#{value} start with parentSeq=0 connect by prior seq=parentSeq
 	</select>
-	<delete id="delProjectCo">
-		delete from projectComment where seq=#{seq}
-	</delete>
+	<update id="delProjectCo">
+		update projectComment set contents=null, changeDate=sysdate where seq=#{seq}
+	</update>
 
 	<!--방명록 -->
 	<select id="guestBookListByPage" resultType="kh.hello.dto.GuestBookDTO">

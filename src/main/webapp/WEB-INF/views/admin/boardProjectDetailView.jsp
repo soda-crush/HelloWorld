@@ -35,6 +35,9 @@ cursor:default;
 		display: inline-block;
 		width: 90px;
 	}
+	.depthCom{
+		border-top: 1px solid #dee2e6;
+	}
 </style>
 </head>
 <body>
@@ -127,25 +130,95 @@ cursor:default;
 	                    
 	                                         <!-- basic form start -->
                             <div class="col-12 mt-5 contentCard">
-                                <div class="card pb-3" id="replyAppend">
+                                <div class="card" id="replyAppend">
+                                	<c:choose>
+                                		<c:when test="${list.size() == 0}">
+                                			<div class="card-body text-center">
+                                				<strong>댓글이 없습니다.</strong>
+                                			</div>
+                                		</c:when>
+                                		<c:otherwise>
+                                			<c:forEach items="${list}" var="c">
+                                				<c:choose>
+                                					<c:when test="${c.contents != null}">
+                                						<c:if test="${c.depth == 0}">
+			                             					<div class="card-body">
+			            										<ul class="nav nav-tabs" id="myTab" role="tablist">
+			                										<li class="nav-item">
+			                    										<a class="nav-link active" id="home-tab" data-toggle="tab" href="#" role="tab" aria-controls="home" aria-selected="true"><strong>${c.writer}(${c.id})</strong> <small>${c.formedWriteDate}</small></a>
+			               											</li>  
+			                    										<li class="text-center mt-2 pl-2"><a href="${pageContext.request.contextPath}/adBoard/delProjectCo?page=${page}&seq=${c.seq}&projectSeq=${c.projectSeq}">
+			                    										<i data-brackets-id="23054" class="fa fa-trash"></i></a></li>    
+			           											</ul>
+				            									<div class="tab-content mt-3" id="myTabContent">
+				                									<div class="tab-pane fade show active pl-3 pr-3" id="home" role="tabpanel" aria-labelledby="home-tab">				                										
+				                    									<p>${c.contents}</p>
+				                    									<c:if test="${c.changeDate != null}"><p><small>(수정일 : ${c.formedChangeDate})</small></p></c:if>
+				                									</div>              
+				           										</div>
+			       											</div>                                						
+                                						</c:if>
+                                						<c:if test="${c.depth == 1}">
+			                             					<div class="card-body depthCom ml-5 mr-5 pt-1 pr-0 pb-0">
+																<div class="row">
+																	<div class="col-1 text-right pt-2 pb-2" style="color:#dee2e6;">┖</div>
+																	<div class="col-11 pt-2 pb-2">
+																		<div class="row">
+																			<div class="col-auto pr-0 mb-2"><strong>${c.writer}(${c.id})&nbsp;&nbsp;</strong></div>
+																			<div class="col-auto"><small>${c.formedWriteDate}</small></div>
+																			<div class="col-auto p-0"><a href="${pageContext.request.contextPath}/adBoard/delProjectCo?page=${page}&seq=${c.seq}&projectSeq=${c.projectSeq}">
+																			<i data-brackets-id="23054" class="fa fa-trash"></i></a></div>
+																			<div class="col-12">																
+																				<p>${c.contents}</p>
+																				<c:if test="${c.changeDate != null}"><p><small>(수정일 : ${c.formedChangeDate})</small></p></c:if>	
+																			</div>
+																		</div>
+																	</div>
+																</div>
+			       											</div>                                							
+                                						</c:if>
+                                					</c:when>
+                                					<c:otherwise>
+                                						<c:if test="${c.depth == 0}">
+			                             					<div class="card-body">
+			            										<ul class="nav nav-tabs" id="myTab" role="tablist">
+			                										<li class="nav-item">
+			                    										<a class="nav-link active" id="home-tab" data-toggle="tab" href="#" role="tab" aria-controls="home" aria-selected="true"><strong>${c.writer}(${c.id})</strong> <small>${c.formedWriteDate}</small></a>
+			               											</li>     
+			           											</ul>
+				            									<div class="tab-content mt-3" id="myTabContent">
+				                									<div class="tab-pane fade show active pl-3" id="home" role="tabpanel" aria-labelledby="home-tab">
+				                    									<p>삭제된 댓글입니다.&nbsp;&nbsp;</p>
+				                    									<p><small>(삭제일 : ${c.formedChangeDate})</small></p>
+				                									</div>              
+				           										</div>
+			       											</div>  
+                                						</c:if>
+                                						<c:if test="${c.depth == 1}">
+			                             					<div class="card-body depthCom ml-5 mr-5 pt-1 pr-0 pb-0">
+																<div class="row">
+																	<div class="col-1 text-right pt-2 pb-2" style="color:#dee2e6;">┖</div>
+																	<div class="col-11 pt-2 pb-2">
+																		<div class="row">
+																			<div class="col-auto pr-0 mb-2"><strong>${c.writer}(${c.id})&nbsp;&nbsp;</strong></div>
+																			<div class="col-auto"><small>${c.formedWriteDate}</small></div>
+																			<div class="col-12">																				
+																				<p>삭제된 댓글입니다.&nbsp;&nbsp;</p>
+																				<p><small>(삭제일 : ${c.formedChangeDate})</small></p>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+			       											</div>                                      						
+                                						</c:if>
+                                					</c:otherwise>
+                                				</c:choose>
+                                			</c:forEach>
+                                		</c:otherwise>
+                                	</c:choose>
+                                
                                 	<c:forEach items="${list}" var="reply">
-                             					<div class="card-body">
-            										<ul class="nav nav-tabs" id="myTab" role="tablist">
-                										<li class="nav-item">
-                    										<a class="nav-link active" id="home-tab" data-toggle="tab" href="#" role="tab" aria-controls="home" aria-selected="true"><strong>${reply.writer}(${reply.id})</strong> <small>${reply.formedWriteDate}</small></a>
-               											</li>  
-                    										<li class="text-center mt-2 pl-2"><a href="${pageContext.request.contextPath}/adBoard/delProjectCo?page=${page}&seq=${reply.seq}&projectSeq=${reply.projectSeq}">
-                    										<i data-brackets-id="23054" class="fa fa-trash"></i></a></li>    
-           											</ul>
-	            									<div class="tab-content mt-3" id="myTabContent">
-	                									<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-	                    									<p>${reply.contents}</p>
-	                									</div>              
-	           										</div>
-       											</div>
-       											<script>
-       											
-       											</script>
+
                                 	</c:forEach>
                                 </div>
                             </div>

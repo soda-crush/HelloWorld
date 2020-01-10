@@ -82,16 +82,16 @@
 				    	}else{
 				    		exDate.setDate(exDate.getDate() + 30);
 				    		var id = $("#name").val();
-				    		document.cookie = "id="+id+";expires="+exDate.toString();	
+				    		document.cookie = "adminId="+id+";expires="+exDate.toString();	
 				    	}
 			    	}else{
-			    		document.cookie = "id=;expires="+exDate.toString();
+			    		document.cookie = "adminId=;expires="+exDate.toString();
 			    	}	    		
 		    })
 		    
 		    if(document.cookie != ""){
 		    	var cookie = cookieAsJson();
-		    	$("#name").val(cookie.id);
+		    	$("#name").val(cookie.adminId);
 		    	$("#ckb1").prop("checked", true);
 		    }
 		    

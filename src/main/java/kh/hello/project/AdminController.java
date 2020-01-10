@@ -46,7 +46,7 @@ public class AdminController {
 	public String login(String name, String password) {
 		int result = as.validLogin(name, password);
 		if(result > 0) {
-			session.setAttribute("loginInfo", name);
+			session.setAttribute("AdminInfo", name);
 			return "redirect:main";
 		}else {
 			return "redirect:loginFail";
