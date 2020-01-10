@@ -134,7 +134,7 @@ cursor:default;
 								<c:when test="${rdto.size() >0}">
 									<c:forEach items="${rdto}" var="r">
 										<div class="card replyCard">
-											<div class="card-body">
+											<div class="card-body pb-0">
 												<div class="invoice-area">
 													<div class="invoice-head">
 														<div class="row">
