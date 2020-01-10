@@ -50,7 +50,7 @@
 				  		</c:when>
 				  		<c:otherwise>
 				  			<c:forEach items="${applyList }" var="a">				  			
-				  				<div class="row tableBody p-0 applyRow${a.approve }" onclick="openApplyPage(${a.seq },'${a.approve}')" class="text-decoration-none">
+				  				<div class="row tableBody p-0 text-decoration-none applyRow${a.approve }" onclick="openApplyPage(${a.seq },'${a.approve}')">
 									<div class="col-1">${a.seq }</div>
 									<div class="col-2">${a.writer }</div>
 									<div class="col-5">${a.languages }</div>

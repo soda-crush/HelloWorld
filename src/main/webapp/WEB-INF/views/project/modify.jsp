@@ -106,7 +106,8 @@
 						</div>
 						<div id="pBody">
 							<div id="pTitleInput"><input type="text" class="form-control" placeholder="제목을 입력해주세요" name="title" id="title" value="${pPage.title }"></div>
-							<div id="pContentsInput"><textarea class="form-control summernote" name="contents" id="contents">${pPage.contents }</textarea></div>											
+							<div id="pContentsInput"><textarea class="form-control summernote" name="contents" id="contents">${pPage.contents }</textarea></div>		
+							<input type=hidden name=seq value="${pPage.seq }">									
 						</div>					
 					</div>
 					<div id="pageFooter">
