@@ -39,7 +39,7 @@
 					</div>
 					<div class="col-12 text-center">
 						<input type="text" id=pw name=pw placeholder="비밀번호"><br>
-						<button type="button" class="btn btn-secondary" id="do">Secondary</button>
+						<button type="button" class="btn btn-secondary" id="do">확인</button>
 					</div>
 				</div>
 				
