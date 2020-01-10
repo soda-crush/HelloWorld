@@ -98,30 +98,38 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                            	<c:forEach items="${list}" var="dto">
-                                            		<tr>
-                                                    <td class="toDetail${dto.seq}">${dto.seq}</td>                                            		
-                                                    <td class="toDetail${dto.seq}">${dto.title}</td>
-                                                    <td class="toDetail${dto.seq}">${dto.writer}</td>
-                                                    <td class="toDetail${dto.seq}">${dto.formedWriteDate }</td>
-                                                    <td class="toDetail${dto.seq}">${dto.viewCount}</td>
-                                                    <td><i class="ti-trash" id="delProc${dto.seq }"></i></td>
-                                               		</tr>
-                                               		<script>
-                                               			$("#delProc${dto.seq}").on("click", function(){
-                                               				var result = confirm("이 게시물을 삭제할까요?");
-                                               				if(result){
-                                               					location.href = "${pageContext.request.contextPath}/adBoard/delProject?page=${page}&seq=${dto.seq}";
-                                               				}                                              				                                             				
-                                               			})
-                                               			$(".toDetail${dto.seq}").hover(function(){
-                                               				$(".toDetail${dto.seq}").css("cursor", "pointer");
-                                               			});
-                                               			$(".toDetail${dto.seq}").on("click",function(){
-                                               				location.href = "${pageContext.request.contextPath}/adBoard/detailViewProject?page=${page}&seq=${dto.seq}";
-                                               			})
-                                               		</script>
-                                            	</c:forEach>                                                                                               
+                                            	<c:choose>
+                                            		<c:when test="${list.size()==0}">
+                                            			<tr><th colspan='6'>게시물이 없습니다<th></tr>
+                                            		</c:when>
+                                            		<c:otherwise>
+		                                            	<c:forEach items="${list}" var="dto">
+		                                            		<tr>
+		                                                    <td class="toDetail${dto.seq}">${dto.seq}</td>                                            		
+		                                                    <td class="toDetail${dto.seq}">${dto.title}</td>
+		                                                    <td class="toDetail${dto.seq}">${dto.writer}(${dto.id})</td>
+		                                                    <td class="toDetail${dto.seq}">${dto.formedWriteDate }</td>
+		                                                    <td class="toDetail${dto.seq}">${dto.viewCount}</td>
+		                                                    <td><i class="ti-trash" id="delProc${dto.seq }"></i></td>
+		                                               		</tr>
+		                                               		<script>
+		                                               			$("#delProc${dto.seq}").on("click", function(){
+		                                               				var result = confirm("이 게시물을 삭제할까요?");
+		                                               				if(result){
+		                                               					location.href = "${pageContext.request.contextPath}/adBoard/delProject?page=${page}&seq=${dto.seq}";
+		                                               				}                                              				                                             				
+		                                               			})
+		                                               			$(".toDetail${dto.seq}").hover(function(){
+		                                               				$(".toDetail${dto.seq}").css("cursor", "pointer");
+		                                               			});
+		                                               			$(".toDetail${dto.seq}").on("click",function(){
+		                                               				location.href = "${pageContext.request.contextPath}/adBoard/detailViewProject?page=${page}&seq=${dto.seq}";
+		                                               			})
+		                                               		</script>
+		                                            	</c:forEach>                                             		
+                                            		</c:otherwise>
+                                            	</c:choose>
+                                                                                              
                                             </tbody>
                                         </table>
                                     </div>
@@ -133,11 +141,13 @@
                             <div class="card-body">
                                 <nav aria-label="Page navigation example">
                                     <ul class="pagination justify-content-center">
-										<c:forEach items="${pageNavi}" var="navi">									
-											<li class="page-item pageNavi">${navi}</li>
-										</c:forEach>
-
-
+                                    	<c:choose>
+                                    		<c:when test="${pageNavi.size() > 0}">
+												<c:forEach items="${pageNavi}" var="navi">									
+													<li class="page-item pageNavi">${navi}</li>
+												</c:forEach>                                    		
+                                    		</c:when>
+                                    	</c:choose>  
                                     </ul>
                                 </nav>
                             </div>
@@ -182,7 +192,7 @@
     <script src="${pageContext.request.contextPath }/adRsc/js/plugins.js"></script>
     <script src="${pageContext.request.contextPath }/adRsc/js/scripts.js"></script>
     <script>
-	$(function(){
+	if("${pageNavi.size() > 0}"){
 		var element = $(".pageNavi");
 		var page = "${page}";
 		if(page > 0 && page <= 10){
@@ -191,9 +201,8 @@
 			element[10].classList.add('active');
 		}else{
 			element[page % 10].classList.add('active');
-		}
-		
-	});
+		}			
+	}	
 	
 	function checkAll(){
 		var all = $("#all").prop("checked");

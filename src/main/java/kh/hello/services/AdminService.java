@@ -1,7 +1,9 @@
 package kh.hello.services;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +11,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kh.hello.configuration.Configuration;
 import kh.hello.dao.AdminDAO;
+import kh.hello.dao.ChartDAO;
+import kh.hello.dao.CountDAO;
+import kh.hello.dto.BoardLogDTO;
+import kh.hello.dto.ChartGenderDTO;
+import kh.hello.dto.ChartGenerationDTO;
+import kh.hello.dto.ChartJoinPathDTO;
+import kh.hello.dto.ChartVisitChangeDTO;
+import kh.hello.dto.ChartWorkDTO;
+import kh.hello.dto.CommentLogDTO;
 import kh.hello.dto.ForcedOutMemberDTO;
 import kh.hello.dto.InquiryDTO;
 import kh.hello.dto.InquiryReplyDTO;
@@ -19,6 +30,9 @@ public class AdminService {
 	
 	@Autowired
 	private AdminDAO adao;
+	
+	@Autowired
+	private ChartDAO cdao;
 	
 	public int validLogin(String adminId, String password) {
 		return adao.validLogin(adminId, password);
@@ -363,6 +377,46 @@ public class AdminService {
 		if(needNext) pages.add("<a class=page-link href='searchBlack?col="+col+"&searchWord="+searchWord+"&page=" + (endNavi + 1) + "'>> </a>");
 		
 		return pages;
+	}
+	
+	public Map<String, Integer> getVisitorCount() throws Exception{
+		CountDAO dao = CountDAO.getInstance();
+		Map<String, Integer> result = new HashMap<>();
+		result.put("today", dao.getVisitTodayCount());
+		result.put("total", dao.getVisitTotalCount());
+		return result;
+	}
+	
+	public List<ChartVisitChangeDTO> getVisitChange(){
+		return cdao.getVisitChange();
+	}
+	
+	public List<ChartGenderDTO> getGenderRatio(){
+		return cdao.getGenderRatio();
+	}
+	
+	public List<ChartJoinPathDTO> getJoinPath(){
+		return cdao.getJoinPath();
+	}
+	
+	public List<ChartWorkDTO> getWorkRatio(){
+		return cdao.getWorkRatio();
+	}
+	
+	public List<ChartGenerationDTO> getGenerationRatio(){
+		return cdao.getGenerationRatio();
+	}
+	
+	public List<MemberDTO> getTop5List(){
+		return cdao.getTop5List();
+	}
+	
+	public List<BoardLogDTO> getBoardLog(){
+		return cdao.getBoardLog();
+	}
+	
+	public List<CommentLogDTO> getComLog(){
+		return cdao.getComLog();
 	}
 }
 

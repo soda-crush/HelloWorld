@@ -28,6 +28,10 @@
 .main-content-inner{
 	padding: 30px 15px 30px;
 }
+.profileImg{
+	width:80px;
+	height:80px;
+}
 </style>
 </head>
 <body>
@@ -43,7 +47,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="media mb-5">
-                                    <img class="img-fluid mr-4" src="/img/profileSample.jpg" alt="image">
+                                    <img class="img-fluid mr-4 profileImg" src="${dto.profileImg}" alt="image">
                                     <div class="media-body">
                                         <h4 class="mb-3">${dto.nickName}(${dto.id })</h4>
                                         <button type="button" class="btn btn-primary mb-2 pt-2 pb-2">P-log</button>				

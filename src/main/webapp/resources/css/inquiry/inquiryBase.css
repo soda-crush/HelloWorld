@@ -1,0 +1,83 @@
+@charset "UTF-8";
+@font-face{
+	font-family:'NanumGothic';
+	src: url('/font/NanumGothic.ttf') format('truetype');	
+}
+@font-face{
+	font-family:'NanumGothic';
+	src: url('/font/NanumGothicBold.ttf') format('truetype');
+	font-weight: bold;
+}
+*{
+    box-sizing: border-box;    
+}
+.navbar-collapse{
+    width : 100%;
+}
+.box{
+    width:100%;
+}
+.box>a{
+    width: 100%;
+}
+#logo{
+    width: 100%;   
+}
+#baseBackgroundColor{
+    position: relative;
+    background-color: #e8e8e890;
+    border-bottom: 2px solid gray;
+}
+#naviCon{
+    width: 75%;
+    margin: auto;
+}
+#naviCon a{
+    font-size: 13px;
+    text-align: center;
+}
+#logo{
+    width:80%;
+}
+#aroundContent{
+    height:80px;  
+}
+#realFooter{
+    text-align: left;
+    position:relative;
+    left:18.3%;
+    width:30%;
+}
+#realFooter p,#realFooter a{
+    color: darkgray;
+    font-size: 11px;
+/* 	line-height: 0.31em; */
+}
+#loginCon *{
+    color: darkgray;
+    font-size: 12px;
+}
+#logoCon{
+	text-align: center;
+}
+#footerMsg{
+    line-height: 1.9em;
+}
+button{
+background-color: #cccccc;
+border:none;
+border-radius: 5%;
+font-size: 12px;
+}
+.eleCon{
+	background-color: white;
+	border: 1px solid gray;
+	border-radius: 1%;
+}
+#footerSpace{
+	font-size: 11px;
+}
+#logo:hover{
+	cursor:pointer;
+}
+/* autocomplete tagsinput*/

@@ -1,0 +1,72 @@
+@charset "UTF-8";
+#pageTitle{margin-bottom:40px;}
+#pageTitle h1{display:inline;margin-right:10px;font-weight:bold;}
+#pageBody{background-color:#ffffff90;}	
+#pHeader,#pageFooter{padding-top:10px;}
+#pHeader #stateLabel{color:white;}
+#pHeader label.N{background-color:limegreen;}
+#pHeader label.Y{background-color:red;}
+#pHeader label:not(#stateLabel){font-size:13px;}
+#pHeader span:first-of-type{font-size:20px;}	
+#pHeader .fa{margin-left:15px;margin-top:15px;font-size:20px;}
+#pInfo *,#pBody *{font-size:15px;font-weight:500;}
+#pInfo label,#pBody label{width:100px;color:darkgray;}
+.applyBtn{margin-bottom:20px;}
+.modal-title{font-weight:bold;}
+.aItem{margin-top:5px;font-size:15px;font-weight:bold;}
+.star{margin-left:2px;color:red;}
+.genderRadio,.workInRadio{padding-top:5px;}
+#pCoInput{margin-top:20px;}
+#pCoInput textarea{height:100px; margin-left:20px; margin-bottom:20px;}
+#pCoInput button{height:45px; width:90%;}
+.pApply{font-size:13px;color:red;}
+.checkBtn button:nth-child(2){margin-left:10px;}
+.adBoxDiv{height:150px;width:100%;background-color:darkgray;text-align:center;margin:0;margin-top:20px;}
+/* .pSelect{width:100px;} */
+#pPageContents{margin:40px;}
+.label-info {
+/* 	background-color: #17a2b8; */
+	background-color: #ffc107;
+	display: inline-block;
+		padding: 0.2em 0.6em 0.3em; 
+	font-size: 13px;
+	font-weight: 600;
+	line-height: 1;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: baseline;
+	border-radius: 0.25em; 
+}
+.bootstrap-tagsinput .tag{color: black;}
+.bootstrap-tagsinput .tag [data-role="remove"]:after{color: red;font-weight: bold;padding: 0px;}
+.modal-body input[type=radio]{font-size:13px;}
+.pPageComments{margin-top:30px;}
+.commentDiv{
+	background-color:#fff;
+	margin-top:2px;
+	margin-bottom:2px;
+	padding:0;
+	padding-bottom:5px;
+	border-radius:10px;
+}
+.commentInfo{
+	font-size:13px;
+	padding-left:10px;
+}
+.commentWriter,.commentWriteDate{padding-left:0px;}
+.commentWriteDate{color: darkgray;}
+.coModBtn,.coDelBtn,.coReplyBtn{
+	width: 45px;
+	height: 25px;
+	font-size: 11px;
+	font-weight: bold;
+	padding:0px;
+}
+.commentHeader{
+	margin-top:10px;
+}
+.commentContent{
+	margin-top:10px;
+	margin-bottom:15px;
+}
+img{max-width:100%;}

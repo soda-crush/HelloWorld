@@ -151,18 +151,18 @@ public class AdminDAO {
 		return jdbc.selectOne("Admin.getSearchMemberResultTotal", param);
 	}
 	
-	public List<MemberDTO> getBlackList(int start, int end){
+	public List<MemberDTO> getBlackList(int start, int end){//블랙리스트 페이지 별로 받아오기
 		Map<String, Object> param = new HashMap<>();
 		param.put("start", start);
 		param.put("end", end);
 		return jdbc.selectList("Admin.getBlackList", param);
 	}
 	
-	public int getBlackListTotal() {
+	public int getBlackListTotal() {//블랙리스트 총 갯수
 		return jdbc.selectOne("Admin.getBlackListTotal");
 	}
 	
-	public List<MemberDTO> getSearchBlackListByPage(String col, String searchWord, int start, int end){
+	public List<MemberDTO> getSearchBlackListByPage(String col, String searchWord, int start, int end){//블랙리스트 검색 페이지별로 받아오기
 		Map<String, Object> param = new HashMap<>();
 		param.put("start", start);
 		param.put("end", end);
@@ -171,7 +171,7 @@ public class AdminDAO {
 		return jdbc.selectList("Admin.getSearchBlackListByPage", param);
 	}
 	
-	public int getSearchBlackResultTotal(String col, String searchWord) {
+	public int getSearchBlackResultTotal(String col, String searchWord) {//블랙리스트 검색결과 총 갯수
 		Map<String, String> param = new HashMap<>();
 		param.put("col", col);
 		param.put("searchWord", "%"+searchWord+"%");

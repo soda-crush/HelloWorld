@@ -24,9 +24,19 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath }/adRsc/css/responsive.css">
 <!-- modernizr css -->
 <script src="${pageContext.request.contextPath }/adRsc/vendor/modernizr-2.8.3.min.js"></script>
+    <!-- start zingchart js -->
+    <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
+    <script>
+        zingchart.MODULESDIR = "https://cdn.zingchart.com/modules/";
+        ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "ee6b7db5b51705a13dc2339db3edaf6d"];
+    </script>
 <style>
 	.notification-area {
 		text-align:right;
+	}
+	#chartdiv {
+  width: 100%;
+  height: 500px;
 	}
 </style>
 </head>
@@ -73,6 +83,148 @@
             <!-- page title area end -->
             <div class="main-content-inner">
                 <!-- MAIN CONTENT GOES HERE -->
+                <!-- 1st report area start -->
+                <div class="visitor-area mt-5 mb-5">
+                    <div class="row">
+                        <div class="col-md-4">
+                        <!-- today / total -->
+                            <div class="col-12 mt-0 mb-3">
+                                <div class="card">
+                                <div class="card-body">
+                                    <div class="seo-fact sbg1 mb-5">
+                                        <div class="p-4 d-flex justify-content-between align-items-center">
+                                            <div class="seofct-icon"><i class="ti-thumb-up"></i> TODAY</div>
+                                            <h2>${count.today}</h2>                                        </div>
+                                        
+                                    </div>   
+                                    
+                                   	<div class="seo-fact sbg2">
+                                        <div class="p-4 d-flex justify-content-between align-items-center">
+                                            <div class="seofct-icon"><i class="ti-bar-chart"></i> TOTAL</div>
+                                            <h2>${count.total}</h2>
+                                        </div>
+                                    </div> 
+                                    
+                                </div>
+                                </div>
+                            </div>                     
+                        </div>
+                        <div class="col-md-8">
+		                        <div class="card col-12">
+		                            <div class="card-body">
+		                                <div class="d-flex justify-content-between align-items-center">
+		                                    <h4 class="header-title mb-0">방문자수 추이</h4>
+		                                </div>
+		                                <div id="visitChange"></div>
+		                            </div>
+		                        </div>
+                        </div>                       
+                    </div>
+                </div>
+                <!-- 1st report area end -->   
+                
+               	<!-- 2nd report area start -->
+                <div class="visitor-area mt-5 mb-5">
+                    <div class="row">
+                        <div class="col-md-8">
+		                    <div class="col-12">
+		                        <div class="card">
+		                            <div class="card-body">
+		                                <div class="d-flex justify-content-between align-items-center">
+		                                    <h4 class="header-title mb-0">TOP 5 Member List(point)</h4>
+		                                </div>
+		                                <div id="chartdiv"></div>
+		                            </div>
+		                        </div>
+		                    </div>                        
+                        </div>
+                        <div class="col-md-4">
+		                    <div class="col-12">
+		                        <div class="card h-full">
+		                            <div class="card-body">
+		                                <h4 class="header-title mb-0">Hello World! 성별비율</h4>
+		                                <div id="genderRatio"></div>
+		                            </div>
+		                        </div>
+		                    </div>
+                        </div>                       
+                    </div>
+                </div>
+                <!-- 2nd report area end -->    
+               	<!-- 3rd report area start -->
+                <div class="visitor-area mt-5 mb-5">
+                    <div class="row">
+                        <div class="col-md-6">
+		                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="col-12">
+                                	<h4 class="header-title">새 게시글/삭제된 게시글 수(최근 5일간)</h4>
+                                </div>                                 
+                                <div id="ambarchart3"></div>
+                            </div>
+                        </div>
+		                    </div>                        
+                        </div>
+                        <div class="col-md-6">
+		                    <div class="col-12 coin-distribution">
+		                        <div class="card">
+		                            <div class="card-body">
+		                                <div class="col-12">
+		                                	<h4 class="header-title">새 댓글/삭제된 댓글 수(최근 5일간)</h4>
+		                                </div>     		                            
+		                                <div id="ambarchart6"></div>
+		                            </div>
+		                        </div>
+		                    </div>
+                        </div>                       
+                    </div>
+                </div>
+                <!-- 3rd report area end -->    
+                                          
+               	<!-- 4th report area start -->
+                <div class="visitor-area mt-5 mb-5">
+                    <div class="row">
+                        <div class="col-md-4">
+							<div class="col-12">
+		                        <div class="card">
+		                            <div class="card-body">
+		                                <div class="col-12">
+		                                	<h4 class="header-title">가입 경로 순위</h4>
+		                                </div>		                            
+		                                <div id="ambarchart4"></div>
+		                            </div>
+		                        </div>
+                       		</div>
+                        </div>
+                        <div class="col-md-4">
+		                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="col-12">
+                                	<h4 class="header-title">재직자/비재직자 비율</h4>
+                                </div>
+                                <div id="ampiechart2"></div>
+                            </div>
+                        </div>
+		                    </div>                        
+                        </div>
+                        <div class="col-md-4">
+		                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="col-12">
+                                	<h4 class="header-title">회원 나이대</h4>
+                                </div>                            
+                                <div id="ambarchart5"></div>
+                            </div>
+                        </div>
+		                    </div>                        
+                        </div>                                              
+                    </div>
+                </div>
+                <!-- 4th report area end -->                 
+                
             </div>
         </div>
         <!-- main content area end -->
@@ -93,15 +245,20 @@
     <script src="${pageContext.request.contextPath }/adRsc/js/jquery.slicknav.min.js"></script>
 
     <!-- start chart js -->
+    <script src="https://www.amcharts.com/lib/4/core.js"></script>
+    <script src="https://www.amcharts.com/lib/4/charts.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+    <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
     <!-- start highcharts js -->
     <script src="https://code.highcharts.com/highcharts.js"></script>
-    <!-- start zingchart js -->
-    <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
-    <script>
-        zingchart.MODULESDIR = "https://cdn.zingchart.com/modules/";
-        ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "ee6b7db5b51705a13dc2339db3edaf6d"];
-    </script>
+
+    <!-- start amchart js -->
+    <script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+    <script src="https://www.amcharts.com/lib/3/pie.js"></script>
+    <script src="https://www.amcharts.com/lib/3/serial.js"></script>
+    <script src="https://www.amcharts.com/lib/3/plugins/animate/animate.min.js"></script>
+    <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+    <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
     <!-- all line chart activation -->
     <script src="${pageContext.request.contextPath }/adRsc/js/line-chart.js"></script>
     <!-- all pie chart -->
@@ -109,5 +266,11 @@
     <!-- others plugins -->
     <script src="${pageContext.request.contextPath }/adRsc/js/plugins.js"></script>
     <script src="${pageContext.request.contextPath }/adRsc/js/scripts.js"></script>
+    <script src="${pageContext.request.contextPath }/adRsc/js/bar-chart.js"></script>
+    
+
+<script>
+
+</script>
 </body>
 </html>
