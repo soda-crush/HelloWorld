@@ -224,7 +224,6 @@ public class AdminController {
 	
 	@RequestMapping("/searchMember")
 	public String searchMember(String col, String searchWord, String page, Model m) {
-		System.out.println(col + " : " + searchWord);
 		//검색 후 목록 받아오기
 		int currentPage = 1;
 		if(page != null) currentPage = Integer.parseInt(page);
