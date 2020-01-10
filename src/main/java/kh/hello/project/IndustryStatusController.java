@@ -2,6 +2,7 @@ package kh.hello.project;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,11 +29,6 @@ public class IndustryStatusController {
 	//대나무숲 게시판
 	@RequestMapping("/industryStatusList.do")
 	public String IndustryStatusListView (String cpage, Model m) {//업계현황 게시판목록
-		//session.setAttribute("loginInfo", "moon");
-		//LoginInfoDTO loginInfo = (LoginInfoDTO)session.getAttribute("loginInfo");
-		
-		//List<IndustryStatusDTO> list = service.industryStatusList();
-
 		//페이지네비
 		int currentPage = 1;		
 
@@ -46,10 +42,8 @@ public class IndustryStatusController {
 
 		List<String> pageNavi = service.getIndustryListPageNavi(currentPage);
 		m.addAttribute("pageNavi", pageNavi);
-
 		m.addAttribute("cpage", currentPage);
 
-		//m.addAttribute("industryStatusList", list);
 		return "/industry/industryStatusList";
 	}
 	@RequestMapping("/industryStatusDetailView.do")
@@ -87,7 +81,6 @@ public class IndustryStatusController {
 		}
 	}
 
-
 	@RequestMapping("/industryStatusModify.do")
 	public String industryStatusModify(int seq, Model m) {
 		IndustryStatusDTO result = service.industryStatusDetailView(seq);
@@ -102,7 +95,6 @@ public class IndustryStatusController {
 		int result = 0;
 		try {
 			result = service.industryStatusModifyConfirm(dto, path);
-			System.out.println(result);
 			if(result > 0) {
 				int seq = dto.getSeq();
 				return "redirect:/industry/industryStatusDetailView.do?seq="+seq;
@@ -143,16 +135,28 @@ public class IndustryStatusController {
 		return service.commentDeleteConfirm(dto);
 	}
 
-	//	//게시판 목록 검색
-	//	@RequestMapping("/industrySearch.do")
-	//	public String industrySearch(String search, HttpServletRequest request, Model m) {
-	//		System.out.println(request.getParameter("value")+" - "+search);
-	//		String value = request.getParameter("value");
-	//		m.addAttribute("industryStatusList", service.industrySearch(value, search));
-	//		return "/industry/industryStatusList";
-	//	}
-	
-	
+	//게시판 목록 검색
+	@RequestMapping("/industrySearch.do")
+	public String industrySearch(String search, HttpServletRequest request, Model m, String cpage) {
+		String value = request.getParameter("value");
+
+		//검색결과 페이지 네비
+		int currentPage = 1;		
+
+		if(cpage!= null && !cpage.equals("") && !cpage.equals("null")) currentPage = Integer.parseInt(cpage);
+		int end = currentPage * Configuration.recordCountPerPage;
+		int start = end - (Configuration.recordCountPerPage - 1);	
+		List<IndustryStatusDTO> list = service.industrySearchListByPage(start, end, value, search);
+		m.addAttribute("industryStatusList", list);
+
+		List<String> pageNavi = service.getIndustrySearchListPageNavi(currentPage, value, search);
+		m.addAttribute("pageNavi", pageNavi);
+		m.addAttribute("cpage", currentPage);
+
+		return "/industry/industryStatusList";
+	}
+
+
 	//스크랩
 	@RequestMapping("/scrap.do")
 	@ResponseBody

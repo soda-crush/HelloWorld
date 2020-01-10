@@ -61,10 +61,10 @@
 		<form action="bambooWriteProc.do" method="post"
 			enctype="multipart/form-data" id=writeForm>
 			<div class=row>
-				<div class="col-2 title">
+				<div class="col-1 title">
 					<h4>제목</h4>
 				</div>
-				<div class="col-10 title" >
+				<div class="col-11 title" >
 					<input type="text" name=title style="width: 100%">
 				</div>
 			</div>
