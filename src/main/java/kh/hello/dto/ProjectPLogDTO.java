@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 
 public class ProjectPLogDTO {
+	private int seq;
 	private String state;
 	private String title;
 	private String writer;
@@ -14,12 +15,14 @@ public class ProjectPLogDTO {
 	private String approve;
 	private int commentCount;
 	private Timestamp writeDate;
+	
 	public ProjectPLogDTO() {
 		super();
 	}
-	public ProjectPLogDTO(String state, String title, String writer, String location1, Timestamp startDate,
+	public ProjectPLogDTO(int seq, String state, String title, String writer, String location1, Timestamp startDate,
 			Timestamp endDate, int capacity, String approve, int commentCount, Timestamp writeDate) {
 		super();
+		this.seq = seq;
 		this.state = state;
 		this.title = title;
 		this.writer = writer;
@@ -30,6 +33,13 @@ public class ProjectPLogDTO {
 		this.approve = approve;
 		this.commentCount = commentCount;
 		this.writeDate = writeDate;
+	}
+	
+	public int getSeq() {
+		return seq;
+	}
+	public void setSeq(int seq) {
+		this.seq = seq;
 	}
 	public String getState() {
 		return state;
@@ -91,6 +101,8 @@ public class ProjectPLogDTO {
 	public void setWriteDate(Timestamp writeDate) {
 		this.writeDate = writeDate;
 	}
+	
+	
 	
 	public String getStateInKor() {
 		String state = this.state;

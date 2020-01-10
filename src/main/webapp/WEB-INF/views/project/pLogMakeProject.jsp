@@ -41,8 +41,8 @@ body{background-color:#f2f2f2;}
 				  		</c:when>
 				  		<c:otherwise>
 				  			<c:forEach items="${makeProjectList }" var="m">
-				  				<div class="row tableBody p-0">
-									<div class="col-2 ${m.state }">${m.stateInKor }</div>
+				  				<div class="row makeTableBody tableBody p-0">
+									<div class="col-2 state${m.state }">${m.stateInKor }</div>
 										<div class="col-3 text-decoration-none" onclick="popUp('/project/detailView?seq=${m.seq }')">${m.title } 
 					  						<c:if test="${m.commentCount>0 }">
 					  							<span class="pComment font-weight-bold">${m.commentCount }</span>

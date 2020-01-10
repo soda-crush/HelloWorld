@@ -55,10 +55,6 @@ iframe.noScrolling{
             </div>
         </div>
         
-        <jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
-        
-        <script>
-        	$(".pNavi${currentPage}").addClass("active");
-        </script>
+        <jsp:include page="/WEB-INF/views/standard/footer.jsp"/>                
 </body>
 </html>

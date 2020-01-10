@@ -341,7 +341,15 @@ public class ProjectService {
 	
 	
 	public String getPLogProjectPageNavi(int currentPage, String id, String listType) {
-		int recordTotalCount = dao.getMakeArticleCount(id);
+		
+		int recordTotalCount = 0;
+		if(listType.contentEquals("makeProjectList")) {
+			recordTotalCount = dao.getMakeArticleCount(id);
+		}else if(listType.contentEquals("applyProjectList")) {
+			recordTotalCount = dao.getApplyArticleCount(id);
+		}
+		
+		
 		int pageTotalCount = 0;		
 		if(recordTotalCount % Configuration.pLogProjectRecordCountPerPage>0) {
 			pageTotalCount = recordTotalCount/Configuration.pLogProjectRecordCountPerPage+1;

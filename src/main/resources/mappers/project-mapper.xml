@@ -77,11 +77,12 @@
 	</select>	
 	<select id="getPLogApplyListByPage" parameterType="java.util.Map" resultType="kh.hello.dto.ProjectPLogDTO">
 		select * from (select
-		state, title, project.writer, location1, startDate, endDate, capacity, approve, project.writeDate, commentCount, row_number() over (order by projectApply.seq desc) as num from project 
+		projectApply.seq, state, title, project.writer, location1, startDate, endDate, capacity, approve, project.writeDate, commentCount, row_number() over (order by projectApply.seq desc) as num from project
 		inner join projectApply on project.seq = projectApply.projectSeq
 		inner join (select projectSeq, count(*) as commentCount from projectComment
-		where contents is not null group by projectSeq) pc on project.seq = pc.projectSeq where projectApply.id=#{id})
-        where num between #{start} and #{end}
+		where contents is not null group by projectSeq) pc
+		on project.seq = pc.projectSeq where projectApply.id = #{id})
+		where num between #{start} and #{end}
 	</select>
 	
 <!-- 	페이징완료되면 삭제. -->

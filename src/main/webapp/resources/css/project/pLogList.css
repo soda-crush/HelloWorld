@@ -14,10 +14,19 @@
     border-color: #dee2e6;
 }
 .tableHead,.tableBody,.tableBodyNull{text-align:center;height: 50px;line-height: 50px;}
-.tableBody div:nth-child(1){font-weight:bold;}
-.tableBody div:nth-child(2){text-align:left;cursor:pointer;}   
-.tableBody .N{color:limegreen;}
-.tableBody .Y{color:red;}
+
+.makeTableBody div:nth-child(1){font-weight:bold;}
+.makeTableBody div:nth-child(2){text-align:left;cursor:pointer;}   
+
+.applyTableBody div:nth-child(1){font-weight:bold;}
+.applyTableBody div:nth-child(2){text-align:left;cursor:pointer;}
+
+.tableBody .stateN{color:limegreen;}
+.tableBody .stateY{color:red;}
+.tableBody .approveO{color:limegreen;}
+.tableBody .approveX{color:red;}
+.tableBody .approveW{color:dodgerblue;}
+
 .pComment{margin-left:3px;font-size:13px;color:orange;}    
 .tableBody,.tableBodyNull div{
     font-size: 0.9rem;

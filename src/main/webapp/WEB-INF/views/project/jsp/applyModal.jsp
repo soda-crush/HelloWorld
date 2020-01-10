@@ -70,6 +70,7 @@
 						<div class="col-12 pApplyInput" id="aContentsInput">
 							<textarea class="form-control form-control-sm" placeholder="내용을 입력해주세요" name="etc" style="height:100px;"></textarea>
 							<input type=hidden name="projectSeq" value="${pPage.seq }">
+							<input type=hidden name="leaderId" value="${pPage.id }">
 						</div>
 					</div>						
 			      		       
