@@ -105,14 +105,14 @@ public class IndustryStatusDAO {
 
 	//스크랩
 	public int scrapDupCheck(ScrapDTO dto) {
-		return jdbc.selectOne("Bamboo.scrapDupCheck", dto);
+		return jdbc.selectOne("Industry.scrapDupCheck", dto);
 	}
 
 	public int earlierSeq() {
-		return jdbc.selectOne("Bamboo.earlierSeq");
+		return jdbc.selectOne("Industry.earlierSeq");
 	}
 
 	public int scrapCode(ScrapDTO dto) {
-		return jdbc.insert("Bamboo.scrapCode", dto);
+		return jdbc.insert("Industry.scrapCode", dto);
 	}
 }

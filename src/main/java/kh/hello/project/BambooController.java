@@ -145,8 +145,7 @@ public class BambooController {
 
 	//게시판 목록 검색
 	@RequestMapping("/bambooSearch.do")
-	public String bambooSearch(String search, HttpServletRequest request, Model m, String cpage) {
-		String value = request.getParameter("value");
+	public String bambooSearch(String search, String value, Model m, String cpage) {
 		//페이지네비
 		int currentPage = 1;		
 
@@ -161,5 +160,10 @@ public class BambooController {
 		m.addAttribute("cpage", currentPage);
 
 		return "/bamboo/bambooList";
+	}
+	
+	@RequestMapping("/kakao.do")
+	public String kakao ( ) {
+		return "/bamboo/kakao";
 	}
 }

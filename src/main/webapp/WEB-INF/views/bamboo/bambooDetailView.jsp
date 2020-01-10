@@ -12,6 +12,7 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/css/mainBase.css">
+<link rel="stylesheet" href="/css/font-awesome/css/font-awesome.css" type="text/css"/>
 <style>
 	.table{background-color:white;padding:0;text-align:center;}
 	.contentDiv {
@@ -68,7 +69,7 @@
 				 <a class="btn btn-primary" href="/bamboo/bambooModify.do?seq=${bPage.seq }" role="button">수정하기</a>
 				 <a class="btn btn-primary" href="/bamboo/bambooDeleteProc.do?seq=${bPage.seq }" role="button">삭제하기</a>
 				 </c:if>
-				 <a class="btn btn-primary" href="#" role="button">공유하기</a>
+				 <a class="btn btn-primary" href="/bamboo/kakao.do" role="button">공유하기</a><i class="fa fa-share-alt"></i>
 <!-- 		     <a class="sbtn btn-primary" href="#" role="button">스크랩</a> -->
 				 <a class="btn btn-primary" href="#" role="button">신고하기</a>
 			</div>
@@ -157,8 +158,7 @@
 				commentRecall(resp);
 
 			}).fail(function(resp){
-				console.log("실패");
-				console.log(resp);
+			
 			})
 		});
          	
@@ -197,7 +197,6 @@
 					alert("댓글 내용을 입력해주세요.");
 					return false;
 				}
-				console.log($("#coModFrm").serialize());
 				$.ajax({
 					url : "/bamboo/comment/modifyProc.do",
 					type : "post",
@@ -207,8 +206,7 @@
 					$(".pPageComments").html("");
 					commentRecall(resp);
 				}).fail(function(resp){
-					console.log("실패");
-					console.log(resp);
+
 				})
            	});
            	function coDelFunction(seq){
@@ -226,8 +224,7 @@
     					$(".pPageComments").html("");
     					commentRecall(resp);
            			}).fail(function(resp){
-    					console.log("실패");
-    					console.log(resp);
+    
            			})
            		}
            	}

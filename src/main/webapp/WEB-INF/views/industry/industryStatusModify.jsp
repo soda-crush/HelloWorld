@@ -20,6 +20,7 @@
 	rel="stylesheet">
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
+<script src="/js/summernote-ko-KR.js"></script>
 <script>
 $(function() {
 	$('#writeForm').on('submit', function() {
@@ -68,9 +69,9 @@ $(function() {
 				</div>
 				<div class="col-11 title" >
 					<select name="field" id="field">
-						<option value="분야1">분야1</option>
-						<option value="분야2">분야2</option>
-						<option value="분야3">분야3</option>
+						<option value="SM">SM</option>
+						<option value="SI">SI</option>
+						<option value="Solution">Solution</option>
 					</select>
 				</div>
 			</div>	
@@ -80,9 +81,9 @@ $(function() {
 				</div>
 				<div class="col-11 title" >
 					<select name="duty" id="duty">
-						<option value="직무1">직무1</option>
-						<option value="직무2">직무2</option>
-						<option value="직무3">직무3</option>
+						<option value="Front">Front</option>
+						<option value="Back">Back</option>
+						<option value="Full-Stack">Full-Stack</option>
 					</select>
 				</div>
 			</div>
@@ -114,6 +115,7 @@ $(function() {
 			location.href = "industryStatusDetailView.do?seq=${iPage.seq}";
 						})
 		 $('#summernote').summernote({
+			 lang: 'ko-KR',
 			 height : 500
      	});
 		$("#write").on("click", function() {
