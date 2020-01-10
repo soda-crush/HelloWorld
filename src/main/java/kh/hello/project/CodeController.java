@@ -1,6 +1,7 @@
 package kh.hello.project;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -91,6 +92,9 @@ public class CodeController {
 	
 	@RequestMapping("/codeDetail.do")
 	public String codeDetail(int seq, Model m) {
+//			LoginInfoDTO dto = new LoginInfoDTO("test3","닉네임3");			
+//			session.setAttribute("loginInfo", dto);
+			
 			LoginInfoDTO info = (LoginInfoDTO)session.getAttribute("loginInfo");
 			CodeQuestionDTO qResult = sv.detailQuestion(seq); //queSeq
 			List<CodeReplyDTO> rResult = sv.detailReply(seq); //queSeq
@@ -293,8 +297,9 @@ public class CodeController {
 	
 	//채택
 	@RequestMapping("/adopt.do")	
-	public String adopt(int adoptPoint,String writerId,String replyId) {
-		System.out.println("채택:"+adoptPoint + " : " + writerId + " : " + replyId);
-		return "";
+	public String adopt(int adoptPoint,int queSeq,String writerId,String replyId) {
+		//System.out.println("채택:"+adoptPoint + " : " + writerId + " : " + replyId);
+		sv.adopt(adoptPoint, queSeq,writerId, replyId);
+		return "redirect:codeQList.do";
 	}
 }
