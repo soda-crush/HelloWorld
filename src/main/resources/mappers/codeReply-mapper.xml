@@ -7,7 +7,7 @@
 		insert into codeReply
 		values(codeReplySeq.nextval,#{queSeq},#{title},#{content},#{id},#{writer},sysdate,'N')
 	</insert>
-<!-- 	리스트에 답글 보이게? -->
+
 	<select id="selectReplyAll" resultType="kh.hello.dto.CodeReplyDTO" parameterType="integer">
 		select * from codeReply
 	</select>
@@ -54,7 +54,17 @@
 	<select id="selectPoint" parameterType="String" resultType="integer">
 		select point from member where id = #{value} 
 	</select>
+
+	<update id="pointQResult" parameterType="java.util.Map">
+		update member set point = #{point} where id=#{id}
+	</update>
+	<update id="pointRResult" parameterType="java.util.Map">
+		update member set point = #{point} where id=#{id}
+	</update>
 	
+	<update id="updateRepCol" parameterType="java.util.Map">
+		update codeReply set adopt='Y' where id=#{id} and queSeq=#{queSeq}
+	</update>
 	
 	<!-- 	이미지 업로드 -->
 	<select id="getCodeRSeq" resultType="integer">

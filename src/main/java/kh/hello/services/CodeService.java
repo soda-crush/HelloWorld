@@ -458,17 +458,20 @@ public class CodeService {
 	}
 	
 	@Transactional("txManager")
-	public Map<String, Integer> adopt(int adoptPoint,String writerId,String replyId){
+	public void adopt(int adoptPoint,int queSeq,String writerId,String replyId){
 		int writePointStart = dao.selectPoint(writerId);
 		int resultPoint = writePointStart - adoptPoint; // 글쓴이 point 계산
+		dao.pointQResult(resultPoint, writerId);
 		
 		int writeReplyStart = dao.selectPoint(replyId); // 답글쓴사람 point 계산
 		int resultPoint2 = writeReplyStart+adoptPoint;
+		dao.pointRResult(resultPoint2, replyId);
+		dao.updateRepCol(replyId,queSeq); // ADOPT 컬럼 Y로
 		
+//		System.out.println(resultPoint);
+//		System.out.println(resultPoint2);
 		Map<String, Integer> param = new HashMap<>();
 		param.put("resultPoint", resultPoint);
 		param.put("resultPoint2", resultPoint2);
-		
-		return param;
 	}
 }

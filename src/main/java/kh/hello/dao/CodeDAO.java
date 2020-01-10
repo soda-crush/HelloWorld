@@ -217,5 +217,25 @@ public class CodeDAO {
 		public int selectPoint(String id) {
 			return jdbc.selectOne("CodeR.selectPoint",id);
 		}
+		
+		public int pointQResult(int point,String id){
+			Map<String, Object> param = new HashMap<>();
+			param.put("point", point);
+			param.put("id", id);
+			return jdbc.update("CodeR.pointQResult",param);
+		}
+		public int pointRResult(int point,String id){
+			Map<String, Object> param = new HashMap<>();
+			param.put("point", point);
+			param.put("id", id);
+			return jdbc.update("CodeR.pointRResult",param);
+		}
+
+		public int updateRepCol(String id,int queSeq) {
+			Map<String, Object> param = new HashMap<>();
+			param.put("id", id);
+			param.put("queSeq", queSeq);
+			return jdbc.update("CodeR.updateRepCol",param);
+		}
 	
 }
