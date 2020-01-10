@@ -57,9 +57,11 @@
   <update id="memberStart">
   	update member set memLevel='2' where id=#{id}
   </update>
-  <delete id="memberOut">
-  	delete from member where id=#{id}
-  </delete>
+  <update id="memberOut">
+  	update member set pw=null, name=null,nickName=null,email=null,phone=null,postCode=null
+		,addr1=null,addr2=null,joinPath=null,gender=null,memLevel=null,reportCount=null,point=null
+		,ifmOpenCheck=null,joinDate=null,lastLogin=null,profileImg=null,birth=null where id=#{id} 
+  </update>
   <insert id="memberOutList" parameterType="java.util.Map">
   	insert into forcedOut values(forcedOutSeq.nextval, #{id}, #{reason}, sysdate)
   </insert>

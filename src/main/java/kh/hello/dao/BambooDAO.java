@@ -59,7 +59,6 @@ public class BambooDAO {
 		return jdbc.selectOne("BambooCo.getComment", bamSeq);
 	}
 	public int updateBambooCo(BambooCoDTO dto) {//대나무숲 댓글수정
-		System.out.println(dto.toString());
 		return jdbc.update("BambooCo.updateBambooCo", dto);
 	}	
 	public int deleteBambooCo(int seq) {//대나무숲 댓글 삭제(개별)

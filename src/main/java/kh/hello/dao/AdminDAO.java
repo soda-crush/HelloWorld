@@ -110,7 +110,7 @@ public class AdminDAO {
 	}
 	
 	public int memberOut(String id) {//회원 강제탈퇴
-		return jdbc.delete("Admin.memberOut", id);
+		return jdbc.update("Admin.memberOut", id);
 	}
 	
 	public int memberOutList(String id, String reason) {//강퇴 아이디와 사유 테이블에 기록

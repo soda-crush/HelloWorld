@@ -56,7 +56,7 @@
 				      <th scope="col">글번호</th>
 				      <th scope="col">제목</th>
 				      <th scope="col">작성자</th>
-				      <th scope="col">작성날짜</th>
+				      <th scope="col">작성일</th>
 				      <th scope="col">조회수</th>
 				    </tr>
 				  </thead>

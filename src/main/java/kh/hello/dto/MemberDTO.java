@@ -1,6 +1,7 @@
 package kh.hello.dto;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 public class MemberDTO {
 	private String id;
@@ -214,5 +215,30 @@ public class MemberDTO {
 				+ ", lastLogin=" + lastLogin + ", profileImg=" + profileImg + ", birth=" + birth + "]";
 	}
 	
+	public String getFormedJoinDate() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+		return sdf.format(joinDate);
+	}
 	
+	public String getFormedLastLogin() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+		return sdf.format(lastLogin);		
+	}
+	
+	public int getAge() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
+		String today = sdf.format(System.currentTimeMillis());
+		String birth = sdf.format(this.birth);
+		int todayYear = Integer.parseInt(today);
+		int birthYear = Integer.parseInt(birth);		
+		return todayYear - birthYear + 1;
+	}
+	
+	public String getFormedGender() {
+		if(this.gender.contentEquals("W")) {
+			return "여";
+		}else {
+			return "남";
+		}
+	}
 }
