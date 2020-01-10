@@ -138,7 +138,7 @@
 																<div class="col-12 commentWriteDate">
 																	<span>${c.formedWriteDate }</span>
 																	<c:if test="${c.changeDate!=null }">
-																		<span style="margin-left: 10px;">(수정 ${c.formedChangeDate })</span>
+																		<span style="margin-left: 10px;">(수정일자 ${c.formedChangeDate })</span>
 																	</c:if>
 																</div>
 															</div>
@@ -158,7 +158,7 @@
 													</div>
 												</c:when>
 												<c:otherwise>
-													<span class="row align-middle m-2 mt-3">삭제된 댓글입니다.<span class="delCoDate" style="margin-left: 10px;color:darkgray;">(삭제일 : ${c.formedChangeDate })</span></span>
+													<span class="row align-middle m-2 mt-3">삭제된 댓글입니다.<span class="delCoDate" style="margin-left: 10px;color:darkgray;">(삭제일자 ${c.formedChangeDate })</span></span>
 												</c:otherwise>											
 											</c:choose>
 										</div>
@@ -323,7 +323,11 @@
            		}
            	});
            	
-           	function coModFunction(seq,contents){     
+           	function coModFunction(seq,contents){  
+    			if($("#pCoModContents").length>0){
+    				alert("현재 열려있는 댓글 수정창이 있습니다.");
+    				return false;
+    			}
 				$(".commentBox"+seq).find(".commentBtns").css("display","none");
 				$(".commentBox"+seq).find(".commentContent").css("display","none");
            		$(".commentBox"+seq).wrap('<form action="/project/comment/modifyProc" method="post" id="coModFrm"></form>');
@@ -501,7 +505,7 @@
 						);
 						if(resp[i].changeDate!=null){
 							html.push(
-									'<span style="margin-left: 10px;">(수정 '+resp[i].formedChangeDate+')</span>'
+									'<span style="margin-left: 10px;">(수정일 '+resp[i].formedChangeDate+')</span>'
 							);
 						}
 						html.push(
