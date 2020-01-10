@@ -12,10 +12,11 @@
 	</select>
 
 	<select id="guestBookTotalCount" resultType="integer">
-		select count(seq) from GuestBook where owner=#{owner}
+		select count(seq) from GuestBook where ownerID=#{ownerID}
 	</select>
-	<select id="guestBookListByPage" parameterType="Object" resultType="kh.hello.dto.GuestBookDTO">
-		select * from (select GuestBook.*, row_number() over (order by seq desc) as rown from GuestBook) where ownerid=#{ownerID} and rown between #{start} and #{end}
+	
+	<select id="guestBookListByPage" parameterType="java.util.Map" resultType="kh.hello.dto.GuestBookDTO">
+		select * from (select GuestBook.*, row_number() over (order by seq desc) as rown from GuestBook) where ownerID=#{ownerID} and rown between #{start} and #{end}
 	</select>
 	
 	<delete id="delete" parameterType="integer">

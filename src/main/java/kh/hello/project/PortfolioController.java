@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import kh.hello.dto.LoginInfoDTO;
 import kh.hello.dto.MemberDTO;
 import kh.hello.dto.OwnerInfoDTO;
 import kh.hello.dto.PortfolioDTO;
@@ -140,11 +139,18 @@ public class PortfolioController {
 	@RequestMapping("/toPlog.do")
 	public String toPlog(String owner) {
 		MemberDTO mdto = ms.selectMember(owner);
-		OwnerInfoDTO odto = new OwnerInfoDTO(mdto.getId(),mdto.getNickName(),mdto.getPoint());
+		OwnerInfoDTO odto = new OwnerInfoDTO();
+		try {
+			odto.setId(mdto.getId());	
+			odto.setNickName(mdto.getNickName());
+			odto.setPoint(mdto.getPoint());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "member/login";
+		}
 		session.setAttribute("ownerInfo", odto);
 		return "redirect:toPlogmain.do";
 	}
-	
 	
 	@RequestMapping("detail.do")
 	public String viewDetail(int seq) {

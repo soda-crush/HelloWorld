@@ -33,7 +33,8 @@
 			.navi{text-align: center;}
 			.nvlink{height:45px;line-height:45px;}
         	a:hover{text-decoration:none;}
-            
+            .message{background-color:#efefef;margin:10px;width:100%;height:100%;border:0px;}
+            .listwrap{border:1px solid gray;margin: 10px;}
         </style>
 </head>
 <body>
@@ -51,7 +52,7 @@
 	            <div class="row navi" style="background-color: #008EDC;">
 					<div class="col nvlink"><a class="text-light" href="${pageContext.request.contextPath}/Portfolio/toPlogmain.do">내 포트폴리오</a></div>
 					<div class="col nvlink"><a class="text-light" href="${pageContext.request.contextPath}/Plog/toPlogCohow.do">내 지식인</a></div>
-					<div class="col nvlink"><a class="text-light" href="${pageContext.request.contextPath}/Scrap/toScrap.do">내 스크랩</a></div>
+					<div class="col nvlink"><a class="text-light" href="${pageContext.request.contextPath}/Scrap/itNews.do">내 스크랩</a></div>
 					<div class="col nvlink"><a class="text-light" href="${pageContext.request.contextPath}/Plog/toPlogProject.do">내 프로젝트</a></div>
 					<div class="col nvlink"><a class="text-light" href="${pageContext.request.contextPath}/GuestBook/selectList.do">방명록</a></div>
 				</div>
@@ -60,8 +61,8 @@
 	                    <div class="card" id="mycard">
 	                        <img src="/img/profileSample.jpg" class="card-img-top" alt="..." style="width: 170px;height: 170px;margin:15px;"><!-- 아이디에대한 이미지값 -->
 	                        <div class="card-body">
-	                            <h3 class="card-title" style="text-align: center;">${ownerInfo.nickName} 님</h3><!--  세션값 -->
-	                            <p class="card-text" style="text-align: center;">point : ${ownerInfo.point }</p><!--  세션에 대한 포인트값 -->
+	                            <h4 class="card-title" style="text-align: center;font-size:20px;">${ownerInfo.nickName} 님</h4>
+	                            <p class="card-text" style="text-align: center;font-size:15px;">point : ${ownerInfo.point }</p>
 	                        </div>
 	                    </div>
 	                </div>
@@ -76,33 +77,34 @@
 		                        <button class="col-2 sendbt">작성</button>
 	                    	</form>	
 	                    </div>
-	                    <div class="commentlist" style="float: left">
+	                    <div class="commentlist row" style="float: left">
 	                    
 	                    	<c:forEach items="${list}"  var="dto">
-		                		<div class="row" style="margin:5px;">
-		                            <div>작성자 : </div>
-		                            <div class="writer${dto.seq}"> ${dto.writer }</div>
-		                            <div>작성일 :</div>
-		                            <div id="writeDate"> ${dto.getDate()}</div>
-		                        </div>
-		                        <div class="row">
-		                            <textarea id="list${dto.seq }" class="message" style="margin:10px;width:100%;height:100%" onkeydown="resize(this)" onkeyup="resize(this)" readonly>${dto.content }</textarea>
-		                        </div>
-		                        <c:choose>
-									<c:when test="${dto.writer == loginInfo.nickName}">
-										<div style="text-align:right">
-				                        	<button id="update${dto.seq}" onclick="update(${dto.seq})" style="visibility:hidden;">수정완료</button>
-				                        	<button id="toModify${dto.seq }" onclick="modify(${dto.seq})">수정하기</button>
-				                        	<button id="delete" onclick="location.href='${pageContext.request.contextPath}/GuestBook/delete.do?seq=${dto.seq}'">삭제하기</button>
-				                        </div>
-									</c:when>
-									<c:otherwise>
-									</c:otherwise>
-								</c:choose>
-		                        
+	                    		<div class="listwrap col-12">
+			                		<div class="row" style="margin:5px;">
+			                            <div>작성자 : </div>
+			                            <div class="writer${dto.seq}"> ${dto.writer }</div>
+			                            <div>작성일 :</div>
+			                            <div id="writeDate"> ${dto.getDate()}</div>
+			                        </div>
+			                        <div class="row">
+			                            <textarea id="list${dto.seq }" class="message" onkeydown="resize(this)" onkeyup="resize(this)" readonly>${dto.content }</textarea>
+			                        </div>
+			                        <c:choose>
+										<c:when test="${dto.writer == loginInfo.nickName}">
+											<div style="text-align:right">
+					                        	<button id="update${dto.seq}" onclick="update(${dto.seq})" style="visibility:hidden;">수정완료</button>
+					                        	<button id="toModify${dto.seq }" onclick="modify(${dto.seq})">수정하기</button>
+					                        	<button id="delete" onclick="location.href='${pageContext.request.contextPath}/GuestBook/delete.do?seq=${dto.seq}'">삭제하기</button>
+					                        </div>
+										</c:when>
+										<c:otherwise>
+										</c:otherwise>
+									</c:choose>
+								</div>
 							</c:forEach>
 	                    </div>
-	                    <div class="naviwrap"style="width:100%;float:left;text-align:center;">
+	                    <div class="naviwrap col-12"style="width:100%;text-align:center;">
 		                    <c:forEach items="${pageNavi}" var="navi">									
 								${navi}
 							</c:forEach>
@@ -131,6 +133,7 @@
 	  				},
         		}).done(function(){
             		$('#list'+seq).prop('readonly', true);
+            		$('#list'+seq).attr('style','background-color:#efefef');
             		$('#update'+seq).attr('style','visibility:hidden');
             		$('#toModify'+seq).attr('style','visibility:visible');
         		}).fail(function(){
@@ -141,6 +144,7 @@
         
         	function modify(seq){
         		$('#list'+seq).prop('readonly', false);
+        		$('#list'+seq).attr('style','background-color:white');
         		$('#update'+seq).attr('style','visibility:visible');
         		$('#toModify'+seq).attr('style','visibility:hidden');
         	}

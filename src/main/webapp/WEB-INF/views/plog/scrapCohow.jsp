@@ -56,7 +56,7 @@
 	            <div class="row navi" style="background-color: #008EDC;">
 					<div class="col nvlink"><a class="text-light" href="${pageContext.request.contextPath}/Portfolio/toPlogmain.do">내 포트폴리오</a></div>
 					<div class="col nvlink"><a class="text-light" href="${pageContext.request.contextPath}/Plog/toPlogCohow.do">내 지식인</a></div>
-					<div class="col nvlink"><a class="text-light" href="${pageContext.request.contextPath}/Scrap/toScrap.do">내 스크랩</a></div>
+					<div class="col nvlink"><a class="text-light" href="${pageContext.request.contextPath}/Scrap/itNews.do">내 스크랩</a></div>
 					<div class="col nvlink"><a class="text-light" href="${pageContext.request.contextPath}/Plog/toPlogProject.do">내 프로젝트</a></div>
 					<div class="col nvlink"><a class="text-light" href="${pageContext.request.contextPath}/GuestBook/selectList.do">방명록</a></div>
 				</div>
@@ -65,10 +65,10 @@
 	                    <div class="card" id="mycard">
 	                        <img src="/img/profileSample.jpg" class="card-img-top" alt="..." style="width: 170px;height: 170px;margin:15px;">
 	                        <div class="card-body">
-	                            <h3 class="card-title" style="text-align: center;">${ownerInfo.nickName} 님</h3>
-	                            <p class="card-text" style="text-align: center;">point : ${ownerInfo.point }</p>
+	                            <h4 class="card-title" style="text-align: center;font-size:20px;">${ownerInfo.nickName} 님</h4>
+	                            <p class="card-text" style="text-align: center;font-size:15px;">point : ${ownerInfo.point }</p>
 	                        </div>
-	                    </div>
+	                    </div>0
 	                    <div class="scrapnavi" >
 	                		<div><a href="${pageContext.request.contextPath}/Scrap/itNews.do"> IT 뉴스</a> </div>
 	                		<div><a href="${pageContext.request.contextPath}/Scrap/cohow.do"> 코드 지식인</a></div>
@@ -96,19 +96,24 @@
 						  				<div class="row tableBody p-0">
 						  					<div class="col-2 col-lg-1"><span class="badge badge-pill badge-success"
 											style="margin: 10; width: 60px;">${dto.division}</span></div>
-											<div class="col-5 col-lg-6 text-decoration-none" onclick="location.href='${pageContext.request.contextPath}/code/codeDetail.do?seq=${dto.seq}'">${dto.title} 
+											<div class="col-5 col-lg-7 text-decoration-none" onclick="location.href='${pageContext.request.contextPath}/code/codeDetail.do?seq=${dto.seq}'">${dto.title} 
 							  					<c:if test="${dto.replyCount>0 }">
 							  						<span class="pComment font-weight-bold">${dto.replyCount}</span>
 							  					</c:if>					  					
 											</div>
 											<div class="col-2 col-lg-1" style="text-align:center;">${dto.writer}</div>
-											<div class="col-3">${dto.scrapDate}</div>
+											<div class="col-3 col-lg-2">${dto.scrapDate}</div>
 											<div class="col-1 d-none d-lg-block">${dto.viewCount}</div>
 										</div>	
 						  			</c:forEach>
 						  		</c:otherwise>
 						  	</c:choose>				    
 						</div>
+						<div class="naviwrap"style="width:100%;text-align:center;margin-top:20px;">
+		                    <c:forEach items="${pageNavi}" var="navi">									
+								${navi}
+							</c:forEach>
+	               		</div>
 	                </div>
 	          	</div>
             </div>

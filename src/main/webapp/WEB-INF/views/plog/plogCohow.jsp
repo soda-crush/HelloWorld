@@ -14,6 +14,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/css/mainBase.css">
 <link rel="stylesheet" type="text/css" href="/css/font-awesome/css/font-awesome.css">
+<link rel="stylesheet" href="/css/project/list.css" type="text/css"/>
 	<style>
 		h1{text-align: center;padding-top: 50px;padding-bottom: 50px;}
 		ul{background-color: lightgray;font-size: 13px;}
@@ -47,7 +48,7 @@
 	            <div class="row navi" style="background-color: #008EDC;">
 					<div class="col nvlink"><a class="text-light" href="${pageContext.request.contextPath}/Portfolio/toPlogmain.do">내 포트폴리오</a></div>
 					<div class="col nvlink"><a class="text-light" href="${pageContext.request.contextPath}/Plog/toPlogCohow.do">내 지식인</a></div>
-					<div class="col nvlink"><a class="text-light" href="${pageContext.request.contextPath}/Scrap/toScrap.do">내 스크랩</a></div>
+					<div class="col nvlink"><a class="text-light" href="${pageContext.request.contextPath}/Scrap/itNews.do">내 스크랩</a></div>
 					<div class="col nvlink"><a class="text-light" href="${pageContext.request.contextPath}/Plog/toPlogProject.do">내 프로젝트</a></div>
 					<div class="col nvlink"><a class="text-light" href="${pageContext.request.contextPath}/GuestBook/selectList.do">방명록</a></div>
 				</div>
@@ -56,52 +57,86 @@
 	                    <div class="card" id="mycard">
 	                        <img src="/img/profileSample.jpg" class="card-img-top" alt="..." style="width: 170px;height: 170px;margin:15px;">
 	                        <div class="card-body">
-	                            <h3 class="card-title" style="text-align: center;">${ownerInfo.nickName} 님</h3>
-	                            <p class="card-text" style="text-align: center;">point : ${ownerInfo.point }</p>
+	                            <h4 class="card-title" style="text-align: center;font-size:20px;">${ownerInfo.nickName} 님</h4>
+	                            <p class="card-text" style="text-align: center;font-size:15px;">point : ${ownerInfo.point }</p>
 	                        </div>
 	                    </div>
 	                </div>
-	                <div class="col-12 col-sm-6 col-md-8 col-lg-9 cohowwrap">
-	                	<div class="coltheme"> 내 지식인</div>
-	                	<table class="table table-hover">
-							<thead class="thead-light">
-								<tr>
-									<th scope="col">구분</th>
-									<th scope="col">게시판제목</th>
-									<th scope="col">작성자</th>
-									<th scope="col">날짜</th>
-									<th scope="col">조회수</th>
-								</tr>
-							</thead>
-							<tbody>
-								<c:choose>
-									<c:when test="${clist.size()==0 }">
-										<tr>
-											<td colspan="8">스크랩한 글이 없습니다.</td>
-										</tr>
-									</c:when>
-									<c:otherwise>
-										<c:forEach items="${clist}" var="dto">
-											<tr>
-												<td><span class="badge badge-pill badge-success"
-													style="margin: 10; width: 60px;">${dto.division}</span></td>
-												<td style="cursor:hand" onClick="location.href='${pageContext.request.contextPath}/code/codeDetail.do?seq=${dto.seq}'">
-													${dto.title}
-													<c:if test="${dto.replyCount>0 }">
-							  							<span class="pComment font-weight-bold">${dto.replyCount}</span>
-							  						</c:if>	
-													<span class="badge badge-pill badge-danger">N</span></td>
-												<td>${dto.writer}  
-													<span class="badge badge-pill badge-info">실무자</span>
-												</td>
-												<td>${dto.formedDate}</td>
-												<td>${dto.viewCount}</td>
-											</tr>
-										</c:forEach>
-									</c:otherwise>
-								</c:choose>
-							</tbody>
-						</table>
+	                <div class="col-12 col-md-8 col-lg-9 scraptwrap">
+	                	<div class="tableDiv">
+	                		<div class="coltheme"> 내 질문</div>
+							<div class="row tableHead">
+								<div class="col-2 col-lg-1">구분</div>
+							    <div class="col-5 col-lg-7">제목</div>
+							    <div class="col-2 col-lg-1">작성자</div>
+							    <div class="col-3 col-lg-2">작성일</div>	
+							    <div class="col-1 d-none d-lg-block">조회수</div>					    
+							</div>
+							
+						  	<c:choose>
+						  		<c:when test="${qlist.size()==0 }">
+						  		<div class="row text-center tableBodyNull"><div class="col-12">내가 질문한 글이 없습니다.</div></div>
+						  		</c:when>
+						  		<c:otherwise>
+						  			<c:forEach items="${qlist }" var="dto">
+						  				<div class="row tableBody p-0">
+						  					<div class="col-2 col-lg-1"><span class="badge badge-pill badge-success"
+											style="margin: 10; width: 60px;">${dto.division}</span></div>
+											<div class="col-5 col-lg-7 text-decoration-none" onclick="location.href='${pageContext.request.contextPath}/code/codeDetail.do?seq=${dto.seq}'">${dto.title} 
+							  					<c:if test="${dto.replyCount>0 }">
+							  						<span class="pComment font-weight-bold">${dto.replyCount}</span>
+							  					</c:if>					  					
+											</div>
+											<div class="col-2 col-lg-1" style="text-align:center;">${dto.writer}</div>
+											<div class="col-3 col-lg-2">${dto.scrapDate}</div>
+											<div class="col-1 d-none d-lg-block">${dto.viewCount}</div>
+										</div>	
+						  			</c:forEach>
+						  		</c:otherwise>
+						  	</c:choose>				    
+						</div>
+						<div class="naviwrap"style="width:100%;text-align:center;margin-top:20px;">
+		                    <c:forEach items="${pageNavi}" var="navi">									
+								${navi}
+							</c:forEach>
+	               		</div>
+	               		<div class="tableDiv">
+	                		<div class="coltheme"> 내 답변</div>
+							<div class="row tableHead">
+								<div class="col-2 col-lg-1">구분</div>
+							    <div class="col-5 col-lg-7">제목</div>
+							    <div class="col-2 col-lg-1">작성자</div>
+							    <div class="col-3 col-lg-2">작성일</div>	
+							    <div class="col-1 d-none d-lg-block">조회수</div>					    
+							</div>
+							
+						  	<c:choose>
+						  		<c:when test="${rlist.size()==0 }">
+						  		<div class="row text-center tableBodyNull"><div class="col-12">내가 답변한 글이 없습니다.</div></div>
+						  		</c:when>
+						  		<c:otherwise>
+						  			<c:forEach items="${rlist }" var="dto">
+						  				<div class="row tableBody p-0">
+						  					<div class="col-2 col-lg-1"><span class="badge badge-pill badge-success"
+											style="margin: 10; width: 60px;">${dto.division}</span></div>
+											<div class="col-5 col-lg-7 text-decoration-none" onclick="location.href='${pageContext.request.contextPath}/code/codeDetail.do?seq=${dto.seq}'">${dto.title} 
+							  					<c:if test="${dto.replyCount>0 }">
+							  						<span class="pComment font-weight-bold">${dto.replyCount}</span>
+							  					</c:if>					  					
+											</div>
+											<div class="col-2 col-lg-1" style="text-align:center;">${dto.writer}</div>
+											<div class="col-3 col-lg-2">${dto.scrapDate}</div>
+											<div class="col-1 d-none d-lg-block">${dto.viewCount}</div>
+										</div>	
+						  			</c:forEach>
+						  		</c:otherwise>
+						  	</c:choose>				    
+						</div>
+						<div class="naviwrap"style="width:100%;text-align:center;margin-top:20px;">
+		                    <c:forEach items="${pageNavi}" var="navi">									
+								${navi}
+							</c:forEach>
+	               		</div>
 	                </div>
 	          	</div>
             </div>

@@ -9,16 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import kh.hello.configuration.Configuration;
 import kh.hello.dto.CodeQuestionDTO;
 import kh.hello.dto.IndustryStatusDTO;
 import kh.hello.dto.ItnewsDTO;
-import kh.hello.dto.LoginInfoDTO;
-import kh.hello.dto.MemberDTO;
 import kh.hello.dto.OwnerInfoDTO;
-import kh.hello.dto.ProjectCoDTO;
 import kh.hello.dto.ProjectDTO;
-import kh.hello.services.MemberService;
-import kh.hello.services.ProjectService;
 import kh.hello.services.ScrapService;
 
 @Controller
@@ -27,12 +23,6 @@ public class ScrapController {
 	
 	@Autowired
 	private ScrapService ss;
-
-	@Autowired
-	private MemberService ms;
-	
-	@Autowired
-	private ProjectService ps;
 	
 	@Autowired
 	private HttpSession session;
@@ -40,59 +30,84 @@ public class ScrapController {
 	@Autowired
 	HttpServletRequest request;
 	
-	@RequestMapping("/toScrap.do")
-	public String toplogScrap() {
-		OwnerInfoDTO ownerInfo = (OwnerInfoDTO)session.getAttribute("ownerInfo");
-		List<IndustryStatusDTO> ilist = ss.selectIndustryStatus(ownerInfo.getId());
-		List<CodeQuestionDTO> clist = ss.selectCodeQuestion(ownerInfo.getId());
-		List<ProjectDTO> plist = ss.selectProject(ownerInfo.getId());
-		List<ItnewsDTO> nlist = ss.selectItnews(ownerInfo.getId());
-		MemberDTO mdto = ms.selectMember(ownerInfo.getId());
-		request.setAttribute("point", mdto.getPoint());
-		request.setAttribute("ilist", ilist);
-		request.setAttribute("clist", clist);
-		request.setAttribute("plist", plist);
-		request.setAttribute("nlist", nlist);
-		return "plog/plogScrap";
-	}
+//	@RequestMapping("/toScrap.do")
+//	public String toplogScrap() {
+//		OwnerInfoDTO ownerInfo = (OwnerInfoDTO)session.getAttribute("ownerInfo");
+//		List<IndustryStatusDTO> ilist = ss.selectIndustryStatusByPage(ownerInfo.getId());
+//		List<CodeQuestionDTO> clist = ss.selectCodeQuestionByPage(ownerInfo.getId());
+//		List<ProjectDTO> plist = ss.selectProjectByPage(ownerInfo.getId());
+//		List<ItnewsDTO> nlist = ss.selectItnewsByPage(ownerInfo.getId());
+//		MemberDTO mdto = ms.selectMember(ownerInfo.getId());
+//		request.setAttribute("point", mdto.getPoint());
+//		request.setAttribute("ilist", ilist);
+//		request.setAttribute("clist", clist);
+//		request.setAttribute("plist", plist);
+//		request.setAttribute("nlist", nlist);
+//		return "plog/plogScrap";
+//	}
 	
 	@RequestMapping("/itNews.do")
-	public String itNews() {
+	public String itNews(String cpage) {
 		OwnerInfoDTO ownerInfo = (OwnerInfoDTO)session.getAttribute("ownerInfo");
-		List<ItnewsDTO> nlist = ss.selectItnews(ownerInfo.getId());
+		String ownerID = ownerInfo.getId();
+		int currentPage = 1;	
+		
+		if(cpage != null) currentPage = Integer.parseInt(cpage);
+		int end = currentPage * Configuration.recordCountPerPage;
+		int start = end - (Configuration.recordCountPerPage - 1);
+	
+		
+		List<ItnewsDTO> nlist = ss.selectItnewsByPage(ownerID,start,end);
+		List<String> pageNavi = ss.getGuestBookPageNavi(ownerID, currentPage, "itNews");
+		request.setAttribute("pageNavi", pageNavi);
 		request.setAttribute("nlist", nlist);
 		return "plog/scrapItNews";
 	}
 	
 	@RequestMapping("/cohow.do")
-	public String cohow() {
+	public String cohow(String cpage) {
 		OwnerInfoDTO ownerInfo = (OwnerInfoDTO)session.getAttribute("ownerInfo");
-		List<CodeQuestionDTO> clist = ss.selectCodeQuestion(ownerInfo.getId());
+		String ownerID = ownerInfo.getId();
+		int currentPage = 1;	
+		
+		if(cpage != null) currentPage = Integer.parseInt(cpage);
+		int end = currentPage * Configuration.recordCountPerPage;
+		int start = end - (Configuration.recordCountPerPage - 1);
+		List<CodeQuestionDTO> clist = ss.selectCodeQuestionByPage(ownerID,start,end);
+		List<String> pageNavi = ss.getGuestBookPageNavi(ownerID, currentPage, "cohow");
+		request.setAttribute("pageNavi", pageNavi);
 		request.setAttribute("clist", clist);
 		return "plog/scrapCohow";
 	}
 	
 	@RequestMapping("/industryStatus.do")
-	public String industryStatus() {
+	public String industryStatus(String cpage) {
 		OwnerInfoDTO ownerInfo = (OwnerInfoDTO)session.getAttribute("ownerInfo");
-		List<IndustryStatusDTO> ilist = ss.selectIndustryStatus(ownerInfo.getId());
+		String ownerID = ownerInfo.getId();
+		int currentPage = 1;	
+		
+		if(cpage != null) currentPage = Integer.parseInt(cpage);
+		int end = currentPage * Configuration.recordCountPerPage;
+		int start = end - (Configuration.recordCountPerPage - 1);
+		List<IndustryStatusDTO> ilist = ss.selectIndustryStatusByPage(ownerID,start,end);
+		List<String> pageNavi = ss.getGuestBookPageNavi(ownerID, currentPage, "industryStatus");
+		request.setAttribute("pageNavi", pageNavi);
 		request.setAttribute("ilist", ilist);
 		return "plog/scrapIndustryStatus";
 	}
 	
 	@RequestMapping("/project.do")
-	public String project() {
+	public String project(String cpage) {
 		OwnerInfoDTO ownerInfo = (OwnerInfoDTO)session.getAttribute("ownerInfo");
-		List<ProjectDTO> plist = ss.selectProject(ownerInfo.getId());
-//		String id = ownerInfo.getId();				
-//		ProjectDTO result = ps.projectDetailView(seq);		
-//		String scrap = ps.checkScrap(id, seq);
-//		List<ProjectCoDTO> coResult = ps.commentList(seq); 
-//		String data = ps.projectWrite();
-//		request.setAttribute("data", data);
-//		request.setAttribute("pPage", result);
-//		request.setAttribute("comments", coResult);
-//		request.setAttribute("scrap", scrap);		
+		String ownerID = ownerInfo.getId();
+		int currentPage = 1;	
+		
+		if(cpage != null) currentPage = Integer.parseInt(cpage);
+		int end = currentPage * Configuration.recordCountPerPage;
+		int start = end - (Configuration.recordCountPerPage - 1);
+		List<ProjectDTO> plist = ss.selectProjectByPage(ownerID,start,end);
+		List<String> pageNavi = ss.getGuestBookPageNavi(ownerID, currentPage, "project");
+		request.setAttribute("pageNavi", pageNavi);
 		request.setAttribute("plist", plist);
 		return "plog/scrapProject";
 	}

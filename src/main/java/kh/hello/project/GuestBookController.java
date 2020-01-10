@@ -13,11 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import kh.hello.configuration.Configuration;
 import kh.hello.dto.GuestBookDTO;
 import kh.hello.dto.LoginInfoDTO;
-import kh.hello.dto.MemberDTO;
 import kh.hello.dto.OwnerInfoDTO;
-import kh.hello.dto.PortfolioDTO;
 import kh.hello.services.GuestBookService;
-import kh.hello.services.MemberService;
 
 @Controller
 @RequestMapping("/GuestBook")
@@ -26,8 +23,7 @@ public class GuestBookController {
 	@Autowired
 	private GuestBookService gs;
 			
-	@Autowired
-	private MemberService ms;
+
 	
 	@Autowired
 	private HttpSession session;
