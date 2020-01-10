@@ -6,8 +6,8 @@
 	<select id="commentsList" resultType="kh.hello.dto.CodeCommentsDTO">
 		select * from codeComments where queSeq=#{value} order by seq	
 	</select>
-	<select id="commentsListUpdate" resultType="kh.hello.dto.CodeCommentsDTO">
-		select * from codeComments where repSeq=#{value} order by seq	
+	<select id="commentsListTwo" resultType="kh.hello.dto.CodeCommentsDTO">	
+		select * from codeComments where repSeq=#{value} order by seq
 	</select>
 	<insert id="insertComment" parameterType="kh.hello.dto.CodeCommentsDTO">
 		insert into codeComments values(codeCommentsSeq.nextval,#{queSeq},#{repSeq},#{content},#{id},#{writer},sysdate)

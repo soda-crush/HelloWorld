@@ -33,9 +33,9 @@ public class CodeController {
 	public String codeList(Model m,String page) {
 			//LoginInfoDTO dto = new LoginInfoDTO("test","닉네임");		
 			//LoginInfoDTO dto = new LoginInfoDTO("test2","닉네임2");	
-			//LoginInfoDTO dto = new LoginInfoDTO("test3","닉네임3");	
-			
-			//session.setAttribute("loginInfo", dto);
+//			LoginInfoDTO dto = new LoginInfoDTO("test3","닉네임3");	
+			//LoginInfoDTO dto = new LoginInfoDTO("test1234","펭수2");			
+//			session.setAttribute("loginInfo", dto);
 
 			int currentPage = 1;
 			if(page != null) currentPage = Integer.parseInt(page);
@@ -92,11 +92,15 @@ public class CodeController {
 	@RequestMapping("/codeDetail.do")
 	public String codeDetail(int seq, Model m) {
 			LoginInfoDTO info = (LoginInfoDTO)session.getAttribute("loginInfo");
-			CodeQuestionDTO qResult = sv.detailQuestion(seq); 
-			List<CodeReplyDTO> rResult = sv.detailReply(seq);
-			List<CodeCommentsDTO> cResult = sv.commentList(seq);   
+			CodeQuestionDTO qResult = sv.detailQuestion(seq); //queSeq
+			List<CodeReplyDTO> rResult = sv.detailReply(seq); //queSeq
 			int count = sv.replyOneCount(seq, info.getId()); //queSeq
-			int repSeq = sv.selectRepSeq(seq,info.getId());
+			
+			List<CodeCommentsDTO> cResult = sv.commentList(seq); //queSeq  
+			
+//			int repSeq = sv.selectRepSeq(seq,dto.getId()); // id=답글아이디
+//			System.out.println(repSeq);
+			
 			int repCount = sv.replyCount(seq); //답글 수 
 //			int nowPoint = sv.selectPoint(info.getId());
 			
@@ -104,7 +108,7 @@ public class CodeController {
 			m.addAttribute("rResult", rResult);			
 			m.addAttribute("cResult", cResult);
 			m.addAttribute("count", count);
-			m.addAttribute("repSeq", repSeq);
+//			m.addAttribute("repSeq", repSeq);
 			m.addAttribute("repCount", repCount);
 //			m.addAttribute("nowPoint", nowPoint);
 		return "/code/codeDetail";
@@ -137,11 +141,7 @@ public class CodeController {
 	
 	//게시판 목록 검색
 	@RequestMapping("/codeSearch.do")
-	public String codeSearch(String search, HttpServletRequest request, Model m, String cpage) {
-		//System.out.println(request.getParameter("value")+" - "+search);
-		String value = request.getParameter("value");
-		//m.addAttribute("bambooList", service.bambooSearchTotalCount(value, search));
-
+	public String codeSearch(String search, String value, Model m, String cpage) {
 		//페이지네비
 		int currentPage = 1;		
 		if(cpage != null) currentPage = Integer.parseInt(cpage);

@@ -42,6 +42,11 @@
 		update member set point=point-15 where id=#{value}
 	</update>
 	
+<!-- 	답글아이디찾기 -->
+<!-- 	<select id="selectRepId" resultType="kh.hello.dto.CodeReplyDTO" parameterType="integer"> -->
+<!-- 		select * from codeReply -->
+<!-- 	</select> -->
+	
 <!-- 채택 -->
 	<select id="replyCount" parameterType="integer" resultType="integer">
 		select count(*) from codeReply where queSeq = #{value} 
