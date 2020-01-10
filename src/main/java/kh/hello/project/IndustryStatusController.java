@@ -137,9 +137,7 @@ public class IndustryStatusController {
 
 	//게시판 목록 검색
 	@RequestMapping("/industrySearch.do")
-	public String industrySearch(String search, HttpServletRequest request, Model m, String cpage) {
-		String value = request.getParameter("value");
-
+	public String industrySearch(String search, String value, Model m, String cpage) {
 		//검색결과 페이지 네비
 		int currentPage = 1;		
 

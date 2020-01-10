@@ -91,7 +91,7 @@
 				<div class="text-left">
 					<form action="/industry/industrySearch.do" method="post">
 					<select name=value>
-						<option value="all">전체</option>
+						<option value="all">전체(제목+내용)</option>
 						<option value="field">분야</option>
 						<option value="duty">직무</option>
 						<option value="writer">작성자</option>
@@ -102,25 +102,23 @@
 					</form>
 				</div>
 				<div class="text-right">
-					<a class="btn btn-primary" href="/industry/industryStatusWrite.do" role="button">글쓰기</a>					
+					<button type="button" class="btn btn-primary" id="write">글쓰기</button>				
 				</div>
-				<nav aria-label="List navi">
-				  <ul class="pagination justify-content-center">
-				    <li class="page-item">
-				      <a class="page-link" href="#" aria-label="Previous">
-				        <span aria-hidden="true">&laquo;</span>
-				      </a>
-				    </li>
-				     <c:forEach items="${pageNavi}" var="navi">									
-						${navi}
-					</c:forEach>
-				    <li class="page-item">
-				      <a class="page-link" href="#" aria-label="Next">
-				        <span aria-hidden="true">&raquo;</span>
-				      </a>
-				    </li>
-				  </ul>
-				</nav>
+				 <div class="card">
+                            <div class="card-body">
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination justify-content-center">
+                                    	<c:choose>
+                                    		<c:when test="${pageNavi.size() > 0}">
+												<c:forEach items="${pageNavi}" var="navi">									
+													<li class="page-item pageNavi">${navi}</li>
+												</c:forEach>                                    		
+                                    		</c:when>
+                                    	</c:choose> 
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
 				
             </div>
             <!--       몸통 끝!!!   -->
@@ -139,5 +137,23 @@
 		$("#search").on("click",function(){
 			$("form").submit();
 		})
+		$("#write").on("click",function(){
+			if("${sessionScope.loginInfo.id}" == ""){
+        		alert("로그인을 해주세요.");
+        		return false;
+        	}
+			location.href="/industry/industryStatusWrite.do";
+		})
+		if("${pageNavi.size() > 0}"){
+		var element = $(".pageNavi");
+		var page = "${page}";
+		if(page > 0 && page <= 10){
+			element[page-1].classList.add('active');
+		}else if(page % 10 == 0){
+			element[10].classList.add('active');
+		}else{
+			element[page % 10].classList.add('active');
+		}			
+	}
 		</script>
 </html>
