@@ -72,7 +72,7 @@ body{background-color:#f2f2f2;}
 						  </form>
 					</div>								
 					<div class="col-6 text-right">
-						<a class="btn btn-success" href="/project/write" role="button">글쓰기</a>					
+						<button class="btn btn-success" type="button" onclick="popUp('/project/write')">글쓰기</button>			
 					</div>
 				</div>
 				<nav aria-label="List navi" id="pPageNavi">${makePageNavi }</nav>

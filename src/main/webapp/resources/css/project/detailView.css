@@ -72,3 +72,27 @@
 	margin-bottom:15px;
 }
 img{max-width:100%;}
+#scrapDone{color:crimson;}
+#scrapDone,#scrapNull:hover{cursor:pointer;}
+.coLevel1{margin-left:60px;}
+.commentWriteDate{font-size:10px;}
+.commentWriter{font-weight:bold;}
+#pCoReplyInput{
+    margin-left: 60px;
+    background-color:#fff;
+	margin-top:2px;
+	margin-bottom:2px;
+	padding:0;
+	padding-bottom:5px;
+	border-radius:7px;    	
+}
+#pCoReplyContents{
+    margin-top:10px;
+	margin-bottom:15px;
+    margin-left: 20px;
+    height:100px; 
+}
+#pCoReplyInput button{
+    height:45px; width:90%;
+} 
+#projectPage{margin-bottom:100px;} 

@@ -112,4 +112,16 @@ public class ProjectPLogDTO {
 		return sdf.format(this.writeDate);		
 	}	
 	
+	public String getApproveInKor() {
+		String approve = this.approve;
+		if(approve.contentEquals("W")) {
+			return "대기중";
+		}else if(approve.contentEquals("O")) {
+			return "승인";
+		}else if(approve.contentEquals("X")) {
+			return "거절";
+		}else if(approve.contentEquals("C")) {
+			return "취소";
+		}return approve;
+	}
 }

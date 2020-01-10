@@ -15,6 +15,7 @@ import kh.hello.dto.LoginInfoDTO;
 import kh.hello.dto.ProjectApplyDTO;
 import kh.hello.dto.ProjectCoDTO;
 import kh.hello.dto.ProjectDTO;
+import kh.hello.dto.ProjectPLogDTO;
 import kh.hello.services.ProjectService;
 
 @Controller
@@ -310,7 +311,7 @@ public class ProjectController {
 		int end = currentPage * (Configuration.pLogProjectRecordCountPerPage);
 		List<ProjectDTO> result = svc.makeProjectListPerPage(start, end, id);
 		m.addAttribute("makeProjectList", result);
-		String pageNavi = svc.getPLogProjectPageNavi(currentPage, id);
+		String pageNavi = svc.getPLogProjectPageNavi(currentPage, id, "makeProjectList");
 		m.addAttribute("makePageNavi", pageNavi);
 		m.addAttribute("makeCurrentPage", currentPage);
 		return "/project/pLogMakeProject";
@@ -327,11 +328,11 @@ public class ProjectController {
 		}
 		int start = currentPage * (Configuration.pLogProjectRecordCountPerPage)-(Configuration.pLogProjectRecordCountPerPage-1);
 		int end = currentPage * (Configuration.pLogProjectRecordCountPerPage);
-		List<ProjectDTO> result = svc.makeProjectListPerPage(start, end, id);
+		List<ProjectPLogDTO> result = svc.applyProjectListPerPage(start, end, id);
 		m.addAttribute("applyProjectList", result);
-		String pageNavi = svc.getPLogProjectPageNavi(currentPage, id);
+		String pageNavi = svc.getPLogProjectPageNavi(currentPage, id, "applyProjectList");
 		m.addAttribute("applyPageNavi", pageNavi);
 		m.addAttribute("applyCurrentPage", currentPage);
-		return "/project/pLogMakeProject";
+		return "/project/pLogApplyProject";
 	}
 }

@@ -20,30 +20,6 @@
 <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.css" type="text/css"/>
 <script src="/js/project/projectCo.js"></script>
 <style>
-#scrapDone{color:crimson;}
-#scrapDone,#scrapNull:hover{cursor:pointer;}
-.coLevel1{margin-left:60px;}
-.commentWriteDate{font-size:10px;}
-.commentWriter{font-weight:bold;}
-#pCoReplyInput{
-    margin-left: 60px;
-    background-color:#fff;
-	margin-top:2px;
-	margin-bottom:2px;
-	padding:0;
-	padding-bottom:5px;
-	border-radius:7px;    	
-/*     border:1px solid black; */
-}
-#pCoReplyContents{
-    margin-top:10px;
-	margin-bottom:15px;
-    margin-left: 20px;
-    height:100px; 
-}
-#pCoReplyInput button{
-    height:45px; width:90%;
-}  
 </style>
 </head>
 
@@ -505,7 +481,7 @@
 						);
 						if(resp[i].changeDate!=null){
 							html.push(
-									'<span style="margin-left: 10px;">(수정일 '+resp[i].formedChangeDate+')</span>'
+									'<span style="margin-left: 10px;">(수정일자 '+resp[i].formedChangeDate+')</span>'
 							);
 						}
 						html.push(
@@ -530,7 +506,7 @@
 						);
 					}else{
 						html.push(
-								'<span class="row align-middle m-2 mt-3">삭제된 댓글입니다.<span class="delCoDate" style="margin-left: 10px;color:darkgray;">(삭제일 : '+resp[i].formedChangeDate+')</span></span>'							
+								'<span class="row align-middle m-2 mt-3">삭제된 댓글입니다.<span class="delCoDate" style="margin-left: 10px;color:darkgray;">(삭제일자 '+resp[i].formedChangeDate+')</span></span>'							
 						);
 					}
 					html.push(

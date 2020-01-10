@@ -22,37 +22,37 @@ body{background-color:#f2f2f2;}
 <body>
 			<div>
 				<div id="pageTitle" class="row">
-					<div class="col-12"><h4>내가 모집한 프로젝트</h4></div>					
+					<div class="col-12"><h4>내가 신청한 프로젝트</h4></div>					
 				</div>
 				<div class="tableDiv" style="width:100%;">
 					<div class="row tableHead">					    
 					    <div class="col-2">모집상태</div>
 					    <div class="col-3">제목</div>
+					    <div class="col-1">작성자</div>
 					    <div class="col-1">지역</div>
-					    <div class="col-1">인원</div>
 					    <div class="col-3">기간</div>
-					    <div class="col-1">작성일</div>
-					    <div class="col-1">조회</div>					    
+					    <div class="col-1">인원</div>
+					    <div class="col-1">승인</div>					    
 					</div>
 					
 				  	<c:choose>
-				  		<c:when test="${makeProjectList.size()==0 }">
-				  		<div class="row text-center tableBodyNull"><div class="col-12">모집한 프로젝트가 없습니다.</div></div>
+				  		<c:when test="${applyProjectList.size()==0 }">
+				  		<div class="row text-center tableBodyNull"><div class="col-12">지원한 프로젝트가 없습니다.</div></div>
 				  		</c:when>
 				  		<c:otherwise>
-				  			<c:forEach items="${makeProjectList }" var="m">
+				  			<c:forEach items="${applyProjectList }" var="a">
 				  				<div class="row tableBody p-0">
-									<div class="col-2 ${m.state }">${m.stateInKor }</div>
-										<div class="col-3 text-decoration-none" onclick="popUp('/project/detailView?seq=${m.seq }')">${m.title } 
-					  						<c:if test="${m.commentCount>0 }">
+									<div class="col-2 ${a.state }">${a.stateInKor }</div>
+										<div class="col-3 text-decoration-none" onclick="popUp('#')">${m.title } 
+					  						<c:if test="${a.commentCount>0 }">
 					  							<span class="pComment font-weight-bold">${m.commentCount }</span>
 					  						</c:if>					  					
 										</div>
+									<div class="col-1">${m.writer }</div>
 									<div class="col-1">${m.location1 }</div>
-									<div class="col-1">${m.capacity }명</div>
 									<div class="col-3">${m.formedAllDate }</div>
-									<div class="col-1">${m.formedWriteDate }</div>
-									<div class="col-1">${m.viewCount }</div>
+									<div class="col-1">${m.capacity }명</div>
+									<div class="col-1">${m.approveInKor }</div>
 								</div>	
 				  			</c:forEach>
 				  		</c:otherwise>
@@ -70,18 +70,15 @@ body{background-color:#f2f2f2;}
 						    <input class="form-control mr-sm-2" type="search" placeholder="검색어를 입력하세요" aria-label="Search">
 						    <button class="btn btn-dark my-2 my-sm-0" type="submit">검색</button>
 						  </form>
-					</div>								
-					<div class="col-6 text-right">
-						<a class="btn btn-success" href="/project/write" role="button">글쓰기</a>					
-					</div>
+					</div>													
 				</div>
-				<nav aria-label="List navi" id="pPageNavi">${makePageNavi }</nav>
+				<nav aria-label="List navi" id="pPageNavi">${applyPageNavi }</nav>
 			</div>
 		<script>
 			function popUp(link){
 				window.open(link,"_blank");
 			}
-        	$(".pNavi${makeCurrentPage}").addClass("active");
+        	$(".pNavi${applyCurrentPage}").addClass("active");
         </script>
 </body>
 </html>

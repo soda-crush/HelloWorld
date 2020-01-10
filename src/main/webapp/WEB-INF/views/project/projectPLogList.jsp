@@ -19,6 +19,9 @@ iframe.noScrolling{
   height: 500px; /*or any other size*/
   overflow: hidden;
 }
+#applyFrame{
+	margin-top:50px;
+}
 </style>
 </head>
 <body>
@@ -34,12 +37,12 @@ iframe.noScrolling{
             
             <!--      몸통 시작!!!   -->
             <div class=container id="projectPage">						
-					<div class="embed-responsive embed-responsive-21by9 p-0" style="width:1100px;overflow-x:hidden;">
+					<div class="embed-responsive embed-responsive-21by9 p-0" style="width:1100px;overflow-x:hidden;" id="makeFrame">
 					  <iframe class="noScrolling" src="/project/pLog/makeProjectList"></iframe>
 					</div>
 					<hr>		
-					<div class="embed-responsive embed-responsive-21by9 p-0" style="width:1100px;overflow-x:hidden;">
-					  <iframe class="noScrolling" src=""></iframe>
+					<div class="embed-responsive embed-responsive-21by9 p-0" style="width:1100px;overflow-x:hidden;" id="applyFrame">
+					  <iframe class="noScrolling" src="/project/pLog/applyProjectList"></iframe>
 					</div>
             </div>
             <!--       몸통 끝!!!   -->
