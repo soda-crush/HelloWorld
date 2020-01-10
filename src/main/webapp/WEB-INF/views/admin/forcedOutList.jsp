@@ -83,11 +83,6 @@
                                 <h4 class="header-title">강퇴 ID 목록</h4>
                                 <div class="single-table">
                                     <div class="table-responsive">
-                                    	<c:choose>
-                                    		<c:when test="${list.size() == 0}">
-                                    			<div class="text-center">내용이 없습니다</div>                                    		
-                                    		</c:when>
-                                    		<c:otherwise>
 		                                        <table class="table table-hover text-center">
 		                                            <thead class="text-uppercase">
 		                                                <tr>
@@ -98,26 +93,32 @@
 		                                                </tr>
 		                                            </thead>
 		                                            <tbody>
-			                                            	<c:forEach items="${list}" var="dto">
-			                                                <tr>
-			                                                    <th scope="row">${dto.id}</th>
-			                                                    <td>${dto.reason}</td>
-			                                                    <td>${dto.formedDate}</td>
-			                                                    <td><i class="ti-trash" id="forcedOutDel${dto.seq}"></i></td>
-			                                                </tr>
-			                                                <script>
-			                                                	$("#forcedOutDel${dto.seq}").on("click", function(){
-			                                                		var result = confirm("이 기록을 지울까요?");
-			                                                		if(result){
-			                                                			location.href="${pageContext.request.contextPath}/admin/forcedOutDel?seq=${dto.seq}";
-			                                                		}
-			                                                	})
-			                                                </script> 
-			                                                </c:forEach>                                              	                                                                                          
+		                                            	<c:choose>
+		                                            		<c:when test="${list.size() == 0}">
+		                                            			<tr><th colspan='3'>강퇴한 회원이 없습니다<th></tr>
+		                                            		</c:when>
+		                                            		<c:otherwise>
+				                                            	<c:forEach items="${list}" var="dto">
+				                                                <tr>
+				                                                    <th scope="row">${dto.id}</th>
+				                                                    <td>${dto.reason}</td>
+				                                                    <td>${dto.formedDate}</td>
+				                                                    <td><i class="ti-trash" id="forcedOutDel${dto.seq}"></i></td>
+				                                                </tr>
+				                                                <script>
+				                                                	$("#forcedOutDel${dto.seq}").on("click", function(){
+				                                                		var result = confirm("이 기록을 지울까요?");
+				                                                		if(result){
+				                                                			location.href="${pageContext.request.contextPath}/admin/forcedOutDel?seq=${dto.seq}";
+				                                                		}
+				                                                	})
+				                                                </script> 
+				                                                </c:forEach> 		                                            		
+		                                            		</c:otherwise>
+		                                            	</c:choose>
+                                             	                                                                                          
 		                                            </tbody>
-		                                        </table>                                    		
-                                    		</c:otherwise>
-                                    	</c:choose>                                    
+		                                        </table>                                    		                                  
                                     </div>
                                 </div>
                             </div>

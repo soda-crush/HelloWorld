@@ -259,7 +259,7 @@ public class AdminController {
 		
 		List<ForcedOutMemberDTO> list = as.forcedOutListByPage(start, end);
 		m.addAttribute("list", list);
-		
+				
 		//페이지네비 받아오기
 		List<String> pageNavi = as.getForcedOutPageNavi(currentPage);
 		m.addAttribute("pageNavi", pageNavi);
