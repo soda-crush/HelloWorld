@@ -34,9 +34,9 @@ public class CodeController {
 	public String codeList(Model m,String page) {
 			//LoginInfoDTO dto = new LoginInfoDTO("test","닉네임");		
 			//LoginInfoDTO dto = new LoginInfoDTO("test2","닉네임2");	
-//			LoginInfoDTO dto = new LoginInfoDTO("test3","닉네임3");	
-			//LoginInfoDTO dto = new LoginInfoDTO("test1234","펭수2");			
-//			session.setAttribute("loginInfo", dto);
+//			LoginInfoDTO dto = new LoginInfoDTO("test1234","펭수2");	
+			LoginInfoDTO dto = new LoginInfoDTO("test3","닉네임3");	
+			session.setAttribute("loginInfo", dto);
 
 			int currentPage = 1;
 			if(page != null) currentPage = Integer.parseInt(page);
@@ -92,8 +92,8 @@ public class CodeController {
 	
 	@RequestMapping("/codeDetail.do")
 	public String codeDetail(int seq, Model m) {
-//			LoginInfoDTO dto = new LoginInfoDTO("test3","닉네임3");			
-//			session.setAttribute("loginInfo", dto);
+			LoginInfoDTO dto = new LoginInfoDTO("test3","닉네임3");			
+			session.setAttribute("loginInfo", dto);
 			
 			LoginInfoDTO info = (LoginInfoDTO)session.getAttribute("loginInfo");
 			CodeQuestionDTO qResult = sv.detailQuestion(seq); //queSeq
