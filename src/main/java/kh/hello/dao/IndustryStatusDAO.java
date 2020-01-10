@@ -75,7 +75,7 @@ public class IndustryStatusDAO {
 		param.put("search", search);
 		return jdbc.selectOne("Industry.industrySearchTotalCount", param);
 	}
-	public List<IndustryStatusDTO> industrySearchListByPage (String start, String end, String value, String search) {//검색한 대나무숲 목록 페이지네비
+	public List<IndustryStatusDTO> industrySearchListByPage (String start, String end, String value, String search) {//검색한 업계현황 목록 페이지네비
 		Map<String, String> param = new HashMap<>();
 		param.put("start", start);
 		param.put("end", end);

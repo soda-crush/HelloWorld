@@ -156,7 +156,6 @@ public class BambooService {
 
 	//조건별 게시판목록 검색
 	public List<BambooDTO> bambooSearchListByPage(int start, int end,String value, String search) {//대나무숲 10개씩
-		System.out.println(dao.bambooSearchListByPage(Integer.toString(start), Integer.toString(end),value,search).toString());
 		return dao.bambooSearchListByPage(Integer.toString(start), Integer.toString(end),value,search);
 	}
 	public List<String> getBambooSearchListPageNavi (int currentPage,String value, String search) {
