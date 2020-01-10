@@ -23,6 +23,7 @@ import kh.hello.dto.ProjectApplyDTO;
 import kh.hello.dto.ProjectCoDTO;
 import kh.hello.dto.ProjectDTO;
 import kh.hello.dto.ProjectImageDTO;
+import kh.hello.dto.ProjectPLogDTO;
 
 @Service
 public class ProjectService {
@@ -339,7 +340,7 @@ public class ProjectService {
 //	
 	
 	
-	public String getPLogProjectPageNavi(int currentPage, String id) {
+	public String getPLogProjectPageNavi(int currentPage, String id, String listType) {
 		int recordTotalCount = dao.getMakeArticleCount(id);
 		int pageTotalCount = 0;		
 		if(recordTotalCount % Configuration.pLogProjectRecordCountPerPage>0) {
@@ -372,15 +373,15 @@ public class ProjectService {
 		sb.append("<ul class='pagination justify-content-center'>");
 		if(needPrev) {
 			sb.append("<li class='page-item'>");
-			sb.append("<a class='page-link' href='/project/pLog/makeProjectList?page="+(startNavi-1)+"' aria-label='Previous'>"); 
+			sb.append("<a class='page-link' href='/project/pLog/"+listType+"?page="+(startNavi-1)+"' aria-label='Previous'>"); 
 			sb.append("<span aria-hidden='true'>&laquo;</span></a></li>");			
 		}
 		for(int i=startNavi;i<=endNavi;i++) {
-			sb.append("<li class='page-item pNavi"+i+"'><a class='page-link' href='/project/pLog/makeProjectList?page="+i+"'>"+i+"</a></li>");			
+			sb.append("<li class='page-item pNavi"+i+"'><a class='page-link' href='/project/pLog/"+listType+"?page="+i+"'>"+i+"</a></li>");			
 		}
 		if(needNext) {
 			sb.append("<li class='page-item'>");
-			sb.append("<a class='page-link' href='/project/pLog/makeProjectList?page="+(endNavi+1)+"' aria-label='Next'>");
+			sb.append("<a class='page-link' href='/project/pLog/"+listType+"?page="+(endNavi+1)+"' aria-label='Next'>");
 			sb.append("<span aria-hidden='true'>&raquo;</span></a></li>");			
 		}
 		sb.append("</ul>");
@@ -391,7 +392,7 @@ public class ProjectService {
 		return dao.getMakeProjectListPerPage(start, end, id);
 	}
 	
-//	public List<ProjectPLogDTO> applyProjectListPerPage(int start, int end, String id){
-//		return 
-//	}
+	public List<ProjectPLogDTO> applyProjectListPerPage(int start, int end, String id){
+		return dao.getApplyProjectListPerPage(start, end, id);
+	}
 }

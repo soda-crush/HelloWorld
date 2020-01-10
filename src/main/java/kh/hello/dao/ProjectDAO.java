@@ -13,6 +13,7 @@ import kh.hello.dto.ProjectApplyDTO;
 import kh.hello.dto.ProjectCoDTO;
 import kh.hello.dto.ProjectDTO;
 import kh.hello.dto.ProjectImageDTO;
+import kh.hello.dto.ProjectPLogDTO;
 
 @Repository
 public class ProjectDAO {
@@ -123,6 +124,7 @@ public class ProjectDAO {
 	public List<ProjectDTO> getMakeProjectList(String id){//나의 프로젝트 전체리스트
 		return jdbc.selectList("Project.getPLogMakeList", id);
 	}
+	
 	public int getMakeArticleCount(String id) {
 		return jdbc.selectOne("Project.getMakeArticleCount", id);
 	}
@@ -132,11 +134,18 @@ public class ProjectDAO {
 		param.put("start", start);
 		param.put("end", end);
 		return jdbc.selectList("Project.getPLogMakeListByPage", param);
+	}	
+	public int getApplyArticleCount(String id) {
+		return jdbc.selectOne("Project.getApplyArticleCount", id);
+	}
+	public List<ProjectPLogDTO> getApplyProjectListPerPage(int start, int end, String id){
+		Map<String, Object> param = new HashMap<>();
+		param.put("id", id);		
+		param.put("start", start);
+		param.put("end", end);
+		return jdbc.selectList("Project.getPLogApplyListByPage", param);
 	}
 	
-//	public int getApplyArticleCount(String id) {
-//		
-//	}
 //	public int insertProjectList(ProjectPlogDTO dto) {//나의 프로젝트 등록
 //		return jdbc.insert("ProjectPlogList.insert", dto);
 //	}

@@ -20,83 +20,64 @@
 	
 	<select id="getProjectDetailView" resultType="kh.hello.dto.ProjectDTO">
 		select project.*,(select count(*) from projectApply where projectSeq=project.seq and approve in('W')) as applyCount from project where seq=#{value}
-	</select>
-	
+	</select>	
 	<select id="latestSeq" resultType="integer">
 		select max(seq) from project where id=#{value}
-	</select>
-	
+	</select>	
 	<insert id="insertProject" parameterType="kh.hello.dto.ProjectDTO">
 		insert into project values(projectSeq.nextval,#{title},#{contents},#{location1},#{location2},#{capacity},#{startDate},#{endDate},#{languages},#{phone},#{email},#{writer},#{id},sysdate,null,'N',0)
-	</insert>
-	
+	</insert>	
 	<update id="updateProject" parameterType="kh.hello.dto.ProjectDTO">
 		update project set title=#{title}, contents=#{contents}, location1=#{location1}, location2=#{location2}, capacity=#{capacity}, startDate=#{startDate}, endDate=#{endDate}, languages=#{languages}, phone=#{phone}, email=#{email}, writer=#{writer}, changeDate=sysdate where seq=#{seq}
-	</update>
-	
+	</update>	
 	<select id="getImages" parameterType="integer" resultType="kh.hello.dto.ProjectImageDTO">
 		select * from projectImage where projectSeq=#{value}
-	</select>
-	
+	</select>	
 	<delete id="deleteImage">
 		delete from projectImage where sysName=#{value}
-	</delete>
-	
+	</delete>	
 	<update id="updateProjectViewCount">
 		update project set viewCount=viewCount+1 where seq=#{value}
-	</update>
-	
+	</update>	
 	<delete id="deleteProject">
 		delete from project where seq=#{value}
-	</delete>
-	
+	</delete>	
 	<delete id="deleteImagesByProjectSeq">
 		delete from projectImage where projectSeq=#{value}
-	</delete>
-	
+	</delete>	
 	<update id="closeProject">
 		update project set state='Y' where seq=#{value}
-	</update>
-	
+	</update>	
 	
 	
 	<update id="articleAddPoint" parameterType="java.util.Map">
 		update member set point=point+#{point} where id=#{id}
-	</update>
-	
+	</update>	
 	<insert id="insertImage" parameterType="kh.hello.dto.ProjectImageDTO">
 		insert into projectImage values(projectImageSeq.nextval,#{projectSeq},#{oriName},#{sysName})
-	</insert>
-	
+	</insert>	
 	<select id="scrapCheck" parameterType="java.util.Map" resultType="integer">
 		select count(*) from scrap where id=#{id} and category='project' and categorySeq=#{categorySeq} 
-	</select>
-	
+	</select>	
 	<insert id="scrap" parameterType="java.util.Map">
 		insert into scrap values(scrapSeq.nextval,#{id},'project',#{categorySeq})
-	</insert>
-	
+	</insert>	
 	<delete id="unScrap" parameterType="java.util.Map">
 		delete from scrap where id=#{id} and category='project' and categorySeq=#{categorySeq}
-	</delete>
-	
-	
+	</delete>		
 	<select id="getMakeArticleCount" resultType="integer">
 		select count(*) from project where id=#{value}
-	</select>
-	
+	</select>	
 	<select id="getPLogMakeListByPage" parameterType="java.util.Map" resultType="kh.hello.dto.ProjectDTO">
 		select * from (select project.*,(select count(*) from projectComment where projectSeq=project.seq and contents is not null) as commentCount, row_number() over (order by seq desc) as num from project) where id=#{id} and num between #{start} and #{end}
-	</select>
-	
+	</select>	
 	
 	<select id="getApplyArticleCount" resultType="integer">
 		select count(*) from projectApply where id=#{value}
-	</select>
-	
+	</select>	
 	<select id="getPLogApplyListByPage" parameterType="java.util.Map" resultType="kh.hello.dto.ProjectPLogDTO">
-		select * from 
-		(select state, title, project.writer, location1, startDate, endDate, capacity, approve, project.writeDate, row_number() over (order by projectApply.seq desc) as num from project 
+		select * from (select
+		state, title, project.writer, location1, startDate, endDate, capacity, approve, project.writeDate, commentCount, row_number() over (order by projectApply.seq desc) as num from project 
 		inner join projectApply on project.seq = projectApply.projectSeq
 		inner join (select projectSeq, count(*) as commentCount from projectComment
 		where contents is not null group by projectSeq) pc on project.seq = pc.projectSeq where projectApply.id=#{id})
