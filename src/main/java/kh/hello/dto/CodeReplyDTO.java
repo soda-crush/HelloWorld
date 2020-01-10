@@ -83,4 +83,10 @@ public class CodeReplyDTO {
 		return sdf.format(writeDate);
 	}
 	
+	public String getFormedWriteDateForAdmin() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+		String result = sdf.format(this.writeDate);
+		return result;
+	}
+	
 }

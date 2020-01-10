@@ -100,7 +100,11 @@
                                             	<c:forEach items="${list}" var="dto">
                                             		<tr>
                                                     <td class="toDetail${dto.seq}">${dto.seq}</td>                                            		
-                                                    <td class="toDetail${dto.seq}">${dto.title}</td>
+                                                    <td class="toDetail${dto.seq} text-left">${dto.title}
+                                                    <c:if test="${dto.replyCount != 0}">
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong class="text-warning">${dto.replyCount}</strong>
+                                                    </c:if>
+                                                    </td>
                                                     <td class="toDetail${dto.seq}">${dto.writer}</td>
                                                     <td class="toDetail${dto.seq}">${dto.formedWriteDateForAdmin}</td>
                                                     <td class="toDetail${dto.seq}">${dto.viewCount}</td>
@@ -110,14 +114,14 @@
                                                			$("#delProc${dto.seq}").on("click", function(){
                                                				var result = confirm("이 게시물을 삭제할까요?");
                                                				if(result){
-                                               					location.href = "${pageContext.request.contextPath}/adBoard/delcohow?page=${page}&seq=${dto.seq}";
+                                               					location.href = "${pageContext.request.contextPath}/adBoard/delCohow?page=${page}&seq=${dto.seq}";
                                                				}                                              				                                             				
                                                			})
                                                			$(".toDetail${dto.seq}").hover(function(){
                                                				$(".toDetail${dto.seq}").css("cursor", "pointer");
                                                			});
                                                			$(".toDetail${dto.seq}").on("click",function(){
-                                               				location.href = "${pageContext.request.contextPath}/adBoard/detailViewcohow?page=${page}&seq=${dto.seq}";
+                                               				location.href = "${pageContext.request.contextPath}/adBoard/detailViewCohow?page=${page}&seq=${dto.seq}";
                                                			})
                                                		</script>
                                             	</c:forEach>                                                                                               

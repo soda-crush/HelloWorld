@@ -10,7 +10,9 @@ import org.springframework.stereotype.Repository;
 
 import kh.hello.dto.BambooCoDTO;
 import kh.hello.dto.BambooDTO;
+import kh.hello.dto.CodeCommentsDTO;
 import kh.hello.dto.CodeQuestionDTO;
+import kh.hello.dto.CodeReplyDTO;
 import kh.hello.dto.GuestBookDTO;
 import kh.hello.dto.IndustryStatusCoDTO;
 import kh.hello.dto.IndustryStatusDTO;
@@ -199,5 +201,28 @@ public class AdBoardDAO {
 	public int getCohowTotal() {
 		return jdbc.selectOne("AdBoard.getCohowTotal");
 	}
+	
+	public int delCohowAllCo(int queSeq) {
+		return jdbc.delete("AdBoard.delCohowAllCo", queSeq);
+	}
+	
+	public int delCohowAllReply(int queSeq) {
+		return jdbc.delete("AdBoard.delCohowAllReply", queSeq);
+	}
+	
+	public int delCohow(int seq) {
+		return jdbc.delete("AdBoard.delCohow", seq);
+	}
+	
+	public CodeQuestionDTO detailViewCohow(int seq) {
+		return jdbc.selectOne("AdBoard.detailViewCohow", seq);
+	}
+	
+	public List<CodeReplyDTO> getCohowReply(int queSeq){
+		return jdbc.selectList("AdBoard.getCohowReply", queSeq);
+	}
 
+	public List<CodeCommentsDTO> getCohowCo(int queSeq){
+		return jdbc.selectList("AdBoard.getCohowCo", queSeq);
+	}
 }

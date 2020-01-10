@@ -109,10 +109,27 @@
 	
 	<!--code-how -->
 	<select id="cohowListByPage" resultType="kh.hello.dto.CodeQuestionDTO">
-		select * from (select codeQuestion.*, row_number() over(order by seq desc) rown from codeQuestion) where rown between #{start} and #{end}
+		select codeQuestion.*,(select count(*) from codeReply where queSeq=codeQuestion.seq) as replyCount from (select codeQuestion.*, row_number() over(order by seq desc) rown from codeQuestion) codeQuestion where rown between #{start} and #{end} order by seq desc
 	</select>
 	<select id="getCohowTotal" resultType="integer">
 		select count(*) from codeQuestion
 	</select>	
-
+	<delete id="delCohowAllCo">
+		delete from codeComments where queSeq=#{queSeq}
+	</delete>
+	<delete id="delCohowAllReply">
+		delete from codeReply where queSeq = #{queSeq}
+	</delete>
+	<delete id="delCohow">
+		delete from codeQuestion where seq=#{seq}
+	</delete>
+	<select id="detailViewCohow" resultType="kh.hello.dto.CodeQuestionDTO">
+		select * from codeQuestion where seq = #{seq}
+	</select>
+	<select id="getCohowReply" resultType="kh.hello.dto.CodeReplyDTO">
+		select * from codeReply where queSeq = #{queSeq} order by 1
+	</select>
+	<select id="getCohowCo" resultType="kh.hello.dto.CodeCommentsDTO">
+		select * from codeComments where queSeq=#{queSeq} order by seq
+	</select>
 </mapper>
