@@ -54,10 +54,11 @@
 				  <thead class="thead-light">
 				    <tr>
 				      <th scope="col">글번호</th>
-				      <th scope="col">분야/직무</th>
+				      <th scope="col">분야</th>
+				      <th scope="col">직무</th>
 				      <th scope="col">제목</th>
 				      <th scope="col">작성자</th>
-				      <th scope="col">작성날짜</th>
+				      <th scope="col">작성일</th>
 				      <th scope="col">조회수</th>
 				    </tr>
 				  </thead>
@@ -70,7 +71,8 @@
 				  			<c:forEach items="${industryStatusList }" var="i">
 				  				<tr>
 				  					<th scope="row">${i.seq }</th>
-				  					<td>${i.field }/${i.duty }</td>
+				  					<td>${i.field }</td>
+				  					<td>${i.duty }</td>
 				  					<td><a href="/industry/industryStatusDetailView.do?seq=${i.seq }">${i.title } 
 				  						<c:if test="${i.commentCount>0 }">
 				  							<span class="pComment font-weight-bold">${i.commentCount }</span>
@@ -90,6 +92,8 @@
 					<form action="/industry/industrySearch.do" method="post">
 					<select name=value>
 						<option value="all">전체</option>
+						<option value="field">분야</option>
+						<option value="duty">직무</option>
 						<option value="writer">작성자</option>
 						<option value="title">제목</option>
 					</select>
