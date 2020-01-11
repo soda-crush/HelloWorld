@@ -117,9 +117,12 @@ button{
 	            $(function(){
 	                if(document.cookie != ""){
 	                    var cookie = cookieAsJSON();
-	                    $("#id").val(cookie.id);
-	                    $("#remID").prop("checked","true");
-	                    
+	                    var id = cookie.id;
+	                    console.log("id:"+id+":");
+	                    if(id != "" && id != null){
+	                    	$("#id").val(id);
+		                    $("#remID").prop("checked","true");
+	                    }  
 	                }
 	            })
         		//체크하는 순간 인풋 내용을 쿠키에 저장

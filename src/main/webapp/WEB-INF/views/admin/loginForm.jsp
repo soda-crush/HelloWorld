@@ -91,8 +91,11 @@
 		    
 		    if(document.cookie != ""){
 		    	var cookie = cookieAsJson();
-		    	$("#name").val(cookie.adminId);
-		    	$("#ckb1").prop("checked", true);
+		    	var id = cookie.adminId;
+		    	if(id != "" && id != null){
+		    		$("#name").val(id);
+		    		$("#ckb1").prop("checked", true);
+		    	}	    	
 		    }
 		    
 	})
