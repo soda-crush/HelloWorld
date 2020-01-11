@@ -308,7 +308,7 @@ span:nth-child(4) {
 			                  html.push(
 			                        '<div class="row commentDiv commentBox'+resp[i].repSeq+resp[i].seq+' p-0 pb-2 m-2"><div class="col-12 commentInnerBox"><div class="row commentHeader">',
 //			                         '<div class="col-1 profileBox pl-1 pt-2"></div>',
-			                        '<div class="col-7 pt-1"><div class="row commentInfo">',
+			                        '<div class="col-8 pt-3"><div class="row commentInfo">',
 			                        '<div class="col-12 commentWriter">'+resp[i].writer+'</div>',
 			                        '<div class="col-12 commentWriteDate">'+resp[i].formedWriteDate+'</div></div></div>',
 			                        '<div class="col-4 pt-2 text-right commentBtns">'
@@ -439,7 +439,7 @@ span:nth-child(4) {
 	                  html.push(
 	                        '<div class="row commentDiv commentBox'+resp[i].repSeq+resp[i].seq+' p-0 pb-2 m-2"><div class="col-12 commentInnerBox"><div class="row commentHeader">',
 //			                         '<div class="col-1 profileBox pl-1 pt-2"></div>',
-	                        '<div class="col-7 pt-1"><div class="row commentInfo">',
+	                        '<div class="col-8 pt-3"><div class="row commentInfo">',
 	                        '<div class="col-12 commentWriter">'+resp[i].writer+'</div>',
 	                        '<div class="col-12 commentWriteDate">'+resp[i].formedWriteDate+'</div></div></div>',
 	                        '<div class="col-4 pt-2 text-right commentBtns">'
@@ -524,7 +524,7 @@ span:nth-child(4) {
 	  	                  html.push(
 	  	                        '<div class="row commentDiv commentBox'+resp[i].repSeq+resp[i].seq+' p-0 pb-2 m-2"><div class="col-12 commentInnerBox"><div class="row commentHeader">',
 //	  			                         '<div class="col-1 profileBox pl-1 pt-2"></div>',
-	  	                        '<div class="col-7 pt-1"><div class="row commentInfo">',
+	  	                        '<div class="col-8 pt-3"><div class="row commentInfo">',
 	  	                        '<div class="col-12 commentWriter">'+resp[i].writer+'</div>',
 	  	                        '<div class="col-12 commentWriteDate">'+resp[i].formedWriteDate+'</div></div></div>',
 	  	                        '<div class="col-4 pt-2 text-right commentBtns">'
