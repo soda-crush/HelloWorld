@@ -24,6 +24,8 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath }/adRsc/css/responsive.css">
 <!-- modernizr css -->
 <script src="${pageContext.request.contextPath }/adRsc/vendor/modernizr-2.8.3.min.js"></script>
+<!-- jquery latest version -->
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <style>
 #home-tab:hover{
 cursor:default;
@@ -36,9 +38,20 @@ cursor:default;
 		width: 90px;
 	}
 	.replyCard{
-		border:1px solid black;
+		border:1px solid #e2e2df;
 		margin-bottom:10px;
 	}
+	div[class^=commentArea]{
+		background-color: #f5f5f2;
+	}
+	.ti-trash{
+		color:blue;
+	}
+	.ti-trash:hover{
+		cursor:pointer;
+		color:gray;
+	}
+	
 </style>
 </head>
 <body>
@@ -132,7 +145,7 @@ cursor:default;
 						<div class="col-lg-12 contentCard">
 							<c:choose>
 								<c:when test="${rdto.size() >0}">
-									<c:forEach items="${rdto}" var="r">
+									<c:forEach items="${rdto}" var="r" varStatus="status">
 										<div class="card replyCard">
 											<div class="card-body pb-0">
 												<div class="invoice-area">
@@ -151,28 +164,79 @@ cursor:default;
 																<hr>
 															</div>
 														</div>
-													</div>
-			
+													</div>			
 												</div>
 												<div class="invoice-buttons">
 													<div class="row">
-														<div class="text-left col-6">												
+														<div class="text-left col-6" id="openBtnChange${r.seq}">												
 															<button type="button" class="btn btn-secondary mb-3" id="open${r.seq}">댓글열기</button>
 														</div>									
 														<div class="text-right col-6">
 															<button type="button" class="btn btn-secondary mb-3" id="delReply${r.seq}">삭제하기</button>
 														</div>
 													</div>
+													<hr class="m-0">
 												</div>
+											</div>
+											<div class="card-body p-0">
+												<div class="commentArea${r.seq}">
+													<c:forEach items="${list}" var="c">																										
+														<c:choose>
+															<c:when test="${c.repSeq == r.seq}">
+																<div class="commentBox col-12 pt-2 pb-2">
+																	<div class="row">
+																		<div class="commentInfo col-12">
+																			<div class="row pl-3 pr-3">
+																				<div class="col-12"><div class="row">
+																				<p class="col-10"><strong>${c.writer}</strong>(${c.id})</p>
+																				<p class="col-2 text-right"><i class="ti-trash" id="delCo${c.repSeq}${c.seq}"><small>&nbsp;삭제</small></i></p>
+																				</div></div>
+																			</div>
+																		</div>
+																		<div class="commentContents col-12">
+																			<p class="col-12">${c.content}</p>
+																			<p class="col-12 text-secondary"><small>${c.formedWriteDateForAdmin}</small></p>
+																		</div>
+																	</div>
+																</div>
+																<hr class="m-0 mt-2 ml-2 mr-2">																
+															</c:when>
+														</c:choose>																									
+													</c:forEach>
+												</div>
+											</div>
+											<div class="card-body p-2">
+												<div class="replyCount">
+													<div class="row">
+														<div class="col-12">											
+															<p class="text-center text-secondary">(${status.count}/${rdto.size()})</p>
+														</div>									
+													</div>
+												</div>											
 											</div>
 										</div>	
 										<script>
-											$("#open${r.seq}").on("click", function(){
-												//댓글 창 열기
+											$(".commentArea${r.seq}").css("display", "none");
+											$(document).on("click", "#open${r.seq}", function(){
+												$(".commentArea${r.seq}").css("display", "block");	
+												$(this).remove();
+												var btn = $("<button type='button' class='btn btn-secondary mb-3' id='close${r.seq}'>댓글닫기</button>");
+												var target = $("#openBtnChange${r.seq}");
+												target.append(btn);
+											})
+											$(document).on("click", "#close${r.seq}", function(){
+												$(".commentArea${r.seq}").css("display", "none");	
+												$(this).remove();
+												var btn = $("<button type='button' class='btn btn-secondary mb-3' id='open${r.seq}'>댓글열기</button>");
+												var target = $("#openBtnChange${r.seq}");
+												target.append(btn);												
 											})
 											$("#delReply${r.seq}").on("click", function(){
 												//답글 삭제하기
 												location.href="${pageContext.request.contextPath}/adBoard/delCohowReply?seq=${qdto.seq}";
+											})
+											$("#delCo${c.repSeq}${c.seq}").on("click", function(){
+												//댓글 삭제하기
 											})
 										</script>
 									</c:forEach>							
@@ -191,8 +255,6 @@ cursor:default;
     </div>
     <!-- page container area end -->
 
-    <!-- jquery latest version -->
-    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <!-- bootstrap 4 js -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
