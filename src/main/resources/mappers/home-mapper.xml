@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Home">
+	
+	<select id="getBam" resultType="kh.hello.dto.BambooDTO">
+		select * from(select bamboo.*,row_number() over(order by seq desc) rown from bamboo   
+		where writeDate > (sysDate-7)
+		order by writeDate desc,viewCount desc) where rown between 1 and 5
+	</select>
+	
+<!-- 	<select id="getCode" resultType="kh.hello.dto.CodeQuestionDTO"> -->
+<!-- 		select -->
+<!-- 	</select> -->
+	
+	<select id="getIndus" resultType="kh.hello.dto.IndustryStatusDTO">
+		select * from(select industryStatus.*,row_number() over(order by seq desc) rown from industryStatus   
+		where writeDate > (sysDate-7)
+		order by writeDate desc,viewCount desc) where rown between 1 and 5
+	</select>
+	
+	<select id="getPro" resultType="kh.hello.dto.ProjectDTO">
+		select * from project
+	</select>
+
+</mapper>
