@@ -89,11 +89,12 @@ public class ProjectController {
 	}
 	
 	@RequestMapping("/writeProc")
-	public String projectWriteConfirm(ProjectDTO dto) {
+	public String projectWriteConfirm(ProjectDTO dto, String sDate, String eDate) {
 //		dto.setWriter((String)session.getAttribute("loginInfo"));
 		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
 		dto.setWriter(sessionValue.getNickName());
 		dto.setId(sessionValue.getId());
+		
 		String path = session.getServletContext().getRealPath("attached/project");
 		int seq = 0;
 		try {

@@ -13,10 +13,9 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/css/project/projectBase.css" type="text/css"/>
 <style>
-	h4{font-weight:bold;}
 iframe.noScrolling{
-  width: 1100px; /*or any other size*/
-  height: 500px; /*or any other size*/
+  width: 1100px;
+  height: 500px;
   overflow: hidden;
 }
 #applyFrame{

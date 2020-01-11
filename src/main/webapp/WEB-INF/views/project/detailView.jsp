@@ -18,9 +18,6 @@
 <link rel="stylesheet" href="/css/project/projectBase.css" type="text/css"/>
 <link rel="stylesheet" href="/css/project/detailView.css" type="text/css"/>
 <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.css" type="text/css"/>
-<script src="/js/project/projectCo.js"></script>
-<style>
-</style>
 </head>
 
 <body>
@@ -158,6 +155,13 @@
 									</div>								
 		        				</div>
 							</div>
+							<div>
+								<input type="hidden" id="pageSeq" value="${pPage.seq }">
+								<input type="hidden" id="sessionId" value="${sessionScope.loginInfo.id }">
+								<input type="hidden" id="applyCount" value="${pPage.applyCount}">
+								<input type="hidden" id="autoComData" value="${data}">
+								<input type="hidden" id="writerId" value="${pPage.id }">
+							</div>
 						</div>
 					</c:if>
 				</div>
@@ -185,10 +189,11 @@
                 </div>
             </div>
         </div>
-
-		<jsp:include page="/WEB-INF/views/project/jsp/applyModal.jsp"/>        
+		              
+        <jsp:include page="/WEB-INF/views/project/jsp/applyModal.jsp"/>        
 		<jsp:include page="/WEB-INF/views/project/jsp/applyConfirmModal.jsp"/>
-        <jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
+		<jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
+		
 		<script>
 		function coReplyFunction(seq){
 			console.log("확인");
@@ -207,7 +212,7 @@
 					'</div>',										
 					'</div>',
 					'<div class="row">',
-					'<div class="col-12"><input type="hidden" name="projectSeq" value="${pPage.seq}"><input type="hidden" name="parentSeq" value='+seq+'>',
+					'<div class="col-12"><input type="hidden" name="projectSeq" value="'+$("#pageSeq").val()+'"><input type="hidden" name="parentSeq" value='+seq+'>',
 					'<button type="button" class="btn btn-warning" id="coReplyWriteBtn">작성</button>',
 					'</div>',										
 					'</div>',								
@@ -251,7 +256,7 @@
 				url : "/project/scrap",
 				type : "post",
 				data : {
-					categorySeq : "${pPage.seq}"
+					categorySeq : $("#pageSeq").val()
 				}
 			}).done(function(resp){
 				console.log("성공");
@@ -268,7 +273,7 @@
 				url : "/project/unScrap",
 				type : "post",
 				data : {
-					categorySeq : "${pPage.seq}"
+					categorySeq : $("#pageSeq").val()
 				}
 			}).done(function(resp){
 				console.log("성공");
@@ -281,21 +286,21 @@
 			});
 		});
 		$("#applyCheckBtn").on("click",function(){
-			location.href="/project/applyCheck?projectSeq=${pPage.seq}";	
+			location.href="/project/applyCheck?projectSeq="+$("#pageSeq").val();	
 		});
 		
-		var loginInfo = "${sessionScope.loginInfo}";
+//		var loginInfo = $("#sessionId");
 			$("#pCloseBtn").on("click",function(){
 				var check = confirm("프로젝트 모집을 마감하시겠습니까?\n마감된 모집글은 상태를 변경할 수 없습니다.");
 				if(check){
-					location.href="/project/closeProject?seq=${pPage.seq}";
+					location.href="/project/closeProject?seq="+$("#pageSeq").val();
 				}
 			});
-			var applyCount = ${pPage.applyCount};
+			var applyCount = $("#applyCount").val();
            	$("#pDelBtn").on("click",function(){
            		var check = confirm("정말 삭제하시겠습니까?");
            		if(check){
-           			location.href="/project/deleteProc?seq=${pPage.seq}";
+           			location.href="/project/deleteProc?seq="+$("#pageSeq").val();
            		}
            	});
            	
@@ -311,7 +316,7 @@
     			html.push(
     					'<div class="col-12 coModBox mt-2 mb-2"><div class="row">',
     					'<div class="col-9 col-md-10 col-xl-11 pr-0"><textarea class="form-control" placeholder="댓글 내용을 입력해주세요" id="pCoModContents" style="height:80px;" name="contents">'+contents+'</textarea></div>',
-    					'<div class="col-3 col-md-2 col-xl-1"><input type="hidden" name="seq" value="'+seq+'"><input type="hidden" name="projectSeq" value="${pPage.seq }">',
+    					'<div class="col-3 col-md-2 col-xl-1"><input type="hidden" name="seq" value="'+seq+'"><input type="hidden" name="projectSeq" value="'+$("#pageSeq").val()+'">',
     					'<div class="row">',
     					'<div class="col-12 text-center p-0">',
     					'<button type="button" class="btn btn-secondary" style="margin-bottom:5px;width:80%;" id="coMoCancel">취소</button>',
@@ -366,7 +371,7 @@
            				dataType : "json",
            				data :{
            					seq:seq,
-           					projectSeq : "${pPage.seq}"
+           					projectSeq : $("#pageSeq").val()
            				}
            			}).done(function(resp){
     					$(".pPageComments").html("");
@@ -394,7 +399,7 @@
 					type : "post",
 					dataType : "json",
 					data :{
-						projectSeq : "${pPage.seq}",
+						projectSeq : $("#pageSeq").val(),
 						contents : $("#pCoContents").val(),						
 					}
 				}).done(function(resp){
@@ -407,16 +412,14 @@
 				})
 			});
 			
-			var result = ${data};
+			var result = $("#autoComData").val();
 			var data = JSON.stringify(result);			
 			var task = new Bloodhound({
 				datumTokenizer: Bloodhound.tokenizers.obj.whitespace("text"),
 				queryTokenizer: Bloodhound.tokenizers.whitespace,
 				local: jQuery.parseJSON(data) //your can use json type
-			});
-		
-			task.initialize();
-		
+			});		
+			task.initialize();		
 			var elt = $("#languages");
 			elt.tagsinput({
 				itemValue: "value",
@@ -428,6 +431,8 @@
 				}
 			});
 			
+			$("#applyProjectSeq").val($("#pageSeq").val());
+			$("#leaderId").val($("#writerId").val());
 			$("#applyFrm").on("keypress", function(e) {
 		        if(e.keyCode == 13) {
 		        	e.preventDefault();
@@ -462,7 +467,7 @@
 			
 
 			function commentRecall(resp){
-				var loginInfo = "${sessionScope.loginInfo.id}";
+				var loginInfo = $("#sessionId").val();
 				for(var i=0;i<resp.length;i++){
 					var html = [];
 					html.push(
@@ -515,7 +520,7 @@
 					$(".pPageComments").append(html.join(""));	
 				}
 			}	
-         </script>            
-            
+		
+		</script>
 </body>
 </html>

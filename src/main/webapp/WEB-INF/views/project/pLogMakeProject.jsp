@@ -13,16 +13,12 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/css/project/projectBase.css" type="text/css"/>
 <link rel="stylesheet" href="/css/project/pLogList.css" type="text/css"/>
-<style>
-body{background-color:#f2f2f2;}
-#pageTitle{margin-bottom:20px;}
-#pageTitle h4{font-weight:bold;}
-</style>
 </head>
+
 <body>
 			<div>
 				<div id="pageTitle" class="row">
-					<div class="col-12"><h4>내가 모집한 프로젝트</h4></div>					
+					<div class="col-12"><h4>내가 <span style="color:#1D1294;">모집</span>한 프로젝트</h4></div>					
 				</div>
 				<div class="tableDiv" style="width:100%;">
 					<div class="row tableHead">					    
@@ -75,7 +71,7 @@ body{background-color:#f2f2f2;}
 						<button class="btn btn-success" type="button" onclick="popUp('/project/write')">글쓰기</button>			
 					</div>
 				</div>
-				<nav aria-label="List navi" id="pPageNavi">${makePageNavi }</nav>
+				<nav aria-label="List navi" id="mPageNavi">${makePageNavi }</nav>
 			</div>
 		<script>
 			function popUp(link){
