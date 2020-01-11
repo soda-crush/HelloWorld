@@ -118,7 +118,6 @@ button{
 	                if(document.cookie != ""){
 	                    var cookie = cookieAsJSON();
 	                    var id = cookie.id;
-	                    console.log("id:"+id+":");
 	                    if(id != "" && id != null){
 	                    	$("#id").val(id);
 		                    $("#remID").prop("checked","true");
