@@ -189,7 +189,6 @@ font-size: 11px;}
             	</c:choose>
             	</div>
             	
-            	
             </div>
             
             <!--       몸통 끝!!!   -->
