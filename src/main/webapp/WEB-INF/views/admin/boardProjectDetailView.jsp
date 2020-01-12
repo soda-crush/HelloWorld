@@ -38,6 +38,9 @@ cursor:default;
 	.depthCom{
 		border-top: 1px solid #dee2e6;
 	}
+	.notification-area {
+		text-align:right;
+	}	
 </style>
 </head>
 <body>

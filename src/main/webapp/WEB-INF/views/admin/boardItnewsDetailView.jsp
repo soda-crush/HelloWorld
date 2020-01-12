@@ -35,6 +35,9 @@ cursor:default;
 		display: inline-block;
 		width: 90px;
 	}
+	.notification-area {
+		text-align:right;
+	}	
 </style>
 </head>
 <body>

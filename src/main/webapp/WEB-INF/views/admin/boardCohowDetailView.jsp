@@ -51,7 +51,16 @@ cursor:default;
 		cursor:pointer;
 		color:gray;
 	}
+	.selected span{
+		font-size: 12px;	
+	}
 	
+	.selected2 span{
+		font-size: 35px;
+	}
+	.notification-area {
+		text-align:right;
+	}	
 </style>
 </head>
 <body>
@@ -166,8 +175,22 @@ cursor:default;
 												<div class="invoice-area">
 													<div class="invoice-head">
 														<div class="row">
-															<div class="iv-left col-12">
-																<span><strong>${r.writer}(${r.id})</strong>님의 답변입니다</span>
+															<c:if test="${r.adopt == 'Y'}">
+																<div class="col-12 selected d-lg-none">
+																<span class="ti-crown text-warning"></span><span class="icon-name">&nbsp;질문자 채택</span>
+																</div>
+															</c:if>
+															<div class="col-12">
+																<div class="row">
+																	<c:if test="${r.adopt == 'Y'}">
+																	<div class="col-1 selected2 d-none d-lg-block text-left">
+																		<span class="ti-crown text-warning col-12 text-left"></span>
+																	</div>
+																	</c:if>																
+																	<div class="iv-left col-12 col-lg-11">																		
+																		<span><strong>${r.writer}(${r.id})</strong>님의 답변입니다</span>
+																	</div>
+																</div>
 															</div>
 														</div>
 													</div>
