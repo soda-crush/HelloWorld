@@ -27,11 +27,10 @@ public class MemberInquiryController {
 	
 	@RequestMapping("/myInquiry")
 	public String getMyInquiryList(String page, Model m){
-		//나중에 지우기
-		session.setAttribute("loginInfo", new LoginInfoDTO("글슨사람", "글슨사람닉네임"));		
+
 		LoginInfoDTO loginInfo = (LoginInfoDTO)session.getAttribute("loginInfo");
 		String id = loginInfo.getId();
-		//
+
 		int currentPage = 1;		
 		if(page!= null && !page.equals("") && !page.equals("null")) currentPage = Integer.parseInt(page);
 				
@@ -56,9 +55,7 @@ public class MemberInquiryController {
 	}
 	
 	@RequestMapping("/writeInquiry")
-	public String writeInquiry(String page, InquiryDTO dto) {
-		//나중에 지우기
-		session.setAttribute("loginInfo", new LoginInfoDTO("글슨사람", "글슨사람닉네임"));		
+	public String writeInquiry(String page, InquiryDTO dto) {	
 		LoginInfoDTO loginInfo = (LoginInfoDTO)session.getAttribute("loginInfo");
 		
 		String nickName = loginInfo.getNickName();
@@ -70,7 +67,7 @@ public class MemberInquiryController {
 		
 		try {
 			int seq = ms.writeInquiry(path, dto);
-			if(seq > 0) {//detailView 완성하면 경로 변경하기
+			if(seq > 0) {
 				return "redirect:detailViewInquiry?page="+page+"&seq="+seq;
 			}else {
 				return "redirect:../error";
@@ -106,8 +103,7 @@ public class MemberInquiryController {
 	public String modifyInquiry(String page, InquiryDTO dto) {
 		String path = session.getServletContext().getRealPath("attached");
 		
-		//나중에 지우기
-		session.setAttribute("loginInfo", new LoginInfoDTO("글슨사람", "글슨사람닉네임"));		
+		//나중에 지우기	
 		LoginInfoDTO loginInfo = (LoginInfoDTO)session.getAttribute("loginInfo");
 				
 		String nickName = loginInfo.getNickName();
@@ -128,9 +124,7 @@ public class MemberInquiryController {
 	
 	@RequestMapping("/deleteInquiry")
 	public String deleteInquiry(String page, int seq, Model m) {
-		String path = session.getServletContext().getRealPath("attached/inquiry");
-		
-		
+		String path = session.getServletContext().getRealPath("attached/inquiry");		
 		try {
 			int result = ms.deleteInquiry(path, seq);
 			m.addAttribute("result", result);

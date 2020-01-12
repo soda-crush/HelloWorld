@@ -1,11 +1,14 @@
 package kh.hello.services;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.google.gson.Gson;
 
 import kh.hello.configuration.Configuration;
 import kh.hello.dao.AdBoardDAO;
@@ -448,11 +451,42 @@ public class AdBoardService {
 	}
 	
 	public List<CodeReplyDTO> getCohowReply(int queSeq){
-		return bdao.getCohowReply(queSeq);
+		List<CodeReplyDTO> result = bdao.getCohowReply(queSeq);
+		for(CodeReplyDTO dto : result) {
+			int count = bdao.getReplyCommentCount(dto.getSeq());
+			dto.setCommentCount(count);
+		}
+		return result;
+	}
+	
+	public int getReplyCommentCount(int repSeq) {
+		return bdao.getReplyCommentCount(repSeq);
 	}
 	
 	public List<CodeCommentsDTO> getCohowCo(int queSeq){
 		return bdao.getCohowCo(queSeq);
+	}
+	
+	public int delCohowCo(int seq) {
+		return bdao.delCohowCo(seq);
+	}
+	
+	public String getCohowCoByRep(int repSeq){
+		List<CodeCommentsDTO> list = bdao.getCohowCoByRep(repSeq);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+		for(CodeCommentsDTO dto : list) {			
+			dto.setFormedWriteDate(sdf.format(dto.getWriteDate()));
+		}
+		Gson g = new Gson();		
+		return g.toJson(list);
+	}
+	
+	@Transactional("txManager")
+	public int delCohowReply(int seq) {
+		//답글에 달린 댓글 삭제
+		bdao.delCohowCoByRep(seq);
+		//답글 삭제
+		return bdao.delCohowReply(seq);
 	}
 }
 
