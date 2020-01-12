@@ -138,18 +138,16 @@ span:nth-child(4) {
 				<br>
 				<div class="botD"><img src="/icon/Cicon.svg"> ${qResult.writer} ${qResult.formedDate} 조회수${qResult.viewCount}</div>
 				<br>
-				<!-- 아래 비로그인일때도 보이는지..? -->
+
 				<c:choose>
 					<c:when test="${qResult.id!=sessionScope.loginInfo.id}">
-						<div style="text-align: right;" class="btnDIv">
-<%-- 						<c:forEach items="${rResult}" var="r"> --%>
-<%-- 							<c:set var="count" value="${qResult.replyCount==0}" /> --%>
-<%-- 							<c:if test="${sessionScope.loginInfo == count  == ${qResult.seq}"> --%>
-								<c:if test="${count==0}">
+						<div style="text-align: right;" class="btnDIv">							
+<%-- 							<c:forEach items="${rResult}" var="r" end="0"> --%>
+								<c:if test="${count==0 && adoptCount==0}">
+<%-- 								<c:if test="${count==0}"> --%>
 									<a class="btn btn-dark" href="/code/codeRWrite.do?seq=${qResult.seq}" role="button">답변</a>
 								</c:if>
-<%-- 							</c:if> --%>
-<%-- 						</c:forEach> --%>
+<%-- 							</c:forEach> --%>
 							<button class="btn btn-dark">공유</button>
 							<button class="btn btn-dark" id="scrap">스크랩</button>
 							<a class="btn btn-dark" href="/code/codeQList.do" role="button">목록</a>
@@ -159,51 +157,40 @@ span:nth-child(4) {
 					<c:otherwise>
 						<div style="text-align: right;">
 							<button class="btn btn-dark" class="btnDIv2" id="modify">수정</button>
-							<button class="btn btn-danger" class="btnDIv2" id="delete">삭제</button>
+<!-- 							삭제버튼 눌렀을때 답변 갯수 있는지 체크하고 삭제처리, 답변이 있으면 삭제가 안됨. -->
+							<c:if test="${repCount==0}">
+								<button class="btn btn-danger" class="btnDIv2" id="delete">삭제</button>
+							</c:if>							
 						</div>
 					</c:otherwise>
 				</c:choose>
-<!-- 				<hr> -->
-<!-- 				<hr> -->
-			<!-- <div style="text-align: center; margin-right: 200px;">A2개</div> -->
 	
 <!-- 답글 시작-->
 			<c:forEach items="${rResult}" var="r">
 					<div class="topQ">
 					<hr>
 					<hr>
-<%-- 						<input type="hidden" id="seqSelect" data-repNum="${r.seq}">  --%>
-<%-- 						<input type="hidden" class="parent${r.queSeq}" value="${r.queSeq}"> --%>
-
 				<div class="row">
-					<div class="col-9">
+					<div class="col-10">
 						<div style="font-size: 40px; font-weight: 100;">${r.writer}님의 답변입니다.</div>
 					</div>
-					<div class="col-3">
-<%-- 						<c:if test="${r.adopt=='Y'}"> --%>
-<!-- 							<span class="badge badge-pill badge-success" style="margin: 10; padding: 10; width: 20px; font-size: 20px;">질문자채택</span> -->
-<%-- 						</c:if> --%>
+					<div class="col-2">
+						<c:if test="${r.adopt=='Y'}">
+							<img src="/icon/check.png" width=150 height=150><h3 style="color:red;">질문자채택</h3>
+						</c:if>
 					</div>
 				</div>
 						<br>
 						<div id="content">${r.content}</div>									
 						<br>
-<%-- 							<c:if test="${cResult.size()>0 }"> --%>
-<%-- 								<c:forEach items="${cResult }" var="c"> --%>
-<%-- 									${c.content}<br> --%>
-<%-- 								</c:forEach> --%>
-<%-- 							</c:if> --%>
-						<div>${r.formedDate}</div>
-						
+						<div>${r.formedDate}</div>						
 						
 <!-- 채택 -->										
 						<c:if test="${repCount >0 && qResult.id == sessionScope.loginInfo.id}"> 
 								<div style="text-align:right;">
-<%-- 									<c:if test="${r.adopt=='N'}"> --%>
-<%-- 										<button type="button" class="btn btn-primary" id="adopt" onclick="adopt('${r.id}')">채택하기</button> --%>
-<%-- 									</c:if> --%>
-
-<%-- 									<a class="btn btn-info adopt" href="#" onclick="adopt('${r.id}');return false;" role="button">채택하기</a> --%>
+									<c:if test="${r.adopt=='N'}">
+										<button type="button" class="btn btn-primary" id="adopt" onclick="adopt('${r.id}')">채택하기</button>
+									</c:if>
 								</div>
 						</c:if>
 						<br>
@@ -281,7 +268,6 @@ span:nth-child(4) {
 				
 				<script>
 				$("#coWriteBtn${r.seq}").on("click",function(){
-					console.log("클릭");
 					if($("#pCoContents${r.seq}").val()==""){
 				           alert("댓글 내용을 입력해주세요.");
 				           return false;
@@ -329,12 +315,12 @@ span:nth-child(4) {
 				           //
 				        }
 				        }).fail(function(resp){
-				           console.log("실패");
-				           console.log(resp);
+				        	
 				        })				
 				})				
 				</script>
 	</c:forEach>
+	
 <!-- 	답글끝 -->
 
 						<br>
@@ -460,14 +446,12 @@ span:nth-child(4) {
 	                  $(".pPageComments"+repSeq).append(html.join(""));   
 		        }
 		        }).fail(function(resp){
-		           console.log("실패");
-		           console.log(resp);
+
 		        })
             }
 		}
 		
-		function coModFunction(queSeq,repSeq,seq,content){
-			console.log("coModFunction");		
+		function coModFunction(queSeq,repSeq,seq,content){	
 			if($("#pCoModContents").length>0){
 				alert("현재 열려있는 댓글 수정창이 있습니다.");
 				return false;
@@ -514,8 +498,6 @@ span:nth-child(4) {
 				dataType : "json",
 				data : $("#coModFrm").serialize()
 			}).done(function(resp){
-				console.log("성공");
-				console.log(resp);
 	               $(".pPageComments"+resp[0].repSeq).html("");               
 	               //call list
 	  	               var loginInfo = "${sessionScope.loginInfo.id}";
@@ -545,8 +527,7 @@ span:nth-child(4) {
 	  	                  $(".pPageComments"+resp[0].repSeq).append(html.join(""));   
 	  		        }
 			}).fail(function(resp){
-				console.log("실패");
-				console.log(resp);
+				
 			})
        	});       	
 		
