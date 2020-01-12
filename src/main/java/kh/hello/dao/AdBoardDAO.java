@@ -233,4 +233,12 @@ public class AdBoardDAO {
 	public List<CodeCommentsDTO> getCohowCoByRep(int repSeq){
 		return jdbc.selectList("AdBoard.getCohowCoByRep", repSeq);
 	}
+	
+	public int delCohowCoByRep(int repSeq) {
+		return jdbc.delete("AdBoard.delCohowCoByRep", repSeq);
+	}
+	
+	public int delCohowReply(int seq) {
+		return jdbc.delete("AdBoard.delCohowReply", seq);
+	}
 }

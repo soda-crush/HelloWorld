@@ -233,7 +233,7 @@ cursor:default;
 											})
 											$("#delReply${r.seq}").on("click", function(){
 												//답글 삭제하기
-												location.href="${pageContext.request.contextPath}/adBoard/delCohowReply?seq=${qdto.seq}";
+												location.href="${pageContext.request.contextPath}/adBoard/delCohowReply?page=${page}&seq=${qdto.seq}&repSeq=${r.seq}";
 											})
 										</script>
 									</c:forEach>							

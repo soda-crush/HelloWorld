@@ -471,6 +471,14 @@ public class AdBoardService {
 		Gson g = new Gson();		
 		return g.toJson(list);
 	}
+	
+	@Transactional("txManager")
+	public int delCohowReply(int seq) {
+		//답글에 달린 댓글 삭제
+		bdao.delCohowCoByRep(seq);
+		//답글 삭제
+		return bdao.delCohowReply(seq);
+	}
 }
 
 

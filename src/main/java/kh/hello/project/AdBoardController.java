@@ -335,6 +335,16 @@ public class AdBoardController {
 			return obj.toString();
 		}
 	}
+	
+	@RequestMapping("/delCohowReply")
+	public String delCohowReply(int seq, int repSeq, String page) {
+		int result = bs.delCohowReply(repSeq);
+		if(result > 0) {
+			return "redirect:/adBoard/detailViewCohow?page="+page+"&seq="+seq;
+		}else {
+			return "redirect:/admin/adminError";
+		}
+	}
 
 }
 
