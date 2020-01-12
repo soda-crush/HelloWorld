@@ -12,10 +12,9 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/css/mainBase.css">
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
 <style>
-div{
-border : 0.5px solid green;
-}
 .boardCon{
 padding-left: 3%;
 padding-right: 3%;
@@ -25,7 +24,7 @@ width: 100%;
 background-color: white;
 }
 .boardEleTop{
-padding-top: 5%;padding-bottom: 0%;color:white;padding-left: 2%;}
+padding-top: 5%;padding-bottom: 3%;color:white;padding-left: 2%;}
 .bdt1{
 background-color:#c25f55;}
 .bdt2{
@@ -53,6 +52,7 @@ padding-right: 1%;
 width: 100%;
 height: 300px;
 background-color: white;
+border-radius: 2%;
 }
 #adverEle{
 width:100%;
@@ -60,10 +60,7 @@ height: 200px;
 background-color: lightgray;
 text-align: center;
 line-height: 200px;
-padding: 0px;
 }
-.adverCon{
-padding: 0px;}
 .fs1{
 font-size: 11px;}
 </style>
@@ -160,31 +157,38 @@ font-size: 11px;}
             	</div>
             	
             	<div class="row">
-            		<div class="col-3 projectCon">
-            			<div class="projectEle">
-            				프로젝트 테스트<br>
-            				테스트
-            			</div>
-            		</div>
-            		<div class="col-3 projectCon">
-            			<div class="projectEle">
-            				프로젝트 테스트<br>
-            				테스트
-            			</div>
-            		</div>
-            		<div class="col-3 projectCon">
-            			<div class="projectEle">
-            				프로젝트 테스트<br>
-            				테스트
-            			</div>
-            		</div>
-            		<div class="col-3 projectCon">
-            			<div class="projectEle">
-            				프로젝트 테스트<br>
-            				테스트
-            			</div>
-            		</div>
+            	<c:choose>
+            		<c:when test="${proList.size()!=0}">
+            		<c:set var="cnt" value="1"/>
+            			<c:forEach items="${proList}" var="pro">
+            			<c:set var="sum" value="${sum+1}"/>
+            				<div class="col-3 projectCon">
+		            			<div class="projectEle text-center" id="projectEle${sum}"  data-aos="fade-up">
+		            			<br>
+		            				<h4>"${pro.languages}"</h4>
+		            				<br>
+		            				${pro.title}<br>
+		            				모집인원 : ${pro.capacity}<br>
+		            				지역 : ${pro.location1}&ensp;${pro.location2}<br>
+		            				팀장 : ${pro.writer}<br>
+		            				기간 : ${pro.startDate}&ensp;~&ensp;${pro.endDate}<br>
+		            			</div>
+            				</div>
+            				<script>
+            				$("#projectEle${sum}").hover(function(){
+            					$("#projectEle${sum}").css("box-shadow","0px 0px 10px #a8a8a8");
+            				},function(){
+            					$("#projectEle${sum}").css("box-shadow","0px 0px 0px #000");
+            				})
+            				$("#projectEle${sum}").on("click",function(){
+            					location.href="${pageContext.request.contextPath}/project/detailView?seq=${pro.seq}";
+            				})
+            				</script>
+            			</c:forEach>
+            		</c:when>
+            	</c:choose>
             	</div>
+            	
             	
             </div>
             
@@ -199,5 +203,10 @@ font-size: 11px;}
         </div>
         
        <jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
+       
+       <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+	   <script>
+	     AOS.init();
+	   </script>
 </body>
 </html>
