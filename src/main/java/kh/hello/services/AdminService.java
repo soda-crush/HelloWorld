@@ -34,6 +34,9 @@ public class AdminService {
 	@Autowired
 	private ChartDAO cdao;
 	
+	@Autowired
+	private CountDAO ctdao;
+	
 	public int validLogin(String adminId, String password) {
 		return adao.validLogin(adminId, password);
 	}
@@ -379,11 +382,10 @@ public class AdminService {
 		return pages;
 	}
 	
-	public Map<String, Integer> getVisitorCount() throws Exception{
-		CountDAO dao = CountDAO.getInstance();
+	public Map<String, Integer> getVisitorCount() throws Exception{		
 		Map<String, Integer> result = new HashMap<>();
-		result.put("today", dao.getVisitTodayCount());
-		result.put("total", dao.getVisitTotalCount());
+		result.put("today", ctdao.getVisitTodayCount());
+		result.put("total", ctdao.getVisitTotalCount());
 		return result;
 	}
 	
