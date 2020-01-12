@@ -111,7 +111,7 @@ public class AdBoardController {
 	public String delGuestBook(int seq, int page) {
 		int result = bs.delGuestBook(seq);
 		if(result > 0) {
-			return "redirect:/adBoard/guestList?page="+page;
+			return "redirect:/adBoard/guestBookList?page="+page;
 		}else {
 			return "redirect:/admin/adminError";
 		}	
