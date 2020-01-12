@@ -221,8 +221,28 @@ public class AdBoardDAO {
 	public List<CodeReplyDTO> getCohowReply(int queSeq){
 		return jdbc.selectList("AdBoard.getCohowReply", queSeq);
 	}
+	
+	public int getReplyCommentCount(int repSeq) {
+		return jdbc.selectOne("AdBoard.getReplyCommentCount", repSeq);
+	}
 
 	public List<CodeCommentsDTO> getCohowCo(int queSeq){
 		return jdbc.selectList("AdBoard.getCohowCo", queSeq);
+	}
+	
+	public int delCohowCo(int seq) {
+		return jdbc.delete("AdBoard.delCohowCo", seq);
+	}
+	
+	public List<CodeCommentsDTO> getCohowCoByRep(int repSeq){
+		return jdbc.selectList("AdBoard.getCohowCoByRep", repSeq);
+	}
+	
+	public int delCohowCoByRep(int repSeq) {
+		return jdbc.delete("AdBoard.delCohowCoByRep", repSeq);
+	}
+	
+	public int delCohowReply(int seq) {
+		return jdbc.delete("AdBoard.delCohowReply", seq);
 	}
 }

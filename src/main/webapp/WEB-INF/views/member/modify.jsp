@@ -66,7 +66,7 @@
             <div class=row>
             	<div class=col-12>
             		<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow>아이디</h5><p class=redP style="display:inline">*</p><br>
-            		&emsp;<h3>${dto.id}</h3>
+            		&emsp;<h3>"${dto.id}"</h3>
             		<img id=idCheck style="display:none;">
             		<div id=idMsg></div>
             	</div>
@@ -190,7 +190,7 @@
             <div class=row>
             	<div class=col-12>
             		<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow>닉네임</h5><p class=redP style="display:inline">*</p><br>
-            		&emsp;<input type=text name=nickName id=nickName  value=${dto.nickName}>
+            		&emsp;<input type=text name=nickName id=nickName  value="${dto.nickName}">
             		<img id=nickCheck style="display:none;">
             		<div id=nickMsg></div>
             	</div>
@@ -221,8 +221,8 @@
             		<h5><img src="/icon/arrow.svg" class=arrow>주소</h5>
             		&emsp;<input type="text" id="postcode" name="postcode" value="${dto.postcode}" readonly>
             		<input type="button" onclick="sample4_execDaumPostcode()" value="찾기"><br>
-            		&emsp;<input type="text" id="addr1" name=addr1  value=${dto.addr1}>
-            		<input type=text name=addr2 id=addr2  value=${dto.addr2}>
+            		&emsp;<input type="text" id="addr1" name=addr1  value="${dto.addr1}">
+            		<input type=text name=addr2 id=addr2  value="${dto.addr2}">
             	</div>
             </div>  <div class=row>
             	<div class=col-12>
@@ -232,7 +232,7 @@
             <div class=row>
             	<div class=col-12>
             		<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow>연락처</h5><p class=redP style="display:inline">*</p><br>
-            		&emsp;<input type=text name=phone id=phone  value=${dto.phone}>
+            		&emsp;<input type=text name=phone id=phone  value="${dto.phone}">
             		<img id=phoneCheck style="display:none;">
             		<div id=phoneMsg></div>
             	</div>

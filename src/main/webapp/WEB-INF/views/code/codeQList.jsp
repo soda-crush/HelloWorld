@@ -138,14 +138,11 @@ badge-success
 							<c:otherwise>
 								<c:forEach items="${list}" var="dto">
 									<tr>
-<%-- 										<a href="/code/codeDetail.do?seq=${dto.seq }"> --%>
 										<th scope="row">${dto.seq}</th>
 										<td><span class="badge badge-pill badge-success"
 											style="margin: 10; width: 60px;">${dto.division}</span></td>
-										<td style="cursor:hand" onClick="location.href='${pageContext.request.contextPath}/code/codeDetail.do?seq=${dto.seq}'">
-<%-- 											<a href="/code/codeDetail.do?seq=${dto.seq }"> --%>
+										<td style="cursor:hand" onClick="detailView(${dto.seq},'${dto.id}')">
 											${dto.title}
-<!-- 											</a> -->
 											<c:if test="${dto.replyCount>0 }">
 					  							<span class="pComment font-weight-bold">${dto.replyCount}</span>
 					  						</c:if>	
@@ -153,7 +150,6 @@ badge-success
 										<td>${dto.writer}  
 										 <span class="badge badge-pill badge-info">실무자</span></td>
 										<td>${dto.point}
-<!-- 											<span class="badge badge-pill badge-warning"></span> -->
 										</td>
 										<td>${dto.formedDate}</td>
 										<td>${dto.viewCount}</td>
@@ -224,6 +220,7 @@ badge-success
 				</div>
 			</div>
 <script>
+
 	$(function(){
 		var element = $(".pageNavi");
 		var page = "${page}";
@@ -239,6 +236,10 @@ badge-success
 	$("#search").on("click",function(){
 		$("frm").submit();
 	})
+	
+	function detailView(seq,id){
+		location.href="${pageContext.request.contextPath}/code/codeDetail.do?seq="+seq+"&id="+id;
+	}
 </script>
 		<jsp:include page="/WEB-INF/views/standard/footer.jsp" />
 </body>

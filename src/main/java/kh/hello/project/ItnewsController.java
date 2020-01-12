@@ -113,7 +113,6 @@ public class ItnewsController {
 	@RequestMapping(value="/coModify",produces="text/html;charset=utf8")
 	@ResponseBody
 	public String coModify(ItnewsCoDTO dto) {
-		System.out.println(dto);
 		is.modifyItnewsCo(dto);
 		return is.coWriteAfter(is.getItSeqBySeq(dto.getSeq()));
 	}

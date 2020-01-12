@@ -468,10 +468,12 @@ public class CodeService {
 		dao.pointRResult(resultPoint2, replyId);
 		dao.updateRepCol(replyId,queSeq); // ADOPT 컬럼 Y로
 		
-//		System.out.println(resultPoint);
-//		System.out.println(resultPoint2);
 		Map<String, Integer> param = new HashMap<>();
 		param.put("resultPoint", resultPoint);
 		param.put("resultPoint2", resultPoint2);
+	}
+	
+	public int adoptCount(int queSeq) {
+		return dao.adoptCount(queSeq);
 	}
 }
