@@ -25,7 +25,7 @@ width: 100%;
 background-color: white;
 }
 .boardEleTop{
-padding-top: 4%;padding-bottom: 2%;color:white;padding-left: 2%;}
+padding-top: 5%;padding-bottom: 0%;color:white;padding-left: 2%;}
 .bdt1{
 background-color:#c25f55;}
 .bdt2{
@@ -41,6 +41,7 @@ line-height: 260%;
 }
 .boardEleCon a{
 color:black;
+font-size: 11px;
 }
 .projectCon{
 padding-top: 3%;
@@ -53,6 +54,18 @@ width: 100%;
 height: 300px;
 background-color: white;
 }
+#adverEle{
+width:100%;
+height: 200px;
+background-color: lightgray;
+text-align: center;
+line-height: 200px;
+padding: 0px;
+}
+.adverCon{
+padding: 0px;}
+.fs1{
+font-size: 11px;}
 </style>
 </head>
 <body>
@@ -74,8 +87,8 @@ background-color: white;
             		<div class="co1-12 col-lg-4 boardCon">
 	            		<div class="boardEle">
 		            		<div class="boardEleTop bdt1">
-		            			<h4>대나무 숲</h4>
-		            			주간 조회수 TOP5
+		            			<p class=mainTitle>대나무 숲</p>
+		            			<p class=fs1>주간 조회수 TOP5</p>
 		            		</div>
 		            		<div class="boardEleCon">
 			            		<c:choose>
@@ -95,8 +108,8 @@ background-color: white;
             		<div class="co1-12 col-lg-4 boardCon">
 	            		<div class="boardEle">
 			            	<div class="boardEleTop bdt2">
-			            		<h4>Code-How</h4>
-			            		주간 스크랩수 TOP5
+			            		<p class=mainTitle>Code-How</p>
+			            		<p class=fs1>주간 스크랩수 TOP5</p>
 			            	</div>
 			            	<div class="boardEleCon">
 			            		<c:choose>
@@ -114,8 +127,8 @@ background-color: white;
             		<div class="co1-12 col-lg-4 boardCon">
 	            		<div class="boardEle">
 			            	<div class="boardEleTop bdt3">
-			            		<h4>업계현황</h4>
-		            			주간 조회수 TOP5
+			            		<p class=mainTitle>업계현황</p>
+		            			<p class=fs1>주간 조회수 TOP5</p>
 			            	</div>
 			            	<div class="boardEleCon">
 			            		<c:choose>
@@ -131,6 +144,18 @@ background-color: white;
 			            		</c:choose>
 			            	</div>
 		            	</div>
+            		</div>
+            	</div>
+            	
+            	<div class= row>
+            		<div class="col-12 adverCon text-center">
+            		<br><br>
+            			<div id=adverEle>
+            				광고 자리
+            			</div>
+            		<br><br>
+            		<h3>진행중인 프로젝트</h3>
+            		<hr>
             		</div>
             	</div>
             	
