@@ -34,7 +34,6 @@ public class MemberController {
 	public String loginFrm(Model m, String result){ //로그인 폼이동
 		if(result != null) {
 			m.addAttribute("result", result);
-			System.out.println(result);
 		}
 		return "member/login";
 	}
@@ -72,7 +71,6 @@ public class MemberController {
 	@RequestMapping(value = "/modifyProc")
 	public String signUpProc(MemberDTO mdto, String empCheck, String empEmail, String unempEmail 
 			,String otherJoinPath, Timestamp birthday, String demotionMail) { //회원가입 프로세스
-		System.out.println(mdto);
 		ms.modify(mdto, empCheck, empEmail, unempEmail, otherJoinPath, birthday, demotionMail);
 		return "redirect:modifyTemp";
 	}
@@ -164,7 +162,6 @@ public class MemberController {
 
 						  return "send";
 			}catch(Exception e) {
-				System.out.println("메일 오류");
 				e.printStackTrace();
 				return "에러";
 			}
@@ -225,7 +222,6 @@ public class MemberController {
 
 							  return "send";
 				}catch(Exception e) {
-					System.out.println("메일 오류");
 					e.printStackTrace();
 					return "에러";
 				}
