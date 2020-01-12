@@ -93,36 +93,52 @@ cursor:default;
 	                                            <div class="iv-left col-6">
 	                                                <span>글읽기</span>
 	                                            </div>
-	                                            <div class="iv-right col-6 text-md-right">
+	                                            <div class="iv-right col-6 text-right">
 	                                                <span>#${dto.seq}</span>
 	                                            </div>
 	                                        </div>
 	                                    </div>
-	                                    <div class="row align-items-center">
-	                                        <div class="col-12">
-	                                            <div class="invoice-address">
-	                                                <h3>${dto.title}</h3>
-	                                                <h5>${dto.writer}(${dto.id})</h5>
-	                                                <p>${dto.formedWriteDate}
-	                                                <hr>
-	                                                	<p><label class="sign"><strong>지역</strong></label><span>${dto.location1} ${dto.location2}</span></p>
-	                                                	<p><label class="sign"><strong>모집인원</strong></label><span>${dto.capacity}</span></p>
-	                                                	<p><label class="sign"><strong>기간</strong></label><span>${dto.formedAllDate}</span></p>
-	                                                	<p><label class="sign"><strong>사용언어</strong></label><span>${dto.languages}</span></p>
-	                                                <hr>
-	                                                <p>${dto.contents }</p>
-	                                                <hr>
-	                                                	<p><label class="sign"><strong>연락처</strong></label><span>${dto.phone}</span></p>
-	                                                	<p><label class="sign"><strong>메일주소</strong></label><span>${dto.email}</span></p>
-	                                                <hr>
-	                                            </div>
-	                                        </div>
-	                                    </div>
+	                                    <c:choose>
+	                                    	<c:when test="${dto.title != null}">
+			                                    <div class="row align-items-center">
+			                                        <div class="col-12">
+			                                            <div class="invoice-address">
+			                                                <h3>${dto.title}</h3>
+			                                                <h5>${dto.writer}(${dto.id})</h5>
+			                                                <p>${dto.formedWriteDate}
+			                                                <hr>
+			                                                	<p><label class="sign"><strong>지역</strong></label><span>${dto.location1} ${dto.location2}</span></p>
+			                                                	<p><label class="sign"><strong>모집인원</strong></label><span>${dto.capacity}</span></p>
+			                                                	<p><label class="sign"><strong>기간</strong></label><span>${dto.formedAllDate}</span></p>
+			                                                	<p><label class="sign"><strong>사용언어</strong></label><span>${dto.languages}</span></p>
+			                                                <hr>
+			                                                <p>${dto.contents }</p>
+			                                                <hr>
+			                                                	<p><label class="sign"><strong>연락처</strong></label><span>${dto.phone}</span></p>
+			                                                	<p><label class="sign"><strong>메일주소</strong></label><span>${dto.email}</span></p>
+			                                                <hr>
+			                                            </div>
+			                                        </div>
+			                                    </div>
+	                                    	</c:when>
+	                                    	<c:otherwise>
+			                                    <div class="row align-items-center">
+			                                        <div class="col-12">
+			                                            <div class="invoice-address">
+			                                               <p class="text-center">삭제된 글 입니다.</p>
+			                                               <hr>
+			                                            </div>
+			                                        </div>
+			                                    </div>	                                    	
+	                                    	</c:otherwise>	                                    	
+	                                    </c:choose>
 	                                   
 	                                </div>
 	                                <div class="invoice-buttons text-right">
 	                                    <a href="${pageContext.request.contextPath}/adBoard/projectList?page=${page}" class="invoice-btn">돌아가기</a>
+	                                    <c:if test="${dto.title != null}">
 	                                    <a href="${pageContext.request.contextPath}/adBoard/delProject?seq=${dto.seq}" class="invoice-btn">삭제하기</a>
+	                                    </c:if>
 	                                </div>
 	                            </div>
 	                        </div>
@@ -133,8 +149,8 @@ cursor:default;
                                 <div class="card" id="replyAppend">
                                 	<c:choose>
                                 		<c:when test="${list.size() == 0}">
-                                			<div class="card-body text-center">
-                                				<strong>댓글이 없습니다.</strong>
+                                			<div class="card-body">
+                                				<p class="text-center">작성된 댓글이 없습니다.</p>
                                 			</div>
                                 		</c:when>
                                 		<c:otherwise>

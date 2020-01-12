@@ -112,25 +112,40 @@ cursor:default;
 												</div>
 											</div>
 										</div>
-										<div class="row align-items-center">
-											<div class="col-12">
-												<div class="invoice-address">
-													<h1>
-														Q&nbsp;<small class="text-muted">${qdto.title}</small>
-													</h1>
-													<h5 class="mt-3 mb-1">${qdto.writer}(${qdto.id})</h5>
-													<p>${qdto.formedWriteDateForAdmin}
-													<hr>
-													<p>${qdto.content}</p>
-													<hr>
+										<c:choose>
+											<c:when test="${qdto.title != null}">
+												<div class="row align-items-center">
+													<div class="col-12">
+														<div class="invoice-address">
+															<h1>
+																Q&nbsp;<small class="text-muted">${qdto.title}</small>
+															</h1>
+															<h5 class="mt-3 mb-1">${qdto.writer}(${qdto.id})</h5>
+															<p>${qdto.formedWriteDateForAdmin}
+															<hr>
+															<p>${qdto.content}</p>
+															<hr>
+														</div>
+													</div>
 												</div>
-											</div>
-										</div>
-
+											</c:when>
+											<c:otherwise>
+												<div class="row align-items-center">
+													<div class="col-12">
+														<div class="invoice-address">
+															<p class="text-center">삭제된 글 입니다.</p>
+			                                              	<hr>
+														</div>
+													</div>
+												</div>											
+											</c:otherwise>
+										</c:choose>
 									</div>
 									<div class="invoice-buttons text-right">
 										<a href="${pageContext.request.contextPath}/adBoard/cohowList?page=${page}" class="invoice-btn">돌아가기</a>
-										<a href="${pageContext.request.contextPath}/adBoard/delCohow?seq=${qdto.seq}" class="invoice-btn">삭제하기</a>
+										<c:if test="${qdto.title != null}">
+											<a href="${pageContext.request.contextPath}/adBoard/delCohow?seq=${qdto.seq}" class="invoice-btn">삭제하기</a>
+										</c:if>
 									</div>
 								</div>
 							</div>
@@ -169,7 +184,7 @@ cursor:default;
 												<div class="invoice-buttons">
 													<div class="row">
 														<div class="text-left col-6" id="openBtnChange${r.seq}">												
-															<button type="button" class="btn btn-secondary mb-3" id="open${r.seq}">댓글열기</button>
+															<button type="button" class="btn btn-secondary mb-3" id="open${r.seq}">댓글(${r.commentCount})</button>
 														</div>									
 														<div class="text-right col-6">
 															<button type="button" class="btn btn-secondary mb-3" id="delReply${r.seq}">삭제하기</button>
@@ -238,6 +253,13 @@ cursor:default;
 										</script>
 									</c:forEach>							
 								</c:when>
+								<c:otherwise>
+									<div class="card replyCard">
+										<div class="card-body">
+											<p class="text-center">작성된 답변이 없습니다.</p>
+										</div>
+									</div>
+								</c:otherwise>								
 							</c:choose>
 						</div>												
 					</div>

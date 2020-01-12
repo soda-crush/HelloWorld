@@ -221,6 +221,10 @@ public class AdBoardDAO {
 	public List<CodeReplyDTO> getCohowReply(int queSeq){
 		return jdbc.selectList("AdBoard.getCohowReply", queSeq);
 	}
+	
+	public int getReplyCommentCount(int repSeq) {
+		return jdbc.selectOne("AdBoard.getReplyCommentCount", repSeq);
+	}
 
 	public List<CodeCommentsDTO> getCohowCo(int queSeq){
 		return jdbc.selectList("AdBoard.getCohowCo", queSeq);
