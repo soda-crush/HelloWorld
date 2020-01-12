@@ -459,6 +459,10 @@ public class AdBoardService {
 		return result;
 	}
 	
+	public int getReplyCommentCount(int repSeq) {
+		return bdao.getReplyCommentCount(repSeq);
+	}
+	
 	public List<CodeCommentsDTO> getCohowCo(int queSeq){
 		return bdao.getCohowCo(queSeq);
 	}

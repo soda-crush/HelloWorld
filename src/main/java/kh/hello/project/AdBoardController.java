@@ -345,6 +345,16 @@ public class AdBoardController {
 			return "redirect:/admin/adminError";
 		}
 	}
+	
+	@RequestMapping(value="/getReplyCommentCount", produces="text/html;charset=utf8")
+	@ResponseBody
+	public String getReplyCommentCount(int repSeq) {
+		int count = bs.getReplyCommentCount(repSeq);
+		JsonObject obj = new JsonObject();
+		obj.addProperty("count", count);
+		return obj.toString();
+	}
+	
 
 }
 

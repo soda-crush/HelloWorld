@@ -184,7 +184,7 @@ cursor:default;
 												<div class="invoice-buttons">
 													<div class="row">
 														<div class="text-left col-6" id="openBtnChange${r.seq}">												
-															<button type="button" class="btn btn-secondary mb-3" id="open${r.seq}">댓글(${r.commentCount})</button>
+															<button type="button" class="btn btn-primary mb-3" id="open${r.seq}" onclick="openCom(${r.seq});">댓글(${r.commentCount})</button>
 														</div>									
 														<div class="text-right col-6">
 															<button type="button" class="btn btn-secondary mb-3" id="delReply${r.seq}">삭제하기</button>
@@ -203,8 +203,8 @@ cursor:default;
 																		<div class="commentInfo col-12">
 																			<div class="row pl-3 pr-3">
 																				<div class="col-12"><div class="row">
-																				<p class="col-10"><strong>${c.writer}</strong>(${c.id})</p>
-																				<p class="col-2 text-right"><i class="ti-trash" onclick="delCoFunction(${c.repSeq}, ${c.seq});"><small>&nbsp;삭제</small></i></p>
+																				<p class="col-8"><strong>${c.writer}</strong>(${c.id})</p>
+																				<p class="col-4 text-right"><i class="ti-trash" onclick="delCoFunction(${c.repSeq}, ${c.seq});"><small>&nbsp;삭제</small></i></p>
 																				</div></div>
 																			</div>
 																		</div>
@@ -218,6 +218,11 @@ cursor:default;
 															</c:when>
 														</c:choose>																									
 													</c:forEach>
+													<c:if test="${r.commentCount == 0}">
+														<div class="commentBox col-12 pt-2 pb-2">
+															<p class="text-center">작성된 댓글이 없습니다.</p>
+														</div>
+													</c:if>
 												</div>
 											</div>
 											<div class="card-body p-2">
@@ -231,21 +236,6 @@ cursor:default;
 											</div>
 										</div>	
 										<script>
-											$(".commentArea${r.seq}").css("display", "none");
-											$(document).on("click", "#open${r.seq}", function(){
-												$(".commentArea${r.seq}").css("display", "block");	
-												$(this).remove();
-												var btn = $("<button type='button' class='btn btn-secondary mb-3' id='close${r.seq}'>댓글닫기</button>");
-												var target = $("#openBtnChange${r.seq}");
-												target.append(btn);
-											})
-											$(document).on("click", "#close${r.seq}", function(){
-												$(".commentArea${r.seq}").css("display", "none");	
-												$(this).remove();
-												var btn = $("<button type='button' class='btn btn-secondary mb-3' id='open${r.seq}'>댓글열기</button>");
-												var target = $("#openBtnChange${r.seq}");
-												target.append(btn);												
-											})
 											$("#delReply${r.seq}").on("click", function(){
 												//답글 삭제하기
 												location.href="${pageContext.request.contextPath}/adBoard/delCohowReply?page=${page}&seq=${qdto.seq}&repSeq=${r.seq}";
@@ -300,58 +290,90 @@ cursor:default;
     <script src="${pageContext.request.contextPath }/adRsc/js/plugins.js"></script>
     <script src="${pageContext.request.contextPath }/adRsc/js/scripts.js"></script>
     <script>
-    	function delCoFunction(repSeq, seq){
-    		var result = confirm("이 댓글을 삭제할까요?");
-    		if(result){
-    			$.ajax({
-    				url:"${pageContext.request.contextPath}/adBoard/delCohowCo",
-    				type:"post",
-    				dataType:"json",
-    				data:{
-    					repSeq : repSeq,
-    					seq : seq
-    				}
-    			}).done(function(resp){
-    				$(".commentArea"+repSeq).html("");
-    				for(i=0; i<resp.length;i++){
-    					var writer = $("<p class='col-10'><strong>"+resp[i].writer+"</strong>("+resp[i].id+")</p>");
-    					var btn = $("<p class='col-2 text-right'><i class='ti-trash' onclick='delCoFunction("+resp[i].repSeq+", "+resp[i].seq+");''><small>&nbsp;삭제</small></i></p>");
-    					
-    					var rowBox1 = $("<div class='row'></div>");
-    					rowBox1.append(writer);
-    					rowBox1.append(btn);
-    					
-    					var colBox = $("<div class='col-12'></div>");
-    					colBox.append(rowBox1);
-    					
-    					var rowInInfo = $("<div class='row pl-3 pr-3'></div>");
-    					rowInInfo.append(colBox);
-    					
-    					var comInfo = $("<div class='commentInfo col-12'></div>");
-    					comInfo.append(rowInInfo);
-    					   					
-    					var content = $("<p class='col-12'>"+resp[i].content+"</p>");
-    					var writeDate = $("<p class='col-12 text-secondary'><small>"+resp[i].formedWriteDate+"</small></p>");
-    					var comContent = $("<div class='commentContents col-12'></div>");
-    					comContent.append(content);
-    					comContent.append(writeDate);
-    					
-    					var rowBox2 = $("<div class='row'></div>");
-    					rowBox2.append(comInfo);
-    					rowBox2.append(comContent);
-    					
-    					var comBox = $("<div class='commentBox col-12 pt-2 pb-2'></div>");
-    					comBox.append(rowBox2);
-    					
-    					var target = $(".commentArea"+repSeq);
-    					target.append(comBox);
-    					target.append($("<hr class='m-0 mt-2 ml-2 mr-2'>"));
-    				}
-    			}).fail(function(resp){
+	
+    $("div[class^=commentArea]").css("display", "none");
+	
+	function openCom(repSeq){
+		$(".commentArea"+repSeq).css("display", "block");
+		$("#openBtnChange"+repSeq).children("button").remove();
+		var btn = $("<button type='button' class='btn btn-outline-secondary mb-3' onclick='closeCom("+repSeq+");'>댓글닫기</button>");
+		var target = $("#openBtnChange"+repSeq);
+		target.append(btn);
+	}
+	
+	function closeCom(repSeq){
+		$(".commentArea"+repSeq).css("display", "none");	
+		$("#openBtnChange"+repSeq).children("button").remove();
+		$.ajax({
+			url:"${pageContext.request.contextPath}/adBoard/getReplyCommentCount",
+			type:"post",
+			data:{
+				repSeq: repSeq
+			},
+			dataType:"json"
+		}).done(function(resp){
+			var count = resp.count;
+			var btn = $("<button type='button' class='btn btn-primary mb-3' onclick='openCom("+repSeq+")'>댓글("+count+")</button>");
+			var target = $("#openBtnChange"+repSeq);
+			target.append(btn);	
+		}).fail(function(resp){
+			var btn = $("<button type='button' class='btn btn-primary mb-3' onclick='openCom("+repSeq+")'>댓글열기</button>");			
+			var target = $("#openBtnChange"+repSeq);
+			target.append(btn);	
+		});		
+		
+	}
 
-    			});
-    		}
+    function delCoFunction(repSeq, seq){
+    	var result = confirm("이 댓글을 삭제할까요?");
+    	if(result){
+    		$.ajax({
+    			url:"${pageContext.request.contextPath}/adBoard/delCohowCo",
+    			type:"post",
+    			dataType:"json",
+    			data:{
+    				repSeq : repSeq,
+    				seq : seq
+    			}
+    		}).done(function(resp){
+    			$(".commentArea"+repSeq).html("");
+    			for(i=0; i<resp.length;i++){
+    				var writer = $("<p class='col-8'><strong>"+resp[i].writer+"</strong>("+resp[i].id+")</p>");
+    				var btn = $("<p class='col-4 text-right'><i class='ti-trash' onclick='delCoFunction("+resp[i].repSeq+", "+resp[i].seq+");''><small>&nbsp;삭제</small></i></p>");
+    					
+    				var rowBox1 = $("<div class='row'></div>");
+    				rowBox1.append(writer);
+    				rowBox1.append(btn);
+    					
+    				var colBox = $("<div class='col-12'></div>");
+    				colBox.append(rowBox1);
+    					
+    				var rowInInfo = $("<div class='row pl-3 pr-3'></div>");
+    				rowInInfo.append(colBox);
+    					
+    				var comInfo = $("<div class='commentInfo col-12'></div>");
+    				comInfo.append(rowInInfo);
+    					   					
+    				var content = $("<p class='col-12'>"+resp[i].content+"</p>");
+    				var writeDate = $("<p class='col-12 text-secondary'><small>"+resp[i].formedWriteDate+"</small></p>");
+    				var comContent = $("<div class='commentContents col-12'></div>");
+    				comContent.append(content);
+    				comContent.append(writeDate);
+    					
+    				var rowBox2 = $("<div class='row'></div>");
+    				rowBox2.append(comInfo);
+    				rowBox2.append(comContent);
+    					
+    				var comBox = $("<div class='commentBox col-12 pt-2 pb-2'></div>");
+    				comBox.append(rowBox2);
+    					
+    				var target = $(".commentArea"+repSeq);
+    				target.append(comBox);
+    				target.append($("<hr class='m-0 mt-2 ml-2 mr-2'>"));
+    			}
+    		});
     	}
+    }
     </script>
 </body>
 </html>
