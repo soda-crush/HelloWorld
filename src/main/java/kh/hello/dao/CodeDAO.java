@@ -27,11 +27,6 @@ public class CodeDAO {
 		return jdbc.insert("Code.insert",dto);
 	}
 	
-	//게시판전체(답글수)
-//	public List<CodeQuestionDTO> selectAll() throws Exception{
-//		return jdbc.selectList("Code.selectAll");
-//	}
-	
 	//게시판전체(페이징)
 	public List<CodeQuestionDTO> selectQuestionAll(int start,int end) {
 		Map<String, Integer> param = new HashMap<>();
@@ -44,11 +39,6 @@ public class CodeDAO {
 		return jdbc.selectOne("Code.codeQuestionCount");
 	}
 
-	//가장 최신 글 번호 찾기
-//	public int selectSeq(String id) {
-//		return jdbc.selectOne("Code.selectSeq",id);
-//	}
-	
 	//디테일
 	public CodeQuestionDTO detailQuestion(int seq) {
 		return jdbc.selectOne("Code.detailQuestion",seq);
@@ -136,9 +126,6 @@ public class CodeDAO {
 	public int insertComment(CodeCommentsDTO dto) {
 		return jdbc.insert("CodeC.insertComment", dto);
 	}
-//	public CodeCommentsDTO getComment(int repSeq) {
-//		return jdbc.selectOne("CodeC.getComment", repSeq);
-//	}
 	public int updateComment(CodeCommentsDTO dto) {
 		return jdbc.update("CodeC.updateComment", dto);
 	}	
@@ -148,6 +135,7 @@ public class CodeDAO {
 	public int deleteReplyAllCo(int repSeq) {
 		return jdbc.delete("CodeC.deleteReplyAllCo", repSeq);
 	}
+	
 	//댓글 포인트
 	public void writeCoPoint(String id) {
 		jdbc.update("CodeC.writeCoPoint", id);
@@ -236,6 +224,10 @@ public class CodeDAO {
 			param.put("id", id);
 			param.put("queSeq", queSeq);
 			return jdbc.update("CodeR.updateRepCol",param);
+		}
+		
+		public int adoptCount(int queSeq) {
+			return jdbc.selectOne("CodeR.adoptCount",queSeq);
 		}
 	
 }
