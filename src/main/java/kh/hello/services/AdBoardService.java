@@ -1,11 +1,14 @@
 package kh.hello.services;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.google.gson.Gson;
 
 import kh.hello.configuration.Configuration;
 import kh.hello.dao.AdBoardDAO;
@@ -453,6 +456,20 @@ public class AdBoardService {
 	
 	public List<CodeCommentsDTO> getCohowCo(int queSeq){
 		return bdao.getCohowCo(queSeq);
+	}
+	
+	public int delCohowCo(int seq) {
+		return bdao.delCohowCo(seq);
+	}
+	
+	public String getCohowCoByRep(int repSeq){
+		List<CodeCommentsDTO> list = bdao.getCohowCoByRep(repSeq);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+		for(CodeCommentsDTO dto : list) {			
+			dto.setFormedWriteDate(sdf.format(dto.getWriteDate()));
+		}
+		Gson g = new Gson();		
+		return g.toJson(list);
 	}
 }
 

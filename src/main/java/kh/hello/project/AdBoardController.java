@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.google.gson.JsonObject;
 
 import kh.hello.configuration.Configuration;
 import kh.hello.dto.BambooCoDTO;
@@ -318,6 +321,19 @@ public class AdBoardController {
 		
 		m.addAttribute("page", page);
 		return "admin/boardCohowDetailView";			
+	}
+	
+	@RequestMapping(value="/delCohowCo", produces="text/html;charset=utf8")
+	@ResponseBody
+	public String delCohowCo(int repSeq, int seq) {
+		int result = bs.delCohowCo(seq);
+		if(result > 0) {
+			return bs.getCohowCoByRep(repSeq);
+		}else {
+			JsonObject obj = new JsonObject();
+			obj.addProperty("result", false);
+			return obj.toString();
+		}
 	}
 
 }

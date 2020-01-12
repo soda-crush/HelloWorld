@@ -225,4 +225,12 @@ public class AdBoardDAO {
 	public List<CodeCommentsDTO> getCohowCo(int queSeq){
 		return jdbc.selectList("AdBoard.getCohowCo", queSeq);
 	}
+	
+	public int delCohowCo(int seq) {
+		return jdbc.delete("AdBoard.delCohowCo", seq);
+	}
+	
+	public List<CodeCommentsDTO> getCohowCoByRep(int repSeq){
+		return jdbc.selectList("AdBoard.getCohowCoByRep", repSeq);
+	}
 }

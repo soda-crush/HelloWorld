@@ -132,4 +132,10 @@
 	<select id="getCohowCo" resultType="kh.hello.dto.CodeCommentsDTO">
 		select * from codeComments where queSeq=#{queSeq} order by seq
 	</select>
+	<delete id="delCohowCo">
+		delete from codeComments where seq=#{seq}
+	</delete>
+	<select id="getCohowCoByRep" resultType="kh.hello.dto.CodeCommentsDTO">
+		select * from codeComments where repSeq=#{repSeq} order by seq
+	</select>
 </mapper>
