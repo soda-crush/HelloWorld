@@ -21,7 +21,7 @@
 	</select>
 	
 	<select id="getPro" resultType="kh.hello.dto.ProjectDTO">
-		select * from project
+		select * from project where state ='N'
 	</select>
 
 </mapper>

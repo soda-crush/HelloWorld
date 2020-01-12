@@ -12,10 +12,9 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/css/mainBase.css">
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
 <style>
-div{
-border : 0.5px solid green;
-}
 .boardCon{
 padding-left: 3%;
 padding-right: 3%;
@@ -25,7 +24,7 @@ width: 100%;
 background-color: white;
 }
 .boardEleTop{
-padding-top: 4%;padding-bottom: 2%;color:white;padding-left: 2%;}
+padding-top: 5%;padding-bottom: 3%;color:white;padding-left: 2%;}
 .bdt1{
 background-color:#c25f55;}
 .bdt2{
@@ -41,6 +40,7 @@ line-height: 260%;
 }
 .boardEleCon a{
 color:black;
+font-size: 11px;
 }
 .projectCon{
 padding-top: 3%;
@@ -52,7 +52,17 @@ padding-right: 1%;
 width: 100%;
 height: 300px;
 background-color: white;
+border-radius: 2%;
 }
+#adverEle{
+width:100%;
+height: 200px;
+background-color: lightgray;
+text-align: center;
+line-height: 200px;
+}
+.fs1{
+font-size: 11px;}
 </style>
 </head>
 <body>
@@ -74,8 +84,8 @@ background-color: white;
             		<div class="co1-12 col-lg-4 boardCon">
 	            		<div class="boardEle">
 		            		<div class="boardEleTop bdt1">
-		            			<h4>대나무 숲</h4>
-		            			주간 조회수 TOP5
+		            			<p class=mainTitle>대나무 숲</p>
+		            			<p class=fs1>주간 조회수 TOP5</p>
 		            		</div>
 		            		<div class="boardEleCon">
 			            		<c:choose>
@@ -95,8 +105,8 @@ background-color: white;
             		<div class="co1-12 col-lg-4 boardCon">
 	            		<div class="boardEle">
 			            	<div class="boardEleTop bdt2">
-			            		<h4>Code-How</h4>
-			            		주간 스크랩수 TOP5
+			            		<p class=mainTitle>Code-How</p>
+			            		<p class=fs1>주간 스크랩수 TOP5</p>
 			            	</div>
 			            	<div class="boardEleCon">
 			            		<c:choose>
@@ -114,8 +124,8 @@ background-color: white;
             		<div class="co1-12 col-lg-4 boardCon">
 	            		<div class="boardEle">
 			            	<div class="boardEleTop bdt3">
-			            		<h4>업계현황</h4>
-		            			주간 조회수 TOP5
+			            		<p class=mainTitle>업계현황</p>
+		            			<p class=fs1>주간 조회수 TOP5</p>
 			            	</div>
 			            	<div class="boardEleCon">
 			            		<c:choose>
@@ -134,31 +144,49 @@ background-color: white;
             		</div>
             	</div>
             	
+            	<div class= row>
+            		<div class="col-12 adverCon text-center">
+            		<br><br>
+            			<div id=adverEle>
+            				광고 자리
+            			</div>
+            		<br><br>
+            		<h3>진행중인 프로젝트</h3>
+            		<hr>
+            		</div>
+            	</div>
+            	
             	<div class="row">
-            		<div class="col-3 projectCon">
-            			<div class="projectEle">
-            				프로젝트 테스트<br>
-            				테스트
-            			</div>
-            		</div>
-            		<div class="col-3 projectCon">
-            			<div class="projectEle">
-            				프로젝트 테스트<br>
-            				테스트
-            			</div>
-            		</div>
-            		<div class="col-3 projectCon">
-            			<div class="projectEle">
-            				프로젝트 테스트<br>
-            				테스트
-            			</div>
-            		</div>
-            		<div class="col-3 projectCon">
-            			<div class="projectEle">
-            				프로젝트 테스트<br>
-            				테스트
-            			</div>
-            		</div>
+            	<c:choose>
+            		<c:when test="${proList.size()!=0}">
+            		<c:set var="cnt" value="1"/>
+            			<c:forEach items="${proList}" var="pro">
+            			<c:set var="sum" value="${sum+1}"/>
+            				<div class="col-3 projectCon">
+		            			<div class="projectEle text-center" id="projectEle${sum}"  data-aos="fade-up">
+		            			<br>
+		            				<h4>"${pro.languages}"</h4>
+		            				<br>
+		            				${pro.title}<br>
+		            				모집인원 : ${pro.capacity}<br>
+		            				지역 : ${pro.location1}&ensp;${pro.location2}<br>
+		            				팀장 : ${pro.writer}<br>
+		            				기간 : ${pro.startDate}&ensp;~&ensp;${pro.endDate}<br>
+		            			</div>
+            				</div>
+            				<script>
+            				$("#projectEle${sum}").hover(function(){
+            					$("#projectEle${sum}").css("box-shadow","0px 0px 10px #a8a8a8");
+            				},function(){
+            					$("#projectEle${sum}").css("box-shadow","0px 0px 0px #000");
+            				})
+            				$("#projectEle${sum}").on("click",function(){
+            					location.href="${pageContext.request.contextPath}/project/detailView?seq=${pro.seq}";
+            				})
+            				</script>
+            			</c:forEach>
+            		</c:when>
+            	</c:choose>
             	</div>
             	
             </div>
@@ -174,5 +202,10 @@ background-color: white;
         </div>
         
        <jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
+       
+       <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+	   <script>
+	     AOS.init();
+	   </script>
 </body>
 </html>
