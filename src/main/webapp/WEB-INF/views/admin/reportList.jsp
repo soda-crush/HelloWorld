@@ -27,7 +27,7 @@
 <style>
 	.notification-area {
 		text-align:right;
-	}
+	}	
 </style>
 </head>
 <body>
@@ -52,10 +52,10 @@
                 <div class="row align-items-center">
                     <div class="col-sm-6">
                         <div class="breadcrumbs-area clearfix">
-                            <h4 class="page-title pull-left">모니터링</h4>
+                            <h4 class="page-title pull-left">신고글 관리</h4>
                             <ul class="breadcrumbs pull-left">
                                 <li><a href="${pageContext.request.contextPath }/admin/main">Home</a></li>
-                                <li><span>모니터링</span></li>
+                                <li><span>신고글 관리</span></li>
                             </ul>
                         </div>
                     </div>

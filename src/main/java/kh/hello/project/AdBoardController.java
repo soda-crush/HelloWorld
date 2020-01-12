@@ -226,7 +226,7 @@ public class AdBoardController {
 	}
 		
 	/* 
-	 * IT뉴스 ( 완료 )
+	 * IT뉴스
 	 */
 	
 	@RequestMapping("/itnewsList")
@@ -279,7 +279,7 @@ public class AdBoardController {
 	}
 	
 	/* 
-	 * Code-How ( 진행중 )
+	 * Code-How
 	 */
 	
 	@RequestMapping("/cohowList")
@@ -355,6 +355,15 @@ public class AdBoardController {
 		return obj.toString();
 	}
 	
+	/* 
+	 * 신고글 관리 ( 진행중 )
+	 */	
+	
+	@RequestMapping("/reportList")
+	public String reportMainList() {
+		
+		return "admin/reportList";
+	}
 
 }
 
