@@ -130,8 +130,8 @@
 					<input type="hidden" id="oriLoc1" value="${pPage.location1}">
 					<input type="hidden" id="oriLoc2" value="${pPage.location2}">
 					<input type="hidden" id="oriCapa" value="${pPage.capacity}">
-					<input type="hidden" id="oriPhone" value="${pPage.phone}">
-					<input type="hidden" id="langData" value="${data}">	
+					<input type="hidden" id="oriPhone" value="${pPage.phone}">		
+					<input type="hidden" id="langData" value='${data }'>				
 					<input type="hidden" id="oriLangs" value="${pPage.languages }">		
 				</div>        
             </div>
@@ -193,7 +193,7 @@
 		    language : "ko"	//달력의 언어 선택, 그에 맞는 js로 교체해줘야한다.			    
 		});
 		
-		var result = $("#langData").val();
+		var result = ${data};
 		var data = JSON.stringify(result);			
 		var task = new Bloodhound({
 			datumTokenizer: Bloodhound.tokenizers.obj.whitespace("text"),

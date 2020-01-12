@@ -9,6 +9,7 @@ public class ProjectPLogDTO {
 	private String title;
 	private String writer;
 	private String location1;
+	private String location2;
 	private Timestamp startDate;
 	private Timestamp endDate;
 	private int capacity;	
@@ -19,14 +20,16 @@ public class ProjectPLogDTO {
 	public ProjectPLogDTO() {
 		super();
 	}
-	public ProjectPLogDTO(int seq, String state, String title, String writer, String location1, Timestamp startDate,
-			Timestamp endDate, int capacity, String approve, int commentCount, Timestamp writeDate) {
+	public ProjectPLogDTO(int seq, String state, String title, String writer, String location1, String location2,
+			Timestamp startDate, Timestamp endDate, int capacity, String approve, int commentCount,
+			Timestamp writeDate) {
 		super();
 		this.seq = seq;
 		this.state = state;
 		this.title = title;
 		this.writer = writer;
 		this.location1 = location1;
+		this.location2 = location2;
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.capacity = capacity;
@@ -34,7 +37,8 @@ public class ProjectPLogDTO {
 		this.commentCount = commentCount;
 		this.writeDate = writeDate;
 	}
-	
+
+
 	public int getSeq() {
 		return seq;
 	}
@@ -64,6 +68,12 @@ public class ProjectPLogDTO {
 	}
 	public void setLocation1(String location1) {
 		this.location1 = location1;
+	}
+	public String getLocation2() {
+		return location2;
+	}
+	public void setLocation2(String location2) {
+		this.location2 = location2;
 	}
 	public Timestamp getStartDate() {
 		return startDate;

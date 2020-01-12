@@ -22,13 +22,14 @@
 				</div>
 				<div class="tableDiv" style="width:100%;">
 					<div class="row tableHead">					    
-					    <div class="col-2">모집상태</div>
-					    <div class="col-3">제목</div>
-					    <div class="col-1">지역</div>
-					    <div class="col-1">인원</div>
+					    <div class="col-1 pl-2">상태</div>
+					    <div class="col-1">총신청</div>
+					    <div class="col-1">승인</div>
+					    <div class="col-1">모집인원</div>
 					    <div class="col-3">기간</div>
-					    <div class="col-1">작성일</div>
-					    <div class="col-1">조회</div>					    
+					    <div class="col-3">제목</div>					    
+					    <div class="col-1">작성일</div>	
+					    <div class="col-1">조회</div>				    					    
 					</div>
 					
 				  	<c:choose>
@@ -38,15 +39,16 @@
 				  		<c:otherwise>
 				  			<c:forEach items="${makeProjectList }" var="m">
 				  				<div class="row makeTableBody tableBody p-0">
-									<div class="col-2 state${m.state }">${m.stateInKor }</div>
-										<div class="col-3 text-decoration-none" onclick="popUp('/project/detailView?seq=${m.seq }')">${m.title } 
-					  						<c:if test="${m.commentCount>0 }">
-					  							<span class="pComment font-weight-bold">${m.commentCount }</span>
-					  						</c:if>					  					
-										</div>
-									<div class="col-1">${m.location1 }</div>
+									<div class="col-1 pl-2 state${m.state }">${m.stateInKor }</div>
+									<div class="col-1">${m.totalApply }명</div>
+									<div class="col-1">${m.totalApprove }명</div>
 									<div class="col-1">${m.capacity }명</div>
 									<div class="col-3">${m.formedAllDate }</div>
+									<div class="col-3 text-decoration-none" onclick="popUp('/project/detailView?seq=${m.seq }')">${m.title } 
+				  						<c:if test="${m.commentCount>0 }">
+				  							<span class="pComment font-weight-bold">${m.commentCount }</span>
+				  						</c:if>					  					
+									</div>									
 									<div class="col-1">${m.formedWriteDate }</div>
 									<div class="col-1">${m.viewCount }</div>
 								</div>	

@@ -168,9 +168,9 @@ public class ProjectService {
 			originSysNames.add(i.getSysName());
 		}
 		List<String> modiImageSysNames = new ArrayList<>();
-		
+		String headName = "/attached/project/";
 			while(m.find()) {
-				if(!m.group(1).startsWith("/attached/")) {
+				if(!m.group(1).startsWith(headName)) {
 					String oriName = m.group(2);
 					String sysName = "summer_"+System.currentTimeMillis()+"_"+oriName;
 					String imgString = m.group(1).split(",")[1];
@@ -180,14 +180,14 @@ public class ProjectService {
 					dos.write(imgBytes);
 					dos.flush();
 					dos.close();
-					contents = contents.replaceFirst(Pattern.quote(m.group(1)), "/attached/project/"+sysName);
+					contents = contents.replaceFirst(Pattern.quote(m.group(1)), headName+sysName);
 					ProjectImageDTO summer = new ProjectImageDTO();
 					summer.setOriName(oriName);
 					summer.setSysName(sysName);
 					summer.setProjectSeq(projectSeq);
 					dao.insertImage(summer);
 				}
-				modiImageSysNames.add(m.group(1).substring(18));			
+				modiImageSysNames.add(m.group(1).substring(headName.length()));			
 			}
 			
 			for(int i=0;i<modiImageSysNames.size();i++) {
@@ -221,8 +221,7 @@ public class ProjectService {
 		dao.closeProject(seq);
 		dao.closeProjectApply(seq);
 	}
-	
-	@Transactional("txManager")
+		
 	public String checkScrap(String id, int seq) {
 		int result = dao.checkScrap(id, seq);
 		if(result>0) {
@@ -320,6 +319,10 @@ public class ProjectService {
 	
 	public ProjectApplyDTO projectApplyDetailView(int seq) {
 		return dao.getProjectApplyDetailView(seq);
+	}
+	
+	public ProjectApplyDTO getApplyCheck(int projectSeq) {
+		return dao.getApplyCheck(projectSeq);
 	}
 	
 	public int projectApplyDeleteConfirm(int seq) {

@@ -74,10 +74,12 @@ public class ProjectController {
 		String scrap = svc.checkScrap(id, seq);
 		List<ProjectCoDTO> coResult = svc.commentList(seq); 
 		String data = svc.projectWrite();
+		ProjectApplyDTO applyCheck = svc.getApplyCheck(seq);
 		m.addAttribute("data", data);
 		m.addAttribute("pPage", result);
 		m.addAttribute("comments", coResult);
 		m.addAttribute("scrap", scrap);		
+		m.addAttribute("applyCheck", applyCheck);		
 		return "/project/detailView";
 	}
 	
@@ -90,7 +92,6 @@ public class ProjectController {
 	
 	@RequestMapping("/writeProc")
 	public String projectWriteConfirm(ProjectDTO dto, String sDate, String eDate) {
-//		dto.setWriter((String)session.getAttribute("loginInfo"));
 		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
 		dto.setWriter(sessionValue.getNickName());
 		dto.setId(sessionValue.getId());
@@ -282,28 +283,13 @@ public class ProjectController {
 	
 	@RequestMapping("/pLog/pLogProjectList")
 	public String pLogProjectList(){
-//		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
-//		String id = sessionValue.getId();				
-////		List<ProjectDTO> result = svc.makeProjectList(id);		
-//		int currentPage = 1;
-//		if(page!=null) {
-//			currentPage = Integer.parseInt(page);
-//		}
-//		int start = currentPage * (Configuration.pLogProjectRecordCountPerPage)-(Configuration.pLogProjectRecordCountPerPage-1);
-//		int end = currentPage * (Configuration.pLogProjectRecordCountPerPage);
-//		List<ProjectDTO> result = svc.makeProjectListPerPage(start, end, id);
-//		m.addAttribute("makeProjectList", result);
-//		String pageNavi = svc.getPLogProjectPageNavi(currentPage, id);
-//		m.addAttribute("pageNavi", pageNavi);
-//		m.addAttribute("currentPage", currentPage);
 		return "/project/projectPLogList";
 	}
 	
 	@RequestMapping("/pLog/makeProjectList")
 	public String makeProjectList(String page, Model m){
 		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
-		String id = sessionValue.getId();				
-//		List<ProjectDTO> result = svc.makeProjectList(id);		
+		String id = sessionValue.getId();						
 		int currentPage = 1;
 		if(page!=null) {
 			currentPage = Integer.parseInt(page);
@@ -322,7 +308,6 @@ public class ProjectController {
 	public String applyProjectList(String page, Model m){
 		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
 		String id = sessionValue.getId();				
-//		List<ProjectDTO> result = svc.makeProjectList(id);		
 		int currentPage = 1;
 		if(page!=null) {
 			currentPage = Integer.parseInt(page);

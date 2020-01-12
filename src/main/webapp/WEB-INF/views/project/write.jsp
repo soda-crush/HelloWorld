@@ -122,10 +122,7 @@
 							<input class="btn btn-primary" type="submit" value="글쓰기" id="writeBtn">						
 						</span>
 					</div>
-				</form>
-				<div>
-					<input type="hidden" id="langData" value="${data}">		
-				</div>          
+				</form>				         
             </div>
             <!--       몸통 끝!!!   -->
             
@@ -173,7 +170,7 @@
             console.log(e); 
 		});			
 		
-		var result = $("#langData").val();
+		var result = ${data};
 		var data = JSON.stringify(result);			
 		var task = new Bloodhound({
 			datumTokenizer: Bloodhound.tokenizers.obj.whitespace("text"),

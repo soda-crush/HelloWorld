@@ -13,6 +13,7 @@ public class ProjectCoDTO {
 	private Timestamp writeDate;
 	private Timestamp changeDate;
 	private String contents;	
+	private String profileImg;
 	private String formedWriteDate;
 	private String formedChangeDate;
 	
@@ -33,97 +34,67 @@ public class ProjectCoDTO {
 		this.contents = contents;
 	}
 
-
 	public int getSeq() {
 		return seq;
 	}
-
-
 	public void setSeq(int seq) {
 		this.seq = seq;
 	}
-
-
 	public int getProjectSeq() {
 		return projectSeq;
 	}
-
-
 	public void setProjectSeq(int projectSeq) {
 		this.projectSeq = projectSeq;
 	}
-
-
 	public int getDepth() {
 		return depth;
 	}
-
-
 	public void setDepth(int depth) {
 		this.depth = depth;
 	}
-
-
 	public int getParentSeq() {
 		return parentSeq;
 	}
-
-
 	public void setParentSeq(int parentSeq) {
 		this.parentSeq = parentSeq;
 	}
-
-
 	public String getWriter() {
 		return writer;
 	}
-
-
 	public void setWriter(String writer) {
 		this.writer = writer;
 	}
-
-
 	public String getId() {
 		return id;
 	}
-
-
 	public void setId(String id) {
 		this.id = id;
 	}
-
-
 	public Timestamp getWriteDate() {
 		return writeDate;
 	}
-
-
 	public void setWriteDate(Timestamp writeDate) {
 		this.writeDate = writeDate;
 	}
-
-
 	public Timestamp getChangeDate() {
 		return changeDate;
 	}
-
-
 	public void setChangeDate(Timestamp changeDate) {
 		this.changeDate = changeDate;
 	}
-
-
 	public String getContents() {
 		return contents;
 	}
-
-
 	public void setContents(String contents) {
 		this.contents = contents;
 	}
-
-
+	public String getProfileImg() {
+		return profileImg;
+	}
+	public void setProfileImg(String profileImg) {
+		this.profileImg = profileImg;
+	}
+	
 	public String getFormedWriteDate() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
 		this.formedWriteDate = sdf.format(this.writeDate);

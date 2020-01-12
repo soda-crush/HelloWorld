@@ -98,6 +98,9 @@ public class ProjectDAO {
 	public ProjectApplyDTO getProjectApplyDetailView(int seq) {//프로젝트 지원 상세보기
 		return jdbc.selectOne("ProjectApply.getProjectApplyDetailView", seq);
 	}
+	public ProjectApplyDTO getApplyCheck(int projectSeq) {//지원여부체크
+		return jdbc.selectOne("ProjectApply.getApplyCheck", projectSeq);
+	}
 	public int insertProjectApply(ProjectApplyDTO dto) {//프로젝트 지원 작성
 		return jdbc.insert("ProjectApply.insertProjectApply", dto);
 	}	
@@ -145,13 +148,6 @@ public class ProjectDAO {
 		param.put("end", end);
 		return jdbc.selectList("Project.getPLogApplyListByPage", param);
 	}
-	
-//	public int insertProjectList(ProjectPlogDTO dto) {//나의 프로젝트 등록
-//		return jdbc.insert("ProjectPlogList.insert", dto);
-//	}
-//	public int deleteProjectList(int seq) {//나의 프로젝트 삭제
-//		return jdbc.delete("ProjectPlogList.delete", seq);
-//	}
 	
 	
 	
