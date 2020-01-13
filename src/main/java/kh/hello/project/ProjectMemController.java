@@ -33,11 +33,6 @@ public class ProjectMemController {
 	
 	@RequestMapping("/list")
 	public String projectMainList(String page, Model m) {
-//		session.setAttribute("loginInfo", "sooin");
-//		session.setAttribute("loginInfo", "sophie");
-//		session.setAttribute("loginInfo", "eunwoo");
-//		session.setAttribute("loginInfo", "jennie");
-		
 		int currentPage = 1;
 		if(page!=null) {
 			currentPage = Integer.parseInt(page);
@@ -91,7 +86,7 @@ public class ProjectMemController {
 	}
 	
 	@RequestMapping("/writeProc")
-	public String projectWriteConfirm(ProjectDTO dto, String sDate, String eDate) {
+	public String writeProc(ProjectDTO dto, String sDate, String eDate) {
 		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
 		dto.setWriter(sessionValue.getNickName());
 		dto.setId(sessionValue.getId());
@@ -131,7 +126,7 @@ public class ProjectMemController {
 	}
 	
 	@RequestMapping("/deleteProc")
-	public String projectDeleteConfirm(int seq) {
+	public String deleteProc(int seq) {
 		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
 		String id = sessionValue.getId();
 		String path = session.getServletContext().getRealPath("attached/project");
@@ -185,7 +180,7 @@ public class ProjectMemController {
 	
 	@ResponseBody
 	@RequestMapping(value="/comment/writeProc",produces="text/html;charset=utf8")
-	public String commentWriteConfirm(ProjectCoDTO dto) {
+	public String coWriteProc(ProjectCoDTO dto) {
 		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
 		dto.setWriter(sessionValue.getNickName());
 		dto.setId(sessionValue.getId());
@@ -203,7 +198,7 @@ public class ProjectMemController {
 	
 	@ResponseBody
 	@RequestMapping(value="/comment/deleteProc",produces="text/html;charset=utf8")
-	public String commentDeleteConfirm(int seq, int projectSeq) {
+	public String coDelProc(int seq, int projectSeq) {
 		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
 		String id = sessionValue.getId();
 		return svc.commentDeleteConfirm(seq, projectSeq, id);		

@@ -14,14 +14,15 @@
 <link rel="stylesheet" href="/css/project/applyList.css" type="text/css"/>
 <link rel="stylesheet" type="text/css" href="/css/font-awesome/css/font-awesome.css">
 <style>
-
+body{background-color:#e9ecef;}
+#baseBackgroundColor{border-bottom:none;}
 </style>
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/standard/header.jsp"/>
+<%-- 	<jsp:include page="/WEB-INF/views/standard/header.jsp"/> --%>
 	
  		<div id=baseBackgroundColor>
-            <div class=container>
+            <div class=container style="height:20px;">
                 <div class=row>
                     <div class="col-12" id=aroundContent>
                     </div>
@@ -72,7 +73,7 @@
             </div>
         </div>
         
-        <jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
+<%--         <jsp:include page="/WEB-INF/views/standard/footer.jsp"/> --%>
         
         <script>
         	function openApplyPage(seq,approve){
