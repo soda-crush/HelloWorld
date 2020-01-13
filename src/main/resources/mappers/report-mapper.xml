@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Report">
+	<select id="reportListByPage" resultType="kh.hello.dto.ReportDTO">
+		select * from (select reportedBoard.*, row_number() over (order by seq desc) as rown from reportedBoard) where rown between #{start} and #{end}
+	</select>
+	<select id="getReportTotal" resultType="integer">
+		select count(*) from reportedBoard
+	</select>
+	<update id="updateResult">
+		update reportedBoard set result=#{result} where seq=#{seq}
+	</update>
+	<update id="updateState">
+		update reportedBoard set state='Y' where seq=#{seq}
+	</update>
+</mapper>
