@@ -16,10 +16,95 @@
 <link rel="stylesheet" href="https://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.css">
 <link rel="stylesheet" href="https://bootstrap-tagsinput.github.io/bootstrap-tagsinput/examples/assets/app.css">
 <link rel="stylesheet" href="/css/project/projectBase.css" type="text/css"/>
-<link rel="stylesheet" href="/css/project/detailView.css" type="text/css"/>
+<!-- <link rel="stylesheet" href="/css/project/detailView.css" type="text/css"/> -->
 <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.css" type="text/css"/>
-<script src="/js/project/projectCo.js"></script>
 <style>
+/* @charset "UTF-8"; */
+#pageTitle{margin-bottom:40px;}
+#pageTitle h1{display:inline;margin-right:10px;font-weight:bold;}
+#pageBody{background-color:#ffffff90;}	
+#pHeader,#pageFooter{padding-top:10px;}
+#pHeader #stateLabel{color:white;}
+#pHeader label.N{background-color:limegreen;}
+#pHeader label.Y{background-color:red;}
+#pHeader label:not(#stateLabel){font-size:13px;}
+#pHeader span:first-of-type{font-size:20px;}	
+#pHeader .fa{margin-left:15px;margin-top:15px;font-size:20px;}
+#pInfo *,#pBody *{font-size:15px;font-weight:500;}
+#pInfo label,#pBody label{width:100px;color:darkgray;}
+.applyBtn{margin-bottom:20px;}
+.modal-title{font-weight:bold;}
+.aItem{margin-top:5px;font-size:15px;font-weight:bold;}
+.star{margin-left:2px;color:red;}
+.genderRadio,.workInRadio{padding-top:5px;}
+#pCoInput{margin-top:20px;}
+#pCoInput textarea{height:100px; margin-left:20px; margin-bottom:20px;}
+#pCoInput button{height:45px; width:90%;}
+.pApply{font-size:13px;color:red;}
+.checkBtn button:nth-child(2){margin-left:10px;}
+.adBoxDiv{height:150px;width:100%;background-color:darkgray;text-align:center;margin:0;margin-top:20px;}
+#pPageContents{margin:40px;}
+.label-info {
+	background-color: #ffc107;
+	display: inline-block;
+		padding: 0.2em 0.6em 0.3em; 
+	font-size: 13px;
+	font-weight: 600;
+	line-height: 1;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: baseline;
+	border-radius: 0.25em; 
+}
+.bootstrap-tagsinput .tag{color: black;}
+.bootstrap-tagsinput .tag [data-role="remove"]:after{color: red;font-weight: bold;padding: 0px;}
+.modal-body input[type=radio]{font-size:13px;}
+.pPageComments{margin-top:30px;}
+.commentDiv{
+	margin:10px;
+	padding:0;
+	padding-bottom:5px;	
+}
+.commentInnerBox{
+	background-color:#fff;
+	border-radius:10px;	
+}
+.commentInfo{
+	font-size:13px;
+	padding-left:10px;
+	margin-top:3px;
+}
+.commentWriter,.commentWriteDate{padding-left:0px;}
+.commentWriteDate{color: darkgray;}
+.coModBtn,.coDelBtn,.coReplyBtn{
+	width: 45px;
+	height: 25px;
+	font-size: 11px;
+	font-weight: bold;
+	padding:0px;
+}
+.commentHeader{
+	margin-top:10px;
+}
+.commentContent{
+	margin-top:10px;
+	margin-bottom:15px;
+}
+img{max-width:100%;}
+#scrapDone{color:crimson;}
+#scrapDone,#scrapNull:hover{cursor:pointer;}
+.commentWriteDate{font-size:10px;}
+.commentWriter{font-weight:bold;}
+#pCoReplyContents{
+    margin-top:10px;
+	margin-bottom:15px;
+    margin-left: 20px;
+    height:100px; 
+}
+#pCoReplyInput button{
+    height:45px; width:90%;
+} 
+#projectPage{margin-bottom:100px;} 
 </style>
 </head>
 
@@ -66,34 +151,47 @@
 							<div><label class="ml-4">사용언어</label><span>${pPage.languages }</span></div>
 						</div>
 						<hr>
-						<div id="pBody">
-						
-							<div id="pPageContents">${pPage.contents }</div>
-							
+						<div id="pBody">						
+							<div id="pPageContents">${pPage.contents }</div>							
 							<div><label class="ml-4">연락처</label><span>${pPage.phone }</span></div>
 							<div><label class="ml-4">메일주소</label><span>${pPage.email }</span></div>
-							
-							<c:if test="${pPage.id == sessionScope.loginInfo.id}">
-								<div class="text-center checkBtn">
-									<button type="button" class="btn btn-warning" id="applyCheckBtn">신청내역
-										<c:if test="${pPage.applyCount>0 }">
-					  						<span class="pApply font-weight-bold">${pPage.applyCount }</span>
-					  					</c:if>
-									</button>
-									<c:if test="${pPage.state=='N' }">
-									<button type="button" class="btn btn-success" id="pCloseBtn">모집완료처리</button>
-									</c:if>
-								</div>
-							</c:if>
-							
-							
-							
-							<c:if test="${pPage.id != sessionScope.loginInfo.id && pPage.state=='N' }">
-								<div class="text-center applyBtn">
-									<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#pApplyModal">신청하기</button>
-								</div>
-							</c:if>
-							
+						
+							<div class="text-center checkBtn">
+								<c:choose>
+									<c:when test="${pPage.id == sessionScope.loginInfo.id}">										
+											<c:choose>
+												<c:when test="${pPage.state=='N' }">
+													<button type="button" class="btn btn-warning" id="applyCheckBtn">신규신청자
+														<c:if test="${pPage.applyCount>0 }">
+									  						<span class="pApply font-weight-bold">${pPage.applyCount }</span>
+									  					</c:if>
+													</button>										
+													<button type="button" class="btn btn-success" id="pCloseBtn">모집완료처리</button>
+												</c:when>
+												<c:otherwise>
+													<p style="font-weight:bold;"><span style="color:red;font-weight:bold;">모집완료</span>되었습니다.</p>
+													<button type="button" class="btn btn-warning" id="applyCheckBtn">전체신청내역</button>
+												</c:otherwise>
+											</c:choose>										
+									</c:when>
+									<c:when test="${applyCheck==null }">
+										<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#pApplyModal">신청하기</button>
+									</c:when>
+									<c:when test="${applyCheck.id == sessionScope.loginInfo.id }">
+										<c:choose>
+											<c:when test="${applyCheck.approve eq 'W' }">
+												<p style="font-weight:bold;">신청 후 <span style="color:orange;font-weight:bold;">승인 대기중</span>입니다.</p>
+											</c:when>
+											<c:when test="${applyCheck.approve eq 'O' }">
+												<p style="font-weight:bold;">신청 <span style="color:limegreen;font-weight:bold;">승인</span>된 프로젝트입니다.</p>
+											</c:when>
+											<c:when test="${applyCheck.approve eq 'X' }">
+												<p style="font-weight:bold;">신청 <span style="color:red;font-weight:bold;">거절</span>된 프로젝트입니다.</p>
+											</c:when>
+										</c:choose>
+									</c:when>
+								</c:choose>
+							</div>
 							
 							 <div class="row align-items-center adBoxDiv">
 							    <div class="col-12">광고자리</div>
@@ -103,14 +201,17 @@
 							<c:if test="${comments.size()>0 }">
 								<c:forEach items="${comments }" var="c">
 									<div class="row commentDiv commentBox${c.seq } coLevel${c.depth } p-0 pb-1">
-										<div class="col-12 commentInnerBox pb-0">
+										<c:if test="${c.depth==1 }">
+											<div class="col-1 text-right pt-1"><span>┗</span></div>
+										</c:if>
+										<div class="col-${12-c.depth } commentInnerBox pb-0">
 											<c:choose>
 												<c:when test="${c.contents!=null }">
 													<div class="row commentHeader">
-														<div class="col-1 profileBox pl-1 pt-2"><img src="/img/profileSample.jpg" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>
-														<div class="col-7 pt-1">
-															<div class="row commentInfo">
-																<div class="col-12 commentWriter">${c.writer }</div>
+														<div class="col-lg-1 d-none d-lg-block profileBox pl-1 pt-2 pr-0"><img src="${c.profileImg }" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>
+														<div class="col-7 col-lg-6 pt-1">
+															<div class="row commentInfo pl-2">
+																<div class="col-12 commentWriter"><span style="font-weight:bold;">${c.writer }</span></div>
 																<div class="col-12 commentWriteDate">
 																	<span>${c.formedWriteDate }</span>
 																	<c:if test="${c.changeDate!=null }">
@@ -119,7 +220,7 @@
 																</div>
 															</div>
 														</div>				
-														<div class="col-4 pt-2 text-right commentBtns">
+														<div class="col-5 pt-2 text-right commentBtns">
 															<c:if test="${c.depth==0 }">
 																<a class="btn btn-warning coReplyBtn" href="#" onclick="coReplyFunction(${c.seq});return false;" role="button">답글</a>
 															</c:if>													
@@ -134,7 +235,7 @@
 													</div>
 												</c:when>
 												<c:otherwise>
-													<span class="row align-middle m-2 mt-3">삭제된 댓글입니다.<span class="delCoDate" style="margin-left: 10px;color:darkgray;">(삭제일자 ${c.formedChangeDate })</span></span>
+													<span class="row align-middle m-2 mt-2">삭제된 댓글입니다.<span class="delCoDate" style="margin-left: 10px;color:darkgray;">(삭제일자 ${c.formedChangeDate })</span></span>
 												</c:otherwise>											
 											</c:choose>
 										</div>
@@ -157,6 +258,12 @@
 										</div>										
 									</div>								
 		        				</div>
+							</div>
+							<div>
+								<input type="hidden" id="pageSeq" value="${pPage.seq }">
+								<input type="hidden" id="sessionId" value="${sessionScope.loginInfo.id }">
+								<input type="hidden" id="applyCount" value="${pPage.applyCount}">								
+								<input type="hidden" id="writerId" value="${pPage.id }">
 							</div>
 						</div>
 					</c:if>
@@ -185,10 +292,11 @@
                 </div>
             </div>
         </div>
-
-		<jsp:include page="/WEB-INF/views/project/jsp/applyModal.jsp"/>        
+		              
+        <jsp:include page="/WEB-INF/views/project/jsp/applyModal.jsp"/>        
 		<jsp:include page="/WEB-INF/views/project/jsp/applyConfirmModal.jsp"/>
-        <jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
+		<jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
+		
 		<script>
 		function coReplyFunction(seq){
 			console.log("확인");
@@ -199,6 +307,9 @@
 			var html = [];
 			html.push(
 					'<div id="pCoReplyInput" class="row commentDiv commentBox p-0 pt-2 pb-2">',
+					'<div class="col-1 text-right pt-1"><span>┗</span></div>',
+					'<div class="col-11 commentInnerBox pb-0">',
+					'<div class="row mt-2">',
 					'<div class="col-9 col-lg-10"><textarea class="form-control" placeholder="답글 내용을 입력해주세요" id="pCoReplyContents" name="contents"></textarea></div>',
 					'<div class="col-3 col-lg-2">',
 					'<div class="row">',
@@ -207,10 +318,12 @@
 					'</div>',										
 					'</div>',
 					'<div class="row">',
-					'<div class="col-12"><input type="hidden" name="projectSeq" value="${pPage.seq}"><input type="hidden" name="parentSeq" value='+seq+'>',
+					'<div class="col-12"><input type="hidden" name="projectSeq" value="'+$("#pageSeq").val()+'"><input type="hidden" name="parentSeq" value='+seq+'>',
 					'<button type="button" class="btn btn-warning" id="coReplyWriteBtn">작성</button>',
 					'</div>',										
 					'</div>',								
+				    '</div>',
+				    '</div>',
 				    '</div>',
 					'</div>'
 			);
@@ -251,7 +364,7 @@
 				url : "/project/scrap",
 				type : "post",
 				data : {
-					categorySeq : "${pPage.seq}"
+					categorySeq : $("#pageSeq").val()
 				}
 			}).done(function(resp){
 				console.log("성공");
@@ -268,7 +381,7 @@
 				url : "/project/unScrap",
 				type : "post",
 				data : {
-					categorySeq : "${pPage.seq}"
+					categorySeq : $("#pageSeq").val()
 				}
 			}).done(function(resp){
 				console.log("성공");
@@ -281,21 +394,21 @@
 			});
 		});
 		$("#applyCheckBtn").on("click",function(){
-			location.href="/project/applyCheck?projectSeq=${pPage.seq}";	
+			location.href="/project/applyCheck?projectSeq="+$("#pageSeq").val();	
 		});
 		
-		var loginInfo = "${sessionScope.loginInfo}";
+//		var loginInfo = $("#sessionId");
 			$("#pCloseBtn").on("click",function(){
 				var check = confirm("프로젝트 모집을 마감하시겠습니까?\n마감된 모집글은 상태를 변경할 수 없습니다.");
 				if(check){
-					location.href="/project/closeProject?seq=${pPage.seq}";
+					location.href="/project/closeProject?seq="+$("#pageSeq").val();
 				}
 			});
-			var applyCount = ${pPage.applyCount};
+			var applyCount = $("#applyCount").val();
            	$("#pDelBtn").on("click",function(){
            		var check = confirm("정말 삭제하시겠습니까?");
            		if(check){
-           			location.href="/project/deleteProc?seq=${pPage.seq}";
+           			location.href="/project/deleteProc?seq="+$("#pageSeq").val();
            		}
            	});
            	
@@ -307,20 +420,20 @@
 				$(".commentBox"+seq).find(".commentBtns").css("display","none");
 				$(".commentBox"+seq).find(".commentContent").css("display","none");
            		$(".commentBox"+seq).wrap('<form action="/project/comment/modifyProc" method="post" id="coModFrm"></form>');
-				var html = [];
+				var html = [];	
     			html.push(
-    					'<div class="col-12 coModBox mt-2 mb-2"><div class="row">',
+    					'<div class="row coModBox mt-2 mb-2"><div class="col-12"><div class="row">',
     					'<div class="col-9 col-md-10 col-xl-11 pr-0"><textarea class="form-control" placeholder="댓글 내용을 입력해주세요" id="pCoModContents" style="height:80px;" name="contents">'+contents+'</textarea></div>',
-    					'<div class="col-3 col-md-2 col-xl-1"><input type="hidden" name="seq" value="'+seq+'"><input type="hidden" name="projectSeq" value="${pPage.seq }">',
+    					'<div class="col-3 col-md-2 col-xl-1"><input type="hidden" name="seq" value="'+seq+'"><input type="hidden" name="projectSeq" value="'+$("#pageSeq").val()+'">',
     					'<div class="row">',
     					'<div class="col-12 text-center p-0">',
     					'<button type="button" class="btn btn-secondary" style="margin-bottom:5px;width:80%;" id="coMoCancel">취소</button>',
     					'</div></div>',
     					'<div class="row"><div class="col-12 text-center p-0">',
     					'<button type="button" class="btn btn-warning" style="width:80%;" id="coMoConfirmBtn">수정</button>',
-    					'</div></div></div></div></div>'
+    					'</div></div></div></div></div></div>'
     			);
-    			$(".commentBox"+seq).append(html.join(""));    			    			
+    			$(".commentBox"+seq).find(".commentHeader").after(html.join(""));  
            	}
            	
            	$(document).on("click","#coMoCancel",function(){
@@ -366,7 +479,7 @@
            				dataType : "json",
            				data :{
            					seq:seq,
-           					projectSeq : "${pPage.seq}"
+           					projectSeq : $("#pageSeq").val()
            				}
            			}).done(function(resp){
     					$(".pPageComments").html("");
@@ -394,7 +507,7 @@
 					type : "post",
 					dataType : "json",
 					data :{
-						projectSeq : "${pPage.seq}",
+						projectSeq : $("#pageSeq").val(),
 						contents : $("#pCoContents").val(),						
 					}
 				}).done(function(resp){
@@ -413,10 +526,8 @@
 				datumTokenizer: Bloodhound.tokenizers.obj.whitespace("text"),
 				queryTokenizer: Bloodhound.tokenizers.whitespace,
 				local: jQuery.parseJSON(data) //your can use json type
-			});
-		
-			task.initialize();
-		
+			});		
+			task.initialize();		
 			var elt = $("#languages");
 			elt.tagsinput({
 				itemValue: "value",
@@ -428,6 +539,8 @@
 				}
 			});
 			
+			$("#applyProjectSeq").val($("#pageSeq").val());
+			$("#leaderId").val($("#writerId").val());
 			$("#applyFrm").on("keypress", function(e) {
 		        if(e.keyCode == 13) {
 		        	e.preventDefault();
@@ -462,20 +575,28 @@
 			
 
 			function commentRecall(resp){
-				var loginInfo = "${sessionScope.loginInfo.id}";
+				var loginInfo = $("#sessionId").val();
 				for(var i=0;i<resp.length;i++){
 					var html = [];
-					html.push(
-							'<div class="row commentDiv commentBox'+resp[i].seq+' coLevel'+resp[i].depth+' p-0 pb-1">',
-							'<div class="col-12 commentInnerBox pb-0">'
+					html.push(							
+							'<div class="row commentDiv commentBox'+resp[i].seq+' coLevel'+resp[i].depth+' p-0 pb-1">'
 					);
+					if(resp[i].depth==1){
+						html.push(
+							'<div class="col-1 text-right pt-1"><span>┗</span></div>'		
+						);
+					}
+					html.push(
+						'<div class="col-'+(12-resp[i].depth)+' commentInnerBox pb-0">'		
+					);
+					
 					if(resp[i].contents!=null){
 						html.push(
 								'<div class="row commentHeader">',
-								'<div class="col-1 profileBox pl-1 pt-2"><img src="/img/profileSample.jpg" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>',
-								'<div class="col-7 pt-1">',
-								'<div class="row commentInfo">',
-								'<div class="col-12 commentWriter">'+resp[i].writer+'</div>',
+								'<div class="col-lg-1 d-none d-lg-block profileBox pl-1 pt-2 pr-0"><img src="'+resp[i].profileImg+'" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>',
+								'<div class="col-7 col-lg-6 pt-1">',
+								'<div class="row commentInfo pl-2">',
+								'<div class="col-12 commentWriter"><span style="font-weight:bold;">'+resp[i].writer+'</span></div>',
 								'<div class="col-12 commentWriteDate">',
 								'<span>'+resp[i].formedWriteDate+'</span>'
 						);
@@ -486,17 +607,17 @@
 						}
 						html.push(
 								'</div></div></div>',
-								'<div class="col-4 pt-2 text-right commentBtns">'
+								'<div class="col-5 pt-2 text-right commentBtns">'
 						);
 						if(resp[i].depth==0){
 							html.push(
-									'<a class="btn btn-warning coReplyBtn" href="#" onclick="coReplyFunction('+resp[i].seq+');return false;" role="button">답글</a>\n'	
+									'<a class="btn btn-warning coReplyBtn" href="#" onclick="coReplyFunction('+resp[i].seq+');return false;" role="button">답글</a>\n'
 							);
 						}
 						if(resp[i].id==loginInfo){
-							html.push(
-									'<a class="btn btn-info coModBtn" href="#" onclick="coModFunction('+resp[i].seq+',\''+resp[i].contents+'\');return false;" role="button">수정</a>\n',
-									'<a class="btn btn-danger coDelBtn" href="#" onclick="coDelFunction('+resp[i].seq+');return false;" role="button">삭제</a>'
+							html.push(									
+									'<a class="btn btn-info coModBtn" onclick="coModFunction('+resp[i].seq+',\''+resp[i].contents+'\');return false;" role="button">수정</a>\n',									
+									'<a class="btn btn-danger coDelBtn" onclick="coDelFunction('+resp[i].seq+');return false;" role="button">삭제</a>'									
 							);
 						}
 						html.push(							
@@ -505,8 +626,8 @@
 							'<div class="col-12 pt-1 pl-4">'+resp[i].contents+'</div></div>'	
 						);
 					}else{
-						html.push(
-								'<span class="row align-middle m-2 mt-3">삭제된 댓글입니다.<span class="delCoDate" style="margin-left: 10px;color:darkgray;">(삭제일자 '+resp[i].formedChangeDate+')</span></span>'							
+						html.push(								
+								'<span class="row align-middle m-2 mt-2">삭제된 댓글입니다.<span class="delCoDate" style="margin-left: 10px;color:darkgray;">(삭제일자 '+resp[i].formedChangeDate+')</span></span>'
 						);
 					}
 					html.push(
@@ -515,7 +636,7 @@
 					$(".pPageComments").append(html.join(""));	
 				}
 			}	
-         </script>            
-            
+		
+		</script>
 </body>
 </html>

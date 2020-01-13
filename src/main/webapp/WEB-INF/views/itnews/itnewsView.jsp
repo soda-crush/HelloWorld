@@ -57,6 +57,7 @@
             	<div class=row>
             		<div class="col-12 text-center">
             			<button type="button" class="btn btn-warning" id=scrap style="width:120px;">스크랩</button>
+            		<button type="button" class="btn btn-danger">신고</button>
             		</div>
             	</div>
             	
@@ -70,7 +71,7 @@
 									<div class="row commentDiv commentBox${dto.seq} p-0 pb-2 m-2">
 										<div class="col-12 commentInnerBox">
 											<div class="row commentHeader">
-												<div class="col-1 profileBox pl-1 pt-2"><img src="/img/profileSample.jpg" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>
+												<div class="col-1 profileBox pl-1 pt-2"><img src="${dto.profileImg}" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>
 												<div class="col-7 pt-1">
 													<div class="row commentInfo">
 														<div class="col-12 commentWriter">${dto.writer }</div>
@@ -270,7 +271,7 @@
 							var html = [];
 							html.push(
 									'<div class="row commentDiv commentBox'+resp[i].seq+' p-0 pb-2 m-2"><div class="col-12 commentInnerBox"><div class="row commentHeader">',
-									'<div class="col-1 profileBox pl-1 pt-2"><img src="/img/profileSample.jpg" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>',
+									'<div class="col-1 profileBox pl-1 pt-2"><img src="'+resp[i].profileImg+'" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>',
 									'<div class="col-7 pt-1"><div class="row commentInfo">',
 									'<div class="col-12 commentWriter">'+resp[i].writer+'</div>',
 									'<div class="col-12 commentWriteDate">'+resp[i].writeDate+'</div></div></div>',

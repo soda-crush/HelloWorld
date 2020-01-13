@@ -56,8 +56,30 @@
 							<div><label class="ml-4">하고싶은 말</label></div>
 							<div id="pPageContents">${aPage.etc }</div>
 							<div class="text-center checkBtn mt-4">
-								<button type="button" class="btn btn-success" id="approveBtn">승인</button>								
-								<button type="button" class="btn btn-secondary" id="denialBtn">거절</button>								
+							
+								<c:choose>
+									<c:when test="${aPage.approve == 'O' }">
+										<span style="font-weight:bold;">신청 <span style="color:limegreen;font-weight:bold;">승인</span>되었습니다.</span>
+									</c:when>
+									<c:when test="${aPage.approve == 'X' }">
+										<span style="font-weight:bold;">신청 <span style="color:red;font-weight:bold;">거절</span>되었습니다.</span>
+									</c:when>
+									<c:when test="${aPage.approve == 'W' }">
+										<c:choose>
+											<c:when test="${aPage.leaderId == sessionScope.loginInfo.id }">										
+												<div id="approveProcBtns">
+													<button type="button" class="btn btn-success" id="approveBtn">승인</button>								
+													<button type="button" class="btn btn-secondary" id="denialBtn">거절</button>
+												</div>											
+											</c:when>
+											<c:when test="${aPage.id == sessionScope.loginInfo.id }">												
+												<p style="font-weight:bold;">신청 후 <span style="color:orange;font-weight:bold;">승인 대기중</span>입니다.</p>
+												<button type="button" class="btn btn-warning" id="applyCancelBtn">신청취소</button>
+											</c:when>
+										</c:choose>
+									</c:when>															
+								</c:choose>
+													
 							</div>
 						</div>						
 					</c:if>
@@ -84,9 +106,24 @@
         </div>
         
 		<jsp:include page="/WEB-INF/views/project/jsp/approveModal.jsp"/>    
+		<jsp:include page="/WEB-INF/views/project/jsp/denialModal.jsp"/>
         <jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
         
         <script>
+	        $("#applyCancelBtn").on("click",function(){
+	        	var check = confirm("신청을 취소하시겠습니까?");
+	        	if(check){
+	        		$.ajax({
+	        			type:"post",
+	        			url:"/project/apply/"
+	        		}).done(function(resp){
+	        			
+	        		}).fail(function(resp){
+	        			
+	        		});
+	        	}
+	        });
+	        
         	$("#approveBtn").on("click",function(){
         		var check = confirm("승인 하시겠습니까?");
         		if(check){
@@ -98,6 +135,8 @@
         				console.log("성공");
     					console.log(resp);
         				$("#pApproveModal").modal('show');
+        				$("#approveProcBtns").remove();
+        				$(".checkBtn").append('<span style="font-weight:bold;">신청 <span style="color:limegreen;font-weight:bold;">승인</span>되었습니다.</span>');
         			}).fail(function(resp){
         				console.log("실패");
     					console.log(resp);
@@ -116,7 +155,9 @@
         			}).done(function(resp){
         				console.log("성공");
     					console.log(resp);
-        				//$("#pApproveModal").modal('show');
+        				$("#pDenialModal").modal('show');
+    					$("#approveProcBtns").remove();
+        				$(".checkBtn").append('<span style="font-weight:bold;">신청 <span style="color:red;font-weight:bold;">거절</span>되었습니다.</span>');
         			}).fail(function(resp){
         				console.log("실패");
     					console.log(resp);

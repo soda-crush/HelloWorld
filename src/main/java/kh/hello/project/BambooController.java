@@ -53,12 +53,12 @@ public class BambooController {
 	}
 
 	@RequestMapping("/bambooWrite.do")
-	public String bambooWrite() {
+	public String writeFormBamboo() {
 		return "/bamboo/bambooWrite";
 	}
 
 	@RequestMapping("/bambooWriteProc.do")
-	public String writeBamboo(BambooDTO dto) {//섬머노트
+	public String writeProcBamboo(BambooDTO dto) {//섬머노트
 		LoginInfoDTO loginInfo = (LoginInfoDTO)session.getAttribute("loginInfo");
 		dto.setWriter(loginInfo.getId());
 		String path = session.getServletContext().getRealPath("attached");
@@ -77,14 +77,14 @@ public class BambooController {
 	}
 
 	@RequestMapping("/bambooModify.do")
-	public String bambooModify(int seq, Model m) {
+	public String modifyFormBamboo(int seq, Model m) {
 		BambooDTO result = service.bambooDetailView(seq);
 		m.addAttribute("bPage", result);
 		return "/bamboo/bambooModify";
 	}
 
 	@RequestMapping("/bambooModifyProc.do")
-	public String bambooModifyConfirm(BambooDTO dto) {
+	public String modifyProcBamboo(BambooDTO dto) {
 		String path = session.getServletContext().getRealPath("attached");
 
 		int result = 0;
@@ -103,7 +103,7 @@ public class BambooController {
 	}
 
 	@RequestMapping("/bambooDeleteProc.do")
-	public String bambooDeleteConfirm(int seq) {
+	public String deleteProcBamboo(int seq) {
 		LoginInfoDTO loginInfo = (LoginInfoDTO)session.getAttribute("loginInfo");
 		int result = 0;
 		try {
@@ -123,7 +123,7 @@ public class BambooController {
 
 	@ResponseBody
 	@RequestMapping(value="/comment/writeProc.do",produces="text/html;charset=utf8")
-	public String commentWriteConfirm(BambooCoDTO dto) {
+	public String coWriteProc(BambooCoDTO dto) {
 		LoginInfoDTO loginInfo = (LoginInfoDTO)session.getAttribute("loginInfo");
 		dto.setWriter(loginInfo.getId());
 		return service.commentWriteConfirm(dto,dto.getWriter());
@@ -131,13 +131,13 @@ public class BambooController {
 
 	@ResponseBody
 	@RequestMapping(value="/comment/modifyProc.do",produces="text/html;charset=utf8")
-	public String commentModifyConfirm(BambooCoDTO dto) {
+	public String coMdfProc(BambooCoDTO dto) {
 		return service.commentModifyConfirm(dto);
 	}
 
 	@ResponseBody
 	@RequestMapping(value="/comment/deleteProc.do",produces="text/html;charset=utf8")
-	public String commentDeleteConfirm(BambooCoDTO dto) {
+	public String coDelProc(BambooCoDTO dto) {
 		LoginInfoDTO loginInfo = (LoginInfoDTO)session.getAttribute("loginInfo");
 		dto.setWriter(loginInfo.getId());
 		return service.commentDeleteConfirm(dto,dto.getWriter());

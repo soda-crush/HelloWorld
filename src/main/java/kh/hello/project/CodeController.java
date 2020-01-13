@@ -53,13 +53,13 @@ public class CodeController {
 	}
 
 	@RequestMapping("/codeQWrite.do")
-	public String codeWrite() {
+	public String writeFormCode() {
 		return "code/codeQWrite";
 	}
 
 	//섬머노트
 	@RequestMapping("/codeQWriteProc.do")
-	public String codeWriteProc(CodeQuestionDTO dto) {
+	public String writeProcCode(CodeQuestionDTO dto) {
 		LoginInfoDTO info = (LoginInfoDTO)session.getAttribute("loginInfo");
 		dto.setId(info.getId());
 		dto.setWriter(info.getNickName());
@@ -79,17 +79,15 @@ public class CodeController {
 	}
 
 	@RequestMapping("/codeDetail.do")
-	public String codeDetail(int seq, Model m,String id) {
+	public String codeDetail(int seq, Model m) {
 		//LoginInfoDTO dto = new LoginInfoDTO("test","닉네임");		
 //			LoginInfoDTO dto = new LoginInfoDTO("test2","닉네임2");	
 //			LoginInfoDTO dto = new LoginInfoDTO("test1234","펭수2");	
 //			LoginInfoDTO dto = new LoginInfoDTO("test3","닉네임3");			
 //			session.setAttribute("loginInfo", dto);
-					
-//		LoginInfoDTO info = (LoginInfoDTO)session.getAttribute("loginInfo");
+						
 		CodeQuestionDTO qResult = sv.detailQuestion(seq); //queSeq
 		List<CodeReplyDTO> rResult = sv.detailReply(seq); //queSeq
-		int count = sv.replyOneCount(seq, id); //queSeq
 		List<CodeCommentsDTO> cResult = sv.commentList(seq); //queSeq  
 		int repCount = sv.replyCount(seq); //답글 수 
 		int adoptCount = sv.adoptCount(seq);
@@ -97,23 +95,31 @@ public class CodeController {
 		m.addAttribute("qResult", qResult);
 		m.addAttribute("rResult", rResult);			
 		m.addAttribute("cResult", cResult);
-		m.addAttribute("count", count);
 		m.addAttribute("repCount", repCount);
 		m.addAttribute("adoptCount", adoptCount);
 		//		m.addAttribute("repSeq", repSeq);
 		//		m.addAttribute("nowPoint", nowPoint);
+		
+		try { //비회원이 detail 들어갈수있게
+			LoginInfoDTO info = (LoginInfoDTO)session.getAttribute("loginInfo");
+			int count = sv.replyOneCount(seq, info.getId()); //queSeq
+			m.addAttribute("count", count);
+		} catch (Exception e) {
+			m.addAttribute("count", 1);
+			return "/code/codeDetail";
+		}
 		return "/code/codeDetail";
 	}
 
 	@RequestMapping("/delete.do")
-	public String delete(int seq,String id) {
+	public String deleteProcCode(int seq,String id) {
 		LoginInfoDTO info = (LoginInfoDTO)session.getAttribute("loginInfo");
 		sv.delete(seq,info.getId());
 		return "redirect:codeQList.do";
 	}
 
 	@RequestMapping("/modify.do")
-	public String codeModify(int seq, Model m) {
+	public String modifyForm(int seq, Model m) {
 		CodeQuestionDTO result;
 		result = sv.detailQuestion(seq);
 		int parent_seq = seq;
@@ -123,7 +129,7 @@ public class CodeController {
 	}
 
 	@RequestMapping("/modifyProc.do")
-	public String codeModifyProc(CodeQuestionDTO dto) {
+	public String modifyProcCode(CodeQuestionDTO dto) {
 		sv.modify(dto);
 		int seq = dto.getSeq();
 		return "redirect:/code/codeDetail.do?seq="+seq;
@@ -149,7 +155,7 @@ public class CodeController {
 	//답글 CodeReply
 
 	@RequestMapping("/codeRWrite.do")
-	public String codeRWrite(int seq,Model m) {
+	public String writeFormCodeR(int seq,Model m) {
 		int parent_seq = seq;
 		m.addAttribute("parent_seq",parent_seq);
 		return "code/codeRWrite";
@@ -157,7 +163,7 @@ public class CodeController {
 
 	//섬머노트
 	@RequestMapping("/codeRWriteProc.do")
-	public String codeRWriteProc(CodeReplyDTO dto) {
+	public String writeProcCodeR(CodeReplyDTO dto) {
 		LoginInfoDTO info = (LoginInfoDTO)session.getAttribute("loginInfo");
 		dto.setId(info.getId());
 		dto.setWriter(info.getNickName());
@@ -178,7 +184,7 @@ public class CodeController {
 	}
 
 	@RequestMapping("/deleteR.do")
-	public String deleteR(int seq,int queSeq) {
+	public String deleteProcCodeR(int seq,int queSeq) {
 		LoginInfoDTO info = (LoginInfoDTO)session.getAttribute("loginInfo");
 		String id = info.getId();
 		sv.deleteR(seq,id);
@@ -186,7 +192,7 @@ public class CodeController {
 	}
 
 	@RequestMapping("/modifyR.do")
-	public String codeModifyR(int seq,int queSeq, Model m) {
+	public String modifyFormCodeR(int seq,int queSeq, Model m) {
 		CodeReplyDTO dto = sv.selectOneDetail(seq);
 		int parent_seq = queSeq;
 		m.addAttribute("parent_seq",parent_seq);
@@ -195,7 +201,7 @@ public class CodeController {
 	}
 
 	@RequestMapping("/modifyRProc.do")
-	public String codeModifyRProc(CodeReplyDTO dto) {
+	public String modifyProcCodeR(CodeReplyDTO dto) {
 		sv.modifyR(dto);
 		int queSeq = dto.getQueSeq();
 		return "redirect:/code/codeDetail.do?seq="+queSeq;
@@ -204,7 +210,7 @@ public class CodeController {
 	//댓글 CodeComments
 	@ResponseBody
 	@RequestMapping(value="/codeCWriteProc.do",produces="text/html;charset=utf8")
-	public String insertComment(CodeCommentsDTO dto) {
+	public String coWriteProcCode(CodeCommentsDTO dto) {
 		LoginInfoDTO info = (LoginInfoDTO)session.getAttribute("loginInfo");
 		dto.setId(info.getId());
 		dto.setWriter(info.getNickName());
@@ -213,13 +219,13 @@ public class CodeController {
 
 	@ResponseBody
 	@RequestMapping(value="/codeCModifyProc.do",produces="text/html;charset=utf8")
-	public String updateComment(CodeCommentsDTO dto) {
+	public String coMdfProcCode(CodeCommentsDTO dto) {
 		return sv.updateComment(dto);
 	}
 
 	@ResponseBody
 	@RequestMapping(value="/codeCDeleteProc.do",produces="text/html;charset=utf8")
-	public String deleteComment(CodeCommentsDTO dto) {
+	public String coDelProcCode(CodeCommentsDTO dto) {
 		LoginInfoDTO info = (LoginInfoDTO)session.getAttribute("loginInfo");
 		dto.setId(info.getId());
 		dto.setWriter(info.getNickName());
