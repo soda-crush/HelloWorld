@@ -8,6 +8,10 @@
 		select * from industryStatus where seq=#{value}
 	</select>
 	
+	<select id="getMemLevel" parameterType="String" resultType="integer">
+		select memLevel from member where id=#{id}
+	</select>
+	
 	<insert id="insertIndustryStatus" parameterType="kh.hello.dto.IndustryStatusDTO">
 		insert into industryStatus values(industryStatusSeq.nextval,#{field},#{duty},#{writer},#{title},#{content},sysdate,0,#{id})
 	</insert>

@@ -8,6 +8,10 @@
 		select * from bamboo where seq=#{value}
 	</select>
 	
+	<select id="getMemLevel" parameterType="String" resultType="integer">
+		select memLevel from member where id=#{id}
+	</select>
+	
 	<insert id="insertBamboo" parameterType="kh.hello.dto.BambooDTO">
 		insert into bamboo values(#{seq},#{writer},#{title},#{content},sysdate,0)
 	</insert>

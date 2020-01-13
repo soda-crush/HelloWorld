@@ -20,7 +20,7 @@ import kh.hello.services.IndustryStatusService;
 
 @Controller
 @RequestMapping("/industry")
-public class IndustryStatusController {
+public class IndustryStatusMemController {
 	@Autowired
 	private HttpSession session;
 	@Autowired
@@ -60,7 +60,15 @@ public class IndustryStatusController {
 	public String writeFormIndustryStatus() {
 		return "/industry/industryStatusWrite";
 	}
-
+	
+	//글쓰기 누를 때 실무자 유무 검사
+	@ResponseBody
+	@RequestMapping(value="/memLevel.do",produces="text/html;charset=utf8")
+	public String getMemLevel(IndustryStatusDTO dto) {	
+		System.out.println(Integer.toString(service.getMemLevel(dto.getId())));
+		return Integer.toString(service.getMemLevel(dto.getId()));
+	}
+	
 	@RequestMapping("/industryStatusWriteProc.do")
 	public String writeProcIndustryStatus(IndustryStatusDTO dto) {//섬머노트
 		LoginInfoDTO loginInfo = (LoginInfoDTO)session.getAttribute("loginInfo");

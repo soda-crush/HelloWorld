@@ -254,4 +254,8 @@ public class BambooService {
 		//3. 글 업로드
 		return dao.insertBamboo(dto);
 	}
+	//글쓰기 누를 때 실무자 유무 검사
+		public int getMemLevel(String id) {
+			return dao.getMemLevel(id);
+		}
 }

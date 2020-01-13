@@ -22,7 +22,10 @@ public class BambooDAO {
 	public BambooDTO getBambooDetailView(int seq) {//대나무숲 상세보기
 		return jdbc.selectOne("Bamboo.getBambooDetailView", seq);
 	}
-
+	//글쓰기 누를 때 실무자 유무 검사
+	public int getMemLevel (String id) {
+		return jdbc.selectOne("Bamboo.getMemLevel",id);
+	}
 	public int insertBamboo(BambooDTO dto) {//대나무숲 글작성
 		return jdbc.insert("Bamboo.insertBamboo", dto);
 	}	
