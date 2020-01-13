@@ -44,10 +44,13 @@
 									<div class="col-1">${m.totalApprove }명</div>
 									<div class="col-1">${m.capacity }명</div>
 									<div class="col-3">${m.formedAllDate }</div>
-									<div class="col-3 text-decoration-none" onclick="popUp('/project/detailView?seq=${m.seq }')">${m.title } 
-				  						<c:if test="${m.commentCount>0 }">
-				  							<span class="pComment font-weight-bold">${m.commentCount }</span>
-				  						</c:if>					  					
+									<div class="col-3 text-decoration-none" onclick="popUp('/project/detailView?seq=${m.seq }')">
+										<div class="row">
+											<div style="max-width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;">${m.title }</div> 
+					  						<c:if test="${m.commentCount>0 }">
+					  							<div class="pComment font-weight-bold ml-2" style="display:inline-block;">${m.commentCount }</div>
+					  						</c:if>
+					  					</div>				  					
 									</div>									
 									<div class="col-1">${m.formedWriteDate }</div>
 									<div class="col-1">${m.viewCount }</div>
@@ -77,7 +80,8 @@
 			</div>
 		<script>
 			function popUp(link){
-				window.open(link,"_blank");
+// 				window.open(link,"_blank");
+				window.open(link, "makeListPopUp", "width=1000,height=600");
 			}
         	$(".pNavi${makeCurrentPage}").addClass("active");
         </script>

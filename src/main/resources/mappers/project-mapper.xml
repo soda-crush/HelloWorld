@@ -71,7 +71,7 @@
 	<select id="getPLogMakeListByPage" parameterType="java.util.Map" resultType="kh.hello.dto.ProjectDTO">
 <!-- 		select * from (select project.*,(select count(*) from projectComment where projectSeq=project.seq and contents is not null) as commentCount, row_number() over (order by seq desc) as num from project) where id=#{id} and num between #{start} and #{end} -->
 		select * from (select
-		state, nvl(totalApply,0) as totalApply, nvl(totalApprove,0) as totalApprove, capacity, startDate, endDate, title, project.writeDate, viewCount, nvl(commentCount,0) as commentCount, row_number() over (order by project.seq desc) as num from project
+		project.seq, state, nvl(totalApply,0) as totalApply, nvl(totalApprove,0) as totalApprove, capacity, startDate, endDate, title, project.writeDate, viewCount, nvl(commentCount,0) as commentCount, row_number() over (order by project.seq desc) as num from project
 		left outer join (select projectSeq, count(*) as totalApply, count(decode(approve,'O',1)) totalApprove from projectApply group by projectSeq) pa on pa.projectSeq = project.seq
 		left outer join (select projectSeq, count(*) as commentCount from projectComment
 		where contents is not null group by projectSeq) pc

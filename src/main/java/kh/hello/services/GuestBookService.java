@@ -34,10 +34,10 @@ public class GuestBookService {
 		int recordTotalCount = gdao.TotalCount(ownerID);
 		int pageTotalCount = 0;
 
-		if(recordTotalCount% Configuration.recordCountPerPage > 0) {
-			pageTotalCount = recordTotalCount / Configuration.recordCountPerPage + 1;
+		if(recordTotalCount% Configuration.pLogProjectRecordCountPerPage > 0) {
+			pageTotalCount = recordTotalCount / Configuration.pLogProjectRecordCountPerPage + 1;
 		}else {
-			pageTotalCount = recordTotalCount / Configuration.recordCountPerPage;
+			pageTotalCount = recordTotalCount / Configuration.pLogProjectRecordCountPerPage;
 		}
 
 		if(currentPage < 1) {
@@ -46,8 +46,8 @@ public class GuestBookService {
 			currentPage = pageTotalCount;
 		}
 
-		int startNavi = (currentPage - 1) / Configuration.naviCountPerPage * Configuration.naviCountPerPage + 1;
-		int endNavi = startNavi + (Configuration.naviCountPerPage - 1);
+		int startNavi = (currentPage - 1) / Configuration.pLogProjectNaviCountPerPage * Configuration.pLogProjectNaviCountPerPage + 1;
+		int endNavi = startNavi + (Configuration.pLogProjectNaviCountPerPage - 1);
 
 		if(endNavi > pageTotalCount) {
 			endNavi = pageTotalCount;
