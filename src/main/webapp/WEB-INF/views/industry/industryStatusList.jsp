@@ -71,8 +71,9 @@
 				  			<c:forEach items="${industryStatusList }" var="i">
 				  				<tr>
 				  					<th scope="row">${i.seq }</th>
-				  					<td>${i.field }</td>
-				  					<td>${i.duty }</td>
+				  					<td><span class="badge badge-pill badge-success"
+											style="margin: 10; width: 60px;">${i.field}</span></td>
+				  					<td><span class="badge badge-pill badge-primary">${i.duty }</span></td>
 				  					<td><a href="/industry/industryStatusDetailView.do?seq=${i.seq }">${i.title } 
 				  						<c:if test="${i.commentCount>0 }">
 				  							<span class="pComment font-weight-bold">${i.commentCount }</span>
@@ -142,8 +143,26 @@
         		alert("로그인을 해주세요.");
         		return false;
         	}
-			location.href="/industry/industryStatusWrite.do";
-		})
+			
+			$.ajax({
+				url : "/industry/memLevel.do",
+				type : "post",
+				dataType : "json",
+				data : {
+					id : "${sessionScope.loginInfo.id}"
+				}
+			}).done(function(resp){
+				if(resp > 2){
+					location.href="/industry/industryStatusWrite.do";	
+				}else{
+					alert("실무자만 입력가능합니다.")
+					return false;
+				}
+				
+			}).fail(function(resp){
+				console.log("실패");
+			})
+		});
 		if("${pageNavi.size() > 0}"){
 		var element = $(".pageNavi");
 		var page = "${page}";

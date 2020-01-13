@@ -20,6 +20,7 @@ import kh.hello.configuration.Configuration;
 import kh.hello.dao.IndustryStatusDAO;
 import kh.hello.dto.IndustryStatusCoDTO;
 import kh.hello.dto.IndustryStatusDTO;
+import kh.hello.dto.MemberDTO;
 import kh.hello.dto.ScrapDTO;
 
 @Service
@@ -253,7 +254,10 @@ public class IndustryStatusService {
 		//3. 글 업로드
 		return dao.insertIndustryStatus(dto);
 	}
-
+	//글쓰기 누를 때 실무자 유무 검사
+	public int getMemLevel(String id) {
+		return dao.getMemLevel(id);
+	}
 	//스크랩
 	public String scrap(ScrapDTO dto){
 		int scrapDupResult = dao.scrapDupCheck(dto);

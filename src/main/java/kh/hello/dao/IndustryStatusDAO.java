@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import kh.hello.dto.IndustryStatusCoDTO;
 import kh.hello.dto.IndustryStatusDTO;
+import kh.hello.dto.MemberDTO;
 import kh.hello.dto.ScrapDTO;
 
 @Repository
@@ -23,7 +24,10 @@ public class IndustryStatusDAO {
 	public IndustryStatusDTO getIndustryStatusDetailView(int seq) {
 		return jdbc.selectOne("Industry.getIndustryStatusDetailView", seq);
 	}
-
+	//글쓰기 누를 때 실무자 유무 검사
+	public int getMemLevel (String id) {
+		return jdbc.selectOne("Industry.getMemLevel",id);
+	}
 	public int insertIndustryStatus(IndustryStatusDTO dto) {
 		return jdbc.insert("Industry.insertIndustryStatus", dto);
 	}	
