@@ -49,7 +49,7 @@
 	</update>
 	
 	<delete id="coAllRemove" parameterType="integer">
-		delete from itnewscomment where itSeq=#{seq}
+		delete from itnewscomments where itSeq=#{seq}
 	</delete>
 	
 	<update id="coModify"  parameterType="kh.hello.dto.ItnewsCoDTO">
@@ -109,5 +109,18 @@
 		</when>
 		</choose>
 	</select>
+	
+	<update id="changePoint" parameterType="java.util.Map">
+		update member set point = ((select point from member where id = #{id})+#{point}) where id=#{id}
+	</update>
+	
+	<select id="getIdBySeq" resultType="string">
+		select id from itnews where seq=#{seq}
+	</select>
+	
+	<select id="getIdByCoSeq" resultType="string">
+		select id from itnewscomments where seq=#{seq}
+	</select>
+	
 	
 </mapper> 

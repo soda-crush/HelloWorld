@@ -145,6 +145,8 @@ public class ItnewsService {
 		dto.setContent(content);
 		//3. 글 업로드
 		dao.writeItnews(dto);
+		//포인트 증가
+		dao.increPoint(dto.getId());
 		
 		return boardSeq;
 	}
@@ -193,14 +195,22 @@ public class ItnewsService {
 	
 	@Transactional("txManager")
 	public int removeItnews(int seq) {
+		//시퀀스로 아이디 받아오기
+		String id = dao.getIdBySeq(seq);
+		//포인트 차감
+		dao.decrePoint(id);
 		//글삭제
 		dao.removeItnews(seq);
 		//댓글 삭제
 		return dao.removeItnewsCoAll(seq);
 	}
 	
+	@Transactional("txManager")
 	public int coWrite(ItnewsCoDTO dto, String seq) {
 		dto.setItSeq(Integer.parseInt(seq));
+		//포인트 증가
+		dao.increCoPoint(dto.getId());
+		
 		return dao.coWrite(dto);
 	}
 	
@@ -213,15 +223,22 @@ public class ItnewsService {
 		Gson gson = new Gson();
 		return gson.toJson(list);
 	}
+	
 	public String coWriteAfter(int seq) {
 		List<ItnewsCoDTO> list = commentList(seq);
 		Gson gson = new Gson();
 		return gson.toJson(list);
 	}
 	
+	@Transactional("txManager")
 	public int removeItnewsCo(String itSeq, String seq) {
 		int seq2 = Integer.parseInt(seq);
 		int itSeq2 = Integer.parseInt(itSeq);
+		
+		//시퀀스로 아이디 받아오기
+		String id = dao.getIdByCoSeq(seq2);
+		//포인트 차감
+		dao.decreCoPoint(id);
 		
 		return dao.removeItnewsCo(itSeq2, seq2);
 	}
