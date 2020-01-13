@@ -20,8 +20,8 @@ public class GuestBookDAO {
 		jdbc.insert("GuestBook.insert", gdto );
 	}
 	
-	public int TotalCount (String owner) {
-		return jdbc.selectOne("GuestBook.guestBookTotalCount",owner);
+	public int TotalCount (String ownerID) {
+		return jdbc.selectOne("GuestBook.guestBookTotalCount",ownerID);
 	}
 	
 	public List<GuestBookDTO> selectListByPage(String ownerID, int start, int end) {

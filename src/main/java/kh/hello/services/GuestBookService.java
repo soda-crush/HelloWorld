@@ -30,8 +30,8 @@ public class GuestBookService {
 	}
 	
 	//페이지 네비
-	public List<String> getGuestBookPageNavi (String owner, int currentPage) {
-		int recordTotalCount = gdao.TotalCount(owner);
+	public List<String> getGuestBookPageNavi (String ownerID, int currentPage) {
+		int recordTotalCount = gdao.TotalCount(ownerID);
 		int pageTotalCount = 0;
 
 		if(recordTotalCount% Configuration.recordCountPerPage > 0) {
@@ -63,17 +63,17 @@ public class GuestBookService {
 		}
 
 		List<String> pages = new ArrayList<>();
-		if(needPrev) pages.add("<div class=\"page-item\"><a class=page-link  href='/GuestBook/selectList.do?cpage=" + (startNavi - 1) + "'>< </a></div>");
+		if(needPrev) pages.add("<div class=\"page-item\" style='width:30px;display:inline-block;'><a class=page-link  href='/GuestBook/selectList.do?cpage=" + (startNavi - 1) + "'>< </a></div>");
 
 		for(int i = startNavi; i <= endNavi; i++) {
 			StringBuilder sb = new StringBuilder();
-			sb.append("<div class=\"page-item\"><a class=page-link  href='/GuestBook/selectList.do?cpage="+ i +"'>");
+			sb.append("<div class=\"page-item\" style='width:30px;display:inline-block;'><a class=page-link  href='/GuestBook/selectList.do?cpage="+ i +"'>");
 			sb.append(i + " ");
 			sb.append("</a></div>");
 			pages.add(sb.toString());
 		}
 
-		if(needNext) pages.add("<div class=\"page-item\"><a class=page-link  href='/GuestBook/selectList.do?cpage=" + (endNavi + 1) + "'>> </a></div>");
+		if(needNext) pages.add("<div class=\"page-item\" style='width:30px;display:inline-block;'><a class=page-link  href='/GuestBook/selectList.do?cpage=" + (endNavi + 1) + "'>> </a></div>");
 
 		return pages;
 	}

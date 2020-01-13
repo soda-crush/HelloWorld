@@ -397,6 +397,10 @@ cursor:default;
     		});
     	}
     }
+    
+	$("#board").addClass("active");
+	$("#board").children("ul").addClass("in");
+	$("#cohow").addClass("active");	    
     </script>
 </body>
 </html>

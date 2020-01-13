@@ -28,6 +28,7 @@
 		#funcexpl{line-height: 150px;}
 		#funcname1,#funcname2,#funcname3{margin-bottom: 8px;}
 		.redStar{color:red;}
+		.line-over{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
     </style>
 </head>
 <body>

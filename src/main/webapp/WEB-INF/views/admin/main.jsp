@@ -270,7 +270,7 @@
     
 
 <script>
-
+$("#monitoring").addClass("active");
 </script>
 </body>
 </html>

@@ -13,21 +13,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import kh.hello.configuration.Configuration;
 import kh.hello.dto.GuestBookDTO;
 import kh.hello.dto.LoginInfoDTO;
-import kh.hello.dto.MemberDTO;
 import kh.hello.dto.OwnerInfoDTO;
-import kh.hello.dto.PortfolioDTO;
 import kh.hello.services.GuestBookService;
-import kh.hello.services.MemberService;
 
 @Controller
 @RequestMapping("/GuestBook")
-public class GuestBookController {
+public class GuestBookMemController {
 	
 	@Autowired
 	private GuestBookService gs;
 			
-	@Autowired
-	private MemberService ms;
+
 	
 	@Autowired
 	private HttpSession session;
@@ -36,7 +32,7 @@ public class GuestBookController {
 	HttpServletRequest request;
 	
 	@RequestMapping("/insert.do")
-	public String insert(GuestBookDTO gdto) {
+	public String writeProcinsert(GuestBookDTO gdto) {
 		OwnerInfoDTO ownerInfo = (OwnerInfoDTO)session.getAttribute("ownerInfo");
 		LoginInfoDTO loginInfo = (LoginInfoDTO)session.getAttribute("loginInfo");
 		gdto.setWriterID(loginInfo.getId());
@@ -64,7 +60,7 @@ public class GuestBookController {
 	}
 	
 	@RequestMapping("delete.do")
-	public String delete(int seq) {
+	public String guestBookdeleteProc(int seq) {
 		gs.delete(seq);
 		return "redirect:selectList.do";
 	}

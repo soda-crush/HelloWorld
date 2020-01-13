@@ -277,7 +277,9 @@
 			$("#frm").submit();
 		}
 	 });
-	 
+	$("#member").addClass("active");
+	$("#member").children("ul").addClass("in");
+	$("#allMember").addClass("active");		 
 	</script>
 </body>
 </html>

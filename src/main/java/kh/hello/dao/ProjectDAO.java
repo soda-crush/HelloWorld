@@ -169,7 +169,7 @@ public class ProjectDAO {
 		Map<String, Object> param = new HashMap<>();
 		param.put("point", point);
 		param.put("id", id);
-		return jdbc.update("Project.articleAddPoint", param);
+		return jdbc.update("Project.updatePoint", param);
 	}
 	
 	//scrap 테이블

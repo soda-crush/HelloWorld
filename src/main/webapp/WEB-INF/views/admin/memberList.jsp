@@ -26,6 +26,7 @@
 <script src="${pageContext.request.contextPath }/adRsc/vendor/modernizr-2.8.3.min.js"></script>
 <!-- jquery latest version -->
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+
 <style>
 	.nameBtn{
 		border: 1px solid transparent !important;
@@ -277,6 +278,10 @@
 			$("#frm").submit();
 		}
 	 });
+	 
+	 $("#member").addClass("active");
+	 $("#member").children("ul").addClass("in");
+	 $("#allMember").addClass("active");	
 	</script>
 </body>
 </html>
