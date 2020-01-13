@@ -35,6 +35,7 @@
 	div{
 	border: 1px solid green;
 	}
+	
 </style>
 </head>
 <body>
@@ -74,7 +75,7 @@
 					    			<div class="col-2 col-md-2 order-2 order-md-3 notTitle text-center">${dto.writer}</div>
 					    			<div class="col-2 col-md-2 order-3 order-md-4 notTitle">${dto.getDate()}</div>
 					    			<div class="col-1 col-md-1 order-4 order-md-5 notTitle">${dto.viewCount}</div>
-					    			<div class="col-7 order-5 d-md-none">여백여백여백여백여백여백여백여백</div>		
+					    			<div class="col-7 order-5 d-md-none"></div>		
 								</div>
 				  			</c:forEach>
 				  		</c:otherwise>

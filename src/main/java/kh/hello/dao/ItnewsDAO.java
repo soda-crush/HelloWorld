@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kh.hello.configuration.Configuration;
 import kh.hello.dto.ItnewsCoDTO;
 import kh.hello.dto.ItnewsDTO;
 import kh.hello.dto.ItnewsImgDTO;
@@ -119,6 +120,52 @@ public class ItnewsDAO {
 	
 	public int insertImg(ItnewsImgDTO dto){
 		return jdbc.insert("Itnews.insertImg", dto);
+	}
+	
+	//글쓰기 포인트 증가
+	public int increPoint(String id) {
+		Map<String,Object> param = new HashMap<>();
+		param.put("id", id);
+		param.put("point",Configuration.articleAddPoint);
+		
+		return jdbc.update("Itnews.changePoint", param);
+	}
+	
+	//글삭제 포인트 차감
+	public int decrePoint(String id) {
+		Map<String,Object> param = new HashMap<>();
+		param.put("id", id);
+		param.put("point",Configuration.articleDelPoint);
+		
+		return jdbc.update("Itnews.changePoint", param);
+	}
+	
+	//댓글쓰기 포인트 증가
+	public int increCoPoint(String id) {
+		Map<String,Object> param = new HashMap<>();
+		param.put("id", id);
+		param.put("point",Configuration.commentAddPoint);
+		
+		return jdbc.update("Itnews.changePoint", param);
+	}
+	
+	//댓글쓰기 포인트 차감
+	public int decreCoPoint(String id) {
+		Map<String,Object> param = new HashMap<>();
+		param.put("id", id);
+		param.put("point",Configuration.commentDelPoint);
+		
+		return jdbc.update("Itnews.changePoint", param);
+	}
+	
+	//글 시퀀스로 아이디 불러오기
+	public String getIdBySeq(int seq) {
+		return jdbc.selectOne("Itnews.getIdBySeq", seq);
+	}
+	
+	//댓글 시퀀스로 아이디 불러오기
+	public String getIdByCoSeq(int seq) {
+		return jdbc.selectOne("Itnews.getIdByCoSeq", seq);
 	}
 	
 }
