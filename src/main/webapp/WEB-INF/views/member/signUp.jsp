@@ -601,7 +601,6 @@
  	 	 	              				email : $("#unempEmail").val()
  	 	 	              			}
  	 	 	              		}).done(function(data){
- 	 	 	              			console.log(data);
  	 	 	              			if(data == "true"){
  	 	 	              				alert("이미 등록된 이메일입니다.");
  	 	 	              			}else{

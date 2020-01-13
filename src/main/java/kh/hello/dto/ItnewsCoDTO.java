@@ -10,11 +10,12 @@ public class ItnewsCoDTO {
 	private String content;
 	private Timestamp writeDate;
 	private String id;
+	private String profileImg;
 	
-	@Override
-	public String toString() {
-		return "ItnewsCoDTO [seq=" + seq + ", itSeq=" + itSeq + ", writer=" + writer + ", content=" + content
-				+ ", writeDate=" + writeDate + ", id=" + id + "]";
+	public String getFormedWriteDateForAdmin() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+		String result = sdf.format(this.writeDate);
+		return result;
 	}
 
 	public ItnewsCoDTO() {
@@ -22,7 +23,8 @@ public class ItnewsCoDTO {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ItnewsCoDTO(int seq, int itSeq, String writer, String content, Timestamp writeDate, String id) {
+	public ItnewsCoDTO(int seq, int itSeq, String writer, String content, Timestamp writeDate, String id,
+			String profileImg) {
 		super();
 		this.seq = seq;
 		this.itSeq = itSeq;
@@ -30,6 +32,7 @@ public class ItnewsCoDTO {
 		this.content = content;
 		this.writeDate = writeDate;
 		this.id = id;
+		this.profileImg = profileImg;
 	}
 
 	public int getSeq() {
@@ -79,13 +82,22 @@ public class ItnewsCoDTO {
 	public void setId(String id) {
 		this.id = id;
 	}
-	
-	public String getFormedWriteDateForAdmin() {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
-		String result = sdf.format(this.writeDate);
-		return result;
+
+	public String getProfileImg() {
+		return profileImg;
 	}
-	
+
+	public void setProfileImg(String profileImg) {
+		this.profileImg = profileImg;
+	}
+
+	@Override
+	public String toString() {
+		return "ItnewsCoDTO [seq=" + seq + ", itSeq=" + itSeq + ", writer=" + writer + ", content=" + content
+				+ ", writeDate=" + writeDate + ", id=" + id + ", profileImg=" + profileImg + "]";
+	}
+
+
 	
 	
 }
