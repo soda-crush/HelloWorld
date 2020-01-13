@@ -22,10 +22,8 @@
 .pApply{font-size:13px;color:red;}
 .checkBtn button:nth-child(2){margin-left:10px;}
 .adBoxDiv{height:150px;width:100%;background-color:darkgray;text-align:center;margin:0;margin-top:20px;}
-/* .pSelect{width:100px;} */
 #pPageContents{margin:40px;}
 .label-info {
-/* 	background-color: #17a2b8; */
 	background-color: #ffc107;
 	display: inline-block;
 		padding: 0.2em 0.6em 0.3em; 
@@ -41,16 +39,15 @@
 .bootstrap-tagsinput .tag [data-role="remove"]:after{color: red;font-weight: bold;padding: 0px;}
 .modal-body input[type=radio]{font-size:13px;}
 .pPageComments{margin-top:30px;}
+.commentDiv{
+	margin:10px;
+	padding:0;
+	padding-bottom:5px;	
+}
 .commentInnerBox{
 	background-color:#fff;
-	margin:10px;
-/* 	margin-top:2px; */
-/* 	margin-bottom:2px; */
-	padding:0;
-	padding-bottom:5px;
-	border-radius:10px;
+	border-radius:10px;	
 }
-
 .commentInfo{
 	font-size:13px;
 	padding-left:10px;
@@ -75,18 +72,8 @@
 img{max-width:100%;}
 #scrapDone{color:crimson;}
 #scrapDone,#scrapNull:hover{cursor:pointer;}
-/* .coLevel1{margin-left:60px;} */
 .commentWriteDate{font-size:10px;}
 .commentWriter{font-weight:bold;}
-#pCoReplyInput{
-    margin-left: 60px;
-    background-color:#fff;
-	margin-top:2px;
-	margin-bottom:2px;
-	padding:0;
-	padding-bottom:5px;
-	border-radius:7px;    	
-}
 #pCoReplyContents{
     margin-top:10px;
 	margin-bottom:15px;

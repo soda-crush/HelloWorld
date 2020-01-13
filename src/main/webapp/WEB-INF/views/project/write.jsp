@@ -99,9 +99,9 @@
 							<div class="row">
 								<div class="col-md-2"><label class="pItem">연락처</label></div>
 								<div class="col-md-7">
-									<input type="text" class="form-control form-control-sm phone p-1" maxlength="3" id="phone1"> -
-									<input type="text" class="form-control form-control-sm phone p-1" maxlength="4" id="phone2"> -
-									<input type="text" class="form-control form-control-sm phone p-1" maxlength="4" id="phone3">
+									<input type="tel" class="form-control form-control-sm phone p-1" maxlength="3" id="phone1"> -
+									<input type="tel" class="form-control form-control-sm phone p-1" maxlength="4" id="phone2"> -
+									<input type="tel" class="form-control form-control-sm phone p-1" maxlength="4" id="phone3">
 									<input type="hidden" name="phone" id="phone">
 								</div>
 							</div>
