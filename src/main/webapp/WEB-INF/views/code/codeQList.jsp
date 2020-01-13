@@ -141,7 +141,7 @@ badge-success
 										<th scope="row">${dto.seq}</th>
 										<td><span class="badge badge-pill badge-success"
 											style="margin: 10; width: 60px;">${dto.division}</span></td>
-										<td style="cursor:hand" onClick="detailView(${dto.seq},'${dto.id}')">
+											<td style="cursor:hand" onClick="detailView(${dto.seq})">
 											${dto.title}
 											<c:if test="${dto.replyCount>0 }">
 					  							<span class="pComment font-weight-bold">${dto.replyCount}</span>
@@ -159,9 +159,13 @@ badge-success
 						</c:choose>
 					</tbody>
 				</table>
-				<div class="text-right">
-					<a class="btn btn-primary" href="/code/codeQWrite.do" role="button">글쓰기</a>
-				</div>
+				
+				<c:if test="${sessionScope.loginInfo.id!=null }">	
+					<div class="text-right">
+						<a class="btn btn-primary" href="/code/codeQWrite.do" role="button">글쓰기</a>
+					</div>
+				</c:if>
+		
 				<nav aria-label="List navi">
 					<ul class="pagination justify-content-center">
 						<li class="page-item"><a class="page-link" href="#"
@@ -237,8 +241,8 @@ badge-success
 		$("frm").submit();
 	})
 	
-	function detailView(seq,id){
-		location.href="${pageContext.request.contextPath}/code/codeDetail.do?seq="+seq+"&id="+id;
+	function detailView(seq){
+		location.href="${pageContext.request.contextPath}/code/codeDetail.do?seq="+seq;
 	}
 </script>
 		<jsp:include page="/WEB-INF/views/standard/footer.jsp" />

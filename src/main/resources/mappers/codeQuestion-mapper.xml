@@ -5,7 +5,7 @@
 <mapper namespace="Code">
 	<insert id="insert" parameterType="kh.hello.dto.CodeQuestionDTO">
 		insert into codeQuestion
-		values(codeQuestionSeq.nextval,#{division},#{title},#{content},#{id},#{writer},#{point},0,sysdate)
+		values(#{seq},#{division},#{title},#{content},#{id},#{writer},#{point},0,sysdate)
 	</insert>
 	<select id="selectQuestionAll" resultType="kh.hello.dto.CodeQuestionDTO">
 		select codeQuestion.*,(select count(*) from codeReply where queSeq=codeQuestion.seq) as replyCount from (select codeQuestion.*, row_number() over(order by seq desc) rown from codeQuestion) codeQuestion where rown between #{start} and #{end} order by seq desc

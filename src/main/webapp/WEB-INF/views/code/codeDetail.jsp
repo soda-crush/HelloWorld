@@ -140,14 +140,16 @@ span:nth-child(4) {
 				<br>
 
 				<c:choose>
+					<c:when test="${sessionScope.loginInfo.id==null }">
+						<div style="text-align: right;" class="btnDIv">	
+							<a class="btn btn-dark" href="/code/codeQList.do" role="button">목록</a>
+						</div>
+					</c:when>
 					<c:when test="${qResult.id!=sessionScope.loginInfo.id}">
 						<div style="text-align: right;" class="btnDIv">							
-<%-- 							<c:forEach items="${rResult}" var="r" end="0"> --%>
 								<c:if test="${count==0 && adoptCount==0}">
-<%-- 								<c:if test="${count==0}"> --%>
 									<a class="btn btn-dark" href="/code/codeRWrite.do?seq=${qResult.seq}" role="button">답변</a>
 								</c:if>
-<%-- 							</c:forEach> --%>
 							<button class="btn btn-dark">공유</button>
 							<button class="btn btn-dark" id="scrap">스크랩</button>
 							<a class="btn btn-dark" href="/code/codeQList.do" role="button">목록</a>
@@ -188,13 +190,16 @@ span:nth-child(4) {
 <!-- 채택 -->										
 						<c:if test="${repCount >0 && qResult.id == sessionScope.loginInfo.id}"> 
 								<div style="text-align:right;">
-									<c:if test="${r.adopt=='N'}">
+									<c:if test="${r.adopt=='N' && adoptCount == 0}">
 										<button type="button" class="btn btn-primary" id="adopt" onclick="adopt('${r.id}')">채택하기</button>
 									</c:if>
 								</div>
 						</c:if>
 						<br>
 						<c:choose>
+							<c:when test="${sessionScope.loginInfo.id==null }">
+							
+							</c:when>
 							<c:when test="${r.id == sessionScope.loginInfo.id}">
 								<div style="text-align:right;">
 									<button class="btn btn-dark" id="modifyR" onclick="modifyRe(${r.seq},${r.queSeq})">수정</button>
@@ -208,9 +213,9 @@ span:nth-child(4) {
 							</c:otherwise>
 						</c:choose>	
 						<br>
-						
-					<div style="text-align:right;"><button class="btn btn-dark" id="commentBtn" onclick="hideCo(${r.seq})">댓글</button></div>
-							
+					<c:if test="${sessionScope.loginInfo.id!=null }">	
+						<div style="text-align:right;"><button class="btn btn-dark" id="commentBtn" onclick="hideCo(${r.seq})">댓글</button></div>
+					</c:if>		
 					<div class="contentDivBot dSeq${r.seq}" style="display:none;">
 						<div class="pPageComments${r.seq}">
 							<c:if test="${cResult.size()>0 }">
