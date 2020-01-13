@@ -35,6 +35,7 @@
         .scrapnavi>div{margin:10px;height:30px;}
         .scrapnavi>div>a{color:black;}
         .scrapnavi{background-color: lightgray;border-radius:5px;margin-top:30px;}	
+        .line-over{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 	</style>
 </head>
 <body>
@@ -56,7 +57,7 @@
 	            <div class="row navi" style="background-color: #008EDC;">
 					<div class="col nvlink"><a class="text-light" href="${pageContext.request.contextPath}/Portfolio/toPlogmain.do">내 포트폴리오</a></div>
 					<div class="col nvlink"><a class="text-light" href="${pageContext.request.contextPath}/Plog/toPlogCohow.do">내 지식인</a></div>
-					<div class="col nvlink"><a class="text-light" href="${pageContext.request.contextPath}/Scrap/toScrap.do">내 스크랩</a></div>
+					<div class="col nvlink"><a class="text-light" href="${pageContext.request.contextPath}/Scrap/itNews.do">내 스크랩</a></div>
 					<div class="col nvlink"><a class="text-light" href="${pageContext.request.contextPath}/Plog/toPlogProject.do">내 프로젝트</a></div>
 					<div class="col nvlink"><a class="text-light" href="${pageContext.request.contextPath}/GuestBook/selectList.do">방명록</a></div>
 				</div>
@@ -65,8 +66,8 @@
 	                    <div class="card" id="mycard">
 	                        <img src="/img/profileSample.jpg" class="card-img-top" alt="..." style="width: 170px;height: 170px;margin:15px;">
 	                        <div class="card-body">
-	                            <h3 class="card-title" style="text-align: center;">${ownerInfo.nickName} 님</h3>
-	                            <p class="card-text" style="text-align: center;">point : ${ownerInfo.point }</p>
+	                            <div class="card-title line-over" style="text-align: center;font-size:20px;">${ownerInfo.nickName} 님</div>
+	                            <p class="card-text" style="text-align: center;font-size:15px;">point : ${ownerInfo.point }</p>
 	                        </div>
 	                    </div>
 	                    <div class="scrapnavi" >
@@ -93,8 +94,8 @@
 						  		<c:otherwise>
 						  			<c:forEach items="${nlist}" var="dto">
 						  				<div class="row tableBody p-0">
-							    			<div class="col-7 col-lg-5 "><a href="${pageContext.request.contextPath}/itnews/detail?seq=${dto.seq}&page=${page}">${dto.title}</a></div>
-							    			<div class="col-2">${dto.writer}</div>
+							    			<div class="col-7 col-lg-5 line-over"><a href="${pageContext.request.contextPath}/itnews/detail?seq=${dto.seq}&page=${page}">${dto.title}</a></div>
+							    			<div class="col-2 line-over">${dto.writer}</div>
 							    			<div class="col-3">${dto.getDate()}</div>
 							    			<div class="col-2 d-none d-lg-block">${dto.viewCount}</div>	
 										</div>
@@ -102,6 +103,11 @@
 						  		</c:otherwise>
 						  	</c:choose> 
 						</div>
+						<div class="naviwrap"style="width:100%;text-align:center;">
+		                    <c:forEach items="${pageNavi}" var="navi">									
+								${navi}
+							</c:forEach>
+	               		</div>
 	                </div>
 	          	</div>
             </div>
