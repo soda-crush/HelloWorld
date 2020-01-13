@@ -30,7 +30,6 @@ public class MemAdvisor {
 			e.printStackTrace();
 			System.out.println("proceed도중 오류 발생");
 		}
-		
 		return result;
 	}
 	
