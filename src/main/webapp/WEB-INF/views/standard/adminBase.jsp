@@ -24,6 +24,11 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath }/adRsc/css/responsive.css">
 <!-- modernizr css -->
 <script src="${pageContext.request.contextPath }/adRsc/vendor/modernizr-2.8.3.min.js"></script>
+<style>
+	.notification-area {
+		text-align:right;
+	}
+</style>
 </head>
 <body>
 	<!-- preloader area start -->

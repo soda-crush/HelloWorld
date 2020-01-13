@@ -85,13 +85,11 @@ public class BambooController {
 
 	@RequestMapping("/bambooModifyProc.do")
 	public String bambooModifyConfirm(BambooDTO dto) {
-		System.out.println(dto.toString());
 		String path = session.getServletContext().getRealPath("attached");
 
 		int result = 0;
 		try {
 			result = service.bambooModifyConfirm(dto, path);
-			System.out.println(result);
 			if(result > 0) {
 				int seq = dto.getSeq();
 				return "redirect:/bamboo/bambooDetailView.do?seq="+seq;
@@ -147,9 +145,7 @@ public class BambooController {
 
 	//게시판 목록 검색
 	@RequestMapping("/bambooSearch.do")
-	public String bambooSearch(String search, HttpServletRequest request, Model m, String cpage) {
-		System.out.println(request.getParameter("value")+" - "+search);
-		String value = request.getParameter("value");
+	public String bambooSearch(String search, String value, Model m, String cpage) {
 		//페이지네비
 		int currentPage = 1;		
 
@@ -164,5 +160,10 @@ public class BambooController {
 		m.addAttribute("cpage", currentPage);
 
 		return "/bamboo/bambooList";
+	}
+	
+	@RequestMapping("/kakao.do")
+	public String kakao ( ) {
+		return "/bamboo/kakao";
 	}
 }

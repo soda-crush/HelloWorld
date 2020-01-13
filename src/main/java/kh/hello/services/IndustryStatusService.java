@@ -109,7 +109,6 @@ public class IndustryStatusService {
 	//업계현황 댓글
 
 	public List<IndustryStatusCoDTO> commentList(int indSeq) {
-		System.out.println(indSeq);
 		return dao.getCoList(indSeq);
 	}
 
@@ -155,57 +154,56 @@ public class IndustryStatusService {
 	}
 
 	//조건별 게시판목록 검색
-	//		public List<BambooDTO> industrySearchListByPage(int start, int end,String value, String search) {//대나무숲 10개씩
-	//			System.out.println(dao.industrySearchListByPage(Integer.toString(start), Integer.toString(end),value,search).toString());
-	//			return dao.industrySearchListByPage(Integer.toString(start), Integer.toString(end),value,search);
-	//		}
-	//		public List<String> industrySearchListPageNavi (int currentPage,String value, String search) {
-	//			int recordTotalCount = dao.industrySearchTotalCount(value,search);
-	//			int pageTotalCount = 0;
-	//
-	//			if(recordTotalCount% Configuration.recordCountPerPage > 0) {
-	//				pageTotalCount = recordTotalCount / Configuration.recordCountPerPage + 1;
-	//			}else {
-	//				pageTotalCount = recordTotalCount / Configuration.recordCountPerPage;
-	//			}
-	//
-	//			if(currentPage < 1) {
-	//				currentPage = 1;
-	//			}else if(currentPage > pageTotalCount) {
-	//				currentPage = pageTotalCount;
-	//			}
-	//
-	//			int startNavi = (currentPage - 1) / Configuration.naviCountPerPage * Configuration.naviCountPerPage + 1;
-	//			int endNavi = startNavi + (Configuration.naviCountPerPage - 1);
-	//
-	//			if(endNavi > pageTotalCount) {
-	//				endNavi = pageTotalCount;
-	//			}
-	//
-	//			boolean needPrev = true;
-	//			if(startNavi == 1) {
-	//				needPrev = false;
-	//			}
-	//			boolean needNext = true;
-	//			if(endNavi == pageTotalCount) {
-	//				needNext = false;
-	//			}
-	//
-	//			List<String> pages = new ArrayList<>();
-	//			if(needPrev) pages.add("<li class=\"page-item\"><a class=page-link href='bambooSearch.do?search="+search+"&value="+value+"&cpage=" + (startNavi - 1) + "' >< </a></li>");
-	//
-	//			for(int i = startNavi; i <= endNavi; i++) {
-	//				StringBuilder sb = new StringBuilder();
-	//				sb.append("<li class=\"page-item\"><a class=page-link href='bambooSearch.do?search="+search+"&value="+value+"&cpage="+ i +"'>");
-	//				sb.append(i + " ");
-	//				sb.append("</a></li>");
-	//				pages.add(sb.toString());
-	//			}
-	//
-	//			if(needNext) pages.add("<li class=\"page-item\"><a class=page-link href='bambooSearch.do?search="+search+"&value="+value+"&cpage=" + (endNavi + 1) + "'>> </a></li>");
-	//
-	//			return pages;
-	//		}
+	public List<IndustryStatusDTO> industrySearchListByPage(int start, int end,String value, String search) {//검색결과 10개씩
+		return dao.industrySearchListByPage(Integer.toString(start), Integer.toString(end),value,search);
+	}
+	public List<String> getIndustrySearchListPageNavi (int currentPage,String value, String search) {
+		int recordTotalCount = dao.industrySearchTotalCount(value,search);
+		int pageTotalCount = 0;
+
+		if(recordTotalCount% Configuration.recordCountPerPage > 0) {
+			pageTotalCount = recordTotalCount / Configuration.recordCountPerPage + 1;
+		}else {
+			pageTotalCount = recordTotalCount / Configuration.recordCountPerPage;
+		}
+
+		if(currentPage < 1) {
+			currentPage = 1;
+		}else if(currentPage > pageTotalCount) {
+			currentPage = pageTotalCount;
+		}
+
+		int startNavi = (currentPage - 1) / Configuration.naviCountPerPage * Configuration.naviCountPerPage + 1;
+		int endNavi = startNavi + (Configuration.naviCountPerPage - 1);
+
+		if(endNavi > pageTotalCount) {
+			endNavi = pageTotalCount;
+		}
+
+		boolean needPrev = true;
+		if(startNavi == 1) {
+			needPrev = false;
+		}
+		boolean needNext = true;
+		if(endNavi == pageTotalCount) {
+			needNext = false;
+		}
+
+		List<String> pages = new ArrayList<>();
+		if(needPrev) pages.add("<li class=\"page-item\"><a class=page-link href='industrySearch.do?search="+search+"&value="+value+"&cpage=" + (startNavi - 1) + "' >< </a></li>");
+
+		for(int i = startNavi; i <= endNavi; i++) {
+			StringBuilder sb = new StringBuilder();
+			sb.append("<li class=\"page-item\"><a class=page-link href='industrySearch.do?search="+search+"&value="+value+"&cpage="+ i +"'>");
+			sb.append(i + " ");
+			sb.append("</a></li>");
+			pages.add(sb.toString());
+		}
+
+		if(needNext) pages.add("<li class=\"page-item\"><a class=page-link href='industrySearch.do?search="+search+"&value="+value+"&cpage=" + (endNavi + 1) + "'>> </a></li>");
+
+		return pages;
+	}
 
 	//이미지 업로드
 	private String imgUpload(String path, int indSeq, String content) throws Exception{

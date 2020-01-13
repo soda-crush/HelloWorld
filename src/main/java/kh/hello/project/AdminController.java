@@ -46,7 +46,7 @@ public class AdminController {
 	public String login(String name, String password) {
 		int result = as.validLogin(name, password);
 		if(result > 0) {
-			session.setAttribute("loginInfo", name);
+			session.setAttribute("AdminInfo", name);
 			return "redirect:main";
 		}else {
 			return "redirect:loginFail";
@@ -259,7 +259,7 @@ public class AdminController {
 		
 		List<ForcedOutMemberDTO> list = as.forcedOutListByPage(start, end);
 		m.addAttribute("list", list);
-		
+				
 		//페이지네비 받아오기
 		List<String> pageNavi = as.getForcedOutPageNavi(currentPage);
 		m.addAttribute("pageNavi", pageNavi);

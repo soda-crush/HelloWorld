@@ -12,6 +12,7 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/css/mainBase.css">
+<link rel="stylesheet" href="/css/font-awesome/css/font-awesome.css" type="text/css"/>
 <style>
 	.table{background-color:white;padding:0;text-align:center;}
 	.contentDiv {
@@ -24,7 +25,7 @@
 	text-overflow: ellipsis;
 	/* 여러 줄 자르기 추가 스타일 */
 	white-space: normal;
-}
+	}
 </style>
 </head>
 <body>
@@ -52,65 +53,71 @@
 				</div>
 				
             <c:if  test="${bPage.seq !=null }">
-				  				<div>${bPage.seq}</div>
+				  				<div>글 번호 : ${bPage.seq}</div>
 				  				<h3>${bPage.title}</h3>
 				  				<input type="hidden" name="writer" value="${bPage.writer}">
-				  				<div>익명</div>
-				  				<div>${bPage.formedWriteDate}</div>
-				  				<div>${bPage.viewCount}</div>
+				  				<div>작성자 : 익명</div>
+				  				<div>작성일 : ${bPage.formedWriteDate}</div>
+				  				<div>조회수 : ${bPage.viewCount}</div>
+				  				<hr>
 				  				<div class="contentDiv">${bPage.content}</div>
+				  				
 			</c:if>
+			<div class="text-right">
 				 <a class="btn btn-primary" href="/bamboo/bambooList.do" role="button">돌아가기</a>
 				 <c:if test="${bPage.writer == sessionScope.loginInfo.id}">
 				 <a class="btn btn-primary" href="/bamboo/bambooModify.do?seq=${bPage.seq }" role="button">수정하기</a>
 				 <a class="btn btn-primary" href="/bamboo/bambooDeleteProc.do?seq=${bPage.seq }" role="button">삭제하기</a>
 				 </c:if>
-				 <a class="btn btn-primary" href="#" role="button">공유하기</a>
+				 <a class="btn btn-primary" href="/bamboo/kakao.do" role="button">공유하기</a><i class="fa fa-share-alt"></i>
 <!-- 		     <a class="sbtn btn-primary" href="#" role="button">스크랩</a> -->
 				 <a class="btn btn-primary" href="#" role="button">신고하기</a>
-
+			</div>
+			<hr>
            	<div class="pPageComments">
-							<c:if test="${comments.size()>0 }">
-								<c:forEach items="${comments }" var="c">
-									<div class="row commentDiv commentBox${c.seq } p-0 pb-2 m-2">
-										<div class="col-12 commentInnerBox">
-											<div class="row commentHeader">
-												
-												<div class="col-7 pt-1">
-													<div class="row commentInfo">
+					<c:if test="${comments.size()>0 }">
+							<c:forEach items="${comments }" var="c">
+								<div class="row commentDiv commentBox${c.seq } p-0 pb-2 m-2">
+									<div class="col-12 commentInnerBox">
+										<div class="row commentHeader">										
+											<div class="col-7 pt-1">
+												<div class="row commentInfo">
 													<input type="hidden" name="writer" value="${c.writer}">
 														<div class="col-12 commentWriter">익명</div>
 														<div class="col-12 commentWriteDate">${c.formedWriteDate  }</div>
 													</div>
 												</div>				
-												<div class="col-4 pt-2 text-right commentBtns">
-													<c:if test="${c.writer==sessionScope.loginInfo.id }">
-														<a class="btn btn-info coModBtn" href="/bamboo/comment/modifyProc.do?seq=${c.seq }&bamSeq=${c.bamSeq}" onclick="coModFunction(${c.seq},'${c.content}',${c.bamSeq });return false;" role="button">수정</a>
-														<a class="btn btn-danger coDelBtn" href="/bamboo/comment/deleteProc.do?seq=${c.seq }&bamSeq=${c.bamSeq}" onclick="coDelFunction(${c.seq});return false;" role="button">삭제</a>
-													</c:if>
-												</div>								
-											</div>											
-											<div class="row commentContent">
-												<div class="col-12 pt-1 pl-4">${c.content }</div>
-											</div>
+											<div class="col-4 pt-2 text-right commentBtns">
+									<c:if test="${c.writer==sessionScope.loginInfo.id }">
+					    				<a class="btn btn-info coModBtn" href="/bamboo/comment/modifyProc.do?seq=${c.seq }&bamSeq=${c.bamSeq}" onclick="coModFunction(${c.seq},'${c.content}',${c.bamSeq });return false;" role="button">수정</a>
+											<a class="btn btn-danger coDelBtn" href="/bamboo/comment/deleteProc.do?seq=${c.seq }&bamSeq=${c.bamSeq}" onclick="coDelFunction(${c.seq});return false;" role="button">삭제</a>
+									</c:if>
+											</div>								
+										</div>											
+										<div class="row commentContent">
+											<div class="col-12 pt-1 pl-4">${c.content }</div>
 										</div>
-									</div>								
-								</c:forEach>
-							</c:if>
-							</div>
+									</div>
+								</div>
+								<hr>								
+							</c:forEach>
+						</c:if>
+					</div>
 							
-			<c:if test="${bPage.writer == sessionScope.loginInfo.id}">				
-							<div id="pCoInput" class="row">
-								<div class="col-9 col-lg-10"><textarea class="form-control" placeholder="댓글 내용을 입력해주세요" id="pCoContents"></textarea></div>
-								<div class="col-3 col-lg-2">
-									<div class="row">
-										<div class="col-12">
-											<button type="button" class="btn btn-primary" id="coWriteBtn">작성</button>
-										</div>										
-									</div>								
-		        				</div>
-							</div>    	
-						</c:if>		
+					
+				<div id="pCoInput" class="row">
+					<div class="col-9 col-lg-10">
+						<textarea class="form-control" placeholder="댓글 내용을 입력해주세요" id="pCoContents"></textarea>
+					</div>
+					<div class="col-3 col-lg-2">
+						<div class="row">
+							<div class="col-12">
+								<button type="button" class="btn btn-primary" id="coWriteBtn">작성</button>									
+							</div>										
+						</div>								
+		        	</div>
+				</div>    	
+				
             </div>
             <!--       몸통 끝!!!   -->
             
@@ -126,7 +133,11 @@
        
         <script>
         $("#coWriteBtn").on("click",function(){
-			$("#pCoContents").val($.trim($("#pCoContents").val()));
+        	if("${sessionScope.loginInfo.id}" == ""){
+        		alert("로그인을 해주세요.");
+        		return false;
+        	}
+        	$("#pCoContents").val($.trim($("#pCoContents").val()));
 			if($("#pCoContents").val()==""){
 				alert("댓글 내용을 입력해주세요.");
 				return false;
@@ -147,8 +158,7 @@
 				commentRecall(resp);
 
 			}).fail(function(resp){
-				console.log("실패");
-				console.log(resp);
+			
 			})
 		});
          	
@@ -187,7 +197,6 @@
 					alert("댓글 내용을 입력해주세요.");
 					return false;
 				}
-				console.log($("#coModFrm").serialize());
 				$.ajax({
 					url : "/bamboo/comment/modifyProc.do",
 					type : "post",
@@ -197,8 +206,7 @@
 					$(".pPageComments").html("");
 					commentRecall(resp);
 				}).fail(function(resp){
-					console.log("실패");
-					console.log(resp);
+
 				})
            	});
            	function coDelFunction(seq){
@@ -216,8 +224,7 @@
     					$(".pPageComments").html("");
     					commentRecall(resp);
            			}).fail(function(resp){
-    					console.log("실패");
-    					console.log(resp);
+    
            			})
            		}
            	}
@@ -241,7 +248,7 @@
 					}
 					html.push(
 							'</div></div>',
-							'<div class="row commentContent"><div class="col-12 pt-1 pl-4">'+resp[i].content+'</div></div></div></div>'
+							'<div class="row commentContent"><div class="col-12 pt-1 pl-4">'+resp[i].content+'</div></div></div></div><hr>'
 							);
 					$(".pPageComments").append(html.join(""));	
            		}

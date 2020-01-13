@@ -23,6 +23,7 @@ import kh.hello.dto.ProjectApplyDTO;
 import kh.hello.dto.ProjectCoDTO;
 import kh.hello.dto.ProjectDTO;
 import kh.hello.dto.ProjectImageDTO;
+import kh.hello.dto.ProjectPLogDTO;
 
 @Service
 public class ProjectService {
@@ -112,7 +113,7 @@ public class ProjectService {
 	}
 	
 	@Transactional("txManager")
-	public int projectWriteConfirm(ProjectDTO dto,String path) throws Exception {
+	public int projectWriteConfirm(ProjectDTO dto, String path) throws Exception {
 		String option = "articleAdd";
 		File filePath = new File(path);
 		if(!filePath.exists()) {			
@@ -150,14 +151,67 @@ public class ProjectService {
 		return projectSeq;		
 	}
 	
-	public int projectModifyConfirm(ProjectDTO dto) {
-		return dao.updateProject(dto);
+	@Transactional("txManager")
+	public int projectModifyConfirm(ProjectDTO dto, String path) throws Exception {
+		File filePath = new File(path);
+		if(!filePath.exists()) {			
+			filePath.mkdirs();
+		}
+		String contents = dto.getContents();
+		Pattern p = Pattern.compile("<img.+?src=\"(.+?)\".+?data-filename=\"(.+?)\".*?>");
+		Matcher m = p.matcher(contents);
+		
+		int projectSeq = dto.getSeq();
+		List<ProjectImageDTO> originImages = dao.getImages(projectSeq);
+		List<String> originSysNames = new ArrayList<>();
+		for(ProjectImageDTO i : originImages) {
+			originSysNames.add(i.getSysName());
+		}
+		List<String> modiImageSysNames = new ArrayList<>();
+		String headName = "/attached/project/";
+			while(m.find()) {
+				if(!m.group(1).startsWith(headName)) {
+					String oriName = m.group(2);
+					String sysName = "summer_"+System.currentTimeMillis()+"_"+oriName;
+					String imgString = m.group(1).split(",")[1];
+					byte[] imgBytes = Base64Utils.decodeFromString(imgString);
+					FileOutputStream fos = new FileOutputStream(path+"/"+sysName);
+					DataOutputStream dos = new DataOutputStream(fos);
+					dos.write(imgBytes);
+					dos.flush();
+					dos.close();
+					contents = contents.replaceFirst(Pattern.quote(m.group(1)), headName+sysName);
+					ProjectImageDTO summer = new ProjectImageDTO();
+					summer.setOriName(oriName);
+					summer.setSysName(sysName);
+					summer.setProjectSeq(projectSeq);
+					dao.insertImage(summer);
+				}
+				modiImageSysNames.add(m.group(1).substring(headName.length()));			
+			}
+			
+			for(int i=0;i<modiImageSysNames.size();i++) {
+				if(originSysNames.contains(modiImageSysNames.get(i))) {
+					originSysNames.remove(modiImageSysNames.get(i));
+				}
+			}
+			for(String s : originSysNames) {
+				new File(path+"/"+s).delete();
+				dao.deleteImage(s);
+			}
+			dto.setContents(contents);			
+			return dao.updateProject(dto);
 	}
 	
 	@Transactional("txManager")
-	public int projectDeleteConfirm(int seq, String id) {
+	public int projectDeleteConfirm(int seq, String id, String path) {
 		String option = "articleDel";
+		List<ProjectImageDTO> imageList = dao.getImages(seq);
+		for(ProjectImageDTO i : imageList) {
+			new File(path+"/"+i.getSysName()).delete();
+		}
 		dao.deleteProjectAllCo(seq);
+		dao.deleteImagesByProjectSeq(seq);
 		dao.updatePoint(option, id);
 		return dao.deleteProject(seq);
 	}
@@ -167,8 +221,7 @@ public class ProjectService {
 		dao.closeProject(seq);
 		dao.closeProjectApply(seq);
 	}
-	
-	@Transactional("txManager")
+		
 	public String checkScrap(String id, int seq) {
 		int result = dao.checkScrap(id, seq);
 		if(result>0) {
@@ -268,6 +321,10 @@ public class ProjectService {
 		return dao.getProjectApplyDetailView(seq);
 	}
 	
+	public ProjectApplyDTO getApplyCheck(int projectSeq) {
+		return dao.getApplyCheck(projectSeq);
+	}
+	
 	public int projectApplyDeleteConfirm(int seq) {
 		return dao.deleteProjectApply(seq);
 	}
@@ -285,13 +342,17 @@ public class ProjectService {
 //	나의 프로젝트
 //	
 	
-//	페이징네비되면삭제
-	public List<ProjectDTO> makeProjectList(String id){
-		return dao.getMakeProjectList(id);
-	}
 	
-	public String getPLogProjectPageNavi(int currentPage, String id) {
-		int recordTotalCount = dao.getMakeArticleCount(id);
+	public String getPLogProjectPageNavi(int currentPage, String id, String listType) {
+		
+		int recordTotalCount = 0;
+		if(listType.contentEquals("makeProjectList")) {
+			recordTotalCount = dao.getMakeArticleCount(id);
+		}else if(listType.contentEquals("applyProjectList")) {
+			recordTotalCount = dao.getApplyArticleCount(id);
+		}
+		
+		
 		int pageTotalCount = 0;		
 		if(recordTotalCount % Configuration.pLogProjectRecordCountPerPage>0) {
 			pageTotalCount = recordTotalCount/Configuration.pLogProjectRecordCountPerPage+1;
@@ -323,15 +384,15 @@ public class ProjectService {
 		sb.append("<ul class='pagination justify-content-center'>");
 		if(needPrev) {
 			sb.append("<li class='page-item'>");
-			sb.append("<a class='page-link' href='/project/makeProjectList?page="+(startNavi-1)+"' aria-label='Previous'>"); 
+			sb.append("<a class='page-link' href='/project/pLog/"+listType+"?page="+(startNavi-1)+"' aria-label='Previous'>"); 
 			sb.append("<span aria-hidden='true'>&laquo;</span></a></li>");			
 		}
 		for(int i=startNavi;i<=endNavi;i++) {
-			sb.append("<li class='page-item pNavi"+i+"'><a class='page-link' href='/project/makeProjectList?page="+i+"'>"+i+"</a></li>");			
+			sb.append("<li class='page-item pNavi"+i+"'><a class='page-link' href='/project/pLog/"+listType+"?page="+i+"'>"+i+"</a></li>");			
 		}
 		if(needNext) {
 			sb.append("<li class='page-item'>");
-			sb.append("<a class='page-link' href='/project/makeProjectList?page="+(endNavi+1)+"' aria-label='Next'>");
+			sb.append("<a class='page-link' href='/project/pLog/"+listType+"?page="+(endNavi+1)+"' aria-label='Next'>");
 			sb.append("<span aria-hidden='true'>&raquo;</span></a></li>");			
 		}
 		sb.append("</ul>");
@@ -342,4 +403,7 @@ public class ProjectService {
 		return dao.getMakeProjectListPerPage(start, end, id);
 	}
 	
+	public List<ProjectPLogDTO> applyProjectListPerPage(int start, int end, String id){
+		return dao.getApplyProjectListPerPage(start, end, id);
+	}
 }

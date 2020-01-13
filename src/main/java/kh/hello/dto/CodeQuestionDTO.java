@@ -102,4 +102,10 @@ public class CodeQuestionDTO {
 	public void setReplyCount(int repCount) {
 		this.replyCount = repCount;
 	}
+	
+	public String getFormedWriteDateForAdmin() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+		String result = sdf.format(this.writeDate);
+		return result;
+	}
 }

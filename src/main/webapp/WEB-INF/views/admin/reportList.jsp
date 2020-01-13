@@ -24,12 +24,10 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath }/adRsc/css/responsive.css">
 <!-- modernizr css -->
 <script src="${pageContext.request.contextPath }/adRsc/vendor/modernizr-2.8.3.min.js"></script>
-<!-- jquery latest version -->
-<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <style>
 	.notification-area {
 		text-align:right;
-	}
+	}	
 </style>
 </head>
 <body>
@@ -54,10 +52,10 @@
                 <div class="row align-items-center">
                     <div class="col-sm-6">
                         <div class="breadcrumbs-area clearfix">
-                            <h4 class="page-title pull-left">모니터링</h4>
+                            <h4 class="page-title pull-left">신고글 관리</h4>
                             <ul class="breadcrumbs pull-left">
                                 <li><a href="${pageContext.request.contextPath }/admin/main">Home</a></li>
-                                <li><span>강퇴회원ID관리</span></li>
+                                <li><span>신고글 관리</span></li>
                             </ul>
                         </div>
                     </div>
@@ -75,70 +73,6 @@
             <!-- page title area end -->
             <div class="main-content-inner">
                 <!-- MAIN CONTENT GOES HERE -->
-                
-                <!-- Hoverable Rows Table start -->
-                    <div class="col-lg-6 mt-5">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="header-title">강퇴 ID 목록</h4>
-                                <div class="single-table">
-                                    <div class="table-responsive">
-		                                        <table class="table table-hover text-center">
-		                                            <thead class="text-uppercase">
-		                                                <tr>
-		                                                    <th scope="col">ID</th>
-		                                                    <th scope="col">강퇴사유</th>
-		                                                    <th scope="col">강퇴날짜</th>
-		                                                    <th scope="col"></th>
-		                                                </tr>
-		                                            </thead>
-		                                            <tbody>
-		                                            	<c:choose>
-		                                            		<c:when test="${list.size() == 0}">
-		                                            			<tr><th colspan='3'>강퇴한 회원이 없습니다<th></tr>
-		                                            		</c:when>
-		                                            		<c:otherwise>
-				                                            	<c:forEach items="${list}" var="dto">
-				                                                <tr>
-				                                                    <th scope="row">${dto.id}</th>
-				                                                    <td>${dto.reason}</td>
-				                                                    <td>${dto.formedDate}</td>
-				                                                    <td><i class="ti-trash" id="forcedOutDel${dto.seq}"></i></td>
-				                                                </tr>
-				                                                <script>
-				                                                	$("#forcedOutDel${dto.seq}").on("click", function(){
-				                                                		var result = confirm("이 기록을 지울까요?");
-				                                                		if(result){
-				                                                			location.href="${pageContext.request.contextPath}/admin/forcedOutDel?seq=${dto.seq}";
-				                                                		}
-				                                                	})
-				                                                </script> 
-				                                                </c:forEach> 		                                            		
-		                                            		</c:otherwise>
-		                                            	</c:choose>
-                                             	                                                                                          
-		                                            </tbody>
-		                                        </table>                                    		                                  
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="card">
-                            <div class="card-body">
-                                <nav aria-label="Page navigation example">
-                                    <ul class="pagination justify-content-center">
-										<c:forEach items="${pageNavi}" var="navi">									
-											<li class="page-item pageNavi">${navi}</li>
-										</c:forEach>
-                                    </ul>
-                                </nav>
-                            </div>
-                        </div>
-                        
-                    </div>
-                    <!-- Hoverable Rows Table end -->
-                
             </div>
         </div>
         <!-- main content area end -->
@@ -148,6 +82,8 @@
     </div>
     <!-- page container area end -->
 
+    <!-- jquery latest version -->
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <!-- bootstrap 4 js -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
@@ -173,18 +109,5 @@
     <!-- others plugins -->
     <script src="${pageContext.request.contextPath }/adRsc/js/plugins.js"></script>
     <script src="${pageContext.request.contextPath }/adRsc/js/scripts.js"></script>
-   	<script>
-	$(function(){
-		var element = $(".pageNavi");
-		var page = "${page}";
-		if(page > 0 && page <= 10){
-			element[page-1].classList.add('active');
-		}else if(page % 10 == 0){
-			element[10].classList.add('active');
-		}else{
-			element[page % 10].classList.add('active');
-		}	
-	});
-	</script>
 </body>
 </html>

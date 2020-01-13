@@ -27,11 +27,6 @@ public class CodeDAO {
 		return jdbc.insert("Code.insert",dto);
 	}
 	
-	//게시판전체(답글수)
-//	public List<CodeQuestionDTO> selectAll() throws Exception{
-//		return jdbc.selectList("Code.selectAll");
-//	}
-	
 	//게시판전체(페이징)
 	public List<CodeQuestionDTO> selectQuestionAll(int start,int end) {
 		Map<String, Integer> param = new HashMap<>();
@@ -44,11 +39,6 @@ public class CodeDAO {
 		return jdbc.selectOne("Code.codeQuestionCount");
 	}
 
-	//가장 최신 글 번호 찾기
-//	public int selectSeq(String id) {
-//		return jdbc.selectOne("Code.selectSeq",id);
-//	}
-	
 	//디테일
 	public CodeQuestionDTO detailQuestion(int seq) {
 		return jdbc.selectOne("Code.detailQuestion",seq);
@@ -112,29 +102,30 @@ public class CodeDAO {
 	
 	//CodeComment
 	
-	public int selectRepSeq(int queSeq,String id) { //repSeq구하기
-		Map<String,Object> param = new HashMap<>();
-		param.put("queSeq", queSeq);
-		param.put("id", id);
-		Object result = jdbc.selectOne("CodeC.selectRepSeq",param);
-		if(result == null) { //int null값 방지
-			return 0;
-		}
-		return (int)result;
-	}
+//	public int selectRepSeq(int queSeq,String id) { //repSeq구하기
+//		System.out.println("seq찾기");
+//		System.out.println(queSeq);
+//		System.out.println(id);
+//		Map<String,Object> param = new HashMap<>();
+//		param.put("queSeq", queSeq);
+//		param.put("id", id);
+//		Object result = jdbc.selectOne("CodeC.selectRepSeq",param);
+//		System.out.println("result:"+result);
+//		if(result == null) { //int null값 방지
+//			return 0;
+//		}
+//		return (int)result;
+//	}
 	
 	public List<CodeCommentsDTO> commentsList(int queSeq){
 		return jdbc.selectList("CodeC.commentsList", queSeq);
 	}
-	public List<CodeCommentsDTO> commentsListUpdate(int repSeq){
-		return jdbc.selectList("CodeC.commentsList", repSeq);
+	public List<CodeCommentsDTO> commentsListTwo(int repSeq){
+		return jdbc.selectList("CodeC.commentsListTwo", repSeq);
 	}
 	public int insertComment(CodeCommentsDTO dto) {
 		return jdbc.insert("CodeC.insertComment", dto);
 	}
-//	public CodeCommentsDTO getComment(int repSeq) {
-//		return jdbc.selectOne("CodeC.getComment", repSeq);
-//	}
 	public int updateComment(CodeCommentsDTO dto) {
 		return jdbc.update("CodeC.updateComment", dto);
 	}	
@@ -144,6 +135,7 @@ public class CodeDAO {
 	public int deleteReplyAllCo(int repSeq) {
 		return jdbc.delete("CodeC.deleteReplyAllCo", repSeq);
 	}
+	
 	//댓글 포인트
 	public void writeCoPoint(String id) {
 		jdbc.update("CodeC.writeCoPoint", id);
@@ -212,6 +204,30 @@ public class CodeDAO {
 		
 		public int selectPoint(String id) {
 			return jdbc.selectOne("CodeR.selectPoint",id);
+		}
+		
+		public int pointQResult(int point,String id){
+			Map<String, Object> param = new HashMap<>();
+			param.put("point", point);
+			param.put("id", id);
+			return jdbc.update("CodeR.pointQResult",param);
+		}
+		public int pointRResult(int point,String id){
+			Map<String, Object> param = new HashMap<>();
+			param.put("point", point);
+			param.put("id", id);
+			return jdbc.update("CodeR.pointRResult",param);
+		}
+
+		public int updateRepCol(String id,int queSeq) {
+			Map<String, Object> param = new HashMap<>();
+			param.put("id", id);
+			param.put("queSeq", queSeq);
+			return jdbc.update("CodeR.updateRepCol",param);
+		}
+		
+		public int adoptCount(int queSeq) {
+			return jdbc.selectOne("CodeR.adoptCount",queSeq);
 		}
 	
 }

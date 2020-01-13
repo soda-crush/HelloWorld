@@ -20,70 +20,74 @@
 	
 	<select id="getProjectDetailView" resultType="kh.hello.dto.ProjectDTO">
 		select project.*,(select count(*) from projectApply where projectSeq=project.seq and approve in('W')) as applyCount from project where seq=#{value}
-	</select>
-	
+	</select>	
 	<select id="latestSeq" resultType="integer">
 		select max(seq) from project where id=#{value}
-	</select>
-	
+	</select>	
 	<insert id="insertProject" parameterType="kh.hello.dto.ProjectDTO">
-		insert into project values(projectSeq.nextval,#{title},#{contents},#{location1},#{location2},#{capacity},#{startDate},#{endDate},#{languages},#{phone},#{email},#{writer},#{id},sysdate,'N',0)
-	</insert>
-	
+		insert into project values(projectSeq.nextval,#{title},#{contents},#{location1},#{location2},#{capacity},#{startDate},#{endDate},#{languages},#{phone},#{email},#{writer},#{id},sysdate,null,'N',0)
+	</insert>	
 	<update id="updateProject" parameterType="kh.hello.dto.ProjectDTO">
-		update project set title=#{title}, contents=#{contents}, location=#{location}, capacity=#{capacity}, startDate=#{startDate}, endDate=#{endDate}, languages=#{languages}, phone=#{phone}, email=#{email}, writer=#{writer}, writeDate=#{writeDate}, state=#{state} where seq=#{seq}
-	</update>
-	
+		update project set title=#{title}, contents=#{contents}, location1=#{location1}, location2=#{location2}, capacity=#{capacity}, startDate=#{startDate}, endDate=#{endDate}, languages=#{languages}, phone=#{phone}, email=#{email}, writer=#{writer}, changeDate=sysdate where seq=#{seq}
+	</update>	
+	<select id="getImages" parameterType="integer" resultType="kh.hello.dto.ProjectImageDTO">
+		select * from projectImage where projectSeq=#{value}
+	</select>	
+	<delete id="deleteImage">
+		delete from projectImage where sysName=#{value}
+	</delete>	
 	<update id="updateProjectViewCount">
 		update project set viewCount=viewCount+1 where seq=#{value}
-	</update>
-	
+	</update>	
 	<delete id="deleteProject">
 		delete from project where seq=#{value}
-	</delete>
-	
+	</delete>	
+	<delete id="deleteImagesByProjectSeq">
+		delete from projectImage where projectSeq=#{value}
+	</delete>	
 	<update id="closeProject">
 		update project set state='Y' where seq=#{value}
-	</update>
-	
+	</update>	
 	
 	
 	<update id="articleAddPoint" parameterType="java.util.Map">
 		update member set point=point+#{point} where id=#{id}
-	</update>
-	
+	</update>	
 	<insert id="insertImage" parameterType="kh.hello.dto.ProjectImageDTO">
 		insert into projectImage values(projectImageSeq.nextval,#{projectSeq},#{oriName},#{sysName})
-	</insert>
-	
+	</insert>	
 	<select id="scrapCheck" parameterType="java.util.Map" resultType="integer">
 		select count(*) from scrap where id=#{id} and category='project' and categorySeq=#{categorySeq} 
-	</select>
-	
+	</select>	
 	<insert id="scrap" parameterType="java.util.Map">
 		insert into scrap values(scrapSeq.nextval,#{id},'project',#{categorySeq})
-	</insert>
-	
+	</insert>	
 	<delete id="unScrap" parameterType="java.util.Map">
 		delete from scrap where id=#{id} and category='project' and categorySeq=#{categorySeq}
-	</delete>
-	
-	
+	</delete>		
 	<select id="getMakeArticleCount" resultType="integer">
 		select count(*) from project where id=#{value}
-	</select>
-	
+	</select>	
 	<select id="getPLogMakeListByPage" parameterType="java.util.Map" resultType="kh.hello.dto.ProjectDTO">
-		select * from (select project.*,(select count(*) from projectComment where projectSeq=project.seq and contents is not null) as commentCount, row_number() over (order by seq desc) as num from project) where id=#{id} and num between #{start} and #{end}
+<!-- 		select * from (select project.*,(select count(*) from projectComment where projectSeq=project.seq and contents is not null) as commentCount, row_number() over (order by seq desc) as num from project) where id=#{id} and num between #{start} and #{end} -->
+		select * from (select
+		state, nvl(totalApply,0) as totalApply, nvl(totalApprove,0) as totalApprove, capacity, startDate, endDate, title, project.writeDate, viewCount, nvl(commentCount,0) as commentCount, row_number() over (order by project.seq desc) as num from project
+		left outer join (select projectSeq, count(*) as totalApply, count(decode(approve,'O',1)) totalApprove from projectApply group by projectSeq) pa on pa.projectSeq = project.seq
+		left outer join (select projectSeq, count(*) as commentCount from projectComment
+		where contents is not null group by projectSeq) pc
+		on project.seq = pc.projectSeq where project.id = #{id}) where num between #{start} and #{end} 
+	</select>	
+	
+	<select id="getApplyArticleCount" resultType="integer">
+		select count(*) from projectApply where id=#{value}
+	</select>	
+	<select id="getPLogApplyListByPage" parameterType="java.util.Map" resultType="kh.hello.dto.ProjectPLogDTO">		
+		select * from (select
+		projectApply.seq, state, title, project.writer, location1, location2, startDate, endDate, capacity, approve, projectApply.writeDate, nvl(commentCount,0) as commentCount, row_number() over (order by projectApply.seq desc) as num from project
+		inner join projectApply on project.seq = projectApply.projectSeq
+		left outer join (select projectSeq, count(*) as commentCount from projectComment
+		where contents is not null group by projectSeq) pc
+		on project.seq = pc.projectSeq where projectApply.id = #{id})
+		where num between #{start} and #{end}
 	</select>
-	
-	
-<!-- 	페이징완료되면 삭제. -->
-	<select id="getPLogMakeList" resultType="kh.hello.dto.ProjectDTO">
-<!-- 		select * from project where id=#{value} order by seq desc -->
-<!-- 		select * from (select project.*,(select count(*) from projectComment where projectSeq=project.seq and contents is not null) as commentCount, row_number() over (order by seq desc) as num from project) where id=#{id} num between #{start} and #{end} -->
-		select project.*,(select count(*) from projectComment where projectSeq=project.seq and contents is not null) as commentCount from project where id=#{value} order by seq desc
-	</select>
-	
-	
 </mapper>

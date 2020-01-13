@@ -13,6 +13,7 @@ import kh.hello.dto.ProjectApplyDTO;
 import kh.hello.dto.ProjectCoDTO;
 import kh.hello.dto.ProjectDTO;
 import kh.hello.dto.ProjectImageDTO;
+import kh.hello.dto.ProjectPLogDTO;
 
 @Repository
 public class ProjectDAO {
@@ -60,9 +61,16 @@ public class ProjectDAO {
 	//projectImage 테이블
 	public int insertImage(ProjectImageDTO dto) {
 		return jdbc.insert("Project.insertImage",dto);
+	}	
+	public List<ProjectImageDTO> getImages(int projectSeq) {
+		return jdbc.selectList("Project.getImages", projectSeq);
 	}
-	
-	
+	public int deleteImage(String sysName) {
+		return jdbc.delete("Project.deleteImage", sysName);
+	}
+	public int deleteImagesByProjectSeq(int projectSeq) {
+		return jdbc.delete("Project.deleteImagesByProjectSeq", projectSeq);
+	}
 	
 	//projectComment 테이블
 	public List<ProjectCoDTO> getCoList(int projectSeq){//프로젝트 모집댓글 전체리스트(해당글에 대한)
@@ -90,6 +98,9 @@ public class ProjectDAO {
 	public ProjectApplyDTO getProjectApplyDetailView(int seq) {//프로젝트 지원 상세보기
 		return jdbc.selectOne("ProjectApply.getProjectApplyDetailView", seq);
 	}
+	public ProjectApplyDTO getApplyCheck(int projectSeq) {//지원여부체크
+		return jdbc.selectOne("ProjectApply.getApplyCheck", projectSeq);
+	}
 	public int insertProjectApply(ProjectApplyDTO dto) {//프로젝트 지원 작성
 		return jdbc.insert("ProjectApply.insertProjectApply", dto);
 	}	
@@ -116,6 +127,7 @@ public class ProjectDAO {
 	public List<ProjectDTO> getMakeProjectList(String id){//나의 프로젝트 전체리스트
 		return jdbc.selectList("Project.getPLogMakeList", id);
 	}
+	
 	public int getMakeArticleCount(String id) {
 		return jdbc.selectOne("Project.getMakeArticleCount", id);
 	}
@@ -125,13 +137,17 @@ public class ProjectDAO {
 		param.put("start", start);
 		param.put("end", end);
 		return jdbc.selectList("Project.getPLogMakeListByPage", param);
+	}	
+	public int getApplyArticleCount(String id) {
+		return jdbc.selectOne("Project.getApplyArticleCount", id);
 	}
-//	public int insertProjectList(ProjectPlogDTO dto) {//나의 프로젝트 등록
-//		return jdbc.insert("ProjectPlogList.insert", dto);
-//	}
-//	public int deleteProjectList(int seq) {//나의 프로젝트 삭제
-//		return jdbc.delete("ProjectPlogList.delete", seq);
-//	}
+	public List<ProjectPLogDTO> getApplyProjectListPerPage(int start, int end, String id){
+		Map<String, Object> param = new HashMap<>();
+		param.put("id", id);		
+		param.put("start", start);
+		param.put("end", end);
+		return jdbc.selectList("Project.getPLogApplyListByPage", param);
+	}
 	
 	
 	

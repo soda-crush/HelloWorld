@@ -6,11 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.google.gson.JsonObject;
 
 import kh.hello.configuration.Configuration;
 import kh.hello.dto.BambooCoDTO;
 import kh.hello.dto.BambooDTO;
+import kh.hello.dto.CodeCommentsDTO;
 import kh.hello.dto.CodeQuestionDTO;
+import kh.hello.dto.CodeReplyDTO;
 import kh.hello.dto.GuestBookDTO;
 import kh.hello.dto.IndustryStatusCoDTO;
 import kh.hello.dto.IndustryStatusDTO;
@@ -106,7 +111,7 @@ public class AdBoardController {
 	public String delGuestBook(int seq, int page) {
 		int result = bs.delGuestBook(seq);
 		if(result > 0) {
-			return "redirect:/adBoard/guestList?page="+page;
+			return "redirect:/adBoard/guestBookList?page="+page;
 		}else {
 			return "redirect:/admin/adminError";
 		}	
@@ -221,7 +226,7 @@ public class AdBoardController {
 	}
 		
 	/* 
-	 * IT뉴스 ( 진행중 )
+	 * IT뉴스
 	 */
 	
 	@RequestMapping("/itnewsList")
@@ -274,7 +279,7 @@ public class AdBoardController {
 	}
 	
 	/* 
-	 * Code-How ( 진행중 )
+	 * Code-How
 	 */
 	
 	@RequestMapping("/cohowList")
@@ -296,10 +301,69 @@ public class AdBoardController {
 	}
 	
 	@RequestMapping("/delCohow")
-	public void delCohow(int seq, String page) {
-
+	public String delCohow(int seq, String page) {
+		int result = bs.delCohow(seq);
+		if(result > 0) {
+			return "redirect:/adBoard/cohowList?page="+page;
+		}else {
+			return "redirect:/admin/adminError";
+		}		
 	}
 	
+	@RequestMapping("/detailViewCohow")
+	public String detailViewCohow(String page, int seq, Model m) {
+		CodeQuestionDTO qdto = bs.detailViewCohow(seq);
+		m.addAttribute("qdto", qdto);
+		List<CodeReplyDTO> rdto = bs.getCohowReply(seq);
+		m.addAttribute("rdto", rdto);
+		List<CodeCommentsDTO> list = bs.getCohowCo(seq);
+		m.addAttribute("list", list);
+		
+		m.addAttribute("page", page);
+		return "admin/boardCohowDetailView";			
+	}
+	
+	@RequestMapping(value="/delCohowCo", produces="text/html;charset=utf8")
+	@ResponseBody
+	public String delCohowCo(int repSeq, int seq) {
+		int result = bs.delCohowCo(seq);
+		if(result > 0) {
+			return bs.getCohowCoByRep(repSeq);
+		}else {
+			JsonObject obj = new JsonObject();
+			obj.addProperty("result", false);
+			return obj.toString();
+		}
+	}
+	
+	@RequestMapping("/delCohowReply")
+	public String delCohowReply(int seq, int repSeq, String page) {
+		int result = bs.delCohowReply(repSeq);
+		if(result > 0) {
+			return "redirect:/adBoard/detailViewCohow?page="+page+"&seq="+seq;
+		}else {
+			return "redirect:/admin/adminError";
+		}
+	}
+	
+	@RequestMapping(value="/getReplyCommentCount", produces="text/html;charset=utf8")
+	@ResponseBody
+	public String getReplyCommentCount(int repSeq) {
+		int count = bs.getReplyCommentCount(repSeq);
+		JsonObject obj = new JsonObject();
+		obj.addProperty("count", count);
+		return obj.toString();
+	}
+	
+	/* 
+	 * 신고글 관리 ( 진행중 )
+	 */	
+	
+	@RequestMapping("/reportList")
+	public String reportMainList() {
+		
+		return "admin/reportList";
+	}
 
 }
 

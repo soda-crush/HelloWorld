@@ -12,6 +12,10 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/css/mainBase.css">
+<link rel="stylesheet" href="/css/font-awesome/css/font-awesome.css" type="text/css"/>
+<link rel="stylesheet" href="/css/project/projectBase.css" type="text/css"/>
+<link rel="stylesheet" href="/css/project/detailView.css" type="text/css"/>
+<script src="/js/project/projectCo.js"></script>
 <style>
 	.table{background-color:white;padding:0;text-align:center;}
 	.contentDiv {
@@ -54,25 +58,27 @@
 				</div>
 				
             <c:if  test="${iPage.seq !=null }">
-				  				<div>${iPage.seq}</div>
-				  				분야<div>${iPage.field }</div>
-				  				직무<div>${iPage.duty }</div>
+				  				<div>글번호 : ${iPage.seq}</div>
+				  				<div>분야 : ${iPage.field } / 직무 : ${iPage.duty }</div>
 				  				<h3>${iPage.title}</h3>
 				  				<input type="hidden" name="id" value="${iPage.id}">
-				  				<div>${iPage.writer}</div>
-				  				<div>${iPage.writeDate}</div>
-				  				<div>${iPage.viewCount}</div>
+				  				<div>작성자 : ${iPage.writer}</div>
+				  				<div>작성일 : ${iPage.writeDate}</div>
+				  				<div>조회수 : ${iPage.viewCount}</div>
+				  				<hr>
 				  				<div class="contentDiv">${iPage.content}</div>
 			</c:if>
+			<div class="text-right">
 				 <a class="btn btn-primary" href="/industry/industryStatusList.do" role="button">돌아가기</a>
 				 <c:if test="${iPage.id == sessionScope.loginInfo.id}">
 				 <a class="btn btn-primary" href="/industry/industryStatusModify.do?seq=${iPage.seq }" role="button">수정하기</a>
 				 <a class="btn btn-primary" href="/industry/industryStatusDeleteProc.do?seq=${iPage.seq}" role="button">삭제하기</a>
 				 </c:if>
-				 <a class="btn btn-primary" href="#" role="button">공유하기</a>
-				 <button type="button" class="btn btn-primary" id="scrap">스크랩</button>
+				 <i class="fa fa-share-alt"></i><a class="btn btn-primary" href="#" role="button">공유하기</a>
+				 <i class="fa fa-bookmark-o" id="scrap" data-toggle="tooltip" title="스크랩"></i>
 				 <a class="btn btn-primary" href="#" role="button">신고하기</a>
-
+			</div>
+			<hr>
 			<div class="pPageComments">
 				<c:if test="${comments.size()>0 }">
 					<c:forEach items="${comments }" var="c">
@@ -104,10 +110,11 @@
 								</div>
 							</div>
 						</div>
+						<hr>
 					</c:forEach>
 				</c:if>
 			</div>
-			<c:if test="${iPage.id==sessionScope.loginInfo.id }">
+
 			<div id="pCoInput" class="row">
 				<div class="col-9 col-lg-10">
 					<textarea class="form-control" placeholder="댓글 내용을 입력해주세요"
@@ -121,7 +128,7 @@
 					</div>
 				</div>
 			</div>
-			</c:if>
+			
             </div>
             <!--       몸통 끝!!!   -->
             
@@ -136,7 +143,6 @@
         <jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
         
         <script>
-        
       //스크랩하기
     	
     	$("#scrap").on("click",function(){
@@ -163,12 +169,16 @@
     		})
     		
         $("#coWriteBtn").on("click",function(){
+        	if("${sessionScope.loginInfo.id}" == ""){
+        		alert("로그인을 해주세요.");
+        		return false;
+        	}
 			$("#pCoContents").val($.trim($("#pCoContents").val()));
 			if($("#pCoContents").val()==""){
 				alert("댓글 내용을 입력해주세요.");
 				return false;
 			}
-			
+        	
 			$.ajax({
 				url : "/industry/comment/writeProc.do",
 				type : "post",
@@ -184,10 +194,9 @@
  				$(".pPageComments").html("");
 				commentRecall(resp);
 			}).fail(function(resp){
-				console.log("실패");
-				console.log(resp);
+			
 			})
-		});
+        });
          	
 			function coModFunction(seq,contents,indSeq){     
 				$(".commentBox"+seq).find(".commentBtns").css("display","none");
@@ -224,7 +233,7 @@
 					alert("댓글 내용을 입력해주세요.");
 					return false;
 				}
-				console.log($("#coModFrm").serialize());
+				
 				$.ajax({
 					url : "/industry/comment/modifyProc.do",
 					type : "post",
@@ -234,8 +243,7 @@
 					$(".pPageComments").html("");
 					commentRecall(resp);
 				}).fail(function(resp){
-					console.log("실패");
-					console.log(resp);
+					
 				})
            	});
            	function coDelFunction(seq){
@@ -253,8 +261,7 @@
     					$(".pPageComments").html("");
     					commentRecall(resp);
            			}).fail(function(resp){
-    					console.log("실패");
-    					console.log(resp);
+    				
            			})
            		}
            	}
@@ -277,7 +284,7 @@
 					}
 					html.push(
 							'</div></div>',
-							'<div class="row commentContent"><div class="col-12 pt-1 pl-4">'+resp[i].content+'</div></div></div></div>'
+							'<div class="row commentContent"><div class="col-12 pt-1 pl-4">'+resp[i].content+'</div></div></div></div><hr>'
 							);
 					$(".pPageComments").append(html.join(""));	
            		}

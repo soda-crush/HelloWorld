@@ -75,7 +75,7 @@ public class IndustryStatusDAO {
 		param.put("search", search);
 		return jdbc.selectOne("Industry.industrySearchTotalCount", param);
 	}
-	public List<IndustryStatusDTO> industrySearchListByPage (String start, String end, String value, String search) {//검색한 대나무숲 목록 페이지네비
+	public List<IndustryStatusDTO> industrySearchListByPage (String start, String end, String value, String search) {//검색한 업계현황 목록 페이지네비
 		Map<String, String> param = new HashMap<>();
 		param.put("start", start);
 		param.put("end", end);
@@ -105,14 +105,14 @@ public class IndustryStatusDAO {
 
 	//스크랩
 	public int scrapDupCheck(ScrapDTO dto) {
-		return jdbc.selectOne("Bamboo.scrapDupCheck", dto);
+		return jdbc.selectOne("Industry.scrapDupCheck", dto);
 	}
 
 	public int earlierSeq() {
-		return jdbc.selectOne("Bamboo.earlierSeq");
+		return jdbc.selectOne("Industry.earlierSeq");
 	}
 
 	public int scrapCode(ScrapDTO dto) {
-		return jdbc.insert("Bamboo.scrapCode", dto);
+		return jdbc.insert("Industry.scrapCode", dto);
 	}
 }

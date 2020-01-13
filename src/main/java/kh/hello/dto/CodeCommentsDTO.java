@@ -82,4 +82,17 @@ public class CodeCommentsDTO {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
 		return sdf.format(writeDate);
 	}
+
+	@Override
+	public String toString() {
+		return "CodeCommentsDTO [seq=" + seq + ", queSeq=" + queSeq + ", repSeq=" + repSeq + ", content=" + content
+				+ ", id=" + id + ", writer=" + writer + ", writeDate=" + writeDate + ", formedWriteDate="
+				+ formedWriteDate + "]";
+	}
+	
+	public String getFormedWriteDateForAdmin() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+		String result = sdf.format(this.writeDate);
+		return result;
+	}
 }

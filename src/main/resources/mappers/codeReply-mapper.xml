@@ -7,13 +7,14 @@
 		insert into codeReply
 		values(codeReplySeq.nextval,#{queSeq},#{title},#{content},#{id},#{writer},sysdate,'N')
 	</insert>
-<!-- 	리스트에 답글 보이게? -->
+
 	<select id="selectReplyAll" resultType="kh.hello.dto.CodeReplyDTO" parameterType="integer">
 		select * from codeReply
 	</select>
 	
+<!-- 	채택 Y인게 맨위, 그 다음은 글 작성순 -->
 	<select id="detailReply" resultType="kh.hello.dto.CodeReplyDTO" parameterType="integer">
-		select * from codeReply where queSeq = #{value} order by 1 desc
+		select * from codeReply where queSeq = #{value} order by decode(adopt,'Y',1), seq asc
 	</select>
 	
 	<delete id="deleteR" parameterType="integer">
@@ -42,6 +43,11 @@
 		update member set point=point-15 where id=#{value}
 	</update>
 	
+<!-- 	답글아이디찾기 -->
+<!-- 	<select id="selectRepId" resultType="kh.hello.dto.CodeReplyDTO" parameterType="integer"> -->
+<!-- 		select * from codeReply -->
+<!-- 	</select> -->
+	
 <!-- 채택 -->
 	<select id="replyCount" parameterType="integer" resultType="integer">
 		select count(*) from codeReply where queSeq = #{value} 
@@ -49,8 +55,23 @@
 	<select id="selectPoint" parameterType="String" resultType="integer">
 		select point from member where id = #{value} 
 	</select>
+
+	<update id="pointQResult" parameterType="java.util.Map">
+		update member set point = #{point} where id=#{id}
+	</update>
+	<update id="pointRResult" parameterType="java.util.Map">
+		update member set point = #{point} where id=#{id}
+	</update>
 	
+	<update id="updateRepCol" parameterType="java.util.Map">
+		update codeReply set adopt='Y' where id=#{id} and queSeq=#{queSeq}
+	</update>
 	
+<!-- 	채택하면 답글 작성 못하게 하기 -->
+	<select id="adoptCount" parameterType="integer" resultType="integer">
+		select count(*) from codeReply where queSeq=#{value} and adopt='Y'
+	</select>
+			
 	<!-- 	이미지 업로드 -->
 	<select id="getCodeRSeq" resultType="integer">
 		select codeReplySeq.nextval from dual

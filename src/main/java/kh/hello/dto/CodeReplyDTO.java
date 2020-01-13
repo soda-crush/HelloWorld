@@ -12,6 +12,7 @@ public class CodeReplyDTO {
 	private String writer;
 	private Timestamp writeDate;
 	private String adopt;
+	public int commentCount;
 	
 	public CodeReplyDTO() {
 		super();
@@ -78,9 +79,24 @@ public class CodeReplyDTO {
 	public void setAdopt(String adopt) {
 		this.adopt = adopt;
 	}
+	
+	public int getCommentCount() {
+		return commentCount;
+	}
+
+	public void setCommentCount(int commentCount) {
+		this.commentCount = commentCount;
+	}
+
 	public String getFormedDate() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
 		return sdf.format(writeDate);
+	}
+	
+	public String getFormedWriteDateForAdmin() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+		String result = sdf.format(this.writeDate);
+		return result;
 	}
 	
 }

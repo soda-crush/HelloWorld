@@ -20,6 +20,7 @@
 	rel="stylesheet">
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
+<script src="/js/summernote-ko-KR.js"></script>
 <script>
 $(function() {
 	$('#writeForm').on('submit', function() {
@@ -68,9 +69,9 @@ $(function() {
 				</div>
 				<div class="col-11 title" >
 					<select name="field" id="field">
-						<option value="분야1">분야1</option>
-						<option value="분야2">분야2</option>
-						<option value="분야3">분야3</option>
+						<option value="SM">SM</option>
+						<option value="SI">SI</option>
+						<option value="Solution">Solution</option>
 					</select>
 				</div>
 			</div>	
@@ -80,30 +81,55 @@ $(function() {
 				</div>
 				<div class="col-11 title" >
 					<select name="duty" id="duty">
-						<option value="직무1">직무1</option>
-						<option value="직무2">직무2</option>
-						<option value="직무3">직무3</option>
+						<option value="Front">Front</option>
+						<option value="Back">Back</option>
+						<option value="Full-Stack">Full-Stack</option>
 					</select>
 				</div>
 			</div>
-			
-				제목<input type="text" id=title name=title value="${iPage.title}"><br>
-				<div id="summernote">${iPage.content}</div>
-				<textarea style="display: none" name=content id=content></textarea>
-				<button type="submit">작성하기</button>
-				<input type="button" id="return" value="돌아가기">
+				<div class=row>
+				<div class="col-1 title">
+					<h4>제목</h4>
+				</div>
+					<input type="hidden" name="writer" value="${iPage.writer}">
+				<div class="col-11 title" >
+					<input type="text" id=title name=title style="width: 100%" value="${iPage.title}">
+				</div>
+			</div>
+			<div class=row>
+					<div class="col-12 content">
+			<div id="summernote">${iPage.content}</div>
+			<textarea style="display: none" name=content id=content></textarea>
+					</div>
+				</div> 
+			<div class=row>
+				<div class="col-12 btn" style="text-align: right;">
+					<button class="btn btn-primary" type="button" id="write">작성하기</button>
+					<button class="btn btn-primary" type="button" id="return">돌아가기</button>
+				</div>
+			</div>
 			</form>
-			
 		</c:if>
-
-
 		<script>
 		$("#return").on('click',function() {
 			location.href = "industryStatusDetailView.do?seq=${iPage.seq}";
 						})
 		 $('#summernote').summernote({
-        
+			 lang: 'ko-KR',
+			 height : 500
      	});
+		$("#write").on("click", function() {
+			$("#title").val($.trim($("#title").val())); 						
+			if (($("#title").val()=="" || $(".note-editable").text()== "")) {
+				alert("작성 하지 않는 문항이 있습니다. 다시 한번 확인해주세요.");
+				return false;
+			} else {
+				var result = confirm("이대로 작성 하시겠습니까?");
+				if (result) {
+					$("#writeForm").submit();
+				}
+			}
+		})
 		</script>
 		<!--       몸통 끝!!!   -->
 

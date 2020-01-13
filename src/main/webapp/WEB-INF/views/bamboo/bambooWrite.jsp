@@ -20,6 +20,7 @@
 	rel="stylesheet">
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
+<script src="/js/summernote-ko-KR.js"></script>
 <script>
 	$(function() {
 		$('#writeForm').on('submit', function() {
@@ -61,10 +62,10 @@
 		<form action="bambooWriteProc.do" method="post"
 			enctype="multipart/form-data" id=writeForm>
 			<div class=row>
-				<div class="col-2 title">
+				<div class="col-1 title">
 					<h4>제목</h4>
 				</div>
-				<div class="col-10 title" >
+				<div class="col-11 title" >
 					<input type="text" name=title style="width: 100%">
 				</div>
 			</div>
@@ -87,6 +88,7 @@
 			location.href = "bambooList.do";
 						})
 		 $('#summernote').summernote({
+			 lang: 'ko-KR',
 			 height : 500
    		  });
 		

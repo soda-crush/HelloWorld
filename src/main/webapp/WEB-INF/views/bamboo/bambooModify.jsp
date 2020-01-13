@@ -17,6 +17,7 @@
 	rel="stylesheet">
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
+<script src="/js/summernote-ko-KR.js"></script>
 <script>
 $(function() {
 	$('#writeForm').on('submit', function() {
@@ -55,12 +56,12 @@ $(function() {
 				</div>
 		<form action="bambooModifyProc.do" method="post" enctype="multipart/form-data" id=writeForm>
 			<div class=row>
-				<div class="col-2 title">
+				<div class="col-1 title">
 					<h4>제목</h4>
 				</div>
 				<input type="hidden" name="writer" value="${bPage.writer}">
              <input type="hidden" name="seq" value="${bPage.seq}"> 
-				<div class="col-10 title" >
+				<div class="col-11 title" >
 					<input type="text" id=title name=title style="width: 100%" value="${bPage.title}">
 				</div>
 			</div>
@@ -83,6 +84,7 @@ $(function() {
 			location.href = "bambooDetailView.do?seq=${bPage.seq}";
 						})
 		$('#summernote').summernote({
+			lang: 'ko-KR',
 			 height : 500
      	});
 		$("#write").on("click", function() {
