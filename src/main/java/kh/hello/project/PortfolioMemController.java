@@ -22,7 +22,7 @@ import kh.hello.services.PortfolioService;
 
 @Controller
 @RequestMapping("/Portfolio")
-public class PortfolioController {
+public class PortfolioMemController {
 	
 	@Autowired
 	private PortfolioService ps;
@@ -57,7 +57,6 @@ public class PortfolioController {
 			e.printStackTrace();
 			return "fail";
 		}
-		System.out.println("파일업로드 완료");
 		return "/files/"+sysName;
 	}
 	
@@ -77,7 +76,6 @@ public class PortfolioController {
 			e.printStackTrace();
 			return "fail";
 		}
-		System.out.println("파일업로드 완료");
 		return "/files/"+sysName;
 	}
 	
@@ -97,16 +95,14 @@ public class PortfolioController {
 			e.printStackTrace();
 			return "fail";
 		}
-		System.out.println("파일업로드 완료");
 		return "/files/"+sysName;
 	}
 	
 	@RequestMapping("/insert.do")
-	public String insertWrite(PortfolioDTO pdto,String startDateTemp,String endDateTemp) {
+	public String writeProcInsert(PortfolioDTO pdto,String startDateTemp,String endDateTemp) {
 		try {
 			request.setCharacterEncoding("UTF-8");
-			System.out.println("st"+ startDateTemp);
-			System.out.println("end"+ endDateTemp);
+
 		    String startDate = startDateTemp + " 00:00:00.0";
 		    String endDate = endDateTemp + " 00:00:00.0";
 			pdto.setStartDate(Timestamp.valueOf(startDate));
@@ -128,10 +124,6 @@ public class PortfolioController {
 		}
 		OwnerInfoDTO ownerInfo = (OwnerInfoDTO)session.getAttribute("ownerInfo");
 		List<PortfolioDTO> list = ps.selectList(ownerInfo.getId());
-		for (PortfolioDTO dto : list) {
-			System.out.println(dto.getPortfolioTitle());
-			System.out.println(dto.getPurpose());
-		}
 		request.setAttribute("list", list);
 		return "/plog/plogPortfolio";
 	}
@@ -176,8 +168,6 @@ public class PortfolioController {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		String str = sdf.format(pdto.getStartDate());
 		String end = sdf.format(pdto.getEndDate());
-		System.out.println(str);
-		System.out.println(end);
 		request.setAttribute("str", str);
 		request.setAttribute("end", end);
 		request.setAttribute("pdto", pdto);
@@ -189,8 +179,6 @@ public class PortfolioController {
 	public String update(PortfolioDTO pdto,String startDateTemp,String endDateTemp) {
 		try {
 			request.setCharacterEncoding("UTF-8");
-			System.out.println("st"+ startDateTemp);
-			System.out.println("end"+ endDateTemp);
 		    String startDate = startDateTemp + " 00:00:00.0";
 		    String endDate = endDateTemp + " 00:00:00.0";
 			pdto.setStartDate(Timestamp.valueOf(startDate));
@@ -204,7 +192,7 @@ public class PortfolioController {
 	}
 	
 	@RequestMapping("/delete.do")
-	public String delete(int seq) {
+	public String deleteProc(int seq) {
 		ps.delete(seq);
 		return "redirect:toPlogmain.do";
 	}

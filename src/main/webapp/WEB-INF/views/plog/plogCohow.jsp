@@ -31,6 +31,8 @@
 		.navi{text-align: center;}
 		.nvlink{height:45px;line-height:45px;}
         a:hover{text-decoration:none;}
+        .tableBody{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+        .line-over{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 	</style>
 </head>
 <body>
@@ -57,7 +59,7 @@
 	                    <div class="card" id="mycard">
 	                        <img src="/img/profileSample.jpg" class="card-img-top" alt="..." style="width: 170px;height: 170px;margin:15px;">
 	                        <div class="card-body">
-	                            <h4 class="card-title" style="text-align: center;font-size:20px;">${ownerInfo.nickName} 님</h4>
+	                            <div class="card-title line-over" style="text-align: center;font-size:20px;">${ownerInfo.nickName} 님</div>
 	                            <p class="card-text" style="text-align: center;font-size:15px;">point : ${ownerInfo.point }</p>
 	                        </div>
 	                    </div>
@@ -67,9 +69,9 @@
 	                		<div class="coltheme"> 내 질문</div>
 							<div class="row tableHead">
 								<div class="col-2 col-lg-1">구분</div>
-							    <div class="col-5 col-lg-7">제목</div>
-							    <div class="col-2 col-lg-1">작성자</div>
-							    <div class="col-3 col-lg-2">작성일</div>	
+							    <div class="col-7 col-lg-5">제목</div>
+							    <div class="col-3">작성자</div>
+							    <div class="col-2 d-none d-lg-block">작성일</div>	
 							    <div class="col-1 d-none d-lg-block">조회수</div>					    
 							</div>
 							
@@ -82,13 +84,15 @@
 						  				<div class="row tableBody p-0">
 						  					<div class="col-2 col-lg-1"><span class="badge badge-pill badge-success"
 											style="margin: 10; width: 60px;">${dto.division}</span></div>
-											<div class="col-5 col-lg-7 text-decoration-none" onclick="location.href='${pageContext.request.contextPath}/code/codeDetail.do?seq=${dto.seq}'">${dto.title} 
-							  					<c:if test="${dto.replyCount>0 }">
-							  						<span class="pComment font-weight-bold">${dto.replyCount}</span>
-							  					</c:if>					  					
+											<div class="col-7 col-lg-5 " >
+							  					<div class="line-over text-decoration-none" onclick="location.href='${pageContext.request.contextPath}/code/codeDetail.do?seq=${dto.seq}'">${dto.title} 
+								  					<c:if test="${dto.replyCount>0 }">
+								  						<span class="pComment font-weight-bold">${dto.replyCount}</span>
+								  					</c:if>	
+							  					</div>				  					
 											</div>
-											<div class="col-2 col-lg-1" style="text-align:center;">${dto.writer}</div>
-											<div class="col-3 col-lg-2">${dto.scrapDate}</div>
+											<div class="col-3" style="text-align:center;"><div class="line-over">${dto.writer}</div></div>
+											<div class="col-2 d-none d-lg-block">${dto.scrapDate}</div>
 											<div class="col-1 d-none d-lg-block">${dto.viewCount}</div>
 										</div>	
 						  			</c:forEach>
@@ -104,9 +108,9 @@
 	                		<div class="coltheme"> 내 답변</div>
 							<div class="row tableHead">
 								<div class="col-2 col-lg-1">구분</div>
-							    <div class="col-5 col-lg-7">제목</div>
-							    <div class="col-2 col-lg-1">작성자</div>
-							    <div class="col-3 col-lg-2">작성일</div>	
+							    <div class="col-7 col-lg-5">제목</div>
+							    <div class="col-3">작성자</div>
+							    <div class="col-2 d-none d-lg-block">작성일</div>	
 							    <div class="col-1 d-none d-lg-block">조회수</div>					    
 							</div>
 							
@@ -119,13 +123,15 @@
 						  				<div class="row tableBody p-0">
 						  					<div class="col-2 col-lg-1"><span class="badge badge-pill badge-success"
 											style="margin: 10; width: 60px;">${dto.division}</span></div>
-											<div class="col-5 col-lg-7 text-decoration-none" onclick="location.href='${pageContext.request.contextPath}/code/codeDetail.do?seq=${dto.seq}'">${dto.title} 
-							  					<c:if test="${dto.replyCount>0 }">
-							  						<span class="pComment font-weight-bold">${dto.replyCount}</span>
-							  					</c:if>					  					
+											<div class="col-7 col-lg-5 " >
+							  					<div class="line-over text-decoration-none" onclick="location.href='${pageContext.request.contextPath}/code/codeDetail.do?seq=${dto.seq}'">${dto.title} 
+								  					<c:if test="${dto.replyCount>0 }">
+								  						<span class="pComment font-weight-bold">${dto.replyCount}</span>
+								  					</c:if>	
+							  					</div>				  					
 											</div>
-											<div class="col-2 col-lg-1" style="text-align:center;">${dto.writer}</div>
-											<div class="col-3 col-lg-2">${dto.scrapDate}</div>
+											<div class="col-3" style="text-align:center;">${dto.writer}</div>
+											<div class="col-2 d-none d-lg-block">${dto.scrapDate}</div>
 											<div class="col-1 d-none d-lg-block">${dto.viewCount}</div>
 										</div>	
 						  			</c:forEach>

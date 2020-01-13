@@ -15,7 +15,7 @@ import kh.hello.services.PlogCohowService;
 
 @Controller
 @RequestMapping("/Plog")
-public class PlogController {
+public class PlogMemController {
 
 	@Autowired
 	private PlogCohowService pcs;

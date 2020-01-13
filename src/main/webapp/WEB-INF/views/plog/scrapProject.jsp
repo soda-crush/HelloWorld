@@ -35,6 +35,7 @@
         .scrapnavi>div{margin:10px;height:30px;}
         .scrapnavi>div>a{color:black;}
         .scrapnavi{background-color: lightgray;border-radius:5px;margin-top:30px;}	
+        .line-over{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 	</style>
 </head>
 <body>
@@ -65,7 +66,7 @@
 	                    <div class="card" id="mycard">
 	                        <img src="/img/profileSample.jpg" class="card-img-top" alt="..." style="width: 170px;height: 170px;margin:15px;">
 	                        <div class="card-body">
-	                            <h4 class="card-title" style="text-align: center;font-size:20px;">${ownerInfo.nickName} 님</h4>
+	                            <div class="card-title line-over" style="text-align: center;font-size:20px;">${ownerInfo.nickName} 님</div>
 	                            <p class="card-text" style="text-align: center;font-size:15px;">point : ${ownerInfo.point }</p>
 	                        </div>
 	                    </div>
@@ -82,7 +83,7 @@
 							<div class="row tableHead">
 							    <div class="col-xl-1 col-2 col-md-2 col-lg-2">모집상태</div>
 							    <div class="col-xl-5 col-8 col-md-5 col-lg-4">제목</div>
-							    <div class="col-xl-1 col-2 col-md-1 d-none d-md-block">지역</div>
+							    <div class="col-xl-1 col-2 col-md-1 d-none d-md-block" style="text-align:center;">지역</div>
 							    <div class="col-xl-1 col-lg-1 d-none d-lg-block">인원</div>
 							    <div class="col-xl-1 col-2">작성자</div>
 							    <div class="col-xl-1 col-md-2 d-none d-md-block">작성일</div>					    
@@ -94,15 +95,15 @@
 						  		<c:otherwise>
 						  			<c:forEach items="${plist }" var="p">
 						  				<div class="row tableBody p-0">
-											<div class="col-xl-1 col-2 col-md-2 col-lg-2 ${p.state }">${p.stateInKor }</div>
-												<div class="col-xl-5 col-8 col-md-5 col-lg-4" onclick="location.href='${pageContext.request.contextPath}/project/detailView?seq=${p.seq }'" class="text-decoration-none">${p.title } 
+											<div class="col-xl-1 col-2 col-md-2 col-lg-2 ${p.state }" style="text-align:center;">${p.stateInKor }</div>
+												<div class="col-xl-5 col-8 col-md-5 col-lg-4 line-over" onclick="location.href='${pageContext.request.contextPath}/project/detailView?seq=${p.seq }'" class="text-decoration-none">${p.title } 
 							  						<c:if test="${p.commentCount>0 }">
 							  							<span class="pComment font-weight-bold">${p.commentCount }</span>
 							  						</c:if>					  					
 												</div>
 											<div class="col-xl-1 col-md-1 col-2  d-none d-md-block">${p.location1 }</div>
 											<div class="col-xl-1 col-lg-1 d-none d-lg-block">${p.capacity }명</div>
-											<div class="col-xl-1 col-2">${p.writer }</div>
+											<div class="col-xl-1 col-2 line-over">${p.writer }</div>
 											<div class="col-xl-1 col-md-2 d-none d-md-block">${p.formedWriteDate }</div>
 										</div>	
 						  			</c:forEach>

@@ -18,7 +18,7 @@ import kh.hello.services.GuestBookService;
 
 @Controller
 @RequestMapping("/GuestBook")
-public class GuestBookController {
+public class GuestBookMemController {
 	
 	@Autowired
 	private GuestBookService gs;
@@ -32,7 +32,7 @@ public class GuestBookController {
 	HttpServletRequest request;
 	
 	@RequestMapping("/insert.do")
-	public String insert(GuestBookDTO gdto) {
+	public String writeProcinsert(GuestBookDTO gdto) {
 		OwnerInfoDTO ownerInfo = (OwnerInfoDTO)session.getAttribute("ownerInfo");
 		LoginInfoDTO loginInfo = (LoginInfoDTO)session.getAttribute("loginInfo");
 		gdto.setWriterID(loginInfo.getId());
@@ -60,7 +60,7 @@ public class GuestBookController {
 	}
 	
 	@RequestMapping("delete.do")
-	public String delete(int seq) {
+	public String guestBookdeleteProc(int seq) {
 		gs.delete(seq);
 		return "redirect:selectList.do";
 	}

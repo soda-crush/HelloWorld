@@ -9,7 +9,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/css/mainBase.css">
@@ -34,7 +33,8 @@
 			.nvlink{height:45px;line-height:45px;}
         	a:hover{text-decoration:none;}
             .message{background-color:#efefef;margin:10px;width:100%;height:100%;border:0px;}
-            .listwrap{border:1px solid gray;margin: 10px;}
+            .listwrap{border:1px solid gray;margin: 10px; padding:5px;}
+            .line-over{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
         </style>
 </head>
 <body>
@@ -61,7 +61,7 @@
 	                    <div class="card" id="mycard">
 	                        <img src="/img/profileSample.jpg" class="card-img-top" alt="..." style="width: 170px;height: 170px;margin:15px;"><!-- 아이디에대한 이미지값 -->
 	                        <div class="card-body">
-	                            <h4 class="card-title" style="text-align: center;font-size:20px;">${ownerInfo.nickName} 님</h4>
+	                            <div class="card-title line-over" style="text-align: center;font-size:20px;">${ownerInfo.nickName} 님</div>
 	                            <p class="card-text" style="text-align: center;font-size:15px;">point : ${ownerInfo.point }</p>
 	                        </div>
 	                    </div>
@@ -103,12 +103,13 @@
 									</c:choose>
 								</div>
 							</c:forEach>
+							 <div class="naviwrap col-12"style="width:100%;text-align:center;">
+			                    <c:forEach items="${pageNavi}" var="navi">									
+									${navi}
+								</c:forEach>
+	               			</div>
 	                    </div>
-	                    <div class="naviwrap col-12"style="width:100%;text-align:center;">
-		                    <c:forEach items="${pageNavi}" var="navi">									
-								${navi}
-							</c:forEach>
-	               		</div>
+	                   
 	                </div>
 	            </div>
             </div>
@@ -136,6 +137,10 @@
             		$('#list'+seq).attr('style','background-color:#efefef');
             		$('#update'+seq).attr('style','visibility:hidden');
             		$('#toModify'+seq).attr('style','visibility:visible');
+            		var resizeList = document.getElementsByClassName("message");
+            		for(var i=0 ; i<resizeList.length;i++){
+            			resize(resizeList[i]);
+            		}
         		}).fail(function(){
         			alert("실패하였습니다.");
         		})
