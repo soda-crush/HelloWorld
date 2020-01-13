@@ -32,6 +32,7 @@ public class MemberController {
 
 	@RequestMapping("/login")
 	public String loginFrm(Model m, String result){ //로그인 폼이동
+		System.out.println("result + " + result);
 		if(result != null) {
 			m.addAttribute("result", result);
 		}
@@ -297,4 +298,5 @@ public class MemberController {
 		 m.addAttribute("dto",ms.selectMember(((LoginInfoDTO)session.getAttribute("loginInfo")).getId()));
 		 return "member/modify";
 	 }
+	 
 }
