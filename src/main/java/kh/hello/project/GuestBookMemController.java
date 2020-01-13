@@ -50,8 +50,9 @@ public class GuestBookMemController {
 		int currentPage = 1;		
 		
 		if(cpage != null) currentPage = Integer.parseInt(cpage);
-		int end = currentPage * Configuration.recordCountPerPage;
-		int start = end - (Configuration.recordCountPerPage - 1);
+		int end = currentPage * Configuration.pLogProjectRecordCountPerPage;
+		int start = end - (Configuration.pLogProjectRecordCountPerPage - 1);
+		System.out.println("정보는  : "+start + " : " + end);
 		List<GuestBookDTO> list = gs.selectListByPage(ownerID,start,end);
 		List<String> pageNavi = gs.getGuestBookPageNavi(ownerID, currentPage);
 		request.setAttribute("list", list);

@@ -81,12 +81,12 @@
 	                	<div class="coltheme"> 프로젝트 </div>
 			         	<div class="tableDiv">
 							<div class="row tableHead">
-							    <div class="col-xl-1 col-2 col-md-2 col-lg-2">모집상태</div>
-							    <div class="col-xl-5 col-8 col-md-5 col-lg-4">제목</div>
-							    <div class="col-xl-1 col-2 col-md-1 d-none d-md-block" style="text-align:center;">지역</div>
-							    <div class="col-xl-1 col-lg-1 d-none d-lg-block">인원</div>
-							    <div class="col-xl-1 col-2">작성자</div>
-							    <div class="col-xl-1 col-md-2 d-none d-md-block">작성일</div>					    
+							    <div class="col-2">모집상태</div>
+							    <div class="col-5">제목</div>
+							    <div class="col-1" style="text-align:center;">지역</div>
+							    <div class="col-lg-1 d-none d-lg-block">인원</div>
+							    <div class="col-2">작성자</div>
+							    <div class="col-2 d-none d-lg-block">작성일</div>					    
 							</div>
 						  	<c:choose>
 						  		<c:when test="${plist.size()==0 }">
@@ -95,16 +95,16 @@
 						  		<c:otherwise>
 						  			<c:forEach items="${plist }" var="p">
 						  				<div class="row tableBody p-0">
-											<div class="col-xl-1 col-2 col-md-2 col-lg-2 ${p.state }" style="text-align:center;">${p.stateInKor }</div>
-												<div class="col-xl-5 col-8 col-md-5 col-lg-4 line-over" onclick="location.href='${pageContext.request.contextPath}/project/detailView?seq=${p.seq }'" class="text-decoration-none">${p.title } 
+											<div class="col-2 ${p.state }" style="text-align:center;">${p.stateInKor }</div>
+												<div class="col-5 line-over" onclick="location.href='${pageContext.request.contextPath}/project/detailView?seq=${p.seq }'" class="text-decoration-none">${p.title } 
 							  						<c:if test="${p.commentCount>0 }">
 							  							<span class="pComment font-weight-bold">${p.commentCount }</span>
 							  						</c:if>					  					
 												</div>
-											<div class="col-xl-1 col-md-1 col-2  d-none d-md-block">${p.location1 }</div>
-											<div class="col-xl-1 col-lg-1 d-none d-lg-block">${p.capacity }명</div>
-											<div class="col-xl-1 col-2 line-over">${p.writer }</div>
-											<div class="col-xl-1 col-md-2 d-none d-md-block">${p.formedWriteDate }</div>
+											<div class="col-1">${p.location1 }</div>
+											<div class="col-lg-1 d-none d-lg-block">${p.capacity }명</div>
+											<div class="col-2 line-over">${p.writer }</div>
+											<div class="col-2 d-none d-lg-block">${p.formedWriteDate }</div>
 										</div>	
 						  			</c:forEach>
 						  		</c:otherwise>

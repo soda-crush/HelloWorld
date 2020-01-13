@@ -19,7 +19,7 @@ import kh.hello.services.ScrapService;
 
 @Controller
 @RequestMapping("/Scrap")
-public class ScrapController {
+public class ScrapMemController {
 	
 	@Autowired
 	private ScrapService ss;
@@ -111,22 +111,5 @@ public class ScrapController {
 		request.setAttribute("plist", plist);
 		return "plog/scrapProject";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }
