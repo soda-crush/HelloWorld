@@ -14,6 +14,7 @@
 <link rel="stylesheet" href="/css/mainBase.css">
 <link rel="stylesheet" type="text/css" href="/css/font-awesome/css/font-awesome.css">
        <style>
+       		*{spellcheck="false"}
             h1{text-align: center;padding-top: 50px; padding-bottom: 50px;}
             ul{background-color: lightgray;font-size: 13px;}
             .card{ width:200px;height:300px;margin: auto; float :left;}
@@ -83,7 +84,7 @@
 	                    		<div class="listwrap col-12">
 			                		<div class="row" style="margin:5px;">
 			                            <div>작성자 : </div>
-			                            <div class="writer${dto.seq}"> ${dto.writer }</div>
+			                            <div class="writer${dto.seq}" style="margin-right:20px;"> ${dto.writer }</div>
 			                            <div>작성일 :</div>
 			                            <div id="writeDate"> ${dto.getDate()}</div>
 			                        </div>
@@ -152,6 +153,13 @@
         		$('#list'+seq).attr('style','background-color:white');
         		$('#update'+seq).attr('style','visibility:visible');
         		$('#toModify'+seq).attr('style','visibility:hidden');
+        		var resizeList = document.getElementsByClassName("message");
+        		for(var i=0 ; i<resizeList.length;i++){
+        			resize(resizeList[i]);
+        		}
+        		var focustext = document.getElementById('list'+seq);
+        		focustext.focus();
+        		focustext.value = focustext.value;
         	}
         	$(function(){
         		var resizeList = document.getElementsByClassName("message");

@@ -211,10 +211,7 @@
 	  			    	console.log(resp);
 	  			    	$("#fileImg1").attr("src",resp);
 	  			    	$("#file1").val(resp);
-	  			    	console.log($("#file1").val);
 	  			    }).fail(function(fail){
-	  			    	console.log("실패함");
-	  			    	console.log(fail);
 	  			    })
                 })
                 $("#fileUpload2").on("change",function(){
@@ -231,10 +228,7 @@
 	  			    	console.log(resp);
 	  			    	$("#fileImg2").attr("src",resp);
 	  			    	$("#file2").val(resp);
-	  			    	console.log($("#file2").val);
 	  			    }).fail(function(fail){
-	  			    	console.log("실패함");
-	  			    	console.log(fail);
 	  			    })
                 })
                 $("#fileUpload3").on("change",function(){
@@ -251,10 +245,7 @@
 	  			    	console.log(resp);
 	  			    	$("#fileImg3").attr("src",resp);
 	  			    	$("#file3").val(resp);
-	  			    	console.log($("#file3").val);
 	  			    }).fail(function(fail){
-	  			    	console.log("실패함");
-	  			    	console.log(fail);
 	  			    })
                 })
                 $("#insert").on("click",function(){

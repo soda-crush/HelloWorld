@@ -69,7 +69,7 @@
 	                	<c:forEach items="${list}"  var="dto">
 	                		<div class="cardwrap col-6 col-xl-4">
 		                        <div class="card">
-		                            <img src="${dto.image1}" class="card-img-top" alt="..." style="height: inherit;width: 160px;height: 170px;margin:15px;">
+		                            <img src="${dto.image1}" class="card-img-top" alt="..." style="height: inherit;width: 170px;height: 170px;margin:15px;">
 		                            <div class="card-body" style="padding: 5px;width:190px;height:115px;text-align:left;">
 		                                <h5 class="card-title" style="font-size:15px;white-space:nowrap;overflow: hidden;text-overflow:ellipsis;width:100%;height:16px;">
 		                                	<a href="${pageContext.request.contextPath}/Portfolio/detail.do?seq=${dto.seq}">${dto.portfolioTitle}</a>
