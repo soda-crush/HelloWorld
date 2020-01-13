@@ -97,7 +97,9 @@
 							<button class="btn btn-secondary" id=searchBtn>검색</button>
 						</div>
 						<div class="col-6 pageListFooter text-right">
+							<c:if test="${loginInfo!=null}">
 							<a class="btn btn-primary" href="${pageContext.request.contextPath}/itnews/write?page=${page}" role="button">글쓰기</a>	
+							</c:if>
 							<h5><br></h5>
 						</div>
 					</div>

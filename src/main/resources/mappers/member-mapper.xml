@@ -76,6 +76,12 @@
 		,ifmOpenCheck=null,joinDate=null,lastLogin=null,profileImg=null,birth=null where id=#{id} 
 	</update>
 	
+	<update id="withdrawalMem1" parameterType="string">
+		update member set pw=null, name=null,nickName=null,phone=null,postCode=null
+		,addr1=null,addr2=null,joinPath=null,gender=null,memLevel=null,reportCount=null,point=null
+		,ifmOpenCheck=null,joinDate=null,lastLogin=null,profileImg=null,birth=null where id=#{id} 
+	</update>
+	
 	<update id="modify"  parameterType="kh.hello.dto.MemberDTO">
 		update member set pw=#{pw}, name=#{name}, email=#{email}, phone=#{phone},postcode=#{postcode},addr1=#{addr1}
 		,addr2=#{addr2},joinPath=#{joinPath}, gender=#{gender}, ifmOpenCheck=#{ifmOpenCheck}, birth=#{birth}

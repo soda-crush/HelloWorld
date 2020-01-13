@@ -31,21 +31,49 @@ public class MemberController {
 	private JavaMailSender mailSender;
 
 	@RequestMapping("/login")
-	public String loginFrm(Model m, String result){ //로그인 폼이동
-		System.out.println("result + " + result);
+	public String loginFrm(Model m, String result, String noMemPath, String seq){ //로그인 폼이동
 		if(result != null) {
 			m.addAttribute("result", result);
+		}
+		if(noMemPath != null) {
+			m.addAttribute("noMemPath", noMemPath);
+		}
+		if(seq != null) {
+			m.addAttribute("seq", seq);
 		}
 		return "member/login";
 	}
 	
 	@RequestMapping("/loginProc")
-	public String loginProc(String id, String pw, HttpSession session){ //로그인 프로세스
+	public String loginProc(String id, String pw, HttpSession session, String noMemPath, String seq){ //로그인 프로세스
 			int result = ms.login(id, pw);
 			if(result > 0) {
 				session.setAttribute("loginInfo", new LoginInfoDTO(id, ms.selectMember(id).getNickName()));
 				ms.updateLastLogin(id);
-				return "redirect:/";
+				if((seq==null)||(seq=="")){
+					if(noMemPath.contentEquals("projectMainList")){
+						return "redirect:../project/list";
+					}else if(noMemPath.contentEquals("bamboolistView")) {
+						return "redirect:../bamboo/bambooList.do";
+					}else if(noMemPath.contentEquals("IndustryStatusListView")) {
+						return "redirect:../industry/industryStatusList.do";
+					}else if(noMemPath.contentEquals("toPlog")){
+						//수정 필요
+						return "redirect:../plog/toPlog.do?owner="+((LoginInfoDTO)session.getAttribute("loginInfo")).getId();
+					}else {
+						return "redirect:/";
+					}
+				}else {
+					if(noMemPath.contentEquals("projectDetailView")){
+						return "redirect:../project/detailView?seq="+seq;
+					}else if(noMemPath.contentEquals("bambooDetailView")) {
+						return "redirect:../bamboo/" + noMemPath + ".do?seq="+seq;
+					}else if(noMemPath.contains("industryStatusDetailView")){  
+						return "redirect:../industry/" + noMemPath + ".do?seq="+seq;
+					}else {
+						return "redirect:/";
+					}
+				}
 			}else {
 				return "redirect:login?result=false";
 			}
@@ -297,6 +325,20 @@ public class MemberController {
 	 public String toModifyFrm(Model m, HttpSession session) {
 		 m.addAttribute("dto",ms.selectMember(((LoginInfoDTO)session.getAttribute("loginInfo")).getId()));
 		 return "member/modify";
+	 }
+	 
+	 @RequestMapping("/noMem2")
+	 public String toNoMemForm1(String result, Model m, int seq) {
+		 m.addAttribute("noMemPath", result);
+		 m.addAttribute("seq", Integer.toString(seq));
+		 System.out.println("seq : " + seq);
+		 return "member/noMem";
+	 }
+	 
+	 @RequestMapping("/noMem1")
+	 public String toNoMemForm2(String result, Model m) {
+		 m.addAttribute("noMemPath", result);
+		 return "member/noMem";
 	 }
 	 
 }

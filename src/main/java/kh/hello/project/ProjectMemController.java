@@ -2,6 +2,7 @@ package kh.hello.project;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,7 +63,7 @@ public class ProjectMemController {
 	}
 	
 	@RequestMapping("/detailView")
-	public String projectDetailView(int seq, Model m) {
+	public String projectDetailView(int seq, Model m, HttpServletRequest request) {
 		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
 		String id = sessionValue.getId();				
 		ProjectDTO result = svc.projectDetailView(seq);		

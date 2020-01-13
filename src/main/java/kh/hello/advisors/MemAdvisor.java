@@ -1,12 +1,16 @@
 package kh.hello.advisors;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
-import org.springframework.ui.Model;
-import org.springframework.web.servlet.resource.HttpResource;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletWebRequest;
 
 import kh.hello.dto.LoginInfoDTO;
 
@@ -15,20 +19,46 @@ public class MemAdvisor {
 	@Autowired
 	private HttpSession session;
 	
-	public Object loginCheck(ProceedingJoinPoint pjp) {
+	public String loginCheck(ProceedingJoinPoint pjp) {
 		LoginInfoDTO dto = (LoginInfoDTO)session.getAttribute("loginInfo");
-		
+
 		if(dto == null) {
-			System.out.println("로그인 정보 없음");
-			return "member/noMem";
+			String oriMethod = pjp.toShortString();
+			Pattern p = Pattern.compile("execution\\(.+Controller.(.+)\\(..\\)\\)");
+			Matcher m = p.matcher(oriMethod);
+
+			String getSig =  pjp.getSignature().toString();
+			Pattern p2 = Pattern.compile(".+\\((.+),.+\\)");
+			Matcher m2 = p2.matcher(getSig);
+			
+			while(m.find()){
+				while(m2.find()) {
+					
+				String sysMethod = m.group(1).toString();
+				System.out.println("sysMethod : " + sysMethod);
+				
+				String sysFirstParam = m2.group(1).toString();
+				System.out.println("sysFirstParam : " + sysFirstParam);
+				
+				if(sysFirstParam.contentEquals("String")) {
+					return "redirect:../member/noMem1?result="+sysMethod;
+				}else {
+					Object[] paramArr = pjp.getArgs();
+					int seq = Integer.parseInt(paramArr[0].toString());
+					System.out.println("aop에서 seq : " + seq);
+					return "redirect:../member/noMem2?result="+sysMethod+"&seq="+seq;
+				}
+					
+				}
+			}
 		}
 		
-		Object result = new Object();
+		
+		String result = "";
 		try {
-			result = pjp.proceed(pjp.getArgs());
+			result = pjp.proceed(pjp.getArgs()).toString();
 		} catch (Throwable e) {
 			e.printStackTrace();
-			System.out.println("proceed도중 오류 발생");
 		}
 		return result;
 	}

@@ -56,8 +56,10 @@
             	
             	<div class=row>
             		<div class="col-12 text-center">
+            		<c:if test="${loginInfo!=null}">
             			<button type="button" class="btn btn-warning" id=scrap style="width:120px;">스크랩</button>
             		<button type="button" class="btn btn-danger">신고</button>
+            		</c:if>
             		</div>
             	</div>
             	
@@ -94,6 +96,7 @@
 							</c:if>
             	</div>
             	
+            	<c:if test="${loginInfo!=null}">
             	<div class="row">
             		<div class="col-10">
             			<textarea style="width:100%;height:100%;" placeholder="댓글 입력" id="coContent"></textarea>
@@ -111,7 +114,7 @@
 						</div>					
             		</div>
             	</div>
-            	
+            	</c:if>
             	
            
             </div>

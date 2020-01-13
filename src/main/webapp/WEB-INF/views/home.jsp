@@ -114,7 +114,9 @@ font-size: 11px;}
 			            		<c:set var="cnt" value="1"/>
 			            			<c:forEach items="${codeList}" var="code">
 			            			<c:set var="sum" value="${sum+1}"/>
-			            			${sum}&emsp; ${code.title}<br>
+			            			${sum-5}&emsp; 
+			            			<a href="${pageContext.request.contextPath}/code/codeDetail.do?seq=${code.seq}">${code.title}</a>
+			            			<br>
 			            			</c:forEach>
 			            		</c:when>
 			            		</c:choose>
@@ -133,7 +135,7 @@ font-size: 11px;}
 			            		<c:set var="cnt" value="1"/>
 			            			<c:forEach items="${indusList}" var="indus">
 			            			<c:set var="sum" value="${sum+1}"/>
-			            			${sum-5}&emsp;
+			            			${sum-10}&emsp;
 			            			<a href="/industry/industryStatusDetailView.do?seq=${indus.seq}"> ${indus.title}</a>
 			            			<br>
 			            			</c:forEach>
