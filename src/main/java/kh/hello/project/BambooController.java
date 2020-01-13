@@ -53,12 +53,12 @@ public class BambooController {
 	}
 
 	@RequestMapping("/bambooWrite.do")
-	public String bambooWriteForm() {
+	public String writeFormBamboo() {
 		return "/bamboo/bambooWrite";
 	}
 
 	@RequestMapping("/bambooWriteProc.do")
-	public String bambooWriteProc(BambooDTO dto) {//섬머노트
+	public String writeProcBamboo(BambooDTO dto) {//섬머노트
 		LoginInfoDTO loginInfo = (LoginInfoDTO)session.getAttribute("loginInfo");
 		dto.setWriter(loginInfo.getId());
 		String path = session.getServletContext().getRealPath("attached");
@@ -77,14 +77,14 @@ public class BambooController {
 	}
 
 	@RequestMapping("/bambooModify.do")
-	public String bambooModifyForm(int seq, Model m) {
+	public String modifyFormBamboo(int seq, Model m) {
 		BambooDTO result = service.bambooDetailView(seq);
 		m.addAttribute("bPage", result);
 		return "/bamboo/bambooModify";
 	}
 
 	@RequestMapping("/bambooModifyProc.do")
-	public String bambooModifyProc(BambooDTO dto) {
+	public String modifyProcBamboo(BambooDTO dto) {
 		String path = session.getServletContext().getRealPath("attached");
 
 		int result = 0;
@@ -103,7 +103,7 @@ public class BambooController {
 	}
 
 	@RequestMapping("/bambooDeleteProc.do")
-	public String bambooDeleteProc(int seq) {
+	public String deleteProcBamboo(int seq) {
 		LoginInfoDTO loginInfo = (LoginInfoDTO)session.getAttribute("loginInfo");
 		int result = 0;
 		try {

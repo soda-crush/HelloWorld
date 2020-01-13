@@ -57,12 +57,12 @@ public class IndustryStatusController {
 	}
 
 	@RequestMapping("/industryStatusWrite.do")
-	public String industryStatusWriteForm() {
+	public String writeFormIndustryStatus() {
 		return "/industry/industryStatusWrite";
 	}
 
 	@RequestMapping("/industryStatusWriteProc.do")
-	public String industryStatusWriteProc(IndustryStatusDTO dto) {//섬머노트
+	public String writeProcIndustryStatus(IndustryStatusDTO dto) {//섬머노트
 		LoginInfoDTO loginInfo = (LoginInfoDTO)session.getAttribute("loginInfo");
 		dto.setWriter(loginInfo.getNickName());
 		dto.setId(loginInfo.getId());
@@ -82,14 +82,14 @@ public class IndustryStatusController {
 	}
 
 	@RequestMapping("/industryStatusModify.do")
-	public String industryStatusModifyForm(int seq, Model m) {
+	public String modifyFormIndustryStatus(int seq, Model m) {
 		IndustryStatusDTO result = service.industryStatusDetailView(seq);
 		m.addAttribute("iPage", result);
 		return "/industry/industryStatusModify";
 	}
 
 	@RequestMapping("/industryStatusModifyProc.do")
-	public String industryStatusModifyProc(IndustryStatusDTO dto) {
+	public String modifyProcIndustryStatus(IndustryStatusDTO dto) {
 		String path = session.getServletContext().getRealPath("attached");
 
 		int result = 0;
@@ -108,7 +108,7 @@ public class IndustryStatusController {
 	}
 
 	@RequestMapping("/industryStatusDeleteProc.do")
-	public String industryStatusDeleteProc(int seq) {
+	public String deleteProcIndustryStatus(int seq) {
 		LoginInfoDTO loginInfo = (LoginInfoDTO)session.getAttribute("loginInfo");
 		service.industryStatusDeleteConfirm(seq, loginInfo.getId());
 		return "redirect:/industry/industryStatusList.do";
