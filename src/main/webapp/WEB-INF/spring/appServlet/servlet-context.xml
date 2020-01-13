@@ -35,6 +35,7 @@
 		<property name="defaultEncoding" value="utf8"/>
 	</bean>
 		
+
 	
 	<bean id="wPointAdv" class="kh.hello.advisors.WritePointAdvisor"/>
 	<bean id="dPointAdv" class="kh.hello.advisors.DelPointAdvisor"/>
@@ -57,5 +58,6 @@
 		</aop:aspect>
 		
 	</aop:config>	
+
 		
 </beans>

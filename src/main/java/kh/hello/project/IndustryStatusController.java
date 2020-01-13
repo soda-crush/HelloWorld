@@ -57,12 +57,12 @@ public class IndustryStatusController {
 	}
 
 	@RequestMapping("/industryStatusWrite.do")
-	public String industryStatusWrite() {
+	public String writeFormIndustryStatus() {
 		return "/industry/industryStatusWrite";
 	}
 
 	@RequestMapping("/industryStatusWriteProc.do")
-	public String writeIndustry(IndustryStatusDTO dto) {//섬머노트
+	public String writeProcIndustryStatus(IndustryStatusDTO dto) {//섬머노트
 		LoginInfoDTO loginInfo = (LoginInfoDTO)session.getAttribute("loginInfo");
 		dto.setWriter(loginInfo.getNickName());
 		dto.setId(loginInfo.getId());
@@ -82,14 +82,14 @@ public class IndustryStatusController {
 	}
 
 	@RequestMapping("/industryStatusModify.do")
-	public String industryStatusModify(int seq, Model m) {
+	public String modifyFormIndustryStatus(int seq, Model m) {
 		IndustryStatusDTO result = service.industryStatusDetailView(seq);
 		m.addAttribute("iPage", result);
 		return "/industry/industryStatusModify";
 	}
 
 	@RequestMapping("/industryStatusModifyProc.do")
-	public String industryStatusModifyConfirm(IndustryStatusDTO dto) {
+	public String modifyProcIndustryStatus(IndustryStatusDTO dto) {
 		String path = session.getServletContext().getRealPath("attached");
 
 		int result = 0;
@@ -108,7 +108,7 @@ public class IndustryStatusController {
 	}
 
 	@RequestMapping("/industryStatusDeleteProc.do")
-	public String industryStatusDeleteConfirm(int seq) {
+	public String deleteProcIndustryStatus(int seq) {
 		LoginInfoDTO loginInfo = (LoginInfoDTO)session.getAttribute("loginInfo");
 		service.industryStatusDeleteConfirm(seq, loginInfo.getId());
 		return "redirect:/industry/industryStatusList.do";
@@ -118,18 +118,18 @@ public class IndustryStatusController {
 
 	@ResponseBody
 	@RequestMapping(value="/comment/writeProc.do",produces="text/html;charset=utf8")
-	public String commentWriteConfirm(IndustryStatusCoDTO dto) {
+	public String coWriteProc(IndustryStatusCoDTO dto) {
 		return service.commentWriteConfirm(dto);		
 	}
 
 	@ResponseBody
 	@RequestMapping(value="/comment/modifyProc.do",produces="text/html;charset=utf8")
-	public String commentModifyConfirm(IndustryStatusCoDTO dto) {
+	public String coMdfProc(IndustryStatusCoDTO dto) {
 		return service.commentModifyConfirm(dto);
 	}
 	@ResponseBody
 	@RequestMapping(value="/comment/deleteProc.do",produces="text/html;charset=utf8")
-	public String commentDeleteConfirm(IndustryStatusCoDTO dto) {
+	public String coDelProc(IndustryStatusCoDTO dto) {
 		LoginInfoDTO loginInfo = (LoginInfoDTO)session.getAttribute("loginInfo");
 		dto.setId(loginInfo.getId());
 		return service.commentDeleteConfirm(dto);

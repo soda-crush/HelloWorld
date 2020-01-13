@@ -78,7 +78,7 @@ public class ItnewsController {
 	}
 	
 	@RequestMapping("/write")
-	public String itnewsWriteFrm(String page,Model m) {
+	public String writeForm(String page,Model m) {
 		m.addAttribute("page", page);
 		return "/itnews/write";
 	}
@@ -96,7 +96,7 @@ public class ItnewsController {
 	
 	@RequestMapping(value="/coWrite",produces="text/html;charset=utf8")
 	@ResponseBody
-	public String writeCo(ItnewsCoDTO dto, HttpSession session, String seq) {
+	public String coWriteProc(ItnewsCoDTO dto, HttpSession session, String seq) {
 		dto.setId(((LoginInfoDTO)session.getAttribute("loginInfo")).getId());
 		dto.setWriter(((LoginInfoDTO)session.getAttribute("loginInfo")).getNickName());
 		is.coWrite(dto, seq);
@@ -105,20 +105,20 @@ public class ItnewsController {
 	
 	@RequestMapping(value="/coRemove",produces="text/html;charset=utf8")
 	@ResponseBody
-	public String deleteCo(String itSeq, String seq) {
+	public String coDelProc(String itSeq, String seq) {
 		is.removeItnewsCo(itSeq, seq);
 		return is.coWriteAfter(itSeq);
 	}
 	
 	@RequestMapping(value="/coModify",produces="text/html;charset=utf8")
 	@ResponseBody
-	public String modifyCo(ItnewsCoDTO dto) {
+	public String coMdfProc(ItnewsCoDTO dto) {
 		is.modifyItnewsCo(dto);
 		return is.coWriteAfter(is.getItSeqBySeq(dto.getSeq()));
 	}
 	
 	@RequestMapping("/writeProc")
-	public String write(String page, ItnewsDTO dto, HttpSession session){
+	public String writeProc(String page, ItnewsDTO dto, HttpSession session){
 		String path = session.getServletContext().getRealPath("attached");
 		
 		dto.setWriter(((LoginInfoDTO)session.getAttribute("loginInfo")).getNickName());
@@ -134,7 +134,7 @@ public class ItnewsController {
 	}
 	
 	@RequestMapping("/modifyProc")
-	public String modify(String page, ItnewsDTO dto, HttpSession session){
+	public String modifyProc(String page, ItnewsDTO dto, HttpSession session){
 		String path = session.getServletContext().getRealPath("attached");
 		
 		try {
@@ -147,13 +147,13 @@ public class ItnewsController {
 	}
 	
 	@RequestMapping("/remove")
-	public String remove(int seq, String page) {
+	public String deleteProc(int seq, String page) {
 		is.removeItnews(seq);
 		return "redirect:itnewsList?cpage="+page;
 	}
 	
 	@RequestMapping("/modify")
-	public String modifyFrm(Model m, String page, String seq) {
+	public String modifyForm(Model m, String page, String seq) {
 		m.addAttribute("dto", is.itnewsDetail(Integer.parseInt(seq)));
 		m.addAttribute("page", page);
 		return "itnews/modify";

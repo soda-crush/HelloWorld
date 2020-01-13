@@ -106,7 +106,7 @@ font-size: 11px;}
 	            		<div class="boardEle">
 			            	<div class="boardEleTop bdt2">
 			            		<p class=mainTitle>Code-How</p>
-			            		<p class=fs1>주간 스크랩수 TOP5</p>
+			            		<p class=fs1>주간 조회수 TOP5</p>
 			            	</div>
 			            	<div class="boardEleCon">
 			            		<c:choose>

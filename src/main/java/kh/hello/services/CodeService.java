@@ -419,6 +419,7 @@ public class CodeService {
 		public int writeCodeR(String path, CodeReplyDTO dto,String id) throws Exception{
 			//1. repSeq 받아오기
 			int repSeq = dao.getCodeRSeq();
+			System.out.println("답글:" + repSeq);
 			dto.setSeq(repSeq);
 			//2. 이미지 저장하고 주소 변환
 			String content = imgUploadR(path, repSeq, dto.getContent());

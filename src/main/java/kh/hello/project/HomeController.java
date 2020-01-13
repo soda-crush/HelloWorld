@@ -22,11 +22,11 @@ public class HomeController {
 	@RequestMapping("/")
 	public String home(Model m) {
 		List<BambooDTO> bamList = hs.getBamList();
-		//List<CodeQuestionDTO> codeList = hs.getCodeList();
+		List<CodeQuestionDTO> codeList = hs.getCodeList();
 		List<IndustryStatusDTO> indusList = hs.getIndusList();
 		
 		m.addAttribute("bamList", bamList);
-		//m.addAttribute("codeList", codeList);
+		m.addAttribute("codeList", codeList);
 		m.addAttribute("indusList", indusList);
 		
 		List<ProjectDTO> proList = hs.getProList();
