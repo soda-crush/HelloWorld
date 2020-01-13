@@ -50,7 +50,7 @@
 								</c:otherwise>
 							</c:choose>
 							<br>
-							<span class="ml-4" style="font-weight:bold;">${pPage.title}</span><br>
+							<div class="ml-4" style="font-weight:bold;font-size:20px;display:inline-block;">${pPage.title}</div><br>
 							<label class="ml-4">작성자 : ${pPage.writer }</label>
 							<label class="ml-4">작성일 : ${pPage.formedWriteDate }</label>
 							<label class="ml-4">조회 : ${pPage.viewCount }</label>
@@ -87,7 +87,7 @@
 											</c:choose>										
 									</c:when>
 									<c:when test="${applyCheck==null }">
-										<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#pApplyModal">신청하기</button>
+										<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#pApplyModal" id="getApplyBtn">신청하기</button>
 									</c:when>
 									<c:when test="${applyCheck.id == sessionScope.loginInfo.id }">
 										<c:choose>
@@ -306,7 +306,8 @@
 			});
 		});
 		$("#applyCheckBtn").on("click",function(){
-			location.href="/project/applyCheck?projectSeq="+$("#pageSeq").val();	
+// 			location.href="/project/applyCheck?projectSeq="+$("#pageSeq").val();
+			window.open("/project/applyCheck?projectSeq="+$("#pageSeq").val(), "applyListPopUp", "width=1000,height=600,scrollbars=no, resizable=no, toolbars=no, menubar=no");
 		});
 		
 //		var loginInfo = $("#sessionId");
@@ -485,6 +486,10 @@
 				return false;				
 			});
 			
+			$("#applyConfirmCheckBtn").on("click",function(){
+				$("#getApplyBtn").remove();
+				$(".checkBtn").append('<p style="font-weight:bold;">신청 후 <span style="color:orange;font-weight:bold;">승인 대기중</span>입니다.</p>');
+			});
 
 			function commentRecall(resp){
 				var loginInfo = $("#sessionId").val();

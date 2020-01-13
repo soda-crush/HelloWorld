@@ -111,7 +111,7 @@
 							</div>
 						</div>
 						<div id="pBody">
-							<div id="pTitleInput"><input type="text" class="form-control" placeholder="제목을 입력해주세요" name="title" id="title"></div>
+							<div id="pTitleInput"><input type="text" class="form-control" placeholder="제목을 입력해주세요" name="title" id="title" maxlength="100"></div>
 							<div id="pContentsInput"><textarea class="form-control summernote" name="contents" id="contents"></textarea></div>											
 						</div>					
 					</div>

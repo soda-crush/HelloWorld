@@ -47,10 +47,13 @@
 									<div class="col-1">${a.capacity }명</div>
 									<div class="col-1">${a.location1 } ${a.location2 }</div>
 									<div class="col-3">${a.formedAllDate }</div>																											
-									<div class="col-3 text-decoration-none" onclick="popUp('/project/apply/detailView?seq=${a.seq }')">${a.title } 
-				  						<c:if test="${a.commentCount>0 }">
-				  							<span class="pComment font-weight-bold">${a.commentCount }</span>
-				  						</c:if>					  					
+									<div class="col-3 text-decoration-none" onclick="popUp('/project/apply/detailView?seq=${a.seq }')">
+										<div class="row">
+											<div style="max-width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;">${a.title }</div> 
+					  						<c:if test="${a.commentCount>0 }">
+					  							<div class="pComment font-weight-bold ml-2" style="display:inline-block;">${a.commentCount }</div>
+					  						</c:if>
+					  					</div>										  				
 									</div>									
 									<div class="col-1">${a.writer }</div>
 
