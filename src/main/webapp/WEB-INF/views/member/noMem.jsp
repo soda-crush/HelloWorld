@@ -13,9 +13,21 @@
 <link rel="stylesheet" type="text/css" href="/css/font-awesome/css/font-awesome.css">
 </head>
 <body>
-	<script>
-		alert("로그인 정보가 필요한 페이지 입니다.");
-		location.href="${pageContext.request.contextPath}/member/login?noMemPath=${noMemPath}";
-	</script>
+	<c:choose>
+		<c:when test="${seq!=null}">
+			<script>
+				alert("로그인 정보가 필요한 페이지 입니다.");
+				location.href="${pageContext.request.contextPath}/member/login?noMemPath=${noMemPath}&seq=${seq}";
+			</script>
+		</c:when>
+		<c:otherwise>
+			<script>
+				alert("로그인 정보가 필요한 페이지 입니다.");
+				location.href="${pageContext.request.contextPath}/member/login?noMemPath=${noMemPath}";
+			</script>
+		</c:otherwise>
+	</c:choose>
+	
+	
 </body>
 </html>
