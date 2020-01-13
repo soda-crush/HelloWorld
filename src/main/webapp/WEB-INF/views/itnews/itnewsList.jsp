@@ -24,6 +24,17 @@
 	#page${page}{
 		color:blue;
 	}
+	#titleForCss a{
+		color:black;
+		font-size: 17px;
+	}
+	.notTitle{
+		color:gray;
+		font-size: 15px;
+	}
+	div{
+	border: 1px solid green;
+	}
 </style>
 </head>
 <body>
@@ -57,13 +68,13 @@
 				  		</c:when>
 				  		<c:otherwise>
 				  			<c:forEach items="${list}" var="dto">
-				  				<div class="row tableBody p-0">
-									<div class="col-md-1 d-none d-md-block order-md-1">${dto.seq}</div>
-					    			<div class="col-12 col-md-6 order-1 order-md-2"><a href="${pageContext.request.contextPath}/itnews/detail?seq=${dto.seq}&page=${page}">${dto.title}</a></a></div>
-					    			<div class="col-3 col-md-2 order-2 order-md-3">${dto.writer}</div>
-					    			<div class="col-2 col-md-2 order-3 order-md-4">${dto.getDate()}</div>
-					    			<div class="col-1 col-md-1 order-4 order-md-5">${dto.viewCount}</div>
-					    			<div class="col-6 order-5 d-md-none"></div>		
+				  				<div class="row p-0">
+									<div class="col-md-1 d-none d-md-block order-md-1 notTitle">${dto.seq}</div>
+					    			<div class="col-12 col-md-6 order-1 order-md-2" id=titleForCss><a href="${pageContext.request.contextPath}/itnews/detail?seq=${dto.seq}&page=${page}">${dto.title}</a></a></div>
+					    			<div class="col-2 col-md-2 order-2 order-md-3 notTitle text-center">${dto.writer}</div>
+					    			<div class="col-2 col-md-2 order-3 order-md-4 notTitle">${dto.getDate()}</div>
+					    			<div class="col-1 col-md-1 order-4 order-md-5 notTitle">${dto.viewCount}</div>
+					    			<div class="col-7 order-5 d-md-none">여백여백여백여백여백여백여백여백</div>		
 								</div>
 				  			</c:forEach>
 				  		</c:otherwise>
@@ -86,6 +97,7 @@
 						</div>
 						<div class="col-6 pageListFooter text-right">
 							<a class="btn btn-primary" href="${pageContext.request.contextPath}/itnews/write?page=${page}" role="button">글쓰기</a>	
+							<h5><br></h5>
 						</div>
 					</div>
 				</form>

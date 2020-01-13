@@ -57,6 +57,7 @@
             	<div class=row>
             		<div class="col-12 text-center">
             			<button type="button" class="btn btn-warning" id=scrap style="width:120px;">스크랩</button>
+            		<button type="button" class="btn btn-danger">신고</button>
             		</div>
             	</div>
             	
