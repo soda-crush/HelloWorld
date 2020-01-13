@@ -192,7 +192,7 @@
     <script src="${pageContext.request.contextPath }/adRsc/js/plugins.js"></script>
     <script src="${pageContext.request.contextPath }/adRsc/js/scripts.js"></script>
     <script>
-	if("${pageNavi.size() > 0}"){
+	if(${pageNavi.size() > 0}){
 		var element = $(".pageNavi");
 		var page = "${page}";
 		if(page > 0 && page <= 10){
@@ -214,6 +214,10 @@
 			console.log("false");
 		}
 	}
+	
+	$("#board").addClass("active");
+	$("#board").children("ul").addClass("in");
+	$("#project").addClass("active");	  
 	</script>
 </body>
 </html>

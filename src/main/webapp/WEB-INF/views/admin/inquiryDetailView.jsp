@@ -229,6 +229,8 @@ text-align:right;
     			});
     		}
     	})
+    	
+    $("#inquiry").addClass("active");
     </script>
 </body>
 </html>

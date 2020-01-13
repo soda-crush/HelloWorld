@@ -152,7 +152,7 @@ public class ProjectService {
 	}
 	
 	@Transactional("txManager")
-	public int projectModifyConfirm(ProjectDTO dto, String path) throws Exception {
+	public int projectModifyConfirm(ProjectDTO dto, String path, String headName) throws Exception {
 		File filePath = new File(path);
 		if(!filePath.exists()) {			
 			filePath.mkdirs();
@@ -167,8 +167,7 @@ public class ProjectService {
 		for(ProjectImageDTO i : originImages) {
 			originSysNames.add(i.getSysName());
 		}
-		List<String> modiImageSysNames = new ArrayList<>();
-		String headName = "/attached/project/";
+		List<String> modiImageSysNames = new ArrayList<>();		
 			while(m.find()) {
 				if(!m.group(1).startsWith(headName)) {
 					String oriName = m.group(2);

@@ -188,7 +188,7 @@
     <script src="${pageContext.request.contextPath }/adRsc/js/plugins.js"></script>
     <script src="${pageContext.request.contextPath }/adRsc/js/scripts.js"></script>
     <script>
-		if("${pageNavi.size() > 0}"){
+		if(${pageNavi.size() > 0}){
 			var element = $(".pageNavi");
 			var page = "${page}";
 			if(page > 0 && page <= 10){
@@ -198,7 +198,10 @@
 			}else{
 				element[page % 10].classList.add('active');
 			}			
-		}		
+		}	
+		$("#board").addClass("active");
+		$("#board").children("ul").addClass("in");
+		$("#itnews").addClass("active");	
     </script>
 </body>
 </html>

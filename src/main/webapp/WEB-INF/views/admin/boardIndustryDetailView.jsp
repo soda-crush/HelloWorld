@@ -206,5 +206,10 @@ cursor:default;
     <!-- others plugins -->
     <script src="${pageContext.request.contextPath }/adRsc/js/plugins.js"></script>
     <script src="${pageContext.request.contextPath }/adRsc/js/scripts.js"></script>
+    <script>
+	$("#board").addClass("active");
+	$("#board").children("ul").addClass("in");
+	$("#industry").addClass("active");	      
+    </script>
 </body>
 </html>

@@ -20,7 +20,7 @@ import kh.hello.services.ProjectService;
 
 @Controller
 @RequestMapping("/project")
-public class ProjectController {
+public class ProjectMemController {
 
 	@Autowired
 	private HttpSession session;
@@ -120,8 +120,9 @@ public class ProjectController {
 		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
 		dto.setWriter(sessionValue.getNickName());
 		String path = session.getServletContext().getRealPath("attached/project");
+		String headName = "/attached/project/";
 		try {
-			svc.projectModifyConfirm(dto, path);
+			svc.projectModifyConfirm(dto, path, headName);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

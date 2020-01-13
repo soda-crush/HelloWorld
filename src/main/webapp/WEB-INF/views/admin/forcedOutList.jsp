@@ -185,6 +185,10 @@
 			element[page % 10].classList.add('active');
 		}	
 	});
+	
+	$("#member").addClass("active");
+	$("#member").children("ul").addClass("in");
+	$("#outMember").addClass("active");	  
 	</script>
 </body>
 </html>

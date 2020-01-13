@@ -271,6 +271,10 @@
 			$("#frm").submit();
 		}
 	 });
+	 
+	$("#member").addClass("active");
+	$("#member").children("ul").addClass("in");
+	$("#blackMember").addClass("active");	
 	</script>
 </body>
 </html>
