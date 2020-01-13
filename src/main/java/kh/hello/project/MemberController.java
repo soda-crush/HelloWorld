@@ -31,20 +31,25 @@ public class MemberController {
 	private JavaMailSender mailSender;
 
 	@RequestMapping("/login")
-	public String loginFrm(Model m, String result){ //로그인 폼이동
-		System.out.println("result + " + result);
+	public String loginFrm(Model m, String result, String noMemPath){ //로그인 폼이동
 		if(result != null) {
 			m.addAttribute("result", result);
+		}
+		if(noMemPath != null) {
+			m.addAttribute("noMemPath", noMemPath);
 		}
 		return "member/login";
 	}
 	
 	@RequestMapping("/loginProc")
-	public String loginProc(String id, String pw, HttpSession session){ //로그인 프로세스
+	public String loginProc(String id, String pw, HttpSession session, String noMemPath){ //로그인 프로세스
 			int result = ms.login(id, pw);
 			if(result > 0) {
 				session.setAttribute("loginInfo", new LoginInfoDTO(id, ms.selectMember(id).getNickName()));
 				ms.updateLastLogin(id);
+				if(noMemPath != null) {
+					return "redirect:../" + noMemPath;
+				}
 				return "redirect:/";
 			}else {
 				return "redirect:login?result=false";
@@ -297,6 +302,13 @@ public class MemberController {
 	 public String toModifyFrm(Model m, HttpSession session) {
 		 m.addAttribute("dto",ms.selectMember(((LoginInfoDTO)session.getAttribute("loginInfo")).getId()));
 		 return "member/modify";
+	 }
+	 
+	 @RequestMapping("/noMem")
+	 public String toNoMemForm(String result, Model m) {
+		 System.out.println("result : " + result);
+		 m.addAttribute("noMemPath", result);
+		 return "member/noMem";
 	 }
 	 
 }

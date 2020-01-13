@@ -117,6 +117,11 @@ public class MemberDAO {
 			return jdbc.update("Member.withdrawal", id);
 		}
 		
+	//탈퇴 - 강등회원
+		public int withdrawalMem1(String id) {
+			return jdbc.update("Member.withdrawalMem1", id);
+		}		
+		
 	//수정
 		public int modifyMember(MemberDTO dto) {
 			return jdbc.update("Member.modify", dto);

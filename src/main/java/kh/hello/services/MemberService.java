@@ -147,7 +147,13 @@ public class MemberService {
 		public String withdrawalCheck(String id, String pw) {
 			int result = mdao.withdrawalCheck(id, pw);
 			if(result > 0) {
-				int result2 = mdao.withdrawal(id);
+				int memLevel = mdao.selectMember(id).getMemLevel();
+				int result2 = -1;
+				if(memLevel == 1) {
+					result2 = mdao.withdrawalMem1(id);
+				}else {
+					result2 = mdao.withdrawal(id);
+				}
 				if(result2 > 0) {
 					return "success";
 				}else {

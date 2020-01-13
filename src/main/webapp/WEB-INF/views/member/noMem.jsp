@@ -15,7 +15,7 @@
 <body>
 	<script>
 		alert("로그인 정보가 필요한 페이지 입니다.");
-		location.href="${pageContext.request.contextPath}/member/login";
+		location.href="${pageContext.request.contextPath}/member/login?noMemPath=${noMemPath}";
 	</script>
 </body>
 </html>
