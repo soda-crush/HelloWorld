@@ -22,7 +22,7 @@
 						</ul>
 					</li>
 
-					<li id="report"><a href="${pageContext.request.contextPath }/adBoard/reportList"><i class="ti-target"></i><span>신고글 관리</span></a></li>
+					<li id="report"><a href="${pageContext.request.contextPath }/report/reportList"><i class="ti-target"></i><span>신고글 관리</span></a></li>
 
 					<li id="board"><a href="javascript:void(0)" aria-expanded="true"><i class="ti-menu"></i><span>게시판관리</span></a>
 						<ul class="collapse">

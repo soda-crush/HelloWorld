@@ -24,10 +24,41 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath }/adRsc/css/responsive.css">
 <!-- modernizr css -->
 <script src="${pageContext.request.contextPath }/adRsc/vendor/modernizr-2.8.3.min.js"></script>
+<!-- jquery latest version -->
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <style>
+	.contentCard{
+		max-width: 1000px;
+	}
 	.notification-area {
 		text-align:right;
 	}	
+	.titleBtn{
+		background-color : transparent;
+		border : none;
+		color : black;
+	}
+	.titleBtn:hover{
+		background-color : transparent;
+		border : none;
+		color : black;
+	}
+	.infoBoxTop{
+		border-top: 1px solid #f5f5f2;
+	}
+	.infoBox{
+		border-bottom : 1px solid #f5f5f2;	
+	}
+	
+	.infoBox>div:first-child{
+		background-color : #F3F8FB;
+		text-align: center;
+	}
+	
+	.infoBoxBottom>div:first-child{
+		background-color : transparent;
+	}
+
 </style>
 </head>
 <body>
@@ -73,6 +104,207 @@
             <!-- page title area end -->
             <div class="main-content-inner">
                 <!-- MAIN CONTENT GOES HERE -->
+                 <!-- Hoverable Rows Table start -->
+                    <div class="col-lg-12 mt-5 contentCard">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="header-title">글 목록</h4>
+                                <div class="single-table">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover text-center">
+                                            <thead class="text-uppercase">
+                                                <tr>
+                                                    <th scope="col">번호</th>    
+                                                    <th scope="col">상태</th>                                             
+                                                	<th scope="col">게시판</th>
+                                                    <th scope="col">글번호</th>
+                                                    <th scope="col">제목</th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col">신고자</th>
+                                                    <th scope="col">신고날짜</th>    
+                                                    <th scope="col">처리결과</th>                                               
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            	<c:choose>
+                                            		<c:when test="${list.size() == 0}">
+                                            			<tr><th colspan='7'>게시물이 없습니다<th></tr>
+                                            		</c:when>
+                                            		<c:otherwise>
+		                                            	<c:forEach items="${list}" var="dto">
+		                                            		<tr>
+		                                                    <td>${dto.seq}</td>   
+		                                                    <td>
+		                                                    	<c:choose>
+		                                                    		<c:when test="${dto.state == 'Y'}">		                                                    		
+		                                                    			<p class="text-success"><strong>${dto.formedState}</strong></p>
+		                                                    		</c:when>
+		                                                    		<c:otherwise>
+		                                                    			<p class="text-danger"><strong>${dto.formedState}</strong></p>
+		                                                    		</c:otherwise>
+		                                                    	</c:choose>
+		                                                    
+		                                                    </td>                                           		
+		                                                    <td>${dto.board}</td>
+		                                                    <td>${dto.boardSeq}</td>
+		                                                    <td colspan='3' class="text-left">
+																<button type="button" class="btn btn-primary btn-flat btn-xs p-0" data-toggle="modal" data-target="#reportDetail" id="btn${dto.seq}">
+																<strong class="text-primary">${dto.title}</strong></button>
+								                                <!-- Modal -->
+								                                <div class="modal fade" id="reportDetail">
+								                                    <div class="modal-dialog modal-dialog-centered" role="document">
+								                                    	<form action="${pageContext.request.contextPath}/report/updateReport" method="post" class="col-12">
+									                                        <div class="modal-content">
+									                                            <div class="modal-header">
+									                                                <h5 class="modal-title"><strong>신고 내역</strong></h5>
+									                                                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+									                                            </div>
+									                                            <div class="modal-body">
+									                                                <div class="content col-12">
+									                                                	<div class="row infoBox infoBoxTop">
+									                                                		<div class="col-4 pt-2 pb-2">상태</div>
+									                                                		<div class="col-8 pt-2 pb-2">${dto.state}</div>
+									                                                	</div>
+									                                                	<div class="row infoBox">
+									                                                		<div class="col-4 pt-2 pb-2">게시판</div>
+									                                                		<div class="col-8 pt-2 pb-2">${dto.board}</div>	
+									                                                	</div>	
+									                                                	<div class="row infoBox">
+									                                                		<div class="col-4 pt-2 pb-2">게시글번호</div>
+									                                                		<div class="col-8 pt-2 pb-2">${dto.boardSeq}</div>
+									                                                	</div>	
+									                                                	<div class="row infoBox">
+									                                                		<div class="col-4 pt-2 pb-2">제목</div>
+									                                                		<div class="col-8 pt-2 pb-2">
+																								<button type="button" class="btn btn-primary btn-flat btn-xs p-0 titleBtn" data-toggle="tooltip" data-placement="botton"
+																								title="원글 새 창에서 열기" onclick="openWindow('${dto.boardName}', ${dto.boardSeq});">
+																								${dto.title}&nbsp;&nbsp;<span data-brackets-id="6920" class="ti-layers text-primary"></span>
+																								</button>
+																							</div>
+									                                                	</div>									                                                	
+									                                                	<div class="row infoBox">
+									                                                		<div class="col-4 pt-2 pb-2">신고자</div>
+									                                                		<div class="col-8 pt-2 pb-2">${dto.reporterNick}(${dto.reporterID})</div>
+									                                                	</div>		
+									                                                	<div class="row infoBox">
+									                                                		<div class="col-4 pt-2 pb-2">신고날짜</div>
+									                                                		<div class="col-8 pt-2 pb-2">${dto.formedDate}</div>
+									                                                	</div>									                                                	
+									                                                	<div class="row infoBox">
+									                                                		<div class="col-4 pt-2 pb-2">신고이유</div>
+									                                                		<div class="col-8 pt-2 pb-2">${dto.reason}</div>
+									                                                	</div>									                                                	
+									                                                	<div class="row infoBox infoBoxBottom position-relative">
+									                                                		<div class="col-12 pt-2 pb-2">								                                   
+									                                                			<select class="custom-select" id="result${dto.seq}">
+									                                                				<option selected value="null">처리 방법을 선택해주세요</option>
+									                                                				<option value="delete">삭제처리</option>
+									                                                				<option value="noMatter">문제없음</option>
+									                                                				<option value="noBoard">이미 삭제된 글</option>
+									                                                			</select>
+									                                                		</div>
+									                                                	</div>									                                                								                                                									                                                							                                                	
+									                                                </div>
+									                                            </div>
+									                                            <div class="modal-footer">
+									                                            	<button type="button" class="btn btn-primary" id="save${dto.seq}">결과 저장</button>
+									                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>                                             
+									                                            </div>
+									                                        </div>	
+									                                	</form>						                          
+								                                    </div>
+								                                </div>
+								                    			<!-- Vertically centered modal end -->																
+															</td>
+		                                                    <td class="toDetail${dto.seq}">${dto.reporterNick}(${dto.reporterID})</td>
+		                                                    <td class="toDetail${dto.seq}">${dto.formedDate}</td>
+		                                                    <td class="toDetail${dto.seq}">${dto.formedResult}</td>
+		                                               		</tr>
+		                                               		<script>		    
+		                                               			$("#btn${dto.seq}").css("background-color", "transparent");
+		                                               			$("#btn${dto.seq}").css("border", "none");
+		                                               			$("#btn${dto.seq}").css("color", "black");
+		                                               			
+		                                               			$("#save${dto.seq}").on("click", function(){
+		                                               				var result = $("#result${dto.seq}").val();
+		                                               				console.log(result);
+		                                               				if(result == "null"){
+		                                               					alert("신고 처리 방법을 선택하지 않았습니다.");
+		                                               					return false;
+		                                               				}else{
+		                                               					$.ajax({		                                               						
+		                                               						url:"${pageContext.request.contextPath}/report/updateReport",
+		                                               						type:"post",
+		                                               						data:{
+		                                               							seq: "${dto.seq}",
+		                                               							result: result,
+		                                               							page:"${page}"
+		                                               						},
+		                                               						dataType:"json"
+		                                               					}).done(function(resp){
+		                                               						console.log("ajax성공:"+resp);
+		                                               						if(resp.result == true){
+		                                               							alert("처리되었습니다.");
+		                                               							//$("#reportDetail").modal('hide');
+		                                               							location.href="${pageContext.request.contextPath}/report/reportList?page="+resp.page;		                                               							
+		                                               						}else{
+		                                               							alert("오류가 발생했습니다. 다시 시도해주세요");
+		                                               						}
+		                                               					});
+		                                               				}
+		                                           			
+		                                               			})
+		                                               		</script>
+		                                            	</c:forEach>                                              		
+                                            		</c:otherwise>
+                                            	</c:choose>                                                                                                                                       
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                         <div class="card">
+                            <div class="card-body">
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination justify-content-center">
+                                    	<c:choose>
+                                    		<c:when test="${pageNavi.size() > 0}">
+												<c:forEach items="${pageNavi}" var="navi">									
+													<li class="page-item pageNavi">${navi}</li>
+												</c:forEach>                                    		
+                                    		</c:when>
+                                    	</c:choose>   
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <!-- Hoverable Rows Table end -->    
+				<!-- Modal -->
+				<div class="modal fade d-none" id="confirm">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title">결과</h5>
+								<button type="button" class="close" data-dismiss="modal">
+									<span>&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<p>처리되었습니다.</p>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">확인</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- modal end -->            
+                
             </div>
         </div>
         <!-- main content area end -->
@@ -82,8 +314,6 @@
     </div>
     <!-- page container area end -->
 
-    <!-- jquery latest version -->
-    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <!-- bootstrap 4 js -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
@@ -111,6 +341,22 @@
     <script src="${pageContext.request.contextPath }/adRsc/js/scripts.js"></script>
     <script>
     $("#report").addClass("active");
-    </script>
+    
+	if(${pageNavi.size() > 0}){
+		var element = $(".pageNavi");
+		var page = "${page}";
+		if(page > 0 && page <= 10){
+			element[page-1].classList.add('active');
+		}else if(page % 10 == 0){
+			element[10].classList.add('active');
+		}else{
+			element[page % 10].classList.add('active');
+		}			
+	}
+	
+	function openWindow(boardName, boardSeq){
+		window.open("${pageContext.request.contextPath}/adBoard/detailView"+boardName+"?seq="+boardSeq,"","");
+	}
+	</script>
 </body>
 </html>
