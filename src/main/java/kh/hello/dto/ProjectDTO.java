@@ -26,7 +26,9 @@ public class ProjectDTO {
 	private int applyCount;
 	private int scrap;
 	private Timestamp changeDate;
-
+	private int totalApply;
+	private int totalApprove;
+	
 	public ProjectDTO() {
 		super();
 	}	
@@ -173,6 +175,18 @@ public class ProjectDTO {
 	public void setChangeDate(Timestamp changeDate) {
 		this.changeDate = changeDate;
 	}
+	public int getTotalApply() {
+		return totalApply;
+	}
+	public void setTotalApply(int totalApply) {
+		this.totalApply = totalApply;
+	}
+	public int getTotalApprove() {
+		return totalApprove;
+	}
+	public void setTotalApprove(int totalApprove) {
+		this.totalApprove = totalApprove;
+	}
 	
 	
 	public String getStateInKor() {
@@ -243,4 +257,5 @@ public class ProjectDTO {
 			return sdfYear.format(this.getWriteDate());
 		}	
 	}
+
 }

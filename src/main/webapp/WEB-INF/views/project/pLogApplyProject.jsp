@@ -13,26 +13,25 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/css/project/projectBase.css" type="text/css"/>
 <link rel="stylesheet" href="/css/project/pLogList.css" type="text/css"/>
-<style>
-body{background-color:#f2f2f2;}
-#pageTitle{margin-bottom:20px;}
-#pageTitle h4{font-weight:bold;}
-</style>
 </head>
+
 <body>
 			<div>
 				<div id="pageTitle" class="row">
-					<div class="col-12"><h4>내가 신청한 프로젝트</h4></div>					
+					<div class="col-12"><h4>내가 <span style="color:crimson;">신청</span>한 프로젝트</h4></div>					
 				</div>
 				<div class="tableDiv" style="width:100%;">
-					<div class="row tableHead">					    
-					    <div class="col-2">모집상태</div>
-					    <div class="col-3">제목</div>
-					    <div class="col-1">작성자</div>
-					    <div class="col-1">지역</div>
+					<div class="row tableHead">		
+						<div class="col-1">승인</div>
+						<div class="col-1">신청일</div>		
+					    <div class="col-1">모집상태</div>								    					    
+					    <div class="col-1">인원</div>						    
+					  	<div class="col-1">지역</div>
 					    <div class="col-3">기간</div>
-					    <div class="col-1">인원</div>
-					    <div class="col-1">승인</div>					    
+					    <div class="col-3">프로젝트 모집글 제목</div>
+					    <div class="col-1">작성자</div>
+
+				    				    
 					</div>
 					
 				  	<c:choose>
@@ -41,18 +40,22 @@ body{background-color:#f2f2f2;}
 				  		</c:when>
 				  		<c:otherwise>
 				  			<c:forEach items="${applyProjectList }" var="a">
-				  				<div class="row tableBody p-0">
-									<div class="col-2 ${a.state }">${a.stateInKor }</div>
-										<div class="col-3 text-decoration-none" onclick="popUp('#')">${m.title } 
-					  						<c:if test="${a.commentCount>0 }">
-					  							<span class="pComment font-weight-bold">${m.commentCount }</span>
-					  						</c:if>					  					
-										</div>
-									<div class="col-1">${m.writer }</div>
-									<div class="col-1">${m.location1 }</div>
-									<div class="col-3">${m.formedAllDate }</div>
-									<div class="col-1">${m.capacity }명</div>
-									<div class="col-1">${m.approveInKor }</div>
+				  				<div class="row applyTableBody tableBody p-0">
+				  					<div class="col-1 approve${a.approve }">${a.approveInKor }</div>									
+									<div class="col-1">${a.formedWriteDate }</div>	
+									<div class="col-1 state${a.state }">${a.stateInKor }</div>										
+									<div class="col-1">${a.capacity }명</div>
+									<div class="col-1">${a.location1 } ${a.location2 }</div>
+									<div class="col-3">${a.formedAllDate }</div>																											
+									<div class="col-3 text-decoration-none" onclick="popUp('/project/apply/detailView?seq=${a.seq }')">${a.title } 
+				  						<c:if test="${a.commentCount>0 }">
+				  							<span class="pComment font-weight-bold">${a.commentCount }</span>
+				  						</c:if>					  					
+									</div>									
+									<div class="col-1">${a.writer }</div>
+
+
+									
 								</div>	
 				  			</c:forEach>
 				  		</c:otherwise>
@@ -72,7 +75,7 @@ body{background-color:#f2f2f2;}
 						  </form>
 					</div>													
 				</div>
-				<nav aria-label="List navi" id="pPageNavi">${applyPageNavi }</nav>
+				<nav aria-label="List navi" id="aPageNavi">${applyPageNavi }</nav>
 			</div>
 		<script>
 			function popUp(link){
