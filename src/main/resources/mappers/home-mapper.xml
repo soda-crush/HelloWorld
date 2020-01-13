@@ -7,19 +7,19 @@
 	<select id="getBam" resultType="kh.hello.dto.BambooDTO">
 		select * from(select bamboo.*,row_number() over(order by seq desc) rown from bamboo   
 		where writeDate > (sysDate-7)
-		order by writeDate desc,viewCount desc) where rown between 1 and 5
+		order by viewCount desc) where rown between 1 and 5
 	</select>
 	
 	<select id="getCode" resultType="kh.hello.dto.CodeQuestionDTO">
 		select * from(select codeQuestion.*,row_number() over(order by seq desc) rown from codeQuestion  
 		where writeDate > (sysDate-7)
-		order by writeDate desc,viewCount desc) where rown between 1 and 5
+		order by viewCount desc) where rown between 1 and 5
 	</select>
 	
 	<select id="getIndus" resultType="kh.hello.dto.IndustryStatusDTO">
 		select * from(select industryStatus.*,row_number() over(order by seq desc) rown from industryStatus   
 		where writeDate > (sysDate-7)
-		order by writeDate desc,viewCount desc) where rown between 1 and 5
+		order by viewCount desc) where rown between 1 and 5
 	</select>
 	
 	<select id="getPro" resultType="kh.hello.dto.ProjectDTO">
