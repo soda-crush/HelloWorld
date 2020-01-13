@@ -202,6 +202,8 @@
 			element[page % 10].classList.add('active');
 		}			
 	}	
+	
+	$("#inquiry").addClass("active");
 </script>
 </body>
 </html>

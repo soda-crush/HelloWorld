@@ -34,28 +34,13 @@
 		<property name="maxUploadSize" value="10485760"/>
 		<property name="defaultEncoding" value="utf8"/>
 	</bean>
-		
-
-	
-	<bean id="wPointAdv" class="kh.hello.advisors.WritePointAdvisor"/>
-	<bean id="dPointAdv" class="kh.hello.advisors.DelPointAdvisor"/>
-	<bean id="cWPointAdv" class="kh.hello.advisors.CoWritePointAdvisor"/>
-	<bean id="cDPointAdv" class="kh.hello.advisors.CoDelPointAdvisor"/>
-	
-	
+			
 	<aop:config>
-		<aop:pointcut expression="execution(* kh.hello.project.*Controller.writeProc*(..))" id="writePointPlusMethod"/>
-		<aop:pointcut expression="execution(* kh.hello.project.*Controller.*deleteProc*(..))" id="delPointMinusMethod"/>
-		<aop:pointcut expression="execution(* kh.hello.project.*Controller.*coWriteProc*(..))" id="coWritePointPlusMethod"/>
-		<aop:pointcut expression="execution(* kh.hello.project.*Controller.*coDelProc*(..))" id="coDelPointMinusMethod"/>
+		<aop:pointcut expression="execution(* kh.hello.project.*Controller.writeProc*(..))" id="writePlusMethod"/>
+		<aop:pointcut expression="execution(* kh.hello.project.*Controller.*deleteProc*(..))" id="delMinusMethod"/>
+		<aop:pointcut expression="execution(* kh.hello.project.*Controller.*coWriteProc*(..))" id="coWritePlusMethod"/>
+		<aop:pointcut expression="execution(* kh.hello.project.*Controller.*coDelProc*(..))" id="coDelMinusMethod"/>
 		
-		<aop:aspect id="wPointAsp" ref="wPointAdv">
-			<aop:after-returning method="afterReturn" pointcut-ref="writePointPlusMethod"/>
-			
-			
-			
-			
-		</aop:aspect>
 		
 	</aop:config>	
 

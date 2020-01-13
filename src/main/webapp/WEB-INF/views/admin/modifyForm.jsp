@@ -28,6 +28,9 @@
 	.notification-area {
 		text-align:right;
 	}
+	.card{
+		max-width: 800px;
+	}	
 </style>
 </head>
 <body>
@@ -137,5 +140,8 @@
     <!-- others plugins -->
     <script src="${pageContext.request.contextPath }/adRsc/js/plugins.js"></script>
     <script src="${pageContext.request.contextPath }/adRsc/js/scripts.js"></script>
+    <script>
+    $("#modify").addClass("active");
+    </script>
 </body>
 </html>

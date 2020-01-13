@@ -109,5 +109,8 @@
     <!-- others plugins -->
     <script src="${pageContext.request.contextPath }/adRsc/js/plugins.js"></script>
     <script src="${pageContext.request.contextPath }/adRsc/js/scripts.js"></script>
+    <script>
+    $("#report").addClass("active");
+    </script>
 </body>
 </html>
