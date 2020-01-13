@@ -40,16 +40,26 @@
             
             <!--      몸통 시작!!!   -->
             <div class=container id="projectPage" style="background-color:white">
-				<div id="pageTitle">
-					<table>
-							<tr>
-								<td colspan="3" style="font-size: 60px; font-weight: 100;">대나무숲</td>
-								<td></td>
-								<td style="font-size: 15px; color: gray;">     자유롭게 익명으로 글을 남기는 게시판입니다.</td>
-								<td></td>
-							</tr>
-						</table>
-				</div>				
+				<div class=row>
+					<div class="col-12 d-none d-md-block">
+						<div id="pageTitle">
+							<table>
+								<tr>
+									<td colspan="3" style="font-size: 60px; font-weight: 100; vertical-align: text-bottom"">대나무숲</td>
+									<td></td>
+									<td style="font-size: 15px; color: gray; vertical-align: text-bottom"">     자유롭게 익명으로 글을 남기는 게시판입니다.</td>
+									<td></td>
+								</tr>
+							</table>
+						</div>	
+					</div>
+				</div>	
+				<div class=row>
+				<div class="d-md-none">
+					<div style="font-size: 60px; font-weight: 100;">대나무숲</div>
+					<div style="font-size: 15px; color: gray;">자유롭게 익명으로 글을 남기는 게시판입니다.</div>
+				</div>
+			</div>		
 				<table class="table table-hover">
 				  <thead class="thead-light">
 				    <tr>
@@ -69,7 +79,8 @@
 				  			<c:forEach items="${bambooList }" var="b">
 				  				<tr>
 				  					<th scope="row">${b.seq }</th>
-				  					<td><a href="/bamboo/bambooDetailView.do?seq=${b.seq }">${b.title } 
+				  					<td><a href="/bamboo/bambooDetailView.do?seq=${b.seq }">
+				  					${b.title }
 				  						<c:if test="${b.commentCount>0 }">
 				  							<span class="pComment font-weight-bold">${b.commentCount }</span>
 				  						</c:if>
@@ -135,7 +146,24 @@
         		alert("로그인을 해주세요.");
         		return false;
         	}
-			location.href="/bamboo/bambooWrite.do";
+			$.ajax({
+				url : "/bamboo/memLevel.do",
+				type : "post",
+				dataType : "json",
+				data : {
+					id : "${sessionScope.loginInfo.id}"
+				}
+			}).done(function(resp){
+				if(resp > 1){
+					location.href="/bamboo/bambooWrite.do";	
+				}else{
+					alert("실무자와 비실무자만 입력가능합니다.")
+					return false;
+				}
+				
+			}).fail(function(resp){
+				console.log("실패");
+			})
 		})
 		if("${pageNavi.size() > 0}"){
 		var element = $(".pageNavi");

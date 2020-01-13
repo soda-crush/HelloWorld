@@ -81,9 +81,14 @@ $(function() {
 				</div>
 				<div class="col-11 title" >
 					<select name="duty" id="duty">
-						<option value="Front">Front</option>
-						<option value="Back">Back</option>
-						<option value="Full-Stack">Full-Stack</option>
+						<option value="웹">웹</option>
+						<option value="어플리케이션">어플리케이션</option>
+						<option value="시스템소프트웨어">시스템소프트웨어</option>
+						<option value="응용소프트웨어">응용소프트웨어</option>
+						<option value="빅데이터">빅데이터</option>
+						<option value="정보보호">정보보호</option>
+						<option value="데이터베이스">데이터베이스</option>
+						<option value="기타">기타</option>
 					</select>
 				</div>
 			</div>

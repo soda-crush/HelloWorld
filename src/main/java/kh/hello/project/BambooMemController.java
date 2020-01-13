@@ -14,12 +14,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import kh.hello.configuration.Configuration;
 import kh.hello.dto.BambooCoDTO;
 import kh.hello.dto.BambooDTO;
+import kh.hello.dto.IndustryStatusDTO;
 import kh.hello.dto.LoginInfoDTO;
 import kh.hello.services.BambooService;
 
 @Controller
 @RequestMapping("/bamboo")
-public class BambooController {
+public class BambooMemController {
 	@Autowired
 	private HttpSession session;
 	@Autowired
@@ -55,6 +56,14 @@ public class BambooController {
 	@RequestMapping("/bambooWrite.do")
 	public String writeFormBamboo() {
 		return "/bamboo/bambooWrite";
+	}
+
+	//글쓰기 누를 때 실무자 유무 검사
+	@ResponseBody
+	@RequestMapping(value="/memLevel.do",produces="text/html;charset=utf8")
+	public String getMemLevel(String id) {	
+		System.out.println(Integer.toString(service.getMemLevel(id)));
+		return Integer.toString(service.getMemLevel(id));
 	}
 
 	@RequestMapping("/bambooWriteProc.do")
@@ -161,7 +170,7 @@ public class BambooController {
 
 		return "/bamboo/bambooList";
 	}
-	
+
 	@RequestMapping("/kakao.do")
 	public String kakao ( ) {
 		return "/bamboo/kakao";
