@@ -51,14 +51,11 @@ public class ScrapMemController {
 		OwnerInfoDTO ownerInfo = (OwnerInfoDTO)session.getAttribute("ownerInfo");
 		String ownerID = ownerInfo.getId();
 		int currentPage = 1;	
-		
 		if(cpage != null) currentPage = Integer.parseInt(cpage);
-		int end = currentPage * Configuration.recordCountPerPage;
-		int start = end - (Configuration.recordCountPerPage - 1);
-	
-		
+		int end = currentPage * Configuration.pLogProjectRecordCountPerPage;
+		int start = end - (Configuration.pLogProjectRecordCountPerPage - 1);
 		List<ItnewsDTO> nlist = ss.selectItnewsByPage(ownerID,start,end);
-		List<String> pageNavi = ss.getGuestBookPageNavi(ownerID, currentPage, "itNews");
+		List<String> pageNavi = ss.getScrapPageNavi(ownerID, currentPage, "itNews");
 		request.setAttribute("pageNavi", pageNavi);
 		request.setAttribute("nlist", nlist);
 		return "plog/scrapItNews";
@@ -68,13 +65,12 @@ public class ScrapMemController {
 	public String cohow(String cpage) {
 		OwnerInfoDTO ownerInfo = (OwnerInfoDTO)session.getAttribute("ownerInfo");
 		String ownerID = ownerInfo.getId();
-		int currentPage = 1;	
-		
+		int currentPage = 1;
 		if(cpage != null) currentPage = Integer.parseInt(cpage);
-		int end = currentPage * Configuration.recordCountPerPage;
-		int start = end - (Configuration.recordCountPerPage - 1);
+		int end = currentPage * Configuration.pLogProjectRecordCountPerPage;
+		int start = end - (Configuration.pLogProjectRecordCountPerPage - 1);
 		List<CodeQuestionDTO> clist = ss.selectCodeQuestionByPage(ownerID,start,end);
-		List<String> pageNavi = ss.getGuestBookPageNavi(ownerID, currentPage, "cohow");
+		List<String> pageNavi = ss.getScrapPageNavi(ownerID, currentPage, "cohow");
 		request.setAttribute("pageNavi", pageNavi);
 		request.setAttribute("clist", clist);
 		return "plog/scrapCohow";
@@ -85,12 +81,11 @@ public class ScrapMemController {
 		OwnerInfoDTO ownerInfo = (OwnerInfoDTO)session.getAttribute("ownerInfo");
 		String ownerID = ownerInfo.getId();
 		int currentPage = 1;	
-		
 		if(cpage != null) currentPage = Integer.parseInt(cpage);
-		int end = currentPage * Configuration.recordCountPerPage;
-		int start = end - (Configuration.recordCountPerPage - 1);
+		int end = currentPage * Configuration.pLogProjectRecordCountPerPage;
+		int start = end - (Configuration.pLogProjectRecordCountPerPage - 1);
 		List<IndustryStatusDTO> ilist = ss.selectIndustryStatusByPage(ownerID,start,end);
-		List<String> pageNavi = ss.getGuestBookPageNavi(ownerID, currentPage, "industryStatus");
+		List<String> pageNavi = ss.getScrapPageNavi(ownerID, currentPage, "industryStatus");
 		request.setAttribute("pageNavi", pageNavi);
 		request.setAttribute("ilist", ilist);
 		return "plog/scrapIndustryStatus";
@@ -100,13 +95,12 @@ public class ScrapMemController {
 	public String project(String cpage) {
 		OwnerInfoDTO ownerInfo = (OwnerInfoDTO)session.getAttribute("ownerInfo");
 		String ownerID = ownerInfo.getId();
-		int currentPage = 1;	
-		
+		int currentPage = 1;
 		if(cpage != null) currentPage = Integer.parseInt(cpage);
-		int end = currentPage * Configuration.recordCountPerPage;
-		int start = end - (Configuration.recordCountPerPage - 1);
+		int end = currentPage * Configuration.pLogProjectRecordCountPerPage;
+		int start = end - (Configuration.pLogProjectRecordCountPerPage - 1);
 		List<ProjectDTO> plist = ss.selectProjectByPage(ownerID,start,end);
-		List<String> pageNavi = ss.getGuestBookPageNavi(ownerID, currentPage, "project");
+		List<String> pageNavi = ss.getScrapPageNavi(ownerID, currentPage, "project");
 		request.setAttribute("pageNavi", pageNavi);
 		request.setAttribute("plist", plist);
 		return "plog/scrapProject";

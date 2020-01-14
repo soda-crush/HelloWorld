@@ -15,7 +15,7 @@
 <link rel="stylesheet" type="text/css" href="/css/font-awesome/css/font-awesome.css">
        <style>
        		*{spellcheck="false"}
-            h1{text-align: center;padding-top: 50px; padding-bottom: 50px;}
+            h1,h3{text-align: center;padding-top: 50px; padding-bottom: 50px;}
             ul{background-color: lightgray;font-size: 13px;}
             .card{ width:200px;height:300px;margin: auto; float :left;}
             .myprofile{float: left;height: 350px;margin-top: 20px;}
@@ -31,7 +31,8 @@
             textarea{resize:none;}
             .page-item{padding:0px;height:10px;width:10px;}
 			.navi{text-align: center;}
-			.nvlink{height:45px;line-height:45px;}
+			.nvlink1{height:45px;line-height:45px;font-size:14px;}
+			.nvlink2{height:45px;line-height:45px;font-size:10px;}
         	a:hover{text-decoration:none;}
             .message{background-color:#efefef;margin:10px;width:100%;height:100%;border:0px;}
             .listwrap{border:1px solid gray;margin: 10px; padding:5px;}
@@ -49,13 +50,21 @@
             </div>
             
             <div class="container">
-				<h1> Programming-Log</h1>
+				<h1 class="d-none d-sm-block"> Programming-Log</h1>
+				<h3 class="d-sm-none"> Programming-Log</h3>
 	            <div class="row navi" style="background-color: #008EDC;">
-					<div class="col nvlink"><a class="text-light" href="${pageContext.request.contextPath}/Portfolio/toPlogmain.do">내 포트폴리오</a></div>
-					<div class="col nvlink"><a class="text-light" href="${pageContext.request.contextPath}/Plog/toPlogCohow.do">내 지식인</a></div>
-					<div class="col nvlink"><a class="text-light" href="${pageContext.request.contextPath}/Scrap/itNews.do">내 스크랩</a></div>
-					<div class="col nvlink"><a class="text-light" href="${pageContext.request.contextPath}/Plog/toPlogProject.do">내 프로젝트</a></div>
-					<div class="col nvlink"><a class="text-light" href="${pageContext.request.contextPath}/GuestBook/selectList.do">방명록</a></div>
+					<div class="col nvlink1 d-none d-sm-block"><a class="text-light" href="${pageContext.request.contextPath}/Portfolio/toPlogmain.do">내 포트폴리오</a></div>
+					<div class="col nvlink1 d-none d-sm-block"><a class="text-light" href="${pageContext.request.contextPath}/Plog/toPlogCohow.do">내 지식인</a></div>
+					<div class="col nvlink1 d-none d-sm-block"><a class="text-light" href="${pageContext.request.contextPath}/Scrap/itNews.do">내 스크랩</a></div>
+					<div class="col nvlink1 d-none d-sm-block"><a class="text-light" href="${pageContext.request.contextPath}/Plog/toPlogProject.do">내 프로젝트</a></div>
+					<div class="col nvlink1 d-none d-sm-block"><a class="text-light" href="${pageContext.request.contextPath}/GuestBook/selectList.do">방명록</a></div>
+				</div>
+				<div class="row navi" style="background-color: #008EDC;">
+					<div class="col nvlink2 d-sm-none"><a class="text-light" href="${pageContext.request.contextPath}/Portfolio/toPlogmain.do">내 포트폴리오</a></div>
+					<div class="col nvlink2 d-sm-none"><a class="text-light" href="${pageContext.request.contextPath}/Plog/toPlogCohow.do">내 지식인</a></div>
+					<div class="col nvlink2 d-sm-none"><a class="text-light" href="${pageContext.request.contextPath}/Scrap/itNews.do">내 스크랩</a></div>
+					<div class="col nvlink2 d-sm-none"><a class="text-light" href="${pageContext.request.contextPath}/Plog/toPlogProject.do">내 프로젝트</a></div>
+					<div class="col nvlink2 d-sm-none"><a class="text-light" href="${pageContext.request.contextPath}/GuestBook/selectList.do">방명록</a></div>
 				</div>
 	            <div class="row">
 	                <div class="col-12 col-md-4 col-lg-3 myprofile">
@@ -84,7 +93,7 @@
 	                    		<div class="listwrap col-12">
 			                		<div class="row" style="margin:5px;">
 			                            <div>작성자 : </div>
-			                            <div class="writer${dto.seq}" style="margin-right:20px;"> ${dto.writer }</div>
+			                            <div class="writer${dto.seq}" style="margin-right:30px;"> ${dto.writer }</div>
 			                            <div>작성일 :</div>
 			                            <div id="writeDate"> ${dto.getDate()}</div>
 			                        </div>
@@ -159,7 +168,7 @@
         		}
         		var focustext = document.getElementById('list'+seq);
         		focustext.focus();
-        		focustext.value = focustext.value;
+        		focustext.setSelectionRange(focustext.value.length,focustext.value.length);
         	}
         	$(function(){
         		var resizeList = document.getElementsByClassName("message");
