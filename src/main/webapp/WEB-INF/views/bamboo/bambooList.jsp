@@ -80,10 +80,11 @@
 				  				<tr>
 				  					<th scope="row">${b.seq }</th>
 				  					<td><a href="/bamboo/bambooDetailView.do?seq=${b.seq }">
-				  					${b.title }
+				  					<div style="width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${b.title }</div>
 				  						<c:if test="${b.commentCount>0 }">
 				  							<span class="pComment font-weight-bold">${b.commentCount }</span>
 				  						</c:if>
+				  						<span class="badge badge-pill badge-danger">${b.newWriteDate}</span>
 				  						</a>
 				  					</td>
 				  					<td>익명</td>
@@ -108,21 +109,30 @@
 				<div class="text-right">
 					<button type="button" class="btn btn-primary" id="write">글쓰기</button>					
 				</div>
-				    <div class="card">
-                            <div class="card-body">
-                                <nav aria-label="Page navigation example">
-                                    <ul class="pagination justify-content-center">
-                                    	<c:choose>
-                                    		<c:when test="${pageNavi.size() > 0}">
-												<c:forEach items="${pageNavi}" var="navi">									
-													<li class="page-item pageNavi">${navi}</li>
-												</c:forEach>                                    		
-                                    		</c:when>
-                                    	</c:choose> 
-                                    </ul>
-                                </nav>
-                            </div>
-                        </div>
+				<nav aria-label="List navi">
+					<ul class="pagination justify-content-center">
+						
+						<c:forEach items="${pageNavi}" var="navi">									
+							<li id="page-navi" class="page-item pageNavi">${navi}</li>
+						</c:forEach>
+						
+					</ul>
+				</nav>
+<!-- 				    <div class="card"> -->
+<!--                             <div class="card-body"> -->
+<!--                                 <nav aria-label="Page navigation example"> -->
+<!--                                     <ul class="pagination justify-content-center"> -->
+<%--                                     	<c:choose> --%>
+<%--                                     		<c:when test="${pageNavi.size() > 0}"> --%>
+<%-- 												<c:forEach items="${pageNavi}" var="navi">									 --%>
+<%-- 													<li class="page-item pageNavi">${navi}</li> --%>
+<%-- 												</c:forEach>                                    		 --%>
+<%--                                     		</c:when> --%>
+<%--                                     	</c:choose>  --%>
+<!--                                     </ul> -->
+<!--                                 </nav> -->
+<!--                             </div> -->
+<!--                         </div> -->
 				
             </div>
             <!--       몸통 끝!!!   -->
@@ -165,16 +175,27 @@
 				console.log("실패");
 			})
 		})
-		if("${pageNavi.size() > 0}"){
+		$(function(){
 		var element = $(".pageNavi");
-		var page = "${cpage}";
+		var page = "${page}";
 		if(page > 0 && page <= 10){
 			element[page-1].classList.add('active');
 		}else if(page % 10 == 0){
 			element[10].classList.add('active');
 		}else{
 			element[page % 10].classList.add('active');
-		}			
-	}
+		}	
+		});
+// 		if("${pageNavi.size() > 0}"){
+// 		var element = $(".pageNavi");
+// 		var page = "${cpage}";
+// 		if(page > 0 && page <= 10){
+// 			element[page-1].classList.add('active');
+// 		}else if(page % 10 == 0){
+// 			element[10].classList.add('active');
+// 		}else{
+// 			element[page % 10].classList.add('active');
+// 		}			
+// 	}
 	</script>
 </html>
