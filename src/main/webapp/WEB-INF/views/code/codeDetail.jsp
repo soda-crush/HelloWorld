@@ -185,7 +185,7 @@ span:nth-child(4) {
 				<br>
 				<div class="botD">
 					<img src="/icon/Cicon.svg"> 
-					<span style="cursor:pointer" onclick="popUp('/Portfolio/toPlog.do?owner=${qResult.id}')">${qResult.writer}</span>				
+					<span style="cursor:pointer" onclick="popUp('${qResult.id}','${qResult.writer}')">${qResult.writer}</span>				
 					${qResult.formedDate} 조회수${qResult.viewCount}
 				</div>
 				<br>
@@ -243,7 +243,7 @@ span:nth-child(4) {
 						<div class="row">
 							<div class="col-10">
 								<div style="font-size: 40px; font-weight: 100;">
-									<span style="cursor:pointer" onclick="popUp('/Portfolio/toPlog.do?owner=${qResult.id}')">${r.writer}</span>
+									<span style="cursor:pointer" onclick="popUp('${r.id}','${r.writer}')">${r.writer}</span>
 									<span style="font-size: 20px; font-weight: 50; color: gray;">님의 답변입니다.</span>
 									<c:choose>
 										<c:when test="${r.memLevel == 2}">
@@ -380,8 +380,7 @@ span:nth-child(4) {
 		    		}
 		       	})
 		       	
-		       	$("#coWriteBtn${r.seq}").on("click",function(){		       			
-		       				//
+		       		$("#coWriteBtn${r.seq}").on("click",function(){		       			
 		       				if($("#pCoContents${r.seq}").val()==""){
 						           alert("댓글 내용을 입력해주세요.");
 						           return false;
@@ -425,20 +424,14 @@ span:nth-child(4) {
 					                        '</div></div>',
 					                        '<div class="row commentContent"><div class="col-12 pt-1 pl-4">'+resp[i].content+'</div></div></div></div>'
 					                        );
-					                  $(".pPageComments${r.seq}").append(html.join(""));
-// 	 			                      $(".commentBox${r.seq}${c.seq}").css("border","1px solid red");
-// 	 			                      $(".commentBox${r.seq}${c.seq}").css("border-top","none");
-// 	 			                      $(".commentBox${r.seq}${c.seq}").css("border-left","none");
-// 	 			                      $(".commentBox${r.seq}${c.seq}").css("border-right","none");
-	 			                     
-						           //
+					                  $(".pPageComments${r.seq}").append(html.join(""));	 			                     
+						           
 						        }
 						        }).fail(function(resp){
 						        	
 						        })      			
 				})			
-	       				//	       		
-			
+	       				       		
 				</script>
 				
 				</c:forEach>
@@ -489,7 +482,7 @@ span:nth-child(4) {
 		}
 	})
 	
-// 	채택아이콘 써보기
+		// 채택
 		function adopt(replyId){
 		var cf = confirm("채택하시겠습니까?");
 			if(cf){		
@@ -532,9 +525,16 @@ span:nth-child(4) {
         }
 		
 		//닉네임 눌렀을때 새창 띄우기
-		function popUp(link){
-            window.open(link, "pLogPopUp", "width=600,height=600");
-         }
+		function popUp(id,writer){
+			if(writer == null){
+				alert("탈퇴한 회원입니다.");
+				return false;
+			}
+			else{
+				window.open("/Portfolio/toPlog.do?owner="+id, "pLogPopUp", "width=600,height=600");
+			}
+	      
+	     }
     	
 		function coDelFunction(queSeq, repSeq, seq){
 			 var check = confirm("정말 삭제하시겠습니까?");

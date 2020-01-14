@@ -24,56 +24,39 @@
 	margin-right: 10px;
 	font-weight: bold;
 }
-
-#pageTitle .btn {
-	margin-left: 5px;
+#pageTitle .btn{margin-left:5px;}
+.tableDiv{border-radius:5px;}
+.tableHead{
+    font-size: 1rem;
+    font-weight: bold;
+    border-top: 1px solid #dee2e6;
+    vertical-align: bottom;
+    border-bottom: 2px solid #dee2e6;
+    color: #495057;
+    background-color: #e9ecef;
+    border-color: #dee2e6;
 }
-
-.table {
-	background-color: white;
-	padding: 0;
-	text-align: center;
-}
-
-.table tbody * {
-	font-weight: normal;
-}
-
-.table tbody td:nth-child(2) {
-	font-weight: bold;
-}
-
-.table tbody td:nth-child(3) {
-	text-align: left;
-	cursor: pointer;
-}
-
-.table tbody .N {
-	color: limegreen;
-}
-
-.table tbody .Y {
-	color: red;
-}
-
-.pComment {
-	margin-left: 3px;
-	font-size: 13px;
-	color: orange;
-}
-
-a:hover {
-	text-decoration: none;
-}
-.badge
-
- 
-
-badge-pill
-
- 
-
-badge-success
+.tableHead,.tableBody,.tableBodyNull{text-align:center;height: 50px;line-height: 50px;}
+.tableBody div:nth-child(2){font-weight:bold;}
+.tableBody div:nth-child(3){text-align:left;cursor:pointer;}   
+.tableBody .N{color:limegreen;}
+.tableBody .Y{color:red;}
+.pComment{margin-left:3px;font-size:13px;color:orange;}    
+.tableBody,.tableBodyNull div{
+    font-size: 0.9rem;
+    color: #212529;
+    text-align: center;
+    box-sizing: border-box;
+    vertical-align: top;
+    border-bottom: 1px solid #dee2e6;
+    font-weight: normal;   
+    background-color:white;    
+}    
+.tableHead div,.tableBody div{padding: 0;margin: 0;}
+.tableBody:hover{background-color: #bfac8e30}
+.pageListFooter{margin-top:20px;}
+.searchOption{margin-right:5px;}
+#pPageNavi{margin-top:30px;}
 </style>
 </head>
 <body>
@@ -108,62 +91,53 @@ badge-success
 					<div style="font-size: 15px; color: gray;">코드 관련해서 질문하고 답변하는 게시판입니다.</div>
 				</div>
 			</div>
-				<table class="table table-hover">
-					<thead class="thead-light">
-						<tr>
-<!-- 							<th scope="col-1">글번호</th> -->
-<!-- 							<th scope="col-1">구분</th> -->
-<!-- 							<th scope="col-4">게시판제목</th> -->
-<!-- 							<th scope="col-1">작성자</th> -->
-<!-- 							<th scope="col-1">포인트</th> -->
-<!-- 							<th scope="col-3">날짜</th> -->
-<!-- 							<th scope="col-1">조회수</th> -->
-							
-							<th scope="col">글번호</th>
-							<th scope="col">구분</th>
-							<th scope="col">게시판제목</th>
-							<th scope="col">작성자</th>
-							<th scope="col">포인트</th>
-							<th scope="col">날짜</th>
-							<th scope="col">조회수</th>
-						</tr>
-					</thead>
-					<tbody>
+			
+			<div class="tableDiv">
+					<div class="row tableHead">					    
+					    <div class="col-xl-1 d-none d-xl-block">글번호</div>
+					    <div class="col-xl-1 col-3 col-md-2">구분</div>
+					    <div class="col-xl-4 col-9 col-md-8" style="width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">게시판제목</div>
+					    <div class="col-xl-2 col-md-1 d-none d-md-block">작성자</div>
+					    <div class="col-xl-1 col-md-1 d-none d-md-block">포인트</div>
+					    <div class="col-xl-2 d-none d-xl-block">날짜</div>
+					    <div class="col-xl-1 d-none d-xl-block">조회수</div>					    
+					</div>
 						<c:choose>
 							<c:when test="${list.size()==0 }">
-								<tr>
-									<td colspan="8">작성된 글이 없습니다.</td>
-								</tr>
+								<div class="row text-center tableBodyNull">
+									<div class="col-12">
+									작성된 글이 없습니다.
+									</div>
+								</div>
 							</c:when>
 							<c:otherwise>
 								<c:forEach items="${list}" var="dto">
-									<tr>
-										<th scope="row">${dto.seq}</th>
-										<td><span class="badge badge-pill badge-success"
-											style="margin: 10; width: 60px;">${dto.division}</span></td>
-											<td style="cursor:hand" onClick="detailView(${dto.seq})">
+									<div class="row tableBody p-0">
+										<div class="col-xl-1 d-none d-xl-block">${dto.seq}</div>
+										<div class="col-xl-1 col-3 col-md-2">
+											<span class="badge badge-pill badge-success"
+											style="margin: 10; width: 60px;">${dto.division}</span></div>
+										<div class="col-xl-4 col-9 col-md-8" style="cursor:hand width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" onClick="detailView(${dto.seq})">
 											${dto.title}
 											<c:if test="${dto.replyCount>0 }">
 					  							<span class="pComment font-weight-bold">${dto.replyCount}</span>
 					  						</c:if>	
-											<span class="badge badge-pill badge-danger">${dto.newWriteDate}</span></td>
-										<td>
-										<span style="cursor:pointer" onclick="popUp('/Portfolio/toPlog.do?owner=${dto.id}')">
-											${dto.writer}
-										</span>
-
-										</td> 
+											<span class="badge badge-pill badge-danger">${dto.newWriteDate}</span>
+											</div>
+										<div class="col-xl-2 col-md-1 d-none d-md-block">
+											<span style="cursor:pointer" onclick="popUp('${dto.id}','${dto.writer}')">
+												${dto.writer}
+											</span>
+										</div> 
 <!-- 										 <span class="badge badge-pill badge-info">실무자</span></td> -->
-										<td>${dto.point}
-										</td>
-										<td>${dto.formedDate}</td>
-										<td>${dto.viewCount}</td>
-									</tr>
+										<div class="col-xl-1 col-md-1 d-none d-md-block">${dto.point}</div>
+										<div class="col-xl-2 d-none d-xl-block">${dto.formedDate}</div>
+										<div class="col-xl-1 d-none d-xl-block">${dto.viewCount}</div>
+									</div>
+									
 								</c:forEach>
 							</c:otherwise>
 						</c:choose>
-					</tbody>
-				</table>
 				
 				<c:if test="${sessionScope.loginInfo.id!=null }">	
 					<div class="text-right">
@@ -228,6 +202,7 @@ badge-success
 					<div class="col-12" id=aroundContent></div>
 				</div>
 			</div>
+		</div>
 <script>
 
 	$(function(){
@@ -271,8 +246,15 @@ badge-success
 	}
 	
 	//닉네임 눌렀을때 새창 띄우기
-	function popUp(link){
-        window.open(link, "pLogPopUp", "width=600,height=600");
+	function popUp(id,writer){
+		if(writer == null){
+			alert("탈퇴한 회원입니다.");
+			return false;
+		}
+		else{
+			window.open("/Portfolio/toPlog.do?owner="+id, "pLogPopUp", "width=600,height=600");
+		}
+      
      }
 </script>
 		<jsp:include page="/WEB-INF/views/standard/footer.jsp" />
