@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kh.hello.configuration.Configuration;
+import kh.hello.dto.BambooDTO;
 import kh.hello.dto.IndustryStatusCoDTO;
 import kh.hello.dto.IndustryStatusDTO;
 import kh.hello.dto.LoginInfoDTO;
+import kh.hello.dto.ReportDTO;
 import kh.hello.dto.ScrapDTO;
 import kh.hello.services.IndustryStatusService;
 
@@ -60,7 +62,7 @@ public class IndustryStatusMemController {
 	public String writeFormIndustryStatus() {
 		return "/industry/industryStatusWrite";
 	}
-	
+
 	//글쓰기 누를 때 실무자 유무 검사
 	@ResponseBody
 	@RequestMapping(value="/memLevel.do",produces="text/html;charset=utf8")
@@ -68,7 +70,7 @@ public class IndustryStatusMemController {
 		System.out.println(Integer.toString(service.getMemLevel(dto.getId())));
 		return Integer.toString(service.getMemLevel(dto.getId()));
 	}
-	
+
 	@RequestMapping("/industryStatusWriteProc.do")
 	public String writeProcIndustryStatus(IndustryStatusDTO dto) {//섬머노트
 		LoginInfoDTO loginInfo = (LoginInfoDTO)session.getAttribute("loginInfo");
@@ -162,12 +164,40 @@ public class IndustryStatusMemController {
 		return "/industry/industryStatusList";
 	}
 
-
 	//스크랩
 	@RequestMapping("/scrap.do")
 	@ResponseBody
 	public String scrap(ScrapDTO dto, HttpSession session) {
 		dto.setId(((LoginInfoDTO)session.getAttribute("loginInfo")).getId());
 		return service.scrap(dto);
+	}
+
+//	게시글신고
+	
+	@ResponseBody
+	@RequestMapping("/reportDuplCheck.do")
+	public String reportDuplCheck(int seq) {
+		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
+		String id = sessionValue.getId();
+		int result = service.reportDuplCheck(id, seq);
+		if(result>0) {
+			return "dupl";
+		}else {
+			return "possible";
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping("/report.do")
+	public String reportProject(ReportDTO dto) {
+		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
+		dto.setReporterID(sessionValue.getId());
+		dto.setReporterNick(sessionValue.getNickName());		
+		int result = service.reportProject(dto);
+		if(result>0) {
+			return "success";
+		}else {
+			return "redirect:/home/error";
+		}
 	}
 }

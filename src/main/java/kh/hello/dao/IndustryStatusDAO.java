@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import kh.hello.dto.IndustryStatusCoDTO;
 import kh.hello.dto.IndustryStatusDTO;
 import kh.hello.dto.MemberDTO;
+import kh.hello.dto.ReportDTO;
 import kh.hello.dto.ScrapDTO;
 
 @Repository
@@ -107,6 +108,11 @@ public class IndustryStatusDAO {
 		jdbc.update("Industry.deleteWritePoint", id);
 	}
 
+	//포인트 -면 강등
+	public int downLevel() {
+		return jdbc.update("Industry.downLevel");
+	}
+
 	//스크랩
 	public int scrapDupCheck(ScrapDTO dto) {
 		return jdbc.selectOne("Industry.scrapDupCheck", dto);
@@ -118,5 +124,16 @@ public class IndustryStatusDAO {
 
 	public int scrapCode(ScrapDTO dto) {
 		return jdbc.insert("Industry.scrapCode", dto);
+	}
+
+	//reportedBoard 테이블
+	public int reportDuplCheck(String id, int seq) {
+		Map<String, Object> param = new HashMap<>();
+		param.put("id", id);
+		param.put("seq", seq);
+		return jdbc.selectOne("Industry.reportDuplCheck", param);
+	}
+	public int insertReport(ReportDTO dto) {
+		return jdbc.insert("Industry.insertReport", dto);
 	}
 }

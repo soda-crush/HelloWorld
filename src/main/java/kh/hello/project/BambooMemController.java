@@ -16,6 +16,7 @@ import kh.hello.dto.BambooCoDTO;
 import kh.hello.dto.BambooDTO;
 import kh.hello.dto.IndustryStatusDTO;
 import kh.hello.dto.LoginInfoDTO;
+import kh.hello.dto.ReportDTO;
 import kh.hello.services.BambooService;
 
 @Controller
@@ -62,7 +63,6 @@ public class BambooMemController {
 	@ResponseBody
 	@RequestMapping(value="/memLevel.do",produces="text/html;charset=utf8")
 	public String getMemLevel(String id) {	
-		System.out.println(Integer.toString(service.getMemLevel(id)));
 		return Integer.toString(service.getMemLevel(id));
 	}
 
@@ -133,7 +133,6 @@ public class BambooMemController {
 	@ResponseBody
 	@RequestMapping(value="/comment/writeProc.do",produces="text/html;charset=utf8")
 	public String coWriteProc(BambooCoDTO dto) {
-		System.out.println("댓글도착");
 		LoginInfoDTO loginInfo = (LoginInfoDTO)session.getAttribute("loginInfo");
 		dto.setWriter(loginInfo.getId());
 		return service.commentWriteConfirm(dto,dto.getWriter());
@@ -172,8 +171,45 @@ public class BambooMemController {
 		return "/bamboo/bambooList";
 	}
 
-	@RequestMapping("/kakao.do")
-	public String kakao ( ) {
-		return "/bamboo/kakao";
+	//신고
+//	@RequestMapping("/report.do")
+//	public String bambooReport(BambooDTO bamDto, String reason, LoginInfoDTO loginDto) {
+//		service.report(bamDto, reason, loginDto);
+//		return "redirect:/bamboo/bambooDetailView.do?seq="+bamDto.getSeq();
+//	}
+//
+//	@RequestMapping("/kakao.do")
+//	public String kakao ( ) {
+//		return "/bamboo/kakao";
+//	}
+	
+//	게시글신고
+	
+	@ResponseBody
+	@RequestMapping("/reportDuplCheck.do")
+	public String reportDuplCheck(int seq) {
+		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
+		String id = sessionValue.getId();
+		int result = service.reportDuplCheck(id, seq);
+		if(result>0) {
+			return "dupl";
+		}else {
+			return "possible";
+		}
 	}
+	
+	@ResponseBody
+	@RequestMapping("/report.do")
+	public String reportProject(ReportDTO dto) {
+		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
+		dto.setReporterID(sessionValue.getId());
+		dto.setReporterNick(sessionValue.getNickName());		
+		int result = service.reportProject(dto);
+		if(result>0) {
+			return "success";
+		}else {
+			return "redirect:/home/error";
+		}
+	}
+	
 }

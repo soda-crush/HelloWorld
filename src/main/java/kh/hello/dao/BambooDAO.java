@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 
 import kh.hello.dto.BambooCoDTO;
 import kh.hello.dto.BambooDTO;
+import kh.hello.dto.LoginInfoDTO;
+import kh.hello.dto.ReportDTO;
 
 @Repository
 public class BambooDAO {
@@ -104,5 +106,37 @@ public class BambooDAO {
 	}
 	public void deleteWritePoint(String writer) {
 		jdbc.update("Bamboo.deleteWritePoint", writer);
+	}
+	//포인트 -면 강등
+	public int downLevel() {
+		return jdbc.update("Bamboo.downLevel");
+	}
+
+	//	//신고
+	//	public int reportDupCheck (int seq, String id) {
+	//		Map<String, Object> param = new HashMap<>();
+	//		param.put("seq", seq);
+	//		param.put("id", id);
+	//		return jdbc.selectOne("Bamboo.reportDupCheck", param);
+	//	}
+	//	public int report(BambooDTO bamDto, String reason, LoginInfoDTO loginDto) {
+	//		Map<String, Object> param = new HashMap<>();
+	//		param.put("seq", bamDto.getSeq());
+	//		param.put("title", bamDto.getTitle());
+	//		param.put("id", loginDto.getId());
+	//		param.put("nickName", loginDto.getNickName());
+	//		param.put("reason", reason);
+	//		return jdbc.selectOne("Bamboo.report", param);
+	//	}
+
+	//reportedBoard 테이블
+	public int reportDuplCheck(String id, int seq) {
+		Map<String, Object> param = new HashMap<>();
+		param.put("id", id);
+		param.put("seq", seq);
+		return jdbc.selectOne("Bamboo.reportDuplCheck", param);
+	}
+	public int insertReport(ReportDTO dto) {
+		return jdbc.insert("Bamboo.insertReport", dto);
 	}
 }

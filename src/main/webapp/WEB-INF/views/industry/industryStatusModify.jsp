@@ -28,6 +28,11 @@ $(function() {
 	})
 })
 </script>
+<script>
+   $(function(){
+      $("#indusNavi").attr('class','nav-item nav-link active');
+   });
+</script>
 <style>
 	#pageTitle{margin-bottom:20px;}
 	#pageTitle h1{display:inline;margin-right:10px;font-weight:bold;}
@@ -98,7 +103,7 @@ $(function() {
 				</div>
 					<input type="hidden" name="writer" value="${iPage.writer}">
 				<div class="col-11 title" >
-					<input type="text" id=title name=title style="width: 100%" value="${iPage.title}">
+					<input type="text" id=title name=title style="width: 100%" value="${iPage.title}" maxlength="100">
 				</div>
 			</div>
 			<div class=row>
