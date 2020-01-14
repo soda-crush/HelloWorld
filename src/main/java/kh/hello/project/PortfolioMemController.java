@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import kh.hello.dto.LoginInfoDTO;
 import kh.hello.dto.MemberDTO;
 import kh.hello.dto.OwnerInfoDTO;
 import kh.hello.dto.PortfolioDTO;
@@ -131,12 +132,19 @@ public class PortfolioMemController {
 	@RequestMapping("/toPlog.do")
 	public String toPlog(String owner) {
 		MemberDTO mdto = ms.selectMember(owner);
-		OwnerInfoDTO odto = new OwnerInfoDTO();
-		odto.setId(mdto.getId());	
-		odto.setNickName(mdto.getNickName());
-		odto.setPoint(mdto.getPoint());
-		session.setAttribute("ownerInfo", odto);
-		return "redirect:toPlogmain.do";
+		LoginInfoDTO ldto = (LoginInfoDTO)session.getAttribute("loginInfo");
+		System.out.println("공개여부 체크해보자ㅏㅏ :"+mdto.getIfmOpenCheck());
+		System.out.println("아이디체크 : "+ ldto.getId()+ " : " + owner);
+		if(mdto.getIfmOpenCheck().equals("Y") || ldto.getId().equals(owner)) {
+			OwnerInfoDTO odto = new OwnerInfoDTO();
+			odto.setId(mdto.getId());	
+			odto.setNickName(mdto.getNickName());
+			odto.setPoint(mdto.getPoint());
+			session.setAttribute("ownerInfo", odto);
+			return "redirect:toPlogmain.do";
+		}else {
+			return "/plog/notOpenPage";
+		}
 	}
 	
 	@RequestMapping("detail.do")

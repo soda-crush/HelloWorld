@@ -35,6 +35,11 @@
         .tableBody{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
         .line-over{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 	</style>
+	<script>
+	$(function(){
+		$("#plogNavi").attr('class','nav-item nav-link active');
+	});
+	</script>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/standard/header.jsp"/>
@@ -49,17 +54,25 @@
             <div class="container">
 				<h1 class="d-none d-sm-block"> Programming-Log</h1>
 				<h3 class="d-sm-none"> Programming-Log</h3>
-	            <div class="row navi" style="background-color: #008EDC;">
+	           	<div class="row navi" style="background-color: #008EDC;">
 					<div class="col nvlink1 d-none d-sm-block"><a class="text-light" href="${pageContext.request.contextPath}/Portfolio/toPlogmain.do">내 포트폴리오</a></div>
-					<div class="col nvlink1 d-none d-sm-block"><a class="text-light" href="${pageContext.request.contextPath}/Plog/toPlogCohow.do">내 지식인</a></div>
-					<div class="col nvlink1 d-none d-sm-block"><a class="text-light" href="${pageContext.request.contextPath}/Scrap/itNews.do">내 스크랩</a></div>
+					<c:choose>
+						<c:when test="${loginInfo.id ==ownerInfo.id }">
+							<div class="col nvlink1 d-none d-sm-block"><a class="text-light" href="${pageContext.request.contextPath}/Plog/toPlogCohow.do">내 지식인</a></div>
+							<div class="col nvlink1 d-none d-sm-block"><a class="text-light" href="${pageContext.request.contextPath}/Scrap/itNews.do">내 스크랩</a></div>
+						</c:when>
+					</c:choose>
 					<div class="col nvlink1 d-none d-sm-block"><a class="text-light" href="${pageContext.request.contextPath}/Plog/toPlogProject.do">내 프로젝트</a></div>
 					<div class="col nvlink1 d-none d-sm-block"><a class="text-light" href="${pageContext.request.contextPath}/GuestBook/selectList.do">방명록</a></div>
 				</div>
 				<div class="row navi" style="background-color: #008EDC;">
 					<div class="col nvlink2 d-sm-none"><a class="text-light" href="${pageContext.request.contextPath}/Portfolio/toPlogmain.do">내 포트폴리오</a></div>
+					<c:choose>
+						<c:when test="${loginInfo.id ==ownerInfo.id }">
 					<div class="col nvlink2 d-sm-none"><a class="text-light" href="${pageContext.request.contextPath}/Plog/toPlogCohow.do">내 지식인</a></div>
 					<div class="col nvlink2 d-sm-none"><a class="text-light" href="${pageContext.request.contextPath}/Scrap/itNews.do">내 스크랩</a></div>
+						</c:when>
+					</c:choose>
 					<div class="col nvlink2 d-sm-none"><a class="text-light" href="${pageContext.request.contextPath}/Plog/toPlogProject.do">내 프로젝트</a></div>
 					<div class="col nvlink2 d-sm-none"><a class="text-light" href="${pageContext.request.contextPath}/GuestBook/selectList.do">방명록</a></div>
 				</div>
@@ -91,8 +104,7 @@
 						  		<c:otherwise>
 						  			<c:forEach items="${qlist }" var="dto">
 						  				<div class="row tableBody p-0">
-						  					<div class="col-2 col-lg-1"><span class="badge badge-pill badge-success"
-											style="margin: 10; width: 60px;">${dto.division}</span></div>
+						  					<div class="col-2 col-lg-1" style="color:dodgerblue;">${dto.division}</div>
 											<div class="col-7 col-lg-5 " >
 							  					<div class="line-over text-decoration-none" onclick="location.href='${pageContext.request.contextPath}/code/codeDetail.do?seq=${dto.seq}'">${dto.title} 
 								  					<c:if test="${dto.replyCount>0 }">
@@ -130,8 +142,7 @@
 						  		<c:otherwise>
 						  			<c:forEach items="${rlist }" var="dto">
 						  				<div class="row tableBody p-0">
-						  					<div class="col-2 col-lg-1"><span class="badge badge-pill badge-success"
-											style="margin: 10; width: 60px;">${dto.division}</span></div>
+						  					<div class="col-2 col-lg-1" style="color:dodgerblue;">${dto.division}</div>
 											<div class="col-7 col-lg-5 " >
 							  					<div class="line-over text-decoration-none" onclick="location.href='${pageContext.request.contextPath}/code/codeDetail.do?seq=${dto.seq}'">${dto.title} 
 								  					<c:if test="${dto.replyCount>0 }">

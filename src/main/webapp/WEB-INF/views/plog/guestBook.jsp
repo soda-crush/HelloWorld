@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+	<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
 <!DOCTYPE html>
@@ -13,31 +13,36 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/css/mainBase.css">
 <link rel="stylesheet" type="text/css" href="/css/font-awesome/css/font-awesome.css">
-       <style>
-       		*{spellcheck="false"}
-            h1,h3{text-align: center;padding-top: 50px; padding-bottom: 50px;}
-            ul{background-color: lightgray;font-size: 13px;}
-            .card{ width:200px;height:300px;margin: auto; float :left;}
-            .myprofile{float: left;height: 350px;margin-top: 20px;}
-            #mycard{float:none;display:flex;align-items:center;}
-            .commentwrite{width:100%; height:100px;padding: 0px;margin-top: 10px;float: left;}
-            .commentlist{width:100%;padding: 0px;margin-top: 10px;float: left;}
-            .col{margin: 0px; padding: 0px;}
-            .content{height:90%;float: left;resize: none;}
-            .sendbt{height:90%;float: left;}
-            #writer{text-underline-position: auto;margin-right: 30px;}
-            .commentlist>div>div{margin-right: 5px;}
-            #commentForm{height:100%;}
-            textarea{resize:none;}
-            .page-item{padding:0px;height:10px;width:10px;}
-			.navi{text-align: center;}
-			.nvlink1{height:45px;line-height:45px;font-size:14px;}
-			.nvlink2{height:45px;line-height:45px;font-size:10px;}
-        	a:hover{text-decoration:none;}
-            .message{background-color:#efefef;margin:10px;width:100%;height:100%;border:0px;}
-            .listwrap{border:1px solid gray;margin: 10px; padding:5px;}
-            .line-over{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-        </style>
+	<style>
+   		*{spellcheck="false"}
+        h1,h3{text-align: center;padding-top: 50px; padding-bottom: 50px;}
+        ul{background-color: lightgray;font-size: 13px;}
+        .card{ width:200px;height:300px;margin: auto; float :left;}
+        .myprofile{float: left;height: 350px;margin-top: 20px;}
+        #mycard{float:none;display:flex;align-items:center;}
+        .commentwrite{width:100%; height:100px;padding: 0px;margin-top: 10px;float: left;}
+        .commentlist{width:100%;padding: 0px;margin-top: 10px;float: left;}
+        .col{margin: 0px; padding: 0px;}
+        .content{height:90%;float: left;resize: none;}
+        .sendbt{height:90%;float: left;}
+        #writer{text-underline-position: auto;margin-right: 30px;}
+        .commentlist>div>div{margin-right: 5px;}
+        #commentForm{height:100%;}
+        textarea{resize:none;}
+        .page-item{padding:0px;height:10px;width:10px;}
+		.navi{text-align: center;}
+		.nvlink1{height:45px;line-height:45px;font-size:14px;}
+		.nvlink2{height:45px;line-height:45px;font-size:10px;}
+    	a:hover{text-decoration:none;}
+        .message{background-color:#efefef;margin:10px;width:100%;height:100%;border:0px;}
+        .listwrap{border:1px solid gray;margin: 10px; padding:5px;}
+    	.line-over{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+    </style>
+	<script>
+	$(function(){
+		$("#plogNavi").attr('class','nav-item nav-link active');
+	});
+	</script>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/standard/header.jsp"/>
@@ -47,22 +52,29 @@
                     <div class="col-12" id=aroundContent>
                     </div>
                 </div>
-            </div>
-            
+            </div>         
             <div class="container">
 				<h1 class="d-none d-sm-block"> Programming-Log</h1>
 				<h3 class="d-sm-none"> Programming-Log</h3>
 	            <div class="row navi" style="background-color: #008EDC;">
 					<div class="col nvlink1 d-none d-sm-block"><a class="text-light" href="${pageContext.request.contextPath}/Portfolio/toPlogmain.do">내 포트폴리오</a></div>
-					<div class="col nvlink1 d-none d-sm-block"><a class="text-light" href="${pageContext.request.contextPath}/Plog/toPlogCohow.do">내 지식인</a></div>
-					<div class="col nvlink1 d-none d-sm-block"><a class="text-light" href="${pageContext.request.contextPath}/Scrap/itNews.do">내 스크랩</a></div>
+					<c:choose>
+						<c:when test="${loginInfo.id ==ownerInfo.id }">
+							<div class="col nvlink1 d-none d-sm-block"><a class="text-light" href="${pageContext.request.contextPath}/Plog/toPlogCohow.do">내 지식인</a></div>
+							<div class="col nvlink1 d-none d-sm-block"><a class="text-light" href="${pageContext.request.contextPath}/Scrap/itNews.do">내 스크랩</a></div>
+						</c:when>
+					</c:choose>
 					<div class="col nvlink1 d-none d-sm-block"><a class="text-light" href="${pageContext.request.contextPath}/Plog/toPlogProject.do">내 프로젝트</a></div>
 					<div class="col nvlink1 d-none d-sm-block"><a class="text-light" href="${pageContext.request.contextPath}/GuestBook/selectList.do">방명록</a></div>
 				</div>
 				<div class="row navi" style="background-color: #008EDC;">
 					<div class="col nvlink2 d-sm-none"><a class="text-light" href="${pageContext.request.contextPath}/Portfolio/toPlogmain.do">내 포트폴리오</a></div>
+					<c:choose>
+						<c:when test="${loginInfo.id ==ownerInfo.id }">
 					<div class="col nvlink2 d-sm-none"><a class="text-light" href="${pageContext.request.contextPath}/Plog/toPlogCohow.do">내 지식인</a></div>
 					<div class="col nvlink2 d-sm-none"><a class="text-light" href="${pageContext.request.contextPath}/Scrap/itNews.do">내 스크랩</a></div>
+						</c:when>
+					</c:choose>
 					<div class="col nvlink2 d-sm-none"><a class="text-light" href="${pageContext.request.contextPath}/Plog/toPlogProject.do">내 프로젝트</a></div>
 					<div class="col nvlink2 d-sm-none"><a class="text-light" href="${pageContext.request.contextPath}/GuestBook/selectList.do">방명록</a></div>
 				</div>
@@ -103,9 +115,13 @@
 			                        <c:choose>
 										<c:when test="${dto.writer == loginInfo.nickName}">
 											<div style="text-align:right">
-					                        	<button id="update${dto.seq}" onclick="update(${dto.seq})" style="visibility:hidden;">수정완료</button>
-					                        	<button id="toModify${dto.seq }" onclick="modify(${dto.seq})">수정하기</button>
-					                        	<button id="delete" onclick="location.href='${pageContext.request.contextPath}/GuestBook/delete.do?seq=${dto.seq}'">삭제하기</button>
+												<c:choose>
+													<c:when test = "${dto.writerID == loginInfo.id || dto.ownerID == loginInfo.id }">
+							                        	<button id="update${dto.seq}" onclick="update(${dto.seq})" style="visibility:hidden;">수정완료</button>
+							                        	<button id="toModify${dto.seq }" onclick="modify(${dto.seq})">수정하기</button>
+													</c:when>
+												</c:choose>
+					                        	<button id="delete" onclick="location.href='${pageContext.request.contextPath}/GuestBook/delete.do?seq=${dto.seq}&cpage=${cpage}'">삭제하기</button>
 					                        </div>
 										</c:when>
 										<c:otherwise>
