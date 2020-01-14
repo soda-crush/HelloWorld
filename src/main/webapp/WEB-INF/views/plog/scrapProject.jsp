@@ -30,7 +30,8 @@
 		#page${page}{color:blue;}
 		.coltheme{margin:30px;}
 		.navi{text-align: center;}
-		.nvlink{height:45px;line-height:45px;}
+		.nvlink1{height:45px;line-height:45px;font-size:14px;}
+		.nvlink2{height:45px;line-height:45px;font-size:10px;}
         a:hover{text-decoration:none;}	
         .scrapnavi>div{margin:10px;height:30px;}
         .scrapnavi>div>a{color:black;}
@@ -53,14 +54,22 @@
 
             
             <div class="container">
-				<h1> Programming-Log</h1>
+				<h1 class="d-none d-sm-block"> Programming-Log</h1>
+				<h3 class="d-sm-none"> Programming-Log</h3>
 	            <div class="row navi" style="background-color: #008EDC;">
-					<div class="col nvlink"><a class="text-light" href="${pageContext.request.contextPath}/Portfolio/toPlogmain.do">내 포트폴리오</a></div>
-					<div class="col nvlink"><a class="text-light" href="${pageContext.request.contextPath}/Plog/toPlogCohow.do">내 지식인</a></div>
-					<div class="col nvlink"><a class="text-light" href="${pageContext.request.contextPath}/Scrap/itNews.do">내 스크랩</a></div>
-					<div class="col nvlink"><a class="text-light" href="${pageContext.request.contextPath}/Plog/toPlogProject.do">내 프로젝트</a></div>
-					<div class="col nvlink"><a class="text-light" href="${pageContext.request.contextPath}/GuestBook/selectList.do">방명록</a></div>
+					<div class="col nvlink1 d-none d-sm-block"><a class="text-light" href="${pageContext.request.contextPath}/Portfolio/toPlogmain.do">내 포트폴리오</a></div>
+					<div class="col nvlink1 d-none d-sm-block"><a class="text-light" href="${pageContext.request.contextPath}/Plog/toPlogCohow.do">내 지식인</a></div>
+					<div class="col nvlink1 d-none d-sm-block"><a class="text-light" href="${pageContext.request.contextPath}/Scrap/itNews.do">내 스크랩</a></div>
+					<div class="col nvlink1 d-none d-sm-block"><a class="text-light" href="${pageContext.request.contextPath}/Plog/toPlogProject.do">내 프로젝트</a></div>
+					<div class="col nvlink1 d-none d-sm-block"><a class="text-light" href="${pageContext.request.contextPath}/GuestBook/selectList.do">방명록</a></div>
 				</div>
+				<div class="row navi" style="background-color: #008EDC;">
+					<div class="col nvlink2 d-sm-none"><a class="text-light" href="${pageContext.request.contextPath}/Portfolio/toPlogmain.do">내 포트폴리오</a></div>
+					<div class="col nvlink2 d-sm-none"><a class="text-light" href="${pageContext.request.contextPath}/Plog/toPlogCohow.do">내 지식인</a></div>
+					<div class="col nvlink2 d-sm-none"><a class="text-light" href="${pageContext.request.contextPath}/Scrap/itNews.do">내 스크랩</a></div>
+					<div class="col nvlink2 d-sm-none"><a class="text-light" href="${pageContext.request.contextPath}/Plog/toPlogProject.do">내 프로젝트</a></div>
+					<div class="col nvlink2 d-sm-none"><a class="text-light" href="${pageContext.request.contextPath}/GuestBook/selectList.do">방명록</a></div>
+				</div>	
 	            <div class="row">
 	                <div class="col-12 col-md-4 col-lg-3 myprofile">
 	                    <div class="card" id="mycard">
@@ -82,7 +91,7 @@
 			         	<div class="tableDiv">
 							<div class="row tableHead">
 							    <div class="col-2">모집상태</div>
-							    <div class="col-5">제목</div>
+							    <div class="col-7 col-lg-4">제목</div>
 							    <div class="col-1" style="text-align:center;">지역</div>
 							    <div class="col-lg-1 d-none d-lg-block">인원</div>
 							    <div class="col-2">작성자</div>
@@ -96,12 +105,12 @@
 						  			<c:forEach items="${plist }" var="p">
 						  				<div class="row tableBody p-0">
 											<div class="col-2 ${p.state }" style="text-align:center;">${p.stateInKor }</div>
-												<div class="col-5 line-over" onclick="location.href='${pageContext.request.contextPath}/project/detailView?seq=${p.seq }'" class="text-decoration-none">${p.title } 
+												<div class="col-7 col-lg-4 line-over" onclick="location.href='${pageContext.request.contextPath}/project/detailView?seq=${p.seq }'" class="text-decoration-none">${p.title } 
 							  						<c:if test="${p.commentCount>0 }">
 							  							<span class="pComment font-weight-bold">${p.commentCount }</span>
 							  						</c:if>					  					
 												</div>
-											<div class="col-1">${p.location1 }</div>
+											<div class="col-1" style="text-align:center">${p.location1 }</div>
 											<div class="col-lg-1 d-none d-lg-block">${p.capacity }명</div>
 											<div class="col-2 line-over">${p.writer }</div>
 											<div class="col-2 d-none d-lg-block">${p.formedWriteDate }</div>
@@ -110,7 +119,7 @@
 						  		</c:otherwise>
 						  	</c:choose>				    
 						</div>
-						<div class="naviwrap"style="width:100%;text-align:center;">
+						<div class="naviwrap"style="width:100%;text-align:center;margin-top:20px;">
 		                    <c:forEach items="${pageNavi}" var="navi">									
 								${navi}
 							</c:forEach>

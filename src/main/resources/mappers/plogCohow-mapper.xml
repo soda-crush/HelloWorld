@@ -4,12 +4,16 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="PlogCohow">
 
-	<select id="selectMyQuestion" parameterType="String" resultType="kh.hello.dto.CodeQuestionDTO">
-		select seq, division, title, writer, writeDate, viewCount from codeQuestion where id=#{id}
+	<select id="selectMyQuestionListByPage" parameterType="java.util.Map" resultType="kh.hello.dto.CodeQuestionDTO">	
+		select seq, division, title, writer, writeDate, viewCount,rown from (select codeQuestion.*, row_number() over (order by seq desc) as rown from codeQuestion where id=#{id}) where rown between #{start} and #{end}
 	</select>
 	
-	<select id="selectMyReply" parameterType="String" resultType="kh.hello.dto.CodeQuestionDTO">
-		select seq, division, c.title, c.writer, c.writeDate, viewCount from (select queseq from codeReply where id=#{id}) rep inner join codeQuestion c on rep.queseq = c.seq
+	<select id="selectMyReplyListByPage" parameterType="java.util.Map" resultType="kh.hello.dto.CodeQuestionDTO">
+		select seq, division, c.title, c.writer, c.writeDate, viewCount from (select queseq from (select codeReply.*, row_number() over (order by seq desc) as rown from codeReply) where id=#{id} and rown between #{start} and #{end}) rep inner join codeQuestion c on rep.queseq = c.seq
+	</select>
+	
+	<select id="TotalCount" parameterType="java.util.Map" resultType="integer">
+		select count(seq) from ${colum} where id=#{id}
 	</select>
 
 </mapper>

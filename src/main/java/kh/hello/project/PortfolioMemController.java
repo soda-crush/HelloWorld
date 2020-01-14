@@ -132,14 +132,9 @@ public class PortfolioMemController {
 	public String toPlog(String owner) {
 		MemberDTO mdto = ms.selectMember(owner);
 		OwnerInfoDTO odto = new OwnerInfoDTO();
-		try {
-			odto.setId(mdto.getId());	
-			odto.setNickName(mdto.getNickName());
-			odto.setPoint(mdto.getPoint());
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "member/login";
-		}
+		odto.setId(mdto.getId());	
+		odto.setNickName(mdto.getNickName());
+		odto.setPoint(mdto.getPoint());
 		session.setAttribute("ownerInfo", odto);
 		return "redirect:toPlogmain.do";
 	}
