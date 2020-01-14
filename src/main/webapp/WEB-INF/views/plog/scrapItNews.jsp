@@ -87,22 +87,25 @@
 				</div>
 	            <div class="row">
 	                <div class="col-12 col-md-4 col-lg-3 myprofile">
-	                    <div class="card" id="mycard">
-	                        <img src="${ownerInfo.profileImg }" class="card-img-top" alt="..." style="width: 170px;height: 170px;margin:15px;">
-	                        <div class="card-body">
-	                            <div class="card-title line-over" style="text-align: center;font-size:20px;">${ownerInfo.nickName} 님</div>
-	                            <p class="card-text" style="text-align: center;font-size:15px;">point : ${ownerInfo.point }</p>
-	                        </div>
+	                    <div>
+	                    	<div class="card d-none d-md-block" id="mycard">
+		                        <img src="${ownerInfo.profileImg }" class="card-img-top" alt="..." style="width: 170px;height: 170px;margin:15px;">
+		                        <div class="card-body">
+		                            <div class="card-title line-over" style="text-align: center;font-size:20px;">${ownerInfo.nickName} 님</div>
+		                            <p class="card-text" style="text-align: center;font-size:15px;">point : ${ownerInfo.point }</p>
+		                        </div>
+	                    	</div>
 	                    </div>
-	                    <div class="scrapnavi" >
-	                		<div class="pg"><a href="${pageContext.request.contextPath}/Scrap/itNews.do"> IT 뉴스</a></div>
-	                		<div><a href="${pageContext.request.contextPath}/Scrap/cohow.do"> 코드 지식인</a></div>
-	                		<div><a href="${pageContext.request.contextPath}/Scrap/industryStatus.do"> 업계현황</a></div>
-	                		<div><a href="${pageContext.request.contextPath}/Scrap/project.do"> 프로젝트</a> </div>
-	                	</div>
 	                </div>
 	                <div class="col-12 col-md-8 col-lg-9 scraptwrap">
-	                	<div class="coltheme"> it 뉴스 </div>
+	                	<div style="margin-top:20px;">
+	    	 				<div class="btn-group" role="group" aria-label="Basic example">
+								<button type="button" class="btn btn-flat btn-xs btn-secondary" onclick="location.href='${pageContext.request.contextPath}/Scrap/itNews.do'">IT 뉴스</button>
+								<button type="button" class="btn btn-flat btn-xs btn-outline-secondary" onclick="location.href='${pageContext.request.contextPath}/Scrap/cohow.do'">코드 지식인</button>
+								<button type="button" class="btn btn-flat btn-xs btn-outline-secondary" onclick="location.href='${pageContext.request.contextPath}/Scrap/industryStatus.do'">업계 현황</button>
+								<button type="button" class="btn btn-flat btn-xs btn-outline-secondary" onclick="location.href='${pageContext.request.contextPath}/Scrap/project.do'">프로젝트</button>
+			           		</div>
+	                	</div>
 			         	<div class="tableDiv" >
 							<div class="row tableHead">
 							    <div class="col-7 col-lg-5">제목</div>
@@ -110,7 +113,6 @@
 							    <div class="col-3">작성일</div>
 							    <div class="col-2 d-none d-lg-block">조회수</div>				    
 							</div>
-							
 						  	<c:choose>
 						  		<c:when test="${nlist.size()==0 }">
 						  		<div class="row text-center tableBodyNull"><div class="col-12">스크랩한 글이 없습니다.</div></div>

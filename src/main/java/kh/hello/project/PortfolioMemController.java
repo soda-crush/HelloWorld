@@ -133,8 +133,6 @@ public class PortfolioMemController {
 	public String toPlog(String owner) {
 		MemberDTO mdto = ms.selectMember(owner);
 		LoginInfoDTO ldto = (LoginInfoDTO)session.getAttribute("loginInfo");
-		System.out.println("공개여부 체크해보자ㅏㅏ :"+mdto.getIfmOpenCheck());
-		System.out.println("아이디체크 : "+ ldto.getId()+ " : " + owner);
 		if(mdto.getIfmOpenCheck().equals("Y") || ldto.getId().equals(owner)) {
 			OwnerInfoDTO odto = new OwnerInfoDTO();
 			odto.setId(mdto.getId());	
