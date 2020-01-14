@@ -41,8 +41,8 @@ public class ProjectService {
 		return dao.getProjectList();
 	}
 		
-	public String getPageNavi(int currentPage) {
-		int recordTotalCount = dao.getArticleCount();
+	public String getPageNavi(int currentPage, String searchOption, String keyword) {
+		int recordTotalCount = dao.getArticleCount(searchOption, keyword);
 		int pageTotalCount = 0;		
 		if(recordTotalCount % Configuration.recordCountPerPage>0) {
 			pageTotalCount = recordTotalCount/Configuration.recordCountPerPage+1;
@@ -89,8 +89,8 @@ public class ProjectService {
 		return sb.toString();
 	}
 	
-	public List<ProjectDTO> projectListPerPage(int start, int end){
-		return dao.getProjectListPerPage(start, end);
+	public List<ProjectDTO> projectListPerPage(int start, int end, String searchOption, String keyword){
+		return dao.getProjectListPerPage(start, end, searchOption, keyword);
 	}
 	
 	

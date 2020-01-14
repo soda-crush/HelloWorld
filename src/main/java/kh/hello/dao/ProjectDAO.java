@@ -28,13 +28,18 @@ public class ProjectDAO {
 		return jdbc.selectList("Project.getList");
 	}
 	
-	public int getArticleCount() {//프로젝트 모집글 전체 개수
-		return jdbc.selectOne("Project.getArticleCount");
+	public int getArticleCount(String searchOption, String keyword) {//프로젝트 모집글 전체 개수
+		Map<String, Object> param = new HashMap<>();
+		param.put("searchOption", searchOption);
+		param.put("keyword", keyword);
+		return jdbc.selectOne("Project.getArticleCount", param);
 	}
-	public List<ProjectDTO> getProjectListPerPage(int start, int end){
-		Map<String, Integer> param = new HashMap<>();
+	public List<ProjectDTO> getProjectListPerPage(int start, int end, String searchOption, String keyword){
+		Map<String, Object> param = new HashMap<>();
 		param.put("start", start);
 		param.put("end", end);
+		param.put("searchOption", searchOption);
+		param.put("keyword", keyword);
 		return jdbc.selectList("Project.getListByPage", param);
 	}
 	public ProjectDTO getProjectDetailView(int seq) {//프로젝트 모집글 상세보기

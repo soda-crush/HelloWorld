@@ -34,16 +34,17 @@ public class ProjectMemController {
 	 */
 	
 	@RequestMapping("/list")
-	public String projectMainList(String page, Model m) {
+	public String projectMainList(String page, String searchOption, String keyword, Model m) {
+		System.out.println(searchOption+" : "+keyword);		
 		int currentPage = 1;
 		if(page!=null) {
 			currentPage = Integer.parseInt(page);
 		}
 		int start = currentPage * (Configuration.recordCountPerPage)-(Configuration.recordCountPerPage-1);
 		int end = currentPage * (Configuration.recordCountPerPage);
-		List<ProjectDTO> result = svc.projectListPerPage(start, end);
+		List<ProjectDTO> result = svc.projectListPerPage(start, end, searchOption, keyword);
 		m.addAttribute("projectList", result);
-		String pageNavi = svc.getPageNavi(currentPage);
+		String pageNavi = svc.getPageNavi(currentPage, searchOption, keyword);
 		m.addAttribute("pageNavi", pageNavi);
 		m.addAttribute("currentPage", currentPage);
 		return "/project/projectList";
@@ -355,4 +356,6 @@ public class ProjectMemController {
 			return "redirect:/home/error";
 		}
 	}
+	
+
 }
