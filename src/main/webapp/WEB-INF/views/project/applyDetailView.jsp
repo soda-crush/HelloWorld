@@ -123,8 +123,8 @@ body{background-color:#e9ecef;}
 	        			data:{seq:"${aPage.seq}"}
 	        		}).done(function(resp){
 	        			alert("신청이 취소되었습니다.");
-	        			window.close();
-	        			location.href="/project/projectPLogList";
+						window.opener.document.location.href = window.opener.document.URL;  
+						window.close();
 	        		}).fail(function(resp){
 	        			
 	        		});
@@ -144,6 +144,7 @@ body{background-color:#e9ecef;}
         				$("#pApproveModal").modal('show');
         				$("#approveProcBtns").remove();
         				$(".checkBtn").append('<span style="font-weight:bold;">신청 <span style="color:limegreen;font-weight:bold;">승인</span>되었습니다.</span>');
+        				window.opener.document.location.href = window.opener.document.URL;
         			}).fail(function(resp){
         				console.log("실패");
     					console.log(resp);
@@ -165,6 +166,7 @@ body{background-color:#e9ecef;}
         				$("#pDenialModal").modal('show');
     					$("#approveProcBtns").remove();
         				$(".checkBtn").append('<span style="font-weight:bold;">신청 <span style="color:red;font-weight:bold;">거절</span>되었습니다.</span>');
+        				window.opener.document.location.href = window.opener.document.URL;
         			}).fail(function(resp){
         				console.log("실패");
     					console.log(resp);

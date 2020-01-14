@@ -56,7 +56,7 @@
 							</c:choose>
 							<br>
 							<div class="ml-4" style="font-weight:bold;font-size:20px;display:inline-block;">${pPage.title}</div><br>
-							<label class="ml-4">작성자 : ${pPage.writer }</label>
+							<label class="ml-4" onclick="popUp('/Portfolio/toPlog.do?owner=${pPage.id}')" style="cursor:pointer;">작성자 : <strong>${pPage.writer }</strong></label>
 							<label class="ml-4">작성일 : ${pPage.formedWriteDate }</label>
 							<label class="ml-4">조회 : ${pPage.viewCount }</label>
 						</div>
@@ -128,7 +128,7 @@
 														<div class="col-lg-1 d-none d-lg-block profileBox pl-1 pt-2 pr-0"><img src="${c.profileImg }" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>
 														<div class="col-7 col-lg-6 pt-1">
 															<div class="row commentInfo pl-2">
-																<div class="col-12 commentWriter"><span style="font-weight:bold;">${c.writer }</span></div>
+																<div class="col-12 commentWriter"><span style="font-weight:bold;cursor:pointer;" onclick="popUp('/Portfolio/toPlog.do?owner=${c.id}')">${c.writer }</span></div>
 																<div class="col-12 commentWriteDate">
 																	<span>${c.formedWriteDate }</span>
 																	<c:if test="${c.changeDate!=null }">
@@ -217,6 +217,9 @@
 		<jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
 		
 		<script>
+		function popUp(link){
+			window.open(link, "pLogPopUp", "width=600,height=600");
+		}
 		$("#pReportBtn").on("click",function(){
 			var check = "해당 게시물을 신고하시겠습니까?";
 			if(check){
@@ -566,7 +569,7 @@
 								'<div class="col-lg-1 d-none d-lg-block profileBox pl-1 pt-2 pr-0"><img src="'+resp[i].profileImg+'" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>',
 								'<div class="col-7 col-lg-6 pt-1">',
 								'<div class="row commentInfo pl-2">',
-								'<div class="col-12 commentWriter"><span style="font-weight:bold;">'+resp[i].writer+'</span></div>',
+								'<div class="col-12 commentWriter"><span style="font-weight:bold;cursor:pointer;" onclick="popUp(\'/Portfolio/toPlog.do?owner='+resp[i].id+'\')">'+resp[i].writer+'</span></div>',
 								'<div class="col-12 commentWriteDate">',
 								'<span>'+resp[i].formedWriteDate+'</span>'
 						);
