@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,6 +14,9 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/css/project/projectBase.css" type="text/css"/>
 <link rel="stylesheet" href="/css/project/pLogList.css" type="text/css"/>
+<style>
+	.capaCheck:not(.achieve0){color:crimson;}
+</style>
 </head>
 
 <body>
@@ -24,10 +28,9 @@
 					<div class="row tableHead">					    
 					    <div class="col-1 pl-2">상태</div>
 					    <div class="col-1">총신청</div>
-					    <div class="col-1">승인</div>
-					    <div class="col-1">모집인원</div>
+						<div class="col-1">승인</div>
 					    <div class="col-3">기간</div>
-					    <div class="col-3">제목</div>					    
+					    <div class="col-4">제목</div>					    
 					    <div class="col-1">작성일</div>	
 					    <div class="col-1">조회</div>				    					    
 					</div>
@@ -40,11 +43,10 @@
 				  			<c:forEach items="${makeProjectList }" var="m">
 				  				<div class="row makeTableBody tableBody p-0">
 									<div class="col-1 pl-2 state${m.state }">${m.stateInKor }</div>
-									<div class="col-1">${m.totalApply }명</div>
-									<div class="col-1">${m.totalApprove }명</div>
-									<div class="col-1">${m.capacity }명</div>
+									<div class="col-1">${m.totalApply } <small class="text-secondary">명</small></div>
+									<div class="col-1"><strong class="capaCheck achieve<fmt:parseNumber integerOnly= "true" value= "${m.totalApprove/m.capacity }" />">${m.totalApprove }/${m.capacity }</strong> <small class="text-secondary">명</small></div>
 									<div class="col-3">${m.formedAllDate }</div>
-									<div class="col-3 text-decoration-none" onclick="popUp('/project/detailView?seq=${m.seq }')">
+									<div class="col-4 text-decoration-none" onclick="popUp('/project/detailView?seq=${m.seq }')">
 										<div class="row">
 											<div style="max-width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;">${m.title }</div> 
 					  						<c:if test="${m.commentCount>0 }">
@@ -80,8 +82,7 @@
 			</div>
 		<script>
 			function popUp(link){
-// 				window.open(link,"_blank");
-				window.open(link, "makeListPopUp", "width=1000,height=600");
+				window.open(link, "makeListPopUp", "width=1000,height=750");
 			}
         	$(".pNavi${makeCurrentPage}").addClass("active");
         </script>

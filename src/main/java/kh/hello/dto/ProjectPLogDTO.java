@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 
 public class ProjectPLogDTO {
 	private int seq;
+	private int projectSeq;
 	private String state;
 	private String title;
 	private String writer;
@@ -20,11 +21,12 @@ public class ProjectPLogDTO {
 	public ProjectPLogDTO() {
 		super();
 	}
-	public ProjectPLogDTO(int seq, String state, String title, String writer, String location1, String location2,
-			Timestamp startDate, Timestamp endDate, int capacity, String approve, int commentCount,
+	public ProjectPLogDTO(int seq, int projectSeq, String state, String title, String writer, String location1,
+			String location2, Timestamp startDate, Timestamp endDate, int capacity, String approve, int commentCount,
 			Timestamp writeDate) {
 		super();
 		this.seq = seq;
+		this.projectSeq = projectSeq;
 		this.state = state;
 		this.title = title;
 		this.writer = writer;
@@ -44,6 +46,12 @@ public class ProjectPLogDTO {
 	}
 	public void setSeq(int seq) {
 		this.seq = seq;
+	}
+	public int getProjectSeq() {
+		return projectSeq;
+	}
+	public void setProjectSeq(int projectSeq) {
+		this.projectSeq = projectSeq;
 	}
 	public String getState() {
 		return state;

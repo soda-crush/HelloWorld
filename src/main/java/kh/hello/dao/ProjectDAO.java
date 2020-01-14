@@ -14,6 +14,7 @@ import kh.hello.dto.ProjectCoDTO;
 import kh.hello.dto.ProjectDTO;
 import kh.hello.dto.ProjectImageDTO;
 import kh.hello.dto.ProjectPLogDTO;
+import kh.hello.dto.ReportDTO;
 
 @Repository
 public class ProjectDAO {
@@ -172,6 +173,10 @@ public class ProjectDAO {
 		return jdbc.update("Project.updatePoint", param);
 	}
 	
+	public int checkPoint(String id) {
+		return jdbc.update("Project.checkPoint", id);
+	}	
+	
 	//scrap 테이블
 	public int insertScrap(String id, int seq) {
 		Map<String, Object> param = new HashMap<>();
@@ -190,6 +195,17 @@ public class ProjectDAO {
 		param.put("id", id);
 		param.put("categorySeq", seq);		
 		return jdbc.selectOne("Project.scrapCheck", param);
+	}
+	
+	//reportedBoard 테이블
+	public int reportDuplCheck(String id, int seq) {
+		Map<String, Object> param = new HashMap<>();
+		param.put("id", id);
+		param.put("seq", seq);
+		return jdbc.selectOne("Project.reportDuplCheck", param);
+	}
+	public int insertReport(ReportDTO dto) {
+		return jdbc.insert("Project.insertReport", dto);
 	}
 		
 }

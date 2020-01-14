@@ -17,6 +17,7 @@ import kh.hello.dto.ProjectApplyDTO;
 import kh.hello.dto.ProjectCoDTO;
 import kh.hello.dto.ProjectDTO;
 import kh.hello.dto.ProjectPLogDTO;
+import kh.hello.dto.ReportDTO;
 import kh.hello.services.ProjectService;
 
 @Controller
@@ -212,7 +213,7 @@ public class ProjectMemController {
 		dto.setWriter(sessionValue.getNickName());
 		dto.setId(sessionValue.getId());
 		dto.setDepth(1);
-		return svc.commentWriteConfirm(dto);
+		return svc.commentWriteConfirm(dto);		
 	}
 	
 	
@@ -243,9 +244,15 @@ public class ProjectMemController {
 		return "/project/applyDetailView";	
 	}
 	
+	@ResponseBody
 	@RequestMapping("/apply/deleteProc")
-	public void projectApplyDeleteConfirm(int seq) {
-		svc.projectApplyDeleteConfirm(seq);
+	public String projectApplyDeleteConfirm(int seq) {
+		int result = svc.projectApplyDeleteConfirm(seq);
+		if(result>0) {
+			return "success";
+		}else {
+			return "redirect:/home/error";
+		}
 	}
 	
 	@ResponseBody
@@ -317,5 +324,35 @@ public class ProjectMemController {
 		m.addAttribute("applyPageNavi", pageNavi);
 		m.addAttribute("applyCurrentPage", currentPage);
 		return "/project/pLogApplyProject";
+	}
+	
+	
+//	게시글신고
+	
+	@ResponseBody
+	@RequestMapping("/reportDuplCheck")
+	public String reportDuplCheck(int seq) {
+		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
+		String id = sessionValue.getId();
+		int result = svc.reportDuplCheck(id, seq);
+		if(result>0) {
+			return "dupl";
+		}else {
+			return "possible";
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping("/report")
+	public String reportProject(ReportDTO dto) {
+		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
+		dto.setReporterID(sessionValue.getId());
+		dto.setReporterNick(sessionValue.getNickName());		
+		int result = svc.reportProject(dto);
+		if(result>0) {
+			return "success";
+		}else {
+			return "redirect:/home/error";
+		}
 	}
 }

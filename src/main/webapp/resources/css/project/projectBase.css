@@ -20,16 +20,13 @@
 .box>a{
     width: 100%;
 }
-#logo{
-    width: 100%;   
-}
 #baseBackgroundColor{
     position: relative;
     background-color: #e8e8e890;
     border-bottom: 2px solid gray;
 }
 #naviCon{
-    width: 75%;
+    width: 67%;
     margin: auto;
 }
 #naviCon a{
@@ -79,5 +76,33 @@ font-size: 12px;
 }
 #logo:hover{
 	cursor:pointer;
+}
+#loginCon p{
+color:#787878;
+}
+.cursorPointer:hover{
+   cursor:pointer;
+}
+.navbar-light .navbar-nav .active>.nav-link, .navbar-light .navbar-nav .nav-link.active,
+   .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .show>.nav-link
+   {
+   color: white;
+   font-size: 17px !important;
+   line-height: 28px;
+   border-bottom: 4px solid white;
+}
+
+.navbar-light .navbar-nav .nav-link {
+   color: #c2c2c2;
+   line-height: 29px;
+}
+.navbar-light .navbar-nav .nav-link:hover{
+   color: white;
+   font-size: 17px !important;
+   line-height: 28px;
+}
+
+.navbar {
+   padding: 0px;
 }
 /* autocomplete tagsinput*/

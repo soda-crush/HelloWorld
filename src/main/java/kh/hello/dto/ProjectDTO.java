@@ -238,15 +238,13 @@ public class ProjectDTO {
 		if(nowYear==writeYear) {
 			if(nowMonth==writeMonth) {
 				if(nowDay==writeDay) {
-					if(nowHour-writeHour>=1) {
-						return sdfTime.format(this.getWriteDate());
-					}else {
-						if(nowMin-writeMin>5) {
-							return "1시간 이내";							
-						}else {
-							return "방금 전";
+					if(nowHour==writeHour) {
+						if(nowMin-writeMin<=1) {
+							return "방금 전";							
 						}
+						return sdfTime.format(this.getWriteDate());
 					}
+					return sdfTime.format(this.getWriteDate());
 				}else {
 					return sdfDay.format(this.getWriteDate());
 				}

@@ -24,6 +24,7 @@ import kh.hello.dto.ProjectCoDTO;
 import kh.hello.dto.ProjectDTO;
 import kh.hello.dto.ProjectImageDTO;
 import kh.hello.dto.ProjectPLogDTO;
+import kh.hello.dto.ReportDTO;
 
 @Service
 public class ProjectService {
@@ -212,6 +213,7 @@ public class ProjectService {
 		dao.deleteProjectAllCo(seq);
 		dao.deleteImagesByProjectSeq(seq);
 		dao.updatePoint(option, id);
+		dao.checkPoint(id);
 		return dao.deleteProject(seq);
 	}
 	
@@ -281,6 +283,7 @@ public class ProjectService {
 		String option = "commentDel";
 		dao.deleteProjectCo(seq);
 		dao.updatePoint(option, id);
+		dao.checkPoint(id);
 		Gson gson = new Gson();
 		List<ProjectCoDTO> result = dao.getCoList(projectSeq);
 		for(ProjectCoDTO p : result) {
@@ -404,5 +407,16 @@ public class ProjectService {
 	
 	public List<ProjectPLogDTO> applyProjectListPerPage(int start, int end, String id){
 		return dao.getApplyProjectListPerPage(start, end, id);
+	}
+	
+	
+	
+	
+//	게시글신고
+	public int reportDuplCheck(String id, int seq) {
+		return dao.reportDuplCheck(id, seq);
+	}
+	public int reportProject(ReportDTO dto) {
+		return dao.insertReport(dto);					
 	}
 }
