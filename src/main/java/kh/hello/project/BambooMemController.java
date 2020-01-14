@@ -29,10 +29,10 @@ public class BambooMemController {
 
 	//대나무숲 게시판
 	@RequestMapping("/bambooList.do")
-	public String bamboolistView (String cpage, Model m) {//대나무숲 게시판목록
+	public String bamboolistView (String page, Model m) {//대나무숲 게시판목록
 		//페이지네비
 		int currentPage = 1;		
-		if(cpage!= null && !cpage.equals("") && !cpage.equals("null")) currentPage = Integer.parseInt(cpage);
+		if(page!= null && !page.equals("") && !page.equals("null")) currentPage = Integer.parseInt(page);
 		int end = currentPage * Configuration.recordCountPerPage;
 		int start = end - (Configuration.recordCountPerPage - 1);	
 		List<BambooDTO> list = service.bambooListByPage(start, end);
@@ -40,7 +40,7 @@ public class BambooMemController {
 
 		List<String> pageNavi = service.getBambooListPageNavi(currentPage);
 		m.addAttribute("pageNavi", pageNavi);
-		m.addAttribute("cpage", currentPage);
+		m.addAttribute("page", currentPage);
 
 		return "/bamboo/bambooList";
 	}
@@ -133,6 +133,7 @@ public class BambooMemController {
 	@ResponseBody
 	@RequestMapping(value="/comment/writeProc.do",produces="text/html;charset=utf8")
 	public String coWriteProc(BambooCoDTO dto) {
+		System.out.println("댓글도착");
 		LoginInfoDTO loginInfo = (LoginInfoDTO)session.getAttribute("loginInfo");
 		dto.setWriter(loginInfo.getId());
 		return service.commentWriteConfirm(dto,dto.getWriter());
@@ -154,11 +155,11 @@ public class BambooMemController {
 
 	//게시판 목록 검색
 	@RequestMapping("/bambooSearch.do")
-	public String bambooSearch(String search, String value, Model m, String cpage) {
+	public String bambooSearch(String search, String value, Model m, String page) {
 		//페이지네비
 		int currentPage = 1;		
 
-		if(cpage!= null && !cpage.equals("") && !cpage.equals("null")) currentPage = Integer.parseInt(cpage);
+		if(page!= null && !page.equals("") && !page.equals("null")) currentPage = Integer.parseInt(page);
 		int end = currentPage * Configuration.recordCountPerPage;
 		int start = end - (Configuration.recordCountPerPage - 1);	
 		List<BambooDTO> list = service.bambooSearchListByPage(start, end, value, search);
@@ -166,7 +167,7 @@ public class BambooMemController {
 
 		List<String> pageNavi = service.getBambooSearchListPageNavi(currentPage, value, search);
 		m.addAttribute("pageNavi", pageNavi);
-		m.addAttribute("cpage", currentPage);
+		m.addAttribute("page", currentPage);
 
 		return "/bamboo/bambooList";
 	}
