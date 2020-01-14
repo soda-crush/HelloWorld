@@ -12,8 +12,9 @@
 	</select>
 	
 	<select id="selectByPage"  resultType="kh.hello.dto.ItnewsDTO">
-		select * from (select itnews.*, row_number() over(order by seq desc) 
-		rown from itnews) where rown between ${start} and ${end}
+		select * from (select itnews.*,(select count(*) from itnewsComments where itSeq = itnews.seq 
+		and content is not null) as commentCount, row_number() over (order by seq desc) as rown 
+		from itnews) where rown between #{start} and #{end}
 	</select>
 	
 	<select id="getTotal" resultType="integer">
