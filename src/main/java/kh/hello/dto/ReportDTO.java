@@ -9,16 +9,16 @@ public class ReportDTO {
 	private String boardName;
 	private int boardSeq;
 	private String title;
-	private String reporterID;
 	private String reporterNick;
+	private String reporterID;	
 	private Timestamp reportDate;
 	private String reason;
 	private String result;
 	public ReportDTO() {
 		super();
 	}
-	public ReportDTO(int seq, String state, String boardName, int boardSeq, String title, String reporterID,
-			String reporterNick, Timestamp reportDate, String reason, String result) {
+	public ReportDTO(int seq, String state, String boardName, int boardSeq, String title, String reporterNick, String reporterID,
+			 Timestamp reportDate, String reason, String result) {
 		super();
 		this.seq = seq;
 		this.state = state;

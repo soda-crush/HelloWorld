@@ -37,4 +37,26 @@ public class ReportDAO {
 	public int updateState(int seq) {
 		return jdbc.update("Report.updateState", seq);
 	}
+	
+	public List<ReportDTO> waitListByPage(int start, int end){
+		Map<String, Integer> param = new HashMap<>();
+		param.put("start", start);
+		param.put("end", end);
+		return jdbc.selectList("Report.waitListByPage", param);		
+	}
+	
+	public int getWaitTotal() {
+		return jdbc.selectOne("Report.getWaitTotal");
+	}
+	
+	public List<ReportDTO> endListByPage(int start, int end){
+		Map<String, Integer> param = new HashMap<>();
+		param.put("start", start);
+		param.put("end", end);		
+		return jdbc.selectList("Report.endListByPage", param);
+	}
+	
+	public int getEndTotal() {
+		return jdbc.selectOne("Report.getEndTotal");
+	}
 }

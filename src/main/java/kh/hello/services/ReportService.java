@@ -75,4 +75,106 @@ public class ReportService {
 		//2. 상태 update
 		return rdao.updateState(seq);
 	}
+	
+	public List<ReportDTO> waitListByPage(int start, int end){
+		return rdao.waitListByPage(start, end);
+	}
+	
+	public List<String> getWaitPageNavi(int currentPage){
+		int recordTotalCount = rdao.getWaitTotal();
+		int pageTotalCount = 0;		
+		if(recordTotalCount % Configuration.recordCountPerPage>0) {
+			pageTotalCount = recordTotalCount/Configuration.recordCountPerPage+1;
+		}else {
+			pageTotalCount = recordTotalCount/Configuration.recordCountPerPage;
+		}
+		if(currentPage < 1) {
+			currentPage = 1;
+		}else if(currentPage > pageTotalCount) {
+			currentPage = pageTotalCount;
+		}
+		
+		int startNavi = (currentPage-1) / Configuration.naviCountPerPage * Configuration.naviCountPerPage+1;
+		int endNavi = startNavi+(Configuration.naviCountPerPage-1);		
+		if(endNavi > pageTotalCount) {
+			endNavi = pageTotalCount;
+		}
+		
+		boolean needPrev = true;
+		boolean needNext = true;
+		if(startNavi==1) {
+			needPrev = false;
+		}
+		if(endNavi==pageTotalCount) {
+			needNext = false;
+		}
+		
+		List<String> pages = new ArrayList<>();
+
+		if(needPrev) {
+			pages.add("<a class=page-link href='../report/waitList?page=" + (startNavi - 1) + "'>< </a>");		
+		}
+		for(int i=startNavi;i<=endNavi;i++) {
+			StringBuilder sb = new StringBuilder();
+			sb.append("<a class=page-link href='../report/waitList?page="+ i +"'>");
+			sb.append(i + " ");
+			sb.append("</a>");
+			pages.add(sb.toString());		
+		}
+		if(needNext) {
+			pages.add("<a class=page-link href='../report/waitList?page=\" + (endNavi + 1) + \"'>> </a>");
+		}
+		return pages;			
+	}
+	
+	public List<ReportDTO> endListByPage(int start, int end){
+		return rdao.endListByPage(start, end);
+	}
+	
+	public List<String> getEndPageNavi(int currentPage){
+		int recordTotalCount = rdao.getEndTotal();
+		int pageTotalCount = 0;		
+		if(recordTotalCount % Configuration.recordCountPerPage>0) {
+			pageTotalCount = recordTotalCount/Configuration.recordCountPerPage+1;
+		}else {
+			pageTotalCount = recordTotalCount/Configuration.recordCountPerPage;
+		}
+		if(currentPage < 1) {
+			currentPage = 1;
+		}else if(currentPage > pageTotalCount) {
+			currentPage = pageTotalCount;
+		}
+		
+		int startNavi = (currentPage-1) / Configuration.naviCountPerPage * Configuration.naviCountPerPage+1;
+		int endNavi = startNavi+(Configuration.naviCountPerPage-1);		
+		if(endNavi > pageTotalCount) {
+			endNavi = pageTotalCount;
+		}
+		
+		boolean needPrev = true;
+		boolean needNext = true;
+		if(startNavi==1) {
+			needPrev = false;
+		}
+		if(endNavi==pageTotalCount) {
+			needNext = false;
+		}
+		
+		List<String> pages = new ArrayList<>();
+
+		if(needPrev) {
+			pages.add("<a class=page-link href='../report/endList?page=" + (startNavi - 1) + "'>< </a>");		
+		}
+		for(int i=startNavi;i<=endNavi;i++) {
+			StringBuilder sb = new StringBuilder();
+			sb.append("<a class=page-link href='../report/endList?page="+ i +"'>");
+			sb.append(i + " ");
+			sb.append("</a>");
+			pages.add(sb.toString());		
+		}
+		if(needNext) {
+			pages.add("<a class=page-link href='../report/endList?page=\" + (endNavi + 1) + \"'>> </a>");
+		}
+		return pages;			
+	}
 }

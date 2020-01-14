@@ -113,9 +113,14 @@ public class AdminDAO {
 		return jdbc.update("Admin.memberOut", id);
 	}
 	
-	public int memberOutList(String id, String reason) {//강퇴 아이디와 사유 테이블에 기록
+	public String getEmailById(String id) {
+		return jdbc.selectOne("Admin.getEmailById", id);
+	}
+	
+	public int memberOutList(String id, String email, String reason) {//강퇴 아이디와 사유 테이블에 기록
 		Map<String, String> param = new HashMap<>();
 		param.put("id", id);
+		param.put("email", email);
 		param.put("reason", reason);		
 		return jdbc.insert("Admin.memberOutList", param);				
 	}
