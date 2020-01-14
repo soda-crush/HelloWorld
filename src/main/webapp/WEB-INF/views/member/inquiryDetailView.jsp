@@ -56,7 +56,7 @@
 					</script>
 				</div>
 				<div class="border border-secondary rounded" id="pageBody">
-						<div id="pHeader">
+						<div id="pHeader" class="pl-2 pr-2">
 							<span class="ml-4" style="font-weight:bold;">${dto.title}</span><br>
 							<label class="ml-4">작성일 : ${dto.formedDate}</label>
 						</div>

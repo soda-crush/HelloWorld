@@ -99,13 +99,18 @@ public class ReportDTO {
 	
 	public String getFormedResult() {
 		String result = this.result;
+		if(result == null) {
+			return "";
+		}
 		
 		if(result.equals("delete")) {
 			return "삭제처리";
 		}else if(result.contentEquals("noMatter")) {
 			return "문제없음";
-		}else {
+		}else if(result.contentEquals("noBoard")){
 			return "이미 삭제된 글";
+		}else {
+			return "";
 		}
 	}
 	

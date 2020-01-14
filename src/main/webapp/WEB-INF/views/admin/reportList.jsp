@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -163,10 +164,21 @@
 		                                                    <td>${dto.board}</td>
 		                                                    <td>${dto.boardSeq}</td>
 		                                                    <td colspan='3' class="text-left">
-																<button type="button" class="btn btn-primary btn-flat btn-xs p-0" data-toggle="modal" data-target="#reportDetail" id="btn${dto.seq}">
-																<strong class="text-primary">${dto.title}</strong></button>
+		                                                    	<button type="button" class="btn btn-primary btn-flat btn-xs p-0" data-toggle="modal" data-target="#reportDetail${dto.seq}" id="btn${dto.seq}">
+																<strong class="text-primary">
+		                                                    	<c:set var="text" value="${dto.title}"/>
+		                                                    	<c:choose>
+		                                                    		<c:when test="${fn:length(text) > 10}">
+		                                                    			<c:set var="value" value="${fn:substring(text, 0, 10)}"/>
+		                                                    			${value}...&nbsp;
+		                                                    		</c:when>
+		                                                    		<c:otherwise>
+		                                                    			${dto.title}&nbsp;
+		                                                    		</c:otherwise>
+		                                                    	</c:choose>
+		                                                    	<span class="ti-new-window"></span></strong></button>																 
 								                                <!-- Modal -->
-								                                <div class="modal fade" id="reportDetail">
+								                                <div class="modal fade" id="reportDetail${dto.seq}">
 								                                    <div class="modal-dialog modal-dialog-centered" role="document">
 								                                    	<form action="${pageContext.request.contextPath}/report/updateReport" method="post" class="col-12">
 									                                        <div class="modal-content">
@@ -191,10 +203,20 @@
 									                                                	<div class="row infoBox">
 									                                                		<div class="col-4 pt-2 pb-2">제목</div>
 									                                                		<div class="col-8 pt-2 pb-2">
-																								<button type="button" class="btn btn-primary btn-flat btn-xs p-0 titleBtn" data-toggle="tooltip" data-placement="botton"
+									                                                		<button type="button" class="btn btn-primary btn-flat btn-xs p-0 titleBtn" data-toggle="tooltip" data-placement="botton"
 																								title="원글 새 창에서 열기" onclick="openWindow('${dto.boardName}', ${dto.boardSeq});">
-																								${dto.title}&nbsp;&nbsp;<span data-brackets-id="6920" class="ti-layers text-primary"></span>
-																								</button>
+									                                                    	<c:choose>
+									                                                    		<c:when test="${fn:length(text) > 25}">
+									                                                    			<c:set var="value" value="${fn:substring(text, 0, 25)}"/>
+									                                                    			${value}...&nbsp;
+									                                                    		</c:when>
+									                                                    		<c:otherwise>
+									                                                    			${dto.title}&nbsp;&nbsp;
+									                                                    		</c:otherwise>
+									                                                    	</c:choose>									                                                		
+																							<span data-brackets-id="6920" class="ti-layers text-primary"></span>
+																							</button>	
+																								
 																							</div>
 									                                                	</div>									                                                	
 									                                                	<div class="row infoBox">

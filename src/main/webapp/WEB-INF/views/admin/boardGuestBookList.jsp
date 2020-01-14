@@ -44,7 +44,7 @@
 		max-width: 1000px;
 	}
 	.table{
-		min-width: 600px;
+		min-width: 730px;
 	}
 	.notification-area {
 		text-align:right;
@@ -109,7 +109,7 @@
                     <div class="col-lg-12 mt-5 contentCard">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="header-title">글 목록</h4>
+                                <h4 class="header-title">전체 목록</h4>
                                 <div class="single-table">
                                     <div class="table-responsive">
                                         <table class="table table-hover text-center">

@@ -79,7 +79,8 @@
 				  					</c:choose>	
 				  					</div>			  					
 									<div class="col-1 d-none d-md-block">${dto.seq}</div>
-									<div class="col-8 col-md-6 pl-2" id="toDetail${dto.seq}">${dto.title}</div>
+									<div class="col-8 col-md-6 pl-2" id="toDetail${dto.seq}" style="max-width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;">
+									${dto.title}</div>
 									<div class="col-2 d-none d-md-block">${dto.formedDate}</div>
 								</div>
 								<script>
