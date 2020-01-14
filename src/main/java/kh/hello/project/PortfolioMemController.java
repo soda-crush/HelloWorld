@@ -140,6 +140,7 @@ public class PortfolioMemController {
 			odto.setId(mdto.getId());	
 			odto.setNickName(mdto.getNickName());
 			odto.setPoint(mdto.getPoint());
+			odto.setProfileImg(mdto.getProfileImg());
 			session.setAttribute("ownerInfo", odto);
 			return "redirect:toPlogmain.do";
 		}else {
