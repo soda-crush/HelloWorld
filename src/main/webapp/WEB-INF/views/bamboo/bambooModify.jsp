@@ -25,6 +25,11 @@ $(function() {
 	})
 })
 </script>
+<script>
+   $(function(){
+      $("#bambooNavi").attr('class','nav-item nav-link active');
+   });
+</script>
 <style>
 	#pageTitle{margin-bottom:20px;}
 	#pageTitle h1{display:inline;margin-right:10px;font-weight:bold;}
@@ -62,7 +67,7 @@ $(function() {
 				<input type="hidden" name="writer" value="${bPage.writer}">
              <input type="hidden" name="seq" value="${bPage.seq}"> 
 				<div class="col-11 title" >
-					<input type="text" id=title name=title style="width: 100%" value="${bPage.title}">
+					<input type="text" id=title name=title style="width: 100%" value="${bPage.title}" maxlength="100">
 				</div>
 			</div>
 			<div class=row>

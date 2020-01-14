@@ -21,7 +21,11 @@
 	type="text/css" />
 <link rel="stylesheet" href="/css/project/detailView.css"
 	type="text/css" />
-<script src="/js/project/projectCo.js"></script>
+<script>
+   $(function(){
+      $("#indusNavi").attr('class','nav-item nav-link active');
+   });
+</script>
 <style>
 .table {
 	background-color: white;
@@ -95,8 +99,10 @@
             		<div class="col-12 text-center">
         			<i class="fa fa-share-alt"></i><a class="btn btn-primary" href="#"
 						role="button">공유하기</a> <i class="fa fa-bookmark-o" id="scrap"
-						data-toggle="tooltip" title="스크랩"></i> <a class="btn btn-primary"
-						href="#" role="button">신고하기</a>
+						data-toggle="tooltip" title="스크랩"></i> 
+						<c:if test="${iPage.id != sessionScope.loginInfo.id}">
+						<button type="button" class="btn btn-primary" id="report">신고하기</button>
+						</c:if>
         	</div>
         	</div>
         	<div class="row">
@@ -109,7 +115,7 @@
 								<div class="col-12 commentInnerBox">
 									<div class="row commentHeader">
 
-										<div class="col-7 pt-1">
+										<div class="col-8 pt-1">
 											<div class="row commentInfo">
 												<div class="col-12 commentWriter">${c.writer }</div>
 												<div class="col-12 commentWriteDate">${c.formedWriteDate }</div>
@@ -140,7 +146,7 @@
 				
 				<div id="pCoInput" class="row">
             		<div class="col-10">
-            			<textarea style="width:100%;height:100%;" placeholder="댓글 입력" id="pCoContents"></textarea>
+            			<textarea style="width:100%;height:100%;" placeholder="댓글 입력" id="pCoContents" maxlength="1300"></textarea>
             		</div>
             		<div class="col-2">
             			<div class="row">
@@ -165,6 +171,8 @@
 				</div>
 			</div>
 	</div>
+	<jsp:include page="/WEB-INF/views/industry/jsp/reportModal.jsp"/>
+	<jsp:include page="/WEB-INF/views/industry/jsp/reportSuccessModal.jsp"/>
 	<jsp:include page="/WEB-INF/views/standard/footer.jsp" />
 
 	<script>
@@ -230,7 +238,7 @@
 				var html = [];
     			html.push(
     					'<div class="col-12 coModBox mt-2"><div class="row">',
-    					'<div class="col-9 col-md-10 col-xl-11 pr-0"><textarea class="form-control" placeholder="댓글 내용을 입력해주세요" id="pCoModContents" style="height:80px;" name="content">'+contents+'</textarea></div>',
+    					'<div class="col-9 col-md-10 col-xl-11 pr-0"><textarea maxlength="1300" class="form-control" placeholder="댓글 내용을 입력해주세요" id="pCoModContents" style="height:80px;" name="content">'+contents+'</textarea></div>',
     					'<div class="col-3 col-md-2 col-xl-1"><input type="hidden" name="seq" value="'+seq+'"><input type="hidden" name="indSeq" value="'+indSeq+'">',
     					'<div class="row">',
     					'<div class="col-12 text-center p-0">',
@@ -314,6 +322,54 @@
 					$(".pPageComments").append(html.join(""));	
            		}
 			}
+            //신고하기
+        	function popUp(link){
+    			window.open(link, "pLogPopUp", "width=600,height=600");
+    		}
+    		$("#report").on("click",function(){
+    			var check = "해당 게시물을 신고하시겠습니까?";
+    			if(check){
+    				$.ajax({
+    					url:"/industry/reportDuplCheck.do",
+    					type:"post",
+    					data:{seq : $("#iPageSeq").val()}
+    				}).done(function(resp){
+    					if(resp == 'dupl'){
+    						alert("해당 게시물을 이미 신고하셨습니다.");
+    					}else if(resp == 'possible'){
+    						$('#reportModal').modal('show');						
+    					}
+    				}).fail(function(resp){
+    					console.log("실패");
+    					console.log(resp);
+    				});
+    				return false;
+    			}
+    		});
+			
+    		$("#reportFrm").on("submit",function(){
+    			$("#reportReasonInput").val($.trim($("#reportReasonInput").val()));
+    			if($("#reportReasonInput").val()==""){
+    				alert("신고사유를 작성해주세요.");
+    				return false;
+    			}
+    			$.ajax({
+    				url:"/industry/report.do",
+    				type:"post",				
+    				data:$("#reportFrm").serialize()
+    			}).done(function(resp){
+    				$("#reportReasonInput").val("");
+    				$('#reportModal').modal('hide');
+    				$("#rSuccessModal").modal('show');				
+    			}).fail(function(resp){
+    				console.log(resp);
+    			});
+    			return false;
+    		});
+    		
+    		$("#reportCancelBtn").on("click",function(){
+    			$("#reportReasonInput").val("");
+    		});
         </script>
 </body>
 </html>

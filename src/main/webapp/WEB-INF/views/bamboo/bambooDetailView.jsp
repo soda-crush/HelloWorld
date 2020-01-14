@@ -17,11 +17,21 @@
 <link rel="stylesheet" href="/css/mainBase.css">
 <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.css"
 	type="text/css" />
+<link rel="stylesheet" href="/css/project/projectBase.css"
+	type="text/css" />
+<link rel="stylesheet" href="/css/project/detailView.css"
+	type="text/css" />
 <style>
 	#contentCon{
 		min-height: 450px;
 	}
 </style>
+
+<script>
+   $(function(){
+      $("#bambooNavi").attr('class','nav-item nav-link active');
+   });
+</script>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/standard/header.jsp" />
@@ -39,9 +49,18 @@
             		<div class="col-12"><h3><br>${bPage.title}</h3></div>
             	</div>
             	<div class=row>
-            		<input type="hidden" name="seq" value="${bPage.seq}">
+            		<input type="hidden" name="seq" value="${bPage.seq}" id=bPageSeq>
             		<input type="hidden" name="writer" value="${bPage.writer}">
-            		<div class="col-12"><hr>익명&emsp;${bPage.formedWriteDate}&emsp;${bPage.viewCount}<hr></div>
+            		<div class="col-12"><hr>
+            		<c:choose>
+            			<c:when test="${bPage.writer == sessionScope.loginInfo.id}">
+            			${sessionScope.loginInfo.nickName}
+            			</c:when>
+            			<c:otherwise>
+            			익명
+            			</c:otherwise>
+            		</c:choose>
+            		&emsp;${bPage.formedWriteDate}&emsp;${bPage.viewCount}<hr></div>
             	</div>
             	<div class="row">
             		<div class="col-12" id=contentCon>${bPage.content}</div>
@@ -65,7 +84,9 @@
         			<a class="btn btn-primary" href="/bamboo/kakao.do" role="button">공유하기</a><i
 					class="fa fa-share-alt"></i>
 				<!-- 		     <a class="sbtn btn-primary" href="#" role="button">스크랩</a> -->
-				<a class="btn btn-primary" href="#" role="button">신고하기</a>
+				<c:if test="${bPage.writer != sessionScope.loginInfo.id}">
+				<button type="button" class="btn btn-primary" id="report">신고하기</button>
+				</c:if>
         	</div>
         	</div>
       
@@ -78,10 +99,19 @@
 						<div class="row commentDiv commentBox${c.seq } p-0 pb-2 m-2">
 							<div class="col-12 commentInnerBox">
 								<div class="row commentHeader">
-									<div class="col-7 pt-1">
+									<div class="col-8 pt-1">
 										<div class="row commentInfo">
 											<input type="hidden" name="writer" value="${c.writer}">
-											<div class="col-12 commentWriter">익명</div>
+											<div class="col-12 commentWriter">
+												<c:choose>
+            									<c:when test="${bPage.writer == sessionScope.loginInfo.id}">
+            									${sessionScope.loginInfo.nickName}
+            									</c:when>
+            									<c:otherwise>
+            									익명
+            									</c:otherwise>
+            									</c:choose>
+											</div>
 											<div class="col-12 commentWriteDate">${c.formedWriteDate  }</div>
 										</div>
 									</div>
@@ -110,7 +140,7 @@
    	
             	<div id="pCoInput" class="row">
             		<div class="col-10">
-            			<textarea style="width:100%;height:100%;" placeholder="댓글 입력" id="pCoContents"></textarea>
+            			<textarea style="width:100%;height:100%;" placeholder="댓글 입력" id="pCoContents" maxlength="1300"></textarea>
             		</div>
             		<div class="col-2">
             			<div class="row">
@@ -135,7 +165,10 @@
 			</div>
 		</div>
 	</div>
-
+	
+	
+	<jsp:include page="/WEB-INF/views/bamboo/jsp/reportModal.jsp"/>
+	<jsp:include page="/WEB-INF/views/bamboo/jsp/reportSuccessModal.jsp"/>
 	<jsp:include page="/WEB-INF/views/standard/footer.jsp" />
 
 	<script>
@@ -176,7 +209,7 @@
 				var html = [];
     			html.push(
     					'<div class="col-12 coModBox mt-2"><div class="row">',
-    					'<div class="col-9 col-md-10 col-xl-11 pr-0"><textarea class="form-control" placeholder="댓글 내용을 입력해주세요" id="pCoModContents" style="height:80px;" name="content">'+contents+'</textarea></div>',
+    					'<div class="col-9 col-md-10 col-xl-11 pr-0"><textarea maxlength="1300" class="form-control" placeholder="댓글 내용을 입력해주세요" id="pCoModContents" style="height:80px;" name="content">'+contents+'</textarea></div>',
     					'<div class="col-3 col-md-2 col-xl-1"><input type="hidden" name="seq" value="'+seq+'"><input type="hidden" name="bamSeq" value="'+bamSeq+'">',
     					'<div class="row">',
     					'<div class="col-12 text-center p-0">',
@@ -241,12 +274,25 @@
 					var html = [];
 					html.push(
 							'<div class="row commentDiv commentBox'+resp[i].seq+' p-0 pb-2 m-2"><div class="col-12 commentInnerBox"><div class="row commentHeader">',
-							'<div class="col-7 pt-1"><div class="row commentInfo">',
+							'<div class="col-8 pt-1"><div class="row commentInfo">',
 							'<input type="hidden" name="writer" value='+resp[i].writer+'>',
-							'<div class="col-12 commentWriter">익명</div>',
-							'<div class="col-12 commentWriteDate">'+resp[i].formedWriteDate+'</div></div></div>',
-							'<div class="col-4 pt-2 text-right commentBtns">'
+							'<div class="col-12 commentWriter">',
 							);
+					if(resp[i].writer==loginInfo){
+					html.push(
+								"${sessionScope.loginInfo.nickName}"
+								);	
+					}
+					if(resp[i].writer!=loginInfo){
+						html.push(
+									익명
+									);	
+						}
+					html.push(
+							'</div>',
+							'<div class="col-12 commentWriteDate">'+resp[i].formedWriteDate+'</div></div></div>',
+							'<div class="col-4 pt-2 text-right commentBtns">'		
+					);
 					if(resp[i].writer==loginInfo){
 					html.push(
 								'<a class="btn btn-info coModBtn" href="/bamboo/comment/modifyProc.do?seq='+resp[i].seq+'&bamSeq='+resp[i].bamSeq+'" onclick="coModFunction('+resp[i].seq+',\''+resp[i].content+'\','+resp[i].bamSeq+');return false;" role="button">수정</a>\n',
@@ -260,6 +306,59 @@
 					$(".pPageComments").append(html.join(""));	
            		}
 			}
+//            	$("#report").on("click",function(){
+//            		function popUp(link){
+//                     window.open(link, "popUp", "width=600,height=600");
+//                  }
+//            	})
+           	function popUp(link){
+			window.open(link, "pLogPopUp", "width=600,height=600");
+		}
+		$("#report").on("click",function(){
+			var check = "해당 게시물을 신고하시겠습니까?";
+			if(check){
+				$.ajax({
+					url:"/bamboo/reportDuplCheck.do",
+					type:"post",
+					data:{seq : $("#bPageSeq").val()}
+				}).done(function(resp){
+					if(resp == 'dupl'){
+						alert("해당 게시물을 이미 신고하셨습니다.");
+					}else if(resp == 'possible'){
+						$('#reportModal').modal('show');						
+					}
+				}).fail(function(resp){
+					console.log("실패");
+					console.log(resp);
+				});
+				return false;
+			}
+		});
+
+		$("#reportFrm").on("submit",function(){
+			$("#reportReasonInput").val($.trim($("#reportReasonInput").val()));
+			if($("#reportReasonInput").val()==""){
+				alert("신고사유를 작성해주세요.");
+				return false;
+			}
+			$.ajax({
+				url:"/bamboo/report.do",
+				type:"post",				
+				data:$("#reportFrm").serialize()
+			}).done(function(resp){
+				$("#reportReasonInput").val("");
+				$('#reportModal').modal('hide');
+				$("#rSuccessModal").modal('show');				
+			}).fail(function(resp){
+				console.log(resp);
+			});
+			return false;
+		});
+		
+		$("#reportCancelBtn").on("click",function(){
+			$("#reportReasonInput").val("");
+		});
+           
         </script>
 </body>
 </html>

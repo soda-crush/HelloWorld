@@ -49,15 +49,28 @@
 		</choose>
 	</select>
 	
+<!-- 	<select id="bambooSearchByPage" resultType="kh.hello.dto.BambooDTO" parameterType="java.util.Map"> -->
+<!-- 		select *  -->
+<!-- 		<choose> -->
+<!-- 		 <when test="value == 'all'">								 -->
+<!-- 			 from (select bamboo.*, row_number() over (order by seq desc) as rown from bamboo where (title like '%${search}%') or (content like '%${search}%')) where rown between #{start} and #{end} -->
+			 
+<!-- 		</when> -->
+<!-- 		<when test="value == 'title'">								 -->
+<!-- 			 from (select bamboo.*, row_number() over (order by seq desc) as rown from bamboo where (title like '%${search}%')) where rown between #{start} and #{end} -->
+<!-- 		</when> -->
+<!-- 		</choose> -->
+<!-- 	</select> -->
+	
 	<select id="bambooSearchByPage" resultType="kh.hello.dto.BambooDTO" parameterType="java.util.Map">
 		select * 
 		<choose>
 		 <when test="value == 'all'">								
-			 from (select bamboo.*, row_number() over (order by seq desc) as rown from bamboo where (title like '%${search}%') or (content like '%${search}%')) where rown between #{start} and #{end}
+			 from (select bamboo.*, row_number() over (order by seq desc) as rown, (select count(*) from bambooComments where bamSeq=bamboo.seq) as commentCount from bamboo where (title like '%${search}%') or (content like '%${search}%')) where rown between #{start} and #{end}
 			 
 		</when>
 		<when test="value == 'title'">								
-			 from (select bamboo.*, row_number() over (order by seq desc) as rown from bamboo where (title like '%${search}%')) where rown between #{start} and #{end}
+			 from (select bamboo.*, row_number() over (order by seq desc) as rown, (select count(*) from bambooComments where bamSeq=bamboo.seq) as commentCount from bamboo where (title like '%${search}%')) where rown between #{start} and #{end}
 		</when>
 		</choose>
 	</select>
@@ -77,5 +90,24 @@
 	
 	<update id="deleteWritePoint" parameterType="String">
 		update member set point=point-15 where id=#{writer}
+	</update>
+	
+<!-- 	신고하기 -->
+<!-- 	<select id="reportDupCheck" parameterType="java.util.Map"> -->
+<!-- 		select seq from reportBoard where id=#{id}, boardSeq=#{seq} -->
+<!-- 	</select> -->
+<!-- 	<insert id="report" parameterType="java.util.Map"> -->
+<!-- 		insert into reportedBoard values(reportedBoardSeq.nextval, 'N', Bamboo, #{seq}, #{title},  #{id}, #{nickName}, sysdate, #{reason}, '') -->
+<!-- 	</insert> -->
+	
+	<select id="reportDuplCheck" resultType="integer" parameterType="java.util.Map">
+		select count(*) from reportedBoard where reporterID=#{id} and boardName='Bamboo' and boardSeq=#{seq}
+	</select>
+	<insert id="insertReport" parameterType="kh.hello.dto.ReportDTO">
+		insert into reportedBoard values(reportedBoardSeq.nextval, 'N', 'Bamboo', #{boardSeq}, #{title}, #{reporterNick}, #{reporterID} , sysdate, #{reason}, null)
+	</insert>
+<!-- 	포인트 -면 강등 -->
+	<update id="downLevel">
+		update member set memlevel=1 where <![CDATA[point<0]]>
 	</update>
 </mapper>

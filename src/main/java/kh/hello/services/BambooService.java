@@ -20,6 +20,8 @@ import kh.hello.configuration.Configuration;
 import kh.hello.dao.BambooDAO;
 import kh.hello.dto.BambooCoDTO;
 import kh.hello.dto.BambooDTO;
+import kh.hello.dto.LoginInfoDTO;
+import kh.hello.dto.ReportDTO;
 
 @Service
 public class BambooService {
@@ -51,6 +53,7 @@ public class BambooService {
 	public int bambooDeleteConfirm(int seq,String writer) {
 		dao.deleteBambooAllCo(seq);
 		dao.deleteWritePoint(writer);
+		dao.downLevel();
 		return dao.deleteBamboo(seq);
 	}
 
@@ -141,6 +144,7 @@ public class BambooService {
 	public String commentDeleteConfirm(BambooCoDTO dto, String writer) {
 		dao.deleteBambooCo(dto.getSeq());
 		dao.deleteWritePoint(writer);
+		dao.downLevel();
 		Gson gson = new Gson();
 		List<BambooCoDTO> result = dao.getCoList(dto.getBamSeq());	
 		for(BambooCoDTO b : result) {
@@ -255,7 +259,32 @@ public class BambooService {
 		return dao.insertBamboo(dto);
 	}
 	//글쓰기 누를 때 실무자 유무 검사
-		public int getMemLevel(String id) {
-			return dao.getMemLevel(id);
-		}
+	public int getMemLevel(String id) {
+		return dao.getMemLevel(id);
+	}
+	//신고하기
+//	@Transactional("txManager")
+//	public String report (BambooDTO bamDto, String reason, LoginInfoDTO loginDto) {
+//		//중복검사
+//		int reportDupResult = dao.reportDupCheck(bamDto.getSeq(), loginDto.getId());
+//		if(reportDupResult > 0) {
+//			//중복
+//			return "dupl";
+//		}else {
+//			int scrapResult = dao.report(bamDto, reason, loginDto);
+//			if(scrapResult > 0) {
+//				return "success";
+//			}else {
+//				return "fail";
+//			}
+//		}
+//	}
+	
+//	게시글신고
+	public int reportDuplCheck(String id, int seq) {
+		return dao.reportDuplCheck(id, seq);
+	}
+	public int reportProject(ReportDTO dto) {
+		return dao.insertReport(dto);					
+	}
 }

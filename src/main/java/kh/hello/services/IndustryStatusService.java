@@ -21,6 +21,7 @@ import kh.hello.dao.IndustryStatusDAO;
 import kh.hello.dto.IndustryStatusCoDTO;
 import kh.hello.dto.IndustryStatusDTO;
 import kh.hello.dto.MemberDTO;
+import kh.hello.dto.ReportDTO;
 import kh.hello.dto.ScrapDTO;
 
 @Service
@@ -51,6 +52,7 @@ public class IndustryStatusService {
 	public int industryStatusDeleteConfirm(int seq, String id) {
 		dao.deleteIndustryStatusAllCo(seq);
 		dao.deleteWritePoint(id);
+		dao.downLevel();
 		return dao.deleteIndustryStatus(seq);
 	}
 
@@ -141,6 +143,7 @@ public class IndustryStatusService {
 	public String commentDeleteConfirm(IndustryStatusCoDTO dto) {
 		dao.deleteIndustryStatusCo(dto.getSeq());
 		dao.deleteWritePoint(dto.getId());
+		dao.downLevel();
 		Gson gson = new Gson();
 		List<IndustryStatusCoDTO> result = dao.getCoList(dto.getIndSeq());
 		for(IndustryStatusCoDTO i : result) {
@@ -273,5 +276,13 @@ public class IndustryStatusService {
 				return "fail";
 			}
 		}
+	}
+	
+//	게시글신고
+	public int reportDuplCheck(String id, int seq) {
+		return dao.reportDuplCheck(id, seq);
+	}
+	public int reportProject(ReportDTO dto) {
+		return dao.insertReport(dto);					
 	}
 }

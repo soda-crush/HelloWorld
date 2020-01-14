@@ -28,6 +28,11 @@
 		})
 	})
 </script>
+<script>
+   $(function(){
+      $("#bambooNavi").attr('class','nav-item nav-link active');
+   });
+</script>
 <style>
 	#pageTitle{margin-bottom:20px;}
 	#pageTitle h1{display:inline;margin-right:10px;font-weight:bold;}
@@ -66,7 +71,7 @@
 					<h4>제목</h4>
 				</div>
 				<div class="col-11 title" >
-					<input type="text" name=title style="width: 100%">
+					<input type="text" name=title style="width: 100%" maxlength="100">
 				</div>
 			</div>
 				<div class=row>

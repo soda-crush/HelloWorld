@@ -12,24 +12,42 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/css/mainBase.css">
+<link rel="stylesheet" type="text/css" href="/css/font-awesome/css/font-awesome.css">
 <link rel="stylesheet" href="/css/project/projectBase.css" type="text/css"/>
+<link rel="stylesheet" href="/css/project/list.css" type="text/css"/>
 <style>
-	#pageTitle{margin-bottom:20px;}
-	#pageTitle h1{display:inline;margin-right:10px;font-weight:bold;}
-	#pageTitle .btn{margin-left:5px;}
-	.table{background-color:white;padding:0;text-align:center;}	
-	.table tbody *{font-weight:normal;}
-	.table tbody td:nth-child(2){font-weight:bold;}
-	.table tbody td:nth-child(3){text-align:center;cursor:pointer;}
-	.table tbody .N{color:limegreen;}
-	.table tbody .Y{color:red;}
-	.pComment{margin-left:3px;font-size:13px;color:orange;}
-	a:hover{text-decoration:none;}
+/* 	#pageTitle{margin-bottom:20px;} */
+/* 	#pageTitle h1{display:inline;margin-right:10px;font-weight:bold;} */
+/* 	#pageTitle .btn{margin-left:5px;} */
+/* 	.pComment{margin-left:3px;font-size:13px;color:orange;} */
+/* 	a:hover{text-decoration:none;} */
+	
+	
+/* 	.pageNavi{ */
+/* 		text-align:center; */
+/* 	} */
+/* 	#titleForCss a{ */
+/* 		color:black; */
+/* 		font-size: 17px; */
+/* 	} */
+/* 	.notTitle{ */
+/* 		color:gray; */
+/* 		font-size: 15px; */
+/* 		text-align: center; */
+/* 	} */
+/* 	.tableHead{ */
+/* 		background-color:#499ed6; */
+/* 		color:white; */
+/* 	} */
 </style>
+<script>
+   $(function(){
+      $("#bambooNavi").attr('class','nav-item nav-link active');
+   });
+</script>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/standard/header.jsp"/>
-	
  		<div id=baseBackgroundColor>
             <div class=container>
                 <div class=row>
@@ -39,101 +57,98 @@
             </div>
             
             <!--      몸통 시작!!!   -->
-            <div class=container id="projectPage" style="background-color:white">
+            <div class=container id="projectPage">
+       
 				<div class=row>
-					<div class="col-12 d-none d-md-block">
-						<div id="pageTitle">
-							<table>
-								<tr>
-									<td colspan="3" style="font-size: 60px; font-weight: 100; vertical-align: text-bottom"">대나무숲</td>
-									<td></td>
-									<td style="font-size: 15px; color: gray; vertical-align: text-bottom"">     자유롭게 익명으로 글을 남기는 게시판입니다.</td>
-									<td></td>
-								</tr>
-							</table>
-						</div>	
+				<div class="col-12 d-none d-md-block">
+					<div id="pageTitle">
+						<table>
+							<tr>
+								<td colspan="3" style="font-size: 60px; font-weight: 100; vertical-align: text-bottom">대나무숲</td>
+								<td></td>
+								<td style="font-size: 15px; color: gray; vertical-align: text-bottom">     자유롭게 익명으로 글을 남기는 게시판입니다.</td>
+								<td></td>
+							</tr>
+						</table>
 					</div>
-				</div>	
-				<div class=row>
+				</div>
+			</div>
+			<div class=row>
 				<div class="d-md-none">
 					<div style="font-size: 60px; font-weight: 100;">대나무숲</div>
 					<div style="font-size: 15px; color: gray;">자유롭게 익명으로 글을 남기는 게시판입니다.</div>
 				</div>
-			</div>		
-				<table class="table table-hover">
-				  <thead class="thead-light">
-				    <tr>
-				      <th scope="col">글번호</th>
-				      <th scope="col">제목</th>
-				      <th scope="col">작성자</th>
-				      <th scope="col">작성일</th>
-				      <th scope="col">조회수</th>
-				    </tr>
-				  </thead>
-				  <tbody>
-				  	<c:choose>
+			</div>
+           
+           		<div class="tableDiv">
+            	   	 <div class="row tableHead">					    
+		   			 	<div class="col-xl-1 d-none d-xl-block">번호</div>
+				   	 	<div class="col-xl-6 col-8 col-md-5">제목</div>
+				   	 	<div class="col-xl-2 col-2 col-md-1">작성자</div>
+				    	 <div class="col-xl-2 col-2 col-md-2 col-lg-1">작성일</div>
+				  	 	<div class="col-xl-1 col-md-4 d-none d-md-block">조회수</div>		
+				  	 </div>
+          	    	 <c:choose>
 				  		<c:when test="${bambooList.size()==0 }">
-				  		<tr><td colspan="8">작성된 글이 없습니다.</td></tr>
+				  			<div class="row tableBodyNull"><div class="col-12">작성된 글이 없습니다.</div></div>
 				  		</c:when>
 				  		<c:otherwise>
 				  			<c:forEach items="${bambooList }" var="b">
-				  				<tr>
-				  					<th scope="row">${b.seq }</th>
-				  					<td><a href="/bamboo/bambooDetailView.do?seq=${b.seq }">
-				  					<div style="width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${b.title }</div>
+				  				<div class="row tableBody p-0">
+				  					<div class="col-md-1 d-none d-md-block order-md-1 notTitle">${b.seq }</div>
+				  					<div class="col-12 col-md-6 order-1 order-md-2" id=titleForCss>
+				  						<div class="row">
+				  						<div style="width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;">
+				  							<a href="/bamboo/bambooDetailView.do?seq=${b.seq }" style="font-weight:bold;">${b.title}</a>			
+				  						</div>
 				  						<c:if test="${b.commentCount>0 }">
-				  							<span class="pComment font-weight-bold">${b.commentCount }</span>
+				  								<div class="pComment font-weight-bold ml-2" style="display:inline-block;">${b.commentCount }</div>
+				  							
 				  						</c:if>
-				  						<span class="badge badge-pill badge-danger">${b.newWriteDate}</span>
-				  						</a>
-				  					</td>
-				  					<td>익명</td>
-				  					<td>${b.formedWriteDate }</td>
-				  					<td>${b.viewCount }</td>
-				  				</tr>
+				  						</div>		
+				  						
+				  					</div>
+				  					<div class="col-2 col-md-2 order-2 order-md-3 notTitle text-center">
+				  					<c:choose>
+            							<c:when test="${b.writer == sessionScope.loginInfo.id}">
+            								${sessionScope.loginInfo.nickName}
+            							</c:when>
+            							<c:otherwise>
+            								익명
+            							</c:otherwise>
+            						</c:choose>
+				  					</div>	
+				  					<div class="col-2 col-md-2 order-3 order-md-4 notTitle">${b.formedWriteDate }</div>
+				  					<div class="col-1 col-md-1 order-4 order-md-5 notTitle">${b.viewCount }</div>
+				  					<div class="col-7 order-5 d-md-none"></div>	
+				  				</div>
 				  			</c:forEach>
 				  		</c:otherwise>
-				  	</c:choose>				    
-				  </tbody>
-				</table>
-				<div class="text-left">
-					<form action="/bamboo/bambooSearch.do" method="post">
-					<select name=value>
+				  	</c:choose>
+          	    </div>
+    			<div class="row pageListFooter">
+    			<div class="col-6">
+					<form class="form-inline" action="/bamboo/bambooSearch.do" method="post">
+					<select name=value class="form-control searchSelect" id="searchOption" style="margin-right:5px;">
 						<option value="all">전체(제목+내용)</option>
 						<option value="title">제목</option>
 					</select>
-					<input type="text" name=search>
-					<input type="button" id=search value="검색">
+					<input class="form-control mr-sm-2" type="text" name=search aria-label="Search" maxlength="100">
+					<input class="btn btn-dark my-2 my-sm-0" type="button" id=search value="검색">
 					</form>
 				</div>
-				<div class="text-right">
+				
+				<div class="col-6 text-right">
 					<button type="button" class="btn btn-primary" id="write">글쓰기</button>					
 				</div>
-				<nav aria-label="List navi">
-					<ul class="pagination justify-content-center">
-						
+				</div>
+    			<nav aria-label="List navi">
+					<ul class="pagination justify-content-center">				
 						<c:forEach items="${pageNavi}" var="navi">									
 							<li id="page-navi" class="page-item pageNavi">${navi}</li>
-						</c:forEach>
-						
+						</c:forEach>		
 					</ul>
 				</nav>
-<!-- 				    <div class="card"> -->
-<!--                             <div class="card-body"> -->
-<!--                                 <nav aria-label="Page navigation example"> -->
-<!--                                     <ul class="pagination justify-content-center"> -->
-<%--                                     	<c:choose> --%>
-<%--                                     		<c:when test="${pageNavi.size() > 0}"> --%>
-<%-- 												<c:forEach items="${pageNavi}" var="navi">									 --%>
-<%-- 													<li class="page-item pageNavi">${navi}</li> --%>
-<%-- 												</c:forEach>                                    		 --%>
-<%--                                     		</c:when> --%>
-<%--                                     	</c:choose>  --%>
-<!--                                     </ul> -->
-<!--                                 </nav> -->
-<!--                             </div> -->
-<!--                         </div> -->
-				
             </div>
             <!--       몸통 끝!!!   -->
             
@@ -186,16 +201,5 @@
 			element[page % 10].classList.add('active');
 		}	
 		});
-// 		if("${pageNavi.size() > 0}"){
-// 		var element = $(".pageNavi");
-// 		var page = "${cpage}";
-// 		if(page > 0 && page <= 10){
-// 			element[page-1].classList.add('active');
-// 		}else if(page % 10 == 0){
-// 			element[10].classList.add('active');
-// 		}else{
-// 			element[page % 10].classList.add('active');
-// 		}			
-// 	}
 	</script>
 </html>
