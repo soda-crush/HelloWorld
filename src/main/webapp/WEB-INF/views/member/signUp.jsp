@@ -160,7 +160,7 @@
              <div class=row>
             	<div class=col-12>
             		<h5><img src="/icon/doubleArrow.svg" class=arrow>개인정보 공개여부</h5>
-            		&emsp;Programming Log(포트폴리오, Ko-How, 프로젝트 참여현황)를 타인이 열람하는 것에 동의합니다.<br>
+            		&emsp;Programming Log(포트폴리오, 프로젝트 참여현황, 방명록)를 타인이 열람하는 것에 동의합니다.<br>
             		&emsp;비동의 하실경우 Programmming Log에서 프로필 정보만 공개됩니다.<br>
             		&emsp;동의합니다.<input type="checkbox" name="ifmOpenCheck" id="ifmOpenCheck" value="Y">
             		<input type="checkbox" name="ifmOpenCheck" id="ifmOpenCheckNone" value="N" style="display:none">
