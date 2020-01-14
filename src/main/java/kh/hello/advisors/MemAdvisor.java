@@ -24,18 +24,21 @@ public class MemAdvisor {
 
 		if(dto == null) {
 			String oriMethod = pjp.toShortString();
-			Pattern p = Pattern.compile("execution\\(.+Controller.(.+)\\(..\\)\\)");
+			Pattern p = Pattern.compile("execution\\(.+Controller.(.+?)\\(..\\)\\)");
 			Matcher m = p.matcher(oriMethod);
 
 			String getSig =  pjp.getSignature().toString();
-			Pattern p2 = Pattern.compile(".+\\((.+)(,.*){0,100}\\)");
+			Pattern p2 = Pattern.compile(".+\\((.+?)(,.*){0,100}\\)");
 			Matcher m2 = p2.matcher(getSig);
+			System.out.println("oriMethod : " + oriMethod);
+			System.out.println("getSig : " + getSig);
 			
 			while(m.find()){
 				while(m2.find()) {
 				String sysMethod = m.group(1).toString();
-				
 				String sysFirstParam = m2.group(1).toString();
+				System.out.println("sysMethod : " + sysMethod);
+				System.out.println("sysFirstParam : " + sysFirstParam);
 				
 				if(sysFirstParam.contentEquals("String")) {
 					return "redirect:../member/noMem1?result="+sysMethod;
@@ -53,6 +56,7 @@ public class MemAdvisor {
 		try {
 			result = pjp.proceed(pjp.getArgs()).toString();
 		} catch (Throwable e) {
+			System.out.println("엥 이거 나오면 안돼");
 			e.printStackTrace();
 		}
 		return result;

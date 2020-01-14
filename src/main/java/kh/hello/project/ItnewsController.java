@@ -41,10 +41,11 @@ public class ItnewsController {
 				int start = end - (Configuration.recordCountPerPage - 1);	
 				
 				List<ItnewsDTO> list = is.itnewsListTrim(start, end);
-					m.addAttribute("list", list);
+				m.addAttribute("list", list);
 					
-					String pageNavi = is.getPageNavi(realCpage);
-					m.addAttribute("navi", pageNavi);
+				String pageNavi = is.getPageNavi(realCpage);
+				m.addAttribute("navi", pageNavi);
+				
 				
 				m.addAttribute("page", realCpage);
 				

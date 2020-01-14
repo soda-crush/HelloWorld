@@ -156,7 +156,7 @@ font-size: 11px;}
             			<c:forEach items="${proList}" var="pro">
             			<c:set var="sum" value="${sum+1}"/>
             				<div class="col-3 projectCon">
-		            			<div class="projectEle text-center" id="projectEle${sum}"  data-aos="fade-up">
+		            			<div class="projectEle text-center cursorPointer" id="projectEle${sum}"  data-aos="fade-up">
 		            			<br>
 		            				<h4>"${pro.languages}"</h4>
 		            				<br>
