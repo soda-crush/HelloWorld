@@ -18,6 +18,11 @@
 <link rel="stylesheet" href="/css/project/projectBase.css" type="text/css"/>
 <link rel="stylesheet" href="/css/project/detailView.css" type="text/css"/>
 <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.css" type="text/css"/>
+<script>
+   $(function(){
+      $("#proNavi").attr('class','nav-item nav-link active');
+   });
+</script>
 </head>
 
 <body>
@@ -183,7 +188,7 @@
 				
 				<div id="pageFooter">
 					<c:if test="${pPage.id != sessionScope.loginInfo.id}">
-						<span><a class="btn btn-danger" href="#" role="button">게시글 신고</a></span>
+						<span><button type="button" class="btn btn-danger" id="pReportBtn">게시글 신고</button></span>
 					</c:if>
 					<span class="float-right">
 						<c:if test="${pPage.id == sessionScope.loginInfo.id}">
@@ -207,9 +212,55 @@
 		              
         <jsp:include page="/WEB-INF/views/project/jsp/applyModal.jsp"/>        
 		<jsp:include page="/WEB-INF/views/project/jsp/applyConfirmModal.jsp"/>
+		<jsp:include page="/WEB-INF/views/project/jsp/reportModal.jsp"/>
+		<jsp:include page="/WEB-INF/views/project/jsp/reportSuccessModal.jsp"/>
 		<jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
 		
 		<script>
+		$("#pReportBtn").on("click",function(){
+			var check = "해당 게시물을 신고하시겠습니까?";
+			if(check){
+				$.ajax({
+					url:"/project/reportDuplCheck",
+					type:"post",
+					data:{seq : $("#pageSeq").val()}
+				}).done(function(resp){
+					if(resp == 'dupl'){
+						alert("해당 게시물을 이미 신고하셨습니다.");
+					}else if(resp == 'possible'){
+						$('#reportModal').modal('show');						
+					}
+				}).fail(function(resp){
+					console.log("실패");
+					console.log(resp);
+				});
+				return false;
+			}
+		});
+
+		$("#reportFrm").on("submit",function(){
+			$("#reportReasonInput").val($.trim($("#reportReasonInput").val()));
+			if($("#reportReasonInput").val()==""){
+				alert("신고사유를 작성해주세요.");
+				return false;
+			}
+			$.ajax({
+				url:"/project/report",
+				type:"post",				
+				data:$("#reportFrm").serialize()
+			}).done(function(resp){
+				$("#reportReasonInput").val("");
+				$('#reportModal').modal('hide');
+				$("#rSuccessModal").modal('show');				
+			}).fail(function(resp){
+				console.log(resp);
+			});
+			return false;
+		});
+		
+		$("#reportCancelBtn").on("click",function(){
+			$("#reportReasonInput").val("");
+		});
 		function coReplyFunction(seq){
 			console.log("확인");
 			if($("#pCoReplyInput").length>0){
@@ -306,8 +357,7 @@
 			});
 		});
 		$("#applyCheckBtn").on("click",function(){
-// 			location.href="/project/applyCheck?projectSeq="+$("#pageSeq").val();
-			window.open("/project/applyCheck?projectSeq="+$("#pageSeq").val(), "applyListPopUp", "width=1000,height=600,scrollbars=no, resizable=no, toolbars=no, menubar=no");
+			window.open("/project/applyCheck?projectSeq="+$("#pageSeq").val(), "applyListPopUp", "width=1000,height=750,scrollbars=no, resizable=no, toolbars=no, menubar=no");
 		});
 		
 //		var loginInfo = $("#sessionId");
@@ -471,19 +521,22 @@
 					url:"/project/apply/writeProc",
 					data:$("#applyFrm").serialize()
 				}).done(function(resp){
-					console.log("성공");
-					console.log(resp);
 					$('#pApplyConfirmModal').modal('show');
 					$(".pApplyInput").children('input').val("");
-					$(".bootstrap-tagsinput").children('.label-info').remove();
 					$(".pApplyInput").children('select').val("");
+					$("#etc").val("");
+					$(".bootstrap-tagsinput").children('.label-info').remove();					
 					$('#pApplyModal').modal('hide');
 				}).fail(function(resp){
-					console.log("실패");
-					console.log(resp);
 					alert("신청 실패!");
 				});
 				return false;				
+			});
+			$("#applyCancelBtn").on("click",function(){
+				$(".pApplyInput").children('input').val("");
+				$(".pApplyInput").children('select').val("");
+				$("#etc").val("");
+				$(".bootstrap-tagsinput").children('.label-info').remove();				
 			});
 			
 			$("#applyConfirmCheckBtn").on("click",function(){

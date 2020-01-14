@@ -23,6 +23,11 @@
 <script src="https://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
 <link rel="stylesheet" href="https://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.css">
 <link rel="stylesheet" href="https://bootstrap-tagsinput.github.io/bootstrap-tagsinput/examples/assets/app.css">
+<script>
+   $(function(){
+      $("#proNavi").attr('class','nav-item nav-link active');
+   });
+</script>
 </head>
 
 <body>

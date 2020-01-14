@@ -14,6 +14,11 @@
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <link rel="stylesheet" href="/css/project/projectBase.css" type="text/css"/>
 <link rel="stylesheet" href="/css/project/chart.css" type="text/css"/>
+<script>
+   $(function(){
+      $("#proNavi").attr('class','nav-item nav-link active');
+   });
+</script>
 <style>
 	.google-visualization-tooltip { width:300px;}
 	rect {stroke-width: 0;}
