@@ -28,12 +28,11 @@ public class MemAdvisor {
 			Matcher m = p.matcher(oriMethod);
 
 			String getSig =  pjp.getSignature().toString();
-			Pattern p2 = Pattern.compile(".+\\((.+),.+\\)");
+			Pattern p2 = Pattern.compile(".+\\((.+)(,.*){0,100}\\)");
 			Matcher m2 = p2.matcher(getSig);
 			
 			while(m.find()){
 				while(m2.find()) {
-					
 				String sysMethod = m.group(1).toString();
 				
 				String sysFirstParam = m2.group(1).toString();
@@ -50,7 +49,6 @@ public class MemAdvisor {
 			}
 		}
 		
-		
 		String result = "";
 		try {
 			result = pjp.proceed(pjp.getArgs()).toString();
@@ -59,5 +57,6 @@ public class MemAdvisor {
 		}
 		return result;
 	}
+	
 	
 }

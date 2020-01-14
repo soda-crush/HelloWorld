@@ -48,7 +48,8 @@ public class MemberController {
 	public String loginProc(String id, String pw, HttpSession session, String noMemPath, String seq){ //로그인 프로세스
 			int result = ms.login(id, pw);
 			if(result > 0) {
-				session.setAttribute("loginInfo", new LoginInfoDTO(id, ms.selectMember(id).getNickName(), ms.selectMember(id).getMemLevel()));
+				LoginInfoDTO dto = new LoginInfoDTO(id, ms.selectMember(id).getNickName(), ms.selectMember(id).getMemLevel());
+				session.setAttribute("loginInfo", dto);
 				ms.updateLastLogin(id);
 				if((seq==null)||(seq=="")){
 					if(noMemPath.contentEquals("projectMainList")){
@@ -59,7 +60,7 @@ public class MemberController {
 						return "redirect:../industry/industryStatusList.do";
 					}else if(noMemPath.contentEquals("toPlog")){
 						//수정 필요
-						return "redirect:../plog/toPlog.do?owner="+((LoginInfoDTO)session.getAttribute("loginInfo")).getId();
+						return "redirect:../Portfolio/toPlog.do?owner="+((LoginInfoDTO)session.getAttribute("loginInfo")).getId();
 					}else {
 						return "redirect:/";
 					}
