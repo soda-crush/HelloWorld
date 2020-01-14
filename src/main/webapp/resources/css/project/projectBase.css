@@ -101,8 +101,13 @@ color:#787878;
    font-size: 17px !important;
    line-height: 28px;
 }
-
 .navbar {
    padding: 0px;
+}
+#loginCon p {
+   color: #787878;
+}
+.cursorPointer:hover {
+   cursor: pointer;
 }
 /* autocomplete tagsinput*/

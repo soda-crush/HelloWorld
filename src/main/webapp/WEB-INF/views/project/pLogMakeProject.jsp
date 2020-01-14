@@ -27,10 +27,11 @@
 				<div class="tableDiv" style="width:100%;">
 					<div class="row tableHead">					    
 					    <div class="col-1 pl-2">상태</div>
+					    <div class="col-1">신청내역</div>
 					    <div class="col-1">총신청</div>
 						<div class="col-1">승인</div>
 					    <div class="col-3">기간</div>
-					    <div class="col-4">제목</div>					    
+					    <div class="col-3">제목</div>					    
 					    <div class="col-1">작성일</div>	
 					    <div class="col-1">조회</div>				    					    
 					</div>
@@ -43,10 +44,11 @@
 				  			<c:forEach items="${makeProjectList }" var="m">
 				  				<div class="row makeTableBody tableBody p-0">
 									<div class="col-1 pl-2 state${m.state }">${m.stateInKor }</div>
-									<div class="col-1">${m.totalApply } <small class="text-secondary">명</small></div>
+									<div class="col-1"><button type="button" class="btn btn-outline-warning btn-sm mb-1" onclick="popUp('/project/applyCheck?projectSeq=${m.seq }')">신청목록</button></div>
+									<div class="col-1">${m.totalApply } <small class="text-secondary">명</small></div>									
 									<div class="col-1"><strong class="capaCheck achieve<fmt:parseNumber integerOnly= "true" value= "${m.totalApprove/m.capacity }" />">${m.totalApprove }/${m.capacity }</strong> <small class="text-secondary">명</small></div>
 									<div class="col-3">${m.formedAllDate }</div>
-									<div class="col-4 text-decoration-none" onclick="popUp('/project/detailView?seq=${m.seq }')">
+									<div class="col-3 text-decoration-none" onclick="popUp('/project/detailView?seq=${m.seq }')">
 										<div class="row">
 											<div style="max-width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;">${m.title }</div> 
 					  						<c:if test="${m.commentCount>0 }">
