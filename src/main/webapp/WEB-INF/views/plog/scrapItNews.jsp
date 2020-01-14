@@ -19,7 +19,7 @@
 		h1{text-align: center;padding-top: 50px;padding-bottom: 50px;}
 		ul{background-color: lightgray;font-size: 13px;}
 		.card{width:200px;height:300px;margin: auto;;float :left;}
-		.myprofile{float: left;margin-top: 20px;}
+		.myprofile{float: left;margin-top: 20px;width:200px;text-align:center;}
 		#mycard{ float:none;display:flex;align-items:center;}
 		.commentwrite{width:100%;height:100px;padding: 0px;margin-top: 10px;float: left;}
 		.commentlist{width:100%;padding: 0px;margin-top: 10px;float: left;}
@@ -33,11 +33,18 @@
 		.nvlink1{height:45px;line-height:45px;font-size:14px;}
 		.nvlink2{height:45px;line-height:45px;font-size:10px;}
         a:hover{text-decoration:none;}	
-        .scrapnavi>div{margin:10px;height:30px;}
-        .scrapnavi>div>a{color:black;}
-        .scrapnavi{background-color: lightgray;border-radius:5px;margin-top:30px;}	
+        .scrapnavi>div{height:50px;line-height:50px;}
+        .scrapnavi>div>a{color:black;font-size:16px;}
+        .scrapnavi>div>a:hover{color:gray;}
+        .scrapnavi{background-color: lightgray;border-radius:5px;margin-top:30px;width:200px;display:inline-block;border-right:1px solid gray;}	
         .line-over{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+        .pg{background-color:white;border-radius:5px 0px 0px 5px;border:1px solid gray;}
 	</style>
+	<script>
+	$(function(){
+		$("#plogNavi").attr('class','nav-item nav-link active');
+	});
+	</script>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/standard/header.jsp"/>
@@ -58,15 +65,23 @@
 				<h3 class="d-sm-none"> Programming-Log</h3>
 	            <div class="row navi" style="background-color: #008EDC;">
 					<div class="col nvlink1 d-none d-sm-block"><a class="text-light" href="${pageContext.request.contextPath}/Portfolio/toPlogmain.do">내 포트폴리오</a></div>
-					<div class="col nvlink1 d-none d-sm-block"><a class="text-light" href="${pageContext.request.contextPath}/Plog/toPlogCohow.do">내 지식인</a></div>
-					<div class="col nvlink1 d-none d-sm-block"><a class="text-light" href="${pageContext.request.contextPath}/Scrap/itNews.do">내 스크랩</a></div>
+					<c:choose>
+						<c:when test="${loginInfo.id ==ownerInfo.id }">
+							<div class="col nvlink1 d-none d-sm-block"><a class="text-light" href="${pageContext.request.contextPath}/Plog/toPlogCohow.do">내 지식인</a></div>
+							<div class="col nvlink1 d-none d-sm-block"><a class="text-light" href="${pageContext.request.contextPath}/Scrap/itNews.do">내 스크랩</a></div>
+						</c:when>
+					</c:choose>
 					<div class="col nvlink1 d-none d-sm-block"><a class="text-light" href="${pageContext.request.contextPath}/Plog/toPlogProject.do">내 프로젝트</a></div>
 					<div class="col nvlink1 d-none d-sm-block"><a class="text-light" href="${pageContext.request.contextPath}/GuestBook/selectList.do">방명록</a></div>
 				</div>
 				<div class="row navi" style="background-color: #008EDC;">
 					<div class="col nvlink2 d-sm-none"><a class="text-light" href="${pageContext.request.contextPath}/Portfolio/toPlogmain.do">내 포트폴리오</a></div>
-					<div class="col nvlink2 d-sm-none"><a class="text-light" href="${pageContext.request.contextPath}/Plog/toPlogCohow.do">내 지식인</a></div>
-					<div class="col nvlink2 d-sm-none"><a class="text-light" href="${pageContext.request.contextPath}/Scrap/itNews.do">내 스크랩</a></div>
+					<c:choose>
+						<c:when test="${loginInfo.id ==ownerInfo.id }">
+							<div class="col nvlink2 d-sm-none"><a class="text-light" href="${pageContext.request.contextPath}/Plog/toPlogCohow.do">내 지식인</a></div>
+							<div class="col nvlink2 d-sm-none"><a class="text-light" href="${pageContext.request.contextPath}/Scrap/itNews.do">내 스크랩</a></div>
+						</c:when>
+					</c:choose>
 					<div class="col nvlink2 d-sm-none"><a class="text-light" href="${pageContext.request.contextPath}/Plog/toPlogProject.do">내 프로젝트</a></div>
 					<div class="col nvlink2 d-sm-none"><a class="text-light" href="${pageContext.request.contextPath}/GuestBook/selectList.do">방명록</a></div>
 				</div>
@@ -80,7 +95,7 @@
 	                        </div>
 	                    </div>
 	                    <div class="scrapnavi" >
-	                		<div><a href="${pageContext.request.contextPath}/Scrap/itNews.do"> IT 뉴스</a> </div>
+	                		<div class="pg"><a href="${pageContext.request.contextPath}/Scrap/itNews.do"> IT 뉴스</a></div>
 	                		<div><a href="${pageContext.request.contextPath}/Scrap/cohow.do"> 코드 지식인</a></div>
 	                		<div><a href="${pageContext.request.contextPath}/Scrap/industryStatus.do"> 업계현황</a></div>
 	                		<div><a href="${pageContext.request.contextPath}/Scrap/project.do"> 프로젝트</a> </div>
