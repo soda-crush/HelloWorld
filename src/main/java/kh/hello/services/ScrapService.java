@@ -36,7 +36,7 @@ public class ScrapService {
 	}
 	
 	//페이지 네비
-		public List<String> getGuestBookPageNavi (String ownerID, int currentPage,String colum) {
+		public List<String> getScrapPageNavi (String ownerID, int currentPage,String colum) {
 			int recordTotalCount = sdao.TotalCount(ownerID,colum);
 			int pageTotalCount = 0;
 

@@ -15,4 +15,16 @@
 	<update id="updateState">
 		update reportedBoard set state='Y' where seq=#{seq}
 	</update>
+	<select id="waitListByPage" resultType="kh.hello.dto.ReportDTO">
+		select * from (select reportedBoard.*, row_number() over (order by seq desc) as rown from reportedBoard where state='N') where rown between #{start} and #{end}
+	</select>
+	<select id="getWaitTotal" resultType="integer">
+		select count(*) from reportedBoard where state='N'
+	</select>
+	<select id="endListByPage" resultType="kh.hello.dto.ReportDTO">
+		select * from (select reportedBoard.*, row_number() over (order by seq desc) as rown from reportedBoard where state='Y') where rown between #{start} and #{end}
+	</select>
+	<select id="getEndTotal" resultType="integer">
+		select count(*) from reportedBoard where state='Y'
+	</select>
 </mapper>

@@ -195,8 +195,10 @@ public class AdminService {
 	public int memberOut(String id, String reason) {
 		//강퇴시키고
 		adao.memberOut(id);
+		//이메일 정보 받아오기
+		String email = adao.getEmailById(id);
 		//테이블에 입력하기		
-		return adao.memberOutList(id, reason);		 
+		return adao.memberOutList(id, email, reason);		 
 	}
 	
 	public List<ForcedOutMemberDTO> forcedOutListByPage(int start, int end) {

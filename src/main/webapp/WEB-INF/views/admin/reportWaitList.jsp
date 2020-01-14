@@ -118,11 +118,11 @@
                             <div class="card-body">
 	                            <div class="col-auto text-left mb-3">
 			                    	<div class="btn-group" role="group" aria-label="Basic example">
-			                   			<button type="button" class="btn btn-flat btn-xs btn-warning" id="listAll">전체</button>
-			                    		<button type="button" class="btn btn-flat btn-xs btn-outline-warning" id="waitList">대기중</button>
+			                   			<button type="button" class="btn btn-flat btn-xs btn-outline-warning" id="listAll">전체</button>
+			                    		<button type="button" class="btn btn-flat btn-xs btn-warning" id="waitList">대기중</button>
 			                    		<button type="button" class="btn btn-flat btn-xs btn-outline-warning" id="endList">처리완료</button>
 			                    	</div>                            		
-	                            </div>	
+	                            </div>                                
                                 <div class="single-table">
                                     <div class="table-responsive">
                                         <table class="table table-hover text-center">
@@ -143,7 +143,7 @@
                                             <tbody>
                                             	<c:choose>
                                             		<c:when test="${list.size() == 0}">
-                                            			<tr><th colspan='10'>게시물이 없습니다<th></tr>
+                                            			<tr><th colspan='10'><marquee direction="right">게시물이 없습니다</marquee><th></tr>
                                             		</c:when>
                                             		<c:otherwise>
 		                                            	<c:forEach items="${list}" var="dto">
@@ -261,7 +261,7 @@
 		                                               						if(resp.result == true){
 		                                               							alert("처리되었습니다.");
 		                                               							//$("#reportDetail").modal('hide');
-		                                               							location.href="${pageContext.request.contextPath}/report/reportList?page="+resp.page;		                                               							
+		                                               							location.href="${pageContext.request.contextPath}/report/waitList?page="+resp.page;		                                               							
 		                                               						}else{
 		                                               							alert("오류가 발생했습니다. 다시 시도해주세요");
 		                                               						}

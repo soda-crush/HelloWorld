@@ -58,12 +58,15 @@
   	update member set memLevel='2' where id=#{id}
   </update>
   <update id="memberOut">
-  	update member set pw=null, name=null,nickName=null,email=null,phone=null,postCode=null
+  	update member set pw=null, name=null,nickName=null,phone=null,postCode=null
 		,addr1=null,addr2=null,joinPath=null,gender=null,memLevel=null,reportCount=null,point=null
 		,ifmOpenCheck=null,joinDate=null,lastLogin=null,profileImg=null,birth=null where id=#{id} 
   </update>
+  <select id="getEmailById" resultType="String">
+  	select email from member where id=#{id}
+  </select>
   <insert id="memberOutList" parameterType="java.util.Map">
-  	insert into forcedOut values(forcedOutSeq.nextval, #{id}, #{reason}, sysdate)
+  	insert into forcedOut values(forcedOutSeq.nextval, #{id}, #{email}, #{reason}, sysdate)
   </insert>
   <select id="forcedOutListByPage" resultType="kh.hello.dto.ForcedOutMemberDTO">
   	select * from (select forcedOut.*, row_number() over(order by outDate desc) rown from forcedOut) where rown between #{start} and #{end}

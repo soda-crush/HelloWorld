@@ -55,4 +55,42 @@ public class ReportController {
 			return obj.toString();
 		}		
 	}
+	
+	@RequestMapping("/waitList")
+	public String reportWaitList(String page, Model m) {
+		int currentPage = 1;
+		if(page!= null && !page.equals("") && !page.equals("null")) currentPage = Integer.parseInt(page);
+		
+		int end = currentPage * (Configuration.recordCountPerPage);
+		int start = end - (Configuration.recordCountPerPage-1);
+		
+		List<ReportDTO> result = rs.waitListByPage(start, end);
+		m.addAttribute("list", result);
+		
+		List<String> pageNavi = rs.getWaitPageNavi(currentPage);
+		m.addAttribute("pageNavi", pageNavi);
+		
+		m.addAttribute("page", currentPage);
+			
+		return "admin/reportWaitList";
+	}
+	
+	@RequestMapping("/endList")
+	public String reportEndList(String page, Model m) {
+		int currentPage = 1;
+		if(page!= null && !page.equals("") && !page.equals("null")) currentPage = Integer.parseInt(page);
+		
+		int end = currentPage * (Configuration.recordCountPerPage);
+		int start = end - (Configuration.recordCountPerPage-1);
+		
+		List<ReportDTO> result = rs.endListByPage(start, end);
+		m.addAttribute("list", result);
+		
+		List<String> pageNavi = rs.getEndPageNavi(currentPage);
+		m.addAttribute("pageNavi", pageNavi);
+		
+		m.addAttribute("page", currentPage);
+			
+		return "admin/reportEndList";
+	}	
 }

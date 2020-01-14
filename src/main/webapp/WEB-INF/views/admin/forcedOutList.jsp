@@ -87,6 +87,7 @@
 		                                            <thead class="text-uppercase">
 		                                                <tr>
 		                                                    <th scope="col">ID</th>
+		                                                    <th scope="col">E-mail</th>
 		                                                    <th scope="col">강퇴사유</th>
 		                                                    <th scope="col">강퇴날짜</th>
 		                                                    <th scope="col"></th>
@@ -101,6 +102,7 @@
 				                                            	<c:forEach items="${list}" var="dto">
 				                                                <tr>
 				                                                    <th scope="row">${dto.id}</th>
+				                                                    <td>${dto.email}</td>
 				                                                    <td>${dto.reason}</td>
 				                                                    <td>${dto.formedDate}</td>
 				                                                    <td><i class="ti-trash" id="forcedOutDel${dto.seq}"></i></td>

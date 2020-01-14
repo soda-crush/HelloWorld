@@ -47,12 +47,10 @@ public class GuestBookMemController {
 	public String selectList(String cpage) {
 		OwnerInfoDTO ownerInfo = (OwnerInfoDTO)session.getAttribute("ownerInfo");
 		String ownerID = ownerInfo.getId();
-		int currentPage = 1;		
-		
+		int currentPage = 1;
 		if(cpage != null) currentPage = Integer.parseInt(cpage);
 		int end = currentPage * Configuration.pLogProjectRecordCountPerPage;
 		int start = end - (Configuration.pLogProjectRecordCountPerPage - 1);
-		System.out.println("정보는  : "+start + " : " + end);
 		List<GuestBookDTO> list = gs.selectListByPage(ownerID,start,end);
 		List<String> pageNavi = gs.getGuestBookPageNavi(ownerID, currentPage);
 		request.setAttribute("list", list);

@@ -47,6 +47,11 @@
 <!-- 	<select id="selectRepId" resultType="kh.hello.dto.CodeReplyDTO" parameterType="integer"> -->
 <!-- 		select * from codeReply -->
 <!-- 	</select> -->
+
+<!-- 	답글에서 실무자 비실무자 구분 -->
+	<select id="selectMem" resultType="integer" parameterType="String">
+		select memLevel from member where id=#{value}
+	</select>
 	
 <!-- 채택 -->
 	<select id="replyCount" parameterType="integer" resultType="integer">

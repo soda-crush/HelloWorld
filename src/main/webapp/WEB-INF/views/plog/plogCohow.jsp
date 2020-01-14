@@ -29,7 +29,8 @@
 		#writer{text-underline-position: auto;margin-right: 30px;}
 		.coltheme{margin:30px;}
 		.navi{text-align: center;}
-		.nvlink{height:45px;line-height:45px;}
+		.nvlink1{height:45px;line-height:45px;font-size:14px;}
+		.nvlink2{height:45px;line-height:45px;font-size:10px;}
         a:hover{text-decoration:none;}
         .tableBody{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
         .line-over{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
@@ -46,13 +47,21 @@
                 </div>
             </div>
             <div class="container">
-				<h1> Programming-Log</h1>
+				<h1 class="d-none d-sm-block"> Programming-Log</h1>
+				<h3 class="d-sm-none"> Programming-Log</h3>
 	            <div class="row navi" style="background-color: #008EDC;">
-					<div class="col nvlink"><a class="text-light" href="${pageContext.request.contextPath}/Portfolio/toPlogmain.do">내 포트폴리오</a></div>
-					<div class="col nvlink"><a class="text-light" href="${pageContext.request.contextPath}/Plog/toPlogCohow.do">내 지식인</a></div>
-					<div class="col nvlink"><a class="text-light" href="${pageContext.request.contextPath}/Scrap/itNews.do">내 스크랩</a></div>
-					<div class="col nvlink"><a class="text-light" href="${pageContext.request.contextPath}/Plog/toPlogProject.do">내 프로젝트</a></div>
-					<div class="col nvlink"><a class="text-light" href="${pageContext.request.contextPath}/GuestBook/selectList.do">방명록</a></div>
+					<div class="col nvlink1 d-none d-sm-block"><a class="text-light" href="${pageContext.request.contextPath}/Portfolio/toPlogmain.do">내 포트폴리오</a></div>
+					<div class="col nvlink1 d-none d-sm-block"><a class="text-light" href="${pageContext.request.contextPath}/Plog/toPlogCohow.do">내 지식인</a></div>
+					<div class="col nvlink1 d-none d-sm-block"><a class="text-light" href="${pageContext.request.contextPath}/Scrap/itNews.do">내 스크랩</a></div>
+					<div class="col nvlink1 d-none d-sm-block"><a class="text-light" href="${pageContext.request.contextPath}/Plog/toPlogProject.do">내 프로젝트</a></div>
+					<div class="col nvlink1 d-none d-sm-block"><a class="text-light" href="${pageContext.request.contextPath}/GuestBook/selectList.do">방명록</a></div>
+				</div>
+				<div class="row navi" style="background-color: #008EDC;">
+					<div class="col nvlink2 d-sm-none"><a class="text-light" href="${pageContext.request.contextPath}/Portfolio/toPlogmain.do">내 포트폴리오</a></div>
+					<div class="col nvlink2 d-sm-none"><a class="text-light" href="${pageContext.request.contextPath}/Plog/toPlogCohow.do">내 지식인</a></div>
+					<div class="col nvlink2 d-sm-none"><a class="text-light" href="${pageContext.request.contextPath}/Scrap/itNews.do">내 스크랩</a></div>
+					<div class="col nvlink2 d-sm-none"><a class="text-light" href="${pageContext.request.contextPath}/Plog/toPlogProject.do">내 프로젝트</a></div>
+					<div class="col nvlink2 d-sm-none"><a class="text-light" href="${pageContext.request.contextPath}/GuestBook/selectList.do">방명록</a></div>
 				</div>
 	            <div class="row">
 	                <div class="col-12 col-md-4 col-lg-3 myprofile">
@@ -100,7 +109,7 @@
 						  	</c:choose>				    
 						</div>
 						<div class="naviwrap"style="width:100%;text-align:center;margin-top:20px;">
-		                    <c:forEach items="${pageNavi}" var="navi">									
+		                    <c:forEach items="${qpageNavi}" var="navi">									
 								${navi}
 							</c:forEach>
 	               		</div>
@@ -139,7 +148,7 @@
 						  	</c:choose>				    
 						</div>
 						<div class="naviwrap"style="width:100%;text-align:center;margin-top:20px;">
-		                    <c:forEach items="${pageNavi}" var="navi">									
+		                    <c:forEach items="${rpageNavi}" var="navi">									
 								${navi}
 							</c:forEach>
 	               		</div>

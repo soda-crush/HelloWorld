@@ -113,6 +113,18 @@ public class IndustryStatusDTO {
 	public void setCommentCount(int commentCount) {
 		this.commentCount = commentCount;
 	}
+	public String getNewWriteDate() {
+		LocalDateTime writeDate = this.getWriteDate().toLocalDateTime();
+		int writeDay = writeDate.getDayOfMonth();
+		
+		LocalDateTime ldtDay = LocalDateTime.now();
+		int nowDay = ldtDay.getDayOfMonth();
+		if((nowDay-writeDay)<1) {
+			return "N";
+		}else {
+			return null;
+		}
+	}
 	public String getFormedWriteDate() {
 //		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
 //		String result = sdf.format(this.writeDate);

@@ -93,17 +93,17 @@ public class IndustryStatusService {
 		}
 
 		List<String> pages = new ArrayList<>();
-		if(needPrev) pages.add("<li class=\"page-item\"><a class=page-link href='industryStatusList.do?cpage=" + (startNavi - 1) + "'>< </a></li>");
+		if(needPrev) pages.add("<a class=page-link href='industryStatusList.do?page=" + (startNavi - 1) + "'>< </a>");
 
 		for(int i = startNavi; i <= endNavi; i++) {
 			StringBuilder sb = new StringBuilder();
-			sb.append("<li class=\"page-item\"><a class=page-link href='industryStatusList.do?cpage="+ i +"'>");
+			sb.append("<a class=page-link href='industryStatusList.do?page="+ i +"'>");
 			sb.append(i + " ");
-			sb.append("</a></li>");
+			sb.append("</a>");
 			pages.add(sb.toString());
 		}
 
-		if(needNext) pages.add("<li class=\"page-item\"><a class=page-link href='industryStatusList.do?cpage=" + (endNavi + 1) + "'>> </a></li>");
+		if(needNext) pages.add("<a class=page-link href='industryStatusList.do?page=" + (endNavi + 1) + "'>> </a>");
 
 		return pages;
 	}
@@ -191,17 +191,17 @@ public class IndustryStatusService {
 		}
 
 		List<String> pages = new ArrayList<>();
-		if(needPrev) pages.add("<li class=\"page-item\"><a class=page-link href='industrySearch.do?search="+search+"&value="+value+"&cpage=" + (startNavi - 1) + "' >< </a></li>");
+		if(needPrev) pages.add("<a class=page-link href='industrySearch.do?search="+search+"&value="+value+"&page=" + (startNavi - 1) + "' >< </a>");
 
 		for(int i = startNavi; i <= endNavi; i++) {
 			StringBuilder sb = new StringBuilder();
-			sb.append("<li class=\"page-item\"><a class=page-link href='industrySearch.do?search="+search+"&value="+value+"&cpage="+ i +"'>");
+			sb.append("<a class=page-link href='industrySearch.do?search="+search+"&value="+value+"&page="+ i +"'>");
 			sb.append(i + " ");
-			sb.append("</a></li>");
+			sb.append("</a>");
 			pages.add(sb.toString());
 		}
 
-		if(needNext) pages.add("<li class=\"page-item\"><a class=page-link href='industrySearch.do?search="+search+"&value="+value+"&cpage=" + (endNavi + 1) + "'>> </a></li>");
+		if(needNext) pages.add("<a class=page-link href='industrySearch.do?search="+search+"&value="+value+"&page=" + (endNavi + 1) + "'>> </a>");
 
 		return pages;
 	}

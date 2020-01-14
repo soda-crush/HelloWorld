@@ -1,9 +1,7 @@
 package kh.hello.project;
 
 import java.util.List;
-import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +15,7 @@ import kh.hello.dto.CodeCommentsDTO;
 import kh.hello.dto.CodeQuestionDTO;
 import kh.hello.dto.CodeReplyDTO;
 import kh.hello.dto.LoginInfoDTO;
+import kh.hello.dto.MemberDTO;
 import kh.hello.dto.ScrapDTO;
 import kh.hello.services.CodeService;
 
@@ -54,6 +53,9 @@ public class CodeController {
 
 	@RequestMapping("/codeQWrite.do")
 	public String writeFormCode() {
+//		//가지고 있는 포인트와 글 작성할때 채택 포인트 비교
+//		int adoptPoint = dto.getPoint(); // 채택포인트
+//		int memNowPoint = sv.selectPoint(info.getId()); 
 		return "code/codeQWrite";
 	}
 
@@ -66,7 +68,7 @@ public class CodeController {
 		String path = session.getServletContext().getRealPath("attached");
 		int result = 0;
 		try {
-			result = sv.writeCode(path, dto,dto.getId());
+			result = sv.writeCode(path, dto,dto.getId());		
 			if(result > 0) {
 				return "redirect:codeQList.do";
 			}else {
@@ -79,30 +81,32 @@ public class CodeController {
 	}
 
 	@RequestMapping("/codeDetail.do")
-	public String codeDetail(int seq, Model m) {
-		//LoginInfoDTO dto = new LoginInfoDTO("test","닉네임");		
-//			LoginInfoDTO dto = new LoginInfoDTO("test2","닉네임2");	
-//			LoginInfoDTO dto = new LoginInfoDTO("test1234","펭수2");	
-//			LoginInfoDTO dto = new LoginInfoDTO("test3","닉네임3");			
-//			session.setAttribute("loginInfo", dto);
-						
+	public String codeDetail(int seq, Model m) {			
 		CodeQuestionDTO qResult = sv.detailQuestion(seq); //queSeq
 		List<CodeReplyDTO> rResult = sv.detailReply(seq); //queSeq
 		List<CodeCommentsDTO> cResult = sv.commentList(seq); //queSeq  
 		int repCount = sv.replyCount(seq); //답글 수 
 		int adoptCount = sv.adoptCount(seq);
 
+//		답글에서 실무자 비실무자 구분
+		for (CodeReplyDTO c : rResult) {
+			String id = c.getId();
+			int level = sv.selectMem(id);
+			c.setMemLevel(level); // level 세팅
+		}
+		
 		m.addAttribute("qResult", qResult);
 		m.addAttribute("rResult", rResult);			
 		m.addAttribute("cResult", cResult);
 		m.addAttribute("repCount", repCount);
-		m.addAttribute("adoptCount", adoptCount);
-		//		m.addAttribute("repSeq", repSeq);
-		//		m.addAttribute("nowPoint", nowPoint);
+		m.addAttribute("adoptCount", adoptCount);		
+//		m.addAttribute("repSeq", repSeq);
+//		m.addAttribute("nowPoint", nowPoint);
 		
-		try { //비회원이 detail 들어갈수있게
+		try { 
+			//비회원이 detail 들어갈수있게
 			LoginInfoDTO info = (LoginInfoDTO)session.getAttribute("loginInfo");
-			int count = sv.replyOneCount(seq, info.getId()); //queSeq
+			int count = sv.replyOneCount(seq, info.getId()); //queSeq					
 			m.addAttribute("count", count);
 		} catch (Exception e) {
 			m.addAttribute("count", 1);
@@ -112,9 +116,9 @@ public class CodeController {
 	}
 
 	@RequestMapping("/delete.do")
-	public String deleteProcCode(int seq,String id) {
+	public String deleteProcCode(int seq,String id,int point) {
 		LoginInfoDTO info = (LoginInfoDTO)session.getAttribute("loginInfo");
-		sv.delete(seq,info.getId());
+		sv.delete(seq,info.getId(),point);
 		return "redirect:codeQList.do";
 	}
 
@@ -152,6 +156,18 @@ public class CodeController {
 		return "/code/codeQList";
 	}
 
+	@ResponseBody
+	@RequestMapping(value="/memLevel.do",produces="text/html;charset=utf8")
+	public String getMemLevel(String id) {
+		return Integer.toString(sv.getMemLevel(id));
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/pointCheck.do",produces="text/html;charset=utf8")
+	public String pointCheck(String id) {
+		return Integer.toString(sv.selectPoint(id)); //현재 포인트
+	}
+	
 	//답글 CodeReply
 
 	@RequestMapping("/codeRWrite.do")
@@ -245,5 +261,11 @@ public class CodeController {
 	public String adopt(int adoptPoint,int queSeq,String writerId,String replyId) {
 		sv.adopt(adoptPoint, queSeq,writerId, replyId);
 		return "redirect:/code/codeDetail.do?seq="+queSeq;
+	}
+	
+	//카카오톡 공유
+	@RequestMapping("/sharing.do")	
+	public String sharing() {
+		return "/code/kakaoSharing";
 	}
 }

@@ -28,11 +28,11 @@ public class IndustryStatusMemController {
 
 	//대나무숲 게시판
 	@RequestMapping("/industryStatusList.do")
-	public String IndustryStatusListView (String cpage, Model m) {//업계현황 게시판목록
+	public String IndustryStatusListView (String page, Model m) {//업계현황 게시판목록
 		//페이지네비
 		int currentPage = 1;		
 
-		if(cpage != null) currentPage = Integer.parseInt(cpage);
+		if(page != null) currentPage = Integer.parseInt(page);
 
 		int end = currentPage * Configuration.recordCountPerPage;
 		int start = end - (Configuration.recordCountPerPage - 1);	
@@ -42,7 +42,7 @@ public class IndustryStatusMemController {
 
 		List<String> pageNavi = service.getIndustryListPageNavi(currentPage);
 		m.addAttribute("pageNavi", pageNavi);
-		m.addAttribute("cpage", currentPage);
+		m.addAttribute("page", currentPage);
 
 		return "/industry/industryStatusList";
 	}
@@ -145,11 +145,11 @@ public class IndustryStatusMemController {
 
 	//게시판 목록 검색
 	@RequestMapping("/industrySearch.do")
-	public String industrySearch(String search, String value, Model m, String cpage) {
+	public String industrySearch(String search, String value, Model m, String page) {
 		//검색결과 페이지 네비
 		int currentPage = 1;		
 
-		if(cpage!= null && !cpage.equals("") && !cpage.equals("null")) currentPage = Integer.parseInt(cpage);
+		if(page!= null && !page.equals("") && !page.equals("null")) currentPage = Integer.parseInt(page);
 		int end = currentPage * Configuration.recordCountPerPage;
 		int start = end - (Configuration.recordCountPerPage - 1);	
 		List<IndustryStatusDTO> list = service.industrySearchListByPage(start, end, value, search);
@@ -157,7 +157,7 @@ public class IndustryStatusMemController {
 
 		List<String> pageNavi = service.getIndustrySearchListPageNavi(currentPage, value, search);
 		m.addAttribute("pageNavi", pageNavi);
-		m.addAttribute("cpage", currentPage);
+		m.addAttribute("page", currentPage);
 
 		return "/industry/industryStatusList";
 	}

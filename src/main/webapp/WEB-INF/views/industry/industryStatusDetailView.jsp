@@ -1,24 +1,35 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Hello World!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/css/mainBase.css">
-<link rel="stylesheet" href="/css/font-awesome/css/font-awesome.css" type="text/css"/>
-<link rel="stylesheet" href="/css/project/projectBase.css" type="text/css"/>
-<link rel="stylesheet" href="/css/project/detailView.css" type="text/css"/>
+<link rel="stylesheet" href="/css/font-awesome/css/font-awesome.css"
+	type="text/css" />
+<link rel="stylesheet" href="/css/project/projectBase.css"
+	type="text/css" />
+<link rel="stylesheet" href="/css/project/detailView.css"
+	type="text/css" />
 <script src="/js/project/projectCo.js"></script>
 <style>
-	.table{background-color:white;padding:0;text-align:center;}
-	.contentDiv {
+.table {
+	background-color: white;
+	padding: 0;
+	text-align: center;
+}
+
+.contentDiv {
 	/* 한 줄 자르기 */
 	display: block;
 	text-align: left;
@@ -28,121 +39,135 @@
 	text-overflow: ellipsis;
 	/* 여러 줄 자르기 추가 스타일 */
 	white-space: normal;
-	}
-	.btn btn-primary{text-align: left;}
+}
+
+.btn btn-primary {
+	text-align: left;
+}
 </style>
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/standard/header.jsp"/>
+	<jsp:include page="/WEB-INF/views/standard/header.jsp" />
 	
- 		<div id=baseBackgroundColor>
-            <div class=container>
-                <div class=row>
-                    <div class="col-12" id=aroundContent>
-                    </div>
-                </div>
-            </div>
-            
-            <!--      몸통 시작!!!   -->
-            <div class=container id="projectPage" style="background-color:white">
-            <div class=container id="industryPage">
-				<div id="pageTitle">
-					<table>
-							<tr>
-								<td colspan="3" style="font-size: 60px; font-weight: 100;">업계현황</td>
-								<td></td>
-								<td style="font-size: 15px; color: gray;">     업계현황에 대한 정보를 나누는 게시판입니다.</td>
-								<td></td>
-							</tr>
-						</table>
-				</div>
-				
-            <c:if  test="${iPage.seq !=null }">
-				  				<div>글번호 : ${iPage.seq}</div>
-				  				<div>분야 : ${iPage.field } / 직무 : ${iPage.duty }</div>
-				  				<h3>${iPage.title}</h3>
-				  				<input type="hidden" name="id" value="${iPage.id}">
-				  				<div>작성자 : ${iPage.writer}</div>
-				  				<div>작성일 : ${iPage.writeDate}</div>
-				  				<div>조회수 : ${iPage.viewCount}</div>
-				  				<hr>
-				  				<div class="contentDiv">${iPage.content}</div>
-			</c:if>
-			<div class="text-right">
-				 <a class="btn btn-primary" href="/industry/industryStatusList.do" role="button">돌아가기</a>
-				 <c:if test="${iPage.id == sessionScope.loginInfo.id}">
-				 <a class="btn btn-primary" href="/industry/industryStatusModify.do?seq=${iPage.seq }" role="button">수정하기</a>
-				 <a class="btn btn-primary" href="/industry/industryStatusDeleteProc.do?seq=${iPage.seq}" role="button">삭제하기</a>
-				 </c:if>
-				 <i class="fa fa-share-alt"></i><a class="btn btn-primary" href="#" role="button">공유하기</a>
-				 <i class="fa fa-bookmark-o" id="scrap" data-toggle="tooltip" title="스크랩"></i>
-				 <a class="btn btn-primary" href="#" role="button">신고하기</a>
+	<div id=baseBackgroundColor>
+		<div class=container>
+			<div class=row>
+				<div class="col-12" id=aroundContent></div>
 			</div>
-			<hr>
-			<div class="pPageComments">
-				<c:if test="${comments.size()>0 }">
-					<c:forEach items="${comments }" var="c">
-						<div class="row commentDiv commentBox${c.seq } p-0 pb-2 m-2">
-							<div class="col-12 commentInnerBox">
-								<div class="row commentHeader">
+		</div>
 
-									<div class="col-7 pt-1">
-										<div class="row commentInfo">
-											<div class="col-12 commentWriter">${c.writer }</div>
-											<div class="col-12 commentWriteDate">${c.formedWriteDate }</div>
+		<!--      몸통 시작!!!   -->
+		<div class="container eleCon">
+		
+
+		<c:if test="${iPage.seq !=null }">
+            	<div class=row>
+            		<div class="col-12"><h3><br>${iPage.title}</h3></div>
+            	</div>
+            	<div class=row>
+            		<div class="col-12"><h5><br>분야 : ${iPage.field } / 직무 : ${iPage.duty }</h5></div>
+            	</div>
+            	<div class=row>
+            		<input type="hidden" name="seq" value="${iPage.seq}">
+            		<input type="hidden" name="id" value="${iPage.id}">
+            		
+            		<div class="col-12"><hr><a href="/Portfolio/toPlog.do?owner=${iPage.id }">${iPage.writer}</a>&emsp;${iPage.formedWriteDate}&emsp;${iPage.viewCount}<hr></div>
+            	</div>
+            	<div class="row">
+            		<div class="col-12" id=contentCon>${iPage.content}</div>
+            	</div>
+        </c:if>
+        <a class="btn btn-primary" href="/industry/industryStatusList.do"
+						role="button">돌아가기</a>
+		<c:if test="${iPage.id == sessionScope.loginInfo.id}">
+					<div class="row">
+					<div class="col-12 text-center">
+					<a class="btn btn-primary"
+							href="/industry/industryStatusModify.do?seq=${iPage.seq }"
+							role="button">수정하기</a>
+						<a class="btn btn-primary"
+							href="/industry/industryStatusDeleteProc.do?seq=${iPage.seq}"
+							role="button">삭제하기</a>
+					</div>
+					</div>
+				</c:if>					
+			<div class=row>
+            		<div class="col-12 text-center">
+        			<i class="fa fa-share-alt"></i><a class="btn btn-primary" href="#"
+						role="button">공유하기</a> <i class="fa fa-bookmark-o" id="scrap"
+						data-toggle="tooltip" title="스크랩"></i> <a class="btn btn-primary"
+						href="#" role="button">신고하기</a>
+        	</div>
+        	</div>
+        	<div class="row">
+            		<div class="col-12" id=adver style="height:200px;background-color:green;color:white;">광고자리</div>
+            	</div>
+        <div class="pPageComments">
+					<c:if test="${comments.size()>0 }">
+						<c:forEach items="${comments }" var="c">
+							<div class="row commentDiv commentBox${c.seq } p-0 pb-2 m-2">
+								<div class="col-12 commentInnerBox">
+									<div class="row commentHeader">
+
+										<div class="col-7 pt-1">
+											<div class="row commentInfo">
+												<div class="col-12 commentWriter">${c.writer }</div>
+												<div class="col-12 commentWriteDate">${c.formedWriteDate }</div>
+											</div>
+										</div>
+										<div class="col-4 pt-2 text-right commentBtns">
+											<c:if test="${c.id==sessionScope.loginInfo.id }">
+												<a class="btn btn-info coModBtn"
+													href="/bamboo/comment/modifyProc.do?seq=${c.seq }&bamSeq=${c.indSeq}"
+													onclick="coModFunction(${c.seq},'${c.content}',${c.indSeq });return false;"
+													role="button">수정</a>
+												<a class="btn btn-danger coDelBtn"
+													href="/bamboo/comment/deleteProc.do?seq=${c.seq }&bamSeq=${c.indSeq}"
+													onclick="coDelFunction(${c.seq});return false;"
+													role="button">삭제</a>
+											</c:if>
 										</div>
 									</div>
-									<div class="col-4 pt-2 text-right commentBtns">
-										<c:if test="${c.id==sessionScope.loginInfo.id }">
-											<a class="btn btn-info coModBtn"
-												href="/bamboo/comment/modifyProc.do?seq=${c.seq }&bamSeq=${c.indSeq}"
-												onclick="coModFunction(${c.seq},'${c.content}',${c.indSeq });return false;"
-												role="button">수정</a>
-											<a class="btn btn-danger coDelBtn"
-												href="/bamboo/comment/deleteProc.do?seq=${c.seq }&bamSeq=${c.indSeq}"
-												onclick="coDelFunction(${c.seq});return false;"
-												role="button">삭제</a>
-										</c:if>
+									<div class="row commentContent">
+										<div class="col-12 pt-1 pl-4">${c.content }</div>
 									</div>
 								</div>
-								<div class="row commentContent">
-									<div class="col-12 pt-1 pl-4">${c.content }</div>
-								</div>
 							</div>
+							<hr>
+						</c:forEach>
+					</c:if>
+				</div>
+				
+				<div id="pCoInput" class="row">
+            		<div class="col-10">
+            			<textarea style="width:100%;height:100%;" placeholder="댓글 입력" id="pCoContents"></textarea>
+            		</div>
+            		<div class="col-2">
+            			<div class="row">
+							<div class="col-12">
+								<button type="button" class="btn btn-secondary" style="margin-bottom:10px;" id="coCancel">취소</button>
+							</div>										
 						</div>
-						<hr>
-					</c:forEach>
-				</c:if>
-			</div>
+						<div class="row">
+							<div class="col-12">
+								<button type="button" class="btn btn-primary" id="coWriteBtn">작성</button>
+							</div>										
+						</div>					
+            		</div>
+            	</div> 
+        </div>
 
-			<div id="pCoInput" class="row">
-				<div class="col-9 col-lg-10">
-					<textarea class="form-control" placeholder="댓글 내용을 입력해주세요"
-						id="pCoContents"></textarea>
-				</div>
-				<div class="col-3 col-lg-2">
-					<div class="row">
-						<div class="col-12">
-							<button type="button" class="btn btn-primary" id="coWriteBtn">작성</button>
-						</div>
-					</div>
+			<!--       몸통 끝!!!   -->
+
+			<div class=container>
+				<div class=row>
+					<div class="col-12" id=aroundContent></div>
 				</div>
 			</div>
-			
-            </div>
-            <!--       몸통 끝!!!   -->
-            
-            <div class=container>
-                <div class=row>
-                    <div class="col-12" id=aroundContent>
-                    </div>
-                </div>
-            </div>
-        </div>
-        </div>
-        <jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
-        
-        <script>
+	</div>
+	<jsp:include page="/WEB-INF/views/standard/footer.jsp" />
+
+	<script>
       //스크랩하기
     	
     	$("#scrap").on("click",function(){
