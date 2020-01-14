@@ -99,6 +99,19 @@ public class CodeDAO {
 		jdbc.update("CodeR.modifyR", dto);
 	}
 	
+	public int getMemLevel(String id) {
+		return jdbc.selectOne("Code.getMemLevel", id);
+	}
+	
+	public int downLevel() {
+		return jdbc.update("Code.downLevel");
+	}
+	
+//	답글에서 실무자 비실무자 구분
+	public int selectMem(String id) {
+		return jdbc.selectOne("CodeR.selectMem",id);
+	}
+	
 	
 	//CodeComment
 	

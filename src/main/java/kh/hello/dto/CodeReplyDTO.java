@@ -13,6 +13,7 @@ public class CodeReplyDTO {
 	private Timestamp writeDate;
 	private String adopt;
 	public int commentCount;
+	public int memLevel;
 	
 	public CodeReplyDTO() {
 		super();
@@ -86,6 +87,14 @@ public class CodeReplyDTO {
 
 	public void setCommentCount(int commentCount) {
 		this.commentCount = commentCount;
+	}
+	
+	public int getMemLevel() {
+		return memLevel;
+	}
+
+	public void setMemLevel(int memLevel) {
+		this.memLevel = memLevel;
 	}
 
 	public String getFormedDate() {

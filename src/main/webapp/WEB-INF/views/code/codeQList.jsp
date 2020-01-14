@@ -146,9 +146,14 @@ badge-success
 											<c:if test="${dto.replyCount>0 }">
 					  							<span class="pComment font-weight-bold">${dto.replyCount}</span>
 					  						</c:if>	
-											<span class="badge badge-pill badge-danger">N</span></td>
-										<td>${dto.writer}  
-										 <span class="badge badge-pill badge-info">실무자</span></td>
+											<span class="badge badge-pill badge-danger">${dto.newWriteDate}</span></td>
+										<td>
+										<span style="cursor:pointer" onclick="popUp('/Portfolio/toPlog.do?owner=${dto.id}')">
+											${dto.writer}
+										</span>
+
+										</td> 
+<!-- 										 <span class="badge badge-pill badge-info">실무자</span></td> -->
 										<td>${dto.point}
 										</td>
 										<td>${dto.formedDate}</td>
@@ -162,21 +167,21 @@ badge-success
 				
 				<c:if test="${sessionScope.loginInfo.id!=null }">	
 					<div class="text-right">
-						<a class="btn btn-primary" href="/code/codeQWrite.do" role="button">글쓰기</a>
+						<a class="btn btn-primary" role="button" id="write" style="color:white;">글쓰기</a>
 					</div>
 				</c:if>
 		
 				<nav aria-label="List navi">
 					<ul class="pagination justify-content-center">
-						<li class="page-item"><a class="page-link" href="#"
-							aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-						</a></li>
+<!-- 						<li class="page-item"><a class="page-link" href="#" -->
+<!-- 							aria-label="Previous"> <span aria-hidden="true">&laquo;</span> -->
+<!-- 						</a></li> -->
 						<c:forEach items="${pageNavi}" var="navi">									
 							<li id="page-navi" class="page-item pageNavi">${navi}</li>
 						</c:forEach>
-						<li class="page-item"><a class="page-link" href="#"
-							aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-						</a></li>
+<!-- 						<li class="page-item"><a class="page-link" href="#" -->
+<!-- 							aria-label="Next"> <span aria-hidden="true">&raquo;</span> -->
+<!-- 						</a></li> -->
 					</ul>
 				</nav>
 <!-- 검색 -->
@@ -237,6 +242,26 @@ badge-success
 		}	
 	});
 	
+	$("#write").on("click",function(){
+		$.ajax({
+	        url : "/code/memLevel.do",
+	        type : "post",
+	        dataType : "json",
+	        data : {
+	           id : "${sessionScope.loginInfo.id}"	           
+	        }
+	     }).done(function(resp){
+	        if(resp > 1){
+	           location.href="/code/codeQWrite.do";   
+	        }else{
+	           alert("강등된 사용자입니다. 관리자에게 문의해주세요.")
+	           return false;
+	        }    
+	     }).fail(function(resp){
+	        console.log("실패");
+	     })
+	})
+	
 	$("#search").on("click",function(){
 		$("frm").submit();
 	})
@@ -244,6 +269,11 @@ badge-success
 	function detailView(seq){
 		location.href="${pageContext.request.contextPath}/code/codeDetail.do?seq="+seq;
 	}
+	
+	//닉네임 눌렀을때 새창 띄우기
+	function popUp(link){
+        window.open(link, "pLogPopUp", "width=600,height=600");
+     }
 </script>
 		<jsp:include page="/WEB-INF/views/standard/footer.jsp" />
 </body>
