@@ -77,9 +77,9 @@
 										</div>
 									<div class="col-xl-1 col-2 col-md-1">${p.location1 }</div>
 									<div class="col-xl-1 col-lg-1 d-none d-lg-block">${p.capacity }명</div>
-									<div class="col-xl-2 col-md-4 d-none d-md-block">${p.formedDate }</div>
+									<div class="col-xl-2 col-md-4 d-none d-md-block">${p.formedAllDate }</div>
 									<div class="col-xl-1 d-none d-xl-block text-decoration-none" onclick="popUp('/Portfolio/toPlog.do?owner=${p.id}')">${p.writer }</div>
-									<div class="col-xl-1 d-none d-xl-block">${p.formedWriteDate }</div>
+									<div class="col-xl-1 d-none d-xl-block">${p.formedDate }</div>
 									<div class="col-xl-1 d-none d-xl-block">${p.viewCount }</div>
 								</div>	
 				  			</c:forEach>
@@ -88,15 +88,17 @@
 				</div>
 				<div class="row pageListFooter">
 					<div class="col-6">
-						  <form class="form-inline">
+						  <form class="form-inline" action="/project/list" method="post" id="searchFrm">
 							<select class="form-control searchSelect" name="searchOption" id="searchOption" name="searchOption" style="margin-right:5px;">
 								<option selected disabled>선택</option>
-							    <option value="제목">제목</option>
-							    <option value="내용">내용</option>
-							    <option value="지역">지역</option>								    
+								<option value="all">제목+내용</option>
+							    <option value="title">제목</option>
+							    <option value="contents">내용</option>
+							    <option value="location">지역</option>
+							    <option value="capacity">인원</option>								    
 							</select>
-						    <input class="form-control mr-sm-2" type="search" placeholder="검색어를 입력하세요" aria-label="Search">
-						    <button class="btn btn-dark my-2 my-sm-0" type="submit">검색</button>
+						    <input class="form-control mr-sm-2" type="search" placeholder="검색어를 입력하세요" aria-label="Search" name="keyword" id="keyword">
+						    <button class="btn btn-dark my-2 my-sm-0" type="submit" id="searchBtn">검색</button>
 						  </form>
 					</div>								
 					<div class="col-6 text-right">
@@ -119,6 +121,13 @@
         <jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
         
         <script>
+	        $("#searchFrm").on("submit",function(){
+	        	$("#keyword").val($.trim($("#keyword").val()));
+	        	if($("#keyword").val()==""){
+	        		alert("검색어를 입력해주세요");
+	        		return false;
+	        	}
+	        });
         	$(".pNavi${currentPage}").addClass("active");
 			function popUp(link){
 				window.open(link, "pLogPopUp", "width=600,height=600");

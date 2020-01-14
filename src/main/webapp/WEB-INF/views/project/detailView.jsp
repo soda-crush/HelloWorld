@@ -162,7 +162,7 @@
 							</div>
 							
 							<div id="pCoInput" class="row">
-								<div class="col-9 col-lg-10"><textarea class="form-control" placeholder="댓글 내용을 입력해주세요" id="pCoContents"></textarea></div>
+								<div class="col-9 col-lg-10"><textarea class="form-control" placeholder="댓글 내용을 입력해주세요" id="pCoContents" maxlength="1300"></textarea></div>
 								<div class="col-3 col-lg-2">
 									<div class="row">
 										<div class="col-12">
@@ -276,7 +276,7 @@
 					'<div class="col-1 text-right pt-1"><span>┗</span></div>',
 					'<div class="col-11 commentInnerBox pb-0">',
 					'<div class="row mt-2">',
-					'<div class="col-9 col-lg-10"><textarea class="form-control" placeholder="답글 내용을 입력해주세요" id="pCoReplyContents" name="contents"></textarea></div>',
+					'<div class="col-9 col-lg-10"><textarea class="form-control" placeholder="답글 내용을 입력해주세요" id="pCoReplyContents" name="contents" maxlength="1300"></textarea></div>',
 					'<div class="col-3 col-lg-2">',
 					'<div class="row">',
 					'<div class="col-12">',
@@ -389,7 +389,7 @@
 				var html = [];	
     			html.push(
     					'<div class="row coModBox mt-2 mb-2"><div class="col-12"><div class="row">',
-    					'<div class="col-9 col-md-10 col-xl-11 pr-0"><textarea class="form-control" placeholder="댓글 내용을 입력해주세요" id="pCoModContents" style="height:80px;" name="contents">'+contents+'</textarea></div>',
+    					'<div class="col-9 col-md-10 col-xl-11 pr-0"><textarea class="form-control" placeholder="댓글 내용을 입력해주세요" id="pCoModContents" style="height:80px;" name="contents" maxlength="1300">'+contents+'</textarea></div>',
     					'<div class="col-3 col-md-2 col-xl-1"><input type="hidden" name="seq" value="'+seq+'"><input type="hidden" name="projectSeq" value="'+$("#pageSeq").val()+'">',
     					'<div class="row">',
     					'<div class="col-12 text-center p-0">',
