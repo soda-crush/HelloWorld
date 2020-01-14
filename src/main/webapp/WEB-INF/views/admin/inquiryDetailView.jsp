@@ -138,7 +138,7 @@ text-align:right;
                                 
                                     <div class="card-body" id="writeBox">
                                         <h4 class="header-title">댓글쓰기</h4>                                        
-                                            <input class="form-control form-control-lg mb-4" type="text" placeholder="댓글을 입력하세요" id="replyForm">
+                                            <textarea class="form-control form-control-lg mb-4" type="text" placeholder="댓글을 입력하세요" id="replyForm"></textarea>
                                             <button type="button" class="btn btn-primary pr-4 pl-4" id="writeReply">댓글쓰기</button>
                                     </div>
                                 </div>

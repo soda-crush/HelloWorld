@@ -101,7 +101,7 @@
                                             <tbody>
                                             	<c:choose>
                                             		<c:when test="${list.size()==0}">
-                                            			<tr><th colspan='6'>게시물이 없습니다<th></tr>
+                                            			<tr><th colspan='6'><marquee direction="right">게시물이 없습니다</marquee><th></tr>
                                             		</c:when>
                                             		<c:otherwise>
 		                                            	<c:forEach items="${list}" var="dto">

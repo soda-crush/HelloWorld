@@ -31,7 +31,10 @@
 		text-align:right;
 	}
 	.table{
-		min-width: 600px;
+		min-width: 800px;
+	}
+	.contentCard{
+		max-width: 1000px;
 	}
 </style>
 </head>
@@ -80,7 +83,7 @@
                 <!-- MAIN CONTENT GOES HERE -->
                 
                 <!-- Hoverable Rows Table start -->
-                    <div class="col-lg-6 mt-5">
+                    <div class="col-lg-12 mt-5 contentCard">
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="header-title">강퇴 ID 목록</h4>
@@ -99,7 +102,7 @@
 		                                            <tbody>
 		                                            	<c:choose>
 		                                            		<c:when test="${list.size() == 0}">
-		                                            			<tr><th colspan='3'>강퇴한 회원이 없습니다<th></tr>
+		                                            			<tr><th colspan='3'><marquee direction="right">강퇴한 회원이 없습니다.</marquee><th></tr>
 		                                            		</c:when>
 		                                            		<c:otherwise>
 				                                            	<c:forEach items="${list}" var="dto">
@@ -179,7 +182,7 @@
     <script src="${pageContext.request.contextPath }/adRsc/js/plugins.js"></script>
     <script src="${pageContext.request.contextPath }/adRsc/js/scripts.js"></script>
    	<script>
-	$(function(){
+	if(${pageNavi.size() > 0}){
 		var element = $(".pageNavi");
 		var page = "${page}";
 		if(page > 0 && page <= 10){
@@ -188,8 +191,8 @@
 			element[10].classList.add('active');
 		}else{
 			element[page % 10].classList.add('active');
-		}	
-	});
+		}			
+	}
 	
 	$("#member").addClass("active");
 	$("#member").children("ul").addClass("in");

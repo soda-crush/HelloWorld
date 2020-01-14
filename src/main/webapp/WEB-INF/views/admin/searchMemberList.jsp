@@ -124,67 +124,74 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                            	<c:forEach items="${list }" var="dto">
-                                            		<tr>
-<!--                                             		<td class="align-self-center"><input type="checkbox"></td> -->
-	                                                <td scope="row">
-														<div class="btn-group dropright">
-														  <button class="btn btn-secondary btn-sm dropdown-toggle nameBtn p-0" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-														  data-boundary="viewport">
-														    ${dto.nickName}(${dto.id})&nbsp;&nbsp;&nbsp;<i class="fa fa-external-link"></i>
-														  </button>
-														  <div class="dropdown-menu memberInfo">
-														    <p class="dropdown-item" id="memberInfo${dto.id}">회원정보</p>
-														    <c:choose>
-														    	<c:when test="${dto.memLevel == '1'}">
-														    		<p class="dropdown-item" id="memberStart${dto.id}">활동정지 해제</p>	
-														    	</c:when>
-														    	<c:otherwise>
-														    		<p class="dropdown-item" id="memberStop${dto.id}">활동정지</p>
-														    	</c:otherwise>
-														    </c:choose>														    
-														    <p class="dropdown-item" id="memberOut${dto.id}">강제탈퇴</p>
-														  </div>
-														</div>
-                                                    </td>
-                                                    <td>${dto.formedLastLogin}</td>
-                                                    <td>${dto.memLevel}</td>
-                                                    <td>${dto.reportCount}</td>
-                                               		</tr>
-                                               		<form action="${pageContext.request.contextPath}/admin/memberOut" method="post" id="frm${dto.id}">
-                                               			<input type="hidden" name="id" value="${dto.id}">
-                                               			<input type="hidden" name="reason" id="reason${dto.id}">
-                                               		</form>
-                                               		<script>
-                                               			$("#memberInfo${dto.id}").on("click", function(){
-                                               				window.open("${pageContext.request.contextPath}/admin/getMemberInfo?id=${dto.id}","","width=600px,height=526px,top=300px,left=600px");
-                                               			})
-                                               			$("#memberStop${dto.id}").on("click", function(){
-                                               				var result = confirm("${dto.nickName}(${dto.id}) 님을 활동정지 하시겠습니까?");
-                                               				if(result){
-                                               					location.href = "${pageContext.request.contextPath}/admin/memberStop?id=${dto.id}";
-                                               				};
-                                               			})
-                                               			$("#memberStart${dto.id}").on("click", function(){
-                                               				var result = confirm("${dto.nickName}(${dto.id}) 님 활동정지를 해제할까요?");
-                                               				if(result){
-                                               					location.href = "${pageContext.request.contextPath}/admin/memberStart?id=${dto.id}";
-                                               				};
-                                               			})
-                                               			$("#memberOut${dto.id}").on("click", function(){
-                                               				var result = prompt("${dto.nickName}(${dto.id}) 님 강제 탈퇴 이유를 적어주세요");
-                                               				if(result == null){
-                                               					return false;
-                                               				}else if(result == ""){
-                                               					alert("강제 탈퇴 이유를 적어주세요");
-                                               				}else{
-                                               					$("#reason${dto.id}").val(result);
-                                               					$("#frm${dto.id}").submit();
-                                               				}
-                                               			})
-                                               			
-                                               		</script>
-                                            	</c:forEach>                                                                                                
+                                            	<c:choose>
+                                            		<c:when test="${list.size() == 0}">
+                                            			<tr><th colspan='3'><marquee direction="right">결과가 없습니다</marquee></th></tr>
+                                            		</c:when>    
+                                            		<c:otherwise>
+		                                            	<c:forEach items="${list }" var="dto">
+		                                            		<tr>
+		<!--                                             		<td class="align-self-center"><input type="checkbox"></td> -->
+			                                                <td scope="row">
+																<div class="btn-group dropright">
+																  <button class="btn btn-secondary btn-sm dropdown-toggle nameBtn p-0" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+																  data-boundary="viewport">
+																    ${dto.nickName}(${dto.id})&nbsp;&nbsp;&nbsp;<i class="fa fa-external-link"></i>
+																  </button>
+																  <div class="dropdown-menu memberInfo">
+																    <p class="dropdown-item" id="memberInfo${dto.id}">회원정보</p>
+																    <c:choose>
+																    	<c:when test="${dto.memLevel == '1'}">
+																    		<p class="dropdown-item" id="memberStart${dto.id}">활동정지 해제</p>	
+																    	</c:when>
+																    	<c:otherwise>
+																    		<p class="dropdown-item" id="memberStop${dto.id}">활동정지</p>
+																    	</c:otherwise>
+																    </c:choose>														    
+																    <p class="dropdown-item" id="memberOut${dto.id}">강제탈퇴</p>
+																  </div>
+																</div>
+		                                                    </td>
+		                                                    <td>${dto.formedLastLogin}</td>
+		                                                    <td>${dto.memLevel}</td>
+		                                                    <td>${dto.reportCount}</td>
+		                                               		</tr>
+		                                               		<form action="${pageContext.request.contextPath}/admin/memberOut" method="post" id="frm${dto.id}">
+		                                               			<input type="hidden" name="id" value="${dto.id}">
+		                                               			<input type="hidden" name="reason" id="reason${dto.id}">
+		                                               		</form>
+		                                               		<script>
+		                                               			$("#memberInfo${dto.id}").on("click", function(){
+		                                               				window.open("${pageContext.request.contextPath}/admin/getMemberInfo?id=${dto.id}","","width=600px,height=526px,top=300px,left=600px");
+		                                               			})
+		                                               			$("#memberStop${dto.id}").on("click", function(){
+		                                               				var result = confirm("${dto.nickName}(${dto.id}) 님을 활동정지 하시겠습니까?");
+		                                               				if(result){
+		                                               					location.href = "${pageContext.request.contextPath}/admin/memberStop?id=${dto.id}";
+		                                               				};
+		                                               			})
+		                                               			$("#memberStart${dto.id}").on("click", function(){
+		                                               				var result = confirm("${dto.nickName}(${dto.id}) 님 활동정지를 해제할까요?");
+		                                               				if(result){
+		                                               					location.href = "${pageContext.request.contextPath}/admin/memberStart?id=${dto.id}";
+		                                               				};
+		                                               			})
+		                                               			$("#memberOut${dto.id}").on("click", function(){
+		                                               				var result = prompt("${dto.nickName}(${dto.id}) 님 강제 탈퇴 이유를 적어주세요");
+		                                               				if(result == null){
+		                                               					return false;
+		                                               				}else if(result == ""){
+		                                               					alert("강제 탈퇴 이유를 적어주세요");
+		                                               				}else{
+		                                               					$("#reason${dto.id}").val(result);
+		                                               					$("#frm${dto.id}").submit();
+		                                               				}
+		                                               			})
+		                                               			
+		                                               		</script>
+		                                            	</c:forEach>                                             		
+                                            		</c:otherwise>                                        	
+                                            	</c:choose>                                                                                               
                                             </tbody>
                                         </table>
                                     </div>
@@ -259,7 +266,7 @@
     <script src="${pageContext.request.contextPath }/adRsc/js/plugins.js"></script>
     <script src="${pageContext.request.contextPath }/adRsc/js/scripts.js"></script>
 	 <script>
-		$(function(){
+		if(${pageNavi.size() > 0}){
 			var element = $(".pageNavi");
 			var page = "${page}";
 			if(page > 0 && page <= 10){
@@ -268,9 +275,8 @@
 				element[10].classList.add('active');
 			}else{
 				element[page % 10].classList.add('active');
-			}
-			
-		});
+			}			
+		}
 	 
 	 $("#searchBtn").on("click", function(){	 
 		var regex = /^[\w,가-힣,ㄱ-ㅎ,ㅏ-ㅣ]+/g;

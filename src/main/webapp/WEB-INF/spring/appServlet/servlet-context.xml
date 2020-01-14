@@ -39,22 +39,33 @@
 	<bean id="memCheckAdv" class="kh.hello.advisors.MemAdvisor"/>
 		
 	<aop:config>
-		<aop:pointcut expression="execution(* kh.hello.project.*MemController.*(..))" id="essentialMemCheckMethod"/>
-	
+		<aop:pointcut expression="execution(* kh.hello.project.*MemController.*(..))" id="essentialMemCheckMethod"/>	
 		<aop:aspect id="memCheckAsp" ref="memCheckAdv">
 			<aop:around pointcut-ref="essentialMemCheckMethod" method="loginCheck"/>
-		</aop:aspect>
-	
+		</aop:aspect>	
 	</aop:config>	
-		
+
+	<!-- 게시글/댓글 카운터 -->		
+	<bean id="boardCheckAdv" class="kh.hello.advisors.CountAdvisor"/>
 			
 	<aop:config>
 		<aop:pointcut expression="execution(* kh.hello.project.*Controller.writeProc*(..))" id="writePlusMethod"/>
 		<aop:pointcut expression="execution(* kh.hello.project.*Controller.*deleteProc*(..))" id="delMinusMethod"/>
 		<aop:pointcut expression="execution(* kh.hello.project.*Controller.*coWriteProc*(..))" id="coWritePlusMethod"/>
-		<aop:pointcut expression="execution(* kh.hello.project.*Controller.*coDelProc*(..))" id="coDelMinusMethod"/>
+		<aop:pointcut expression="execution(* kh.hello.project.*Controller.*coDelProc*(..))" id="coDelMinusMethod"/>	
 		
-		
+		<aop:aspect ref="boardCheckAdv">
+			<aop:after-returning pointcut-ref="writePlusMethod" method="newBoard"/>
+		</aop:aspect>
+		<aop:aspect ref="boardCheckAdv">
+			<aop:after-returning pointcut-ref="delMinusMethod" method="delBoard"/>
+		</aop:aspect>
+		<aop:aspect ref="boardCheckAdv">
+			<aop:after-returning pointcut-ref="coWritePlusMethod" method="newCo"/>
+		</aop:aspect>
+		<aop:aspect ref="boardCheckAdv">
+			<aop:after-returning pointcut-ref="coDelMinusMethod" method="delCo"/>
+		</aop:aspect>	
 	</aop:config>	
 
 		

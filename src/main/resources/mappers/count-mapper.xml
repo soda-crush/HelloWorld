@@ -12,4 +12,16 @@
 	<select id="getVisitTodayCount" resultType="integer">
 		select count(*) from visit where substr(to_char(visit), 1, 9) = to_date(sysdate, 'yy/MM/dd')
 	</select>
+	<insert id="newBoard">
+		insert into newBoardLog values(sysdate)
+	</insert>
+	<insert id="delBoard">
+		insert into delBoardLog values(sysdate)
+	</insert>
+	<insert id="newCo">
+		insert into newComLog values(sysdate)
+	</insert>
+	<insert id="delCo">
+		insert into delComLog values(sysdate)
+	</insert>
 </mapper>
