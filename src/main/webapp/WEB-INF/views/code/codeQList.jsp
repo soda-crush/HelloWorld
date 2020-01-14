@@ -14,11 +14,20 @@
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/css/mainBase.css">
+
+<script>
+   $(function(){
+      $("#codeNavi").attr('class','nav-item nav-link active');
+   });
+</script>
+
 <style>
 #pageTitle {
 	margin-bottom: 20px;
 }
-
+a:hover {
+	text-decoration: none;
+}
 #pageTitle h1 {
 	display: inline;
 	margin-right: 10px;
@@ -96,8 +105,8 @@
 					<div class="row tableHead">					    
 					    <div class="col-xl-1 d-none d-xl-block">글번호</div>
 					    <div class="col-xl-1 col-3 col-md-2">구분</div>
-					    <div class="col-xl-4 col-9 col-md-8" style="width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">게시판제목</div>
-					    <div class="col-xl-2 col-md-1 d-none d-md-block">작성자</div>
+					    <div class="col-xl-5 col-9 col-md-8" style="width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">게시판제목</div>
+					    <div class="col-xl-1 col-md-1 d-none d-md-block">작성자</div>
 					    <div class="col-xl-1 col-md-1 d-none d-md-block">포인트</div>
 					    <div class="col-xl-2 d-none d-xl-block">날짜</div>
 					    <div class="col-xl-1 d-none d-xl-block">조회수</div>					    
@@ -114,17 +123,20 @@
 								<c:forEach items="${list}" var="dto">
 									<div class="row tableBody p-0">
 										<div class="col-xl-1 d-none d-xl-block">${dto.seq}</div>
-										<div class="col-xl-1 col-3 col-md-2">
-											<span class="badge badge-pill badge-success"
-											style="margin: 10; width: 60px;">${dto.division}</span></div>
-										<div class="col-xl-4 col-9 col-md-8" style="cursor:hand width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" onClick="detailView(${dto.seq})">
-											${dto.title}
-											<c:if test="${dto.replyCount>0 }">
-					  							<span class="pComment font-weight-bold">${dto.replyCount}</span>
-					  						</c:if>	
-											<span class="badge badge-pill badge-danger">${dto.newWriteDate}</span>
+										<div class="col-xl-1 col-3 col-md-2" style="color:dodgerblue;">
+<%-- 											<span class="badge badge-pill badge-success" style="margin: 10; width: 60px;">${dto.division}</span> --%>
+											${dto.division}
+										</div>
+										<div class="col-xl-5 col-9 col-md-8" onClick="detailView(${dto.seq})">
+											<div class="row">
+											<div style="max-width:85%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;">${dto.title}</div>
+												<c:if test="${dto.replyCount>0 }">
+						  							<span class="pComment font-weight-bold ml-1" style="display:inline-block;">${dto.replyCount}</span>
+						  						</c:if>	
+												<span class="badge badge-pill badge-danger ml-1" style="height:20px; margin-top:15px;">${dto.newWriteDate}</span>
 											</div>
-										<div class="col-xl-2 col-md-1 d-none d-md-block">
+										</div>
+										<div class="col-xl-1 col-md-1 d-none d-md-block">
 											<span style="cursor:pointer" onclick="popUp('${dto.id}','${dto.writer}')">
 												${dto.writer}
 											</span>
@@ -138,7 +150,9 @@
 								</c:forEach>
 							</c:otherwise>
 						</c:choose>
-				
+		</div>
+		<br>
+		<div>
 				<c:if test="${sessionScope.loginInfo.id!=null }">	
 					<div class="text-right">
 						<a class="btn btn-primary" role="button" id="write" style="color:white;">글쓰기</a>
@@ -169,7 +183,7 @@
 	                                    <option value="writer">작성자</option>
 	                                </select>
 	                                </div>
-	                                <div class="col-sm-6 my-1 pl-1 pr-1">
+	                                <div class="col-sm-8 my-1 pl-1 pr-1">
 									<input type="text" class="form-control form-control-sm" name="search" placeholder="검색어를 입력하세요">
 									</div>
 									<div class="col-sm-2 my-1 p-0 pl-1 pr-1 text-center">
@@ -178,7 +192,7 @@
 									</div>
 							</div>
 							</form>
-						</div>
+		
 					
 <!-- 					  <div class="card"> -->
 <!--                             <div class="card-body"> -->
@@ -195,6 +209,7 @@
 <!--                         </div> -->
 
 			</div>
+		</div>
 			<!--       몸통 끝!!!   -->
 
 			<div class=container>

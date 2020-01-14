@@ -19,6 +19,12 @@
 	type="text/css" />
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath }/adRsc/css/themify-icons.css">
+	
+<script>
+   $(function(){
+      $("#codeNavi").attr('class','nav-item nav-link active');
+   });
+</script>
 
 <!-- 카톡공유 -->
 <script type="text/JavaScript"
@@ -251,10 +257,10 @@ span:nth-child(4) {
 											<span class="badge badge-pill badge-info">비실무자</span>
 										</c:when>
 										<c:when test="${r.memLevel == 3}">
-											<span class="badge badge-pill badge-info">실무자</span>
+											<span class="badge badge-pill badge-primary">실무자</span>
 										</c:when>
 										<c:otherwise>
-											<span class="badge badge-pill badge-info">강등자</span>
+											<span class="badge badge-pill badge-danger">강등자</span>
 										</c:otherwise>
 									</c:choose>
 								</div>

@@ -18,6 +18,13 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
 <script src="/js/summernote-ko-KR.js"></script>
+
+<script>
+   $(function(){
+      $("#codeNavi").attr('class','nav-item nav-link active');
+   });
+</script>
+
 <style>
 .division {
    padding: 0px;
