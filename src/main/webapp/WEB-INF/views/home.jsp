@@ -36,7 +36,7 @@ padding-top: 9%;
 padding-bottom:9%;
 padding-left:3%;
 padding-right:3%;
-line-height: 260%;
+line-height: 150%;
 }
 .boardEleCon a{
 color:black;
@@ -90,11 +90,8 @@ font-size: 11px;}
 		            		<div class="boardEleCon">
 			            		<c:choose>
 			            		<c:when test="${bamList.size()!=0}">
-			            		<c:set var="cnt" value="1"/>
-			            			<c:forEach items="${bamList}" var="bam">
-			            			<c:set var="sum" value="${sum+1}"/>
-			            			${sum}&emsp;
-			            			<a href="/bamboo/bambooDetailView.do?seq=${bam.seq}"> ${bam.title}</a>
+			            			<c:forEach items="${bamList}" var="bam" varStatus="status">
+			            			<div class="cursorPointer" onclick="location.href='/bamboo/bambooDetailView.do?seq=${bam.seq}'" style="width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${status.count}&emsp; ${bam.title}</div>
 			            			<br>
 			            			</c:forEach>
 			            		</c:when>
@@ -111,11 +108,8 @@ font-size: 11px;}
 			            	<div class="boardEleCon">
 			            		<c:choose>
 			            		<c:when test="${codeList.size()!=0}">
-			            		<c:set var="cnt" value="1"/>
-			            			<c:forEach items="${codeList}" var="code">
-			            			<c:set var="sum" value="${sum+1}"/>
-			            			${sum-5}&emsp; 
-			            			<a href="${pageContext.request.contextPath}/code/codeDetail.do?seq=${code.seq}">${code.title}</a>
+			            			<c:forEach items="${codeList}" var="code" varStatus="status">
+			            			<div class="cursorPointer" onclick="location.href='${pageContext.request.contextPath}/code/codeDetail.do?seq=${code.seq}'" style="width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${status.count}&emsp; ${code.title}</div>
 			            			<br>
 			            			</c:forEach>
 			            		</c:when>
@@ -132,11 +126,8 @@ font-size: 11px;}
 			            	<div class="boardEleCon">
 			            		<c:choose>
 			            		<c:when test="${indusList.size()!=0}">
-			            		<c:set var="cnt" value="1"/>
-			            			<c:forEach items="${indusList}" var="indus">
-			            			<c:set var="sum" value="${sum+1}"/>
-			            			${sum-10}&emsp;
-			            			<a href="/industry/industryStatusDetailView.do?seq=${indus.seq}"> ${indus.title}</a>
+			            			<c:forEach items="${indusList}" var="indus" varStatus="status">
+			            			<div class="cursorPointer" onclick="location.href='/industry/industryStatusDetailView.do?seq=${indus.seq}'"  style="width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${status.count}&emsp; ${indus.title}</div>
 			            			<br>
 			            			</c:forEach>
 			            		</c:when>

@@ -199,6 +199,8 @@ public class ItnewsService {
 		String id = dao.getIdBySeq(seq);
 		//포인트 차감
 		dao.decrePoint(id);
+		//포인트 확인
+		dao.pointCheck(id);
 		//글삭제
 		dao.removeItnews(seq);
 		//댓글 삭제
@@ -239,6 +241,8 @@ public class ItnewsService {
 		String id = dao.getIdByCoSeq(seq2);
 		//포인트 차감
 		dao.decreCoPoint(id);
+		//포인트 확인
+		dao.pointCheck(id);
 		
 		return dao.removeItnewsCo(itSeq2, seq2);
 	}
