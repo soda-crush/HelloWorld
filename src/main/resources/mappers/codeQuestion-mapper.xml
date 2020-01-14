@@ -80,21 +80,38 @@
 		</choose>
 	</select>
 	
+<!-- 	<select id="codeSearchByPage" resultType="kh.hello.dto.CodeQuestionDTO" parameterType="java.util.Map"> -->
+<!-- 		select *  -->
+<!-- 		<choose> -->
+<!-- 		 <when test="value == 'all'">								 -->
+<!-- 			 from (select codeQuestion.*, row_number() over (order by seq desc) as rown from codeQuestion where (division like '%${search}%') or (writer like '%${search}%') or (title like '%${search}%')) where rown between #{start} and #{end} -->
+<!-- 		</when> -->
+<!-- 		<when test="value == 'division'"> -->
+<!-- 			 from (select codeQuestion.*, row_number() over (order by seq desc) as rown from codeQuestion where (division like '%${search}%')) where rown between #{start} and #{end}						 -->
+<!-- 		</when> -->
+<!-- 		<when test="value == 'writer'"> -->
+<!-- 			 from (select codeQuestion.*, row_number() over (order by seq desc) as rown from codeQuestion where (writer like '%${search}%')) where rown between #{start} and #{end}						 -->
+<!-- 		</when> -->
+<!-- 		<when test="value == 'title'">								 -->
+<!-- 			 from (select codeQuestion.*, row_number() over (order by seq desc) as rown from codeQuestion where (title like '%${search}%')) where rown between #{start} and #{end} -->
+<!-- 		</when> -->
+<!-- 		</choose> -->
+<!-- 	</select> -->
+	
 	<select id="codeSearchByPage" resultType="kh.hello.dto.CodeQuestionDTO" parameterType="java.util.Map">
-		select * 
+		select *
 		<choose>
 		 <when test="value == 'all'">								
-			 from (select codeQuestion.*, row_number() over (order by seq desc) as rown from codeQuestion where (division like '%${search}%') or (writer like '%${search}%') or (title like '%${search}%')) where rown between #{start} and #{end}
-			 
+			 from (select codeQuestion.*, row_number() over(order by seq desc) rown,(select count(*) from codeReply where queSeq=codeQuestion.seq) as replyCount from codeQuestion where (division like '%${search}%') or (writer like '%${search}%') or (title like '%${search}%')) where rown between #{start} and #{end} order by seq desc
 		</when>
 		<when test="value == 'division'">
-			 from (select codeQuestion.*, row_number() over (order by seq desc) as rown from codeQuestion where (division like '%${search}%')) where rown between #{start} and #{end}						
+			 from (select codeQuestion.*, row_number() over(order by seq desc) rown,(select count(*) from codeReply where queSeq=codeQuestion.seq) as replyCount  from codeQuestion where (division like '%${search}%')) where rown between #{start} and #{end}						
 		</when>
 		<when test="value == 'writer'">
-			 from (select codeQuestion.*, row_number() over (order by seq desc) as rown from codeQuestion where (writer like '%${search}%')) where rown between #{start} and #{end}						
+			 from (select codeQuestion.*, row_number() over(order by seq desc) rown,(select count(*) from codeReply where queSeq=codeQuestion.seq) as replyCount  from codeQuestion where (writer like '%${search}%')) where rown between #{start} and #{end}						
 		</when>
 		<when test="value == 'title'">								
-			 from (select codeQuestion.*, row_number() over (order by seq desc) as rown from codeQuestion where (title like '%${search}%')) where rown between #{start} and #{end}
+			 from (select codeQuestion.*, row_number() over(order by seq desc) rown,(select count(*) from codeReply where queSeq=codeQuestion.seq) as replyCount  from codeQuestion where (title like '%${search}%')) where rown between #{start} and #{end}
 		</when>
 		</choose>
 	</select>
