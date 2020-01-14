@@ -9,7 +9,7 @@
 		from visit group by substr(to_char(visit), 1, 9) order by 1 desc) vr) where rown between 1 and 12 order by rown desc
 	</select>
 	<select id="getGenderRatio" resultType="kh.hello.dto.ChartGenderDTO">
-		select gender, count(gender) genderCount from member group by gender
+		select gender, count(gender) genderCount from member group by gender order by 1
 	</select>
 	<select id="getJoinPath" resultType="kh.hello.dto.ChartJoinPathDTO">
 		select joinPath, count(joinPath) pathCount from member group by joinPath

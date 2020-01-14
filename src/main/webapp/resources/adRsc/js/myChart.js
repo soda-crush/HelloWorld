@@ -318,7 +318,7 @@
 		chart.data = [{
 		    "name": "${top5List[0].nickName}(${top5List[0].id})",
 		    "steps": top1,
-		    "href": "${top5List[4].profileImg}"
+		    "href": "${top5List[0].profileImg}"
 		}, {
 		    "name": "${top5List[1].nickName}(${top5List[1].id})",
 		    "steps": top2,
