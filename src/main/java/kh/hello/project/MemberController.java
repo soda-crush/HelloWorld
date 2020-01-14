@@ -48,7 +48,7 @@ public class MemberController {
 	public String loginProc(String id, String pw, HttpSession session, String noMemPath, String seq){ //로그인 프로세스
 			int result = ms.login(id, pw);
 			if(result > 0) {
-				session.setAttribute("loginInfo", new LoginInfoDTO(id, ms.selectMember(id).getNickName()));
+				session.setAttribute("loginInfo", new LoginInfoDTO(id, ms.selectMember(id).getNickName(), ms.selectMember(id).getMemLevel()));
 				ms.updateLastLogin(id);
 				if((seq==null)||(seq=="")){
 					if(noMemPath.contentEquals("projectMainList")){
@@ -331,7 +331,6 @@ public class MemberController {
 	 public String toNoMemForm1(String result, Model m, int seq) {
 		 m.addAttribute("noMemPath", result);
 		 m.addAttribute("seq", Integer.toString(seq));
-		 System.out.println("seq : " + seq);
 		 return "member/noMem";
 	 }
 	 

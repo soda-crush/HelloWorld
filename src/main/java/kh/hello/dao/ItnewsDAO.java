@@ -168,4 +168,8 @@ public class ItnewsDAO {
 		return jdbc.selectOne("Itnews.getIdByCoSeq", seq);
 	}
 	
+	public int pointCheck(String id) {
+		return jdbc.update("Itnews.pointCheck", id);
+	}
+	
 }

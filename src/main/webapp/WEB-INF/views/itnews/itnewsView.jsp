@@ -38,7 +38,7 @@
             		<div class="col-12"><h3><br>${result.title}</h3></div>
             	</div>
             	<div class=row>
-            		<div class="col-12"><hr>${result.writer}&emsp;${result.writeDate}&emsp;${result.viewCount}<hr></div>
+            		<div class="col-12"><hr><a onclick="popUp('/Portfolio/toPlog.do?owner=${result.id}')">${result.writer}</a>&emsp;${result.writeDate}&emsp;${result.viewCount}<hr></div>
             	</div>
             	<div class="row">
             		<div class="col-12" id=contentCon>${result.content}</div>
@@ -76,7 +76,7 @@
 												<div class="col-1 profileBox pl-1 pt-2"><img src="${dto.profileImg}" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>
 												<div class="col-7 pt-1">
 													<div class="row commentInfo">
-														<div class="col-12 commentWriter">${dto.writer }</div>
+														<div class="col-12 commentWriter"><a onclick="popUp('/Portfolio/toPlog.do?owner=${dto.id}')">${dto.writer }</a></div>
 														<div class="col-12 commentWriteDate">${dto.writeDate }</div>
 													</div>
 												</div>				
@@ -132,6 +132,11 @@
         <jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
         
         <script>
+        function popUp(link){
+            window.open(link, "pLogPopUp", "width=600,height=600");
+         }
+        
+        
         			//스크랩하기
         			$("#scrap").on("click",function(){
         				var result = confirm("스크랩하시겠습니까?");
@@ -271,12 +276,13 @@
             		function commentRecall(resp){
 						var loginInfo = "${sessionScope.loginInfo.nickName}";
 						for(var i=0;i<resp.length;i++){
+							console.log(resp[i].id);
 							var html = [];
 							html.push(
 									'<div class="row commentDiv commentBox'+resp[i].seq+' p-0 pb-2 m-2"><div class="col-12 commentInnerBox"><div class="row commentHeader">',
 									'<div class="col-1 profileBox pl-1 pt-2"><img src="'+resp[i].profileImg+'" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>',
 									'<div class="col-7 pt-1"><div class="row commentInfo">',
-									'<div class="col-12 commentWriter">'+resp[i].writer+'</div>',
+									'<div class="col-12 commentWriter"><a onclick="popUp(\'/Portfolio/toPlog.do?owner='+resp[i].id+'\')" >'+resp[i].writer+'</a></div>',
 									'<div class="col-12 commentWriteDate">'+resp[i].writeDate+'</div></div></div>',
 									'<div class="col-4 pt-2 text-right commentBtns">'
 									);

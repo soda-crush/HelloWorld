@@ -35,17 +35,14 @@ public class MemAdvisor {
 				while(m2.find()) {
 					
 				String sysMethod = m.group(1).toString();
-				System.out.println("sysMethod : " + sysMethod);
 				
 				String sysFirstParam = m2.group(1).toString();
-				System.out.println("sysFirstParam : " + sysFirstParam);
 				
 				if(sysFirstParam.contentEquals("String")) {
 					return "redirect:../member/noMem1?result="+sysMethod;
 				}else {
 					Object[] paramArr = pjp.getArgs();
 					int seq = Integer.parseInt(paramArr[0].toString());
-					System.out.println("aop에서 seq : " + seq);
 					return "redirect:../member/noMem2?result="+sysMethod+"&seq="+seq;
 				}
 					

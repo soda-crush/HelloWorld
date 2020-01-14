@@ -16,9 +16,6 @@
             .box>a{
                 width: 100%;
             }
-            #logo{
-                width: 100%;   
-            }
             #baseBackgroundColor{
                 position: relative;
                 background-color: #efefef;
@@ -74,5 +71,11 @@
             	font-size: 11px;
             }
             #logo:hover{
+            	cursor:pointer;
+            }
+            #loginCon p{
+            color:#787878;
+            }
+            .cursorPointer:hover{
             	cursor:pointer;
             }

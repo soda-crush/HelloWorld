@@ -122,5 +122,7 @@
 		select id from itnewscomments where seq=#{seq}
 	</select>
 	
-	
+	<update id="pointCheck" parameterType="string">
+		update member set memlevel=1 where id = #{id} and point &lt; 0
+	</update>
 </mapper> 
