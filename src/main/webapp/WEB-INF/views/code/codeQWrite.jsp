@@ -87,7 +87,7 @@
 					</div>
 					<div class="col-3 division">
 						<select name="point" class="sele" id="point">
-							<option value="">point</option>
+							<option value="0">포인트X</option>
 							<option value="10">10</option>
 							<option value="30">30</option>
 							<option value="50">50</option>
@@ -158,6 +158,28 @@
 				}
 			}
 		})
+		
+		$("#point").on("change",function(){
+			$.ajax({
+		        url : "/code/pointCheck.do",
+		        type : "post",
+		        dataType : "json",
+		        data : {
+		           id : "${sessionScope.loginInfo.id}"	           
+		        }
+		     }).done(function(resp){
+		    	 var adoptPoint = $("#point option:selected").val();
+		        if(resp >= adoptPoint){ 
+		        	
+		        }
+		        else{
+		           alert("포인트가 부족합니다 다시 확인해주세요.");
+		        }    
+		     }).fail(function(resp){
+		        console.log("실패");
+		     })
+		})
+		
 	</script>
 </body>
 </html>

@@ -7,12 +7,58 @@
 <meta charset="UTF-8">
 <title>Hello World!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/css/mainBase.css">
-<link rel="stylesheet" href="/css/font-awesome/css/font-awesome.css" type="text/css" />
+<link rel="stylesheet" href="/css/font-awesome/css/font-awesome.css"
+	type="text/css" />
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/adRsc/css/themify-icons.css">
+
+<!-- 카톡공유 -->
+<script type="text/JavaScript"
+	src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+<script type="text/javascript">
+	function shareKakaotalk() {
+		Kakao.init("7fce3c86f0e6aeeac11028850040589c"); // 사용할 앱의 JavaScript 키를 설정
+		Kakao.Link.sendDefault({
+			objectType : "feed",
+			content : {
+				title : "${qResult.title}", // 콘텐츠의 타이틀
+				description : "${qResult.content}", // 콘텐츠 상세설명
+				imageUrl : "/img/kakao.png", // 썸네일 이미지 			
+				link : {
+					mobileWebUrl : "http://www.naver.com/", // 모바일 카카오톡에서 사용하는 웹 링크 URL				
+					webUrl : "http://www.naver.com/" // PC버전 카카오톡에서 사용하는 웹 링크 URL
+				}
+			},
+			social : {
+				likeCount : 0 // LIKE 개수
+				,
+				commentCount : 0 // 댓글 개수
+				,
+				sharedCount : 0
+			// 공유 회수
+			},
+			buttons : [ {
+				title : "링크 이동하기" // 버튼 제목
+				,
+				link : {
+					mobileWebUrl : "http://www.naver.com/" // 모바일 카카오톡에서 사용하는 웹 링크 URL
+					,
+					webUrl : "http://www.naver.com/" // PC버전 카카오톡에서 사용하는 웹 링크 URL
+				}
+			} ]
+		});
+	}
+	
+</script>
+<!-- . -->
 
 <style>
 .contentDiv {
@@ -108,15 +154,16 @@ span:nth-child(4) {
 	font-size: 50px;
 	font-weight: 100;
 }
-.contentDivBot{
-	text-align:left;
+
+.contentDivBot {
+	text-align: left;
 }
 </style>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/standard/header.jsp" />
 
-	<div id=baseBackgroundColor style="text-align:left;">
+	<div id=baseBackgroundColor style="text-align: left;">
 		<div class=container>
 			<div class=row>
 				<div class="col-12" id=aroundContent></div>
@@ -136,21 +183,34 @@ span:nth-child(4) {
 			<div>
 				<div class="contentDiv">${qResult.content}</div>
 				<br>
-				<div class="botD"><img src="/icon/Cicon.svg"> ${qResult.writer} ${qResult.formedDate} 조회수${qResult.viewCount}</div>
+				<div class="botD">
+					<img src="/icon/Cicon.svg"> 
+					<span style="cursor:pointer" onclick="popUp('/Portfolio/toPlog.do?owner=${qResult.id}')">${qResult.writer}</span>				
+					${qResult.formedDate} 조회수${qResult.viewCount}
+				</div>
 				<br>
 
 				<c:choose>
 					<c:when test="${sessionScope.loginInfo.id==null }">
-						<div style="text-align: right;" class="btnDIv">	
+						<div style="text-align: right;" class="btnDIv">
 							<a class="btn btn-dark" href="/code/codeQList.do" role="button">목록</a>
 						</div>
 					</c:when>
 					<c:when test="${qResult.id!=sessionScope.loginInfo.id}">
-						<div style="text-align: right;" class="btnDIv">							
-								<c:if test="${count==0 && adoptCount==0}">
-									<a class="btn btn-dark" href="/code/codeRWrite.do?seq=${qResult.seq}" role="button">답변</a>
-								</c:if>
-							<button class="btn btn-dark">공유</button>
+						<div style="text-align: right;" class="btnDIv">
+							<c:if test="${count==0 && adoptCount==0}">
+								<a class="btn btn-dark"
+									href="/code/codeRWrite.do?seq=${qResult.seq}" role="button">답변</a>
+							</c:if>
+							<a id="kakao-link-btn" href="javascript:;"
+								onClick="shareKakaotalk();"> <img src="/icon/kakaoTalk.png"
+								height=40>
+							</a>
+							<!-- 							<button class="btn btn-warning" id="sharing">공유</button> -->
+							<!-- 							<button type="button" class="btn btn-outline-warning" id="sharing"><a id="kakao-link-btn" href="javascript:;" onClick="shareKakaotalk();"> -->
+							<!-- 								<img src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" height=20/> -->
+							<!-- 							</a>공유</button> -->
+							<!-- 						<i class="fa fa-bookmark" id="scrapDone" data-toggle="tooltip" title="스크랩"></i> -->
 							<button class="btn btn-dark" id="scrap">스크랩</button>
 							<a class="btn btn-dark" href="/code/codeQList.do" role="button">목록</a>
 							<button class="btn btn-danger" id="report">신고</button>
@@ -158,179 +218,235 @@ span:nth-child(4) {
 					</c:when>
 					<c:otherwise>
 						<div style="text-align: right;">
-							<button class="btn btn-dark" class="btnDIv2" id="modify">수정</button>
-<!-- 							삭제버튼 눌렀을때 답변 갯수 있는지 체크하고 삭제처리, 답변이 있으면 삭제가 안됨. -->
+							<!-- 답변이 있으면 삭제,수정이 안됨. -->
 							<c:if test="${repCount==0}">
+								<button class="btn btn-dark" class="btnDIv2" id="modify">수정</button>
 								<button class="btn btn-danger" class="btnDIv2" id="delete">삭제</button>
-							</c:if>							
+							</c:if>
 						</div>
 					</c:otherwise>
 				</c:choose>
-	
-<!-- 답글 시작-->
-			<c:forEach items="${rResult}" var="r">
+
+				<!-- 답글 시작-->
+				<c:forEach items="${rResult}" var="r">
 					<div class="topQ">
-					<hr>
-					<hr>
-				<div class="row">
-					<div class="col-10">
-						<div style="font-size: 40px; font-weight: 100;">${r.writer}님의 답변입니다.</div>
-					</div>
-					<div class="col-2">
+						<hr>
+						<hr>
+
 						<c:if test="${r.adopt=='Y'}">
-							<img src="/icon/check.png" width=150 height=150><h3 style="color:red;">질문자채택</h3>
+							<div>
+								<span class="ti-crown text-warning"></span>
+								<p5>질문자 채택</p5>
+							</div>
 						</c:if>
-					</div>
-				</div>
-						<br>
-						<div id="content">${r.content}</div>									
-						<br>
-						<div>${r.formedDate}</div>						
-						
-<!-- 채택 -->										
-						<c:if test="${repCount >0 && qResult.id == sessionScope.loginInfo.id}"> 
-								<div style="text-align:right;">
-									<c:if test="${r.adopt=='N' && adoptCount == 0}">
-										<button type="button" class="btn btn-primary" id="adopt" onclick="adopt('${r.id}')">채택하기</button>
-									</c:if>
+
+						<div class="row">
+							<div class="col-10">
+								<div style="font-size: 40px; font-weight: 100;">
+									<span style="cursor:pointer" onclick="popUp('/Portfolio/toPlog.do?owner=${qResult.id}')">${r.writer}</span>
+									<span style="font-size: 20px; font-weight: 50; color: gray;">님의 답변입니다.</span>
+									<c:choose>
+										<c:when test="${r.memLevel == 2}">
+											<!-- 							<span class="badge badge-pill badge-info" style="margin: 10; width: 80px; height:30px;">비실무자</span>						 -->
+											<span class="badge badge-pill badge-info">비실무자</span>
+										</c:when>
+										<c:when test="${r.memLevel == 3}">
+											<span class="badge badge-pill badge-info">실무자</span>
+										</c:when>
+										<c:otherwise>
+											<span class="badge badge-pill badge-info">강등자</span>
+										</c:otherwise>
+									</c:choose>
 								</div>
+							</div>
+
+							<div class="col-2">
+								<%-- 						<c:if test="${r.adopt=='Y'}"> --%>
+								<!-- 							<i data-brackets-id="1484" class="fa fa-check-circle-o"  style="font-size:100px;"><h3 style="color:red;">질문자채택</h3></i> -->
+								<!-- 							<i data-brackets-id="803" class="fa fa-check" style="font-size:100px;"><h3 style="color:red;">질문자채택</h3></i> -->
+								<!-- 							<img src="/icon/check.svg" width=150 height=70><h3 style="color:red;">질문자채택</h3> -->
+								<%-- 						</c:if> --%>
+							</div>
+						</div>
+						<br>
+						<div id="content">${r.content}</div>
+						<br>
+						<div>${r.formedDate}</div>
+
+						<!-- 채택 -->
+						<c:if
+							test="${repCount >0 && qResult.id == sessionScope.loginInfo.id}">
+							<div style="text-align: right;">
+								<c:if test="${r.adopt=='N' && adoptCount == 0}">
+									<button type="button" class="btn btn-primary" id="adopt"
+										onclick="adopt('${r.id}')">채택하기</button>
+								</c:if>
+							</div>
 						</c:if>
 						<br>
 						<c:choose>
 							<c:when test="${sessionScope.loginInfo.id==null }">
-							
+
 							</c:when>
 							<c:when test="${r.id == sessionScope.loginInfo.id}">
-								<div style="text-align:right;">
-									<button class="btn btn-dark" id="modifyR" onclick="modifyRe(${r.seq},${r.queSeq})">수정</button>
-									<button class="btn btn-danger" id="deleteR" onclick="deleteRe(${r.seq},${r.queSeq})">삭제</button>
+								<div style="text-align: right;">
+									<button class="btn btn-dark" id="modifyR"
+										onclick="modifyRe(${r.seq},${r.queSeq})">수정</button>
+									<button class="btn btn-danger" id="deleteR"
+										onclick="deleteRe(${r.seq},${r.queSeq})">삭제</button>
 								</div>
 							</c:when>
 							<c:otherwise>
-								<div style="text-align:right;">
-										<button class="btn btn-danger" id="reportR">신고</button>
+								<div style="text-align: right;">
+									<button class="btn btn-danger" id="reportR">신고</button>
 								</div>
 							</c:otherwise>
-						</c:choose>	
+						</c:choose>
 						<br>
-					<c:if test="${sessionScope.loginInfo.id!=null }">	
-						<div style="text-align:right;"><button class="btn btn-dark" id="commentBtn" onclick="hideCo(${r.seq})">댓글</button></div>
-					</c:if>		
-					<div class="contentDivBot dSeq${r.seq}" style="display:none;">
-						<div class="pPageComments${r.seq}">
-							<c:if test="${cResult.size()>0 }">
-								<c:forEach items="${cResult }" var="c">
-								<!-- 										댓글seq = 답글seq 같은것만 보여지게 -->
-									<c:choose>
-										<c:when test="${c.repSeq == r.seq}">
-										<div class="row commentDiv commentBox${r.seq}${c.seq} p-0 pb-2 m-2">
-											<div class="col-12 commentInnerBox">
-												<div class="row commentHeader">
-													<div class="col-8 pt-3">
-														<div class="row commentInfo">
-															<div class="col-12 commentWriter">${c.writer }</div>
-															<div class="col-12 commentWriteDate">${c.formedDate}</div>
+						<%-- 					<c:if test="${sessionScope.loginInfo.id!=null }">	 --%>
+						<div style="text-align: right;">
+							<button class="btn btn-dark" id="commentBtn"
+								onclick="hideCo(${r.seq})">댓글</button>
+						</div>
+						<%-- 					</c:if>	 --%>
+						<br>
+						<div class="contentDivBot dSeq${r.seq}" style="display: none;">
+							<div class="pPageComments${r.seq}">
+								<c:if test="${cResult.size()>0 }">
+									<c:forEach items="${cResult }" var="c">
+										<!-- 										댓글seq = 답글seq 같은것만 보여지게 -->
+										<c:choose>
+											<c:when test="${c.repSeq == r.seq}">
+												<div
+													class="row commentDiv commentBox${r.seq}${c.seq} p-0 pb-2 m-2" style="border:1px solid red; border-top:none; border-left: none; border-right: none;">													
+													<div class="col-12 commentInnerBox">
+														<div class="row commentHeader">
+															<div class="col-8 pt-3">
+																<div class="row commentInfo">
+																	<div class="col-12 commentWriter">${c.writer }</div>
+																	<div class="col-12 commentWriteDate">${c.formedDate}</div>
+																</div>
+															</div>
+															<div class="col-4 pt-2 text-right commentBtns">
+																<!-- 													<button type="button" class="btn btn-warning coReplyBtn">답글</button> -->
+																<c:if test="${c.id==sessionScope.loginInfo.id }">
+																	<a class="btn btn-info coModifyBtn"
+																		onclick="coModFunction(${c.queSeq}, ${c.repSeq}, ${c.seq}, '${c.content}');return false;"
+																		role="button">수정</a>
+																	<a class="btn btn-danger coDeleteBtn"
+																		onclick="coDelFunction(${c.queSeq}, ${c.repSeq}, ${c.seq});return false;"
+																		role="button">삭제</a>
+																</c:if>
+															</div>
 														</div>
-													</div>				
-													<div class="col-4 pt-2 text-right commentBtns">
-	<!-- 													<button type="button" class="btn btn-warning coReplyBtn">답글</button> -->
-														<c:if test="${c.id==sessionScope.loginInfo.id }">
-															<a class="btn btn-info coModifyBtn" onclick="coModFunction(${c.queSeq}, ${c.repSeq}, ${c.seq}, '${c.content}');return false;" role="button">수정</a>
-															<a class="btn btn-danger coDeleteBtn" onclick="coDelFunction(${c.queSeq}, ${c.repSeq}, ${c.seq});return false;" role="button">삭제</a>
-														</c:if>
-													</div>								
-												</div>											
-												<div class="row commentContent">
-													<div class="col-12 pt-1 pl-4">${c.content }</div>
+														<div class="row commentContent">
+															<div class="col-12 pt-1 pl-4">${c.content }</div>
+														</div>
+													</div>
 												</div>
-											</div>
-										</div>	
-										</c:when>
-									</c:choose>														
-								</c:forEach>
+											</c:when>
+										</c:choose>
+									</c:forEach>
 								</c:if>
 							</div>
-							
+
 							<div id="pCoInput" class="row">
-								<div class="col-9 col-lg-10"><textarea class="form-control pCoContents${r.seq}" placeholder="댓글 내용을 입력해주세요" id="pCoContents${r.seq}"></textarea></div>
+								<div class="col-9 col-lg-10">
+									<textarea class="form-control pCoContents${r.seq}"
+										placeholder="댓글 내용을 입력해주세요" id="pCoContents${r.seq}"></textarea>
+								</div>
 								<div class="col-3 col-lg-2">
 									<div class="row">
 										<div class="col-12">
-											<button type="button" class="btn btn-primary" id="coWriteBtn${r.seq}">작성</button>
+											<button type="button" class="btn btn-primary"
+												id="coWriteBtn${r.seq}">작성</button>
 											<button type="button" class="btn btn-secondary" id="coCancel">취소</button>
-<!-- 											style="margin-bottom:10px;"  -->
-										</div>										
+											<!-- 											style="margin-bottom:10px;"  -->
+										</div>
 									</div>
 									<div class="row">
-										<div class="col-12">
-											
-										</div>										
-									</div>								
-		        				</div>
+										<div class="col-12"></div>
+									</div>
+								</div>
 							</div>
-					</div>	
-				</div>	
-				
-				<script>
-				$("#coWriteBtn${r.seq}").on("click",function(){
-					if($("#pCoContents${r.seq}").val()==""){
-				           alert("댓글 내용을 입력해주세요.");
-				           return false;
-				    }
-				
-					$.ajax({
-				           url : "/code/codeCWriteProc.do",
-				           type : "post",
-				           dataType : "json",
-				           data :{
-				        	  queSeq : "${qResult.seq}", 
-				              repSeq : "${r.seq}",
-				              content : $("#pCoContents${r.seq}").val(),
-				              writer: "${sessionScope.loginInfo.nickName}"
-				           }
-				        }).done(function(resp){
-				            $("#pCoContents${r.seq}").val("");
-				            $(".pPageComments${r.seq}").html("");
-				           
-				           //call list
-			               var loginInfo = "${sessionScope.loginInfo.id}";
-			               for(var i=0;i<resp.length;i++){
-			                  var html = [];
-			                  html.push(
-			                        '<div class="row commentDiv commentBox'+resp[i].repSeq+resp[i].seq+' p-0 pb-2 m-2"><div class="col-12 commentInnerBox"><div class="row commentHeader">',
-//			                         '<div class="col-1 profileBox pl-1 pt-2"></div>',
-			                        '<div class="col-8 pt-3"><div class="row commentInfo">',
-			                        '<div class="col-12 commentWriter">'+resp[i].writer+'</div>',
-			                        '<div class="col-12 commentWriteDate">'+resp[i].formedWriteDate+'</div></div></div>',
-			                        '<div class="col-4 pt-2 text-right commentBtns">'
-			                        );
-			                  if(resp[i].id==loginInfo){
-			                     
-			                     html.push(
-			                           '<a class="btn btn-info coModifyBtn" onclick="coModFunction('+resp[i].queSeq+','+resp[i].repSeq+','+resp[i].seq+',\''+resp[i].content+'\');return false;" role="button">수정</a>\n',
-			                           '<a class="btn btn-danger coDeleteBtn" onclick="coDelFunction('+resp[i].queSeq+','+resp[i].repSeq+','+resp[i].seq+');return false;" role="button">삭제</a>'
-			                           );
-			                  }
-			                  
-			                  html.push(
-			                        '</div></div>',
-			                        '<div class="row commentContent"><div class="col-12 pt-1 pl-4">'+resp[i].content+'</div></div></div></div>'
-			                        );
-			                  $(".pPageComments${r.seq}").append(html.join(""));   
-				           //
-				        }
-				        }).fail(function(resp){
-				        	
-				        })				
-				})				
-				</script>
-	</c:forEach>
-	
-<!-- 	답글끝 -->
+						</div>
+					</div>
 
-						<br>
-						<hr>
+					<script>
+				$("#pCoContents${r.seq}").focus(function(){
+					if("${sessionScope.loginInfo.id}" == ""){
+		    			alert("로그인 후 이용가능합니다.")
+		    			$("#pCoContents${r.seq}").blur();
+		    		}
+		       	})
+		       	
+		       	$("#coWriteBtn${r.seq}").on("click",function(){		       			
+		       				//
+		       				if($("#pCoContents${r.seq}").val()==""){
+						           alert("댓글 내용을 입력해주세요.");
+						           return false;
+						    }
+						
+							$.ajax({
+						           url : "/code/codeCWriteProc.do",
+						           type : "post",
+						           dataType : "json",
+						           data :{
+						        	  queSeq : "${qResult.seq}", 
+						              repSeq : "${r.seq}",
+						              content : $("#pCoContents${r.seq}").val(),
+						              writer: "${sessionScope.loginInfo.nickName}"
+						           }
+						        }).done(function(resp){
+						            $("#pCoContents${r.seq}").val("");
+						            $(".pPageComments${r.seq}").html("");
+						           
+						           //call list
+					               var loginInfo = "${sessionScope.loginInfo.id}";
+					               for(var i=0;i<resp.length;i++){
+					                  var html = [];
+					                  html.push(
+					                        '<div class="row commentDiv commentBox'+resp[i].repSeq+resp[i].seq+' p-0 pb-2 m-2" style="border:1px solid red; border-top:none; border-left: none; border-right: none;"><div class="col-12 commentInnerBox"><div class="row commentHeader">',
+//					                         '<div class="col-1 profileBox pl-1 pt-2"></div>',
+					                        '<div class="col-8 pt-3"><div class="row commentInfo">',
+					                        '<div class="col-12 commentWriter">'+resp[i].writer+'</div>',
+					                        '<div class="col-12 commentWriteDate">'+resp[i].formedWriteDate+'</div></div></div>',
+					                        '<div class="col-4 pt-2 text-right commentBtns">'
+					                        );
+					                  if(resp[i].id==loginInfo){
+					                     
+					                     html.push(
+					                           '<a class="btn btn-info coModifyBtn" onclick="coModFunction('+resp[i].queSeq+','+resp[i].repSeq+','+resp[i].seq+',\''+resp[i].content+'\');return false;" role="button">수정</a>\n',
+					                           '<a class="btn btn-danger coDeleteBtn" onclick="coDelFunction('+resp[i].queSeq+','+resp[i].repSeq+','+resp[i].seq+');return false;" role="button">삭제</a>'
+					                           );
+					                  }
+					                  
+					                  html.push(
+					                        '</div></div>',
+					                        '<div class="row commentContent"><div class="col-12 pt-1 pl-4">'+resp[i].content+'</div></div></div></div>'
+					                        );
+					                  $(".pPageComments${r.seq}").append(html.join(""));
+// 	 			                      $(".commentBox${r.seq}${c.seq}").css("border","1px solid red");
+// 	 			                      $(".commentBox${r.seq}${c.seq}").css("border-top","none");
+// 	 			                      $(".commentBox${r.seq}${c.seq}").css("border-left","none");
+// 	 			                      $(".commentBox${r.seq}${c.seq}").css("border-right","none");
+	 			                     
+						           //
+						        }
+						        }).fail(function(resp){
+						        	
+						        })      			
+				})			
+	       				//	       		
+			
+				</script>
 				
+				</c:forEach>
+				<!-- 	답글끝 -->
+
+				<br>
+				<hr>
+
 			</div>
 		</div>
 		<!--       몸통 끝!!!   -->
@@ -341,10 +457,15 @@ span:nth-child(4) {
 			</div>
 		</div>
 	</div>
-	<jsp:include page="/WEB-INF/views/standard/footer.jsp" />  	
+	<jsp:include page="/WEB-INF/views/standard/footer.jsp" />
 	<script>
-	//스크랩하기
 	
+	// 카톡 공유하기
+	$("#sharing").on("click",function(){
+		location.href="${pageContext.request.contextPath}/code/sharing.do";
+	})
+	
+	//스크랩
 	$("#scrap").on("click",function(){
 		var result = confirm("스크랩하시겠습니까?");
 		if(result){
@@ -382,21 +503,22 @@ span:nth-child(4) {
 		$("#delete").on("click",function(){
 			var cf = confirm("삭제하시겠습니까?");
 			if(cf){
-				location.href="${pageContext.request.contextPath}/code/delete.do?seq=${qResult.seq}";
+				location.href="${pageContext.request.contextPath}/code/delete.do?seq=${qResult.seq}&point=${qResult.point}";
 			}
 		})
-				
+
 		flag = true;
 		function hideCo(seq){
 			var b = $(".dSeq"+seq);
-			if(flag == false){
-	            b.hide();
-	            flag = true;
-	        }else{
-	            b.show();﻿
+			if(flag == true){
+				b.show();﻿
 	            flag = false;
+	        }else{
+	        	b.hide();
+	            flag = true;
 	        };
     	}
+		
 		
 		function modifyRe(seq,queSeq){
 				location.href="${pageContext.request.contextPath}/code/modifyR.do?seq="+seq+"&queSeq="+queSeq;
@@ -408,6 +530,11 @@ span:nth-child(4) {
 				location.href="${pageContext.request.contextPath}/code/deleteR.do?seq="+seq+"&queSeq="+queSeq;
 			}
         }
+		
+		//닉네임 눌렀을때 새창 띄우기
+		function popUp(link){
+            window.open(link, "pLogPopUp", "width=600,height=600");
+         }
     	
 		function coDelFunction(queSeq, repSeq, seq){
 			 var check = confirm("정말 삭제하시겠습니까?");
@@ -428,7 +555,7 @@ span:nth-child(4) {
 	               for(var i=0;i<resp.length;i++){
 	                  var html = [];
 	                  html.push(
-	                        '<div class="row commentDiv commentBox'+resp[i].repSeq+resp[i].seq+' p-0 pb-2 m-2"><div class="col-12 commentInnerBox"><div class="row commentHeader">',
+	                        '<div class="row commentDiv commentBox'+resp[i].repSeq+resp[i].seq+' p-0 pb-2 m-2" style="border:1px solid red; border-top:none; border-left: none; border-right: none;"><div class="col-12 commentInnerBox"><div class="row commentHeader">',
 //			                         '<div class="col-1 profileBox pl-1 pt-2"></div>',
 	                        '<div class="col-8 pt-3"><div class="row commentInfo">',
 	                        '<div class="col-12 commentWriter">'+resp[i].writer+'</div>',
@@ -489,54 +616,53 @@ span:nth-child(4) {
        			$(this).closest(".coModBox").remove();           			
        		}
        	});	
-       	
+       				
        	$(document).on("click","#coMoConfirmBtn",function(){
-			$("#pCoModContents").val($.trim($("#pCoModContents").val()));
-			if($("#pCoModContents").val()==""){
-				alert("댓글 내용을 입력해주세요.");
-				return false;
-			}
-			
-			$.ajax({
-				url : "/code/codeCModifyProc.do",
-				type : "post",
-				dataType : "json",
-				data : $("#coModFrm").serialize()
-			}).done(function(resp){
-	               $(".pPageComments"+resp[0].repSeq).html("");               
-	               //call list
-	  	               var loginInfo = "${sessionScope.loginInfo.id}";
-	  	               for(var i=0;i<resp.length;i++){
-	  	                  var html = [];
-	  	                  html.push(
-	  	                        '<div class="row commentDiv commentBox'+resp[i].repSeq+resp[i].seq+' p-0 pb-2 m-2"><div class="col-12 commentInnerBox"><div class="row commentHeader">',
-//	  			                         '<div class="col-1 profileBox pl-1 pt-2"></div>',
-	  	                        '<div class="col-8 pt-3"><div class="row commentInfo">',
-	  	                        '<div class="col-12 commentWriter">'+resp[i].writer+'</div>',
-	  	                        '<div class="col-12 commentWriteDate">'+resp[i].formedWriteDate+'</div></div></div>',
-	  	                        '<div class="col-4 pt-2 text-right commentBtns">'
-//	  			                         '<button type="button" class="btn btn-warning coReplyBtn">답글</button>\n'
-	  	                        );
-	  	                  if(resp[i].id==loginInfo){
-	  	                     
-	  	                     html.push(
-	  	                           '<a class="btn btn-info coModifyBtn" onclick="coModFunction('+resp[i].queSeq+','+resp[i].repSeq+','+resp[i].seq+',\''+resp[i].content+'\');return false;" role="button">수정</a>\n',
-	  	                           '<a class="btn btn-danger coDeleteBtn" onclick="coDelFunction('+resp[i].queSeq+','+resp[i].repSeq+','+resp[i].seq+');return false;" role="button">삭제</a>'
-	  	                           );
-	  	                  }
-	  	                  
-	  	                  html.push(
-	  	                        '</div></div>',
-	  	                        '<div class="row commentContent"><div class="col-12 pt-1 pl-4">'+resp[i].content+'</div></div></div></div>'
-	  	                        );
-	  	                  $(".pPageComments"+resp[0].repSeq).append(html.join(""));   
-	  		        }
-			}).fail(function(resp){
+			$("#pCoModContents").val($.trim($("#pCoModContents").val()));			
+				if($("#pCoModContents").val()==""){
+					alert("댓글 내용을 입력해주세요.");
+					return false;
+				}
 				
-			})
-       	});       	
+				$.ajax({
+					url : "/code/codeCModifyProc.do",
+					type : "post",
+					dataType : "json",
+					data : $("#coModFrm").serialize()
+				}).done(function(resp){
+		               $(".pPageComments"+resp[0].repSeq).html("");               
+		               //call list
+		  	               var loginInfo = "${sessionScope.loginInfo.id}";
+		  	               for(var i=0;i<resp.length;i++){
+		  	                  var html = [];
+		  	                  html.push(
+		  	                        '<div class="row commentDiv commentBox'+resp[i].repSeq+resp[i].seq+' p-0 pb-2 m-2" style="border:1px solid red; border-top:none; border-left: none; border-right: none;"><div class="col-12 commentInnerBox"><div class="row commentHeader">',
+//		  			                         '<div class="col-1 profileBox pl-1 pt-2"></div>',
+		  	                        '<div class="col-8 pt-3"><div class="row commentInfo">',
+		  	                        '<div class="col-12 commentWriter">'+resp[i].writer+'</div>',
+		  	                        '<div class="col-12 commentWriteDate">'+resp[i].formedWriteDate+'</div></div></div>',
+		  	                        '<div class="col-4 pt-2 text-right commentBtns">'
+//		  			                         '<button type="button" class="btn btn-warning coReplyBtn">답글</button>\n'
+		  	                        );
+		  	                  if(resp[i].id==loginInfo){
+		  	                     
+		  	                     html.push(
+		  	                           '<a class="btn btn-info coModifyBtn" onclick="coModFunction('+resp[i].queSeq+','+resp[i].repSeq+','+resp[i].seq+',\''+resp[i].content+'\');return false;" role="button">수정</a>\n',
+		  	                           '<a class="btn btn-danger coDeleteBtn" onclick="coDelFunction('+resp[i].queSeq+','+resp[i].repSeq+','+resp[i].seq+');return false;" role="button">삭제</a>'
+		  	                           );
+		  	                  }
+		  	                  
+		  	                  html.push(
+		  	                        '</div></div>',
+		  	                        '<div class="row commentContent"><div class="col-12 pt-1 pl-4">'+resp[i].content+'</div></div></div></div>'
+		  	                        );
+		  	                  $(".pPageComments"+resp[0].repSeq).append(html.join(""));   
+		  		        }
+				}).fail(function(resp){
+					
+				})
+	      });       	
 		
-		
-	</script>          
-</body>	
+	</script>
+</body>
 </html>

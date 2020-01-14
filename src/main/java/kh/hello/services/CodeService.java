@@ -23,6 +23,7 @@ import kh.hello.dao.CodeDAO;
 import kh.hello.dto.CodeCommentsDTO;
 import kh.hello.dto.CodeQuestionDTO;
 import kh.hello.dto.CodeReplyDTO;
+import kh.hello.dto.MemberDTO;
 import kh.hello.dto.ScrapDTO;
 
 
@@ -40,11 +41,11 @@ public class CodeService {
 			return dao.selectQuestionAll(start,end);
 	}
 	
-	@Transactional("txManager")
-	public void insert(CodeQuestionDTO dto,String id) {
-		dao.insert(dto);
-		dao.writePoint(id);
-	}
+//	@Transactional("txManager")
+//	public void insert(CodeQuestionDTO dto,String id) {
+//		dao.insert(dto);
+//		dao.writePoint(id);
+//	}
 	
 //	public void imageUpload(CodeQuestionDTO dto,String path) throws Exception{
 //		Pattern p = Pattern.compile("<img.+?src=\"(.+?)\".+?data-filename=\"(.+?)\".*?>");
@@ -78,9 +79,15 @@ public class CodeService {
 	}
 	
 	@Transactional("txManager")
-	public void delete(int seq,String id) {
+	public void delete(int seq,String id,int point) {
 		dao.delete(seq);
 		dao.deleteWritePoint(id);
+		// 글쓴이 point 계산
+		int writePointStart = dao.selectPoint(id);
+		int adoptPoint = point;
+		int resultPoint = writePointStart - adoptPoint; 
+		dao.pointQResult(resultPoint, id);
+		dao.downLevel();
 	}
 	
 	public void modify(CodeQuestionDTO dto) {
@@ -145,16 +152,20 @@ public class CodeService {
 		return pages;
 	}
 	
+	public int getMemLevel(String id) {
+		return dao.getMemLevel(id);
+	}
+	
 	//답글 CodeReply
 //	public int selectParentSeq(int seq) throws Exception{
 //		return dao.selectParentSeq(seq);
 //	}
 	
-	@Transactional("txManager")
-	public void insertR(CodeReplyDTO dto) {
-		dao.insertR(dto);
-		dao.writePoint(dto.getId());
-	}
+//	@Transactional("txManager")
+//	public void insertR(CodeReplyDTO dto) {
+//		dao.insertR(dto);
+//		dao.writePoint(dto.getId());
+//	}
 	
 	public List<CodeReplyDTO> selectReplyAll() {
 		return dao.selectReplyAll();
@@ -189,6 +200,7 @@ public class CodeService {
 	public void deleteR(int seq,String id) {
 		dao.deleteR(seq);
 		dao.deleteWritePoint(id);
+		dao.downLevel();
 	}
 	
 	public List<CodeReplyDTO> detailReply(int queSeq) {
@@ -251,6 +263,11 @@ public class CodeService {
 		dao.modifyR(dto);
 	}
 	
+//	답글에서 실무자 비실무자 구분
+	public int selectMem(String id) {
+		return dao.selectMem(id);
+	}
+	
 	// 댓글 CodeComments
 //	public int selectRepSeq(int queSeq,String id) {
 //		return dao.selectRepSeq(queSeq,id);
@@ -266,12 +283,10 @@ public class CodeService {
 		dao.writeCoPoint(dto.getId());
 		Gson gson = new Gson();
 		List<CodeCommentsDTO> result = dao.commentsListTwo(dto.getRepSeq());
-		System.out.println("제발 ㅠㅠ" +result.toString());
 		for (CodeCommentsDTO c : result) {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
 			c.setFormedWriteDate(sdf.format(c.getWriteDate()));
 		}
-		//System.out.println("insert:"+gson.toJson(result));
 		return gson.toJson(result);
 	}
 	
@@ -320,9 +335,10 @@ public class CodeService {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
 			c.setFormedWriteDate(sdf.format(c.getWriteDate()));
 		}
+		dao.downLevel();
 		return gson.toJson(result);
-
 	}
+	
 	public int deleteReplyAllCo(int repSeq) {
 		return dao.deleteReplyAllCo(repSeq);
 	}
@@ -375,6 +391,13 @@ public class CodeService {
 		dto.setContent(content);
 		//3. 글 업로드
 		dao.writePoint(id); //포인트
+		
+		// 글쓴이 point 계산
+		int writePointStart = dao.selectPoint(id);
+		int adoptPoint = dto.getPoint();
+		int resultPoint = writePointStart - adoptPoint; 
+		dao.pointQResult(resultPoint, id);	
+		dao.downLevel(); 
 		return dao.insert(dto);
 	}
 	
@@ -419,7 +442,6 @@ public class CodeService {
 		public int writeCodeR(String path, CodeReplyDTO dto,String id) throws Exception{
 			//1. repSeq 받아오기
 			int repSeq = dao.getCodeRSeq();
-			System.out.println("답글:" + repSeq);
 			dto.setSeq(repSeq);
 			//2. 이미지 저장하고 주소 변환
 			String content = imgUploadR(path, repSeq, dto.getContent());
@@ -460,9 +482,10 @@ public class CodeService {
 	
 	@Transactional("txManager")
 	public void adopt(int adoptPoint,int queSeq,String writerId,String replyId){
-		int writePointStart = dao.selectPoint(writerId);
-		int resultPoint = writePointStart - adoptPoint; // 글쓴이 point 계산
-		dao.pointQResult(resultPoint, writerId);
+		// -> 글 쓸때 포인트 차감으로 변경
+//		int writePointStart = dao.selectPoint(writerId);
+//		int resultPoint = writePointStart - adoptPoint; // 글쓴이 point 계산
+//		dao.pointQResult(resultPoint, writerId);
 		
 		int writeReplyStart = dao.selectPoint(replyId); // 답글쓴사람 point 계산
 		int resultPoint2 = writeReplyStart+adoptPoint;
@@ -470,7 +493,7 @@ public class CodeService {
 		dao.updateRepCol(replyId,queSeq); // ADOPT 컬럼 Y로
 		
 		Map<String, Integer> param = new HashMap<>();
-		param.put("resultPoint", resultPoint);
+//		param.put("resultPoint", resultPoint);
 		param.put("resultPoint2", resultPoint2);
 	}
 	
