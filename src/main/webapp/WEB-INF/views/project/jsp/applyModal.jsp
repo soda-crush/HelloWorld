@@ -63,12 +63,12 @@
 					</div>
 					<div class="row">
 						<div class="col-4"><label class="aItem">메일주소</label></div>							
-						<div class="col-7"><input type="email" class="form-control form-control-sm" id="email" name="email"></div>
+						<div class="col-7 pApplyInput"><input type="email" class="form-control form-control-sm" id="email" name="email"></div>
 					</div>
 					<div class="row">
 						<div class="col-12"><label class="aItem">하고 싶은 말</label></div>
 						<div class="col-12 pApplyInput" id="aContentsInput">
-							<textarea class="form-control form-control-sm" placeholder="내용을 입력해주세요" name="etc" style="height:100px;"></textarea>
+							<textarea class="form-control form-control-sm" placeholder="내용을 입력해주세요" name="etc" id="etc" style="height:100px;"></textarea>
 							<input type=hidden name="projectSeq" value="${pPage.seq }">
 							<input type=hidden name="leaderId" value="${pPage.id }">
 						</div>
@@ -76,7 +76,7 @@
 			      		       
 			      </div>
 			      <div class="modal-footer">
-			        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+			        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="applyCancelBtn">취소</button>
 			        <button type="submit" class="btn btn-primary" id="applyBtn">신청</button>
 			      </div>
 		      </form>

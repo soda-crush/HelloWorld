@@ -16,7 +16,7 @@
 	</select>
 	
 	<select id="guestBookListByPage" parameterType="java.util.Map" resultType="kh.hello.dto.GuestBookDTO">
-		select * from (select GuestBook.*, row_number() over (order by seq desc) as rown from GuestBook) where ownerID=#{ownerID} and rown between #{start} and #{end}
+		select * from (select GuestBook.*, row_number() over (order by seq desc) as rown from GuestBook where ownerID=#{ownerID}) where  rown between #{start} and #{end}
 	</select>
 	
 	<delete id="delete" parameterType="integer">

@@ -13,6 +13,14 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/css/project/projectBase.css" type="text/css"/>
 <link rel="stylesheet" href="/css/project/list.css" type="text/css"/>
+<script>
+   $(function(){
+      $("#proNavi").attr('class','nav-item nav-link active');
+   });
+</script>
+<style>
+	
+</style>
 </head>
 
 <body>
@@ -61,7 +69,7 @@
 									<div class="col-xl-1 col-2 col-md-2 col-lg-1 ${p.state }">${p.stateInKor }</div>
 										<div class="col-xl-3 col-8 col-md-5 text-decoration-none" onclick="location.href='/project/detailView?seq=${p.seq }'">
 											<div class="row">
-											<div style="max-width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;">${p.title }</div> 
+											<div style="max-width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;font-weight:bold;">${p.title }</div> 
 					  						<c:if test="${p.commentCount>0 }">
 					  							<div class="pComment font-weight-bold ml-2" style="display:inline-block;">${p.commentCount }</div>
 					  						</c:if>
@@ -69,8 +77,8 @@
 										</div>
 									<div class="col-xl-1 col-2 col-md-1">${p.location1 }</div>
 									<div class="col-xl-1 col-lg-1 d-none d-lg-block">${p.capacity }명</div>
-									<div class="col-xl-2 col-md-4 d-none d-md-block">${p.formedAllDate }</div>
-									<div class="col-xl-1 d-none d-xl-block">${p.writer }</div>
+									<div class="col-xl-2 col-md-4 d-none d-md-block">${p.formedDate }</div>
+									<div class="col-xl-1 d-none d-xl-block text-decoration-none" onclick="popUp('/Portfolio/toPlog.do?owner=${p.id}')">${p.writer }</div>
 									<div class="col-xl-1 d-none d-xl-block">${p.formedWriteDate }</div>
 									<div class="col-xl-1 d-none d-xl-block">${p.viewCount }</div>
 								</div>	
@@ -112,6 +120,9 @@
         
         <script>
         	$(".pNavi${currentPage}").addClass("active");
+			function popUp(link){
+				window.open(link, "pLogPopUp", "width=600,height=600");
+			}
         </script>
 </body>
 </html>

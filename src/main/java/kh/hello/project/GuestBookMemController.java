@@ -48,20 +48,25 @@ public class GuestBookMemController {
 		OwnerInfoDTO ownerInfo = (OwnerInfoDTO)session.getAttribute("ownerInfo");
 		String ownerID = ownerInfo.getId();
 		int currentPage = 1;
-		if(cpage != null) currentPage = Integer.parseInt(cpage);
+		if(cpage==null) {
+			cpage="1";
+		}else {
+			currentPage = Integer.parseInt(cpage);
+		}
 		int end = currentPage * Configuration.pLogProjectRecordCountPerPage;
 		int start = end - (Configuration.pLogProjectRecordCountPerPage - 1);
 		List<GuestBookDTO> list = gs.selectListByPage(ownerID,start,end);
 		List<String> pageNavi = gs.getGuestBookPageNavi(ownerID, currentPage);
+		request.setAttribute("cpage", cpage);
 		request.setAttribute("list", list);
 		request.setAttribute("pageNavi", pageNavi);
 		return "plog/guestBook";
 	}
 	
 	@RequestMapping("delete.do")
-	public String guestBookdeleteProc(int seq) {
+	public String guestBookdeleteProc(int seq,String cpage) {
 		gs.delete(seq);
-		return "redirect:selectList.do";
+		return "redirect:selectList.do?cpage=" + cpage;
 	}
 	
 	@RequestMapping("update.do")

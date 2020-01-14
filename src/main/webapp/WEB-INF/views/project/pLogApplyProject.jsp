@@ -23,11 +23,12 @@
 				<div class="tableDiv" style="width:100%;">
 					<div class="row tableHead">		
 						<div class="col-1">승인</div>
+						<div class="col-1">신청내역</div>
 						<div class="col-1">신청일</div>		
-					    <div class="col-1">모집상태</div>								    					    
+					    <div class="col-1">상태</div>								    					    
 					    <div class="col-1">인원</div>						    
 					  	<div class="col-1">지역</div>
-					    <div class="col-3">기간</div>
+					    <div class="col-2">기간</div>
 					    <div class="col-3">프로젝트 모집글 제목</div>
 					    <div class="col-1">작성자</div>
 
@@ -41,13 +42,14 @@
 				  		<c:otherwise>
 				  			<c:forEach items="${applyProjectList }" var="a">
 				  				<div class="row applyTableBody tableBody p-0">
-				  					<div class="col-1 approve${a.approve }">${a.approveInKor }</div>									
+				  					<div class="col-1 approve${a.approve }">${a.approveInKor }</div>
+				  					<div class="col-1"><button type="button" class="btn btn-outline-danger btn-sm mb-1" onclick="popUp('/project/apply/detailView?seq=${a.seq }')">신청글 보기</button></div>									
 									<div class="col-1">${a.formedWriteDate }</div>	
-									<div class="col-1 state${a.state }">${a.stateInKor }</div>										
+									<div class="col-1 state${a.state }"><strong>${a.stateInKor }</strong></div>										
 									<div class="col-1">${a.capacity }명</div>
 									<div class="col-1">${a.location1 } ${a.location2 }</div>
-									<div class="col-3">${a.formedAllDate }</div>																											
-									<div class="col-3 text-decoration-none" onclick="popUp('/project/apply/detailView?seq=${a.seq }')">
+									<div class="col-2">${a.formedAllDate }</div>																											
+									<div class="col-3 text-decoration-none" onclick="popUp('/project/detailView?seq=${a.projectSeq}')">
 										<div class="row">
 											<div style="max-width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;">${a.title }</div> 
 					  						<c:if test="${a.commentCount>0 }">
@@ -82,9 +84,9 @@
 			</div>
 		<script>
 			function popUp(link){
-				window.open(link,"_blank");
+				var applyWindow = window.open(link, "applyPopUp", "width=1000,height=750");
 			}
-        	$(".pNavi${applyCurrentPage}").addClass("active");
+        	$(".pNavi${applyCurrentPage}").addClass("active");        	
         </script>
 </body>
 </html>

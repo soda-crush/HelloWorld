@@ -12,6 +12,11 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/css/project/projectBase.css" type="text/css"/>
+<script>
+   $(function(){
+      $("#proNavi").attr('class','nav-item nav-link active');
+   });
+</script>
 <style>
 iframe.noScrolling{
   width: 1100px;

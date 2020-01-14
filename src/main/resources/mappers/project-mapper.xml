@@ -53,6 +53,9 @@
 	<update id="updatePoint" parameterType="java.util.Map">
 		update member set point=point+#{point} where id=#{id}
 	</update>	
+	<update id="checkPoint">
+		update member set memLevel=1 where id=#{value} and point &lt; 0
+	</update>
 	<insert id="insertImage" parameterType="kh.hello.dto.ProjectImageDTO">
 		insert into projectImage values(projectImageSeq.nextval,#{projectSeq},#{oriName},#{sysName})
 	</insert>	
@@ -83,11 +86,18 @@
 	</select>	
 	<select id="getPLogApplyListByPage" parameterType="java.util.Map" resultType="kh.hello.dto.ProjectPLogDTO">		
 		select * from (select
-		projectApply.seq, state, title, project.writer, location1, location2, startDate, endDate, capacity, approve, projectApply.writeDate, nvl(commentCount,0) as commentCount, row_number() over (order by projectApply.seq desc) as num from project
+		projectApply.seq, projectApply.projectSeq, state, title, project.writer, location1, location2, startDate, endDate, capacity, approve, projectApply.writeDate, nvl(commentCount,0) as commentCount, row_number() over (order by projectApply.seq desc) as num from project
 		inner join projectApply on project.seq = projectApply.projectSeq
 		left outer join (select projectSeq, count(*) as commentCount from projectComment
 		where contents is not null group by projectSeq) pc
 		on project.seq = pc.projectSeq where projectApply.id = #{id})
 		where num between #{start} and #{end}
 	</select>
+	
+	<select id="reportDuplCheck" resultType="integer" parameterType="java.util.Map">
+		select count(*) from reportedBoard where reporterID=#{id} and boardName='Project' and boardSeq=#{seq}
+	</select>
+	<insert id="insertReport" parameterType="kh.hello.dto.ReportDTO">
+		insert into reportedBoard values(reportedBoardSeq.nextval, 'N', 'Project', #{boardSeq}, #{title}, #{reporterNick}, #{reporterID} , sysdate, #{reason}, null)
+	</insert>
 </mapper>
