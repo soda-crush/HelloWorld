@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -82,7 +83,7 @@
                     <div class="col-lg-12 mt-5 contentCard">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="header-title">글 목록</h4>
+                                <h4 class="header-title">전체 목록</h4>
                                 <div class="single-table">
                                     <div class="table-responsive">
                                         <table class="table table-hover text-center">
@@ -100,7 +101,17 @@
                                             	<c:forEach items="${list}" var="dto">
                                             		<tr>
                                                     <td class="toDetail${dto.seq}">${dto.seq}</td>                                            		
-                                                    <td class="toDetail${dto.seq} text-left">${dto.title}
+                                                    <td class="toDetail${dto.seq} text-left">
+		                                            	<c:set var="text" value="${dto.title}"/>	
+		                                                	<c:choose>
+		                                                    	<c:when test="${fn:length(text) > 25}">
+				                                                    <c:set var="value" value="${fn:substring(text, 0, 25)}"/>	                                                    	
+																	${value}...	                                                    		
+		                                                    	</c:when>
+		                                                    	<c:otherwise>
+		                                                    		${dto.title}
+		                                                    	</c:otherwise>
+		                                                    </c:choose>	                                                    
                                                     <c:if test="${dto.replyCount != 0}">
                                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong class="text-warning">${dto.replyCount}</strong>
                                                     </c:if>

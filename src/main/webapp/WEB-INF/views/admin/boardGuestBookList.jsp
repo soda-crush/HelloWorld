@@ -138,7 +138,7 @@
 		                                                    		<c:when test="${fn:length(text) > 20}">
 				                                                    	<c:set var="value" value="${fn:substring(text, 0, 20)}"/>	                                                    	
 				                                                    	<button class="btn btn-primary contentBtn p-0" type="button" data-toggle="collapse" data-target="#detail${dto.seq}" aria-expanded="false" aria-controls="collapseExample">
-		    																${value} <i class="fa fa-angle-down"></i>
+		    																${value}&nbsp; <i class="fa fa-angle-down"></i>
 		  																</button>		                                                    		
 		                                                    		</c:when>
 		                                                    		<c:otherwise>
