@@ -8,7 +8,9 @@ public class ProjectPLogDTO {
 	private int projectSeq;
 	private String state;
 	private String title;
+	private String contents;
 	private String writer;
+	private String leaderId;
 	private String location1;
 	private String location2;
 	private Timestamp startDate;
@@ -21,15 +23,17 @@ public class ProjectPLogDTO {
 	public ProjectPLogDTO() {
 		super();
 	}
-	public ProjectPLogDTO(int seq, int projectSeq, String state, String title, String writer, String location1,
-			String location2, Timestamp startDate, Timestamp endDate, int capacity, String approve, int commentCount,
-			Timestamp writeDate) {
+	public ProjectPLogDTO(int seq, int projectSeq, String state, String title, String contents, String writer,
+			String leaderId, String location1, String location2, Timestamp startDate, Timestamp endDate, int capacity,
+			String approve, int commentCount, Timestamp writeDate) {
 		super();
 		this.seq = seq;
 		this.projectSeq = projectSeq;
 		this.state = state;
 		this.title = title;
+		this.contents = contents;
 		this.writer = writer;
+		this.leaderId = leaderId;
 		this.location1 = location1;
 		this.location2 = location2;
 		this.startDate = startDate;
@@ -39,6 +43,7 @@ public class ProjectPLogDTO {
 		this.commentCount = commentCount;
 		this.writeDate = writeDate;
 	}
+
 
 
 	public int getSeq() {
@@ -65,11 +70,23 @@ public class ProjectPLogDTO {
 	public void setTitle(String title) {
 		this.title = title;
 	}
+	public String getContents() {
+		return contents;
+	}
+	public void setContents(String contents) {
+		this.contents = contents;
+	}
 	public String getWriter() {
 		return writer;
 	}
 	public void setWriter(String writer) {
 		this.writer = writer;
+	}	
+	public String getLeaderId() {
+		return leaderId;
+	}
+	public void setLeaderId(String leaderId) {
+		this.leaderId = leaderId;
 	}
 	public String getLocation1() {
 		return location1;

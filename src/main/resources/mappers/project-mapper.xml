@@ -4,7 +4,6 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Project">
 	<select id="getList" resultType="kh.hello.dto.ProjectDTO">
-<!-- 		select seq,title,location1,capacity,startDate,endDate,state,writer,writeDate,viewCount,(select count(*) from projectComment where projectSeq=project.seq) as commentCount from project order by seq desc -->
 		select project.*,(select count(*) from projectComment where projectSeq=project.seq) as commentCount from project order by seq desc		
 	</select>
 	
@@ -15,13 +14,13 @@
 			<include refid="search"></include>
 		</if>		
 	</select>
-<!-- 	<select id="getListByPage" resultType="kh.hello.dto.ProjectDTO" parameterType="java.util.Map"> -->
+
 	<select id="getListByPage" resultType="kh.hello.dto.ProjectDTO">
-		select * from (select project.*,(select count(*) from projectComment where projectSeq=project.seq and contents is not null) as commentCount, row_number() over (order by seq desc) as num from project) 
-		where num between #{start} and #{end}
+		select * from (select project.*,(select count(*) from projectComment where projectSeq=project.seq and contents is not null) as commentCount, row_number() over (order by seq desc) as num from project
 		<if test="searchOption!=null">
-			<include refid="searchPage"></include>
-		</if>		
+			<include refid="search"></include>
+		</if>
+		)where num between #{start} and #{end}		
 	</select>
 	
 	<sql id="search">
@@ -39,22 +38,6 @@
 			</otherwise>
 		</choose>
 	</sql>
-	
-	<sql id="searchPage">
-		<choose>
-			<when test="searchOption=='all'">
-				and title like '%'||#{keyword}||'%'
-				or contents like '%'||#{keyword}||'%'
-			</when>
-			<when test="searchOption=='location'">
-				and location1 like '%'||#{keyword}||'%'	
-				or location2 like '%'||#{keyword}||'%'
-			</when>
-			<otherwise>
-				and ${searchOption} like '%'||#{keyword}||'%'
-			</otherwise>
-		</choose>
-	</sql>	
 	
 	<select id="getProjectDetailView" resultType="kh.hello.dto.ProjectDTO">
 		select project.*,(select count(*) from projectApply where projectSeq=project.seq and approve in('W')) as applyCount from project where seq=#{value}
@@ -105,32 +88,65 @@
 	</insert>	
 	<delete id="unScrap" parameterType="java.util.Map">
 		delete from scrap where id=#{id} and category='project' and categorySeq=#{categorySeq}
-	</delete>		
+	</delete>
+			
 	<select id="getMakeArticleCount" resultType="integer">
-		select count(*) from project where id=#{value}
+		select count(*) from project where id=#{id}
+		<if test="searchOption!=null">
+			<include refid="searchForPLog"></include>
+		</if>
 	</select>	
-	<select id="getPLogMakeListByPage" parameterType="java.util.Map" resultType="kh.hello.dto.ProjectDTO">
-<!-- 		select * from (select project.*,(select count(*) from projectComment where projectSeq=project.seq and contents is not null) as commentCount, row_number() over (order by seq desc) as num from project) where id=#{id} and num between #{start} and #{end} -->
+	<select id="getPLogMakeListByPage" resultType="kh.hello.dto.ProjectDTO">
 		select * from (select
-		project.seq, state, nvl(totalApply,0) as totalApply, nvl(totalApprove,0) as totalApprove, capacity, startDate, endDate, title, project.writeDate, viewCount, nvl(commentCount,0) as commentCount, row_number() over (order by project.seq desc) as num from project
+		project.seq, state, nvl(totalApply,0) as totalApply, nvl(totalApprove,0) as totalApprove, capacity, startDate, endDate, title, contents, project.writeDate, viewCount, nvl(commentCount,0) as commentCount, row_number() over (order by project.seq desc) as num from project
 		left outer join (select projectSeq, count(*) as totalApply, count(decode(approve,'O',1)) totalApprove from projectApply group by projectSeq) pa on pa.projectSeq = project.seq
 		left outer join (select projectSeq, count(*) as commentCount from projectComment
 		where contents is not null group by projectSeq) pc
-		on project.seq = pc.projectSeq where project.id = #{id}) where num between #{start} and #{end} 
+		on project.seq = pc.projectSeq where project.id = #{id}
+		<if test="searchOption!=null">
+			<include refid="searchForPLog"></include>
+		</if>
+		) where num between #{start} and #{end} 
 	</select>	
 	
 	<select id="getApplyArticleCount" resultType="integer">
-		select count(*) from projectApply where id=#{value}
+		select count(*) from projectApply, project where projectApply.id=#{id} and projectApply.projectSeq = project.seq
+		<if test="searchOption!=null">
+			<include refid="searchForPLog"></include>
+		</if>
 	</select>	
-	<select id="getPLogApplyListByPage" parameterType="java.util.Map" resultType="kh.hello.dto.ProjectPLogDTO">		
+	<select id="getPLogApplyListByPage" resultType="kh.hello.dto.ProjectPLogDTO">		
 		select * from (select
-		projectApply.seq, projectApply.projectSeq, state, title, project.writer, location1, location2, startDate, endDate, capacity, approve, projectApply.writeDate, nvl(commentCount,0) as commentCount, row_number() over (order by projectApply.seq desc) as num from project
+		projectApply.seq, projectApply.projectSeq, state, title, contents, project.writer, projectApply.leaderId, location1, location2, startDate, endDate, capacity, approve, projectApply.writeDate, nvl(commentCount,0) as commentCount, row_number() over (order by projectApply.seq desc) as num from project
 		inner join projectApply on project.seq = projectApply.projectSeq
 		left outer join (select projectSeq, count(*) as commentCount from projectComment
 		where contents is not null group by projectSeq) pc
-		on project.seq = pc.projectSeq where projectApply.id = #{id})
+		on project.seq = pc.projectSeq where projectApply.id = #{id}
+		<if test="searchOption!=null">
+			<include refid="searchForPLog"></include>
+		</if>		
+		)
 		where num between #{start} and #{end}
 	</select>
+	
+	<sql id="searchForPLog">
+		<choose>
+			<when test="searchOption=='all'">
+				and (title like '%'||#{keyword}||'%'
+				or contents like '%'||#{keyword}||'%')
+			</when>
+			<when test="searchOption=='location'">
+				and (location1 like '%'||#{keyword}||'%'	
+				or location2 like '%'||#{keyword}||'%')
+			</when>
+			<when test="searchOption=='writer'">
+				and project.writer like '%'||#{keyword}||'%'
+			</when>
+			<otherwise>
+				and ${searchOption} like '%'||#{keyword}||'%'
+			</otherwise>
+		</choose>
+	</sql>
 	
 	<select id="reportDuplCheck" resultType="integer" parameterType="java.util.Map">
 		select count(*) from reportedBoard where reporterID=#{id} and boardName='Project' and boardSeq=#{seq}
