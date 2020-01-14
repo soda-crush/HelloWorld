@@ -1,81 +1,125 @@
 @charset "UTF-8";
- @font-face{
-                font-family:'NanumGothic';
-                src: url(/font/NanumGothicBold.ttf) format('truetype');
-            }
-            *{
-                font-family: "Nanumgothic";
-                box-sizing: border-box;             
-            }
-            .navbar-collapse{
-                width : 100%;
-            }
-            .box{
-                width:100%;
-            }
-            .box>a{
-                width: 100%;
-            }
-            #baseBackgroundColor{
-                position: relative;
-                background-color: #efefef;
-                border-bottom: 2px solid gray;
-            }
-            #naviCon{
-                width: 75%;
-                margin: auto;
-            }
-            #naviCon a{
-                font-size: 13px;
-                text-align: center;
-            }
-            #logo{
-                width:80%;
-            }
-            #aroundContent{
-                height:80px;  
-            }
-            #realFooter{
-                text-align: left;
-                position:relative;
-                left:18.3%;
-                width:30%;
-            }
-            #realFooter p,#realFooter a{
-                color: darkgray;
-                font-size: 11px;
-               // line-height: 0.31em;
-            }
-            #loginCon *{
-                color: darkgray;
-                font-size: 12px;
-            }
-            #logoCon{
-            	text-align: center;
-            }
-            #footerMsg{
-                line-height: 1.9em;
-            }
-            button{
-            background-color: #cccccc;
-            border:none;
-            border-radius: 5%;
-            font-size: 12px;
-            }
-            .eleCon{
-            	background-color: white;
-            	border: 1px solid gray;
-            	border-radius: 1%;
-            }
-            #footerSpace{
-            	font-size: 11px;
-            }
-            #logo:hover{
-            	cursor:pointer;
-            }
-            #loginCon p{
-            color:#787878;
-            }
-            .cursorPointer:hover{
-            	cursor:pointer;
-            }
+
+@font-face {
+	font-family: 'NanumGothic';
+	src: url(/font/NanumGothicBold.ttf) format('truetype');
+}
+
+* {
+	font-family: "Nanumgothic";
+	box-sizing: border-box;
+}
+
+.navbar-collapse {
+	width: 100%;
+}
+
+.box {
+	width: 100%;
+}
+
+.box>a {
+	width: 100%;
+}
+
+#baseBackgroundColor {
+	position: relative;
+	background-color: #efefef;
+	border-bottom: 2px solid gray;
+}
+
+#naviCon {
+	width: 67%;
+	margin: auto;
+}
+
+#naviCon a {
+	font-size: 13px;
+	text-align: center;
+}
+
+#logo {
+	width: 80%;
+}
+
+#aroundContent {
+	height: 80px;
+}
+
+#realFooter {
+	text-align: left;
+	position: relative;
+	left: 18.3%;
+	width: 30%;
+}
+
+#realFooter p, #realFooter a {
+	color: darkgray;
+	font-size: 11px; //
+	line-height: 0.31em;
+}
+
+#loginCon * {
+	color: darkgray;
+	font-size: 12px;
+}
+
+#logoCon {
+	text-align: center;
+}
+
+#footerMsg {
+	line-height: 1.9em;
+}
+
+button {
+	background-color: #cccccc;
+	border: none;
+	border-radius: 5%;
+	font-size: 12px;
+}
+
+.eleCon {
+	background-color: white;
+	border: 1px solid gray;
+	border-radius: 1%;
+}
+
+#footerSpace {
+	font-size: 11px;
+}
+
+#logo:hover {
+	cursor: pointer;
+}
+
+#loginCon p {
+	color: #787878;
+}
+
+.cursorPointer:hover {
+	cursor: pointer;
+}
+
+.navbar-light .navbar-nav .active>.nav-link, .navbar-light .navbar-nav .nav-link.active,
+	.navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .show>.nav-link
+	{
+	color: white;
+	font-size: 17px !important;
+	line-height: 28px;
+	border-bottom: 4px solid white;
+}
+
+.navbar-light .navbar-nav .nav-link {
+	color: #c2c2c2;
+	line-height: 29px;
+}
+.navbar-light .navbar-nav .nav-link:hover{
+	color: white;
+	font-size: 17px !important;
+	line-height: 28px;
+}
+
+.navbar {
+	padding: 0px;
+}

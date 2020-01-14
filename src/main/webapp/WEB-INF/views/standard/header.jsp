@@ -23,11 +23,11 @@
                     <img src="/img/logo7.PNG" id="logo">
                     <br><br>
                 </div>
-                <div class = "d-none d-md-block col-md-2"></div>
+                <div class = "d-none d-md-block col-md-2 text-muted"></div>
             </div>
         </div>
 
-        <nav class="navbar navbar-expand-md navbar-light" style="background-color: #499ed6;margin-bottom:0px;">
+        <nav class="navbar navbar-expand-md navbar-light" style="background-color: #2c2255;margin-bottom:0px;">
           <a class="navbar-brand" href="#"></a>
   			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
    				 <span class="navbar-toggler-icon"></span>
@@ -35,12 +35,12 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 
                 <div class="navbar-nav box text-center" id="naviCon">
-                    <a class="nav-item nav-link active text-light" href="${pageContext.request.contextPath}/bamboo/bambooList.do">대나무숲</a>
-                    <a class="nav-item nav-link active text-light" href="${pageContext.request.contextPath}/code/codeQList.do">코드지식인</a>
-                    <a class="nav-item nav-link active text-light" href="${pageContext.request.contextPath}/industry/industryStatusList.do">업계현황</a>
-                    <a class="nav-item nav-link active text-light" href="${pageContext.request.contextPath}/itnews/itnewsList">IT 뉴스</a>
-                    <a class="nav-item nav-link active text-light" href="${pageContext.request.contextPath}/project/list">프로젝트</a>
-                    <a class="nav-item nav-link active text-light" href="${pageContext.request.contextPath}/Portfolio/toPlog.do?owner=${loginInfo.id}">P-log</a>
+                    <a id="bambooNavi" class="nav-item nav-link" href="${pageContext.request.contextPath}/bamboo/bambooList.do">대나무숲</a>
+                    <a id="codeNavi" class="nav-item nav-link" href="${pageContext.request.contextPath}/code/codeQList.do">코드지식인</a>
+                    <a id="indusNavi" class="nav-item nav-link" href="${pageContext.request.contextPath}/industry/industryStatusList.do">업계현황</a>
+                    <a id="itNavi" class="nav-item nav-link" href="${pageContext.request.contextPath}/itnews/itnewsList">IT 뉴스</a>
+                    <a id="proNavi" class="nav-item nav-link" href="${pageContext.request.contextPath}/project/list">프로젝트</a>
+                    <a id="plogNavi" class="nav-item nav-link" href="${pageContext.request.contextPath}/Portfolio/toPlog.do?owner=${loginInfo.id}">P-log</a>
                 </div>
             </div>
         </nav>

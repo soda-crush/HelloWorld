@@ -40,6 +40,12 @@
 		color:orange;
 	}
 </style>
+
+<script>
+	$(function(){
+		$("#itNavi").attr('class','nav-item nav-link active');
+	});
+</script>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/standard/header.jsp"/>
