@@ -18,7 +18,7 @@
         h1,h3{text-align: center;padding-top: 50px; padding-bottom: 50px;}
         ul{background-color: lightgray;font-size: 13px;}
         .card{ width:200px;height:300px;margin: auto; float :left;}
-        .myprofile{float: left;height: 350px;margin-top: 20px;}
+        .myprofile{float: left;margin-top: 20px;}
         #mycard{float:none;display:flex;align-items:center;}
         .commentwrite{width:100%; height:100px;padding: 0px;margin-top: 10px;float: left;}
         .commentlist{width:100%;padding: 0px;margin-top: 10px;float: left;}
@@ -80,12 +80,14 @@
 				</div>
 	            <div class="row">
 	                <div class="col-12 col-md-4 col-lg-3 myprofile">
-	                    <div class="card" id="mycard">
-	                        <img src="${ownerInfo.profileImg }" class="card-img-top" alt="..." style="width: 170px;height: 170px;margin:15px;">
-	                        <div class="card-body">
-	                            <div class="card-title line-over" style="text-align: center;font-size:20px;">${ownerInfo.nickName} 님</div>
-	                            <p class="card-text" style="text-align: center;font-size:15px;">point : ${ownerInfo.point }</p>
-	                        </div>
+	                    <div>
+	                    	<div class="card d-none d-md-block" id="mycard">
+		                        <img src="${ownerInfo.profileImg }" class="card-img-top" alt="..." style="width: 170px;height: 170px;margin:15px;">
+		                        <div class="card-body">
+		                            <div class="card-title line-over" style="text-align: center;font-size:20px;">${ownerInfo.nickName} 님</div>
+		                            <p class="card-text" style="text-align: center;font-size:15px;">point : ${ownerInfo.point }</p>
+		                        </div>
+	                    	</div>
 	                    </div>
 	                </div>
 	                <div class="col-12 col-md-8 col-lg-9 commentwrap">
@@ -110,7 +112,7 @@
 			                            <div id="writeDate"> ${dto.getDate()}</div>
 			                        </div>
 			                        <div class="row">
-			                            <textarea id="list${dto.seq }" class="message" onkeydown="resize(this)" onkeyup="resize(this)" readonly>${dto.content }</textarea>
+			                            <textarea id="list${dto.seq }" class="message" onkeydown="resize(this)" onkeyup="resize(this)" maxlength="1300" readonly >${dto.content }</textarea>
 			                        </div>
 			                        <c:choose>
 										<c:when test="${dto.writer == loginInfo.nickName}">

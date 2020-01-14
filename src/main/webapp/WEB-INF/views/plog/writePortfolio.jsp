@@ -49,7 +49,7 @@
 		            <h1> 포 트 폴 리 오</h1>
 		            <div class="row">
 		                <div class="col-3 col-md-2"><span class=redStar>*</span>프로젝트명  </div>
-		                <div class="col-9 col-md-10"><input id="portfolioTitle" name="portfolioTitle" value="Hello World(세미 프로젝트)"></div>               
+		                <div class="col-9 col-md-10"><input id="portfolioTitle" name="portfolioTitle" maxlength="100" value="Hello World(세미 프로젝트)"></div>               
 		            </div>
 		            <div class="interval"></div>
 		            <div class="row">
@@ -60,32 +60,32 @@
 		            <div class="interval"></div>
 		            <div class="row">
 		                <div class="col-3 col-md-2"><span class=redStar>*</span>개발 목표 </div>
-		                <div class="col-9 col-md-10"><input id="purpose" name="purpose" value="Hello World(세미 프로젝트)Hello World(세미 프로젝트)Hello World(세미 프로젝트)"></div>               
+		                <div class="col-9 col-md-10"><input id="purpose" name="purpose" maxlength="300" value="Hello World(세미 프로젝트)Hello World(세미 프로젝트)Hello World(세미 프로젝트)"></div>               
 		            </div>
 		            <div class="interval"></div>
 		            <div class="row">
 		                <div class="col-3 col-md-2 theme"> 개발 환경 </div>
-		                <div class="col-9 col-md-10"> <textarea name="environment"></textarea></div>               
+		                <div class="col-9 col-md-10"> <textarea name="environment" maxlength="1300"></textarea></div>               
 		            </div>
 		            <div class="interval"></div>
 		            <div class="row">
 		                <div class="col-3 col-md-2 theme"> 구현 기능 </div>
-		                <div class="col-9 col-md-10"> <textarea name="allFunction"></textarea></div>               
+		                <div class="col-9 col-md-10"> <textarea name="allFunction" maxlength="1300"></textarea></div>               
 		            </div>
 		            <div class="interval"></div>
 		            <div class="row">
 		                <div class="col-3 col-md-2 theme">  DB 설계 </div>
-		                <div class="col-9 col-md-10"> <textarea name="dbUnitPlan"></textarea></div>               
+		                <div class="col-9 col-md-10"> <textarea name="dbUnitPlan" maxlength="1300"></textarea></div>               
 		            </div>
 		            <div class="interval"></div>
 		            <div class="row">
 		                <div class="col-3 col-md-2 theme"> 담당 역할 </div>
-		                <div class="col-9 col-md-10"> <textarea name="role"></textarea></div>               
+		                <div class="col-9 col-md-10"> <textarea name="role" maxlength="1300"></textarea></div>               
 		            </div>
 		            <div class="interval"></div>
 		            <div class="row">
 		                <div class="col-3 col-md-2 theme"> 참여/기여도 </div>
-		                <div class="col-9 col-md-10"> <textarea name="contribution"></textarea></div>               
+		                <div class="col-9 col-md-10"> <textarea name="contribution" maxlength="1300"></textarea></div>               
 		            </div>
 		            <h4>구현 기능</h4>
 		            <div class="row">
@@ -97,9 +97,9 @@
 		                <div class="col-9">
 		                    <div class="row">
 		                        <div class="col-2 col-sm-2  col-lg-1" id="funcname"> 기능명</div>
-		                        <div class="col-10 col-sm-10 col-lg-11" id="funcname1"><input  name="function1" value="Hello World(세미 프로젝트)" style="height:18px margin-bottom:"> </div>
+		                        <div class="col-10 col-sm-10 col-lg-11" id="funcname1"><input  name="function1" value="Hello World(세미 프로젝트)" style="height:18px margin-bottom:" maxlength="100"> </div>
 		                        <div class="col-2 col-sm-2  col-lg-1" id="funcexpl" > 설명</div>
-		                        <div class="col-10 col-sm-10 col-lg-11"><textarea name="explanation1" style="height:150px;">123</textarea>
+		                        <div class="col-10 col-sm-10 col-lg-11"><textarea name="explanation1" style="height:150px;" maxlength="1300">123</textarea>
 		                        </div>
 		                    </div>
 		                </div>
@@ -114,9 +114,9 @@
 		                <div class="col-9">
 		                    <div class="row">
 		                        <div class="col-2 col-sm-2  col-lg-1" id="funcname"> 기능명</div>
-		                        <div class="col-10 col-sm-10 col-lg-11" id="funcname2"><input name="function2" value="Hello World(세미 프로젝트)" style="height:18px margin-bottom:"> </div>
+		                        <div class="col-10 col-sm-10 col-lg-11" id="funcname2"><input name="function2" value="Hello World(세미 프로젝트)" style="height:18px margin-bottom:" maxlength="100"> </div>
 		                        <div class="col-2 col-sm-2  col-lg-1" id="funcexpl" > 설명</div>
-		                        <div class="col-10 col-sm-10 col-lg-11"><textarea name="explanation2" style="height:150px;">123</textarea>
+		                        <div class="col-10 col-sm-10 col-lg-11"><textarea name="explanation2" style="height:150px;" maxlength="1300">123</textarea>
 		                        </div>
 		                    </div>
 		                </div>
@@ -131,9 +131,9 @@
 		                <div class="col-9">
 		                    <div class="row">
 		                        <div class="col-2 col-sm-2  col-lg-1" id="funcname"> 기능명</div>
-		                        <div class="col-10 col-sm-10 col-lg-11 " id="funcname3"><input name="function3" value="Hello World(세미 프로젝트)" style="height:18px margin-bottom:"> </div>
+		                        <div class="col-10 col-sm-10 col-lg-11 " id="funcname3"><input name="function3" value="Hello World(세미 프로젝트)" style="height:18px margin-bottom:" maxlength="100"> </div>
 		                        <div class="col-2 col-sm-2  col-lg-1" id="funcexpl" > 설명</div>
-		                        <div class="col-10 col-sm-10 col-lg-11"><textarea name="explanation3" style="height:150px;">123</textarea>
+		                        <div class="col-10 col-sm-10 col-lg-11"><textarea name="explanation3" style="height:150px;" maxlength="1300">123</textarea>
 		                        </div>
 		                    </div>
 		                </div>
@@ -141,7 +141,7 @@
 		            <div class="interval"></div>
 		             <div class="row">
 		                <div class="col-3 col-md-2"> 깃 링크  </div>
-		                <div class="col-9 col-md-10"><input name="git" value="Hello World(세미 프로젝트)"> </div>               
+		                <div class="col-9 col-md-10"><input name="git" value="Hello World(세미 프로젝트)" maxlength="200"> </div>               
 		            </div>
 		            <div class="interval"></div>
 		            <div style="text-align: end;"><button type="button" id="return">돌아가기</button><button type="button" id="insert">작성 완료</button></div>

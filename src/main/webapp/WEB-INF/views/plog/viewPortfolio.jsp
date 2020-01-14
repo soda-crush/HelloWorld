@@ -50,7 +50,7 @@
 		            <h1> 포 트 폴 리 오</h1>
 		            <div class="row">
 		                <div class="col-3 col-md-2"> 프로젝트명  </div>
-		                <div class="col-9 col-md-10"><div> ${pdto.portfolioTitle }</div> </div>               
+		                <div class="col-9 col-md-10"><div class= "line-over"> ${pdto.portfolioTitle }</div> </div>               
 		            </div>
 		            <div class="interval"></div>
 		            <div class="row">
@@ -60,7 +60,7 @@
 		            <div class="interval"></div>
 		            <div class="row">
 		                <div class="col-3 col-md-2"> 개발 목표 </div>
-		                <div class="col-9 col-md-10"> <div>${pdto.purpose } </div> </div>               
+		                <div class="col-9 col-md-10"> <div class= "line-over">${pdto.purpose } </div> </div>               
 		            </div>
 		            <div class="interval"></div>
 		            <div class="row">
@@ -92,8 +92,8 @@
 		                <div class="col-3"><img src="${pdto.image1}" style="height: 100%;width:100%;max-height: 180px;"><input type="hidden" name ="image1"></div>
 		                <div class="col-9">
 		                    <div class="row">
-		                        <div class="col-2 col-sm-2  col-lg-1" id="funcname"></div>
-		                        <div class="col-10 col-sm-10 col-lg-11" id="funcname1"><div style="height:18px margin-bottom:">${pdto.function1 } </div> </div>
+		                        <div class="col-2 col-sm-2  col-lg-1" id="funcname">기능명</div>
+		                        <div class="col-10 col-sm-10 col-lg-11" id="funcname1"><div style="height:18px margin-bottom:" class= "line-over">${pdto.function1 } </div> </div>
 		                        <div class="col-2 col-sm-2  col-lg-1" id="funcexpl" > 설명</div>
 		                        <div class="col-10 col-sm-10 col-lg-11"><textarea name="explanation1" style="height:150px;" readonly>${pdto.explanation1 }</textarea>
 		                        </div>
@@ -106,7 +106,7 @@
 		                <div class="col-9">
 		                    <div class="row">
 		                        <div class="col-2 col-sm-2  col-lg-1" id="funcname"> 기능명</div>
-		                        <div class="col-10 col-sm-10 col-lg-11" id="funcname2"><div style="height:18px margin-bottom:">${pdto.function2 } </div></div>
+		                        <div class="col-10 col-sm-10 col-lg-11" id="funcname2"><div style="height:18px margin-bottom:" class= "line-over">${pdto.function2 } </div></div>
 		                        <div class="col-2 col-sm-2  col-lg-1" id="funcexpl" > 설명</div>
 		                        <div class="col-10 col-sm-10 col-lg-11"><textarea name="explanation2" style="height:150px;" readonly>${pdto.explanation2 }</textarea>
 		                        </div>
@@ -119,7 +119,7 @@
 		                <div class="col-9">
 		                    <div class="row">
 		                        <div class="col-2 col-sm-2  col-lg-1" id="funcname"> 기능명</div>
-		                        <div class="col-10 col-sm-10 col-lg-11 " id="funcname3"><div style="height:18px margin-bottom:">${pdto.function3 } </div> </div>
+		                        <div class="col-10 col-sm-10 col-lg-11 " id="funcname3"><div style="height:18px margin-bottom:" class= "line-over">${pdto.function3 } </div> </div>
 		                        <div class="col-2 col-sm-2  col-lg-1" id="funcexpl" > 설명</div>
 		                        <div class="col-10 col-sm-10 col-lg-11"><textarea name="explanation3" style="height:150px;" readonly>${pdto.explanation3 }</textarea>
 		                        </div>

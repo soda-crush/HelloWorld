@@ -49,7 +49,7 @@
 		            <h1> 포 트 폴 리 오</h1>
 		            <div class="row">
 		                <div class="col-3 col-md-2"> 프로젝트명  </div>
-		                <div class="col-9 col-md-10"><input id="portfolioTitle" name="portfolioTitle" value="${pdto.portfolioTitle }"> </div>               
+		                <div class="col-9 col-md-10"><input id="portfolioTitle" name="portfolioTitle" maxlength="100" value="${pdto.portfolioTitle }"> </div>               
 		            </div>
 		            <div class="interval"></div>
 		            <div class="row">
@@ -61,32 +61,32 @@
 		            <div class="interval"></div>
 		            <div class="row">
 		                <div class="col-3 col-md-2"> 개발 목표 </div>
-		                <div class="col-9 col-md-10"> <input id="purpose" name="purpose" value="${pdto.purpose }"></div>               
+		                <div class="col-9 col-md-10"> <input id="purpose" name="purpose" maxlength="300" value="${pdto.purpose }"></div>               
 		            </div>
 		            <div class="interval"></div>
 		            <div class="row">
 		                <div class="col-3 col-md-2 theme"> 개발 환경 </div>
-		                <div class="col-9 col-md-10"> <textarea name="environment"> ${pdto.environment }</textarea></div>               
+		                <div class="col-9 col-md-10"> <textarea name="environment" maxlength="1300"> ${pdto.environment }</textarea></div>               
 		            </div>
 		            <div class="interval"></div>
 		            <div class="row">
 		                <div class="col-3 col-md-2 theme"> 구현 기능 </div>
-		                <div class="col-9 col-md-10"> <textarea name="allFunction">${pdto.allFunction }</textarea></div>               
+		                <div class="col-9 col-md-10"> <textarea name="allFunction" maxlength="1300">${pdto.allFunction }</textarea></div>               
 		            </div>
 		            <div class="interval"></div>
 		            <div class="row">
 		                <div class="col-3 col-md-2 theme">  DB 설계 </div>
-		                <div class="col-9 col-md-10"> <textarea name="dbUnitPlan">${pdto.dbUnitPlan }</textarea></div>               
+		                <div class="col-9 col-md-10"> <textarea name="dbUnitPlan" maxlength="1300">${pdto.dbUnitPlan }</textarea></div>               
 		            </div>
 		            <div class="interval"></div>
 		            <div class="row">
 		                <div class="col-3 col-md-2 theme"> 담당 역할 </div>
-		                <div class="col-9 col-md-10"> <textarea name="role">${pdto.role }</textarea></div>               
+		                <div class="col-9 col-md-10"> <textarea name="role" maxlength="1300">${pdto.role }</textarea></div>               
 		            </div>
 		            <div class="interval"></div>
 		            <div class="row">
 		                <div class="col-3 col-md-2 theme"> 참여/기여도 </div>
-		                <div class="col-9 col-md-10"> <textarea name="contribution">${pdto.contribution }</textarea></div>               
+		                <div class="col-9 col-md-10"> <textarea name="contribution" maxlength="1300">${pdto.contribution }</textarea></div>               
 		            </div>
 		            <h4>구현 기능</h4>
 		            <div class="row">
@@ -97,10 +97,10 @@
 		                </div>
 		                <div class="col-9">
 		                    <div class="row">
-		                        <div class="col-2 col-sm-2  col-lg-1" id="funcname"></div>
-		                        <div class="col-10 col-sm-10 col-lg-11" id="funcname1"><input name="function1" style="height:18px margin-bottom:" value="${pdto.function1 }"> </div>
+		                        <div class="col-2 col-sm-2  col-lg-1" id="funcname"> 기능명</div>
+		                        <div class="col-10 col-sm-10 col-lg-11" id="funcname1"><input name="function1" style="height:18px margin-bottom:" value="${pdto.function1 }" maxlength="100"> </div>
 		                        <div class="col-2 col-sm-2  col-lg-1" id="funcexpl" > 설명</div>
-		                        <div class="col-10 col-sm-10 col-lg-11"><textarea name="explanation1" style="height:150px;">${pdto.explanation1 }</textarea></div>
+		                        <div class="col-10 col-sm-10 col-lg-11"><textarea name="explanation1" style="height:150px;" maxlength="1300">${pdto.explanation1 }</textarea></div>
 		                    </div>
 		                </div>
 		            </div>
@@ -114,9 +114,9 @@
 		                <div class="col-9">
 		                    <div class="row">
 		                        <div class="col-2 col-sm-2  col-lg-1" id="funcname"> 기능명</div>
-		                        <div class="col-10 col-sm-10 col-lg-11" id="funcname2"><input name="function2" style="height:18px margin-bottom:" value="${pdto.function2 }"></div>
+		                        <div class="col-10 col-sm-10 col-lg-11" id="funcname2"><input name="function2" style="height:18px margin-bottom:" value="${pdto.function2 }" maxlength="100"></div>
 		                        <div class="col-2 col-sm-2  col-lg-1" id="funcexpl" > 설명</div>
-		                        <div class="col-10 col-sm-10 col-lg-11"><textarea name="explanation2" style="height:150px;">${pdto.explanation2 }</textarea></div>
+		                        <div class="col-10 col-sm-10 col-lg-11"><textarea name="explanation2" style="height:150px;" maxlength="1300">${pdto.explanation2 }</textarea></div>
 		                    </div>
 		                </div>
 		            </div>
@@ -130,16 +130,16 @@
 		                <div class="col-9">
 		                    <div class="row">
 		                        <div class="col-2 col-sm-2  col-lg-1" id="funcname"> 기능명</div>
-		                        <div class="col-10 col-sm-10 col-lg-11 " id="funcname3"><input name="function3" style="height:18px margin-bottom:" value="${pdto.function3 }"></div>
+		                        <div class="col-10 col-sm-10 col-lg-11 " id="funcname3"><input name="function3" style="height:18px margin-bottom:" value="${pdto.function3 }" maxlength="100"></div>
 		                        <div class="col-2 col-sm-2  col-lg-1" id="funcexpl" > 설명</div>
-		                        <div class="col-10 col-sm-10 col-lg-11"><textarea name="explanation3" style="height:150px;">${pdto.explanation3 }</textarea></div>
+		                        <div class="col-10 col-sm-10 col-lg-11"><textarea name="explanation3" style="height:150px;" maxlength="1300">${pdto.explanation3 }</textarea></div>
 		                    </div>
 		                </div>
 		            </div>
 		            <div class="interval"></div>
 		             <div class="row">
 		             	<div class="col-3 col-md-2"> 깃 링크  </div>
-		                <div class="col-9 col-md-10"><input type="text" name="git" value="${pdto.git }"></div>               
+		                <div class="col-9 col-md-10"><input type="text" name="git" value="${pdto.git }" maxlength="200"></div>               
 		            </div>
 		            <div class="interval"></div>
 		            <div style="text-align: end;"><button type="button" id="return">목록으로 돌아가기</button><button id=update type="button">수정 완료</button></div>
