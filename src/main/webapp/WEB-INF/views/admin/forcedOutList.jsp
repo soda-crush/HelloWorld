@@ -30,6 +30,9 @@
 	.notification-area {
 		text-align:right;
 	}
+	.table{
+		min-width: 600px;
+	}
 </style>
 </head>
 <body>
@@ -57,7 +60,7 @@
                             <h4 class="page-title pull-left">모니터링</h4>
                             <ul class="breadcrumbs pull-left">
                                 <li><a href="${pageContext.request.contextPath }/admin/main">Home</a></li>
-                                <li><span>강퇴회원ID관리</span></li>
+                                <li><span>강제 탈퇴 계정 관리</span></li>
                             </ul>
                         </div>
                     </div>
@@ -90,7 +93,7 @@
 		                                                    <th scope="col">E-mail</th>
 		                                                    <th scope="col">강퇴사유</th>
 		                                                    <th scope="col">강퇴날짜</th>
-		                                                    <th scope="col"></th>
+		                                                    <th scope="col">삭제</th>
 		                                                </tr>
 		                                            </thead>
 		                                            <tbody>
@@ -109,7 +112,7 @@
 				                                                </tr>
 				                                                <script>
 				                                                	$("#forcedOutDel${dto.seq}").on("click", function(){
-				                                                		var result = confirm("이 기록을 지울까요?");
+				                                                		var result = confirm("해당 강퇴 기록을 지울까요?");
 				                                                		if(result){
 				                                                			location.href="${pageContext.request.contextPath}/admin/forcedOutDel?seq=${dto.seq}";
 				                                                		}

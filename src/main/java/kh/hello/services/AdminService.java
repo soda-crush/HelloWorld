@@ -246,7 +246,10 @@ public class AdminService {
 	}
 	
 	public int forcedOutDel(int seq) {
-		return adao.forcedOutDel(seq);
+		//회원 정보에서 이메일 정보 지워주기(재가입 가능)
+		adao.delEmail(seq);
+		//강퇴 목록에서 지우기
+		return adao.forcedOutDel(seq);		 
 	}
 	
 	public List<MemberDTO> getSearchMemberListByPage(String col, String searchWord, int start, int end){

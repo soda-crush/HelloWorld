@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,10 +44,21 @@
 		max-width: 1000px;
 	}
 	.table{
-		min-width: 400px;
+		min-width: 600px;
 	}
 	.notification-area {
 		text-align:right;
+	}
+	.noBorder{
+		border-top:none !important;
+	}
+	.contentBtn{
+		border: 1px solid transparent !important;
+		background-color:transparent !important;
+		color: black;
+	}	
+	.btn-primary.focus, .btn-primary:focus{
+		color: black;
 	}
 </style>
 </head>
@@ -120,14 +132,27 @@
 		                                            	<c:forEach items="${list}" var="dto">
 		                                            		<tr>
 		                                                    <td>${dto.seq}</td> 
-		                                                    <td>${dto.content}</td> 
+		                                                    <td class="text-left">
+		                                                    	<c:set var="text" value="${dto.content}"/>	
+		                                                    	<c:choose>
+		                                                    		<c:when test="${fn:length(text) > 20}">
+				                                                    	<c:set var="value" value="${fn:substring(text, 0, 20)}"/>	                                                    	
+				                                                    	<button class="btn btn-primary contentBtn p-0" type="button" data-toggle="collapse" data-target="#detail${dto.seq}" aria-expanded="false" aria-controls="collapseExample">
+		    																${value} <i class="fa fa-angle-down"></i>
+		  																</button>		                                                    		
+		                                                    		</c:when>
+		                                                    		<c:otherwise>
+		                                                    			${dto.content}
+		                                                    		</c:otherwise>
+		                                                    	</c:choose>
+		                                                    </td> 
 		                                                    <td>
 																<div class="btn-group dropright">
 																  <button class="btn btn-secondary btn-sm dropdown-toggle nameBtn p-0" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-boundary="viewport">
 																    ${dto.owner}(${dto.ownerID})&nbsp;&nbsp;&nbsp;<i class="fa fa-external-link"></i>
 																  </button>
 																  <div class="dropdown-menu">
-																    <p class="dropdown-item" id="memberInfoO${dto.ownerID}">회원정보</p>
+																    <p class="dropdown-item" id="ownerInfo${dto.seq}${dto.ownerID}">회원정보</p>
 																  </div>
 																</div>                                                    
 		                                                    </td>
@@ -137,13 +162,21 @@
 																    ${dto.writer}(${dto.writerID})&nbsp;&nbsp;&nbsp;<i class="fa fa-external-link"></i>
 																  </button>
 																  <div class="dropdown-menu">
-																    <p class="dropdown-item" id="memberInfoW${dto.writerID}">회원정보</p>
+																    <p class="dropdown-item" id="writerInfo${dto.seq}${dto.writerID}">회원정보</p>
 																  </div>
 																</div>                                                    
 		                                                    </td>  	                                                                                                      
 		                                                    <td>${dto.formedWriteDateForAdmin}</td>
 		                                                    <td><i class="ti-trash" id="delProc${dto.seq }"></i></td>
-		                                               		</tr>                                            		
+		                                               		</tr>
+		                                               		<tr>		                                               		
+			                                               		<td colspan="6" class="p-0 noBorder">
+																	<div class="collapse" id="detail${dto.seq}">
+																		<hr>
+																		<div class="card card-body pt-0">${dto.content}</div>
+																	</div>
+																</td>															
+															</tr>	                                               		                                           		
 		                                               		<script>
 		                                               			$("#delProc${dto.seq}").on("click", function(){
 		                                               				var result = confirm("이 방명록을 삭제할까요?");
@@ -152,13 +185,13 @@
 		                                               				}                                              				                                             				
 		                                               			})   
 		                                               			
-		                                               			$("#memberInfoO${dto.ownerID}").on("click", function(){		                                               			
-		                                               				window.open("${pageContext.request.contextPath}/admin/getMemberInfo?id=${dto.ownerID}","","width=600px,height=534px,top=300px,left=600px");
+		                                               			$("#ownerInfo${dto.seq}${dto.ownerID}").on("click", function(){		                                               			
+		                                               				window.open("${pageContext.request.contextPath}/admin/getMemberInfo?id=${dto.ownerID}","","width=600px,height=526px,top=300px,left=600px");
 		                                               			})    
 		                                               			
 		                
-			                                               		$("#memberInfoW${dto.writerID}").on("click", function(){			                          
-			                                               			window.open("${pageContext.request.contextPath}/admin/getMemberInfo?id=${dto.writerID}","","width=600px,height=534px,top=300px,left=600px");
+			                                               		$("#writerInfo${dto.seq}${dto.writerID}").on("click", function(){			                          
+			                                               			window.open("${pageContext.request.contextPath}/admin/getMemberInfo?id=${dto.writerID}","","width=600px,height=526px,top=300px,left=600px");
 			                                               		}) 		                                               				
 
                                                 			

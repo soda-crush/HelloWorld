@@ -97,7 +97,12 @@
                     <div class="col-lg-12 mt-5 contentCard">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="header-title">불량회원목록</h4>
+	                            <div class="col-auto text-left mb-3">
+			                    	<div class="btn-group" role="group" aria-label="Basic example">
+			                   			<button type="button" class="btn btn-flat btn-xs btn-outline-warning" id="listAll">전체</button>
+			                    		<button type="button" class="btn btn-flat btn-xs btn-warning" id="blackList">불량회원</button>
+			                    	</div>                            		
+	                            </div>	
                                 <div class="single-table">
                                     <div class="table-responsive">
                                         <table class="table table-hover text-center">
@@ -135,7 +140,7 @@
 														  </div>
 														</div>
                                                     </td>
-                                                    <td>dto.lastLogin</td>
+                                                    <td>${dto.formedLastLogin}</td>
                                                     <td>${dto.memLevel}</td>
                                                		</tr>
                                                		<form action="${pageContext.request.contextPath}/admin/blackOut" method="post" id="frm${dto.id}">
@@ -144,7 +149,7 @@
                                                		</form>
                                                		<script>
                                                			$("#memberInfo${dto.id}").on("click", function(){
-                                               				window.open("${pageContext.request.contextPath}/admin/getMemberInfo?id=${dto.id}","","width=600px,height=534px,top=300px,left=600px");
+                                               				window.open("${pageContext.request.contextPath}/admin/getMemberInfo?id=${dto.id}","","width=600px,height=526px,top=300px,left=600px");
                                                			})
                                                			$("#memberStop${dto.id}").on("click", function(){
                                                				var result = confirm("${dto.nickName}(${dto.id}) 님을 활동정지 하시겠습니까?");
@@ -279,7 +284,15 @@
 	 });
 	 $("#member").addClass("active");
 	 $("#member").children("ul").addClass("in");
-	 $("#blackMember").addClass("active");		 
+	 $("#blackMember").addClass("active");		
+	 
+	 $("#listAll").on("click", function(){
+		 location.href="${pageContext.request.contextPath}/admin/memberList";
+	 })
+	 
+	 $("#blackList").on("click", function(){
+		 location.href="${pageContext.request.contextPath}/admin/blackList";
+	 })	 
 	</script>
 </body>
 </html>

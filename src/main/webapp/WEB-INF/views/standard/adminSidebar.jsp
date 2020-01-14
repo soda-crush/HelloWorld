@@ -16,9 +16,8 @@
 
 					<li id="member"><a href="javascript:void(0)" aria-expanded="true"><i class="ti-user"></i><span>회원관리</span></a>
 						<ul class="collapse">
-							<li id="allMember"><a href="${pageContext.request.contextPath }/admin/memberList">전체 회원 관리</a></li>
-							<li id="blackMember"><a href="${pageContext.request.contextPath }/admin/blackList">불량 회원 관리</a></li>
-							<li id="outMember"><a href="${pageContext.request.contextPath }/admin/forcedOutList">강제 탈퇴 회원ID 관리</a></li>
+							<li id="allMember"><a href="${pageContext.request.contextPath }/admin/memberList">회원 관리</a></li>
+							<li id="outMember"><a href="${pageContext.request.contextPath }/admin/forcedOutList">강제 탈퇴 계정 관리</a></li>
 						</ul>
 					</li>
 

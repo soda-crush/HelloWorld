@@ -136,6 +136,10 @@ public class AdminDAO {
 		return jdbc.selectOne("Admin.getForcedOutTotal");
 	}
 	
+	public int delEmail(int seq) {
+		return jdbc.update("Admin.delEmail", seq);
+	}
+	
 	public int forcedOutDel(int seq) {//강퇴 목록에서 지우기
 		return jdbc.delete("Admin.forcedOutDel", seq);
 	}

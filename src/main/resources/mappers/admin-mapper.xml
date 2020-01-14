@@ -74,6 +74,9 @@
   <select id="getForcedOutTotal" resultType="integer">
   	select count(*) from forcedOut
   </select>
+  <update id="delEmail">
+  	update member set email=null where id=(select id from forcedOut where seq=#{seq})
+  </update>
   <delete id="forcedOutDel">
   	delete from forcedOut where seq=#{seq}
   </delete>
