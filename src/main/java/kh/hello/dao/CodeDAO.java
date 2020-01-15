@@ -14,6 +14,7 @@ import kh.hello.dto.CodeCommentsDTO;
 import kh.hello.dto.CodeQuestionDTO;
 import kh.hello.dto.CodeReplyDTO;
 import kh.hello.dto.MemberDTO;
+import kh.hello.dto.ReportDTO;
 import kh.hello.dto.ScrapDTO;
 
 @Repository
@@ -242,5 +243,26 @@ public class CodeDAO {
 		public int adoptCount(int queSeq) {
 			return jdbc.selectOne("CodeR.adoptCount",queSeq);
 		}
-	
+		
+	//신고 작성글
+		public int reportDuplCheck(String id, int seq) {
+			Map<String, Object> param = new HashMap<>();
+			param.put("id", id);
+			param.put("seq", seq);
+			return jdbc.selectOne("Code.reportDuplCheck", param);
+		}
+		public int insertReport(ReportDTO dto) {
+			return jdbc.insert("Code.insertReport", dto);
+		}
+		
+	//답글
+		public int reportDuplCheckR(String id, int seq) {
+			Map<String, Object> param = new HashMap<>();
+			param.put("id", id);
+			param.put("seq", seq);
+			return jdbc.selectOne("CodeR.reportDuplCheckR", param);
+		}
+		public int insertReportR(ReportDTO dto) {
+			return jdbc.insert("CodeR.insertReportR", dto);
+		}
 }

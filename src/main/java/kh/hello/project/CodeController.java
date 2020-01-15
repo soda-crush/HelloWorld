@@ -16,6 +16,7 @@ import kh.hello.dto.CodeQuestionDTO;
 import kh.hello.dto.CodeReplyDTO;
 import kh.hello.dto.LoginInfoDTO;
 import kh.hello.dto.MemberDTO;
+import kh.hello.dto.ReportDTO;
 import kh.hello.dto.ScrapDTO;
 import kh.hello.services.CodeService;
 
@@ -268,4 +269,60 @@ public class CodeController {
 	public String sharing() {
 		return "/code/kakaoSharing";
 	}
+	
+	//작성 글 신고하기
+	@ResponseBody
+	@RequestMapping("/reportDuplCheck.do")
+	public String reportDuplCheck(int seq) {
+		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
+		String id = sessionValue.getId();
+		int result = sv.reportDuplCheck(id, seq);
+		if(result>0) {
+			return "dupl";
+		}else {
+			return "possible";
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping("/report.do")
+	public String reportCode(ReportDTO dto) {
+		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
+		dto.setReporterID(sessionValue.getId());
+		dto.setReporterNick(sessionValue.getNickName());		
+		int result = sv.reportCode(dto);
+		if(result>0) {
+			return "success";
+		}else {
+			return "redirect:/home/error";
+		}
+	}
+	
+	//답글 신고하기
+		@ResponseBody
+		@RequestMapping("/reportDuplCheckR.do")
+		public String reportDuplCheckR(int seq) {
+			LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
+			String id = sessionValue.getId();
+			int result = sv.reportDuplCheckR(id, seq);
+			if(result>0) {
+				return "dupl";
+			}else {
+				return "possible";
+			}
+		}
+		
+		@ResponseBody
+		@RequestMapping("/reportR.do")
+		public String reportCodeR(ReportDTO dto) {
+			LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");	
+			dto.setReporterID(sessionValue.getId());
+			dto.setReporterNick(sessionValue.getNickName());		
+			int result = sv.reportCodeR(dto);
+			if(result>0) {
+				return "success";
+			}else {
+				return "redirect:/home/error";
+			}
+		}
 }

@@ -244,7 +244,7 @@ a:hover {
 	        if(resp > 1){
 	           location.href="/code/codeQWrite.do";   
 	        }else{
-	           alert("강등된 사용자입니다. 관리자에게 문의해주세요.")
+	           alert("권한이 없습니다. 관리자에게 문의하세요.")
 	           return false;
 	        }    
 	     }).fail(function(resp){
