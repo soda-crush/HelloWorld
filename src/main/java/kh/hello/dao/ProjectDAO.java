@@ -28,8 +28,9 @@ public class ProjectDAO {
 		return jdbc.selectList("Project.getList");
 	}
 	
-	public int getArticleCount(String searchOption, String keyword) {//프로젝트 모집글 전체 개수
+	public int getArticleCount(String pageOrder, String searchOption, String keyword) {//프로젝트 모집글 전체 개수
 		Map<String, Object> param = new HashMap<>();
+		param.put("pageOrder", pageOrder);
 		param.put("searchOption", searchOption);
 		param.put("keyword", keyword);
 		return jdbc.selectOne("Project.getArticleCount", param);

@@ -50,7 +50,7 @@ public class ProjectMemController {
 		}
 		List<ProjectDTO> result = svc.projectListPerPage(start, end, pageOrder, searchOption, keyword);
 		m.addAttribute("projectList", result);
-		String pageNavi = svc.getPageNavi(currentPage, searchOption, keyword);
+		String pageNavi = svc.getPageNavi(currentPage, pageOrder, searchOption, keyword);
 		m.addAttribute("pageNavi", pageNavi);
 		m.addAttribute("currentPage", currentPage);
 		m.addAttribute("pageOrder", checkOrder);

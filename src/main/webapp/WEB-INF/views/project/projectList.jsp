@@ -48,8 +48,8 @@
 					<div class="row mb-2">
 						<div class="col-12">
 							<div class="btn-group" role="group">
-								<button type="button" class="btn btn-outline-primary btn-sm active" id="latestOrder">최신순</button>
-								<button type="button" class="btn btn-outline-danger btn-sm" id="deadlineOrder">마감임박순</button>
+								<button type="button" class="btn btn-outline-warning btn-sm active" id="latestOrder">최신순</button>
+								<button type="button" class="btn btn-outline-warning btn-sm" id="deadlineOrder" data-toggle="tooltip" title="모집마감된 글은 제외됩니다">마감임박순</button>
 							</div>
 							<input type="hidden" name="pageOrder" id="pageOrder">
 						</div>
