@@ -117,6 +117,9 @@
 		                                                    			${dto.title}
 		                                                    		</c:otherwise>
 		                                                    	</c:choose>	
+		                                                    <c:if test="${dto.commentCount != 0}">
+		                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong class="text-warning">${dto.commentCount}</strong>
+		                                                    </c:if>		                                                    	
 		                                                    </td>
 		                                                    <td class="toDetail${dto.seq}">${dto.writer}</td>
 		                                                    <td class="toDetail${dto.seq}">${dto.formedWriteDateForAdmin }</td>

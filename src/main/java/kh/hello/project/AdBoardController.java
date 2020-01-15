@@ -239,6 +239,7 @@ public class AdBoardController {
 		
 		List<ItnewsDTO> result = bs.itnewsListByPage(start, end);
 		m.addAttribute("list", result);
+		System.out.println("댓글개수 : " + result.get(1).getCommentCount());
 		
 		List<String> pageNavi = bs.getItnewsPageNavi(currentPage);
 		m.addAttribute("pageNavi", pageNavi);

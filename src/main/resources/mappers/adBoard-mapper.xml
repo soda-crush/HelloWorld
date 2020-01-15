@@ -40,7 +40,7 @@
 		
 	<!--대나무숲 -->	
 	<select id="bambooListByPage" resultType="kh.hello.dto.BambooDTO">
-		select * from (select bamboo.*, row_number() over (order by seq desc) as rown from bamboo) where rown between #{start} and #{end}
+		select bamboo.*,(select count(*) from bambooComments where bamSeq=bamboo.seq) as commentCount from (select bamboo.*, row_number() over(order by seq desc) rown from bamboo) bamboo where rown between #{start} and #{end} order by seq desc
 	</select>
 	<select id="getBambooTotal" resultType="integer">
 		select count(*) from bamboo
@@ -63,7 +63,8 @@
 	
 	<!--업계현황 -->	
 	<select id="industryListByPage" resultType="kh.hello.dto.IndustryStatusDTO">
-		select * from (select industryStatus.*, row_number() over (order by seq desc) as rown from industryStatus) where rown between #{start} and #{end}
+		select * from (select itnews.*,(select count(*) from itnewsComments where itSeq = itnews.seq) as commentCount, 
+		row_number() over (order by seq desc) as rown from itnews) where rown between #{start} and #{end}
 	</select>
 	<select id="getIndustryTotal" resultType="integer">
 		select count(*) from industryStatus
