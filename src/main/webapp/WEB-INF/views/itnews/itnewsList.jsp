@@ -108,7 +108,6 @@
 					    <div class="d-none col-md-1 d-md-block text-center" style="padding:0px;">조회</div>				    
 					</div>
 					
-					
 				  	<c:choose>
 				  		<c:when test="${list.size()==0 }">
 				  		<div class="row"><div class="col-12">작성된 글이 없습니다.</div></div>
