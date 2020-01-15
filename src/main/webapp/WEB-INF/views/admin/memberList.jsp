@@ -150,7 +150,7 @@
                                                		</form>
                                                		<script>
                                                			$("#memberInfo${dto.id}").on("click", function(){
-                                               				window.open("${pageContext.request.contextPath}/admin/getMemberInfo?id=${dto.id}","","width=600px,height=526px,top=300px,left=600px");
+                                               				window.open("${pageContext.request.contextPath}/admin/getMemberInfo?id=${dto.id}","","width=600px,innerHeight=593px,top=300px,left=600px");
                                                			})
                                                			$("#memberStop${dto.id}").on("click", function(){
                                                				var result = confirm("${dto.nickName}(${dto.id}) 님을 활동정지 하시겠습니까?");
@@ -234,20 +234,6 @@
     <script src="${pageContext.request.contextPath }/adRsc/js/jquery.slimscroll.min.js"></script>
     <script src="${pageContext.request.contextPath }/adRsc/js/jquery.slicknav.min.js"></script>
 
-    <!-- start chart js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
-    <!-- start highcharts js -->
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <!-- start zingchart js -->
-    <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
-    <script>
-        zingchart.MODULESDIR = "https://cdn.zingchart.com/modules/";
-        ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "ee6b7db5b51705a13dc2339db3edaf6d"];
-    </script>
-    <!-- all line chart activation -->
-    <script src="${pageContext.request.contextPath }/adRsc/js/line-chart.js"></script>
-    <!-- all pie chart -->
-    <script src="${pageContext.request.contextPath }/adRsc/js/pie-chart.js"></script>
     <!-- others plugins -->
     <script src="${pageContext.request.contextPath }/adRsc/js/plugins.js"></script>
     <script src="${pageContext.request.contextPath }/adRsc/js/scripts.js"></script>

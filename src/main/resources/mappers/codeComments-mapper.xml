@@ -4,10 +4,10 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="CodeC">
 	<select id="commentsList" resultType="kh.hello.dto.CodeCommentsDTO">
-		select codeComments.*, profileImg from codeComments inner join member on codeComments.id = member.id where queSeq = #{value} order by 1 desc
+		select codeComments.*, profileImg from codeComments inner join member on codeComments.id = member.id where queSeq = #{value} order by seq
 	</select>
 	<select id="commentsListTwo" resultType="kh.hello.dto.CodeCommentsDTO">	
-		select * from codeComments where repSeq=#{value} order by seq
+		select codeComments.*, profileImg from codeComments inner join member on codeComments.id = member.id where repSeq = #{value} order by seq
 	</select>
 	<insert id="insertComment" parameterType="kh.hello.dto.CodeCommentsDTO">
 		insert into codeComments values(codeCommentsSeq.nextval,#{queSeq},#{repSeq},#{content},#{id},#{writer},sysdate)

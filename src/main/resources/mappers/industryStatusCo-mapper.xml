@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="IndustryCo">
 	<select id="getList" resultType="kh.hello.dto.IndustryStatusCoDTO">
-		select * from industryComments where indSeq=#{value} order by seq
+		select industryComments.*, profileImg from industryComments inner join member on industryComments.id = member.id where indSeq=#{value} order by seq
 	</select>
 	<insert id="insertIndustryStatusCo" parameterType="kh.hello.dto.IndustryStatusCoDTO">
 		insert into industryComments values(industryCommentsSeq.nextval,#{indSeq},#{writer},#{content},sysdate,#{id})

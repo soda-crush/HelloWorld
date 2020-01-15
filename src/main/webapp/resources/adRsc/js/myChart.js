@@ -1,53 +1,61 @@
-	/*--------------  visitChange-chart start ------------*/
-	if ($('#visitChange').length > 0) {
-		
-	    var myConfig = {
-	        type: "line",
-	        'background-color': "#ffffff",
-	        scaleX: { //X-Axis
-	            labels: ["${visitChange[0].dateis}", "${visitChange[1].dateis}", "${visitChange[2].dateis}", "${visitChange[3].dateis}",
-	            	"${visitChange[4].dateis}", "${visitChange[5].dateis}", "${visitChange[6].dateis}", "${visitChange[7].dateis}",
-	            	"${visitChange[8].dateis}", "${visitChange[9].dateis}", "${visitChange[10].dateis}"],
-	            label: {
-	                "font-size": 14,
-	                "offset-x": 0,
-	            },
-	            item: { //Scale Items (scale values or labels)
-	                "font-size": 10,
-	            },
-	            guide: { //Guides
-	                "visible": false,
-	                "line-style": "solid", //"solid", "dotted", "dashed", "dashdot"
-	                "alpha": 1
-	            }
-	        },
-	        plot: { aspect: "spline" },
-	        series: [{
-	                values: ["${visitChange[0].visitCount}", "${visitChange[1].visitCount}", "${visitChange[2].visitCount}",
-	                	"${visitChange[3].visitCount}", "${visitChange[4].visitCount}", "${visitChange[5].visitCount}", 
-	                	"${visitChange[6].visitCount}", "${visitChange[7].visitCount}", "${visitChange[8].visitCount}", 
-	                	"${visitChange[9].visitCount}", "${visitChange[10].visitCount}", "${visitChange[11].visitCount}"],
-	                'line-color': "#0884D9",
-	                'line-width': 5 /* in pixels */ ,
-	                marker: { 
-	                    'background-color': "#067dce",
-	                    size: 5,
-	                    'border-color': "#067dce",
-	                }
-	            }
-	        ]
-	    };
-	    
-	    zingchart.render({
-	        id: 'visitChange',
-	        data: myConfig,
-	        height: "99%",
-	        width: "100%"
-	    });
+/*--------------  visitChange-chart start ------------*/
+if ($('#visitChange').length > 0) {
+	var num1 = Number("${visitChange[0].visitCount}");
+	var num2 = Number("${visitChange[1].visitCount}");
+	var num3 = Number("${visitChange[2].visitCount}");
+	var num4 = Number("${visitChange[3].visitCount}");
+	var num5 = Number("${visitChange[4].visitCount}");
+	var num6 = Number("${visitChange[5].visitCount}");
+	var num7 = Number("${visitChange[6].visitCount}");
+	var num8 = Number("${visitChange[7].visitCount}");
+	var num9 = Number("${visitChange[8].visitCount}");
+	var num10 = Number("${visitChange[9].visitCount}");
+	var num11 = Number("${visitChange[10].visitCount}");
+	
+    var myConfig = {
+        type: "line",
+        'background-color': "#ffffff",
+        scaleX: { //X-Axis
+            labels: ["${visitChange[0].dateis}", "${visitChange[1].dateis}", "${visitChange[2].dateis}", "${visitChange[3].dateis}",
+            	"${visitChange[4].dateis}", "${visitChange[5].dateis}", "${visitChange[6].dateis}", "${visitChange[7].dateis}",
+            	"${visitChange[8].dateis}", "${visitChange[9].dateis}", "${visitChange[10].dateis}"],
+            label: {
+                "font-size": 14,
+                "offset-x": 0,
+            },
+            item: { //Scale Items (scale values or labels)
+                "font-size": 10,
+            },
+            guide: { //Guides
+                "visible": false,
+                "line-style": "solid", //"solid", "dotted", "dashed", "dashdot"
+                "alpha": 1
+            }
+        },
+        plot: { aspect: "spline" },
+        series: [{
+                values: [num1, num2, num3, num4, num5, num6, num7, num8, num9, num10, num11],
+                'line-color': "#0884D9",
+                'line-width': 5 /* in pixels */ ,
+                marker: { 
+                    'background-color': "#067dce",
+                    size: 5,
+                    'border-color': "#067dce",
+                }
+            }
+        ]
+    };
+    
+    zingchart.render({
+        id: 'visitChange',
+        data: myConfig,
+        height: "99%",
+        width: "100%"
+    });
 
-	}
+}
 
-	/*--------------  visitChange-chart END ------------*/
+/*--------------  visitChange-chart END ------------*/
 	
 	/*--------------  gender Ratio chart END ------------*/
 	if ($('#genderRatio').length) {
@@ -473,35 +481,35 @@
 	        "balloon": {},
 	        "titles": [],
 	        "dataProvider": [{
-	                "date": "${boardLog[0].formedDate}",
+	                "date": "${boardLog[0].dateis}",
 	                "새 글": "${boardLog[0].newBoard}",
 	                "삭제된 글": "${boardLog[0].delBoard}",
 	                "color": "#7474f0",
 	                "color2": "#C5C5FD"
 	            },
 	            {
-	                "date": "${boardLog[1].formedDate}",
+	                "date": "${boardLog[1].dateis}",
 	                "새 글": "${boardLog[1].newBoard}",
 	                "삭제된 글": "${boardLog[1].delBoard}",
 	                "color": "#7474f0",
 	                "color2": "#C5C5FD"
 	            },
 	            {
-	                "date": "${boardLog[2].formedDate}",
+	                "date": "${boardLog[2].dateis}",
 	                "새 글": "${boardLog[2].newBoard}",
 	                "삭제된 글": "${boardLog[2].delBoard}",
 	                "color": "#7474f0",
 	                "color2": "#C5C5FD"
 	            },
 	            {
-	                "date": "${boardLog[3].formedDate}",
+	                "date": "${boardLog[3].dateis}",
 	                "새 글": "${boardLog[3].newBoard}",
 	                "삭제된 글": "${boardLog[3].delBoard}",
 	                "color": "#7474f0",
 	                "color2": "#C5C5FD"
 	            },
 	            {
-	                "date": "${boardLog[4].formedDate}",
+	                "date": "${boardLog[4].dateis}",
 	                "새 글": "${boardLog[4].newBoard}",
 	                "삭제된 글": "${boardLog[4].delBoard}",
 	                "color": "#7474f0",
@@ -530,27 +538,27 @@
 	            "verticalGap": 0
 	        },
 	        "dataProvider": [{
-	            "year": "${comLog[0].formedDate}",
+	            "year": "${comLog[0].dateis}",
 	            "새 댓글": "${comLog[0].newCom}",
 	            "삭제된 댓글": "${comLog[0].delCom}",
 	            "color": "#952FFE"
 	        }, {
-	            "year": "${comLog[1].formedDate}",
+	            "year": "${comLog[1].dateis}",
 	            "새 댓글": "${comLog[1].newCom}",
 	            "삭제된 댓글": "${comLog[0].delCom}",
 	            "color": "#5182DE"
 	        }, {
-	            "year": "${comLog[2].formedDate}",
+	            "year": "${comLog[2].dateis}",
 	            "새 댓글": "${comLog[2].newCom}",
 	            "삭제된 댓글": "${comLog[0].delCom}",
 	            "color": "#8282F1"
 	        }, {
-	            "year": "${comLog[3].formedDate}",
+	            "year": "${comLog[3].dateis}",
 	            "새 댓글": "${comLog[3].newCom}",
 	            "삭제된 댓글": "${comLog[0].delCom}",
 	            "color": "#B369FE"
 	        }, {
-	            "year": "${comLog[4].formedDate}",
+	            "year": "${comLog[4].dateis}",
 	            "새 댓글": "${comLog[4].newCom}",
 	            "삭제된 댓글": "${comLog[0].delCom}",
 	            "color": "#51ADDD"

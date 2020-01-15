@@ -12,7 +12,14 @@ public class BambooDTO {
 	private Timestamp writeDate;
 	private int viewCount;
 	private int commentCount;
+	private String profileImg;
 	
+	public String getProfileImg() {
+		return profileImg;
+	}
+	public void setProfileImg(String profileImg) {
+		this.profileImg = profileImg;
+	}
 	public int getSeq() {
 		return seq;
 	}

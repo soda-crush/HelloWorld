@@ -63,7 +63,6 @@ public class MemberInquiryService {
 	private void imgDelete(String path, int boardSeq) throws Exception{
 		List<String> imgs = dao.getImgsByBoardSeq(boardSeq);
 		for(String tmp:imgs) {
-			System.out.println(path + " : " + tmp);
 			File file = new File(path+"/"+tmp);
 			if(file.exists()) {
 				file.delete();

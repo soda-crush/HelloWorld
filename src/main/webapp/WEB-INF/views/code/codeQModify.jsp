@@ -85,7 +85,7 @@ $(function(){
 					</div>
 					<div class="col-3 division">
 						<select name="point" class="sele">
-							<option value="">point</option>
+							<option value="0"><c:if test="${result.point == 0}">selected</c:if>포인트X</option>
 							<option value="10" <c:if test="${result.point == 10}">selected</c:if>>10</option>
 							<option value="30" <c:if test="${result.point == 30}">selected</c:if>>30</option>
 							<option value="50" <c:if test="${result.point == 50}">selected</c:if>>50</option>

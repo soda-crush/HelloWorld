@@ -88,11 +88,9 @@
 							<div class="row">
 								<div class="col-md-2"><label class="pItem">기간</label><label class="star">*</label></div>
 								<div class="col-md-10">
-	        						<input type="text" id="startInputDate" class="form-control form-control-sm datePicker" placeholder="시작일" name="startInputDate" readonly>
+	        						<input type="text" class="form-control form-control-sm datePicker" placeholder="시작일" name="startDate" id="startDate" readonly>
 	        						<span> ~ </span>
-	        						<input type="text" id="endInputDate" class="form-control form-control-sm datePicker" placeholder="종료일" name="endInputDate" readonly>
-	        						<input type="hidden" id="startDate" name="startDate">
-									<input type="hidden" id="endDate" name="endDate">
+	        						<input type="text" class="form-control form-control-sm datePicker" placeholder="종료일" name="endDate" id="endDate" readonly>	        						
 	    						</div>
 							</div>							
 							<div class="row">
@@ -195,14 +193,13 @@
 		});
 		
 		$("#writeBtn").on("click",function(){				
-			$("#startDate").val($("#startInputDate").val()+" 00:00:00.000000000");
-			$("#endDate").val($("#endInputDate").val()+" 00:00:00.000000000");
 			if($("#loc1").val()==null|$("#loc2").val()==null|$("#capacity")==null|$("#startDate").val()==""|$("#endDate").val()==""|$("#languages").val()==""){
 				alert("필수 입력 항목을 확인해주세요");
 				return false;
 			}
 			if($("#startDate").val()>$("#endDate").val()){
 				alert("시작일이 종료일보다 늦은 날짜일 수 없습니다");
+				$("#startDate").focus();
 				return false;
 			}				
 			$("#title").val($.trim($("#title").val())); 				

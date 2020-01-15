@@ -75,7 +75,7 @@ public class MemberService {
 			//기본설정
 			mdto.setReportCount(0);
 			mdto.setPoint(1000);
-			mdto.setProfileImg("/img/profile" + Utils.getRandomNum(1, 5) + ".png");
+			mdto.setProfileImg("/img/profile" + Utils.getRandomNum(1, 11) + ".png");
 			mdto.setBirth(birthDate);
 			
 			return mdao.insertMember(mdto);

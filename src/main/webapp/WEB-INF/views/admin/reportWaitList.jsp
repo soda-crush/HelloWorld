@@ -190,7 +190,7 @@
 									                                                <div class="content col-12">
 									                                                	<div class="row infoBox infoBoxTop">
 									                                                		<div class="col-4 pt-2 pb-2">상태</div>
-									                                                		<div class="col-8 pt-2 pb-2">${dto.state}</div>
+									                                                		<div class="col-8 pt-2 pb-2">${dto.formedState}</div>
 									                                                	</div>
 									                                                	<div class="row infoBox">
 									                                                		<div class="col-4 pt-2 pb-2">게시판</div>
@@ -357,20 +357,6 @@
     <script src="${pageContext.request.contextPath }/adRsc/js/jquery.slimscroll.min.js"></script>
     <script src="${pageContext.request.contextPath }/adRsc/js/jquery.slicknav.min.js"></script>
 
-    <!-- start chart js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
-    <!-- start highcharts js -->
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <!-- start zingchart js -->
-    <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
-    <script>
-        zingchart.MODULESDIR = "https://cdn.zingchart.com/modules/";
-        ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "ee6b7db5b51705a13dc2339db3edaf6d"];
-    </script>
-    <!-- all line chart activation -->
-    <script src="${pageContext.request.contextPath }/adRsc/js/line-chart.js"></script>
-    <!-- all pie chart -->
-    <script src="${pageContext.request.contextPath }/adRsc/js/pie-chart.js"></script>
     <!-- others plugins -->
     <script src="${pageContext.request.contextPath }/adRsc/js/plugins.js"></script>
     <script src="${pageContext.request.contextPath }/adRsc/js/scripts.js"></script>
