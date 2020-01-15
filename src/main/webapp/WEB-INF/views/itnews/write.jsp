@@ -42,7 +42,7 @@
 				<form action="${pageContext.request.contextPath}/itnews/writeProc" method="post" id="writeFrm" enctype="multipart/form-data">
 					<div id="pageBody">					
 						<div id="pBody">
-							<div id="pTitleInput" class="mb-3"><input type="text" class="form-control" placeholder="제목을 입력해주세요" name="title" id="title"></div>
+							<div id="pTitleInput" class="mb-3"><input type="text" class="form-control" placeholder="제목을 입력해주세요" name="title" id="title" maxlength="100"></div>
 							<div id="pContentsInput"><textarea class="form-control summernote" name="content" id="content"></textarea></div>											
 						</div>					
 					</div>

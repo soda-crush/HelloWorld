@@ -81,7 +81,7 @@
 				  				<div class="row p-0">
 									<div class="col-md-1 d-none d-md-block order-md-1 notTitle">${dto.seq}</div>
 					    			<div class="col-12 col-md-6 order-1 order-md-2" id=titleForCss><div class="cursorPointer" onclick="location.href='${pageContext.request.contextPath}/itnews/detail?seq=${dto.seq}&page=${page}'" style="width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${dto.title}&ensp;<p class=orangeFt style="display:inline">${dto.commentCount}</p></div></div>
-					    			<div class="col-2 col-md-2 order-2 order-md-3 notTitle text-center"><a onclick="popUp('/Portfolio/toPlog.do?owner=${p.id}')">${dto.writer}</a></div>
+					    			<div class="col-2 col-md-2 order-2 order-md-3 notTitle text-center"><a onclick="popUp('/Portfolio/toPlog.do?owner=${dto.id}')">${dto.writer}</a></div>
 					    			<div class="col-2 col-md-2 order-3 order-md-4 notTitle">${dto.getDate()}</div>
 					    			<div class="col-1 col-md-1 order-4 order-md-5 notTitle">${dto.viewCount}</div>
 					    			<div class="col-7 order-5 d-md-none"></div>		
@@ -92,7 +92,7 @@
 				</div>		
 				
 				<div class=row>
-					<div class="col-12 pageNavi">${navi}</div>
+					<div class="col-12"><nav aria-label="List navi" id="pPageNavi">${navi}</nav></div>
 				</div>		
 				<form action="${pageContext.request.contextPath}/itnews/searchList" method="get">
 					<div class=row>
@@ -129,6 +129,7 @@
         function popUp(link){
             window.open(link, "pLogPopUp", "width=600,height=600");
          }
+        $(".pNavi${page}").addClass("active");
         </script>
 </body>
 </html>
