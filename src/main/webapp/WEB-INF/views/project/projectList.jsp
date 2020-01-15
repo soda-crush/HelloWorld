@@ -86,9 +86,9 @@
 				  	</c:choose>				    
 				</div>
 				<div class="row pageListFooter">
-					<div class="col-6">
+					<div class="col-12 order-2 order-md-1 col-md-10">
 						  <form class="form-inline" action="/project/list" method="post" id="searchFrm">
-							<select class="form-control searchSelect" name="searchOption" id="searchOption" style="margin-right:5px;">
+							<select class="form-control searchSelect" name="searchOption" id="searchOption" style="margin-right:5px;max-width:135px;">
 								<option selected disabled>선택</option>
 								<option value="all">제목+내용</option>
 							    <option value="title">제목</option>
@@ -97,11 +97,11 @@
 							    <option value="capacity">인원</option>
 							    <option value="writer">작성자</option>									    
 							</select>
-						    <input class="form-control mr-sm-2" type="search" placeholder="검색어를 입력하세요" aria-label="Search" name="keyword" id="keyword">
-						    <button class="btn btn-dark my-2 my-sm-0" type="submit" id="searchBtn">검색</button>
+						    <input class="form-control mr-sm-2" type="search" placeholder="검색어를 입력하세요" aria-label="Search" name="keyword" id="keyword" style="max-width:250px;">
+						    <button class="btn btn-dark my-2 my-sm-0 ml-1" type="submit" id="searchBtn">검색</button>
 						  </form>
 					</div>								
-					<div class="col-6 text-right">
+					<div class="col-12 order-1 order-md-2 col-md-2 text-right">
 						<a class="btn btn-success" href="/project/write" role="button">글쓰기</a>					
 					</div>
 				</div>
@@ -125,7 +125,6 @@
 	        	$("#keyword").val($.trim($("#keyword").val()));
 	        	if($("#keyword").val()==""){
 	        		alert("검색어를 입력해주세요");
-	        		return false;
 	        	}
 	        });
         	$(".pNavi${currentPage}").addClass("active");
