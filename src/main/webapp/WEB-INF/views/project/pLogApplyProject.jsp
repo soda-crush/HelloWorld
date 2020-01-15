@@ -49,17 +49,15 @@
 									<div class="col-1">${a.capacity }명</div>
 									<div class="col-1">${a.location1 } ${a.location2 }</div>
 									<div class="col-2">${a.formedAllDate }</div>																											
-									<div class="col-3 text-decoration-none" onclick="popUp('/project/detailView?seq=${a.projectSeq}')">										
-										<div class="ml-1" style="max-width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;">${a.title } 
-					  						<c:if test="${a.commentCount>0 }">
-					  							<div class="pComment font-weight-bold ml-1" style="display:inline-block;">${a.commentCount }</div>
-					  						</c:if>
-					  					</div>										  				
-									</div>									
+									<div class="col-3 text-decoration-none" onclick="popUp('/project/detailView?seq=${a.projectSeq}')">
+										<div class="row">
+											<div style="max-width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;">${a.title }</div> 
+											<c:if test="${a.commentCount>0 }">
+												<div class="pComment font-weight-bold ml-1" style="display:inline-block;">${a.commentCount }</div>
+											</c:if>
+										</div>
+									</div>
 									<div class="col-1 text-decoration-none" style="cursor:pointer;" onclick="popUp('/Portfolio/toPlog.do?owner=${a.leaderId}')">${a.writer }</div>
-
-
-									
 								</div>	
 				  			</c:forEach>
 				  		</c:otherwise>
