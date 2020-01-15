@@ -50,7 +50,9 @@ public class MemAdvisor {
 		
 		String result = "";
 		try {
-			result = pjp.proceed(pjp.getArgs()).toString();
+			Object objresult = pjp.proceed(pjp.getArgs());
+			if(objresult!=null)
+				result = objresult.toString();
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
