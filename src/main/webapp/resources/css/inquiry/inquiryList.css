@@ -2,7 +2,7 @@
 #pageTitle{margin-bottom:40px;}
 #pageTitle h1{display:inline;margin-right:10px;font-weight:bold;}
 #pageTitle .btn{margin-left:5px;}
-.tableDiv{border-radius:5px;border-spacing:}
+.tableDiv{border-radius:5px;}
 .tableHead{
     font-size: 1rem;
     font-weight: bold;
@@ -16,6 +16,7 @@
 .tableHead,.tableBody,.tableBodyNull{text-align:center;height: 50px;line-height: 50px;}
 .tableBody div:nth-child(2){font-weight:bold;}
 .tableBody div:nth-child(3){text-align:left;cursor:pointer;}   
+.tableBody div:nth-child(7){cursor:pointer;}
 .tableBody .N{color:limegreen;}
 .tableBody .Y{color:red;}
 .pComment{margin-left:3px;font-size:13px;color:orange;}    
@@ -33,32 +34,4 @@
 .tableBody:hover{background-color: #bfac8e30}
 .pageListFooter{margin-top:20px;}
 .searchOption{margin-right:5px;}
-#loginCon p {
-	color: #787878;
-}
-
-.cursorPointer:hover {
-	cursor: pointer;
-}
-
-.navbar-light .navbar-nav .active>.nav-link, .navbar-light .navbar-nav .nav-link.active,
-	.navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .show>.nav-link
-	{
-	color: white;
-	font-size: 17px !important;
-	line-height: 28px;
-	border-bottom: 4px solid white;
-}
-
-.navbar-light .navbar-nav .nav-link {
-	color: #c2c2c2;
-	line-height: 29px;
-}
-.navbar-light .navbar-nav .nav-link:hover{
-	color: white;
-	font-size: 17px !important;
-	line-height: 28px;
-}
-.navbar {
-	padding: 0px;
-}
+#pPageNavi{margin-top:30px;}

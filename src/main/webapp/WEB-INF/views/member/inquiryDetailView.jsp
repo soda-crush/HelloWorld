@@ -11,8 +11,8 @@
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="/css/inquiry/inquiryBase.css" type="text/css"/>
-<link rel="stylesheet" href="/css/inquiry/inquiryDetail.css" type="text/css"/>
+<link rel="stylesheet" href="/css/project/projectBase.css" type="text/css"/>
+<link rel="stylesheet" href="/css/project/detailView.css" type="text/css"/>
 <link rel="stylesheet" type="text/css" href="/css/font-awesome/css/font-awesome.css">
 <style>
 
@@ -22,6 +22,13 @@
 		color:gray;
 	}
 	#titleLink strong{
+		font-size:25px;
+	}
+	.wordWrap{
+		word-break:break-all;
+		word-break:break-word;		
+	}
+	.titleWrap{
 		font-size:25px;
 	}
 </style>
@@ -57,13 +64,13 @@
 				</div>
 				<div class="border border-secondary rounded" id="pageBody">
 						<div id="pHeader" class="pl-2 pr-2">
-							<span class="ml-4" style="font-weight:bold;">${dto.title}</span><br>
+							<div class="ml-4 titleWrap wordWrap" style="font-weight:bold;">${dto.title}</div>
 							<label class="ml-4">작성일 : ${dto.formedDate}</label>
 						</div>
 						<hr>
 						<div id="pBody">
 						
-							<div id="pPageContents">${dto.content}</div>
+							<div id="pPageContents" class="wordWrap">${dto.content}</div>
 							
 							<div class="pPageComments">
 							<c:if test="${list.size()>0 }">
