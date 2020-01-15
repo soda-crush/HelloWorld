@@ -155,7 +155,7 @@ font-size: 11px;}
             		<c:set var="cnt" value="1"/>
             			<c:forEach items="${proList}" var="pro">
             			<c:set var="sum" value="${sum+1}"/>
-            				<div class="col-3 projectCon">
+            				<div class="col-6 col-md-4 col-xl-3 projectCon">
 		            			<div class="projectEle text-center cursorPointer" id="projectEle${sum}"  data-aos="fade-up">
 		            			<br>
 		            				<h4 style="word-break:break-all;word-break:break-word;">"${pro.languages}"</h4>
@@ -164,7 +164,7 @@ font-size: 11px;}
 		            				<br>모집인원 : ${pro.capacity}<br>
 		            				지역 : ${pro.location1}&ensp;${pro.location2}<br>
 		            				팀장 : ${pro.writer}<br>
-		            				기간 : ${pro.startDate}&ensp;~&ensp;${pro.endDate}<br>
+		            				기간 : ${pro.formedAllDate }<br>
 		            			</div>
             				</div>
             				<script>

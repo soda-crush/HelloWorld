@@ -27,7 +27,7 @@
             </div>
         </div>
 
-        <nav class="navbar navbar-expand-md navbar-light" style="background-color: #2c2255;margin-bottom:0px;">
+        <nav class="navbar navbar-expand-md navbar-dark" style="background-color: #2c2255;margin-bottom:0px;">
           <a class="navbar-brand" href="#"></a>
   			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
    				 <span class="navbar-toggler-icon"></span>

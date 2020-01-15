@@ -15,11 +15,7 @@
 <link rel="stylesheet" type="text/css" href="/css/font-awesome/css/font-awesome.css">
 <style>
 	div{
- 	border: 1px solid green;  
-	}
-	.orangeFt{
-		font-size: 12px;
-		color:orange;
+   	border: 1px solid green;    
 	}
 	#cateCmt{
 	color:gray;
@@ -27,9 +23,6 @@
 	}
 	#cateTitle{
 		font-size:60px;
-	}
-	#pageTitle{
-		height: 70px;
 	}
 	.tableHead{
 		height: 50px;
@@ -41,7 +34,6 @@
 		line-height:50px;
 	}
 	.tableBody{
-		height: 50px;
 		background-color:#f7f7f7;
 		border-top: 1px solid #dadde0;
 		border-bottom: 1px solid #dadde0;
@@ -49,16 +41,33 @@
 	.tableBody:hover{
 		background-color:#bfac8e30;
 	}
+	.tableBody *{
+		font-size: 13px;
+		color:#4d4d4d;
+	}
 	.tableBody div{
-		line-height:50px;
+		height:50px;
 	}
 	#cate{
-	height: 37px;
-	border-radius: 1%;
+	height: 38px;
+	border-radius: 6%;
+	position:relative;
+	top:2px;
 	}
 	#search{
-	height: 37px;
-	border-radius: 1%;
+	height: 38px;
+	border-radius: 6%;
+	border:1px solid #a8a8a8;
+	position:relative;
+	top:2px;
+	}
+	#titleForCss{
+	font-size: 16px;
+	font-weight:bold;
+	}
+	.orangeFt{
+		font-size: 12px;
+		color:orange;
 	}
 </style>
 
@@ -83,18 +92,20 @@
  			<div class="container">
  			
 				<div class="row">
-					<div class="col-12">
+					<div class="col-3">
 						<p id=cateTitle style="display:inline;">IT News</p>
-						<p style="display:inline;" id=cateCmt>&ensp;IT 핫이슈를 공유하는 공간입니다.</p>
+					</div>
+					<div class="col-9">
+						<p style="display:inline;" id=cateCmt>IT 핫이슈를 공유하는 공간입니다.</p>
 					</div>
 				</div>				
-				<div class="tableDiv">
+<!-- 				<div class="tableDiv"> -->
 					<div class="row tableHead">					    
-					    <div class="col-md-1 d-none d-md-block text-center">번호</div>
-					    <div class="col-md-6 d-none d-md-block text-center">제목</div>
-					    <div class="col-md-2 d-none d-md-block text-center">작성자</div>
-					    <div class="col-md-2 d-none d-md-block text-center">작성일</div>
-					    <div class="col-md-1 d-none d-md-block text-center">조회수</div>				    
+					    <div class="d-none col-md-1 d-md-block text-center" style="padding:0px;">번호</div>
+					    <div class="d-none col-md-6 d-md-block text-center">제목</div>
+					    <div class="d-none col-md-2 d-md-block text-center">작성자</div>
+					    <div class="d-none col-md-2 d-md-block text-center">작성일</div>
+					    <div class="d-none col-md-1 d-md-block text-center" style="padding:0px;">조회</div>				    
 					</div>
 					
 				  	<c:choose>
@@ -104,39 +115,35 @@
 				  		<c:otherwise>
 				  			<c:forEach items="${list}" var="dto">
 				  				<div class="row p-0 tableBody cursorPointer" onclick="location.href='${pageContext.request.contextPath}/itnews/detail?seq=${dto.seq}&page=${page}'">
-									<div class="col-md-1 d-none d-md-block order-md-1 notTitle">${dto.seq}</div>
-					    			<div class="col-12 col-md-6 order-1 order-md-2" id=titleForCss>
-						    			<div style="max-width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;font-weight:bold;">
+									<div class="col-md-1 d-none d-md-block order-md-1 notTitle text-center pt-3">${dto.seq}</div>
+					    			<div class="col-12 col-md-6 order-1 order-md-2" style="padding-left:0px;padding-right:0px;" >
+						    			<div id=titleForCss style="max-width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;font-weight:bold;padding-top:10.8px;padding-left:5px;padding-right:5px;">
 						    			${dto.title}
 						    			&ensp;
 						    			</div>
 						    			<c:if test="${dto.commentCount>0}">
-						    			<p class=orangeFt style="display:inline">${dto.commentCount}</p>
+						    			<p class=orangeFt style="display:inline;position:relative;bottom: 22px;">${dto.commentCount}</p>
 						    			</c:if>
 					    			</div>
-					    			<div class="col-2 col-md-2 order-2 order-md-3 notTitle text-center"><a onclick="popUp('/Portfolio/toPlog.do?owner=${p.id}')">${dto.writer}</a></div>
-					    			<div class="col-2 col-md-2 order-3 order-md-4 notTitle">${dto.getDate()}</div>
-					    			<div class="col-2 col-md-1 order-4 order-md-5 notTitle">${dto.viewCount}</div>
+					    			<div class="col-2 col-md-2 order-2 order-md-3 notTitle text-left text-md-center pt-3 pl-1 pr-1"><a onclick="popUp('/Portfolio/toPlog.do?owner=${p.id}')">${dto.writer}</a></div>
+					    			<div class="col-3 col-md-2 order-3 order-md-4 notTitle text-left text-md-center pt-3">${dto.getDate()}</div>
+					    			<div class="col-1 col-md-1 order-4 order-md-5 notTitle text-left text-md-center pt-3">${dto.viewCount}</div>
 					    			<div class="col-6 order-5 d-md-none"></div>		
 								</div>
 				  			</c:forEach>
 				  		</c:otherwise>
 				  	</c:choose>				    
-				</div>		
+<!-- 				</div>		 -->
 				
-				<div class=row>
-					<div class="col-12"><nav aria-label="List navi" id="pPageNavi">${navi}</nav></div>
-				</div>	
-					
 				<form action="${pageContext.request.contextPath}/itnews/searchList" method="get">
-					<div class=row>
-						<div class=col-6>
+					<div class="row" style="position:relative;top:10px;">
+						<div class=col-6 style="position:relative;left:-15px;">
 							<select id=cate name=cate>
 								<option value="cateAll">전체</option>
 								<option value="cateTitle">제목</option>
 								<option value="cateWriter">작성자</option>
 							</select>
-							<input type="text" name="search" id=search>
+							<input type="text" name="search" id=search placeholder="검색어를 입력하세요">
 							<button class="btn btn-secondary" id=searchBtn>검색</button>
 						</div>
 						<div class="col-6 text-right">
@@ -147,6 +154,12 @@
 						</div>
 					</div>
 				</form>
+				
+				<div class=row>
+					<div class="col-12"><nav aria-label="List navi" id="pPageNavi" style="position:relative;top:7px;">${navi}</nav></div>
+				</div>	
+					
+				
             </div>
             <!--       몸통 끝!!!   -->
             

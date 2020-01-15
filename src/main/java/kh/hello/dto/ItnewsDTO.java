@@ -23,7 +23,7 @@ public class ItnewsDTO {
 	    	  SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
 		         return sdf.format(processedWrite_date);
 	      }else {
-	    	  SimpleDateFormat sdf = new SimpleDateFormat("20yy.MM.dd.");
+	    	  SimpleDateFormat sdf = new SimpleDateFormat("20yy.MM.dd");
 		         return sdf.format(processedWrite_date);
 	      }
 	   }
