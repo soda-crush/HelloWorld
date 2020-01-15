@@ -6,7 +6,8 @@
 
 	<!--프로젝트-->
 	<select id="projectListByPage" resultType="kh.hello.dto.ProjectDTO">
-		select * from (select project.*,(select count(*) from projectComment where projectSeq=project.seq) as commentCount, row_number() over (order by seq desc) as num from project) where num between #{start} and #{end}
+		select * from (select project.*,(select count(*) from projectComment where projectSeq=project.seq and contents is not null) as commentCount, 
+		row_number() over (order by seq desc) as num from project)where num between #{start} and #{end}	
 	</select>
 	<select id="getProjectTotal" resultType="integer">
 		select count(*) from project
@@ -63,8 +64,7 @@
 	
 	<!--업계현황 -->	
 	<select id="industryListByPage" resultType="kh.hello.dto.IndustryStatusDTO">
-		select * from (select itnews.*,(select count(*) from itnewsComments where itSeq = itnews.seq) as commentCount, 
-		row_number() over (order by seq desc) as rown from itnews) where rown between #{start} and #{end}
+		select industryStatus.*,(select count(*) from industryComments where indSeq=industryStatus.seq) as commentCount from (select industryStatus.*, row_number() over(order by seq desc) rown from industryStatus) industryStatus where rown between #{start} and #{end} order by seq desc
 	</select>
 	<select id="getIndustryTotal" resultType="integer">
 		select count(*) from industryStatus
@@ -87,7 +87,8 @@
 	
 	<!--IT뉴스 -->
 	<select id="itnewsListByPage" resultType="kh.hello.dto.ItnewsDTO">
-		select * from (select itnews.*, row_number() over(order by seq desc) rown from itnews) where rown between ${start} and ${end}
+		select * from (select itnews.*,(select count(*) from itnewsComments where itSeq = itnews.seq) as commentCount, 
+		row_number() over (order by seq desc) as rown from itnews) where rown between #{start} and #{end}
 	</select>
 	<select id="getItnewsTotal" resultType="integer">
 		select count(*) from itnews
