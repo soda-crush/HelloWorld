@@ -42,7 +42,7 @@
 				<form action="${pageContext.request.contextPath}/itnews/modifyProc" method="post" id="modifyFrm" enctype="multipart/form-data">
 					<div id="pageBody">					
 						<div id="pBody">
-							<div id="pTitleInput" class="mb-3"><input type="text" class="form-control" value="${dto.title}"  name="title" id="title"></div>
+							<div id="pTitleInput" class="mb-3"><input type="text" class="form-control" value="${dto.title}"  name="title" id="title" maxlength="100"></div>
 							<div id="pContentsInput"><textarea class="form-control summernote" name="content" id="content">${dto.content}</textarea></div>											
 							<input name=seq value="${dto.seq}" style="display:none">
 						</div>					

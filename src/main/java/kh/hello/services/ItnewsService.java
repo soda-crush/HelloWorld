@@ -76,16 +76,21 @@ public class ItnewsService {
 		}
 
 		StringBuilder sb = new StringBuilder();
-		if(needPrev) sb.append("<a href='itnewsList?cpage=" + (startNavi - 1) + "'>< </a>");
-		
-		for(int i = startNavi; i <= endNavi; i++) {
-			sb.append("<a id=page"+i+" href='itnewsList?cpage="+ i +"'>");
-			sb.append(i + " ");
-			sb.append("</a>");
+		sb.append("<ul class='pagination justify-content-center'>");
+		if(needPrev) {
+			sb.append("<li class='page-item'>");
+			sb.append("<a class='page-link' href='/itnews/itnewsList?cpage="+(startNavi-1)+"' aria-label='Previous'>"); 
+			sb.append("<span aria-hidden='true'>&laquo;</span></a></li>");			
 		}
-		
-		if(needNext) sb.append("<a href='itnewsList?cpage=" + (endNavi + 1) + "'>> </a>");
-	
+		for(int i=startNavi;i<=endNavi;i++) {
+			sb.append("<li class='page-item pNavi"+i+"'><a class='page-link' href='/itnews/itnewsList?cpage="+i+"'>"+i+"</a></li>");			
+		}
+		if(needNext) {
+			sb.append("<li class='page-item'>");
+			sb.append("<a class='page-link' href='/itnews/itnewsList?page="+(endNavi+1)+"' aria-label='Next'>");
+			sb.append("<span aria-hidden='true'>&raquo;</span></a></li>");			
+		}
+		sb.append("</ul>");
 		return sb.toString();
 	}
 	
@@ -122,16 +127,21 @@ public class ItnewsService {
 		}
 
 		StringBuilder sb = new StringBuilder();
-		if(needPrev) sb.append("<a href='searchList?cpage=" + (startNavi - 1) + "&cate="+cate+"&search="+search+"'>< </a>");
-		
-		for(int i = startNavi; i <= endNavi; i++) {
-			sb.append("<a id=page"+i+" href='searchList?cpage="+ i +"&cate="+cate+"&search="+search+"'>");
-			sb.append(i + " ");
-			sb.append("</a>");
+		sb.append("<ul class='pagination justify-content-center'>");
+		if(needPrev) {
+			sb.append("<li class='page-item'>");
+			sb.append("<a class='page-link' href='/itnews/searchList?cpage="+(startNavi-1)+"&cate="+cate+"&search="+search+"' aria-label='Previous'>"); 
+			sb.append("<span aria-hidden='true'>&laquo;</span></a></li>");			
 		}
-		
-		if(needNext) sb.append("<a href='searchList?cpage=" + (endNavi + 1) + "&cate="+cate+"&search="+search+"'>> </a>");
-	
+		for(int i=startNavi;i<=endNavi;i++) {
+			sb.append("<li class='page-item pNavi"+i+"'><a class='page-link' href='/itnews/searchList?cpage="+i+"&cate="+cate+"&search="+search+"'>"+i+"</a></li>");			
+		}
+		if(needNext) {
+			sb.append("<li class='page-item'>");
+			sb.append("<a class='page-link' href='/itnews/searchList?page="+(endNavi+1)+"&cate="+cate+"&search="+search+"' aria-label='Next'>");
+			sb.append("<span aria-hidden='true'>&raquo;</span></a></li>");			
+		}
+		sb.append("</ul>");
 		return sb.toString();
 	}
 	
