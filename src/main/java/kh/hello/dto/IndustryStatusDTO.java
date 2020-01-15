@@ -15,8 +15,17 @@ public class IndustryStatusDTO {
 	private int viewCount;
 	private String id;
 	private int commentCount;
+	private String profileImg;
 	
 	
+	public String getProfileImg() {
+		return profileImg;
+	}
+
+	public void setProfileImg(String profileImg) {
+		this.profileImg = profileImg;
+	}
+
 	public IndustryStatusDTO() {
 		super();
 	}

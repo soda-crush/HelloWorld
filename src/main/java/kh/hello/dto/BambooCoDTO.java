@@ -10,7 +10,14 @@ public class BambooCoDTO {
 	private String content;
 	private Timestamp writeDate;
 	private String formedWriteDate;
+	private String profileImg;
 	
+	public String getProfileImg() {
+		return profileImg;
+	}
+	public void setProfileImg(String profileImg) {
+		this.profileImg = profileImg;
+	}
 	public void setFormedWriteDate(String formedWriteDate) {
 		this.formedWriteDate = formedWriteDate;
 	}

@@ -5,7 +5,7 @@
 <mapper namespace="Bamboo">
 	
 	<select id="getBambooDetailView" resultType="kh.hello.dto.BambooDTO">
-		select * from bamboo where seq=#{value}
+ 		select bamboo.*, profileImg from bamboo inner join member on bamboo.writer=member.id where seq=#{value}
 	</select>
 	
 	<select id="getMemLevel" parameterType="String" resultType="integer">
