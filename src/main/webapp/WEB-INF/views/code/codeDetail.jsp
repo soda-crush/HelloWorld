@@ -71,7 +71,7 @@
 	/* 한 줄 자르기 */
 	display: block;
 	text-align: left;
-	width: 800px;
+	width: 100%;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -180,14 +180,16 @@ span:nth-child(4) {
 		<div class="container eleCon" id="projectPage" style="background-color: white;">
 			<!-- 			<div id="pageTitle"> -->
 			<div class="topQ" style="margin-top:20px;">
+				<input type="hidden" name="seq" value="${qResult.seq}" id="qSeq">
 				<span>Q</span> <span class="badge badge-pill badge-danger">${qResult.point}</span>
 				<span class="badge badge-pill badge-success"
-					style="margin: 10; padding: 10; width: 60px;">${qResult.division}</span>
-				<span>${qResult.title}</span>
+					style="margin: 10; padding: 10; width: 80px; font-size:15px;">${qResult.division}</span>
+<!-- 				영어 길게치면 영역넘어감 style설정해줘야함 -->
+				<span style="word-break:break-all; word-break:break-word;">${qResult.title}</span>
 			</div>
 			<br>
 			<div>
-				<div class="contentDiv">${qResult.content}</div>
+				<div class="contentDiv" style="word-break:break-all; word-break:break-word;">${qResult.content}</div>
 				<br>
 				<div class="botD">
 					<img src="${qResult.profileImg}" width=50,height=50> 
@@ -283,7 +285,7 @@ span:nth-child(4) {
 						</div>
 						<hr>
 						<br>
-						<div id="content">${r.content}</div>
+						<div id="content" style="word-break:break-all; word-break:break-word;">${r.content}</div>
 						<br>
 						<div style="color: gray; font-size:15px;">${r.formedDate}</div>
 						<!-- 채택 -->
@@ -311,7 +313,7 @@ span:nth-child(4) {
 							</c:when>
 							<c:otherwise>
 								<div style="text-align: right;">
-									<button class="btn btn-danger" id="reportR">신고</button>
+									<button class="btn btn-danger" onclick="reportR(${r.seq},'${r.writer}','${r.id}')" id="reportR${r.seq}">신고</button>
 								</div>
 							</c:otherwise>
 						</c:choose>
@@ -354,7 +356,7 @@ span:nth-child(4) {
 															</div>
 														</div>
 														<div class="row commentContent">
-															<div class="col-12 pt-1 pl-4">${c.content }</div>
+															<div class="col-12 pt-1 pl-4" style="word-break:break-all; word-break:break-word;">${c.content }</div>
 														</div>
 													</div>
 												</div>
@@ -411,6 +413,8 @@ span:nth-child(4) {
 						              writer: "${sessionScope.loginInfo.nickName}"
 						           }
 						        }).done(function(resp){
+						        	console.log(resp);
+						        	
 						            $("#pCoContents${r.seq}").val("");
 						            $(".pPageComments${r.seq}").html("");
 						           
@@ -421,10 +425,10 @@ span:nth-child(4) {
 					                  html.push(
 					                        '<div class="row commentDiv commentBox'+resp[i].repSeq+resp[i].seq+' p-0 pb-2 m-2" style="border:1px solid gray; border-top:none; border-left: none; border-right: none;"><div class="col-12 commentInnerBox"><div class="row commentHeader">',
 					                        '<div class="col-lg-1 d-none d-lg-block profileBox pl-1 pt-2 pr-0"><img src="'+resp[i].profileImg+'" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>',
-					                        '<div class="col-7 col-lg-6 pt-1"><div class="row commentInfo pl-2">',
+					                        '<div class="col-7 col-lg-6 pt-1"><div class="row commentInfo">',
 					                        '<div class="col-12 commentWriter">'+resp[i].writer+'</div>',
 					                        '<div class="col-12 commentWriteDate">'+resp[i].formedWriteDate+'</div></div></div>',
-					                        '<div class="col-4 pt-2 text-right commentBtns">'
+					                        '<div class="col-5 pt-2 text-right commentBtns">'
 					                        );
 					                  if(resp[i].id==loginInfo){
 					                     
@@ -436,7 +440,7 @@ span:nth-child(4) {
 					                  
 					                  html.push(
 					                        '</div></div>',
-					                        '<div class="row commentContent"><div class="col-12 pt-1 pl-4">'+resp[i].content+'</div></div></div></div>'
+					                        '<div class="row commentContent"><div class="col-12 pt-1 pl-4" style="word-break:break-all; word-break:break-word;">'+resp[i].content+'</div></div></div></div>'
 					                        );
 					                  $(".pPageComments${r.seq}").append(html.join(""));	 			                     
 						           
@@ -445,7 +449,9 @@ span:nth-child(4) {
 						        	
 						        })      			
 				})			
-	       				       		
+	       				
+				
+						
 				</script>
 				
 				</c:forEach>
@@ -464,9 +470,138 @@ span:nth-child(4) {
 			</div>
 		</div>
 	</div>
+	
+<%-- 	<jsp:include page="/WEB-INF/views/code/reportQ/reportModal.jsp"/> --%>
+<%-- 	<jsp:include page="/WEB-INF/views/code/reportQ/reportSuccessModal.jsp"/> --%>
+<%-- 	<jsp:include page="/WEB-INF/views/code/reportR/reportModal.jsp"/> --%>
+	<jsp:include page="/WEB-INF/views/code/reportQModal.jsp"/>
+	<jsp:include page="/WEB-INF/views/code/reportRModal.jsp"/>
+	<jsp:include page="/WEB-INF/views/code/reportSuccessModal.jsp"/>
 	<jsp:include page="/WEB-INF/views/standard/footer.jsp" />
 	<script>
 	
+	//작성 글 신고하기
+	$("#report").on("click",function(){
+			var check = "해당 게시물을 신고하시겠습니까?";
+			if(check){
+				$.ajax({
+					url:"/code/reportDuplCheck.do",
+					type:"post",
+					data:{
+						seq : "${qResult.seq}"
+						}
+				}).done(function(resp){
+					if(resp == 'dupl'){
+						alert("해당 게시물을 이미 신고하셨습니다.");
+					}else if(resp == 'possible'){
+						$('#reportModal').modal('show');						
+					}
+				}).fail(function(resp){
+					console.log("실패");
+					console.log(resp);
+				});
+				return false;
+			}
+		});
+
+		$("#reportFrm").on("submit",function(){
+			$("#reportReasonInput").val($.trim($("#reportReasonInput").val()));
+			if($("#reportReasonInput").val()==""){
+				alert("신고사유를 작성해주세요.");
+				return false;
+			}
+			$.ajax({
+				url:"/code/report.do",
+				type:"post",				
+				data:$("#reportFrm").serialize()
+			}).done(function(resp){
+				$("#reportReasonInput").val("");
+				$('#reportModal').modal('hide');
+				$("#rSuccessModal").modal('show');				
+			}).fail(function(resp){
+				console.log(resp);
+			});
+			return false;
+		});
+		
+		$("#reportCancelBtn").on("click",function(){
+			$("#reportReasonInput").val("");
+		});
+	
+		//답변 글 신고하기
+		function reportR(seq,writer,id){
+			var check = "해당 게시물을 신고하시겠습니까?";
+			if(check){
+				$.ajax({
+					url:"/code/reportDuplCheckR.do",
+					type:"post",
+					data:{
+						seq : seq
+						}
+				}).done(function(resp){
+					if(resp == 'dupl'){
+						alert("해당 게시물을 이미 신고하셨습니다.");
+					}else if(resp == 'possible'){
+						$("#titleR").val("[답변]"+writer+"("+id+")님의 답변");
+						$('#reportRModal').modal('show');						
+					}
+				}).fail(function(resp){
+					console.log(resp);
+				});
+				return false;
+			}
+		}
+		
+// 		$("#reportR${r.seq}").on("click",function(){
+// 				var check = "해당 게시물을 신고하시겠습니까?";
+// 				if(check){
+// 					$.ajax({
+// 						url:"/code/reportDuplCheckR.do",
+// 						type:"post",
+// 						data:{
+// 							seq : "${r.seq}"
+// 							}
+// 					}).done(function(resp){
+// 						if(resp == 'dupl'){
+// 							alert("해당 게시물을 이미 신고하셨습니다.");
+// 						}else if(resp == 'possible'){
+// 							console.log("[답변]${r.writer}(${r.id})님의 답변");
+// 							$("#titleR").val("[답변]${r.writer}(${r.id})님의 답변");
+// 							$('#reportRModal').modal('show');						
+// 						}
+// 					}).fail(function(resp){
+// 						console.log("실패");
+// 						console.log(resp);
+// 					});
+// 					return false;
+// 				}
+// 			});
+	
+			$("#reportRFrm").on("submit",function(){
+				$("#reportReasonInputR").val($.trim($("#reportReasonInputR").val()));
+				if($("#reportReasonInputR").val()==""){
+					alert("신고사유를 작성해주세요.");
+					return false;
+				}
+				$.ajax({
+					url:"/code/reportR.do",
+					type:"post",				
+					data:$("#reportRFrm").serialize()
+				}).done(function(resp){
+					$("#reportReasonInputR").val("");
+					$('#reportRModal').modal('hide');
+					$("#rSuccessModal").modal('show');				
+				}).fail(function(resp){
+					console.log(resp);
+				});
+				return false;
+			});
+			
+			$("#reportCancelBtnR").on("click",function(){
+				$("#reportReasonInputR").val("");
+			});
+		
+		
 	// 카톡 공유하기
 	$("#sharing").on("click",function(){
 		location.href="${pageContext.request.contextPath}/code/sharing.do";
@@ -514,6 +649,7 @@ span:nth-child(4) {
 			}
 		})
 
+		//댓글 숨기기
 		flag = true;
 		function hideCo(seq){
 			var b = $(".dSeq"+seq);
@@ -569,13 +705,12 @@ span:nth-child(4) {
 	               for(var i=0;i<resp.length;i++){
 	                  var html = [];
 	                  html.push(
-	                        '<div class="row commentDiv commentBox'+resp[i].repSeq+resp[i].seq+' p-0 pb-2 m-2" style="border:1px solid gray; border-top:none; border-left: none; border-right: none;"><div class="col-12 commentInnerBox"><div class="row commentHeader">',
-//			                         '<div class="col-1 profileBox pl-1 pt-2"></div>',
-	                        '<div class="col-8 pt-3"><div class="row commentInfo">',
-	                        '<div class="col-12 commentWriter">'+resp[i].writer+'</div>',
-	                        '<div class="col-12 commentWriteDate">'+resp[i].formedWriteDate+'</div></div></div>',
-	                        '<div class="col-4 pt-2 text-right commentBtns">'
-//			                         '<button type="button" class="btn btn-warning coReplyBtn">답글</button>\n'
+	                		    '<div class="row commentDiv commentBox'+resp[i].repSeq+resp[i].seq+' p-0 pb-2 m-2" style="border:1px solid gray; border-top:none; border-left: none; border-right: none;"><div class="col-12 commentInnerBox"><div class="row commentHeader">',
+		                        '<div class="col-lg-1 d-none d-lg-block profileBox pl-1 pt-2 pr-0"><img src="'+resp[i].profileImg+'" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>',
+		                        '<div class="col-7 col-lg-6 pt-1"><div class="row commentInfo">',
+		                        '<div class="col-12 commentWriter">'+resp[i].writer+'</div>',
+		                        '<div class="col-12 commentWriteDate">'+resp[i].formedWriteDate+'</div></div></div>',
+		                        '<div class="col-5 pt-2 text-right commentBtns">'
 	                        );
 	                  if(resp[i].id==loginInfo){
 	                     
@@ -587,7 +722,7 @@ span:nth-child(4) {
 	                  
 	                  html.push(
 	                        '</div></div>',
-	                        '<div class="row commentContent"><div class="col-12 pt-1 pl-4">'+resp[i].content+'</div></div></div></div>'
+	                        '<div class="row commentContent"><div class="col-12 pt-1 pl-4" style="word-break:break-all; word-break:break-word;">'+resp[i].content+'</div></div></div></div>'
 	                        );
 	                  $(".pPageComments"+repSeq).append(html.join(""));   
 		        }
@@ -650,13 +785,12 @@ span:nth-child(4) {
 		  	               for(var i=0;i<resp.length;i++){
 		  	                  var html = [];
 		  	                  html.push(
-		  	                        '<div class="row commentDiv commentBox'+resp[i].repSeq+resp[i].seq+' p-0 pb-2 m-2" style="border:1px solid gray; border-top:none; border-left: none; border-right: none;"><div class="col-12 commentInnerBox"><div class="row commentHeader">',
-//		  			                         '<div class="col-1 profileBox pl-1 pt-2"></div>',
-		  	                        '<div class="col-8 pt-3"><div class="row commentInfo">',
-		  	                        '<div class="col-12 commentWriter">'+resp[i].writer+'</div>',
-		  	                        '<div class="col-12 commentWriteDate">'+resp[i].formedWriteDate+'</div></div></div>',
-		  	                        '<div class="col-4 pt-2 text-right commentBtns">'
-//		  			                         '<button type="button" class="btn btn-warning coReplyBtn">답글</button>\n'
+		  	                		'<div class="row commentDiv commentBox'+resp[i].repSeq+resp[i].seq+' p-0 pb-2 m-2" style="border:1px solid gray; border-top:none; border-left: none; border-right: none;"><div class="col-12 commentInnerBox"><div class="row commentHeader">',
+			                        '<div class="col-lg-1 d-none d-lg-block profileBox pl-1 pt-2 pr-0"><img src="'+resp[i].profileImg+'" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>',
+			                        '<div class="col-7 col-lg-6 pt-1"><div class="row commentInfo">',
+			                        '<div class="col-12 commentWriter">'+resp[i].writer+'</div>',
+			                        '<div class="col-12 commentWriteDate">'+resp[i].formedWriteDate+'</div></div></div>',
+			                        '<div class="col-5 pt-2 text-right commentBtns">'
 		  	                        );
 		  	                  if(resp[i].id==loginInfo){
 		  	                     
@@ -668,7 +802,7 @@ span:nth-child(4) {
 		  	                  
 		  	                  html.push(
 		  	                        '</div></div>',
-		  	                        '<div class="row commentContent"><div class="col-12 pt-1 pl-4">'+resp[i].content+'</div></div></div></div>'
+		  	                        '<div class="row commentContent"><div class="col-12 pt-1 pl-4" style="word-break:break-all; word-break:break-word;">'+resp[i].content+'</div></div></div></div>'
 		  	                        );
 		  	                  $(".pPageComments"+resp[0].repSeq).append(html.join(""));   
 		  		        }

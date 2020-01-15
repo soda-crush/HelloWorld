@@ -24,6 +24,7 @@ import kh.hello.dto.CodeCommentsDTO;
 import kh.hello.dto.CodeQuestionDTO;
 import kh.hello.dto.CodeReplyDTO;
 import kh.hello.dto.MemberDTO;
+import kh.hello.dto.ReportDTO;
 import kh.hello.dto.ScrapDTO;
 
 
@@ -499,5 +500,21 @@ public class CodeService {
 	
 	public int adoptCount(int queSeq) {
 		return dao.adoptCount(queSeq);
+	}
+	
+	//작성 글 신고하기
+	public int reportDuplCheck(String id, int seq) {
+		return dao.reportDuplCheck(id, seq);
+	}
+	public int reportCode(ReportDTO dto) {
+		return dao.insertReport(dto);					
+	}
+	
+	//답글 신고
+	public int reportDuplCheckR(String id, int seq) {
+		return dao.reportDuplCheckR(id, seq);
+	}
+	public int reportCodeR(ReportDTO dto) {
+		return dao.insertReportR(dto);					
 	}
 }
