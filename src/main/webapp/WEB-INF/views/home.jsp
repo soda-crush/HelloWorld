@@ -33,7 +33,7 @@ background-color:#53a998;}
 background-color:#5181a2;}
 .boardEleCon{
 padding-top: 9%;
-padding-bottom:9%;
+padding-bottom:5%;
 padding-left:3%;
 padding-right:3%;
 line-height: 150%;

@@ -33,3 +33,32 @@
 .tableBody:hover{background-color: #bfac8e30}
 .pageListFooter{margin-top:20px;}
 .searchOption{margin-right:5px;}
+#loginCon p {
+	color: #787878;
+}
+
+.cursorPointer:hover {
+	cursor: pointer;
+}
+
+.navbar-light .navbar-nav .active>.nav-link, .navbar-light .navbar-nav .nav-link.active,
+	.navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .show>.nav-link
+	{
+	color: white;
+	font-size: 17px !important;
+	line-height: 28px;
+	border-bottom: 4px solid white;
+}
+
+.navbar-light .navbar-nav .nav-link {
+	color: #c2c2c2;
+	line-height: 29px;
+}
+.navbar-light .navbar-nav .nav-link:hover{
+	color: white;
+	font-size: 17px !important;
+	line-height: 28px;
+}
+.navbar {
+	padding: 0px;
+}
