@@ -37,7 +37,6 @@
             
             <!--      몸통 시작!!!   -->
 
-
             <div class="container eleCon">
             	<div class=row>
             		<div class="col-12" style="word-break:break-all;word-wrap:break-word;"><h3><br>${result.title}</h3></div>
