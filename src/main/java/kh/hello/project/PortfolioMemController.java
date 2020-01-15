@@ -136,7 +136,7 @@ public class PortfolioMemController {
 		if(mdto.getIfmOpenCheck().equals("Y") || ldto.getId().equals(owner)) {
 			OwnerInfoDTO odto = new OwnerInfoDTO();
 			odto.setId(mdto.getId());	
-			odto.setNickName(mdto.getNickName());
+			odto.setNickName(mdto.getNickName());	
 			odto.setPoint(mdto.getPoint());
 			odto.setProfileImg(mdto.getProfileImg());
 			session.setAttribute("ownerInfo", odto);

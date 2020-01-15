@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="/css/mainBase.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <style>
-		h1{text-align: center;}
+	    div{font-size:13px;}
 		.interval{margin-top: 10px;margin-bottom: 10px;background-color:lightgray;border-radius: 8px;height:10px;}
 		textarea{border :0px;width:100%;height: 100px;resize: none;}
 		input{width:100%;}
@@ -32,7 +32,7 @@
     </style>
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/standard/header.jsp"/>
+	<jsp:include page="/WEB-INF/views/standard/plogHeader.jsp"/>
 	
  		<div id=baseBackgroundColor>
             <div class=container>
@@ -89,39 +89,39 @@
 		            </div>
 		            <h4>구현 기능</h4>
 		            <div class="row">
-		                <div class="col-3"><img src="${pdto.image1}" style="height: 100%;width:100%;max-height: 180px;"><input type="hidden" name ="image1"></div>
-		                <div class="col-9">
+		                <div class="col-12 col-sm-3 col-xl-2"><img src="${pdto.image1}" style="height: 95%;width:100%;max-height: 170px;"><input type="hidden" name ="image1"></div>
+		                <div class="col-12 col-sm-9 col-xl-10">
 		                    <div class="row">
-		                        <div class="col-2 col-sm-2  col-lg-1" id="funcname">기능명</div>
-		                        <div class="col-10 col-sm-10 col-lg-11" id="funcname1"><div style="height:18px margin-bottom:" class= "line-over">${pdto.function1 } </div> </div>
-		                        <div class="col-2 col-sm-2  col-lg-1" id="funcexpl" > 설명</div>
-		                        <div class="col-10 col-sm-10 col-lg-11"><textarea name="explanation1" style="height:150px;" readonly>${pdto.explanation1 }</textarea>
+		                        <div class="col-3 col-sm-2  col-lg-1" id="funcname">기능명</div>
+		                        <div class="col-9 col-sm-10 col-lg-11" id="funcname1"><div style="height:18px margin-bottom:" class= "line-over">${pdto.function1 } </div> </div>
+		                        <div class="col-3 col-sm-2  col-lg-1" id="funcexpl" > 설명</div>
+		                        <div class="col-9 col-sm-10 col-lg-11"><textarea name="explanation1" style="height:150px;" readonly>${pdto.explanation1 }</textarea>
 		                        </div>
 		                    </div>
 		                </div>
 		            </div>
 		            <div class="interval"></div>
 		            <div class="row">
-		                <div class="col-3"><img src="${pdto.image2}" style="height: 100%;width:100%;max-height: 180px;"><input type="hidden" name ="image2"></div>
-		                <div class="col-9">
+		                <div class="col-12 col-sm-3 col-xl-2"><img src="${pdto.image2}" style="height: 95%;width:100%;max-height: 170px;"><input type="hidden" name ="image2"></div>
+		                <div class="col-12 col-sm-9 col-xl-10">
 		                    <div class="row">
-		                        <div class="col-2 col-sm-2  col-lg-1" id="funcname"> 기능명</div>
-		                        <div class="col-10 col-sm-10 col-lg-11" id="funcname2"><div style="height:18px margin-bottom:" class= "line-over">${pdto.function2 } </div></div>
-		                        <div class="col-2 col-sm-2  col-lg-1" id="funcexpl" > 설명</div>
-		                        <div class="col-10 col-sm-10 col-lg-11"><textarea name="explanation2" style="height:150px;" readonly>${pdto.explanation2 }</textarea>
+		                        <div class="col-3 col-sm-2  col-lg-1" id="funcname"> 기능명</div>
+		                        <div class="col-9 col-sm-10 col-lg-11" id="funcname2"><div style="height:18px margin-bottom:" class= "line-over">${pdto.function2 } </div></div>
+		                        <div class="col-3 col-sm-2  col-lg-1" id="funcexpl" > 설명</div>
+		                        <div class="col-9 col-sm-10 col-lg-11"><textarea name="explanation2" style="height:150px;" readonly>${pdto.explanation2 }</textarea>
 		                        </div>
 		                    </div>
 		                </div>
 		            </div>
 		            <div class="interval"></div>
 		            <div class="row">
-		                <div class="col-3"><img src="${pdto.image3}" style="height: 100%;width:100%;max-height: 180px;"> <input type="hidden" name ="image3"></div>
-		                <div class="col-9">
+		                <div class="col-12 col-sm-3 col-xl-2"><img src="${pdto.image3}" style="height: 95%;width:100%;max-height: 170px;"> <input type="hidden" name ="image3"></div>
+		                <div class="col-12 col-sm-9 col-xl-10">
 		                    <div class="row">
-		                        <div class="col-2 col-sm-2  col-lg-1" id="funcname"> 기능명</div>
-		                        <div class="col-10 col-sm-10 col-lg-11 " id="funcname3"><div style="height:18px margin-bottom:" class= "line-over">${pdto.function3 } </div> </div>
-		                        <div class="col-2 col-sm-2  col-lg-1" id="funcexpl" > 설명</div>
-		                        <div class="col-10 col-sm-10 col-lg-11"><textarea name="explanation3" style="height:150px;" readonly>${pdto.explanation3 }</textarea>
+		                        <div class="col-3 col-sm-2  col-lg-1" id="funcname"> 기능명</div>
+		                        <div class="col-9 col-sm-10 col-lg-11 " id="funcname3"><div style="height:18px margin-bottom:" class= "line-over">${pdto.function3 } </div> </div>
+		                        <div class="col-3 col-sm-2  col-lg-1" id="funcexpl" > 설명</div>
+		                        <div class="col-9 col-sm-10 col-lg-11"><textarea name="explanation3" style="height:150px;" readonly>${pdto.explanation3 }</textarea>
 		                        </div>
 		                    </div>
 		                </div>
