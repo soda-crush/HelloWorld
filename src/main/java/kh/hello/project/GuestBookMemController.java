@@ -15,6 +15,7 @@ import kh.hello.dto.GuestBookDTO;
 import kh.hello.dto.LoginInfoDTO;
 import kh.hello.dto.OwnerInfoDTO;
 import kh.hello.services.GuestBookService;
+import kh.hello.services.MemberService;
 
 @Controller
 @RequestMapping("/GuestBook")
@@ -22,8 +23,9 @@ public class GuestBookMemController {
 	
 	@Autowired
 	private GuestBookService gs;
-			
-
+	
+	@Autowired
+	private MemberService ms;
 	
 	@Autowired
 	private HttpSession session;
@@ -39,6 +41,7 @@ public class GuestBookMemController {
 		gdto.setWriter(loginInfo.getNickName());
 		gdto.setOwnerID(ownerInfo.getId());
 		gdto.setOwner(ownerInfo.getNickName());
+		gdto.setWriterImg(ms.selectMember(loginInfo.getId()).getProfileImg());
 		gs.insert(gdto);
 		return "redirect:selectList.do";
 	}
