@@ -56,7 +56,7 @@ body{background-color:#e9ecef;}
 								</c:if>
 							</div>
 							<div><label class="ml-4">하고싶은 말</label></div>
-							<div id="pPageContents" class="rounded">${aPage.etc }</div>
+							<div id="pPageContents" class="rounded" style="word-break:break-all;word-break:break-word;">${aPage.etc }</div>
 							<div class="text-center checkBtn mt-4">
 							
 								<c:choose>
