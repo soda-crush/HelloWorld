@@ -46,7 +46,8 @@
 		<div class="container eleCon">
 		<c:if test="${bPage.seq !=null }">
             	<div class=row>
-            		<div class="col-12"><h3><br>${bPage.title}</h3></div>
+            		<div class="col-12" style="word-break:break-all;
+      word-break:break-word;"><h3><br>${bPage.title}</h3></div>
             	</div>
             	<div class=row>
             		<input type="hidden" name="seq" value="${bPage.seq}" id=bPageSeq>
@@ -54,16 +55,17 @@
             		<div class="col-12"><hr>
             		<c:choose>
             			<c:when test="${bPage.writer == sessionScope.loginInfo.id}">
-            			${sessionScope.loginInfo.nickName}
+            			<img src="${bPage.profileImg }" width=50,height=50>${sessionScope.loginInfo.nickName}
             			</c:when>
             			<c:otherwise>
-            			익명
+            			<img src="/img/profile1.png" width=50,height=50> 익명
             			</c:otherwise>
             		</c:choose>
             		&emsp;${bPage.formedWriteDate}&emsp;${bPage.viewCount}<hr></div>
             	</div>
             	<div class="row">
-            		<div class="col-12" id=contentCon>${bPage.content}</div>
+            		<div class="col-12" id=contentCon style="word-break:break-all;
+      word-break:break-word;">${bPage.content}</div>
             	</div>
         </c:if>
         <a class="btn btn-primary" href="/bamboo/bambooList.do"
@@ -99,12 +101,20 @@
 						<div class="row commentDiv commentBox${c.seq } p-0 pb-2 m-2">
 							<div class="col-12 commentInnerBox">
 								<div class="row commentHeader">
-									<div class="col-8 pt-1">
+									<c:choose>
+            						<c:when test="${c.writer == sessionScope.loginInfo.id}">
+									<div class="col-lg-1 d-none d-lg-block profileBox pl-1 pt-2 pr-0"><img src="${c.profileImg }" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>	
+									</c:when>
+									<c:otherwise>
+            						<div class="col-lg-1 d-none d-lg-block profileBox pl-1 pt-2 pr-0"><img src="/img/profile1.png" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>	
+            						</c:otherwise>
+									</c:choose>
+									<div class="col-7 pt-1">
 										<div class="row commentInfo">
 											<input type="hidden" name="writer" value="${c.writer}">
 											<div class="col-12 commentWriter">
 												<c:choose>
-            									<c:when test="${bPage.writer == sessionScope.loginInfo.id}">
+            									<c:when test="${c.writer == sessionScope.loginInfo.id}">
             									${sessionScope.loginInfo.nickName}
             									</c:when>
             									<c:otherwise>
@@ -129,7 +139,8 @@
 									</div>
 								</div>
 								<div class="row commentContent">
-									<div class="col-12 pt-1 pl-4">${c.content }</div>
+									<div class="col-12 pt-1 pl-4" style="word-break:break-all;
+      word-break:break-word;">${c.content }</div>
 								</div>
 							</div>
 						</div>
@@ -177,28 +188,42 @@
         		alert("로그인을 해주세요.");
         		return false;
         	}
-        	$("#pCoContents").val($.trim($("#pCoContents").val()));
-			if($("#pCoContents").val()==""){
-				alert("댓글 내용을 입력해주세요.");
-				return false;
-			}
-			
-			$.ajax({
-				url : "/bamboo/comment/writeProc.do",
+        	$.ajax({
+				url : "/bamboo/memLevel.do",
 				type : "post",
 				dataType : "json",
-				data :{
-					bamSeq : "${bPage.seq}",
-					content : $("#pCoContents").val(),
-					writer: "${sessionScope.loginInfo.id}"
+				data : {
+					id : "${sessionScope.loginInfo.id}"
 				}
 			}).done(function(resp){
-				$("#pCoContents").val("");
- 				$(".pPageComments").html("");
-				commentRecall(resp);
-
+				if(resp > 1){
+					$("#pCoContents").val($.trim($("#pCoContents").val()));
+					if($("#pCoContents").val()==""){
+						alert("댓글 내용을 입력해주세요.");
+						return false;
+					}
+					$.ajax({
+						url : "/bamboo/comment/writeProc.do",
+						type : "post",
+						dataType : "json",
+						data :{
+							bamSeq : "${bPage.seq}",
+							content : $("#pCoContents").val(),
+							writer: "${sessionScope.loginInfo.id}"
+						}
+					}).done(function(resp){
+						$("#pCoContents").val("");
+		 				$(".pPageComments").html("");
+						commentRecall(resp);
+					}).fail(function(resp){
+						console.log("실패");
+					})		
+				}else{
+					alert("권한이 없습니다. 관리자에게 문의해주세요.")
+					return false;
+				}	
 			}).fail(function(resp){
-			
+				console.log("실패");
 			})
 		});
          	
@@ -274,7 +299,27 @@
 					var html = [];
 					html.push(
 							'<div class="row commentDiv commentBox'+resp[i].seq+' p-0 pb-2 m-2"><div class="col-12 commentInnerBox"><div class="row commentHeader">',
-							'<div class="col-8 pt-1"><div class="row commentInfo">',
+							'<div class="col-lg-1 d-none d-lg-block profileBox pl-1 pt-2 pr-0">'
+							);
+							
+					if(resp[i].writer==loginInfo){
+						
+						html.push(
+									'<img src="'+resp[i].profileImg+'"class="rounded mx-auto d-block" style="width:40px;height:40px;">'
+									);	
+						
+						}
+						if(resp[i].writer!=loginInfo){
+						
+							html.push(
+										'<img src="/img/profile1.png" class="rounded mx-auto d-block" style="width:40px;height:40px;">'
+										);	
+						
+							}
+					
+						html.push(		
+							'</div>',
+							'<div class="col-7 pt-1"><div class="row commentInfo">',
 							'<input type="hidden" name="writer" value='+resp[i].writer+'>',
 							'<div class="col-12 commentWriter">',
 							);
@@ -285,7 +330,7 @@
 					}
 					if(resp[i].writer!=loginInfo){
 						html.push(
-									익명
+									"익명"
 									);	
 						}
 					html.push(
@@ -301,16 +346,11 @@
 					}
 					html.push(
 							'</div></div>',
-							'<div class="row commentContent"><div class="col-12 pt-1 pl-4">'+resp[i].content+'</div></div></div></div><hr>'
+							'<div class="row commentContent"><div class="col-12 pt-1 pl-4" style="word-break:break-all; word-break:break-word;">'+resp[i].content+'</div></div></div></div><hr>'
 							);
 					$(".pPageComments").append(html.join(""));	
            		}
 			}
-//            	$("#report").on("click",function(){
-//            		function popUp(link){
-//                     window.open(link, "popUp", "width=600,height=600");
-//                  }
-//            	})
            	function popUp(link){
 			window.open(link, "pLogPopUp", "width=600,height=600");
 		}

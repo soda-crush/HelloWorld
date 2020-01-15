@@ -11,7 +11,16 @@ public class IndustryStatusCoDTO {
 	private Timestamp writeDate;
 	private String id;
 	private String formedWriteDate;
+	private String profileImg;
 	
+	public String getProfileImg() {
+		return profileImg;
+	}
+
+	public void setProfileImg(String profileImg) {
+		this.profileImg = profileImg;
+	}
+
 	public String getFormedWriteDate() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
 		String result = sdf.format(this.writeDate);

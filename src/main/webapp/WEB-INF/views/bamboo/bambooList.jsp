@@ -180,9 +180,9 @@
 				}
 			}).done(function(resp){
 				if(resp > 1){
-					location.href="/bamboo/bambooWrite.do";	
+					location.href="/bamboo/bambooWrite.do";
 				}else{
-					alert("실무자와 비실무자만 입력가능합니다.")
+					alert("권한이 없습니다. 관리자에게 문의하세요.")
 					return false;
 				}
 				

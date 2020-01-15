@@ -112,23 +112,6 @@ public class BambooDAO {
 		return jdbc.update("Bamboo.downLevel");
 	}
 
-	//	//신고
-	//	public int reportDupCheck (int seq, String id) {
-	//		Map<String, Object> param = new HashMap<>();
-	//		param.put("seq", seq);
-	//		param.put("id", id);
-	//		return jdbc.selectOne("Bamboo.reportDupCheck", param);
-	//	}
-	//	public int report(BambooDTO bamDto, String reason, LoginInfoDTO loginDto) {
-	//		Map<String, Object> param = new HashMap<>();
-	//		param.put("seq", bamDto.getSeq());
-	//		param.put("title", bamDto.getTitle());
-	//		param.put("id", loginDto.getId());
-	//		param.put("nickName", loginDto.getNickName());
-	//		param.put("reason", reason);
-	//		return jdbc.selectOne("Bamboo.report", param);
-	//	}
-
 	//reportedBoard 테이블
 	public int reportDuplCheck(String id, int seq) {
 		Map<String, Object> param = new HashMap<>();

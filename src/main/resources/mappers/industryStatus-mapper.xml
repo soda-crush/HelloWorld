@@ -5,7 +5,7 @@
 <mapper namespace="Industry">
 
 	<select id="getIndustryStatusDetailView" resultType="kh.hello.dto.IndustryStatusDTO">
-		select * from industryStatus where seq=#{value}
+		select industryStatus.*, profileImg from industryStatus inner join member on industryStatus.id=member.id where seq=#{value}
 	</select>
 	
 	<select id="getMemLevel" parameterType="String" resultType="integer">

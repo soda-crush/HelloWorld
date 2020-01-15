@@ -66,7 +66,8 @@
 
 		<c:if test="${iPage.seq !=null }">
             	<div class=row>
-            		<div class="col-12"><h3><br>${iPage.title}</h3></div>
+            		<div class="col-12" style="word-break:break-all;
+      word-break:break-word;"><h3><br>${iPage.title}</h3></div>
             	</div>
             	<div class=row>
             		<div class="col-12"><h5><br>분야 : ${iPage.field } / 직무 : ${iPage.duty }</h5></div>
@@ -75,10 +76,11 @@
             		<input type="hidden" name="seq" value="${iPage.seq}">
             		<input type="hidden" name="id" value="${iPage.id}">
             		
-            		<div class="col-12"><hr><a href="/Portfolio/toPlog.do?owner=${iPage.id }">${iPage.writer}</a>&emsp;${iPage.formedWriteDate}&emsp;${iPage.viewCount}<hr></div>
+            		<div class="col-12"><hr><div style="cursor:pointer" onclick="popUpPlog('${iPage.id}','${iPage.writer}')"><img src="${iPage.profileImg }" width=50,height=50>${iPage.writer}</div>&emsp;${iPage.formedWriteDate}&emsp;${iPage.viewCount}<hr></div>
             	</div>
             	<div class="row">
-            		<div class="col-12" id=contentCon>${iPage.content}</div>
+            		<div class="col-12" id=contentCon style="word-break:break-all;
+      word-break:break-word;">${iPage.content}</div>
             	</div>
         </c:if>
         <a class="btn btn-primary" href="/industry/industryStatusList.do"
@@ -114,8 +116,8 @@
 							<div class="row commentDiv commentBox${c.seq } p-0 pb-2 m-2">
 								<div class="col-12 commentInnerBox">
 									<div class="row commentHeader">
-
-										<div class="col-8 pt-1">
+										<div class="col-lg-1 d-none d-lg-block profileBox pl-1 pt-2 pr-0"><img src="${c.profileImg }" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>
+										<div class="col-7 pt-1">
 											<div class="row commentInfo">
 												<div class="col-12 commentWriter">${c.writer }</div>
 												<div class="col-12 commentWriteDate">${c.formedWriteDate }</div>
@@ -135,7 +137,8 @@
 										</div>
 									</div>
 									<div class="row commentContent">
-										<div class="col-12 pt-1 pl-4">${c.content }</div>
+										<div class="col-12 pt-1 pl-4" style="word-break:break-all;
+      word-break:break-word;">${c.content }</div>
 									</div>
 								</div>
 							</div>
@@ -197,7 +200,9 @@
     				}else{//실패
     					alert("오류발생. 일대일문의에 문의해주세요.");
     				}
-    			});
+    			}).fail(function(resp){
+    				console.log("실패");
+    			})
     		}
     		})
     		
@@ -211,23 +216,43 @@
 				alert("댓글 내용을 입력해주세요.");
 				return false;
 			}
-        	
 			$.ajax({
-				url : "/industry/comment/writeProc.do",
+				url : "/industry/memLevel.do",
 				type : "post",
 				dataType : "json",
-				data :{
-					indSeq : "${iPage.seq}",
-					content : $("#pCoContents").val(),
-					writer: "${sessionScope.loginInfo.nickName}",
-					id:"${sessionScope.loginInfo.id}"
+				data : {
+					id : "${sessionScope.loginInfo.id}"
 				}
 			}).done(function(resp){
-				$("#pCoContents").val("");
- 				$(".pPageComments").html("");
-				commentRecall(resp);
+				if(resp > 1){
+					$("#pCoContents").val($.trim($("#pCoContents").val()));
+					if($("#pCoContents").val()==""){
+						alert("댓글 내용을 입력해주세요.");
+						return false;
+					}
+					$.ajax({
+						url : "/industry/comment/writeProc.do",
+						type : "post",
+						dataType : "json",
+						data :{
+							indSeq : "${iPage.seq}",
+							content : $("#pCoContents").val(),
+							writer: "${sessionScope.loginInfo.nickName}",
+							id:"${sessionScope.loginInfo.id}"
+						}
+					}).done(function(resp){
+						$("#pCoContents").val("");
+ 						$(".pPageComments").html("");
+						commentRecall(resp);
+					}).fail(function(resp){
+						console.log("실패");
+					})
+				}else{
+					alert("권한이 없습니다. 관리자에게 문의해주세요.")
+					return false;
+				}	
 			}).fail(function(resp){
-			
+				console.log("실패");
 			})
         });
          	
@@ -304,6 +329,7 @@
 					var html = [];
 					html.push(
 							'<div class="row commentDiv commentBox'+resp[i].seq+' p-0 pb-2 m-2"><div class="col-12 commentInnerBox"><div class="row commentHeader">',
+							'<img src="'+resp[i].profileImg+'"class="rounded mx-auto d-block" style="width:40px;height:40px;">',
 							'<div class="col-7 pt-1"><div class="row commentInfo">',
 							'<div class="col-12 commentWriter">'+resp[i].writer+'</div>',
 							'<div class="col-12 commentWriteDate">'+resp[i].formedWriteDate+'</div></div></div>',
@@ -317,11 +343,22 @@
 					}
 					html.push(
 							'</div></div>',
-							'<div class="row commentContent"><div class="col-12 pt-1 pl-4">'+resp[i].content+'</div></div></div></div><hr>'
+							'<div class="row commentContent"><div class="col-12 pt-1 pl-4" style="word-break:break-all;word-break:break-word;">'+resp[i].content+'</div></div></div></div><hr>'
 							);
 					$(".pPageComments").append(html.join(""));	
            		}
 			}
+          //닉네임 눌렀을때 새창 띄우기
+        	function popUpPlog(id,writer){
+        		if(writer == null){
+        			alert("탈퇴한 회원입니다.");
+        			return false;
+        		}
+        		else{
+        			window.open("/Portfolio/toPlog.do?owner="+id, "pLogPopUp", "width=600,height=600");
+        		}
+              
+             }
             //신고하기
         	function popUp(link){
     			window.open(link, "pLogPopUp", "width=600,height=600");

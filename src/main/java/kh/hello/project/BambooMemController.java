@@ -200,7 +200,7 @@ public class BambooMemController {
 	
 	@ResponseBody
 	@RequestMapping("/report.do")
-	public String reportProject(ReportDTO dto) {
+	public String reportBamboo(ReportDTO dto) {
 		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
 		dto.setReporterID(sessionValue.getId());
 		dto.setReporterNick(sessionValue.getNickName());		
