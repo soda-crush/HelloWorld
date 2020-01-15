@@ -14,7 +14,6 @@ derby.log
 spring-test/test-output/
 .gradle
 argfile*
-pom.xml
 activemq-data/
 
 classes/
@@ -44,4 +43,3 @@ atlassian-ide-plugin.xml
 
 # Added
 log4j.xml
-web.xml
