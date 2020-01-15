@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="/css/mainBase.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <style>
-        h1{text-align: center;}
+	    div{font-size:13px;}
         .interval{margin-top: 10px;margin-bottom: 10px;background-color:lightgray;border-radius: 8px;height:10px;}
         textarea{border :0px;width:100%;height: 100px;resize: none;}
         input{width:100%;}
@@ -31,7 +31,7 @@
     </style>
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/standard/header.jsp"/>
+	<jsp:include page="/WEB-INF/views/standard/plogHeader.jsp"/>
 	
  		<div id=baseBackgroundColor>
             <div class=container>
@@ -90,49 +90,49 @@
 		            </div>
 		            <h4>구현 기능</h4>
 		            <div class="row">
-		                <div class="col-3">
+		                <div class="col-12 col-sm-3 col-xl-2">
 		                	<input type="file" id="fileUpload1" name="fileUpload1">
-		                	<img id="fileImg1"src="${pdto.image1}" style="height: 100%;width:100%;max-height: 180px;">
+		                	<img id="fileImg1"src="${pdto.image1}" style="height: 95%;width:100%;max-height: 170px;">
 		                	<input type="hidden" name ="image1" id="file1" value="${pdto.image1}">
 		                </div>
-		                <div class="col-9">
+		                <div class="col-12 col-sm-9 col-xl-10">
 		                    <div class="row">
-		                        <div class="col-2 col-sm-2  col-lg-1" id="funcname"> 기능명</div>
-		                        <div class="col-10 col-sm-10 col-lg-11" id="funcname1"><input name="function1" style="height:18px margin-bottom:" value="${pdto.function1 }" maxlength="100"> </div>
-		                        <div class="col-2 col-sm-2  col-lg-1" id="funcexpl" > 설명</div>
-		                        <div class="col-10 col-sm-10 col-lg-11"><textarea name="explanation1" style="height:150px;" maxlength="1300">${pdto.explanation1 }</textarea></div>
+		                        <div class="col-3 col-sm-2  col-lg-1" id="funcname"> 기능명</div>
+		                        <div class="col-9 col-sm-10 col-lg-11" id="funcname1"><input name="function1" style="height:18px margin-bottom:" value="${pdto.function1 }" maxlength="100"> </div>
+		                        <div class="col-3 col-sm-2  col-lg-1" id="funcexpl" > 설명</div>
+		                        <div class="col-9 col-sm-10 col-lg-11"><textarea name="explanation1" style="height:150px;" maxlength="1300">${pdto.explanation1 }</textarea></div>
 		                    </div>
 		                </div>
 		            </div>
 		            <div class="interval"></div>
 		            <div class="row">
-		                <div class="col-3">
+		                <div class="col-12 col-sm-3 col-xl-2">
 		                	<input type="file" id="fileUpload2" name="fileUpload2">
-		                	<img id="fileImg2"src="${pdto.image2}" style="height: 100%;width:100%;max-height: 180px;">
+		                	<img id="fileImg2"src="${pdto.image2}" style="height: 95%;width:100%;max-height: 170px;">
 		                	<input type="hidden" name ="image2" id="file2" value="${pdto.image2}">
 		                </div>
-		                <div class="col-9">
+		                <div class="col-12 col-sm-9 col-xl-10">
 		                    <div class="row">
-		                        <div class="col-2 col-sm-2  col-lg-1" id="funcname"> 기능명</div>
-		                        <div class="col-10 col-sm-10 col-lg-11" id="funcname2"><input name="function2" style="height:18px margin-bottom:" value="${pdto.function2 }" maxlength="100"></div>
-		                        <div class="col-2 col-sm-2  col-lg-1" id="funcexpl" > 설명</div>
-		                        <div class="col-10 col-sm-10 col-lg-11"><textarea name="explanation2" style="height:150px;" maxlength="1300">${pdto.explanation2 }</textarea></div>
+		                        <div class="col-3 col-sm-2  col-lg-1" id="funcname"> 기능명</div>
+		                        <div class="col-9 col-sm-10 col-lg-11" id="funcname2"><input name="function2" style="height:18px margin-bottom:" value="${pdto.function2 }" maxlength="100"></div>
+		                        <div class="col-3 col-sm-2  col-lg-1" id="funcexpl" > 설명</div>
+		                        <div class="col-9 col-sm-10 col-lg-11"><textarea name="explanation2" style="height:150px;" maxlength="1300">${pdto.explanation2 }</textarea></div>
 		                    </div>
 		                </div>
 		            </div>
 		            <div class="interval"></div>
 		            <div class="row">
-		                <div class="col-3">
+		                <div class="col-12 col-sm-3 col-xl-2">
 		                	<input type="file" id="fileUpload3" name="fileUpload3">
-		                	<img id="fileImg3"src="${pdto.image3}" style="height: 100%;width:100%;max-height: 180px;">
+		                	<img id="fileImg3"src="${pdto.image3}" style="height: 95%;width:100%;max-height: 170px;">
 		                	<input type="hidden" name ="image3" id="file3" value="${pdto.image3}">
 		                </div>
-		                <div class="col-9">
+		                <div class="col-12 col-sm-9 col-xl-10">
 		                    <div class="row">
-		                        <div class="col-2 col-sm-2  col-lg-1" id="funcname"> 기능명</div>
-		                        <div class="col-10 col-sm-10 col-lg-11 " id="funcname3"><input name="function3" style="height:18px margin-bottom:" value="${pdto.function3 }" maxlength="100"></div>
-		                        <div class="col-2 col-sm-2  col-lg-1" id="funcexpl" > 설명</div>
-		                        <div class="col-10 col-sm-10 col-lg-11"><textarea name="explanation3" style="height:150px;" maxlength="1300">${pdto.explanation3 }</textarea></div>
+		                        <div class="col-3 col-sm-2  col-lg-1" id="funcname"> 기능명</div>
+		                        <div class="col-9 col-sm-10 col-lg-11 " id="funcname3"><input name="function3" style="height:18px margin-bottom:" value="${pdto.function3 }" maxlength="100"></div>
+		                        <div class="col-3 col-sm-2  col-lg-1" id="funcexpl" > 설명</div>
+		                        <div class="col-9 col-sm-10 col-lg-11"><textarea name="explanation3" style="height:150px;" maxlength="1300">${pdto.explanation3 }</textarea></div>
 		                    </div>
 		                </div>
 		            </div>
