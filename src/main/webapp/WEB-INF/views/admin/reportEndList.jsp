@@ -190,7 +190,7 @@
 									                                                <div class="content col-12">
 									                                                	<div class="row infoBox infoBoxTop">
 									                                                		<div class="col-4 pt-2 pb-2">상태</div>
-									                                                		<div class="col-8 pt-2 pb-2">${dto.state}</div>
+									                                                		<div class="col-8 pt-2 pb-2">${dto.formedState}</div>
 									                                                	</div>
 									                                                	<div class="row infoBox">
 									                                                		<div class="col-4 pt-2 pb-2">게시판</div>

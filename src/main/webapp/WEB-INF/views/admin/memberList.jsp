@@ -150,7 +150,7 @@
                                                		</form>
                                                		<script>
                                                			$("#memberInfo${dto.id}").on("click", function(){
-                                               				window.open("${pageContext.request.contextPath}/admin/getMemberInfo?id=${dto.id}","","width=600px,height=526px,top=300px,left=600px");
+                                               				window.open("${pageContext.request.contextPath}/admin/getMemberInfo?id=${dto.id}","","width=600px,innerHeight=593px,top=300px,left=600px");
                                                			})
                                                			$("#memberStop${dto.id}").on("click", function(){
                                                				var result = confirm("${dto.nickName}(${dto.id}) 님을 활동정지 하시겠습니까?");
