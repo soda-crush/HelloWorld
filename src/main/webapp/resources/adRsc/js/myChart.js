@@ -473,35 +473,35 @@
 	        "balloon": {},
 	        "titles": [],
 	        "dataProvider": [{
-	                "date": "${boardLog[0].formedDate}",
+	                "date": "${boardLog[0].dateis}",
 	                "새 글": "${boardLog[0].newBoard}",
 	                "삭제된 글": "${boardLog[0].delBoard}",
 	                "color": "#7474f0",
 	                "color2": "#C5C5FD"
 	            },
 	            {
-	                "date": "${boardLog[1].formedDate}",
+	                "date": "${boardLog[1].dateis}",
 	                "새 글": "${boardLog[1].newBoard}",
 	                "삭제된 글": "${boardLog[1].delBoard}",
 	                "color": "#7474f0",
 	                "color2": "#C5C5FD"
 	            },
 	            {
-	                "date": "${boardLog[2].formedDate}",
+	                "date": "${boardLog[2].dateis}",
 	                "새 글": "${boardLog[2].newBoard}",
 	                "삭제된 글": "${boardLog[2].delBoard}",
 	                "color": "#7474f0",
 	                "color2": "#C5C5FD"
 	            },
 	            {
-	                "date": "${boardLog[3].formedDate}",
+	                "date": "${boardLog[3].dateis}",
 	                "새 글": "${boardLog[3].newBoard}",
 	                "삭제된 글": "${boardLog[3].delBoard}",
 	                "color": "#7474f0",
 	                "color2": "#C5C5FD"
 	            },
 	            {
-	                "date": "${boardLog[4].formedDate}",
+	                "date": "${boardLog[4].dateis}",
 	                "새 글": "${boardLog[4].newBoard}",
 	                "삭제된 글": "${boardLog[4].delBoard}",
 	                "color": "#7474f0",
@@ -530,27 +530,27 @@
 	            "verticalGap": 0
 	        },
 	        "dataProvider": [{
-	            "year": "${comLog[0].formedDate}",
+	            "year": "${comLog[0].dateis}",
 	            "새 댓글": "${comLog[0].newCom}",
 	            "삭제된 댓글": "${comLog[0].delCom}",
 	            "color": "#952FFE"
 	        }, {
-	            "year": "${comLog[1].formedDate}",
+	            "year": "${comLog[1].dateis}",
 	            "새 댓글": "${comLog[1].newCom}",
 	            "삭제된 댓글": "${comLog[0].delCom}",
 	            "color": "#5182DE"
 	        }, {
-	            "year": "${comLog[2].formedDate}",
+	            "year": "${comLog[2].dateis}",
 	            "새 댓글": "${comLog[2].newCom}",
 	            "삭제된 댓글": "${comLog[0].delCom}",
 	            "color": "#8282F1"
 	        }, {
-	            "year": "${comLog[3].formedDate}",
+	            "year": "${comLog[3].dateis}",
 	            "새 댓글": "${comLog[3].newCom}",
 	            "삭제된 댓글": "${comLog[0].delCom}",
 	            "color": "#B369FE"
 	        }, {
-	            "year": "${comLog[4].formedDate}",
+	            "year": "${comLog[4].dateis}",
 	            "새 댓글": "${comLog[4].newCom}",
 	            "삭제된 댓글": "${comLog[0].delCom}",
 	            "color": "#51ADDD"

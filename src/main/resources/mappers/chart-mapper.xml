@@ -27,15 +27,15 @@
 		from member where memLevel >= 2) where rown between 1 and 5
 	</select>
 	<select id="getBoardLog" resultType="kh.hello.dto.BoardLogDTO">
-		select * from (select ab.*, row_number() over(order by 1) rown from (select nb.dateis, newBoard, delBoard from 
+		select dateis, nvl(newBoard, 0) newBoard, nvl(delBoard, 0) delBoard from (select ab.*, row_number() over(order by 1) rown from (select nb.dateis, newBoard, delBoard from 
 		(select substr(to_char(new), 1, 9) dateis, count(*) newBoard from newBoardLog group by substr(to_char(new), 1, 9)) nb join
 		(select substr(to_char(del), 1, 9) dateis, count(*) delBoard from delBoardLog group by substr(to_char(del), 1, 9)) db
-		on nb.dateis = db.dateis) ab) where rown between 2 and 6 order by 1
+		on nb.dateis = db.dateis(+)) ab) where rown between 1 and 5 order by 1
 	</select>
 	<select id="getComLog" resultType="kh.hello.dto.CommentLogDTO">
-		select * from (select ab.*, row_number() over(order by 1) rown from (select nb.dateis, newCom, delCom from
+		select dateis, nvl(newcom,0) newCom, nvl(delcom,0) delCom from (select ab.*, row_number() over(order by 1) rown from (select nb.dateis, newCom, delCom from
 		(select substr(to_char(new), 1, 9) dateis, count(*) newCom from newComLog group by substr(to_char(new), 1, 9)) nb join
 		(select substr(to_char(del), 1, 9) dateis, count(*) delCom from delComLog group by substr(to_char(del), 1, 9)) db
-		on nb.dateis = db.dateis) ab) where rown between 2 and 6 order by 1
+		on nb.dateis = db.dateis(+)) ab) where rown between 1 and 5 order by 1
 	</select>
 </mapper>
