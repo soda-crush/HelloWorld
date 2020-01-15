@@ -19,6 +19,7 @@ import kh.hello.dao.ItnewsDAO;
 import kh.hello.dto.ItnewsCoDTO;
 import kh.hello.dto.ItnewsDTO;
 import kh.hello.dto.ItnewsImgDTO;
+import kh.hello.dto.ReportDTO;
 import kh.hello.dto.ScrapDTO;
 
 @Service
@@ -285,6 +286,15 @@ public class ItnewsService {
 		return dao.increViewCount(seq);
 	}
 	
-	
+	public String getImgByWriter(String writer) {
+		return dao.getImgByWriter(writer);
+	}
+//	게시글신고
+	public int reportDuplCheck(String id, int seq) {
+		return dao.reportDuplCheck(id, seq);
+	}
+	public int reportProject(ReportDTO dto) {
+		return dao.insertReport(dto);					
+	}
 	
 }

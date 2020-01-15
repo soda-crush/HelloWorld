@@ -12,6 +12,7 @@ import kh.hello.configuration.Configuration;
 import kh.hello.dto.ItnewsCoDTO;
 import kh.hello.dto.ItnewsDTO;
 import kh.hello.dto.ItnewsImgDTO;
+import kh.hello.dto.ReportDTO;
 import kh.hello.dto.ScrapDTO;
 
 @Repository
@@ -172,4 +173,19 @@ public class ItnewsDAO {
 		return jdbc.update("Itnews.pointCheck", id);
 	}
 	
+	public String getImgByWriter(String writer) {
+		return jdbc.selectOne("Itnews.getImgByWriter", writer);
+	}
+	
+	//reportedBoard 테이블
+	public int reportDuplCheck(String id, int seq) {
+		Map<String, Object> param = new HashMap<>();
+		param.put("id", id);
+		param.put("seq", seq);
+		return jdbc.selectOne("Itnews.reportDuplCheck", param);
+	}
+	
+	public int insertReport(ReportDTO dto) {
+		return jdbc.insert("Itnews.insertReport", dto);
+	}
 }

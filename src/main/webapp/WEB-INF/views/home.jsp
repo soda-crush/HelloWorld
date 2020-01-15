@@ -22,9 +22,13 @@ padding-right: 3%;
 .boardEle{
 width: 100%;
 background-color: white;
+border-radius: 3px;
 }
 .boardEleTop{
-padding-top: 5%;padding-bottom: 3%;color:white;padding-left: 2%;}
+padding-top: 5%;padding-bottom: 3%;color:white;padding-left: 2%;
+border-top-left-radius: 3px;
+border-top-right-radius: 3px;
+}
 .bdt1{
 background-color:#c25f55;}
 .bdt2{
