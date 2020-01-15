@@ -78,7 +78,7 @@
             		<div class="col-12" style="word-break:break-all;word-break:break-word;"><h3><br>${result.title}</h3></div>
             	</div>
             	<div class=row>
-            		<div class="col-12 gft"><hr><a class=gft onclick="popUp('/Portfolio/toPlog.do?owner=${result.id}')">작성자 : ${result.writer}</a>&emsp;&emsp;작성일 : ${result.getDate()}&emsp;&emsp;조회 : ${result.viewCount}<hr></div>
+            		<div class="col-12 gft"><hr><a class="gft cursorPointer" onclick="popUp('/Portfolio/toPlog.do?owner=${result.id}')"><img src="${profileImg}" style="width:40px;position:relative;bottom:1px;">&emsp;${result.writer}</a>&emsp;&emsp;작성일 : ${result.getDate()}&emsp;&emsp;조회 : ${result.viewCount}<hr></div>
             	</div>
             	<div class="row">
             		<div class="col-12" id=contentCon style="word-break:break-all;word-break:break-word;">${result.content}</div>
@@ -90,7 +90,9 @@
             		<div class="col-12 text-center pb-1">
             		<c:if test="${loginInfo!=null}">
             			<button type="button" class="btn btn-warning" id=scrap style="width:100px;">스크랩</button>
-            			<button type="button" class="btn btn-dark" style="width:100px;color:black;">신고</button>
+            			<c:if test="${loginInfo.id!=result.id}">
+            			<button type="button" class="btn btn-dark" style="width:100px;color:white;" id=reportBtn>신고</button>
+            			</c:if>
             		</c:if>
             		</div>
             	</div>
@@ -188,12 +190,61 @@
             </div>
         </div>
         
+        <jsp:include page="/WEB-INF/views/itnews/jsp/reportModal.jsp"/>
+		<jsp:include page="/WEB-INF/views/itnews/jsp/reportSuccessModal.jsp"/>
         <jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
         
         <script>
         function popUp(link){
             window.open(link, "pLogPopUp", "width=600,height=600");
          }
+        
+        //신고
+        $("#reportBtn").on("click",function(){
+			var check = "해당 게시물을 신고하시겠습니까?";
+			if(check){
+				$.ajax({
+					url:"/itnews/reportDuplCheck",
+					type:"post",
+					data:{seq : "${result.seq}"}
+				}).done(function(resp){
+					if(resp == 'dupl'){
+						alert("해당 게시물을 이미 신고하셨습니다.");
+					}else if(resp == 'possible'){
+						$('#reportModal').modal('show');						
+					}
+				}).fail(function(resp){
+					console.log("실패");
+					console.log(resp);
+				});
+				return false;
+			}
+		});
+
+		$("#reportFrm").on("submit",function(){
+			$("#reportReasonInput").val($.trim($("#reportReasonInput").val()));
+			if($("#reportReasonInput").val()==""){
+				alert("신고사유를 작성해주세요.");
+				return false;
+			}
+			$.ajax({
+				url:"/itnews/report",
+				type:"post",				
+				data:$("#reportFrm").serialize()
+			}).done(function(resp){
+				$("#reportReasonInput").val("");
+				$('#reportModal').modal('hide');
+				$("#rSuccessModal").modal('show');				
+			}).fail(function(resp){
+				console.log(resp);
+			});
+			return false;
+		});
+		
+		$("#reportCancelBtn").on("click",function(){
+			$("#reportReasonInput").val("");
+		});
+        
         
         
         			//스크랩하기
