@@ -113,7 +113,6 @@
 						    			<c:if test="${dto.commentCount>0}">
 						    			<p class=orangeFt style="display:inline">${dto.commentCount}</p>
 						    			</c:if>
-						    			
 					    			</div>
 					    			<div class="col-2 col-md-2 order-2 order-md-3 notTitle text-center"><a onclick="popUp('/Portfolio/toPlog.do?owner=${p.id}')">${dto.writer}</a></div>
 					    			<div class="col-2 col-md-2 order-3 order-md-4 notTitle">${dto.getDate()}</div>
