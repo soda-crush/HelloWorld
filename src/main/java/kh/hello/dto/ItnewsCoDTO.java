@@ -12,6 +12,22 @@ public class ItnewsCoDTO {
 	private String id;
 	private String profileImg;
 	
+	
+	public String getDate(){
+	      long exDate = System.currentTimeMillis();
+	      long processedWrite_date = writeDate.getTime();
+	      long sec = (exDate - processedWrite_date)/1000;
+	      int hour = (int)(sec/360.0) + 1;
+	      
+	      if(hour < 14) {
+	    	  SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+		         return sdf.format(processedWrite_date);
+	      }else {
+	    	  SimpleDateFormat sdf = new SimpleDateFormat("20yy.MM.dd");
+		         return sdf.format(processedWrite_date);
+	      }
+	   }
+	
 	public String getFormedWriteDateForAdmin() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
 		String result = sdf.format(this.writeDate);

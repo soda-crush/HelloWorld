@@ -15,7 +15,7 @@
 <link rel="stylesheet" type="text/css" href="/css/font-awesome/css/font-awesome.css">
 <style>
 	div{
-   	border: 1px solid green;    
+/*    	border: 1px solid green;     */
 	}
 	#cateCmt{
 	color:gray;
@@ -63,7 +63,6 @@
 	}
 	#titleForCss{
 	font-size: 16px;
-	font-weight:bold;
 	}
 	.orangeFt{
 		font-size: 12px;
@@ -92,14 +91,14 @@
  			<div class="container">
  			
 				<div class="row">
-					<div class="col-3">
+					<div class="col-12 col-xl-3">
 						<p id=cateTitle style="display:inline;">IT News</p>
 					</div>
-					<div class="col-9">
+					<div class="col-12 col-xl-9 pt-xl-5">
 						<p style="display:inline;" id=cateCmt>IT 핫이슈를 공유하는 공간입니다.</p>
 					</div>
 				</div>				
-<!-- 				<div class="tableDiv"> -->
+
 					<div class="row tableHead">					    
 					    <div class="d-none col-md-1 d-md-block text-center" style="padding:0px;">번호</div>
 					    <div class="d-none col-md-6 d-md-block text-center">제목</div>
@@ -117,7 +116,7 @@
 				  				<div class="row p-0 tableBody cursorPointer" onclick="location.href='${pageContext.request.contextPath}/itnews/detail?seq=${dto.seq}&page=${page}'">
 									<div class="col-md-1 d-none d-md-block order-md-1 notTitle text-center pt-3">${dto.seq}</div>
 					    			<div class="col-12 col-md-6 order-1 order-md-2" style="padding-left:0px;padding-right:0px;" >
-						    			<div id=titleForCss style="max-width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;font-weight:bold;padding-top:10.8px;padding-left:5px;padding-right:5px;">
+						    			<div class="font-weight-bold" id=titleForCss style="max-width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;font-weight:bold;padding-top:10.8px;padding-left:5px;padding-right:5px;">
 						    			${dto.title}
 						    			&ensp;
 						    			</div>
@@ -128,16 +127,14 @@
 					    			<div class="col-2 col-md-2 order-2 order-md-3 notTitle text-left text-md-center pt-3 pl-1 pr-1"><a onclick="popUp('/Portfolio/toPlog.do?owner=${p.id}')">${dto.writer}</a></div>
 					    			<div class="col-3 col-md-2 order-3 order-md-4 notTitle text-left text-md-center pt-3">${dto.getDate()}</div>
 					    			<div class="col-1 col-md-1 order-4 order-md-5 notTitle text-left text-md-center pt-3">${dto.viewCount}</div>
-					    			<div class="col-6 order-5 d-md-none"></div>		
 								</div>
 				  			</c:forEach>
 				  		</c:otherwise>
 				  	</c:choose>				    
-<!-- 				</div>		 -->
 				
 				<form action="${pageContext.request.contextPath}/itnews/searchList" method="get">
 					<div class="row" style="position:relative;top:10px;">
-						<div class=col-6 style="position:relative;left:-15px;">
+						<div class="col-12 col-md-10" style="position:relative;left:-15px;">
 							<select id=cate name=cate>
 								<option value="cateAll">전체</option>
 								<option value="cateTitle">제목</option>
@@ -146,7 +143,7 @@
 							<input type="text" name="search" id=search placeholder="검색어를 입력하세요">
 							<button class="btn btn-secondary" id=searchBtn>검색</button>
 						</div>
-						<div class="col-6 text-right">
+						<div class="col-12 col-md-2 text-right pt-1">
 							<c:if test="${loginInfo!=null}">
 							<a class="btn btn-primary" href="${pageContext.request.contextPath}/itnews/write?page=${page}" role="button">글쓰기</a>	
 							</c:if>

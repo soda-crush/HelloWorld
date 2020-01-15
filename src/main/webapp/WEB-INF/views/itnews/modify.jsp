@@ -70,8 +70,8 @@
         
 		<script>
 		$('.summernote').summernote({
-		    minHeight: 300,
-		    maxHeight: 300,   
+		    minHeight: 600,
+		    maxHeight: 600,   
 		});     
 		
 		$("#modifyBtn").on("click", function(){

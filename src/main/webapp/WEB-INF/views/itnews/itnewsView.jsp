@@ -17,6 +17,27 @@
 	#contentCon{
 		min-height: 450px;
 	}
+	#cateTitle{
+		font-size:60px;
+	}
+	#cateCmt{
+	color:gray;
+	font-size: 15px;
+	}
+	.gft{
+	font-size: 13px;
+	color:#707070;
+	}
+	.commentInnerBox{
+	background-color:#ededed;
+	border-radius: 10px;
+	padding-top: 15px;
+	padding-bottom: 20px;
+	} 
+	.commentWriteDate{
+		color:#c2c2c2;
+		font-size: 14px;
+	}
 </style>
 <script>
 	$(function(){
@@ -37,39 +58,47 @@
             
             <!--      몸통 시작!!!   -->
 
+            <div class="container">
+            	<div class="row">
+					<div class="col-12 col-xl-3">
+						<p id=cateTitle style="display:inline;">IT News</p>
+					</div>
+					<div class="col-12 col-xl-9 pt-xl-5">
+						<p style="display:inline;" id=cateCmt>IT 핫이슈를 공유하는 공간입니다.</p>
+					</div>
+				</div>		
+				<div class=row>
+					<div class=col-12><br></div>
+				</div>		
+            </div>
+            
             <div class="container eleCon">
+            	
             	<div class=row>
             		<div class="col-12" style="word-break:break-all;word-break:break-word;"><h3><br>${result.title}</h3></div>
             	</div>
             	<div class=row>
-            		<div class="col-12"><hr><a onclick="popUp('/Portfolio/toPlog.do?owner=${result.id}')">${result.writer}</a>&emsp;${result.writeDate}&emsp;${result.viewCount}<hr></div>
+            		<div class="col-12 gft"><hr><a class=gft onclick="popUp('/Portfolio/toPlog.do?owner=${result.id}')">작성자 : ${result.writer}</a>&emsp;&emsp;작성일 : ${result.getDate()}&emsp;&emsp;조회 : ${result.viewCount}<hr></div>
             	</div>
             	<div class="row">
             		<div class="col-12" id=contentCon style="word-break:break-all;word-break:break-word;">${result.content}</div>
             	</div>
             	
-            	<c:choose>
-            	<c:when test="${loginInfo.nickName==result.writer}">
-            	<div class="row">
-            		<div class="col-12 text-center">
-            			<button id=modify>수정</button><button id=remove>삭제</button>
-            		</div>
-            	</div>
-            	</c:when>
-            	</c:choose>
+            	
             	
             	<div class=row>
-            		<div class="col-12 text-center">
+            		<div class="col-12 text-center pb-1">
             		<c:if test="${loginInfo!=null}">
-            			<button type="button" class="btn btn-warning" id=scrap style="width:120px;">스크랩</button>
-            		<button type="button" class="btn btn-danger">신고</button>
+            			<button type="button" class="btn btn-warning" id=scrap style="width:100px;">스크랩</button>
+            			<button type="button" class="btn btn-dark" style="width:100px;color:black;">신고</button>
             		</c:if>
             		</div>
             	</div>
             	
             	<div class="row">
-            		<div class="col-12" id=adver style="height:200px;background-color:green;color:white;">광고자리</div>
+            		<div class="col-12 text-center" id=adver style="height:200px;background-color:#9e9e9e;padding-top:80px;">광고자리</div>
             	</div>
+            	
             	
             	<div class="coContainer">
 	            	<c:if test="${list.size()>0 }">
@@ -81,7 +110,7 @@
 												<div class="col-7 pt-1">
 													<div class="row commentInfo">
 														<div class="col-12 commentWriter"><a onclick="popUp('/Portfolio/toPlog.do?owner=${dto.id}')">${dto.writer }</a></div>
-														<div class="col-12 commentWriteDate">${dto.writeDate }</div>
+														<div class="col-12 commentWriteDate">${dto.getDate()}</div>
 													</div>
 												</div>				
 												<div class="col-4 pt-2 text-right commentBtns">
@@ -101,27 +130,53 @@
             	</div>
             	
             	<c:if test="${loginInfo!=null}">
+            	
+            	<div class=row>
+	            		<div class=col-12>
+	            			<br>
+	            		</div>
+            		</div>
+            	
             	<div class="row">
-            		<div class="col-10">
-            			<textarea style="width:100%;height:100%;" placeholder="댓글 입력" id="coContent" maxlength="1300"></textarea>
+            		<div class="col-10" style="padding:0px;padding-left:22px;">
+            			<textarea style="width:100%;height:100%;border-radius:6px;border:1px solid #d1d1d1;" placeholder="&emsp;댓글 내용을 입력해 주세요" id="coContent" maxlength="1300"></textarea>
             		</div>
             		<div class="col-2">
             			<div class="row">
-							<div class="col-12">
-								<button type="button" class="btn btn-secondary" style="margin-bottom:10px;" id="coCancel">취소</button>
+							<div class="col-12 pl-2">
+								<button type="button" class="btn btn-secondary" style="margin-bottom:10px;width:95%" id="coCancel">취소</button>
 							</div>										
 						</div>
 						<div class="row">
-							<div class="col-12">
-								<button type="button" class="btn btn-primary" id="coWrite">작성</button>
+							<div class="col-12 pl-2">
+								<button type="button" class="btn btn-primary" id="coWrite" style="width:95%">작성</button>
 							</div>										
 						</div>					
             		</div>
             	</div>
             	</c:if>
             	
+            	<div class=row>
+	            	<div class=col-12>
+	            		<br>
+	            	</div>
+            	</div>
            
             </div>
+            
+           <c:choose>
+            	<c:when test="${loginInfo.nickName==result.writer}">
+            	<div class=container>
+	            	<div class="row">
+	            		<div class="col-12 text-right pt-2">
+	            		<button type="button" class="btn btn-info" id=modify>수정</button>
+	            		<button type="button" class="btn btn-danger" id=remove>삭제</button>
+	            		<button type="button" class="btn btn-secondary" onclick="location.href='${pageContext.request.contextPath}/itnews/itnewsList'">목록</button>
+	            		</div>
+	            	</div>
+            	</div>
+            	</c:when>
+            	</c:choose>
             
             <!--       몸통 끝!!!   -->
             
@@ -267,7 +322,6 @@
         					dataType : "json",
         					data : $("#coModFrm").serialize()
         				}).done(function(resp){
-        					console.log("성공");
         					$(".coContainer").html("");
         					commentRecall(resp);
         				}).fail(function(resp){
@@ -287,7 +341,7 @@
 									'<div class="col-1 profileBox pl-1 pt-2"><img src="'+resp[i].profileImg+'" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>',
 									'<div class="col-7 pt-1"><div class="row commentInfo">',
 									'<div class="col-12 commentWriter"><a onclick="popUp(\'/Portfolio/toPlog.do?owner='+resp[i].id+'\')" >'+resp[i].writer+'</a></div>',
-									'<div class="col-12 commentWriteDate">'+resp[i].writeDate+'</div></div></div>',
+									'<div class="col-12 commentWriteDate">'+resp[i].formedWriteDate+'</div></div></div>',
 									'<div class="col-4 pt-2 text-right commentBtns">'
 									);
 							if(resp[i].writer==loginInfo){
