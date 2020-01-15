@@ -50,7 +50,7 @@ padding-right: 1%;
 }
 .projectEle{
 width: 100%;
-height: 300px;
+height: 350px;
 background-color: white;
 border-radius: 2%;
 }
@@ -158,10 +158,10 @@ font-size: 11px;}
             				<div class="col-3 projectCon">
 		            			<div class="projectEle text-center cursorPointer" id="projectEle${sum}"  data-aos="fade-up">
 		            			<br>
-		            				<h4>"${pro.languages}"</h4>
+		            				<h4 style="word-break:break-all;word-break:break-word;">"${pro.languages}"</h4>
 		            				<br>
-		            				${pro.title}<br>
-		            				모집인원 : ${pro.capacity}<br>
+		            				<div style="word-break:break-all;word-break:break-word;">${pro.title}</div>
+		            				<br>모집인원 : ${pro.capacity}<br>
 		            				지역 : ${pro.location1}&ensp;${pro.location2}<br>
 		            				팀장 : ${pro.writer}<br>
 		            				기간 : ${pro.startDate}&ensp;~&ensp;${pro.endDate}<br>
