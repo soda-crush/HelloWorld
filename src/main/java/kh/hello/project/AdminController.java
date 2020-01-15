@@ -241,8 +241,19 @@ public class AdminController {
 		return "admin/memberStartResult";
 	}
 	
+	@RequestMapping("/memberOutForm")
+	public String memberOutForm(String id, Model m) {
+		MemberDTO dto = as.getMemberInfo(id);
+		m.addAttribute("dto", dto);
+		return "admin/memberOutForm";
+	}
+	
 	@RequestMapping("/memberOut")
-	public String memberOut(String id, String reason, Model m) {
+	public String memberOut(String id, String reason, String etcReason, Model m) {
+		System.out.println(reason+etcReason);
+		if(reason.contentEquals("etc")) {
+			reason = etcReason;
+		}
 		int result = as.memberOut(id, reason);
 		m.addAttribute("result", result);
 		return "admin/memberOutResult";
