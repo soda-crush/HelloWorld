@@ -48,13 +48,16 @@
 									<div class="col-1">${m.totalApply } <small class="text-secondary">명</small></div>									
 									<div class="col-1"><strong class="capaCheck achieve<fmt:parseNumber integerOnly= "true" value= "${m.totalApprove/m.capacity }" />">${m.totalApprove }/${m.capacity }</strong> <small class="text-secondary">명</small></div>
 									<div class="col-3">${m.formedAllDate }</div>
-									<div class="col-3 text-decoration-none" onclick="popUp('/project/detailView?seq=${m.seq }')">										
-										<div class="ml-1" style="max-width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;">${m.title } 
-					  						<c:if test="${m.commentCount>0 }">
-					  							<div class="pComment font-weight-bold ml-1" style="display:inline-block;">${m.commentCount }</div>
-					  						</c:if>
-					  					</div>				  					
-									</div>									
+									<div class="col-3 text-decoration-none" onclick="popUp('/project/detailView?seq=${m.seq }')">
+										<div class="row">
+											<div style="max-width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;">${m.title }</div> 
+											<c:if test="${m.commentCount>0 }">
+												<div class="pComment font-weight-bold ml-1" style="display:inline-block;">${m.commentCount }</div>
+											</c:if>
+										</div>
+									</div>
+									
+									
 									<div class="col-1">${m.formedWriteDate }</div>
 									<div class="col-1">${m.viewCount }</div>
 								</div>	
