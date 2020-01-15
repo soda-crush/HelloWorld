@@ -1,53 +1,61 @@
-	/*--------------  visitChange-chart start ------------*/
-	if ($('#visitChange').length > 0) {
-		
-	    var myConfig = {
-	        type: "line",
-	        'background-color': "#ffffff",
-	        scaleX: { //X-Axis
-	            labels: ["${visitChange[0].dateis}", "${visitChange[1].dateis}", "${visitChange[2].dateis}", "${visitChange[3].dateis}",
-	            	"${visitChange[4].dateis}", "${visitChange[5].dateis}", "${visitChange[6].dateis}", "${visitChange[7].dateis}",
-	            	"${visitChange[8].dateis}", "${visitChange[9].dateis}", "${visitChange[10].dateis}"],
-	            label: {
-	                "font-size": 14,
-	                "offset-x": 0,
-	            },
-	            item: { //Scale Items (scale values or labels)
-	                "font-size": 10,
-	            },
-	            guide: { //Guides
-	                "visible": false,
-	                "line-style": "solid", //"solid", "dotted", "dashed", "dashdot"
-	                "alpha": 1
-	            }
-	        },
-	        plot: { aspect: "spline" },
-	        series: [{
-	                values: ["${visitChange[0].visitCount}", "${visitChange[1].visitCount}", "${visitChange[2].visitCount}",
-	                	"${visitChange[3].visitCount}", "${visitChange[4].visitCount}", "${visitChange[5].visitCount}", 
-	                	"${visitChange[6].visitCount}", "${visitChange[7].visitCount}", "${visitChange[8].visitCount}", 
-	                	"${visitChange[9].visitCount}", "${visitChange[10].visitCount}", "${visitChange[11].visitCount}"],
-	                'line-color': "#0884D9",
-	                'line-width': 5 /* in pixels */ ,
-	                marker: { 
-	                    'background-color': "#067dce",
-	                    size: 5,
-	                    'border-color': "#067dce",
-	                }
-	            }
-	        ]
-	    };
-	    
-	    zingchart.render({
-	        id: 'visitChange',
-	        data: myConfig,
-	        height: "99%",
-	        width: "100%"
-	    });
+/*--------------  visitChange-chart start ------------*/
+if ($('#visitChange').length > 0) {
+	var num1 = Number("${visitChange[0].visitCount}");
+	var num2 = Number("${visitChange[1].visitCount}");
+	var num3 = Number("${visitChange[2].visitCount}");
+	var num4 = Number("${visitChange[3].visitCount}");
+	var num5 = Number("${visitChange[4].visitCount}");
+	var num6 = Number("${visitChange[5].visitCount}");
+	var num7 = Number("${visitChange[6].visitCount}");
+	var num8 = Number("${visitChange[7].visitCount}");
+	var num9 = Number("${visitChange[8].visitCount}");
+	var num10 = Number("${visitChange[9].visitCount}");
+	var num11 = Number("${visitChange[10].visitCount}");
+	
+    var myConfig = {
+        type: "line",
+        'background-color': "#ffffff",
+        scaleX: { //X-Axis
+            labels: ["${visitChange[0].dateis}", "${visitChange[1].dateis}", "${visitChange[2].dateis}", "${visitChange[3].dateis}",
+            	"${visitChange[4].dateis}", "${visitChange[5].dateis}", "${visitChange[6].dateis}", "${visitChange[7].dateis}",
+            	"${visitChange[8].dateis}", "${visitChange[9].dateis}", "${visitChange[10].dateis}"],
+            label: {
+                "font-size": 14,
+                "offset-x": 0,
+            },
+            item: { //Scale Items (scale values or labels)
+                "font-size": 10,
+            },
+            guide: { //Guides
+                "visible": false,
+                "line-style": "solid", //"solid", "dotted", "dashed", "dashdot"
+                "alpha": 1
+            }
+        },
+        plot: { aspect: "spline" },
+        series: [{
+                values: [num1, num2, num3, num4, num5, num6, num7, num8, num9, num10, num11],
+                'line-color': "#0884D9",
+                'line-width': 5 /* in pixels */ ,
+                marker: { 
+                    'background-color': "#067dce",
+                    size: 5,
+                    'border-color': "#067dce",
+                }
+            }
+        ]
+    };
+    
+    zingchart.render({
+        id: 'visitChange',
+        data: myConfig,
+        height: "99%",
+        width: "100%"
+    });
 
-	}
+}
 
-	/*--------------  visitChange-chart END ------------*/
+/*--------------  visitChange-chart END ------------*/
 	
 	/*--------------  gender Ratio chart END ------------*/
 	if ($('#genderRatio').length) {

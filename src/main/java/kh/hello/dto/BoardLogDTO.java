@@ -20,13 +20,13 @@ public class BoardLogDTO {
 		this.dateis = dateis;
 	}
 	public int getNewBoard() {
-		return newBoard;
+		return newBoard-1;
 	}
 	public void setNewBoard(int newBoard) {
 		this.newBoard = newBoard;
 	}
 	public int getDelBoard() {
-		return delBoard;
+		return delBoard-1;
 	}
 	public void setDelBoard(int delBoard) {
 		this.delBoard = delBoard;

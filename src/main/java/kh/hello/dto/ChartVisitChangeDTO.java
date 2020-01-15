@@ -18,7 +18,7 @@ public class ChartVisitChangeDTO {
 		this.dateis = dateis;
 	}
 	public int getVisitCount() {
-		return visitCount;
+		return visitCount-1;
 	}
 	public void setVisitCount(int visitCount) {
 		this.visitCount = visitCount;
