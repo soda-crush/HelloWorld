@@ -37,9 +37,9 @@ body{background-color:#e9ecef;}
 					<div class="row tableHead">					    
 					    <div class="col-1">번호</div>
 					    <div class="col-2">신청자</div>
-					    <div class="col-5">사용가능언어</div>
+					    <div class="col-4">사용가능언어</div>
 					    <div class="col-2">재직여부</div>
-					    <div class="col-1">포트폴리오</div>
+					    <div class="col-2">포트폴리오</div>
 					    <div class="col-1">승인상태</div>
 					</div>
 					

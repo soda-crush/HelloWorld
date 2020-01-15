@@ -29,7 +29,7 @@
 					    <div class="col-1">인원</div>						    
 					  	<div class="col-1">지역</div>
 					    <div class="col-2">기간</div>
-					    <div class="col-3">프로젝트 모집글 제목</div>
+					    <div class="col-3">제목</div>
 					    <div class="col-1">작성자</div>
 
 				    				    
@@ -43,21 +43,20 @@
 				  			<c:forEach items="${applyProjectList }" var="a">
 				  				<div class="row applyTableBody tableBody p-0">
 				  					<div class="col-1 approve${a.approve }">${a.approveInKor }</div>
-				  					<div class="col-1"><button type="button" class="btn btn-outline-danger btn-sm mb-1" onclick="popUp('/project/apply/detailView?seq=${a.seq }')">신청글 보기</button></div>									
+				  					<div class="col-1"><button type="button" class="btn btn-outline-danger btn-sm mb-1" onclick="popUp('/project/apply/detailView?seq=${a.seq }')">신청글</button></div>									
 									<div class="col-1">${a.formedWriteDate }</div>	
 									<div class="col-1 state${a.state }"><strong>${a.stateInKor }</strong></div>										
 									<div class="col-1">${a.capacity }명</div>
 									<div class="col-1">${a.location1 } ${a.location2 }</div>
 									<div class="col-2">${a.formedAllDate }</div>																											
-									<div class="col-3 text-decoration-none" onclick="popUp('/project/detailView?seq=${a.projectSeq}')">
-										<div class="row">
-											<div style="max-width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;">${a.title }</div> 
+									<div class="col-3 text-decoration-none" onclick="popUp('/project/detailView?seq=${a.projectSeq}')">										
+										<div class="ml-1" style="max-width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;">${a.title } 
 					  						<c:if test="${a.commentCount>0 }">
-					  							<div class="pComment font-weight-bold ml-2" style="display:inline-block;">${a.commentCount }</div>
+					  							<div class="pComment font-weight-bold ml-1" style="display:inline-block;">${a.commentCount }</div>
 					  						</c:if>
 					  					</div>										  				
 									</div>									
-									<div class="col-1">${a.writer }</div>
+									<div class="col-1 text-decoration-none" style="cursor:pointer;" onclick="popUp('/Portfolio/toPlog.do?owner=${a.leaderId}')">${a.writer }</div>
 
 
 									
@@ -68,21 +67,31 @@
 				</div>
 				<div class="row pageListFooter">
 					<div class="col-6">
-						  <form class="form-inline">
-							<select class="form-control searchSelect" name="searchOption" id="searchOption" name="searchOption" style="margin-right:5px;">
+						  <form class="form-inline" action="/project/pLog/applyProjectList" method="post" id="searchFrm">
+							<select class="form-control searchSelect" name="searchOption" id="searchOption" style="margin-right:5px;">
 								<option selected disabled>선택</option>
-							    <option value="제목">제목</option>
-							    <option value="내용">내용</option>
-							    <option value="지역">지역</option>								    
+								<option value="all">제목+내용</option>
+							    <option value="title">제목</option>
+							    <option value="contents">내용</option>
+							    <option value="location">지역</option>
+							    <option value="capacity">인원</option>
+							    <option value="writer">작성자</option>								    
 							</select>
-						    <input class="form-control mr-sm-2" type="search" placeholder="검색어를 입력하세요" aria-label="Search">
-						    <button class="btn btn-dark my-2 my-sm-0" type="submit">검색</button>
+						    <input class="form-control mr-sm-2" type="search" placeholder="검색어를 입력하세요" aria-label="Search" name="keyword" id="keyword">
+						    <button class="btn btn-dark my-2 my-sm-0" type="submit" id="searchBtn">검색</button>
 						  </form>
 					</div>													
 				</div>
 				<nav aria-label="List navi" id="aPageNavi">${applyPageNavi }</nav>
 			</div>
 		<script>
+	        $("#searchFrm").on("submit",function(){
+	        	$("#keyword").val($.trim($("#keyword").val()));
+	        	if($("#keyword").val()==""){
+	        		alert("검색어를 입력해주세요");
+	        		return false;
+	        	}
+	        });		
 			function popUp(link){
 				var applyWindow = window.open(link, "applyPopUp", "width=1000,height=750");
 			}

@@ -345,13 +345,13 @@ public class ProjectService {
 //	
 	
 	
-	public String getPLogProjectPageNavi(int currentPage, String id, String listType) {
+	public String getPLogProjectPageNavi(int currentPage, String id, String listType, String searchOption, String keyword) {
 		
 		int recordTotalCount = 0;
 		if(listType.contentEquals("makeProjectList")) {
-			recordTotalCount = dao.getMakeArticleCount(id);
+			recordTotalCount = dao.getMakeArticleCount(id, searchOption, keyword);
 		}else if(listType.contentEquals("applyProjectList")) {
-			recordTotalCount = dao.getApplyArticleCount(id);
+			recordTotalCount = dao.getApplyArticleCount(id, searchOption, keyword);
 		}
 		
 		
@@ -401,12 +401,12 @@ public class ProjectService {
 		return sb.toString();
 	}
 	
-	public List<ProjectDTO> makeProjectListPerPage(int start, int end, String id){
-		return dao.getMakeProjectListPerPage(start, end, id);
+	public List<ProjectDTO> makeProjectListPerPage(int start, int end, String id, String searchOption, String keyword){
+		return dao.getMakeProjectListPerPage(start, end, id, searchOption, keyword);
 	}
 	
-	public List<ProjectPLogDTO> applyProjectListPerPage(int start, int end, String id){
-		return dao.getApplyProjectListPerPage(start, end, id);
+	public List<ProjectPLogDTO> applyProjectListPerPage(int start, int end, String id, String searchOption, String keyword){
+		return dao.getApplyProjectListPerPage(start, end, id, searchOption, keyword);
 	}
 	
 	

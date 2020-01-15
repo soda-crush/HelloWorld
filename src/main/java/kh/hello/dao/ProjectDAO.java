@@ -130,28 +130,39 @@ public class ProjectDAO {
 	}
 	
 	//PLog용(Project, ProjectComment, ProjectApply 등 참고)
-	public List<ProjectDTO> getMakeProjectList(String id){//나의 프로젝트 전체리스트
-		return jdbc.selectList("Project.getPLogMakeList", id);
+//	public List<ProjectDTO> getMakeProjectList(String id){//나의 프로젝트 전체리스트
+//		return jdbc.selectList("Project.getPLogMakeList", id);
+//	}	
+	public int getMakeArticleCount(String id, String searchOption, String keyword) {
+		Map<String, Object> param = new HashMap<>();
+		param.put("id", id);
+		param.put("searchOption", searchOption);
+		param.put("keyword", keyword);
+		return jdbc.selectOne("Project.getMakeArticleCount", param);
 	}
-	
-	public int getMakeArticleCount(String id) {
-		return jdbc.selectOne("Project.getMakeArticleCount", id);
-	}
-	public List<ProjectDTO> getMakeProjectListPerPage(int start, int end, String id){
+	public List<ProjectDTO> getMakeProjectListPerPage(int start, int end, String id, String searchOption, String keyword){
 		Map<String, Object> param = new HashMap<>();
 		param.put("id", id);		
 		param.put("start", start);
 		param.put("end", end);
+		param.put("searchOption", searchOption);
+		param.put("keyword", keyword);
 		return jdbc.selectList("Project.getPLogMakeListByPage", param);
 	}	
-	public int getApplyArticleCount(String id) {
-		return jdbc.selectOne("Project.getApplyArticleCount", id);
+	public int getApplyArticleCount(String id, String searchOption, String keyword) {
+		Map<String, Object> param = new HashMap<>();
+		param.put("id", id);
+		param.put("searchOption", searchOption);
+		param.put("keyword", keyword);
+		return jdbc.selectOne("Project.getApplyArticleCount", param);
 	}
-	public List<ProjectPLogDTO> getApplyProjectListPerPage(int start, int end, String id){
+	public List<ProjectPLogDTO> getApplyProjectListPerPage(int start, int end, String id, String searchOption, String keyword){
 		Map<String, Object> param = new HashMap<>();
 		param.put("id", id);		
 		param.put("start", start);
 		param.put("end", end);
+		param.put("searchOption", searchOption);
+		param.put("keyword", keyword);
 		return jdbc.selectList("Project.getPLogApplyListByPage", param);
 	}
 	

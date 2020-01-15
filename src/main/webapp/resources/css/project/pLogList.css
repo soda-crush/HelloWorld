@@ -16,7 +16,7 @@ body{background-color:#f2f2f2;}
 .tableHead,.tableBody,.tableBodyNull{text-align:center;height: 50px;line-height: 50px;}
 
 .makeTableBody div:nth-child(1){font-weight:bold;}
-.makeTableBody div:nth-child(5){text-align:left;cursor:pointer;}   
+.makeTableBody div:nth-child(6){text-align:left;cursor:pointer;}   
 
 .applyTableBody div:nth-child(1){font-weight:bold;}
 .applyTableBody div:nth-child(8){text-align:left;cursor:pointer;}

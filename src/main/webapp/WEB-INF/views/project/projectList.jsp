@@ -67,14 +67,13 @@
 				  				<div class="row tableBody p-0">
 									<div class="col-xl-1 d-none d-xl-block">${p.seq }</div>
 									<div class="col-xl-1 col-2 col-md-2 col-lg-1 ${p.state }">${p.stateInKor }</div>
-										<div class="col-xl-3 col-8 col-md-5 text-decoration-none" onclick="location.href='/project/detailView?seq=${p.seq }'">
-											<div class="row">
-											<div style="max-width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;font-weight:bold;">${p.title }</div> 
-					  						<c:if test="${p.commentCount>0 }">
-					  							<div class="pComment font-weight-bold ml-2" style="display:inline-block;">${p.commentCount }</div>
-					  						</c:if>
-					  						</div>					  					
-										</div>
+									<div class="col-xl-3 col-8 col-md-5 text-decoration-none" onclick="location.href='/project/detailView?seq=${p.seq }'">										
+										<div class="ml-1" style="max-width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;font-weight:bold;">${p.title } 
+				  						<c:if test="${p.commentCount>0 }">
+				  							<div class="pComment font-weight-bold ml-1" style="display:inline-block;">${p.commentCount }</div>
+				  						</c:if>
+				  						</div>					  					
+									</div>
 									<div class="col-xl-1 col-2 col-md-1">${p.location1 }</div>
 									<div class="col-xl-1 col-lg-1 d-none d-lg-block">${p.capacity }명</div>
 									<div class="col-xl-2 col-md-4 d-none d-md-block">${p.formedAllDate }</div>
@@ -89,13 +88,14 @@
 				<div class="row pageListFooter">
 					<div class="col-6">
 						  <form class="form-inline" action="/project/list" method="post" id="searchFrm">
-							<select class="form-control searchSelect" name="searchOption" id="searchOption" name="searchOption" style="margin-right:5px;">
+							<select class="form-control searchSelect" name="searchOption" id="searchOption" style="margin-right:5px;">
 								<option selected disabled>선택</option>
 								<option value="all">제목+내용</option>
 							    <option value="title">제목</option>
 							    <option value="contents">내용</option>
 							    <option value="location">지역</option>
-							    <option value="capacity">인원</option>								    
+							    <option value="capacity">인원</option>
+							    <option value="writer">작성자</option>									    
 							</select>
 						    <input class="form-control mr-sm-2" type="search" placeholder="검색어를 입력하세요" aria-label="Search" name="keyword" id="keyword">
 						    <button class="btn btn-dark my-2 my-sm-0" type="submit" id="searchBtn">검색</button>

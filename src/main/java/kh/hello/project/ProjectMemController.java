@@ -292,7 +292,7 @@ public class ProjectMemController {
 	}
 	
 	@RequestMapping("/pLog/makeProjectList")
-	public String makeProjectList(String page, Model m){
+	public String makeProjectList(String page, String searchOption, String keyword, Model m){
 		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
 		String id = sessionValue.getId();						
 		int currentPage = 1;
@@ -301,16 +301,16 @@ public class ProjectMemController {
 		}
 		int start = currentPage * (Configuration.pLogProjectRecordCountPerPage)-(Configuration.pLogProjectRecordCountPerPage-1);
 		int end = currentPage * (Configuration.pLogProjectRecordCountPerPage);
-		List<ProjectDTO> result = svc.makeProjectListPerPage(start, end, id);
+		List<ProjectDTO> result = svc.makeProjectListPerPage(start, end, id, searchOption, keyword);
 		m.addAttribute("makeProjectList", result);
-		String pageNavi = svc.getPLogProjectPageNavi(currentPage, id, "makeProjectList");
+		String pageNavi = svc.getPLogProjectPageNavi(currentPage, id, "makeProjectList", searchOption, keyword);
 		m.addAttribute("makePageNavi", pageNavi);
 		m.addAttribute("makeCurrentPage", currentPage);
 		return "/project/pLogMakeProject";
 	}
 	
 	@RequestMapping("/pLog/applyProjectList")
-	public String applyProjectList(String page, Model m){
+	public String applyProjectList(String page, String searchOption, String keyword, Model m){
 		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
 		String id = sessionValue.getId();				
 		int currentPage = 1;
@@ -319,9 +319,9 @@ public class ProjectMemController {
 		}
 		int start = currentPage * (Configuration.pLogProjectRecordCountPerPage)-(Configuration.pLogProjectRecordCountPerPage-1);
 		int end = currentPage * (Configuration.pLogProjectRecordCountPerPage);
-		List<ProjectPLogDTO> result = svc.applyProjectListPerPage(start, end, id);
+		List<ProjectPLogDTO> result = svc.applyProjectListPerPage(start, end, id, searchOption, keyword);
 		m.addAttribute("applyProjectList", result);
-		String pageNavi = svc.getPLogProjectPageNavi(currentPage, id, "applyProjectList");
+		String pageNavi = svc.getPLogProjectPageNavi(currentPage, id, "applyProjectList", searchOption, keyword);
 		m.addAttribute("applyPageNavi", pageNavi);
 		m.addAttribute("applyCurrentPage", currentPage);
 		return "/project/pLogApplyProject";
