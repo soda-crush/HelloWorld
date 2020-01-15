@@ -55,8 +55,9 @@
 								</c:otherwise>
 							</c:choose>
 							<br>
-							<div class="ml-4 mr-3" style="font-weight:bold;font-size:20px;display:inline-block;word-break:break-all;word-break:break-word;">${pPage.title}</div><br>
-							<label class="ml-4" onclick="popUp('/Portfolio/toPlog.do?owner=${pPage.id}')" style="cursor:pointer;">작성자 : <strong>${pPage.writer }</strong></label>
+							<div class="ml-4 mr-3 mb-2" style="font-weight:bold;font-size:20px;display:inline-block;word-break:break-all;word-break:break-word;">${pPage.title}</div><br>
+							<label class="ml-4" onclick="popUp('/Portfolio/toPlog.do?owner=${pPage.id}')" style="cursor:pointer;">
+							<img src="${pPage.profileImg }" style="width:30px;height:30px;margin-right:7px;"><strong>${pPage.writer }</strong></label>
 							<label class="ml-4">작성일 : ${pPage.formedWriteDate }</label>
 							<label class="ml-4">조회 : ${pPage.viewCount }</label>
 						</div>

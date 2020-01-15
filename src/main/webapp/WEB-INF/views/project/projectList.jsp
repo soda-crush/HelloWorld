@@ -45,9 +45,22 @@
 					</div>
 				</div>				
 				<div class="tableDiv">
+					<div class="row mb-2">
+						<div class="col-12">
+							<div class="btn-group" role="group">
+								<button type="button" class="btn btn-outline-primary btn-sm active" id="latestOrder">최신순</button>
+								<button type="button" class="btn btn-outline-danger btn-sm" id="deadlineOrder">마감임박순</button>
+							</div>
+							<input type="hidden" name="pageOrder" id="pageOrder">
+						</div>
+					</div>
+					
+
+					
+					
 					<div class="row tableHead">					    
 					    <div class="col-xl-1 d-none d-xl-block">번호</div>
-					    <div class="col-xl-1 col-2 col-md-2 col-lg-1">모집상태</div>
+					    <div class="col-xl-1 col-2 col-md-2 col-lg-1">상태</div>
 					    <div class="col-xl-3 col-8 col-md-5">제목</div>
 					    <div class="col-xl-1 col-2 col-md-1">지역</div>
 					    <div class="col-xl-1 col-lg-1 d-none d-lg-block">인원</div>
@@ -121,6 +134,25 @@
         <jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
         
         <script>
+        	var pageOrder = "${pageOrder}";
+        	console.log(pageOrder);
+			if(pageOrder=='seq'){
+				$("#latestOrder").addClass("active");
+				$("#deadlineOrder").removeClass("active");
+				$("#pageOrder").val("seq");
+			}else if(pageOrder=='startDate'){
+				$("#latestOrder").removeClass("active");
+				$("#deadlineOrder").addClass("active");
+				$("#pageOrder").val("startDate");
+			}
+        	$("#deadlineOrder").on("click",function(){
+        		$("#pageOrder").val("startDate");
+        		location.href="/project/list?pageOrder="+$("#pageOrder").val();
+        	});
+        	$("#latestOrder").on("click",function(){
+        		$("#pageOrder").val("seq");
+        		location.href="/project/list?pageOrder="+$("#pageOrder").val();
+        	});
 	        $("#searchFrm").on("submit",function(){
 	        	$("#keyword").val($.trim($("#keyword").val()));
 	        	if($("#keyword").val()==""){

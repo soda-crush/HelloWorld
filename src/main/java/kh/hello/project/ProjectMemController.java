@@ -34,18 +34,28 @@ public class ProjectMemController {
 	 */
 	
 	@RequestMapping("/list")
-	public String projectMainList(String page, String searchOption, String keyword, Model m) {				
+	public String projectMainList(String page, String pageOrder, String searchOption, String keyword, Model m) {				
 		int currentPage = 1;
 		if(page!=null) {
 			currentPage = Integer.parseInt(page);
 		}
 		int start = currentPage * (Configuration.recordCountPerPage)-(Configuration.recordCountPerPage-1);
 		int end = currentPage * (Configuration.recordCountPerPage);
-		List<ProjectDTO> result = svc.projectListPerPage(start, end, searchOption, keyword);
+		String checkOrder = "seq";
+		if(pageOrder==null||pageOrder.contentEquals("seq")) {
+			checkOrder="seq";
+			pageOrder="seq";
+		}else if(pageOrder.contentEquals("startDate")) {
+			checkOrder="startDate";
+		}
+		List<ProjectDTO> result = svc.projectListPerPage(start, end, pageOrder, searchOption, keyword);
 		m.addAttribute("projectList", result);
 		String pageNavi = svc.getPageNavi(currentPage, searchOption, keyword);
 		m.addAttribute("pageNavi", pageNavi);
 		m.addAttribute("currentPage", currentPage);
+		m.addAttribute("pageOrder", checkOrder);
+		System.out.println(pageOrder);
+		System.out.println(checkOrder);
 		return "/project/projectList";
 	}
 	

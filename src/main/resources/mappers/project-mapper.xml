@@ -16,7 +16,16 @@
 	</select>
 
 	<select id="getListByPage" resultType="kh.hello.dto.ProjectDTO">
-		select * from (select project.*,(select count(*) from projectComment where projectSeq=project.seq and contents is not null) as commentCount, row_number() over (order by seq desc) as num from project
+		select * from (select project.*,(select count(*) from projectComment where projectSeq=project.seq and contents is not null) as commentCount, row_number() over (order by 
+		<choose>
+			<when test="pageOrder == 'seq'">
+				seq desc
+			</when>
+			<when test="pageOrder == 'startDate'">
+				startDate asc
+			</when>
+		</choose>
+		) as num from project
 		<if test="searchOption!=null">
 			<include refid="search"></include>
 		</if>
@@ -40,7 +49,8 @@
 	</sql>
 	
 	<select id="getProjectDetailView" resultType="kh.hello.dto.ProjectDTO">
-		select project.*,(select count(*) from projectApply where projectSeq=project.seq and approve in('W')) as applyCount from project where seq=#{value}
+<!-- 		select project.*,(select count(*) from projectApply where projectSeq=project.seq and approve in('W')) as applyCount from project where seq=#{value} -->
+		select * from (select project.*, profileImg, (select count(*) from projectApply where projectSeq=project.seq and approve in('W')) as applyCount from project inner join member on project.seq=#{value} and project.id = member.id)
 	</select>	
 	<select id="latestSeq" resultType="integer">
 		select max(seq) from project where id=#{value}

@@ -34,10 +34,11 @@ public class ProjectDAO {
 		param.put("keyword", keyword);
 		return jdbc.selectOne("Project.getArticleCount", param);
 	}
-	public List<ProjectDTO> getProjectListPerPage(int start, int end, String searchOption, String keyword){
+	public List<ProjectDTO> getProjectListPerPage(int start, int end, String pageOrder, String searchOption, String keyword){
 		Map<String, Object> param = new HashMap<>();
 		param.put("start", start);
 		param.put("end", end);
+		param.put("pageOrder", pageOrder);
 		param.put("searchOption", searchOption);
 		param.put("keyword", keyword);
 		return jdbc.selectList("Project.getListByPage", param);

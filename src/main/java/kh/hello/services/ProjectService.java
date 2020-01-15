@@ -89,8 +89,8 @@ public class ProjectService {
 		return sb.toString();
 	}
 	
-	public List<ProjectDTO> projectListPerPage(int start, int end, String searchOption, String keyword){
-		return dao.getProjectListPerPage(start, end, searchOption, keyword);
+	public List<ProjectDTO> projectListPerPage(int start, int end, String pageOrder, String searchOption, String keyword){
+		return dao.getProjectListPerPage(start, end, pageOrder, searchOption, keyword);
 	}
 	
 	
