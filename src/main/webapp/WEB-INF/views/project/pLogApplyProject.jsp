@@ -86,8 +86,7 @@
 	        $("#searchFrm").on("submit",function(){
 	        	$("#keyword").val($.trim($("#keyword").val()));
 	        	if($("#keyword").val()==""){
-	        		alert("검색어를 입력해주세요");
-	        		return false;
+	        		alert("검색어를 입력해주세요");	        		
 	        	}
 	        });		
 			function popUp(link){

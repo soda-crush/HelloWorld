@@ -52,9 +52,9 @@ body{background-color:#e9ecef;}
 				  				<div class="row tableBody p-0 text-decoration-none applyRow${a.approve }" onclick="openApplyPage(${a.seq },'${a.approve}')">
 									<div class="col-1">${a.seq }</div>
 									<div class="col-2">${a.writer }</div>
-									<div class="col-5">${a.languages }</div>
+									<div class="col-4">${a.languages }</div>
 									<div class="col-2">${a.workInInKor }</div>									
-									<div class="col-1">${a.portfolioInKor }</div>
+									<div class="col-2">${a.portfolioInKor }</div>
 									<div class="col-1 approve${a.approve }">${a.approveInKor }</div>									
 								</div>	
 				  			</c:forEach>

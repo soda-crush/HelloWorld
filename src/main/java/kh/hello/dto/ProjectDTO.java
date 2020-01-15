@@ -1,5 +1,6 @@
 package kh.hello.dto;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -12,8 +13,10 @@ public class ProjectDTO {
 	private String location1;
 	private String location2;
 	private int capacity;
-	private Timestamp startDate;
-	private Timestamp endDate;
+//	private Timestamp startDate;
+//	private Timestamp endDate;
+	private Date startDate;
+	private Date endDate;
 	private String languages;
 	private String phone;
 	private String email;
@@ -33,8 +36,9 @@ public class ProjectDTO {
 		super();
 	}	
 	public ProjectDTO(int seq, String title, String contents, String location1, String location2, int capacity,
-			Timestamp startDate, Timestamp endDate, String languages, String phone, String email, String writer,
-			String id, Timestamp writeDate, String state, int viewCount, int commentCount, int applyCount) {
+			Date startDate, Date endDate, String languages, String phone, String email, String writer, String id,
+			Timestamp writeDate, String state, int viewCount, int commentCount, int applyCount, int scrap,
+			Timestamp changeDate, int totalApply, int totalApprove) {
 		super();
 		this.seq = seq;
 		this.title = title;
@@ -54,7 +58,12 @@ public class ProjectDTO {
 		this.viewCount = viewCount;
 		this.commentCount = commentCount;
 		this.applyCount = applyCount;
+		this.scrap = scrap;
+		this.changeDate = changeDate;
+		this.totalApply = totalApply;
+		this.totalApprove = totalApprove;
 	}
+
 	public int getSeq() {
 		return seq;
 	}
@@ -91,16 +100,16 @@ public class ProjectDTO {
 	public void setCapacity(int capacity) {
 		this.capacity = capacity;
 	}
-	public Timestamp getStartDate() {
+	public Date getStartDate() {
 		return startDate;
 	}
-	public void setStartDate(Timestamp startDate) {
+	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 	}
-	public Timestamp getEndDate() {
+	public Date getEndDate() {
 		return endDate;
 	}
-	public void setEndDate(Timestamp endDate) {
+	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
 	public String getLanguages() {
