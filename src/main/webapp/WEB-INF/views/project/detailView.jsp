@@ -55,7 +55,7 @@
 								</c:otherwise>
 							</c:choose>
 							<br>
-							<div class="ml-4" style="font-weight:bold;font-size:20px;display:inline-block;">${pPage.title}</div><br>
+							<div class="ml-4 mr-3" style="font-weight:bold;font-size:20px;display:inline-block;word-break:break-all;word-break:break-word;">${pPage.title}</div><br>
 							<label class="ml-4" onclick="popUp('/Portfolio/toPlog.do?owner=${pPage.id}')" style="cursor:pointer;">작성자 : <strong>${pPage.writer }</strong></label>
 							<label class="ml-4">작성일 : ${pPage.formedWriteDate }</label>
 							<label class="ml-4">조회 : ${pPage.viewCount }</label>
@@ -69,7 +69,7 @@
 						</div>
 						<hr>
 						<div id="pBody">						
-							<div id="pPageContents">${pPage.contents }</div>							
+							<div id="pPageContents" style="word-break:break-all;word-break:break-word;">${pPage.contents }</div>							
 							<div><label class="ml-4">연락처</label><span>${pPage.phone }</span></div>
 							<div><label class="ml-4">메일주소</label><span>${pPage.email }</span></div>
 						
@@ -148,7 +148,7 @@
 														</div>								
 													</div>
 													<div class="row commentContent">
-														<div class="col-12 pt-1 pl-4">${c.contents }</div>
+														<div class="col-12 pt-1 pl-4" style="word-break:break-all;word-break:break-word;">${c.contents }</div>
 													</div>
 												</c:when>
 												<c:otherwise>
@@ -596,7 +596,7 @@
 						html.push(							
 							'</div></div>',
 							'<div class="row commentContent">',
-							'<div class="col-12 pt-1 pl-4">'+resp[i].contents+'</div></div>'	
+							'<div class="col-12 pt-1 pl-4" style="word-break:break-all;word-break:break-word;">'+resp[i].contents+'</div></div>'	
 						);
 					}else{
 						html.push(								

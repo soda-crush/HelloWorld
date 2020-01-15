@@ -34,8 +34,7 @@ public class ProjectMemController {
 	 */
 	
 	@RequestMapping("/list")
-	public String projectMainList(String page, String searchOption, String keyword, Model m) {
-		System.out.println(searchOption+" : "+keyword);		
+	public String projectMainList(String page, String searchOption, String keyword, Model m) {				
 		int currentPage = 1;
 		if(page!=null) {
 			currentPage = Integer.parseInt(page);
