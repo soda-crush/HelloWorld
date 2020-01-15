@@ -14,6 +14,7 @@ public class CodeReplyDTO {
 	private String adopt;
 	public int commentCount;
 	public int memLevel;
+	private String profileImg;
 	
 	public CodeReplyDTO() {
 		super();
@@ -95,6 +96,14 @@ public class CodeReplyDTO {
 
 	public void setMemLevel(int memLevel) {
 		this.memLevel = memLevel;
+	}
+	
+	public String getProfileImg() {
+		return profileImg;
+	}
+
+	public void setProfileImg(String profileImg) {
+		this.profileImg = profileImg;
 	}
 
 	public String getFormedDate() {
