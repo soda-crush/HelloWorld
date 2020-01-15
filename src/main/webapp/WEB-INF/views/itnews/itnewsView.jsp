@@ -40,7 +40,7 @@
 
             <div class="container eleCon">
             	<div class=row>
-            		<div class="col-12"><h3><br>${result.title}</h3></div>
+            		<div class="col-12" style="word-break:break-all;word-wrap:break-word;"><h3><br>${result.title}</h3></div>
             	</div>
             	<div class=row>
             		<div class="col-12"><hr><a onclick="popUp('/Portfolio/toPlog.do?owner=${result.id}')">${result.writer}</a>&emsp;${result.writeDate}&emsp;${result.viewCount}<hr></div>
