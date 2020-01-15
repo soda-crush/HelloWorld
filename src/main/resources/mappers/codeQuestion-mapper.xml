@@ -28,7 +28,7 @@
 <!-- 	</select> -->
 	
 	<select id="detailQuestion" resultType="kh.hello.dto.CodeQuestionDTO">
-		select * from codeQuestion where seq = #{seq} order by 1 desc
+		select codeQuestion.*, profileImg from codeQuestion inner join member on codeQuestion.id = member.id where seq = #{value} order by 1 desc
 	</select>
 	
 	<update id="incrementViewCount" parameterType="Integer">

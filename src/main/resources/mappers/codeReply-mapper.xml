@@ -12,9 +12,9 @@
 		select * from codeReply
 	</select>
 	
-<!-- 	채택 Y인게 맨위, 그 다음은 글 작성순 -->
+<!-- 	채택 Y인게 맨위, 그 다음은 글 작성순, 프로필이미지(member) 조인 -->
 	<select id="detailReply" resultType="kh.hello.dto.CodeReplyDTO" parameterType="integer">
-		select * from codeReply where queSeq = #{value} order by decode(adopt,'Y',1), seq asc
+		select codeReply.*, profileImg from codeReply inner join member on codeReply.id = member.id where queSeq = #{value} order by decode(adopt,'Y',1), seq asc
 	</select>
 	
 	<delete id="deleteR" parameterType="integer">

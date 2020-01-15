@@ -131,9 +131,9 @@ a:hover {
 											<div class="row">
 											<div style="max-width:85%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;">${dto.title}</div>
 												<c:if test="${dto.replyCount>0 }">
-						  							<span class="pComment font-weight-bold ml-1" style="display:inline-block;">${dto.replyCount}</span>
+						  							<span class="pComment font-weight-bold ml-2" style="display:inline-block;">${dto.replyCount}</span>
 						  						</c:if>	
-												<span class="badge badge-pill badge-danger ml-1" style="height:20px; margin-top:15px;">${dto.newWriteDate}</span>
+											<%-- <span class="badge badge-pill badge-danger ml-1" style="height:20px; margin-top:15px;">${dto.newWriteDate}</span> --%>
 											</div>
 										</div>
 										<div class="col-xl-1 col-md-1 d-none d-md-block">

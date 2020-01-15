@@ -13,7 +13,7 @@
 	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="/css/mainBase.css">
+
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
 <script
@@ -26,12 +26,7 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
 <script src="/js/summernote-ko-KR.js"></script>
-
-<script>
-   $(function(){
-      $("#codeNavi").attr('class','nav-item nav-link active');
-   });
-</script>
+<link rel="stylesheet" href="/css/mainBase.css">
 
 <style>
 .division {
@@ -53,6 +48,10 @@
 }
 </style>
 <script>
+	$(function(){
+	    $("#codeNavi").attr('class','nav-item nav-link active');
+	 });
+	
 	$(function() {
 		$("#writeForm").on("submit", function() {
 			$("#content").val($(".note-editable").html());
@@ -108,7 +107,7 @@
 						<h4>Q 질문</h4>
 					</div>
 					<div class="col-10 title">
-						<input type="text" name="title" style="width: 100%" id="title">
+						<input type="text" name="title" style="width: 100%" id="title" maxlength="100">
 					</div>
 				</div>
 

@@ -12,6 +12,7 @@ public class CodeCommentsDTO {
 	private String writer;
 	private Timestamp writeDate;
 	private String formedWriteDate;
+	private String profileImg;
 	
 	public CodeCommentsDTO() {
 		super();
@@ -81,6 +82,14 @@ public class CodeCommentsDTO {
 	public String getFormedDate() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
 		return sdf.format(writeDate);
+	}
+	
+	public String getProfileImg() {
+		return profileImg;
+	}
+
+	public void setProfileImg(String profileImg) {
+		this.profileImg = profileImg;
 	}
 
 	@Override

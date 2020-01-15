@@ -152,12 +152,12 @@
 }
 
 span:nth-child(1) {
-	font-size: 60px;
+	font-size: 30px;
 	font-weight: 100;
 }
 
 span:nth-child(4) {
-	font-size: 50px;
+	font-size: 30px;
 	font-weight: 100;
 }
 
@@ -177,9 +177,9 @@ span:nth-child(4) {
 		</div>
 
 		<!--      몸통 시작!!!   -->
-		<div class=container id="projectPage" style="background-color: white;">
+		<div class="container eleCon" id="projectPage" style="background-color: white;">
 			<!-- 			<div id="pageTitle"> -->
-			<div class="topQ">
+			<div class="topQ" style="margin-top:20px;">
 				<span>Q</span> <span class="badge badge-pill badge-danger">${qResult.point}</span>
 				<span class="badge badge-pill badge-success"
 					style="margin: 10; padding: 10; width: 60px;">${qResult.division}</span>
@@ -190,9 +190,9 @@ span:nth-child(4) {
 				<div class="contentDiv">${qResult.content}</div>
 				<br>
 				<div class="botD">
-					<img src="/icon/Cicon.svg"> 
+					<img src="${qResult.profileImg}" width=50,height=50> 
 					<span style="cursor:pointer" onclick="popUp('${qResult.id}','${qResult.writer}')">${qResult.writer}</span>				
-					${qResult.formedDate} 조회수${qResult.viewCount}
+					<span style="color: gray;">${qResult.formedDate} 조회수${qResult.viewCount}</span>
 				</div>
 				<br>
 
@@ -204,19 +204,21 @@ span:nth-child(4) {
 					</c:when>
 					<c:when test="${qResult.id!=sessionScope.loginInfo.id}">
 						<div style="text-align: right;" class="btnDIv">
+							<a id="kakao-link-btn" href="javascript:;" onClick="shareKakaotalk();"> 
+ 								<img src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" height=45/>
+ 							</a>
 							<c:if test="${count==0 && adoptCount==0}">
 								<a class="btn btn-dark"
 									href="/code/codeRWrite.do?seq=${qResult.seq}" role="button">답변</a>
 							</c:if>
-							<a id="kakao-link-btn" href="javascript:;"
-								onClick="shareKakaotalk();"> <img src="/icon/kakaoTalk.png"
-								height=40>
-							</a>
-							<!-- 							<button class="btn btn-warning" id="sharing">공유</button> -->
-							<!-- 							<button type="button" class="btn btn-outline-warning" id="sharing"><a id="kakao-link-btn" href="javascript:;" onClick="shareKakaotalk();"> -->
-							<!-- 								<img src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" height=20/> -->
-							<!-- 							</a>공유</button> -->
-							<!-- 						<i class="fa fa-bookmark" id="scrapDone" data-toggle="tooltip" title="스크랩"></i> -->
+<!-- 							<a id="kakao-link-btn" href="javascript:;" -->
+<!-- 								onClick="shareKakaotalk();">  -->
+<!-- 								<img src="/icon/kakaoTalk.png" height=40> -->
+<!-- 							</a> -->
+							<!-- 	<button class="btn btn-warning" id="sharing">공유</button> -->
+							<!-- 	<button type="button" class="btn btn-outline-warning" id="sharing"></button> -->
+ 							
+							<!-- <i class="fa fa-bookmark" id="scrapDone" data-toggle="tooltip" title="스크랩"></i> -->
 							<button class="btn btn-dark" id="scrap">스크랩</button>
 							<a class="btn btn-dark" href="/code/codeQList.do" role="button">목록</a>
 							<button class="btn btn-danger" id="report">신고</button>
@@ -236,7 +238,7 @@ span:nth-child(4) {
 				<!-- 답글 시작-->
 				<c:forEach items="${rResult}" var="r">
 					<div class="topQ">
-						<hr>
+<!-- 						<hr> -->
 						<hr>
 
 						<c:if test="${r.adopt=='Y'}">
@@ -247,26 +249,31 @@ span:nth-child(4) {
 						</c:if>
 
 						<div class="row">
-							<div class="col-10">
-								<div style="font-size: 40px; font-weight: 100;">
-									<span style="cursor:pointer" onclick="popUp('${r.id}','${r.writer}')">${r.writer}</span>
-									<span style="font-size: 20px; font-weight: 50; color: gray;">님의 답변입니다.</span>
-									<c:choose>
-										<c:when test="${r.memLevel == 2}">
-											<!-- 							<span class="badge badge-pill badge-info" style="margin: 10; width: 80px; height:30px;">비실무자</span>						 -->
-											<span class="badge badge-pill badge-info">비실무자</span>
-										</c:when>
-										<c:when test="${r.memLevel == 3}">
-											<span class="badge badge-pill badge-primary">실무자</span>
-										</c:when>
-										<c:otherwise>
-											<span class="badge badge-pill badge-danger">강등자</span>
-										</c:otherwise>
-									</c:choose>
-								</div>
+							<div class="col-1">
+								<img src="${r.profileImg}" width=90,height=200> 
 							</div>
 
-							<div class="col-2">
+							<div class="col-4">
+								<div class="row">
+									<div class="col-12">
+										<span style="cursor:pointer" onclick="popUp('${r.id}','${r.writer}')">${r.writer}</span>
+										<span style="font-size: 20px; font-weight: 50; color: gray;">님의 답변입니다.</span>
+									</div>
+									<div class="col-12" style="font-size: 30px; font-weight: 100;">
+										<c:choose>
+											<c:when test="${r.memLevel == 2}">
+												<span style="font-size: 20px; font-weight: 50; color: blue;">(비실무자)</span>
+											</c:when>
+											<c:when test="${r.memLevel == 3}">
+												<span style="font-size: 20px; font-weight: 50; color: blue;">(실무자)</span>
+											</c:when>
+											<c:otherwise>
+												<span style="font-size: 20px; font-weight: 50; color: blue;">(강등자)</span>
+											</c:otherwise>
+										</c:choose>
+									</div>
+								</div>
+										
 								<%-- 						<c:if test="${r.adopt=='Y'}"> --%>
 								<!-- 							<i data-brackets-id="1484" class="fa fa-check-circle-o"  style="font-size:100px;"><h3 style="color:red;">질문자채택</h3></i> -->
 								<!-- 							<i data-brackets-id="803" class="fa fa-check" style="font-size:100px;"><h3 style="color:red;">질문자채택</h3></i> -->
@@ -274,11 +281,11 @@ span:nth-child(4) {
 								<%-- 						</c:if> --%>
 							</div>
 						</div>
+						<hr>
 						<br>
 						<div id="content">${r.content}</div>
 						<br>
-						<div>${r.formedDate}</div>
-
+						<div style="color: gray; font-size:15px;">${r.formedDate}</div>
 						<!-- 채택 -->
 						<c:if
 							test="${repCount >0 && qResult.id == sessionScope.loginInfo.id}">
@@ -310,7 +317,7 @@ span:nth-child(4) {
 						</c:choose>
 						<br>
 						<%-- 					<c:if test="${sessionScope.loginInfo.id!=null }">	 --%>
-						<div style="text-align: right;">
+						<div style="text-align: left;">
 							<button class="btn btn-dark" id="commentBtn"
 								onclick="hideCo(${r.seq})">댓글</button>
 						</div>
@@ -324,16 +331,17 @@ span:nth-child(4) {
 										<c:choose>
 											<c:when test="${c.repSeq == r.seq}">
 												<div
-													class="row commentDiv commentBox${r.seq}${c.seq} p-0 pb-2 m-2" style="border:1px solid red; border-top:none; border-left: none; border-right: none;">													
+													class="row commentDiv commentBox${r.seq}${c.seq} p-0 pb-2 m-2" style="border:1px solid gray; border-top:none; border-left: none; border-right: none;">													
 													<div class="col-12 commentInnerBox">
 														<div class="row commentHeader">
-															<div class="col-8 pt-3">
+															<div class="col-lg-1 d-none d-lg-block profileBox pl-1 pt-2 pr-0"><img src="${c.profileImg }" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>
+															<div class="col-7 col-lg-6 pt-1">
 																<div class="row commentInfo">
 																	<div class="col-12 commentWriter">${c.writer }</div>
 																	<div class="col-12 commentWriteDate">${c.formedDate}</div>
 																</div>
 															</div>
-															<div class="col-4 pt-2 text-right commentBtns">
+															<div class="col-5 pt-2 text-right commentBtns">
 																<!-- 													<button type="button" class="btn btn-warning coReplyBtn">답글</button> -->
 																<c:if test="${c.id==sessionScope.loginInfo.id }">
 																	<a class="btn btn-info coModifyBtn"
@@ -359,7 +367,7 @@ span:nth-child(4) {
 							<div id="pCoInput" class="row">
 								<div class="col-9 col-lg-10">
 									<textarea class="form-control pCoContents${r.seq}"
-										placeholder="댓글 내용을 입력해주세요" id="pCoContents${r.seq}"></textarea>
+										placeholder="댓글 내용을 입력해주세요" maxlength="1300" id="pCoContents${r.seq}"></textarea>
 								</div>
 								<div class="col-3 col-lg-2">
 									<div class="row">
@@ -411,9 +419,9 @@ span:nth-child(4) {
 					               for(var i=0;i<resp.length;i++){
 					                  var html = [];
 					                  html.push(
-					                        '<div class="row commentDiv commentBox'+resp[i].repSeq+resp[i].seq+' p-0 pb-2 m-2" style="border:1px solid red; border-top:none; border-left: none; border-right: none;"><div class="col-12 commentInnerBox"><div class="row commentHeader">',
-//					                         '<div class="col-1 profileBox pl-1 pt-2"></div>',
-					                        '<div class="col-8 pt-3"><div class="row commentInfo">',
+					                        '<div class="row commentDiv commentBox'+resp[i].repSeq+resp[i].seq+' p-0 pb-2 m-2" style="border:1px solid gray; border-top:none; border-left: none; border-right: none;"><div class="col-12 commentInnerBox"><div class="row commentHeader">',
+					                        '<div class="col-lg-1 d-none d-lg-block profileBox pl-1 pt-2 pr-0"><img src="'+resp[i].profileImg+'" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>',
+					                        '<div class="col-7 col-lg-6 pt-1"><div class="row commentInfo pl-2">',
 					                        '<div class="col-12 commentWriter">'+resp[i].writer+'</div>',
 					                        '<div class="col-12 commentWriteDate">'+resp[i].formedWriteDate+'</div></div></div>',
 					                        '<div class="col-4 pt-2 text-right commentBtns">'
@@ -561,7 +569,7 @@ span:nth-child(4) {
 	               for(var i=0;i<resp.length;i++){
 	                  var html = [];
 	                  html.push(
-	                        '<div class="row commentDiv commentBox'+resp[i].repSeq+resp[i].seq+' p-0 pb-2 m-2" style="border:1px solid red; border-top:none; border-left: none; border-right: none;"><div class="col-12 commentInnerBox"><div class="row commentHeader">',
+	                        '<div class="row commentDiv commentBox'+resp[i].repSeq+resp[i].seq+' p-0 pb-2 m-2" style="border:1px solid gray; border-top:none; border-left: none; border-right: none;"><div class="col-12 commentInnerBox"><div class="row commentHeader">',
 //			                         '<div class="col-1 profileBox pl-1 pt-2"></div>',
 	                        '<div class="col-8 pt-3"><div class="row commentInfo">',
 	                        '<div class="col-12 commentWriter">'+resp[i].writer+'</div>',
@@ -600,7 +608,7 @@ span:nth-child(4) {
 			var html = [];
 			html.push(
 					'<div class="col-12 coModBox mt-2 mb-2"><div class="row">',
-					'<div class="col-9 col-md-10 col-xl-11 pr-0"><textarea class="form-control" placeholder="댓글 내용을 입력해주세요" id="pCoModContents" style="height:80px;" name="content">'+content+'</textarea></div>',
+					'<div class="col-9 col-md-10 col-xl-11 pr-0"><textarea class="form-control" placeholder="댓글 내용을 입력해주세요" maxlength="1300" id="pCoModContents" style="height:80px;" name="content">'+content+'</textarea></div>',
 					'<div class="col-3 col-md-2 col-xl-1"><input type="hidden" name="seq" value="'+seq+'"><input type="hidden" name="repSeq" value="'+repSeq+'"><input type="hidden" name="queSeq" value="'+queSeq+'">',
 					'<div class="row">',
 					'<div class="col-12 text-center p-0">',
@@ -642,7 +650,7 @@ span:nth-child(4) {
 		  	               for(var i=0;i<resp.length;i++){
 		  	                  var html = [];
 		  	                  html.push(
-		  	                        '<div class="row commentDiv commentBox'+resp[i].repSeq+resp[i].seq+' p-0 pb-2 m-2" style="border:1px solid red; border-top:none; border-left: none; border-right: none;"><div class="col-12 commentInnerBox"><div class="row commentHeader">',
+		  	                        '<div class="row commentDiv commentBox'+resp[i].repSeq+resp[i].seq+' p-0 pb-2 m-2" style="border:1px solid gray; border-top:none; border-left: none; border-right: none;"><div class="col-12 commentInnerBox"><div class="row commentHeader">',
 //		  			                         '<div class="col-1 profileBox pl-1 pt-2"></div>',
 		  	                        '<div class="col-8 pt-3"><div class="row commentInfo">',
 		  	                        '<div class="col-12 commentWriter">'+resp[i].writer+'</div>',
