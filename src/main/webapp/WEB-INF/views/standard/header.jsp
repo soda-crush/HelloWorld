@@ -11,7 +11,7 @@
 			</c:when>
 			<c:otherwise>
 			 <div class="row" id="loginCon">
-                <div class="col-12 text-right"><p style="display:inline">${sessionScope.loginInfo.nickName}님 환영합니다 Lv.${sessionScope.loginInfo.memLevel}</p>&emsp;<a href="${pageContext.request.contextPath}/member/mypage">마이페이지</a> | <a href="${pageContext.request.contextPath}/member/logout">로그아웃</a></div>
+                <div class="col-12 text-right" style="font-family:'Nanumgothic';"><p style="display:inline;color:#787878;font-family:'Nanumgothic';" class="font-weight-bold">${sessionScope.loginInfo.nickName}님 환영합니다 Lv.${sessionScope.loginInfo.memLevel}</p>&emsp;<a href="${pageContext.request.contextPath}/member/mypage">마이페이지</a> | <a href="${pageContext.request.contextPath}/member/logout">로그아웃</a></div>
             </div>
 			</c:otherwise>
 	</c:choose>
@@ -35,12 +35,12 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 
                 <div class="navbar-nav box text-center" id="naviCon">
-                    <a id="bambooNavi" class="nav-item nav-link" href="${pageContext.request.contextPath}/bamboo/bambooList.do">대나무숲</a>
-                    <a id="codeNavi" class="nav-item nav-link" href="${pageContext.request.contextPath}/code/codeQList.do">코드지식인</a>
-                    <a id="indusNavi" class="nav-item nav-link" href="${pageContext.request.contextPath}/industry/industryStatusList.do">업계현황</a>
-                    <a id="itNavi" class="nav-item nav-link" href="${pageContext.request.contextPath}/itnews/itnewsList">IT 뉴스</a>
-                    <a id="proNavi" class="nav-item nav-link" href="${pageContext.request.contextPath}/project/list">프로젝트</a>
-                    <a id="plogNavi" class="nav-item nav-link" href="${pageContext.request.contextPath}/Portfolio/toPlog.do?owner=${loginInfo.id}">P-log</a>
+                    <a id="bambooNavi" class="nav-item nav-link" href="${pageContext.request.contextPath}/bamboo/bambooList.do" style="font-family:'Nanumgothic';">대나무숲</a>
+                    <a id="codeNavi" class="nav-item nav-link" href="${pageContext.request.contextPath}/code/codeQList.do" style="font-family:'Nanumgothic';">코드지식인</a>
+                    <a id="indusNavi" class="nav-item nav-link" href="${pageContext.request.contextPath}/industry/industryStatusList.do" style="font-family:'Nanumgothic';">업계현황</a>
+                    <a id="itNavi" class="nav-item nav-link" href="${pageContext.request.contextPath}/itnews/itnewsList" style="font-family:'Nanumgothic';">IT 뉴스</a>
+                    <a id="proNavi" class="nav-item nav-link" href="${pageContext.request.contextPath}/project/list" style="font-family:'Nanumgothic';">프로젝트</a>
+                    <a id="plogNavi" class="nav-item nav-link" href="${pageContext.request.contextPath}/Portfolio/toPlog.do?owner=${loginInfo.id}" style="font-family:'Nanumgothic';">P-log</a>
                 </div>
             </div>
         </nav>

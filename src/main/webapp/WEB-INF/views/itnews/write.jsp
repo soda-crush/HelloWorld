@@ -69,8 +69,8 @@
 <script>
 $('.summernote').summernote({
     placeholder: '내용을 입력해주세요',	        
-    minHeight: 300,
-    maxHeight: 300,   
+    minHeight: 600,
+    maxHeight: 600,   
 });     
 
 $("#writeBtn").on("click", function(){
