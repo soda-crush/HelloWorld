@@ -99,6 +99,7 @@
             		<div class="col-12 text-center" id=adver style="height:200px;background-color:#9e9e9e;padding-top:80px;">광고자리</div>
             	</div>
             	
+            	
             	<div class="coContainer">
 	            	<c:if test="${list.size()>0 }">
 								<c:forEach items="${list}" var="dto">
