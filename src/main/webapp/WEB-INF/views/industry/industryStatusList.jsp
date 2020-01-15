@@ -57,23 +57,14 @@
 			</div>
 				
             	<div class="tableDiv">
-            		<div class="row tableHead">					    
-		   			 	<div class="col-xl-1 d-none d-xl-block">번호</div>
-					    <div class="col-xl-1 col-2 col-md-2">분야</div>
-					    <div class="col-xl-1 col-2 col-md-1">직무</div>
-					    <div class="col-xl-5 col-8 col-md-5">제목</div>
-					    <div class="col-xl-1 col-lg-1 d-none d-md-block">작성자</div>
-					    <div class="col-xl-2 col-md-4 d-none d-md-block">작성일</div>
-					    <div class="col-xl-1 d-none d-xl-block">조회수</div>	
-				  	 </div>
 				  	 <div class="row tableHead">					    
-		   			 	<div class="d-none col-md-1 d-md-block text-center">번호</div>
-					    <div class="d-none col-md-1 d-md-block text-center">분야</div>
-					    <div class="d-none col-md-1 d-md-block text-center">직무</div>
-					    <div class="d-none col-md-4 d-md-block text-center">제목</div>
-					    <div class="d-none col-md-2 d-md-block text-center">작성자</div>
-					    <div class="d-none col-md-2 d-md-block text-center">작성일</div>
-					    <div class="d-none col-md-1 d-md-block text-center">조회수</div>
+		   			 	<div class="col-xl-1 col-2 col-md-2 d-xl-block">번호</div>
+					    <div class="col-xl-1 col-md-1 d-none d-md-block">분야</div>
+					    <div class="col-xl-1 col-md-1 d-none d-md-block">직무</div>
+					    <div class="col-xl-5 col-7 col-md-6">제목</div>
+					    <div class="col-xl-1 col-3 col-md-2">작성자</div>
+					    <div class="col-xl-2 d-none d-xl-block">작성일</div>
+					    <div class="col-xl-1 d-none d-xl-block">조회수</div>
 				  	 </div>
             		 <c:choose>
 				  		<c:when test="${industryStatusList.size()==0 }">
@@ -82,26 +73,29 @@
 				  		<c:otherwise>
 				  			<c:forEach items="${industryStatusList }" var="i">
 				  				<div class="row tableBody p-0">
-				  					<div class="col-1 col-md-1 d-none d-md-block order-md-1 notTitle">${i.seq }</div>
+				  					<div class="col-xl-1 col-2 col-md-2 d-xl-block notTitle">${i.seq }</div>
 				  					
-									<div class="col-1 col-md-1 d-none d-md-block order-md-1 notTitle">${i.field}</div>
-				  					<div class="col-1 col-md-1 d-none d-md-block order-md-1 notTitle">${i.duty }</div>
+									<div class="col-xl-1 col-md-1 d-none d-md-block notTitle">${i.field}</div>
+				  					<div class="col-xl-1 col-md-1 d-none d-md-block notTitle text-center">${i.duty}</div>
 				  					
-				  					<div class="col-5 col-md-5 order-1 order-md-2" id=titleForCss>
-				  					<div style="width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;">
-				  						<a href="/industry/industryStatusDetailView.do?seq=${i.seq }">${i.title } </a>
+				  					<div class="col-xl-5 col-7 col-md-6" id=titleForCss>
+				  					<div class="row cursorPointer" onclick="location.href='/industry/industryStatusDetailView.do?seq=${i.seq}'">
+				  					<div style="max-width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;">
+				  						${i.title }
 				  					</div>	
+				  					
 				  					<c:if test="${i.commentCount>0 }">
 				  						
-				  							<div class="pComment font-weight-bold ml-2" style="display:inline-block;">${i.commentCount }</div>
+				  							<div class="pComment font-weight-bold ml-1" style="display:inline-block;margin-top:1px;">${i.commentCount }</div>
 				  						
 				  					</c:if>
 				  					</div>
-				  					<div class="col-2 col-md-2 order-2 order-md-3 notTitle text-center">
+				  					</div>
+				  					<div class="col-xl-1 col-3 col-md-2 notTitle text-center">
 				  					<div style="cursor:pointer" onclick="popUp('${i.id}','${i.writer}')">${i.writer }</div>
 				  					</div>
-				  					<div class="col-2 col-md-2 order-3 order-md-4 notTitle">${i.formedWriteDate }</div>
-				  					<div class="col-1 col-md-1 order-4 order-md-5 notTitle">${i.viewCount }</div>
+				  					<div class="col-xl-2 d-none d-xl-block notTitle">${i.formedWriteDate }</div>
+				  					<div class="col-xl-1 d-none d-xl-block notTitle">${i.viewCount }</div>
 				  					
 				  				</div>
 				  			</c:forEach>

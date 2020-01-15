@@ -16,29 +16,7 @@
 <link rel="stylesheet" href="/css/project/projectBase.css" type="text/css"/>
 <link rel="stylesheet" href="/css/project/list.css" type="text/css"/>
 <style>
-/* 	#pageTitle{margin-bottom:20px;} */
-/* 	#pageTitle h1{display:inline;margin-right:10px;font-weight:bold;} */
-/* 	#pageTitle .btn{margin-left:5px;} */
-/* 	.pComment{margin-left:3px;font-size:13px;color:orange;} */
-/* 	a:hover{text-decoration:none;} */
-	
-	
-/* 	.pageNavi{ */
-/* 		text-align:center; */
-/* 	} */
-/* 	#titleForCss a{ */
-/* 		color:black; */
-/* 		font-size: 17px; */
-/* 	} */
-/* 	.notTitle{ */
-/* 		color:gray; */
-/* 		font-size: 15px; */
-/* 		text-align: center; */
-/* 	} */
-/* 	.tableHead{ */
-/* 		background-color:#499ed6; */
-/* 		color:white; */
-/* 	} */
+
 </style>
 <script>
    $(function(){
@@ -82,11 +60,11 @@
            
            		<div class="tableDiv">
             	   	 <div class="row tableHead">					    
-		   			 	<div class="col-xl-1 d-none d-xl-block">번호</div>
-				   	 	<div class="col-xl-6 col-8 col-md-5">제목</div>
-				   	 	<div class="col-xl-2 col-2 col-md-1">작성자</div>
-				    	 <div class="col-xl-2 col-2 col-md-2 col-lg-1">작성일</div>
-				  	 	<div class="col-xl-1 col-md-4 d-none d-md-block">조회수</div>		
+		   			 	<div class="col-xl-2 col-2 col-md-3 d-xl-block">번호</div>
+				   	 	<div class="col-xl-5 col-7 col-md-6">제목</div>
+				   	 	<div class="col-xl-2 col-3 col-md-3">작성자</div>
+				    	 <div class="col-xl-2 d-none d-xl-block">작성일</div>
+				  	 	<div class="col-xl-1 d-none d-xl-block">조회수</div>
 				  	 </div>
           	    	 <c:choose>
 				  		<c:when test="${bambooList.size()==0 }">
@@ -95,20 +73,20 @@
 				  		<c:otherwise>
 				  			<c:forEach items="${bambooList }" var="b">
 				  				<div class="row tableBody p-0">
-				  					<div class="col-md-1 d-none d-md-block order-md-1 notTitle">${b.seq }</div>
-				  					<div class="col-12 col-md-6 order-1 order-md-2" id=titleForCss>
-				  						<div class="row">
-				  						<div style="width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;">
-				  							<a href="/bamboo/bambooDetailView.do?seq=${b.seq }" style="font-weight:bold;">${b.title}</a>			
+				  					<div class="col-xl-2 col-2 col-md-3 d-xl-block notTitle">${b.seq }</div>
+				  					<div class="col-xl-5 col-7 col-md-6" id=titleForCss>
+				  						<div class="row cursorPointer" onclick="location.href='/bamboo/bambooDetailView.do?seq=${b.seq }'">
+				  						<div class="text-left" style="max-width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;">
+				  							${b.title}			
 				  						</div>
 				  						<c:if test="${b.commentCount>0 }">
-				  								<div class="pComment font-weight-bold ml-2" style="display:inline-block;">${b.commentCount }</div>
+				  								<div class="pComment font-weight-bold ml-1" style="display:inline-block;margin-top:1px;">${b.commentCount }</div>
 				  							
 				  						</c:if>
 				  						</div>		
 				  						
 				  					</div>
-				  					<div class="col-2 col-md-2 order-2 order-md-3 notTitle text-center">
+				  					<div class="col-xl-2 col-3 col-md-3 notTitle text-center">
 				  					<c:choose>
             							<c:when test="${b.writer == sessionScope.loginInfo.id}">
             								${sessionScope.loginInfo.nickName}
@@ -118,9 +96,9 @@
             							</c:otherwise>
             						</c:choose>
 				  					</div>	
-				  					<div class="col-2 col-md-2 order-3 order-md-4 notTitle">${b.formedWriteDate }</div>
-				  					<div class="col-1 col-md-1 order-4 order-md-5 notTitle">${b.viewCount }</div>
-				  					<div class="col-7 order-5 d-md-none"></div>	
+				  					<div class="col-xl-2 d-none d-xl-block notTitle">${b.formedWriteDate }</div>
+				  					<div class="col-xl-1 d-none d-xl-block notTitle">${b.viewCount }</div>
+				  					
 				  				</div>
 				  			</c:forEach>
 				  		</c:otherwise>
