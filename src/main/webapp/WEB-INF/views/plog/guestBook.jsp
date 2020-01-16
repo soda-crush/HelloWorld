@@ -17,7 +17,7 @@
    		*{spellcheck="false"}
         ul{background-color: lightgray;font-size: 13px;}
         .card{width:200px;height:300px;margin:auto;float:left;}
-        .myprofile{float: left;margin-top: 20px;}
+        .myprofile{float: left;margin-top: 20px;padding-right:0px;}
         #mycard{float:none;display:flex;align-items:center;}
         .commentwrite{width:100%; height:100px;padding: 0px;margin-top: 10px;float: left;}
         .commentlist{width:100%;padding: 0px;margin-top: 10px;float: left;}

@@ -16,8 +16,8 @@
 
 	<style>
         .card{margin-top:20px;text-align:center;}
-        .myprofile{float: left; margin-top: 20px;margin-bottom: 30px;}
-        #mycard{float:none; display:flex; margin: auto;align-items:center;}
+        .myprofile{margin-top: 20px;margin-bottom: 30px;padding-right:0px;}
+        #mycard{float:none; display:flex;width:200px;height:300px;margin: auto;}
         .cardwrap{float:left;}
         .card-text{font-size:12px;}
         a:hover{text-decoration:none;}

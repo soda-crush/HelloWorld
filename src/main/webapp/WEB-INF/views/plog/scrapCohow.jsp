@@ -97,7 +97,7 @@
 						  			<c:forEach items="${clist }" var="dto">
 						  				<div class="row tableBody p-0">
 						  					<div class="col-2 col-lg-1" style="color:dodgerblue;">${dto.division}</div>
-											<div class="col-5 col-lg-7 " >
+											<div style="cursor:pointer;"class="col-5 col-lg-7 " >
 							  					<div class="line-over text-decoration-none" onclick="location.href='${pageContext.request.contextPath}/code/codeDetail.do?seq=${dto.seq}'">${dto.title} 
 								  					<c:if test="${dto.replyCount>0 }">
 								  						<span class="pComment font-weight-bold">${dto.replyCount}</span>

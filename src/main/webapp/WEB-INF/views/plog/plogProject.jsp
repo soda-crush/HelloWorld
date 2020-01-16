@@ -16,15 +16,15 @@
 	<style>
 		ul{background-color: lightgray;font-size: 13px;}
 		.card{width:200px;height:300px;margin: auto;float :left;}
-		.myprofile{float: left;margin-top: 20px;}
+		.myprofile{float: left; margin-top: 20px;}
 		#mycard{ float:none;display:flex;align-items:center;}
+        .card-text{font-size:12px;}
 		.commentwrite{width:100%;height:100px;padding: 0px;margin-top: 10px;float: left;}
 		.commentlist{width:100%;padding: 0px;margin-top: 10px;float: left;}
 		.col{margin: 0px;padding: 0px;}
 		.content{height:90%;float: left;resize: none;}
 		.sendbt{height:90%;float: left;}
 		#writer{text-underline-position: auto;margin-right: 30px;}
-		.navi{text-align: center;}
 		.nvlink1{height:45px;line-height:45px;font-size:14px;}
 		.nvlink2{height:45px;line-height:45px;font-size:10px;}
         a:hover{text-decoration:none;}
@@ -51,6 +51,7 @@
 
             	
             <div class="container">
+            
 	            <div class="row">
 	                <div class="col-12 col-md-4 col-lg-3 myprofile">
 	                    <div>
