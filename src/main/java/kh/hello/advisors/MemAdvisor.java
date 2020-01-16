@@ -38,7 +38,7 @@ public class MemAdvisor {
 				
 				if(sysFirstParam.contentEquals("String")) {
 					return "redirect:../member/noMem1?result="+sysMethod;
-				}else {
+				}else if(sysFirstParam.contentEquals("int")){
 					Object[] paramArr = pjp.getArgs();
 					int seq = Integer.parseInt(paramArr[0].toString());
 					return "redirect:../member/noMem2?result="+sysMethod+"&seq="+seq;
@@ -46,6 +46,26 @@ public class MemAdvisor {
 					
 				}
 			}
+			return "redirect:../member/noMem";
+		}
+		
+		
+		String result = "";
+		try {
+			Object objresult = pjp.proceed(pjp.getArgs());
+			if(objresult!=null)
+				result = objresult.toString();
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	public String memLevelCheck(ProceedingJoinPoint pjp) {
+		LoginInfoDTO dto = (LoginInfoDTO)session.getAttribute("loginInfo");
+		
+		if(dto.getMemLevel()==1) {
+			return "redirect:../member/mLevelIs1";
 		}
 		
 		String result = "";

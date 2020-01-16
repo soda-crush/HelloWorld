@@ -144,7 +144,7 @@
 						</div>
 						<div class="col-12 col-md-2 text-right pt-1">
 							<c:if test="${loginInfo!=null}">
-							<a class="btn btn-primary" href="${pageContext.request.contextPath}/itnews/write?page=${page}" role="button">글쓰기</a>	
+							<a class="btn btn-primary text-white" id=writeBtn role="button">글쓰기</a>	
 							</c:if>
 							<h5><br></h5>
 						</div>
@@ -173,6 +173,15 @@
             window.open(link, "pLogPopUp", "width=600,height=600");
          }
         $(".pNavi${page}").addClass("active");
+        
+        $("#writeBtn").on("click",function(){
+        	if(${loginInfo.memLevel==1}){
+        		alert("권한이 없습니다. 관리자에게 문의하세요.");
+        	}else{
+        		location.href="${pageContext.request.contextPath}/itnews/write?page=${page}";
+        	}
+        })
+        
         </script>
 </body>
 </html>

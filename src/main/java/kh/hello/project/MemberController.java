@@ -81,7 +81,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/logout")
-	public String logout(HttpSession session){ //로그아웃 프로세스
+	public String memLogout(HttpSession session){ //로그아웃 프로세스
 		session.invalidate();
 		return "redirect:/";
 	}
@@ -99,8 +99,8 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/modifyProc")
-	public String signUpProc(MemberDTO mdto, String empCheck, String empEmail, String unempEmail 
-			,String otherJoinPath, Timestamp birthday, String demotionMail) { //회원가입 프로세스
+	public String memModifyProc(MemberDTO mdto, String empCheck, String empEmail, String unempEmail 
+			,String otherJoinPath, Timestamp birthday, String demotionMail) { 
 		ms.modify(mdto, empCheck, empEmail, unempEmail, otherJoinPath, birthday, demotionMail);
 		return "redirect:modifyTemp";
 	}
@@ -111,7 +111,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/modifyTemp")
-	public String modifyTemp() {
+	public String memModifyTemp() {
 		return "member/modifyTemp";
 	}
 	
@@ -209,7 +209,7 @@ public class MemberController {
 		}
 	
 	 @RequestMapping("/mypage")
-	 public String myPage(){
+	 public String memMyPage(){
 		 return "member/mypage";
 	 }
 	 
@@ -296,24 +296,24 @@ public class MemberController {
 	 }
 	 
 	 @RequestMapping("/withdrawal")
-	 public String withdrawalFrm() {
+	 public String memWithdrawalFrm() {
 		 return "member/withdrawal";
 	 }
 	 
 	 @RequestMapping(value = "/withdrawalCheck",produces="text/html;charset=utf8")
 	 @ResponseBody
-	 public String withdrawalCheck(String pw, HttpSession session) {
+	 public String memWithdrawalCheck(String pw, HttpSession session) {
 		 return ms.withdrawalCheck(((LoginInfoDTO)session.getAttribute("loginInfo")).getId(), pw);
 	 }
 	 
 	 @RequestMapping("/modifyCheck")
-	 public String toModifyCheckFrm() {
+	 public String memToModifyCheckFrm() {
 		 return "member/modifyCheck";
 	 }
 	
 	 @RequestMapping("/modifyPwCheck")
 	 @ResponseBody
-		public String modifyPwCheck(String pw, HttpSession session){ 
+		public String memModifyPwCheck(String pw, HttpSession session){ 
 				int result = ms.login(((LoginInfoDTO)session.getAttribute("loginInfo")).getId(), pw);
 				if(result > 0) {
 					return "true";
@@ -323,7 +323,7 @@ public class MemberController {
 		}
 	 
 	 @RequestMapping("/modify")
-	 public String toModifyFrm(Model m, HttpSession session) {
+	 public String memToModifyFrm(Model m, HttpSession session) {
 		 m.addAttribute("dto",ms.selectMember(((LoginInfoDTO)session.getAttribute("loginInfo")).getId()));
 		 return "member/modify";
 	 }
@@ -339,6 +339,21 @@ public class MemberController {
 	 public String toNoMemForm2(String result, Model m) {
 		 m.addAttribute("noMemPath", result);
 		 return "member/noMem";
+	 }
+	 
+	 @RequestMapping("/noMem")
+	 public String toNoMemForm() {
+		 return "member/noMem";
+	 }
+	 
+	 @RequestMapping("/mLevelIs1")
+	 public String mLevelIs1() {
+		 return "member/memLevelIs1";
+	 }
+	 
+	 @RequestMapping("/toMyInquiry")
+	 public String toMyInquiry() {
+		 return "redirect:../member1/myInquiry";
 	 }
 	 
 }

@@ -90,6 +90,9 @@ public class ItnewsController {
 			is.increViewCount(seq);
 			List<ItnewsCoDTO> list = is.commentList(seq);
 			ItnewsDTO result = is.itnewsDetail(seq);
+			if(result==null) {
+				return "/itnews/itnewsView";
+			}
 			String profileImg = is.getImgByWriter(result.getWriter());
 			m.addAttribute("profileImg", profileImg);
 			m.addAttribute("list", list);
@@ -104,6 +107,7 @@ public class ItnewsController {
 		dto.setId(((LoginInfoDTO)session.getAttribute("loginInfo")).getId());
 		dto.setWriter(((LoginInfoDTO)session.getAttribute("loginInfo")).getNickName());
 		is.coWrite(dto, seq);
+		System.out.println( is.coWriteAfter(seq));
 		return is.coWriteAfter(seq);
 	}
 	
@@ -187,7 +191,6 @@ public class ItnewsController {
 	@ResponseBody
 	@RequestMapping("/report")
 	public String reportProject(ReportDTO dto, HttpSession session) {
-		System.out.println("엥");
 		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
 		dto.setReporterID(sessionValue.getId());
 		dto.setReporterNick(sessionValue.getNickName());		

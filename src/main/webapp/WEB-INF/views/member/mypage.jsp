@@ -41,10 +41,11 @@
             <div class="row">
             	<div class="col-12 text-center">
             	<hr>
-            	<h3><br></h3>
+            	<h3><br><br></h3>
 	            	<button type="button" class="btn btn-light btnM" id=modify>내 정보 수정</button><br><br>
 	            	<button type="button" class="btn btn-light btnM" id=personalQ>1:1 문의</button><br><br>
 	            	<button type="button" class="btn btn-light btnM" id=withdrawal>회원탈퇴</button>
+            	<h3><br><br></h3>
             	</div>
             </div>
             

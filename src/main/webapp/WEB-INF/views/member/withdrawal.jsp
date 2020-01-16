@@ -38,8 +38,10 @@
 					<p>회원탈퇴 진행시 탈퇴한 아이디로는 재가입이 불가능합니다. 비밀번호를 입력해 주세요.</p><br>
 				</div>
 				<div class="col-12 text-center">
-					<input type = text id = pw name=pw placeholder="비밀번호 입력">
+					<h1><br></h1>
+					<input type = text id = pw name=pw placeholder="비밀번호 입력" class=inputStyle1>
 					<button type="button" class="btn btn-dark" id=do>탈퇴</button>
+					<h1><br><br><br></h1>
 				</div>
 			</div>
 

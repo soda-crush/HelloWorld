@@ -13,6 +13,15 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/css/mainBase.css">
 <link rel="stylesheet" type="text/css" href="/css/font-awesome/css/font-awesome.css">
+<style>
+#pw{
+	height: 38px;
+	border-radius: 6%;
+	border:1px solid #a8a8a8;
+	position:relative;
+	top:2px;
+	}
+</style>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/standard/header.jsp"/>
@@ -28,7 +37,7 @@
             <!--      몸통 시작!!!   -->
 
             
-            <div class="container">
+            <div class="container eleCon">
             
 	            <div class=row>
 					<div class=col-12>
@@ -38,8 +47,9 @@
 						<p>비밀번호를 입력해주세요.</p><br>
 					</div>
 					<div class="col-12 text-center">
-						<input type="text" id=pw name=pw placeholder="비밀번호"><br>
-						<button type="button" class="btn btn-secondary" id="do">확인</button>
+					<h3><br></h3>
+						<input type="text" id=pw name=pw placeholder="비밀번호">&ensp;<button type="button" class="btn btn-secondary" id="do" style="display:inline;">확인</button>
+						<h3><br><br><br><br></h3>
 					</div>
 				</div>
 				
