@@ -121,11 +121,9 @@
 				</div>
 			</div>	
 			<div class=row>
-				<div class="col-1 title">
-					<h4>제목</h4>
-				</div>
-				<div class="col-11 title" >
-					<input type="text" name=title style="width: 100%" maxlength="100">
+				
+				<div class="col-12 title" >
+					<input type="text" name=title style="width: 100%" maxlength="100" placeholder="제목을 입력해주세요.">
 				</div>
 			</div>	
 			<div class=row>

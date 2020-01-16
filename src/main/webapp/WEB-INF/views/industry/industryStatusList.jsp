@@ -75,12 +75,12 @@
 				  				<div class="row tableBody p-0">
 				  					<div class="col-xl-1 col-2 col-md-2 d-xl-block notTitle">${i.seq }</div>
 				  					
-									<div class="col-xl-1 col-md-1 d-none d-md-block notTitle">${i.field}</div>
-				  					<div class="col-xl-1 col-md-1 d-none d-md-block notTitle text-center">${i.duty}</div>
+									<div class="col-xl-1 col-md-1 d-none d-md-block notTitle" style="font-weight:normal">${i.field}</div>
+				  					<div class="col-xl-1 col-md-1 d-none d-md-block notTitle text-center" style="cursor:default">${i.duty}</div>
 				  					
 				  					<div class="col-xl-5 col-7 col-md-6" id=titleForCss>
 				  					<div class="row cursorPointer" onclick="location.href='/industry/industryStatusDetailView.do?seq=${i.seq}'">
-				  					<div style="max-width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;">
+				  					<div style="max-width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;font-weight:bold;">
 				  						${i.title }
 				  					</div>	
 				  					
@@ -154,25 +154,33 @@
         		alert("로그인을 해주세요.");
         		return false;
         	}
-			
-			$.ajax({
-				url : "/industry/memLevel.do",
-				type : "post",
-				dataType : "json",
-				data : {
-					id : "${sessionScope.loginInfo.id}"
-				}
-			}).done(function(resp){
-				if(resp > 2){
-					location.href="/industry/industryStatusWrite.do";	
-				}else{
-					alert("권한이 없습니다. 관리자에게 문의하세요.")
-					return false;
-				}
+			if("${sessionScope.loginInfo.memLevel}"==1){
+				alert("권한이 없습니다. 관리자에게 문의하세요.");
+				return false;
+			}if("${sessionScope.loginInfo.memLevel}"==2){
+				alert("권한이 없습니다. 재직자 인증을 해주세요.");
+				return false;
+			}else{
+				location.href="/industry/industryStatusWrite.do";
+			}
+// 			$.ajax({
+// 				url : "/industry/memLevel.do",
+// 				type : "post",
+// 				dataType : "json",
+// 				data : {
+// 					id : "${sessionScope.loginInfo.id}"
+// 				}
+// 			}).done(function(resp){
+// 				if(resp > 2){
+// 					location.href="/industry/industryStatusWrite.do";	
+// 				}else{
+// 					alert("권한이 없습니다. 관리자에게 문의하세요.")
+// 					return false;
+// 				}
 				
-			}).fail(function(resp){
-				console.log("실패");
-			})
+// 			}).fail(function(resp){
+// 				console.log("실패");
+// 			})
 		});
 		$(function(){
 			var element = $(".pageNavi");

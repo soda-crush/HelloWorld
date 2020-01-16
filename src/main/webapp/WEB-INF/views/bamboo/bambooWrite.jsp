@@ -76,11 +76,9 @@
 		<form action="bambooWriteProc.do" method="post"
 			enctype="multipart/form-data" id=writeForm>
 			<div class=row>
-				<div class="col-1 title">
-					<h4>제목</h4>
-				</div>
-				<div class="col-11 title" >
-					<input type="text" name=title style="width: 100%" maxlength="100">
+				
+				<div class="col-12 title" >
+					<input type="text" name=title style="width: 100%" maxlength="100" placeholder="제목을 입력해주세요.">
 				</div>
 			</div>
 				<div class=row>
@@ -107,7 +105,6 @@
    		  });
 		
 		$("#write").on("click", function() {
-			$("#title").val($.trim($("#title").val())); 						
 			if (($("#title").val()=="" || $(".note-editable").text()== "")) {
 				alert("작성 하지 않는 문항이 있습니다. 다시 한번 확인해주세요.");
 				return false;
