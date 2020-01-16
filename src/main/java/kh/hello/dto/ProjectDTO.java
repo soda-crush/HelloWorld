@@ -13,8 +13,6 @@ public class ProjectDTO {
 	private String location1;
 	private String location2;
 	private int capacity;
-//	private Timestamp startDate;
-//	private Timestamp endDate;
 	private Date startDate;
 	private Date endDate;
 	private String languages;
@@ -31,6 +29,7 @@ public class ProjectDTO {
 	private Timestamp changeDate;
 	private int totalApply;
 	private int totalApprove;
+	private String profileImg;
 	
 	public ProjectDTO() {
 		super();
@@ -38,7 +37,7 @@ public class ProjectDTO {
 	public ProjectDTO(int seq, String title, String contents, String location1, String location2, int capacity,
 			Date startDate, Date endDate, String languages, String phone, String email, String writer, String id,
 			Timestamp writeDate, String state, int viewCount, int commentCount, int applyCount, int scrap,
-			Timestamp changeDate, int totalApply, int totalApprove) {
+			Timestamp changeDate, int totalApply, int totalApprove, String profileImg) {
 		super();
 		this.seq = seq;
 		this.title = title;
@@ -62,7 +61,9 @@ public class ProjectDTO {
 		this.changeDate = changeDate;
 		this.totalApply = totalApply;
 		this.totalApprove = totalApprove;
+		this.profileImg = profileImg;
 	}
+
 
 	public int getSeq() {
 		return seq;
@@ -195,6 +196,12 @@ public class ProjectDTO {
 	}
 	public void setTotalApprove(int totalApprove) {
 		this.totalApprove = totalApprove;
+	}
+	public String getProfileImg() {
+		return profileImg;
+	}
+	public void setProfileImg(String profileImg) {
+		this.profileImg = profileImg;
 	}
 	
 	

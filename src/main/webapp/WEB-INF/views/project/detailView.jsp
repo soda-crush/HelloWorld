@@ -23,6 +23,9 @@
       $("#proNavi").attr('class','nav-item nav-link active');
    });
 </script>
+<style>
+
+</style>
 </head>
 
 <body>
@@ -45,7 +48,8 @@
 					<c:if test="${pPage.seq !=null }">
 						<div id="pHeader">
 							<label class="${pPage.state } badge badge-pill ml-4" id="stateLabel">${pPage.stateInKor }</label>
-							<i class="fa fa-share-alt"></i>
+							<label class="mb-0">
+							<i class="fa fa-share-alt" id="kakaoSharing" data-toggle="tooltip" title="카카오톡 공유하기"></i>
 							<c:choose>
 								<c:when test="${scrap=='impossible' }">
 									<i class="fa fa-bookmark" id="scrapDone" data-toggle="tooltip" title="스크랩"></i>									
@@ -54,11 +58,13 @@
 									<i class="fa fa-bookmark-o" id="scrapNull" data-toggle="tooltip" title="스크랩"></i>									
 								</c:otherwise>
 							</c:choose>
+							</label>
 							<br>
-							<div class="ml-4 mr-3" style="font-weight:bold;font-size:20px;display:inline-block;word-break:break-all;word-break:break-word;">${pPage.title}</div><br>
-							<label class="ml-4" onclick="popUp('/Portfolio/toPlog.do?owner=${pPage.id}')" style="cursor:pointer;">작성자 : <strong>${pPage.writer }</strong></label>
-							<label class="ml-4">작성일 : ${pPage.formedWriteDate }</label>
-							<label class="ml-4">조회 : ${pPage.viewCount }</label>
+							<div class="ml-4 mr-3 mb-3 mt-2" style="font-weight:bold;font-size:20px;display:inline-block;word-break:break-all;word-break:break-word;">${pPage.title}</div><br>
+							<label class="ml-4 mb-0" onclick="popUp('/Portfolio/toPlog.do?owner=${pPage.id}')" style="cursor:pointer;">
+							<img src="${pPage.profileImg }" style="width:30px;height:30px;margin-right:7px;margin-bottom:5px;"><strong style="font-size:15px;">${pPage.writer }</strong></label>
+							<label class="ml-4 mb-0">작성일 : ${pPage.formedWriteDate }</label>
+							<label class="ml-4 mb-0">조회 : ${pPage.viewCount }</label>
 						</div>
 						<hr>
 						<div id="pInfo">
@@ -336,7 +342,7 @@
 				console.log("성공");
 				console.log(resp);
 				alert("스크랩되었습니다.");
-				$("#scrapNull").replaceWith('<i class="fa fa-bookmark" id="scrapDone"></i>');
+				$("#scrapNull").replaceWith('<i class="fa fa-bookmark" id="scrapDone" data-toggle="tooltip" title="스크랩"></i>');
 			}).fail(function(resp){
 				console.log("실패");
 				console.log(resp);
@@ -353,7 +359,7 @@
 				console.log("성공");
 				console.log(resp);
 				alert("스크랩이 취소되었습니다.");
-				$("#scrapDone").replaceWith('<i class="fa fa-bookmark-o" id="scrapNull"></i>');
+				$("#scrapDone").replaceWith('<i class="fa fa-bookmark-o" id="scrapNull" data-toggle="tooltip" title="스크랩"></i>');
 			}).fail(function(resp){
 				console.log("실패");
 				console.log(resp);
