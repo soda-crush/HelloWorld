@@ -242,9 +242,9 @@
 						<a class="btn btn-primary"
 							href="/industry/industryStatusDeleteProc.do?seq=${iPage.seq}"
 							role="button">삭제하기</a>
-					</div>
-					</div>
 				</c:if>
+					</div>
+					</div>
 				</div>
 			<!--       몸통 끝!!!   -->
 

@@ -2,7 +2,6 @@ package kh.hello.project;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import kh.hello.configuration.Configuration;
 import kh.hello.dto.BambooCoDTO;
 import kh.hello.dto.BambooDTO;
-import kh.hello.dto.IndustryStatusDTO;
 import kh.hello.dto.LoginInfoDTO;
 import kh.hello.dto.ReportDTO;
 import kh.hello.services.BambooService;

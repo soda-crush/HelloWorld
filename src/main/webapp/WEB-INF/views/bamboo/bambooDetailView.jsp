@@ -242,9 +242,10 @@
 						<button type="button" class="btn btn-primary" id="modify">수정하기</button>
 					<a class="btn btn-primary"
 						href="/bamboo/bambooDeleteProc.do?seq=${bPage.seq }" role="button">삭제하기</a>
+					
+				</c:if>
 					</div>
-					</div>
-				</c:if> 
+					</div> 
 				</div>     
        
 		<!--       몸통 끝!!!   -->

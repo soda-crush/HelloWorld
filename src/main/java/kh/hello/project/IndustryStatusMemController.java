@@ -2,7 +2,6 @@ package kh.hello.project;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kh.hello.configuration.Configuration;
-import kh.hello.dto.BambooDTO;
 import kh.hello.dto.IndustryStatusCoDTO;
 import kh.hello.dto.IndustryStatusDTO;
 import kh.hello.dto.LoginInfoDTO;
@@ -67,7 +65,6 @@ public class IndustryStatusMemController {
 	@ResponseBody
 	@RequestMapping(value="/memLevel.do",produces="text/html;charset=utf8")
 	public String getMemLevel(IndustryStatusDTO dto) {	
-		System.out.println(Integer.toString(service.getMemLevel(dto.getId())));
 		return Integer.toString(service.getMemLevel(dto.getId()));
 	}
 
