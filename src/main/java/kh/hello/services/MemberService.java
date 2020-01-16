@@ -3,6 +3,7 @@ package kh.hello.services;
 import java.sql.Timestamp;
 
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeUtility;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -18,7 +19,9 @@ public class MemberService {
 
 	@Autowired
 	private MemberDAO mdao;
-	
+
+	@Autowired
+	private JavaMailSender mailSender;
 	
 	//로그인
 	public int login(String id, String pw){
@@ -167,5 +170,66 @@ public class MemberService {
 			
 		}
 		
+		//회원가입 메일인증 
+		  public String mailSending(String email) throws Exception{
+			String ctfCode = Utils.getRandomCode();
+			String setfrom = "sohyunKH4862@gmail.com";         
+			String tomail  = email;     // 받는 사람 이메일
+			String title   = "[Hello World!] 회원가입 메인 인증 코드입니다.";      // 제목
+			String content = "해당코드를 입력창에 입력해주세요 : " + ctfCode;    // 내용
+					  
+					    
+			//디비에 이메일이랑 인증코드 저장
+			this.insertCtfCode(email, ctfCode);
+						 
+			MimeMessage message = mailSender.createMimeMessage();
+			MimeMessageHelper messageHelper 
+							= new MimeMessageHelper(message, true, "UTF-8");
+							      
+			messageHelper.setFrom(setfrom);  // 보내는사람 생략하거나 하면 정상작동을 안함
+			messageHelper.setTo(tomail);     // 받는사람 이메일
+			messageHelper.setSubject(MimeUtility.encodeText(title, "UTF-8", "B")); // 메일제목은 생략이 가능하다
+			messageHelper.setText(content, "text/html; charset=utf-8");  // 메일 내용
+							     
+			mailSender.send(message);
+
+			return "send";
+		  }	
+		
+		//아이디 찾기 메인인증
+		  public String idFindmailSending(String name, String email) { //아이디 찾기
+				 int result = this.isEmailExist(name, email);
+				 if(result > 0){
+					 try {
+							String ctfCode = Utils.getRandomCode();
+						    String setfrom = "sohyunKH4862@gmail.com";         
+						    String tomail  = email;     // 받는 사람 이메일
+						    String title   = "[Hello World!]  아이디/비밀번호 찾기 메인 인증 코드입니다.";      // 제목
+						    String content = "해당코드를 입력창에 입력해주세요 : " + ctfCode;    // 내용
+						  
+						    
+						    	//디비에 이메일이랑 인증코드 저장
+							    this.insertCtfCode(email, ctfCode);
+							 
+							    	 MimeMessage message = mailSender.createMimeMessage();
+								      MimeMessageHelper messageHelper 
+								                        = new MimeMessageHelper(message, true, "UTF-8");
+								      
+								      messageHelper.setFrom(setfrom);  // 보내는사람 생략하거나 하면 정상작동을 안함
+								      messageHelper.setTo(tomail);     // 받는사람 이메일
+								      messageHelper.setSubject(MimeUtility.encodeText(title, "UTF-8", "B")); // 메일제목은 생략이 가능하다
+								      messageHelper.setText(content, "text/html; charset=utf-8");  // 메일 내용
+								     
+								      mailSender.send(message);
+
+									  return "send";
+						}catch(Exception e) {
+							e.printStackTrace();
+							return "에러";
+						}
+				 }else {
+					 return "false";
+				 }
+			}
 		
 }

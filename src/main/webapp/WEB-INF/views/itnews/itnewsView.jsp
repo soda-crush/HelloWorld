@@ -265,7 +265,7 @@
         						url:"${pageContext.request.contextPath}/itnews/scrap",
         						type:"post",
         						data:{
-        							category : "itnews",
+        							category : "itNews",
         							categorySeq : ${result.seq}
         						}
         					}).done(function(resp){
