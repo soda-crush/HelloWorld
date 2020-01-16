@@ -46,6 +46,15 @@
 </script>
 </head>
 <body>
+	<c:choose>
+	<c:when test="${result==null}">
+		<script>
+			alert("삭제되었거나 존재하지 않는 글입니다");
+			location.href="${pageContext.request.contextPath}/";
+		</script>
+	</c:when>
+	</c:choose>	
+	
 	<jsp:include page="/WEB-INF/views/standard/header.jsp"/>
 	
  		<div id=baseBackgroundColor>
@@ -112,11 +121,11 @@
 												<div class="col-7 pt-1">
 													<div class="row commentInfo">
 														<div class="col-12 commentWriter"><a onclick="popUp('/Portfolio/toPlog.do?owner=${dto.id}')">${dto.writer }</a></div>
-														<div class="col-12 commentWriteDate">${dto.getDate()}</div>
+														<div class="col-12 commentWriteDate">${dto.formedDate}</div>
 													</div>
 												</div>				
 												<div class="col-4 pt-2 text-right commentBtns">
-													<c:if test="${dto.writer==sessionScope.loginInfo.nickName}">
+													<c:if test="${dto.writer==sessionScope.loginInfo.nickName&&loginInfo.memLevel!=1}">
 														<a class="btn btn-info coModBtn" href="#" onclick="coModFunction(${dto.seq},'${dto.content}');return false;" role="button">수정</a>
 														<a class="btn btn-danger coDelBtn" href="#" onclick="coDelFunction(${dto.seq});return false;" role="button">삭제</a>
 													</c:if>
@@ -131,7 +140,7 @@
 							</c:if>
             	</div>
             	
-            	<c:if test="${loginInfo!=null}">
+            	<c:if test="${loginInfo!=null&&loginInfo.memLevel!=1}">
             	
             	<div class=row>
 	            		<div class=col-12>
@@ -256,7 +265,7 @@
         						url:"${pageContext.request.contextPath}/itnews/scrap",
         						type:"post",
         						data:{
-        							category : "itnews",
+        							category : "itNews",
         							categorySeq : ${result.seq}
         						}
         					}).done(function(resp){
@@ -279,7 +288,11 @@
             			}
             		})
             		$("#modify").on("click",function(){
-            			location.href="${pageContext.request.contextPath}/itnews/modify?seq=${result.seq}&page=${page}";
+            			if(${loginInfo.memLevel==1}){
+            				alert("권한이 없습니다. 관리자에게 문의하세요.");	
+            			}else{
+            				location.href="${pageContext.request.contextPath}/itnews/modify?seq=${result.seq}&page=${page}";
+            			}
             		})
             		
             		//댓글
@@ -392,7 +405,7 @@
 									'<div class="col-1 profileBox pl-1 pt-2"><img src="'+resp[i].profileImg+'" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>',
 									'<div class="col-7 pt-1"><div class="row commentInfo">',
 									'<div class="col-12 commentWriter"><a onclick="popUp(\'/Portfolio/toPlog.do?owner='+resp[i].id+'\')" >'+resp[i].writer+'</a></div>',
-									'<div class="col-12 commentWriteDate">'+resp[i].formedWriteDate+'</div></div></div>',
+									'<div class="col-12 commentWriteDate">'+resp[i].formedDate+'</div></div></div>',
 									'<div class="col-4 pt-2 text-right commentBtns">'
 									);
 							if(resp[i].writer==loginInfo){

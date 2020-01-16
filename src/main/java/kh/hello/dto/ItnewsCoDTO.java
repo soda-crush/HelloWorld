@@ -11,22 +11,17 @@ public class ItnewsCoDTO {
 	private Timestamp writeDate;
 	private String id;
 	private String profileImg;
+	private String formedDate;
 	
 	
-	public String getDate(){
-	      long exDate = System.currentTimeMillis();
-	      long processedWrite_date = writeDate.getTime();
-	      long sec = (exDate - processedWrite_date)/1000;
-	      int hour = (int)(sec/360.0) + 1;
-	      
-	      if(hour < 14) {
-	    	  SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-		         return sdf.format(processedWrite_date);
-	      }else {
-	    	  SimpleDateFormat sdf = new SimpleDateFormat("20yy.MM.dd");
-		         return sdf.format(processedWrite_date);
-	      }
-	   }
+	public String getFormedDate() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+		this.formedDate = sdf.format(this.writeDate);
+		return this.formedDate;
+	}
+	public void setFormedDate(Timestamp writeDate) {
+		this.formedDate = getFormedDate();
+	}
 	
 	public String getFormedWriteDateForAdmin() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
@@ -106,12 +101,14 @@ public class ItnewsCoDTO {
 	public void setProfileImg(String profileImg) {
 		this.profileImg = profileImg;
 	}
-
 	@Override
 	public String toString() {
 		return "ItnewsCoDTO [seq=" + seq + ", itSeq=" + itSeq + ", writer=" + writer + ", content=" + content
-				+ ", writeDate=" + writeDate + ", id=" + id + ", profileImg=" + profileImg + "]";
+				+ ", writeDate=" + writeDate + ", id=" + id + ", profileImg=" + profileImg + ", formedDate="
+				+ formedDate + "]";
 	}
+
+
 
 
 	

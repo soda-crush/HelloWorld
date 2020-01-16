@@ -13,28 +13,9 @@
 <link rel="stylesheet" type="text/css" href="/css/font-awesome/css/font-awesome.css">
 </head>
 <body>
-	<c:choose>
-		<c:when test="${seq!=null}">
-			<script>
-				alert("로그인 정보가 필요한 페이지 입니다.");
-				location.href="${pageContext.request.contextPath}/member/login?noMemPath=${noMemPath}&seq=${seq}";
-			</script>
-		</c:when>
-		<c:when test="${noMemPath!=null}">
-			<script>
-				alert("로그인 정보가 필요한 페이지 입니다.");
-				location.href="${pageContext.request.contextPath}/member/login?noMemPath=${noMemPath}";
-			</script>
-		</c:when>
-		<c:otherwise>
-			<script>
-				alert("로그인 정보가 필요한 페이지 입니다.");
-				location.href="${pageContext.request.contextPath}/member/login";
-			</script>
-		</c:otherwise>
-	</c:choose>
-	
-	
-	
+		<script>
+			alert("강등회원은 이용이 불가능합니다. 일대읠 문의를 이용해주세요.");
+			location.href="${pageContext.request.contextPath}/member/toMyInquiry";
+		</script>
 </body>
 </html>
