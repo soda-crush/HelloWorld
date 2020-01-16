@@ -34,9 +34,10 @@
 <script>
 	if("${result}" > 0){
 		alert("해당 회원을 강제 탈퇴시켰습니다");
-		location.href = "${pageContext.request.contextPath }/admin/memberList";
+		opener.location.reload();
+		window.close();
 	}else{
-		alert("강제 탈퇴에 실패했습니다. 다시 시도해주세요");
+		alert("이미 탈퇴한 회원일 수 있습니다. 확인 후 다시 시도해주세요");
 		history.back();
 	}
 </script>

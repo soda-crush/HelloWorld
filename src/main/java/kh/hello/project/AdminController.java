@@ -250,11 +250,15 @@ public class AdminController {
 	
 	@RequestMapping("/memberOut")
 	public String memberOut(String id, String reason, String etcReason, Model m) {
-		System.out.println(reason+etcReason);
 		if(reason.contentEquals("etc")) {
 			reason = etcReason;
 		}
-		int result = as.memberOut(id, reason);
+		int result = 0;
+		try {
+			result = as.memberOut(id, reason);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		m.addAttribute("result", result);
 		return "admin/memberOutResult";
 	}
@@ -344,8 +348,16 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/blackOut")
-	public String outBlack(String id, String reason, Model m) {
-		int result = as.memberOut(id, reason);
+	public String outBlack(String id, String reason, String etcReason, Model m) {
+		if(reason.contentEquals("etc")) {
+			reason = etcReason;
+		}
+		int result = 0;
+		try {
+			result = as.memberOut(id, reason);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		m.addAttribute("result", result);
 		return "admin/blackOutResult";
 	}
