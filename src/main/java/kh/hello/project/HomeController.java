@@ -34,7 +34,6 @@ public class HomeController {
 		
 		return "home";
 	}
-
 	
 	@RequestMapping("/manage")
 	public String adminHome() {
