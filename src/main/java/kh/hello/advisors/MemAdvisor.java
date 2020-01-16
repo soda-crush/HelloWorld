@@ -61,6 +61,7 @@ public class MemAdvisor {
 		return result;
 	}
 	
+	
 	public String memLevelCheck(ProceedingJoinPoint pjp) {
 		LoginInfoDTO dto = (LoginInfoDTO)session.getAttribute("loginInfo");
 		
