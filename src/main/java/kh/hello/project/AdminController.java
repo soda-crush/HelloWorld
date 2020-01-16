@@ -241,9 +241,24 @@ public class AdminController {
 		return "admin/memberStartResult";
 	}
 	
+	@RequestMapping("/memberOutForm")
+	public String memberOutForm(String id, Model m) {
+		MemberDTO dto = as.getMemberInfo(id);
+		m.addAttribute("dto", dto);
+		return "admin/memberOutForm";
+	}
+	
 	@RequestMapping("/memberOut")
-	public String memberOut(String id, String reason, Model m) {
-		int result = as.memberOut(id, reason);
+	public String memberOut(String id, String reason, String etcReason, Model m) {
+		if(reason.contentEquals("etc")) {
+			reason = etcReason;
+		}
+		int result = 0;
+		try {
+			result = as.memberOut(id, reason);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		m.addAttribute("result", result);
 		return "admin/memberOutResult";
 	}
@@ -333,8 +348,16 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/blackOut")
-	public String outBlack(String id, String reason, Model m) {
-		int result = as.memberOut(id, reason);
+	public String outBlack(String id, String reason, String etcReason, Model m) {
+		if(reason.contentEquals("etc")) {
+			reason = etcReason;
+		}
+		int result = 0;
+		try {
+			result = as.memberOut(id, reason);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		m.addAttribute("result", result);
 		return "admin/blackOutResult";
 	}

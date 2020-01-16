@@ -48,7 +48,10 @@
 						</div>
 					</div>
 					<div class="dateList text-center">
-	            		<div id="timeline" class="text-center"></div>
+	            		<div id="timeline1" class="text-center"></div>
+	            		
+	            		
+	            		<div id="timeline2" class="text-center"></div>
 	            	</div>	
 				</div>
             <!--       몸통 끝!!!   -->
@@ -66,40 +69,47 @@
         <jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
         
 <script>
-google.charts.load('current', {'packages':['timeline']});
-google.charts.setOnLoadCallback(drawChart);
-function drawChart() {
-  var container = document.getElementById('timeline');
-  var chart = new google.visualization.Timeline(container);
-  var dataTable = new google.visualization.DataTable();
 
-  dataTable.addColumn({ type: 'string', id: 'Term' });
-  dataTable.addColumn({ type: 'string', id: 'Name' });
-  dataTable.addColumn({ type: 'date', id: 'Start' });
-  dataTable.addColumn({ type: 'date', id: 'End' });
-  dataTable.addRows([
-    [ '1', 'Washington', new Date(2020, 1, 3), new Date(2020, 2, 4) ],
-    [ '2', 'Adams',      new Date(2020, 2, 4),  new Date(2020, 11, 4) ],
-    [ '3', 'Jefferson',  new Date(2020, 8, 1),  new Date(2020, 10, 4) ]]);
-  
-  var options = {
-			hAxis: {
-				format: 'yyyy.MM.dd',
-				minValue: new Date(2020, 0, 1),
-				maxValue: new Date(2020, 11, 31)
-			},
-			timeline: { 
-// 				singleColor: '#e83e8c',
-//				singleColor: '#ffc107',
-				groupByRowLabel: true,
-				barLabelStyle:{fontSize:20},
-				showRowLabels: false,
-			},
-			height:'500',
-			width: '1100'
-  }
-  chart.draw(dataTable,options);
+
+for(var i=1;i<3;i++){
+	google.charts.load('current', {'packages':['timeline']});
+	google.charts.setOnLoadCallback(drawChart);
+	function drawChart() {
+// 		var today = new Date();
+// 		var halfYearAfter = new Date();
+// 		halfYearAfter.setDate(today.getMonth() + 6);
+		var id = "timeline"+i;
+	  var container = document.getElementById(id);
+	  var chart = new google.visualization.Timeline(container);
+	  var dataTable = new google.visualization.DataTable();
+
+	  dataTable.addColumn({ type: 'string', id: 'Term' });
+	  dataTable.addColumn({ type: 'string', id: 'Name' });
+	  dataTable.addColumn({ type: 'date', id: 'Start' });
+	  dataTable.addColumn({ type: 'date', id: 'End' });
+	  dataTable.addRows([
+	    [ '1', 'Washington', new Date(2020, 1, 3), new Date(2020, 2, 4) ]]);
+	  
+	  var options = {
+				hAxis: {
+					format: 'yyyy.MM.dd',
+					minValue: new Date(2020, 1, 3),
+					maxValue: new Date(2020, 7, 3)
+				},
+				timeline: { 
+//	 				singleColor: '#e83e8c',
+//					singleColor: '#ffc107',
+					groupByRowLabel: true,
+					barLabelStyle:{fontSize:20},
+					showRowLabels: false,
+				},
+				height:'500',
+				width: '1100'
+	  }
+	  chart.draw(dataTable,options);
+	}
 }
+
 
 </script>
 </body>

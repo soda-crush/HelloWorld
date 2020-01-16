@@ -48,7 +48,7 @@
 									<div class="col-1 state${a.state }"><strong>${a.stateInKor }</strong></div>										
 									<div class="col-1">${a.capacity }명</div>
 									<div class="col-1">${a.location1 } ${a.location2 }</div>
-									<div class="col-2">${a.formedAllDate }</div>																											
+									<div class="col-2">${a.formedDate }</div>																											
 									<div class="col-3 text-decoration-none" onclick="popUp('/project/detailView?seq=${a.projectSeq}')">
 										<div class="row">
 											<div style="max-width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;">${a.title }</div> 

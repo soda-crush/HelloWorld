@@ -52,17 +52,26 @@ $(function() {
 
 		<!--      몸통 시작!!!   -->
 		<div class=container id="projectPage" style="background-color:white">
-		<div id="pageTitle">
-			<table>
-				<tr>
-					<td colspan="3" style="font-size: 60px; font-weight: 100;">업계현황</td>
-					<td></td>
-					<td style="font-size: 15px; color: gray;">업계현황에 대한 정보를 나누는
-						게시판입니다.</td>
-					<td></td>
-				</tr>
-			</table>
-		</div>
+		<div class=row>
+				<div class="col-12 d-none d-md-block">
+					<div id="pageTitle">
+						<table>
+							<tr>
+								<td colspan="3" style="font-size: 60px; font-weight: 100; vertical-align: text-bottom">업계현황</td>
+								<td></td>
+								<td style="font-size: 15px; color: gray; vertical-align: text-bottom">     업계현황에 대한 정보를 나누는 게시판입니다.</td>
+								<td></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class=row>
+				<div class="d-md-none">
+					<div style="font-size: 60px; font-weight: 100;">업계현황</div>
+					<div style="font-size: 15px; color: gray;">업계현황에 대한 정보를 나누는 게시판입니다.</div>
+				</div>
+			</div>
 		<c:if test="${iPage.seq !=null }">
 			<form action="industryStatusModifyProc.do" method="post" enctype="multipart/form-data" id=writeForm>
 				<input type="hidden" name="writer" value="${iPage.writer}">

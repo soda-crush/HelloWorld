@@ -114,8 +114,7 @@
                                                 	<div class="row d-none d-sm-block">닉네임(아이디)</div>
                                                 	</th>
                                                     <th scope="col">최종방문일</th>   
-                                                    <th scope="col">레벨</th>  
-                                                    <th scope="col">신고횟수</th>                                             
+                                                    <th scope="col">레벨</th>                                            
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -148,7 +147,6 @@
 		                                                    </td>
 		                                                    <td>${dto.formedLastLogin}</td>
 		                                                    <td>${dto.memLevel}</td>
-		                                                    <td>${dto.reportCount}</td>
 		                                               		</tr>
 		                                               		<form action="${pageContext.request.contextPath}/admin/memberOut" method="post" id="frm${dto.id}">
 		                                               			<input type="hidden" name="id" value="${dto.id}">
@@ -156,7 +154,7 @@
 		                                               		</form>
 		                                               		<script>
 		                                           			$("#memberInfo${dto.id}").on("click", function(){
-		                                           				window.open("${pageContext.request.contextPath}/admin/getMemberInfo?id=${dto.id}","","width=600px,height=526px,top=300px,left=600px");
+		                                           				window.open("${pageContext.request.contextPath}/admin/getMemberInfo?id=${dto.id}","","width=518px,height=592px,top=300px,left=600px");
 		                                           			})
 		                                           			$("#memberStop${dto.id}").on("click", function(){
 		                                           				var result = confirm("${dto.nickName}(${dto.id}) 님을 활동정지 하시겠습니까?");
@@ -171,15 +169,7 @@
 		                                           				};
 		                                           			})
 		                                           			$("#memberOut${dto.id}").on("click", function(){
-		                                           				var result = prompt("${dto.nickName}(${dto.id}) 님 강제 탈퇴 이유를 적어주세요");
-		                                           				if(result == null){
-		                                           					return false;
-		                                           				}else if(result == ""){
-		                                           					alert("강제 탈퇴 이유를 적어주세요");
-		                                           				}else{
-		                                           					$("#reason${dto.id}").val(result);
-		                                           					$("#frm${dto.id}").submit();
-		                                           				}
+		                                           				window.open("${pageContext.request.contextPath}/admin/memberOutForm?id=${dto.id}", "", "width=434px,innerHeight=453px,top=300px,left=600px");	
 		                                           			})
 		                                               			
 		                                               		</script>

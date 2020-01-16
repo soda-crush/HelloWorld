@@ -5,7 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeUtility;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,6 +41,9 @@ public class AdminService {
 	
 	@Autowired
 	private CountDAO ctdao;
+	
+	@Autowired
+	private JavaMailSender informMail;
 	
 	public int validLogin(String adminId, String password) {
 		return adao.validLogin(adminId, password);
@@ -192,13 +200,35 @@ public class AdminService {
 	}
 	
 	@Transactional("txManager")
-	public int memberOut(String id, String reason) {
-		//강퇴시키고
-		adao.memberOut(id);
-		//이메일 정보 받아오기
-		String email = adao.getEmailById(id);
-		//테이블에 입력하기		
-		return adao.memberOutList(id, email, reason);		 
+	public int memberOut(String id, String reason) throws Exception{
+		//존재하는 회원인지 확인하기
+		MemberDTO dto = adao.getMemberInfo(id);
+		if(dto.getPw() != null) {
+			//강퇴시키고
+			adao.memberOut(id);
+			//이메일 정보 받아오기
+			String email = adao.getEmailById(id);
+			//강퇴 회원에게 메일 보내기
+			String setfrom = "hw.ad.inform@gmail.com";         
+			String tomail  = email;     // 받는 사람 이메일
+			String title   = "[Hello World!]에서 강제 탈퇴 당하셨습니다.";      // 제목
+			String content = "강퇴사유 : " + reason;    // 내용		
+			
+	    	MimeMessage message = informMail.createMimeMessage();
+		    MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
+		    
+		    messageHelper.setFrom(setfrom);  // 보내는사람 생략하거나 하면 정상작동을 안함
+		    messageHelper.setTo(tomail);     // 받는사람 이메일
+		    messageHelper.setSubject(MimeUtility.encodeText(title, "UTF-8", "B"));//메일 제목
+		    message.setContent(content, "text/html; charset=utf-8");
+		     
+		    informMail.send(message);			
+			
+			//테이블에 입력하기		
+			return adao.memberOutList(id, email, reason);				
+		}else {
+			return 0;
+		}
 	}
 	
 	public List<ForcedOutMemberDTO> forcedOutListByPage(int start, int end) {
