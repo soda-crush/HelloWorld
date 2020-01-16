@@ -67,6 +67,20 @@
 			<aop:after-returning pointcut-ref="coDelMinusMethod" method="delCo"/>
 		</aop:aspect>	
 	</aop:config>	
+	
+	<!-- 관리자 로그인 체크 -->
+	<bean id="adminCheckAdv" class="kh.hello.advisors.AdminAdvisor"/>
+	<aop:config>
+		<aop:pointcut expression="execution(* kh.hello.project.AdminController.ad*(..))" id="adminMethod"/>
+		<aop:pointcut expression="execution(* kh.hello.project.AdBoardController.*(..))" id="adBoardMethod"/>
+		
+		<aop:aspect ref="adminCheckAdv">
+			<aop:around method="loginCheck" pointcut-ref="adminMethod"/>
+		</aop:aspect>
+		<aop:aspect ref="adminCheckAdv">
+			<aop:around method="loginCheck" pointcut-ref="adBoardMethod"/>
+		</aop:aspect>
+	</aop:config>
 
 		
 </beans>
