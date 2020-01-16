@@ -97,7 +97,7 @@
 						  			<c:forEach items="${ilist}" var="dto">
 						  				<div class="row tableBody p-0">
 							   				<div class="col-2 d-none d-md-block">${dto.field }/${dto.duty }</div>
-							    			<div class="col-6 col-md-4 line-over"><a href="${pageContext.request.contextPath}/itnews/detail?seq=${dto.seq}&page=${page}">${dto.title}</a></div>
+							    			<div style="cursor:pointer;" class="col-6 col-md-4 line-over"><a href="${pageContext.request.contextPath}/itnews/detail?seq=${dto.seq}&page=${page}">${dto.title}</a></div>
 							    			<div class="col-3 line-over" style="text-align:center">${dto.writer}</div>
 							    			<div class="col-3 col-lg-2">${dto.getFormedWriteDateForAdmin()}</div>
 							    			<div class="col-1 d-none d-lg-block">${dto.viewCount}</div>	

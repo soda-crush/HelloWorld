@@ -96,7 +96,7 @@
 						  			<c:forEach items="${plist }" var="p">
 						  				<div class="row tableBody p-0">
 											<div class="col-2 ${p.state }" style="text-align:center;">${p.stateInKor }</div>
-												<div class="col-7 col-lg-4 line-over" onclick="location.href='${pageContext.request.contextPath}/project/detailView?seq=${p.seq }'" class="text-decoration-none">${p.title } 
+												<div  style="cursor:pointer;" class="col-7 col-lg-4 line-over text-decoration-none" onclick="location.href='${pageContext.request.contextPath}/project/detailView?seq=${p.seq }'">${p.title } 
 							  						<c:if test="${p.commentCount>0 }">
 							  							<span class="pComment font-weight-bold">${p.commentCount }</span>
 							  						</c:if>					  					
