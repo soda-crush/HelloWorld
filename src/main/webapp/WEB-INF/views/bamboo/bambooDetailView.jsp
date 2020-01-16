@@ -123,7 +123,7 @@
             		<div class="col-12" style="font-size: 15px;color:#707070;"><hr>
             		<c:choose>
             			<c:when test="${bPage.writer == sessionScope.loginInfo.id}">
-            			<img src="${bPage.profileImg }" width=50,height=50>작성자 : ${sessionScope.loginInfo.nickName}
+            			<img src="${bPage.profileImg }" width=40,height=40> ${sessionScope.loginInfo.nickName}
             			</c:when>
             			<c:otherwise>
             			<img src="/img/profile0.png" width=50,height=50>작성자 : 익명
@@ -139,9 +139,9 @@
         </c:if>
         
         			<div class=row>
-            		<div class="col-12 text-center">
-        			<a id="kakao-link-btn" href="javascript:;" onClick="shareKakaotalk();"> 
-						<img src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" height=38/>
+            		<div class="col-12 text-right">
+        			<a id="kakao-link-btn" href="javascript:;" onClick="shareKakaotalk();" style="text-decoration:none"> 
+						<img src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" height=38 style="margin-right:2px;"/>
 					</a>
  					
 				<!-- 		     <a class="sbtn btn-primary" href="#" role="button">스크랩</a> -->
@@ -232,15 +232,14 @@
             	</div>
             	</div>
             	
-            	<div class=container>
+            	<div class="container">
+            	<div class="row">
+            	<div class="col-12 text-right pt-2">
+            	<a class="btn btn-primary" href="/bamboo/bambooList.do"
+					role="button">돌아가기</a>
             	<c:if test="${bPage.writer == sessionScope.loginInfo.id}">
 					
-					<div class="row">
-					<div class="col-12 text-right pt-2">
-					<a class="btn btn-primary" href="/bamboo/bambooList.do"
-					role="button">돌아가기</a>
-					<a class="btn btn-primary"
-						href="/bamboo/bambooModify.do?seq=${bPage.seq }" role="button">수정하기</a>
+						<button type="button" class="btn btn-primary" id="modify">수정하기</button>
 					<a class="btn btn-primary"
 						href="/bamboo/bambooDeleteProc.do?seq=${bPage.seq }" role="button">삭제하기</a>
 					</div>
@@ -263,7 +262,27 @@
 	<jsp:include page="/WEB-INF/views/standard/footer.jsp" />
 
 	<script>
-        $("#coWriteBtn").on("click",function(){
+		$("#modify").on("click",function(){
+			$.ajax({
+				url : "/bamboo/memLevel.do",
+				type : "post",
+				dataType : "json",
+				data : {
+					id : "${sessionScope.loginInfo.id}"
+				}
+			}).done(function(resp){
+				if(resp > 1){
+					location.href="/bamboo/bambooModify.do?seq=${bPage.seq }";
+				}else{
+					alert("권한이 없습니다. 관리자에게 문의해주세요.")
+					return false;
+				}	
+			}).fail(function(resp){
+				console.log("실패");
+			})
+		})
+        
+		$("#coWriteBtn").on("click",function(){
         	if("${sessionScope.loginInfo.id}" == ""){
         		alert("로그인을 해주세요.");
         		return false;
@@ -313,23 +332,39 @@
 			}
 		});
          	
-			function coModFunction(seq,contents,bamSeq){     
-				$(".commentBox"+seq).find(".commentBtns").css("display","none");
-				$(".commentBox"+seq).find(".commentContent").css("display","none");
-           		$(".commentBox"+seq).wrap('<form action="/bamboo/comment/modifyProc.do" method="post" id="coModFrm"></form>');
-				var html = [];
-    			html.push(
-    					'<div class="col-12 coModBox mt-2"><div class="row">',
-    					'<div class="col-9 col-md-10 col-xl-11 pr-0"><textarea maxlength="1300" class="form-control" placeholder="댓글 내용을 입력해주세요" id="pCoModContents" style="height:80px;" name="content">'+contents+'</textarea></div>',
-    					'<div class="col-3 col-md-2 col-xl-1"><input type="hidden" name="seq" value="'+seq+'"><input type="hidden" name="bamSeq" value="'+bamSeq+'">',
-    					'<div class="row">',
-    					'<div class="col-12 text-center p-0">',
-    					'<button type="button" class="btn btn-secondary" style="margin-bottom:5px;width:80%;" id="coMoCancel">취소</button>',
-    					'</div></div>',
-    					'<div class="row"><div class="col-12 text-center p-0">',
-    					'<button type="button" class="btn btn-warning" style="width:80%;" id="coMoBtn">수정</button>',
-    					'</div></div></div></div></div>');
-    			$(".commentBox"+seq).append(html.join(""));    			
+			function coModFunction(seq,contents,bamSeq){
+				$.ajax({
+					url : "/bamboo/memLevel.do",
+					type : "post",
+					dataType : "json",
+					data : {
+						id : "${sessionScope.loginInfo.id}"
+					}
+				}).done(function(resp){
+					if(resp > 1){
+						$(".commentBox"+seq).find(".commentBtns").css("display","none");
+						$(".commentBox"+seq).find(".commentContent").css("display","none");
+		           		$(".commentBox"+seq).wrap('<form action="/bamboo/comment/modifyProc.do" method="post" id="coModFrm"></form>');
+						var html = [];
+		    			html.push(
+		    					'<div class="col-12 coModBox mt-2"><div class="row">',
+		    					'<div class="col-9 col-md-10 col-xl-11 pr-0"><textarea maxlength="1300" class="form-control" placeholder="댓글 내용을 입력해주세요" id="pCoModContents" style="height:80px;" name="content">'+contents+'</textarea></div>',
+		    					'<div class="col-3 col-md-2 col-xl-1"><input type="hidden" name="seq" value="'+seq+'"><input type="hidden" name="bamSeq" value="'+bamSeq+'">',
+		    					'<div class="row">',
+		    					'<div class="col-12 text-center p-0">',
+		    					'<button type="button" class="btn btn-secondary" style="margin-bottom:5px;width:80%;" id="coMoCancel">취소</button>',
+		    					'</div></div>',
+		    					'<div class="row"><div class="col-12 text-center p-0">',
+		    					'<button type="button" class="btn btn-warning" style="width:80%;" id="coMoBtn">수정</button>',
+		    					'</div></div></div></div></div>');
+		    			$(".commentBox"+seq).append(html.join(""));
+					}else{
+						alert("권한이 없습니다. 관리자에게 문의해주세요.")
+						return false;
+					}	
+				}).fail(function(resp){
+					console.log("실패");
+				})
            	}
            	
            	$(document).on("click","#coMoCancel",function(){
