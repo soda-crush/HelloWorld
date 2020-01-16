@@ -46,5 +46,12 @@ public class HomeController {
 		return "error";
 	}
 	
+	@RequestMapping("/needLogin")
+	public String adminNeedLogin() {
+		return "admin/needLogin";
+	}
+		
+	
+	
 }
 

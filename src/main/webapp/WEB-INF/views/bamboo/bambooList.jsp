@@ -13,10 +13,11 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/css/mainBase.css">
 <link rel="stylesheet" type="text/css" href="/css/font-awesome/css/font-awesome.css">
-<link rel="stylesheet" href="/css/project/projectBase.css" type="text/css"/>
 <link rel="stylesheet" href="/css/project/list.css" type="text/css"/>
 <style>
-
+	#pageTitle{margin-bottom:20px;}
+	#pageTitle h1{display:inline;margin-right:10px;font-weight:bold;}
+	#pageTitle .btn{margin-left:5px;}
 </style>
 <script>
    $(function(){
@@ -149,24 +150,30 @@
         		alert("로그인을 해주세요.");
         		return false;
         	}
-			$.ajax({
-				url : "/bamboo/memLevel.do",
-				type : "post",
-				dataType : "json",
-				data : {
-					id : "${sessionScope.loginInfo.id}"
-				}
-			}).done(function(resp){
-				if(resp > 1){
-					location.href="/bamboo/bambooWrite.do";
-				}else{
-					alert("권한이 없습니다. 관리자에게 문의하세요.")
-					return false;
-				}
+			if("${sessionScope.loginInfo.memLevel}" == 1){
+				alert("권한이 없습니다. 관리자에게 문의하세요.");
+				return false;
+			}else{
+				location.href="/bamboo/bambooWrite.do";
+			}
+// 			$.ajax({
+// 				url : "/bamboo/memLevel.do",
+// 				type : "post",
+// 				dataType : "json",
+// 				data : {
+// 					id : "${sessionScope.loginInfo.id}"
+// 				}
+// 			}).done(function(resp){
+// 				if(resp > 1){
+// 					location.href="/bamboo/bambooWrite.do";
+// 				}else{
+// 					alert("권한이 없습니다. 관리자에게 문의하세요.")
+// 					return false;
+// 				}
 				
-			}).fail(function(resp){
-				console.log("실패");
-			})
+// 			}).fail(function(resp){
+// 				console.log("실패");
+// 			})
 		})
 		$(function(){
 		var element = $(".pageNavi");

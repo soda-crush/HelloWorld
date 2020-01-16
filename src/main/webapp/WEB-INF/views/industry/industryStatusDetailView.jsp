@@ -139,13 +139,13 @@
       word-break:break-word;"><h3><br>${iPage.title}</h3></div>
             	</div>
             	<div class=row>
-            		<div class="col-12" style="font-size: 15px;color:#707070;"><br>분야 : ${iPage.field } / 직무 : ${iPage.duty }</div>
+            		<div class="col-12" style="font-size: 15px;color:#707070;"><br>${iPage.field } / ${iPage.duty }</div>
             	</div>
             	<div class="row">
             		<input type="hidden" name="seq" value="${iPage.seq}">
             		<input type="hidden" name="id" value="${iPage.id}">
             		
-            		<div class="col-12" style="font-size: 15px;color:#707070;"><hr><img src="${iPage.profileImg }" width=50,height=50><span style="cursor:pointer" onclick="popUpPlog('${iPage.id}','${iPage.writer}')">작성자 : ${iPage.writer}</span>&emsp;작성일 : ${iPage.formedWriteDate}&emsp;조회수 : ${iPage.viewCount}<hr></div>
+            		<div class="col-12" style="font-size: 15px;color:#707070;"><hr><img src="${iPage.profileImg }" width=40,height=40><span style="cursor:pointer" onclick="popUpPlog('${iPage.id}','${iPage.writer}')"> ${iPage.writer}</span>&emsp;작성일 : ${iPage.formedWriteDate}&emsp;조회수 : ${iPage.viewCount}<hr></div>
             	</div>
             	<div class="row">
             		<div class="col-12" id=contentCon style="word-break:break-all;
@@ -154,12 +154,12 @@
         </c:if>
         					
 			<div class=row>
-            		<div class="col-12 text-center">
-        				<a id="kakao-link-btn" href="javascript:;" onClick="shareKakaotalk();"> 
-						<img src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" height=38/>
+            		<div class="col-12 text-right">
+        				<a id="kakao-link-btn" href="javascript:;" onClick="shareKakaotalk();" style="text-decoration:none;"> 
+						<img src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" height=38 style="margin-right:2px;"/>
 					</a>
-        			 <i class="fa fa-bookmark-o" id="scrap"
-						data-toggle="tooltip" title="스크랩"></i> 
+        			 <i class="fa fa-bookmark-o cursorPointer" id="scrap"
+						data-toggle="tooltip" title="스크랩" style="font-size:30px;margin:15px;"></i> 
 						<c:if test="${iPage.id != sessionScope.loginInfo.id}">
 						<button type="button" class="btn btn-primary" id="report">신고하기</button>
 						</c:if>
@@ -229,14 +229,16 @@
             	</div>
         </div>
         <div class=container>
-		<c:if test="${iPage.id == sessionScope.loginInfo.id}">
+		
 					<div class="row">
 					<div class="col-12 text-right pt-2">
 					<a class="btn btn-primary" href="/industry/industryStatusList.do"
 						role="button">돌아가기</a>
+					<c:if test="${iPage.id == sessionScope.loginInfo.id}">
 					<a class="btn btn-primary"
 							href="/industry/industryStatusModify.do?seq=${iPage.seq }"
 							role="button">수정하기</a>
+					
 						<a class="btn btn-primary"
 							href="/industry/industryStatusDeleteProc.do?seq=${iPage.seq}"
 							role="button">삭제하기</a>
@@ -339,7 +341,16 @@
 				$("#pCoContents").val("");
 			}
 		});
-			function coModFunction(seq,contents,indSeq){     
+			function coModFunction(seq,contents,indSeq){
+				$.ajax({
+					url : "/industry/memLevel.do",
+					type : "post",
+					dataType : "json",
+					data : {
+						id : "${sessionScope.loginInfo.id}"
+					}
+				}).done(function(resp){
+					if(resp > 1){
 				$(".commentBox"+seq).find(".commentBtns").css("display","none");
 				$(".commentBox"+seq).find(".commentContent").css("display","none");
            		$(".commentBox"+seq).wrap('<form action="/industry/comment/modifyProc.do" method="post" id="coModFrm"></form>');
@@ -355,7 +366,14 @@
     					'<div class="row"><div class="col-12 text-center p-0">',
     					'<button type="button" class="btn btn-warning" style="width:80%;" id="coMoBtn">수정</button>',
     					'</div></div></div></div></div>');
-    			$(".commentBox"+seq).append(html.join(""));    			
+    			$(".commentBox"+seq).append(html.join(""));
+					}else{
+						alert("권한이 없습니다. 관리자에게 문의해주세요.")
+						return false;
+					}	
+				}).fail(function(resp){
+					console.log("실패");
+				})
            	}
            	
            	$(document).on("click","#coMoCancel",function(){
@@ -449,6 +467,8 @@
     		$("#report").on("click",function(){
     			var check = "해당 게시물을 신고하시겠습니까?";
     			if(check){
+    				
+    				
     				$.ajax({
     					url:"/industry/reportDuplCheck.do",
     					type:"post",
@@ -465,6 +485,8 @@
     				});
     				return false;
     			}
+    			
+    			
     		});
 			
     		$("#reportFrm").on("submit",function(){

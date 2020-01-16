@@ -16,8 +16,8 @@
 <link rel="stylesheet" href="/css/project/list.css" type="text/css"/>
 	<style>
 		ul{background-color: lightgray;font-size: 13px;}
-		.card{width:200px;height:300px;margin: auto;float :left;}
-		.myprofile{float: left;margin-top: 20px;}
+		.card{width:200px;height:300px;margin: auto;}
+		.myprofile{margin-top: 20px;padding-right:0px;}
 		#mycard{ float:none;display:flex;align-items:center;}
 		.commentwrite{width:100%;height:100px;padding: 0px;margin-top: 10px;float: left;}
 		.commentlist{width:100%;padding: 0px;margin-top: 10px;float: left;}
@@ -83,7 +83,7 @@
 						  				<div class="row tableBody p-0">
 						  					<div class="col-2 col-lg-1" style="color:dodgerblue;">${dto.division}</div>
 											<div class="col-7 col-lg-5 " >
-							  					<div class="line-over text-decoration-none" onclick="location.href='${pageContext.request.contextPath}/code/codeDetail.do?seq=${dto.seq}'">${dto.title} 
+							  					<div style="cursor:pointer;" class="line-over text-decoration-none" onclick="location.href='${pageContext.request.contextPath}/code/codeDetail.do?seq=${dto.seq}'">${dto.title} 
 								  					<c:if test="${dto.replyCount>0 }">
 								  						<span class="pComment font-weight-bold">${dto.replyCount}</span>
 								  					</c:if>	
@@ -121,7 +121,7 @@
 						  				<div class="row tableBody p-0">
 						  					<div class="col-2 col-lg-1" style="color:dodgerblue;">${dto.division}</div>
 											<div class="col-7 col-lg-5 " >
-							  					<div class="line-over text-decoration-none" onclick="location.href='${pageContext.request.contextPath}/code/codeDetail.do?seq=${dto.seq}'">${dto.title} 
+							  					<div style="cursor:pointer;" class="line-over text-decoration-none" onclick="location.href='${pageContext.request.contextPath}/code/codeDetail.do?seq=${dto.seq}'">${dto.title} 
 								  					<c:if test="${dto.replyCount>0 }">
 								  						<span class="pComment font-weight-bold">${dto.replyCount}</span>
 								  					</c:if>	

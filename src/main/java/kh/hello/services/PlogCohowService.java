@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import kh.hello.configuration.Configuration;
 import kh.hello.dao.PlogCohowDAO;
 import kh.hello.dto.CodeQuestionDTO;
-import kh.hello.dto.GuestBookDTO;
 
 @Service
 public class PlogCohowService {

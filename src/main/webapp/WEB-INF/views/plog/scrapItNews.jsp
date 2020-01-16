@@ -16,8 +16,8 @@
 <link rel="stylesheet" href="/css/project/list.css" type="text/css"/>
 	<style>
 		ul{background-color: lightgray;font-size: 13px;}
-		.card{width:200px;height:300px;margin: auto;;float :left;}
-		.myprofile{float: left;margin-top: 20px;width:200px;text-align:center;}
+		.card{width:200px;height:300px;margin: auto;float :left;}
+		.myprofile{float: left;margin-top: 20px;}
 		#mycard{ float:none;display:flex;align-items:center;}
 		.commentwrite{width:100%;height:100px;padding: 0px;margin-top: 10px;float: left;}
 		.commentlist{width:100%;padding: 0px;margin-top: 10px;float: left;}
@@ -93,7 +93,7 @@
 						  		<c:otherwise>
 						  			<c:forEach items="${nlist}" var="dto">
 						  				<div class="row tableBody p-0">
-							    			<div class="col-7 col-lg-5 line-over"><a href="${pageContext.request.contextPath}/itnews/detail?seq=${dto.seq}&page=${page}">${dto.title}</a></div>
+							    			<div style="cursor:pointer;" class="col-7 col-lg-5 line-over"><a href="${pageContext.request.contextPath}/itnews/detail?seq=${dto.seq}&page=${page}">${dto.title}</a></div>
 							    			<div class="col-2 line-over">${dto.writer}</div>
 							    			<div class="col-3">${dto.getDate()}</div>
 							    			<div class="col-2 d-none d-lg-block">${dto.viewCount}</div>	

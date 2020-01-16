@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kh.hello.dto.CodeQuestionDTO;
-import kh.hello.dto.IndustryStatusDTO;
 
 @Repository
 public class PlogCohowDAO {
