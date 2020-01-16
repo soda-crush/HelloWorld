@@ -10,13 +10,34 @@
 	
 	<select id="getArticleCount" resultType="integer">
 		select count(*) from project
+			<if test="pageOrder == 'startDate'">
+				where state = 'N'
+				<if test="searchOption!=null">
+					<include refid="searchAnd"></include>
+				</if>				
+			</if>
 		<if test="searchOption!=null">
 			<include refid="search"></include>
 		</if>		
 	</select>
 
 	<select id="getListByPage" resultType="kh.hello.dto.ProjectDTO">
-		select * from (select project.*,(select count(*) from projectComment where projectSeq=project.seq and contents is not null) as commentCount, row_number() over (order by seq desc) as num from project
+		select * from (select project.*,(select count(*) from projectComment where projectSeq=project.seq and contents is not null) as commentCount, row_number() over (order by 
+		<choose>
+			<when test="pageOrder == 'seq'">
+				seq desc
+			</when>
+			<when test="pageOrder == 'startDate'">
+				startDate asc
+			</when>
+		</choose>
+		) as num from project
+			<if test="pageOrder == 'startDate'">
+				where state = 'N'
+				<if test="searchOption!=null">
+					<include refid="searchAnd"></include>
+				</if>
+			</if>
 		<if test="searchOption!=null">
 			<include refid="search"></include>
 		</if>
@@ -40,7 +61,8 @@
 	</sql>
 	
 	<select id="getProjectDetailView" resultType="kh.hello.dto.ProjectDTO">
-		select project.*,(select count(*) from projectApply where projectSeq=project.seq and approve in('W')) as applyCount from project where seq=#{value}
+<!-- 		select project.*,(select count(*) from projectApply where projectSeq=project.seq and approve in('W')) as applyCount from project where seq=#{value} -->
+		select * from (select project.*, profileImg, (select count(*) from projectApply where projectSeq=project.seq and approve in('W')) as applyCount from project inner join member on project.seq=#{value} and project.id = member.id)
 	</select>	
 	<select id="latestSeq" resultType="integer">
 		select max(seq) from project where id=#{value}
@@ -93,7 +115,7 @@
 	<select id="getMakeArticleCount" resultType="integer">
 		select count(*) from project where id=#{id}
 		<if test="searchOption!=null">
-			<include refid="searchForPLog"></include>
+			<include refid="searchAnd"></include>
 		</if>
 	</select>	
 	<select id="getPLogMakeListByPage" resultType="kh.hello.dto.ProjectDTO">
@@ -104,7 +126,7 @@
 		where contents is not null group by projectSeq) pc
 		on project.seq = pc.projectSeq where project.id = #{id}
 		<if test="searchOption!=null">
-			<include refid="searchForPLog"></include>
+			<include refid="searchAnd"></include>
 		</if>
 		) where num between #{start} and #{end} 
 	</select>	
@@ -112,7 +134,7 @@
 	<select id="getApplyArticleCount" resultType="integer">
 		select count(*) from projectApply, project where projectApply.id=#{id} and projectApply.projectSeq = project.seq
 		<if test="searchOption!=null">
-			<include refid="searchForPLog"></include>
+			<include refid="searchAnd"></include>
 		</if>
 	</select>	
 	<select id="getPLogApplyListByPage" resultType="kh.hello.dto.ProjectPLogDTO">		
@@ -123,13 +145,13 @@
 		where contents is not null group by projectSeq) pc
 		on project.seq = pc.projectSeq where projectApply.id = #{id}
 		<if test="searchOption!=null">
-			<include refid="searchForPLog"></include>
+			<include refid="searchAnd"></include>
 		</if>		
 		)
 		where num between #{start} and #{end}
 	</select>
 	
-	<sql id="searchForPLog">
+	<sql id="searchAnd">
 		<choose>
 			<when test="searchOption=='all'">
 				and (title like '%'||#{keyword}||'%'

@@ -8,7 +8,7 @@
 #pHeader label.Y{background-color:red;}
 #pHeader label:not(#stateLabel){font-size:13px;}
 #pHeader span:first-of-type{font-size:20px;}	
-#pHeader .fa{margin-left:15px;margin-top:15px;font-size:20px;}
+#pHeader .fa{margin-left:15px;margin-top:10px;font-size:25px;}
 #pInfo *,#pBody *{font-size:15px;font-weight:500;}
 #pInfo label,#pBody label{width:100px;color:darkgray;}
 .applyBtn{margin-bottom:20px;}
@@ -71,7 +71,8 @@
 }
 img{max-width:100%;}
 #scrapDone{color:crimson;}
-#scrapDone,#scrapNull:hover{cursor:pointer;}
+#kakaoSharing,#scrapDone,#scrapNull:hover{cursor:pointer;}
+#kakaoSharing:hover{color:#ffc107;}
 .commentWriteDate{font-size:10px;}
 .commentWriter{font-weight:bold;}
 #pCoReplyContents{

@@ -58,7 +58,7 @@
 									</div>
 									
 									
-									<div class="col-1">${m.formedWriteDate }</div>
+									<div class="col-1">${m.formedDate }</div>
 									<div class="col-1">${m.viewCount }</div>
 								</div>	
 				  			</c:forEach>
