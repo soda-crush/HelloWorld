@@ -17,7 +17,7 @@
 						<div class="row">
 							<div class="col-12"><label class="rItem">신고사유</label></div>
 							<div class="col-12" id="reportReasonBoxR">
-									<textarea class="form-control form-control-sm" placeholder="신고사유를 작성해주세요" name="reason" id="reportReasonInputR" style="height:100px;"></textarea>
+									<textarea class="form-control form-control-sm" maxlength="300" placeholder="신고사유를 작성해주세요" name="reason" id="reportReasonInputR" style="height:100px;"></textarea>
 									<input type=hidden name="boardSeq" value="${qResult.seq}">							
 									<input type=hidden name="title" id="titleR">
 							</div>

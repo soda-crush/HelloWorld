@@ -73,10 +73,10 @@
 		<form action="codeQWriteProc.do" method="post" id="writeForm">
 			<div class=container>
 				<div class=row>
-					<div class="col-3 division">
-						<h4>Language</h4>
+					<div class="col-xl-1 col-3 title">
+						언어
 					</div>
-					<div class="col-3 division">
+					<div class="col-xl-11 col-9 title" >
 						<select name="division" class="sele" id="division">
 							<option value="">언어 선택</option>
 							<option value="java">java</option>
@@ -88,10 +88,15 @@
 							<option value="기타">기타</option>
 						</select>
 					</div>
-					<div class="col-3 division">
-						<h4>Get Point</h4>
+				</div>
+				
+				<br>
+				
+				<div class=row>
+					<div class="col-xl-1 col-3 title">
+						포인트
 					</div>
-					<div class="col-3 division">
+					<div class="col-xl-11 col-9 title">
 						<select name="point" class="sele" id="point">
 							<option value="0">포인트X</option>
 							<option value="10">10</option>
@@ -101,16 +106,20 @@
 						</select>
 					</div>
 				</div>
-
+				
+				<br>
+				
 				<div class=row>
-					<div class="col-2 title">
-						<h4>Q 질문</h4>
+					<div class="col-xl-1 col-3 title">
+						질 문
 					</div>
-					<div class="col-10 title">
+					<div class="col-xl-11 col-9 title">
 						<input type="text" name="title" style="width: 100%" id="title" maxlength="100">
 					</div>
 				</div>
-
+				
+				<br>
+				
 				<div class=row>
 					<div class="col-12 content">
 						<textarea name="content" id="content" style="display: none"></textarea>
