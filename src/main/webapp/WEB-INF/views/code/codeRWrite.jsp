@@ -93,7 +93,6 @@ $(function(){
          <div class="col-12" id=aroundContent></div>
       </div>
    </div>
-   </div>
 
    <jsp:include page="/WEB-INF/views/standard/footer.jsp" />
    
