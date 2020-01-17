@@ -25,6 +25,7 @@ import kh.hello.dto.ProjectDTO;
 import kh.hello.dto.ProjectImageDTO;
 import kh.hello.dto.ProjectPLogDTO;
 import kh.hello.dto.ReportDTO;
+import kh.hello.utils.Utils;
 
 @Service
 public class ProjectService {
@@ -73,16 +74,44 @@ public class ProjectService {
 		StringBuilder sb = new StringBuilder();
 		sb.append("<ul class='pagination justify-content-center'>");
 		if(needPrev) {
-			sb.append("<li class='page-item'>");
-			sb.append("<a class='page-link' href='/project/list?page="+(startNavi-1)+"' aria-label='Previous'>"); 
+			sb.append("<li class='page-item'>");		
+			if(pageOrder.contentEquals("startDate")) {
+				if(searchOption!=null) {
+					sb.append("<a class='page-link' href='/project/list?pageOrder=startDate&searchOption="+searchOption+"&keyword="+keyword+"&page="+(startNavi-1)+"' aria-label='Previous'>");
+				}else {
+					sb.append("<a class='page-link' href='/project/list?pageOrder=startDate&page="+(startNavi-1)+"' aria-label='Previous'>");
+				}
+			}else {
+				sb.append("<a class='page-link' href='/project/list?page="+(startNavi-1)+"' aria-label='Previous'>");	
+			}						 
 			sb.append("<span aria-hidden='true'>&laquo;</span></a></li>");			
 		}
-		for(int i=startNavi;i<=endNavi;i++) {
-			sb.append("<li class='page-item pNavi"+i+"'><a class='page-link' href='/project/list?page="+i+"'>"+i+"</a></li>");			
+		if(pageOrder.contentEquals("startDate")) {
+			if(searchOption!=null) {
+				for(int i=startNavi;i<=endNavi;i++) {
+					sb.append("<li class='page-item pNavi"+i+"'><a class='page-link' href='/project/list?pageOrder=startDate&searchOption="+searchOption+"&keyword="+keyword+"&page="+i+"'>"+i+"</a></li>");			
+				}
+			}else {
+				for(int i=startNavi;i<=endNavi;i++) {
+					sb.append("<li class='page-item pNavi"+i+"'><a class='page-link' href='/project/list?pageOrder=startDate&page="+i+"'>"+i+"</a></li>");			
+				}				
+			}
+		}else {
+			for(int i=startNavi;i<=endNavi;i++) {
+				sb.append("<li class='page-item pNavi"+i+"'><a class='page-link' href='/project/list?page="+i+"'>"+i+"</a></li>");			
+			}			
 		}
 		if(needNext) {
 			sb.append("<li class='page-item'>");
-			sb.append("<a class='page-link' href='/project/list?page="+(endNavi+1)+"' aria-label='Next'>");
+			if(pageOrder.contentEquals("startDate")) {
+				if(searchOption!=null) {
+					sb.append("<a class='page-link' href='/project/list?pageOrder=startDate&searchOption="+searchOption+"&keyword="+keyword+"&page="+(endNavi+1)+"' aria-label='Next'>");
+				}else {
+					sb.append("<a class='page-link' href='/project/list?pageOrder=startDate&page="+(endNavi+1)+"' aria-label='Next'>");
+				}
+			}else {
+				sb.append("<a class='page-link' href='/project/list?page="+(endNavi+1)+"' aria-label='Next'>");	
+			}			
 			sb.append("<span aria-hidden='true'>&raquo;</span></a></li>");			
 		}
 		sb.append("</ul>");
@@ -120,6 +149,7 @@ public class ProjectService {
 		if(!filePath.exists()) {			
 			filePath.mkdirs();
 		}
+		dto.setTitle(Utils.protectXss(dto.getTitle()));
 		String contents = dto.getContents();
 		Pattern p = Pattern.compile("<img.+?src=\"(.+?)\".+?data-filename=\"(.+?)\".*?>");
 		Matcher m = p.matcher(contents);
@@ -158,6 +188,7 @@ public class ProjectService {
 		if(!filePath.exists()) {			
 			filePath.mkdirs();
 		}
+		dto.setTitle(Utils.protectXss(dto.getTitle()));
 		String contents = dto.getContents();
 		Pattern p = Pattern.compile("<img.+?src=\"(.+?)\".+?data-filename=\"(.+?)\".*?>");
 		Matcher m = p.matcher(contents);
@@ -251,6 +282,7 @@ public class ProjectService {
 	@Transactional("txManager")
 	public String commentWriteConfirm(ProjectCoDTO dto) {
 		String option = "commentAdd";
+		dto.setContents(Utils.protectXss(dto.getContents()));
 		dao.insertProjectCo(dto);
 		dao.updatePoint(option, dto.getId());
 		Gson gson = new Gson();
@@ -266,6 +298,7 @@ public class ProjectService {
 	
 	@Transactional("txManager")
 	public String commentModifyConfirm(ProjectCoDTO dto) {
+		dto.setContents(Utils.protectXss(dto.getContents()));
 		dao.updateProjectCo(dto);
 		Gson gson = new Gson();
 		List<ProjectCoDTO> result = dao.getCoList(dto.getProjectSeq());
@@ -307,6 +340,8 @@ public class ProjectService {
 	
 	
 	public String projectApplyWriteProc(ProjectApplyDTO dto) {
+		dto.setEmail(Utils.protectXss(dto.getEmail()));
+		dto.setEtc(Utils.protectXss(dto.getEtc()));
 		int result = dao.insertProjectApply(dto);
 		if(result>0) {
 			return "success";
@@ -315,9 +350,64 @@ public class ProjectService {
 		}
 	}
 	
-	public List<ProjectApplyDTO> projectApplyList(int projectSeq) {
-		return dao.getApplyList(projectSeq);
+	public List<ProjectApplyDTO> projectApplyList(int start, int end, int projectSeq) {		
+		return dao.getApplyList(start, end, projectSeq);
 	}
+	
+	
+	
+	
+	public String getApplyPageNavi(int currentPage, int projectSeq) {
+		int recordTotalCount = dao.getApplyArticleCount(projectSeq);
+		int pageTotalCount = 0;		
+		if(recordTotalCount % Configuration.recordCountPerPage>0) {
+			pageTotalCount = recordTotalCount/Configuration.recordCountPerPage+1;
+		}else {
+			pageTotalCount = recordTotalCount/Configuration.recordCountPerPage;
+		}
+		if(currentPage < 1) {
+			currentPage = 1;
+		}else if(currentPage > pageTotalCount) {
+			currentPage = pageTotalCount;
+		}
+		
+		int startNavi = (currentPage-1) / Configuration.naviCountPerPage * Configuration.naviCountPerPage+1;
+		int endNavi = startNavi+(Configuration.naviCountPerPage-1);		
+		if(endNavi > pageTotalCount) {
+			endNavi = pageTotalCount;
+		}
+		
+		boolean needPrev = true;
+		boolean needNext = true;
+		if(startNavi==1) {
+			needPrev = false;
+		}
+		if(endNavi==pageTotalCount) {
+			needNext = false;
+		}
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append("<ul class='pagination justify-content-center'>");
+		if(needPrev) {
+			sb.append("<li class='page-item'>");		
+			sb.append("<a class='page-link' href='/project/apply/list?page="+(startNavi-1)+"' aria-label='Previous'>");	
+			sb.append("<span aria-hidden='true'>&laquo;</span></a></li>");			
+		}
+		for(int i=startNavi;i<=endNavi;i++) {
+			sb.append("<li class='page-item pNavi"+i+"'><a class='page-link' href='/project/apply/list?page="+i+"'>"+i+"</a></li>");			
+		}			
+		
+		if(needNext) {
+			sb.append("<li class='page-item'>");
+			sb.append("<a class='page-link' href='/project/apply/list?page="+(endNavi+1)+"' aria-label='Next'>");	
+			sb.append("<span aria-hidden='true'>&raquo;</span></a></li>");			
+		}
+		sb.append("</ul>");
+		return sb.toString();
+	}
+	
+	
+	
 	
 	public ProjectApplyDTO projectApplyDetailView(int seq) {
 		return dao.getProjectApplyDetailView(seq);
@@ -417,6 +507,7 @@ public class ProjectService {
 		return dao.reportDuplCheck(id, seq);
 	}
 	public int reportProject(ReportDTO dto) {
+		dto.setReason(Utils.protectXss(dto.getReason()));
 		return dao.insertReport(dto);					
 	}
 }

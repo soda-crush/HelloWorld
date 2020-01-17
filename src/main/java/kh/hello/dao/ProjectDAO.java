@@ -100,8 +100,15 @@ public class ProjectDAO {
 	
 	
 	//projectApply 테이블
-	public List<ProjectApplyDTO> getApplyList(int projectSeq) {//프로젝트 지원 전체리스트(해당글에 대한)
-		return jdbc.selectList("ProjectApply.getList", projectSeq);
+	public int getApplyArticleCount(int projectSeq) {//프로젝트 지원글 전체 개수
+		return jdbc.selectOne("ProjectApply.getArticleCount", projectSeq);
+	}	
+	public List<ProjectApplyDTO> getApplyList(int start, int end, int projectSeq) {//프로젝트 지원 전체리스트(해당글에 대한)
+		Map<String, Integer> param = new HashMap<>();
+		param.put("start", start);
+		param.put("end", end);
+		param.put("projectSeq", projectSeq);
+		return jdbc.selectList("ProjectApply.getListByPage", param);
 	}
 	public ProjectApplyDTO getProjectApplyDetailView(int seq) {//프로젝트 지원 상세보기
 		return jdbc.selectOne("ProjectApply.getProjectApplyDetailView", seq);

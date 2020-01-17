@@ -10,6 +10,7 @@ public class BambooCoDTO {
 	private String content;
 	private Timestamp writeDate;
 	private String profileImg;
+	private String formedWriteDate;
 	
 	public String getProfileImg() {
 		return profileImg;
@@ -18,6 +19,7 @@ public class BambooCoDTO {
 		this.profileImg = profileImg;
 	}
 	public void setFormedWriteDate(String formedWriteDate) {
+		this.formedWriteDate = formedWriteDate;
 	}
 	public int getSeq() {
 		return seq;

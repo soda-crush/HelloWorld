@@ -54,8 +54,6 @@ public class ProjectMemController {
 		m.addAttribute("pageNavi", pageNavi);
 		m.addAttribute("currentPage", currentPage);
 		m.addAttribute("pageOrder", checkOrder);
-		System.out.println(pageOrder);
-		System.out.println(checkOrder);
 		return "/project/projectList";
 	}
 	
@@ -74,7 +72,11 @@ public class ProjectMemController {
 	}
 	
 	@RequestMapping("/detailView")
-	public String projectDetailView(int seq, Model m, HttpServletRequest request) {
+	public String projectDetailView(String page, int seq, Model m, HttpServletRequest request) {
+		int listPage = 1;
+		if(page!=null) {
+			listPage = Integer.parseInt(page);
+		}
 		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
 		String id = sessionValue.getId();				
 		ProjectDTO result = svc.projectDetailView(seq);		
@@ -82,6 +84,7 @@ public class ProjectMemController {
 		List<ProjectCoDTO> coResult = svc.commentList(seq); 
 		String data = svc.projectWrite();
 		ProjectApplyDTO applyCheck = svc.getApplyCheck(seq);
+		m.addAttribute("page", listPage);
 		m.addAttribute("data", data);
 		m.addAttribute("pPage", result);
 		m.addAttribute("comments", coResult);
@@ -152,12 +155,12 @@ public class ProjectMemController {
 		return "redirect:/project/detailView?seq="+seq;
 	}
 	
-	@RequestMapping("/applyCheck")
-	public String projectApplyCheck(int projectSeq, Model m) {
-		List<ProjectApplyDTO> result = svc.projectApplyList(projectSeq);
-		m.addAttribute("applyList", result);
-		return "/project/applyList";
-	}
+//	@RequestMapping("/applyCheck")
+//	public String projectApplyCheck(int projectSeq, Model m) {
+//		List<ProjectApplyDTO> result = svc.projectApplyList(projectSeq);
+//		m.addAttribute("applyList", result);
+//		return "/project/applyList";
+//	}
 	
 	@ResponseBody
 	@RequestMapping("/scrap")
@@ -238,13 +241,22 @@ public class ProjectMemController {
 		dto.setWriter(sessionValue.getNickName());
 		dto.setId(sessionValue.getId());
 		return svc.projectApplyWriteProc(dto);
-	}
+	}	
 	
 	@RequestMapping("/apply/list")
-	public String projectApplyList(int projectSeq, Model m) {
-		List<ProjectApplyDTO> result = svc.projectApplyList(projectSeq);
+	public String projectApplyList(String page, int projectSeq, Model m) {
+		int currentPage = 1;
+		if(page!=null) {
+			currentPage = Integer.parseInt(page);
+		}
+		int start = currentPage * (Configuration.recordCountPerPage)-(Configuration.recordCountPerPage-1);
+		int end = currentPage * (Configuration.recordCountPerPage);
+		List<ProjectApplyDTO> result = svc.projectApplyList(start, end, projectSeq);
 		m.addAttribute("projectApplyList", result);
-		return "/project/projectApplyList";
+		String pageNavi = svc.getApplyPageNavi(currentPage, projectSeq);
+		m.addAttribute("pageNavi", pageNavi);
+		m.addAttribute("currentPage", currentPage);		
+		return "/project/applyList";
 	}
 	
 	@RequestMapping("/apply/detailView")

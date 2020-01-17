@@ -89,6 +89,15 @@
 
 </head>
 <body>
+
+   <c:if test="${bPage.seq==null}">
+      <script>
+         alert("삭제되었거나 존재하지 않는 글입니다");
+         location.href="${pageContext.request.contextPath}/bamboo/bambooList.do";
+      </script>
+   </c:if>
+   
+
 	<jsp:include page="/WEB-INF/views/standard/header.jsp" />
 	<div id=baseBackgroundColor>
 		<div class=container>
@@ -126,7 +135,7 @@
             			<img src="${bPage.profileImg }" width=40,height=40> ${sessionScope.loginInfo.nickName}
             			</c:when>
             			<c:otherwise>
-            			<img src="/img/profile0.png" width=50,height=50>작성자 : 익명
+            			<img src="/img/profile0.png" width=40,height=40> 익명
             			</c:otherwise>
             		</c:choose>
             		&emsp;작성일 : ${bPage.formedWriteDate}&emsp;조회수 : ${bPage.viewCount}<hr>
@@ -143,14 +152,14 @@
         			<a id="kakao-link-btn" href="javascript:;" onClick="shareKakaotalk();" style="text-decoration:none"> 
 						<img src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" height=38 style="margin-right:2px;"/>
 					</a>
- 					
-				<!-- 		     <a class="sbtn btn-primary" href="#" role="button">스크랩</a> -->
-				<c:if test="${bPage.writer != sessionScope.loginInfo.id}">
-				<button type="button" class="btn btn-primary" id="report">신고하기</button>
-				</c:if>
+ 					<button type="button" class="btn btn-success text-right" id="scrap">스크랩</button>	
         	</div>
         	</div>
-      
+      		<div class=row>
+	            	<div class=col-12>
+	            		<br>
+	            	</div>
+            	</div>
             	<div class="row">
             		<div class="col-12" id=adver style="height:200px;background-color:green;color:white;">광고자리</div>
             	</div>
@@ -235,15 +244,18 @@
             	<div class="container">
             	<div class="row">
             	<div class="col-12 text-right pt-2">
-            	<a class="btn btn-primary" href="/bamboo/bambooList.do"
-					role="button">돌아가기</a>
-            	<c:if test="${bPage.writer == sessionScope.loginInfo.id}">
-					
-						<button type="button" class="btn btn-primary" id="modify">수정하기</button>
-					<a class="btn btn-primary"
-						href="/bamboo/bambooDeleteProc.do?seq=${bPage.seq }" role="button">삭제하기</a>
-					
+            	
+            	<c:if test="${bPage.writer != sessionScope.loginInfo.id}">
+				<button type="button" class="btn btn-danger text-left" id="report">신고하기</button>
 				</c:if>
+		     	<c:if test="${bPage.writer == sessionScope.loginInfo.id}">
+					
+						<button type="button" class="btn btn-info" id="modify">수정</button>
+					<a class="btn btn-danger"
+						href="/bamboo/bambooDeleteProc.do?seq=${bPage.seq }" role="button">삭제</a>
+				</c:if>
+					<a class="btn btn-secondary" href="/bamboo/bambooList.do"
+					role="button">목록</a>
 					</div>
 					</div> 
 				</div>     
@@ -474,7 +486,7 @@
            		}
 			}
            	function popUp(link){
-			window.open(link, "pLogPopUp", "width=600,height=600");
+			window.open(link, "pLogPopUp", "width=800,height=600");
 		}
 		$("#report").on("click",function(){
 			var check = "해당 게시물을 신고하시겠습니까?";
