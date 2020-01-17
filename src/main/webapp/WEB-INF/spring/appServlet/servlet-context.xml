@@ -37,12 +37,22 @@
 	
 	<!-- 	로그인 check AOP	 -->
 	<bean id="memCheckAdv" class="kh.hello.advisors.MemAdvisor"/>
+	<bean id="memLevelCheckAdv" class="kh.hello.advisors.MemAdvisor"/>
 		
 	<aop:config>
-		<aop:pointcut expression="execution(* kh.hello.project.*MemController.*(..))" id="essentialMemCheckMethod"/>	
+		<aop:pointcut expression="execution(* kh.hello.project.*MemController.*(..))" id="essentialMemCheckMethod"/>
+		<aop:pointcut expression="execution(* kh.hello.project.MemberController.mem*(..))" id="essentialMemCheckMethod2"/>	
+		
 		<aop:aspect id="memCheckAsp" ref="memCheckAdv">
 			<aop:around pointcut-ref="essentialMemCheckMethod" method="loginCheck"/>
 		</aop:aspect>	
+		<aop:aspect id="memCheckAsp2" ref="memCheckAdv">
+			<aop:around pointcut-ref="essentialMemCheckMethod2" method="loginCheck"/>
+		</aop:aspect>
+		<aop:aspect id="memLevelCheckAsp" ref="memLevelCheckAdv">
+			<aop:around pointcut-ref="essentialMemCheckMethod" method="memLevelCheck"/>
+		</aop:aspect>	
+		
 	</aop:config>	
 
 	<!-- 게시글/댓글 카운터 -->		
@@ -67,6 +77,20 @@
 			<aop:after-returning pointcut-ref="coDelMinusMethod" method="delCo"/>
 		</aop:aspect>	
 	</aop:config>	
+	
+	<!-- 관리자 로그인 체크 -->
+	<bean id="adminCheckAdv" class="kh.hello.advisors.AdminAdvisor"/>
+	<aop:config>
+		<aop:pointcut expression="execution(* kh.hello.project.AdminController.ad*(..))" id="adminMethod"/>
+		<aop:pointcut expression="execution(* kh.hello.project.AdBoardController.*(..))" id="adBoardMethod"/>
+		
+		<aop:aspect ref="adminCheckAdv">
+			<aop:around method="loginCheck" pointcut-ref="adminMethod"/>
+		</aop:aspect>
+		<aop:aspect ref="adminCheckAdv">
+			<aop:around method="loginCheck" pointcut-ref="adBoardMethod"/>
+		</aop:aspect>
+	</aop:config>
 
 		
 </beans>

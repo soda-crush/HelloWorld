@@ -34,7 +34,6 @@ public class HomeController {
 		
 		return "home";
 	}
-
 	
 	@RequestMapping("/manage")
 	public String adminHome() {
@@ -45,6 +44,13 @@ public class HomeController {
 	public String error() {
 		return "error";
 	}
+	
+	@RequestMapping("/needLogin")
+	public String adminNeedLogin() {
+		return "admin/needLogin";
+	}
+		
+	
 	
 }
 

@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 
 import kh.hello.dto.IndustryStatusCoDTO;
 import kh.hello.dto.IndustryStatusDTO;
-import kh.hello.dto.MemberDTO;
 import kh.hello.dto.ReportDTO;
 import kh.hello.dto.ScrapDTO;
 

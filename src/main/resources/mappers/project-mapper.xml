@@ -10,6 +10,12 @@
 	
 	<select id="getArticleCount" resultType="integer">
 		select count(*) from project
+			<if test="pageOrder == 'startDate'">
+				where state = 'N'
+				<if test="searchOption!=null">
+					<include refid="searchAnd"></include>
+				</if>				
+			</if>
 		<if test="searchOption!=null">
 			<include refid="search"></include>
 		</if>		
@@ -26,6 +32,12 @@
 			</when>
 		</choose>
 		) as num from project
+			<if test="pageOrder == 'startDate'">
+				where state = 'N'
+				<if test="searchOption!=null">
+					<include refid="searchAnd"></include>
+				</if>
+			</if>
 		<if test="searchOption!=null">
 			<include refid="search"></include>
 		</if>
@@ -103,7 +115,7 @@
 	<select id="getMakeArticleCount" resultType="integer">
 		select count(*) from project where id=#{id}
 		<if test="searchOption!=null">
-			<include refid="searchForPLog"></include>
+			<include refid="searchAnd"></include>
 		</if>
 	</select>	
 	<select id="getPLogMakeListByPage" resultType="kh.hello.dto.ProjectDTO">
@@ -114,7 +126,7 @@
 		where contents is not null group by projectSeq) pc
 		on project.seq = pc.projectSeq where project.id = #{id}
 		<if test="searchOption!=null">
-			<include refid="searchForPLog"></include>
+			<include refid="searchAnd"></include>
 		</if>
 		) where num between #{start} and #{end} 
 	</select>	
@@ -122,7 +134,7 @@
 	<select id="getApplyArticleCount" resultType="integer">
 		select count(*) from projectApply, project where projectApply.id=#{id} and projectApply.projectSeq = project.seq
 		<if test="searchOption!=null">
-			<include refid="searchForPLog"></include>
+			<include refid="searchAnd"></include>
 		</if>
 	</select>	
 	<select id="getPLogApplyListByPage" resultType="kh.hello.dto.ProjectPLogDTO">		
@@ -133,13 +145,13 @@
 		where contents is not null group by projectSeq) pc
 		on project.seq = pc.projectSeq where projectApply.id = #{id}
 		<if test="searchOption!=null">
-			<include refid="searchForPLog"></include>
+			<include refid="searchAnd"></include>
 		</if>		
 		)
 		where num between #{start} and #{end}
 	</select>
 	
-	<sql id="searchForPLog">
+	<sql id="searchAnd">
 		<choose>
 			<when test="searchOption=='all'">
 				and (title like '%'||#{keyword}||'%'

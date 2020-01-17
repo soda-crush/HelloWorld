@@ -14,18 +14,17 @@
 <link rel="stylesheet" href="/css/mainBase.css">
 <link rel="stylesheet" type="text/css" href="/css/font-awesome/css/font-awesome.css">
 	<style>
-		h1{text-align: center;padding-top: 50px;padding-bottom: 50px;}
 		ul{background-color: lightgray;font-size: 13px;}
 		.card{width:200px;height:300px;margin: auto;float :left;}
-		.myprofile{float: left;margin-top: 20px;}
+		.myprofile{float: left; margin-top: 20px;}
 		#mycard{ float:none;display:flex;align-items:center;}
+        .card-text{font-size:12px;}
 		.commentwrite{width:100%;height:100px;padding: 0px;margin-top: 10px;float: left;}
 		.commentlist{width:100%;padding: 0px;margin-top: 10px;float: left;}
 		.col{margin: 0px;padding: 0px;}
 		.content{height:90%;float: left;resize: none;}
 		.sendbt{height:90%;float: left;}
 		#writer{text-underline-position: auto;margin-right: 30px;}
-		.navi{text-align: center;}
 		.nvlink1{height:45px;line-height:45px;font-size:14px;}
 		.nvlink2{height:45px;line-height:45px;font-size:10px;}
         a:hover{text-decoration:none;}
@@ -38,7 +37,7 @@
 	</script>
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/standard/header.jsp"/>
+	<jsp:include page="/WEB-INF/views/standard/plogHeader.jsp"/>
 	
  		<div id=baseBackgroundColor>
             <div class=container>
@@ -52,31 +51,7 @@
 
             	
             <div class="container">
-				<h1 class="d-none d-sm-block"> Programming-Log</h1>
-				<h3 class="d-sm-none"> Programming-Log</h3>
-	            <div class="row navi" style="background-color: #008EDC;">
-					<div class="col nvlink1 d-none d-sm-block"><a class="text-light" href="${pageContext.request.contextPath}/Portfolio/toPlogmain.do">내 포트폴리오</a></div>
-					<c:choose>
-						<c:when test="${loginInfo.id ==ownerInfo.id }">
-							<div class="col nvlink1 d-none d-sm-block"><a class="text-light" href="${pageContext.request.contextPath}/Plog/toPlogCohow.do">내 지식인</a></div>
-							<div class="col nvlink1 d-none d-sm-block"><a class="text-light" href="${pageContext.request.contextPath}/Scrap/itNews.do">내 스크랩</a></div>
-						</c:when>
-					</c:choose>
-					<div class="col nvlink1 d-none d-sm-block"><a class="text-light" href="${pageContext.request.contextPath}/Plog/toPlogProject.do">내 프로젝트</a></div>
-					<div class="col nvlink1 d-none d-sm-block"><a class="text-light" href="${pageContext.request.contextPath}/GuestBook/selectList.do">방명록</a></div>
-				</div>
-				<div class="row navi" style="background-color: #008EDC;">
-					<div class="col nvlink2 d-sm-none"><a class="text-light" href="${pageContext.request.contextPath}/Portfolio/toPlogmain.do">내 포트폴리오</a></div>
-					<c:choose>
-						<c:when test="${loginInfo.id ==ownerInfo.id }">
-					<div class="col nvlink2 d-sm-none"><a class="text-light" href="${pageContext.request.contextPath}/Plog/toPlogCohow.do">내 지식인</a></div>
-					<div class="col nvlink2 d-sm-none"><a class="text-light" href="${pageContext.request.contextPath}/Scrap/itNews.do">내 스크랩</a></div>
-						</c:when>
-					</c:choose>
-					<div class="col nvlink2 d-sm-none"><a class="text-light" href="${pageContext.request.contextPath}/Plog/toPlogProject.do">내 프로젝트</a></div>
-					<div class="col nvlink2 d-sm-none"><a class="text-light" href="${pageContext.request.contextPath}/GuestBook/selectList.do">방명록</a></div>
-				</div>
-	            
+            
 	            <div class="row">
 	                <div class="col-12 col-md-4 col-lg-3 myprofile">
 	                    <div>

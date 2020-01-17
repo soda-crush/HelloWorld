@@ -20,10 +20,16 @@
 				location.href="${pageContext.request.contextPath}/member/login?noMemPath=${noMemPath}&seq=${seq}";
 			</script>
 		</c:when>
-		<c:otherwise>
+		<c:when test="${noMemPath!=null}">
 			<script>
 				alert("로그인 정보가 필요한 페이지 입니다.");
 				location.href="${pageContext.request.contextPath}/member/login?noMemPath=${noMemPath}";
+			</script>
+		</c:when>
+		<c:otherwise>
+			<script>
+				alert("로그인 정보가 필요한 페이지 입니다.");
+				location.href="${pageContext.request.contextPath}/member/login";
 			</script>
 		</c:otherwise>
 	</c:choose>

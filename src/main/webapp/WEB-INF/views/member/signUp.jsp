@@ -107,11 +107,12 @@
             </div>
              <div class=row>
             	<div class=col-12>
-            		<input type=radio name=empCheck value=unemployee class=emp><h5 style="display:inline">비실무자</h5>
+            	<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow>이메일</h5><p class=redP style="display:inline">*</p><br><br>
+            		<input type=radio name=empCheck value=unemployee class=emp><p style="display:inline;font-size:17px;">비실무자</p>
             	</div>
             	<div class=col-12>
             		<br>
-            		<input type=radio name=empCheck value=employee class=emp><h5 style="display:inline">실무자</h5>
+            		<input type=radio name=empCheck value=employee class=emp><p style="display:inline;font-size:17px;">실무자</p>
             		<hr>
             	</div>
             </div>
@@ -649,6 +650,7 @@
                 			emailTest = 1;
             			}else{
             				alert("인증에 실패하였습니다. 코드를 다시 확인해주시기 바랍니다.");
+            				emailTest = 0;
             			}
             		});
             	}

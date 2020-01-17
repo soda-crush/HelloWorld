@@ -39,6 +39,12 @@
 
             
   				<div class=container id="projectPage">
+  				<div class=row>
+					<div class="col-12">
+						<h1><br></h1>
+					</div>
+				</div>
+  				
 				<div id="pageTitle" class="row ml-1 mb-4">
 					<div class="col-12" id="titleLink">
 							<div class="row">
@@ -63,7 +69,7 @@
 					
 				  	<c:choose>
 				  		<c:when test="${list.size()==0}">
-				  		<div class="row"><div class="col-12">작성된 글이 없습니다.</div></div>
+				  		<div class="row"><div class="col-12" style="min-height:200px;">작성된 글이 없습니다.</div></div>
 				  		</c:when>
 				  		<c:otherwise>
 				  			<c:forEach items="${list}" var="dto">
@@ -102,6 +108,12 @@
 				  </c:forEach>   
 				  </ul>
 				</nav>
+				
+				<div class=row>
+					<div class="col-12">
+						<h1><br></h1>
+					</div>
+				</div>
 				
             </div>
             

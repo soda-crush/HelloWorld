@@ -65,10 +65,10 @@ $(function(){
 		<input type="hidden" name="writer" value="${result.writer}">
 			<div class=container>
 				<div class=row>
-					<div class="col-3 division">
-						<h4>Language</h4>
+					<div class="col-xl-1 col-3 title">
+						언어
 					</div>
-					<div class="col-3 division">
+					<div class="col-xl-11 col-9 title" >
 						<select name="division" class="sele">
 							<option value="">언어 선택</option>
 							<option value="java" <c:if test="${result.division eq 'java'}">selected</c:if>>java</option>
@@ -80,12 +80,17 @@ $(function(){
 							<option value="기타" <c:if test="${result.division eq '기타'}">selected</c:if>>기타</option>
 						</select>
 					</div>
-					<div class="col-3 division">
-						<h4>Get Point</h4>
+				</div>
+					
+					<br>
+				
+				<div class=row>	
+					<div class="col-xl-1 col-3 title">
+						포인트
 					</div>
-					<div class="col-3 division">
+					<div class="col-xl-11 col-9 title">
 						<select name="point" class="sele">
-							<option value="0"><c:if test="${result.point == 0}">selected</c:if>포인트X</option>
+							<option value="0"><c:if test="${result.point == 0}"></c:if>포인트X</option>
 							<option value="10" <c:if test="${result.point == 10}">selected</c:if>>10</option>
 							<option value="30" <c:if test="${result.point == 30}">selected</c:if>>30</option>
 							<option value="50" <c:if test="${result.point == 50}">selected</c:if>>50</option>
@@ -94,15 +99,19 @@ $(function(){
 					</div>
 				</div>
 				
+				<br>
+				
 				<div class=row>
-					<div class="col-2 title">
-						<h4>Q    질문${result.division}</h4>
+					<div class="col-xl-1 col-3 title">
+						질 문
 					</div>
-					<div class="col-10 title">
+					<div class="col-xl-11 col-9 title">
 						<input type="text" name="title" style="width:100%" maxlength="100" value="${result.title}">
 					</div>
 				</div>
-
+				
+				<br>
+				
 				<div class=row>
 					<div class="col-12 content">
 						<textarea name="content" id="content" style="display:none"></textarea>
@@ -125,7 +134,6 @@ $(function(){
 		<div class=row>
 			<div class="col-12" id=aroundContent></div>
 		</div>
-	</div>
 	</div>
 	
 	<jsp:include page="/WEB-INF/views/standard/footer.jsp" />

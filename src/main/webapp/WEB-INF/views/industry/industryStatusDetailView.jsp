@@ -21,10 +21,46 @@
 	type="text/css" />
 <link rel="stylesheet" href="/css/project/detailView.css"
 	type="text/css" />
+	<script type="text/JavaScript"
+   src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script>
    $(function(){
       $("#indusNavi").attr('class','nav-item nav-link active');
    });
+</script>
+<script type="text/javascript">
+   function shareKakaotalk() {
+      Kakao.init("7fce3c86f0e6aeeac11028850040589c"); // 사용할 앱의 JavaScript 키를 설정
+      Kakao.Link.sendDefault({
+         objectType : "feed",
+         content : {
+            title : "${iPage.title}", // 콘텐츠의 타이틀 
+            description : "업계현황", // 콘텐츠 상세설명
+            imageUrl : "https://miro.medium.com/max/3840/1*U-R58ahr5dtAvtSLGK2wXg.png", // 썸네일 이미지          
+            link : {
+               mobileWebUrl : "http://${ip}/industry/industryStatusDetailView.do?seq="+${iPage.seq}, // 모바일 카카오톡에서 사용하는 웹 링크 URL            
+               webUrl : "http://${ip}/industry/industryStatus.do?seq="+${iPage.seq} // PC버전 카카오톡에서 사용하는 웹 링크 URL
+            }
+         },
+         social : {
+            likeCount : 0 // LIKE 개수
+            ,
+            commentCount : 0 // 댓글 개수
+            ,
+            sharedCount : 0
+         // 공유 회수
+         },
+         buttons : [ {
+            title : "링크 이동하기" // 버튼 제목
+            ,
+            link : {
+               mobileWebUrl : "http://${ip}/industry/industryStatus.do?seq="+${iPage.seq},  // 모바일 카카오톡에서 사용하는 웹 링크 URL
+               webUrl : "http://${ip}/industry/industryStatus.do?seq="+${iPage.seq} // PC버전 카카오톡에서 사용하는 웹 링크 URL
+            }
+         } ]
+      });
+   }
+   
 </script>
 <style>
 .table {
@@ -48,6 +84,26 @@
 .btn btn-primary {
 	text-align: left;
 }
+#contentCon{
+		min-height: 450px;
+	}
+	#cateTitle{
+		font-size:60px;
+	}
+	#cateCmt{
+	color:gray;
+	font-size: 15px;
+	}
+	.commentInnerBox{
+	background-color:#ededed;
+	border-radius: 10px;
+	padding-top: 15px;
+	padding-bottom: 20px;
+	} 
+	.commentWriteDate{
+		color:#c2c2c2;
+		font-size: 14px;
+	}
 </style>
 </head>
 <body>
@@ -61,6 +117,19 @@
 		</div>
 
 		<!--      몸통 시작!!!   -->
+		 <div class="container">
+            	<div class="row">
+					<div class="col-12 col-xl-3">
+						<p id=cateTitle style="display:inline;">업계현황</p>
+					</div>
+					<div class="col-12 col-xl-9 pt-xl-5">
+						<p style="display:inline;" id=cateCmt>업계현황에 대한 정보를 나누는 게시판입니다.</p>
+					</div>
+				</div>		
+				<div class=row>
+					<div class=col-12><br></div>
+				</div>		
+            </div>
 		<div class="container eleCon">
 		
 
@@ -70,38 +139,27 @@
       word-break:break-word;"><h3><br>${iPage.title}</h3></div>
             	</div>
             	<div class=row>
-            		<div class="col-12"><h5><br>분야 : ${iPage.field } / 직무 : ${iPage.duty }</h5></div>
+            		<div class="col-12" style="font-size: 15px;color:#707070;"><br>${iPage.field } / ${iPage.duty }</div>
             	</div>
-            	<div class=row>
+            	<div class="row">
             		<input type="hidden" name="seq" value="${iPage.seq}">
             		<input type="hidden" name="id" value="${iPage.id}">
             		
-            		<div class="col-12"><hr><div style="cursor:pointer" onclick="popUpPlog('${iPage.id}','${iPage.writer}')"><img src="${iPage.profileImg }" width=50,height=50>${iPage.writer}</div>&emsp;${iPage.formedWriteDate}&emsp;${iPage.viewCount}<hr></div>
+            		<div class="col-12" style="font-size: 15px;color:#707070;"><hr><img src="${iPage.profileImg }" width=40,height=40><span style="cursor:pointer" onclick="popUpPlog('${iPage.id}','${iPage.writer}')"> ${iPage.writer}</span>&emsp;작성일 : ${iPage.formedWriteDate}&emsp;조회수 : ${iPage.viewCount}<hr></div>
             	</div>
             	<div class="row">
             		<div class="col-12" id=contentCon style="word-break:break-all;
       word-break:break-word;">${iPage.content}</div>
             	</div>
         </c:if>
-        <a class="btn btn-primary" href="/industry/industryStatusList.do"
-						role="button">돌아가기</a>
-		<c:if test="${iPage.id == sessionScope.loginInfo.id}">
-					<div class="row">
-					<div class="col-12 text-center">
-					<a class="btn btn-primary"
-							href="/industry/industryStatusModify.do?seq=${iPage.seq }"
-							role="button">수정하기</a>
-						<a class="btn btn-primary"
-							href="/industry/industryStatusDeleteProc.do?seq=${iPage.seq}"
-							role="button">삭제하기</a>
-					</div>
-					</div>
-				</c:if>					
+        					
 			<div class=row>
-            		<div class="col-12 text-center">
-        			<i class="fa fa-share-alt"></i><a class="btn btn-primary" href="#"
-						role="button">공유하기</a> <i class="fa fa-bookmark-o" id="scrap"
-						data-toggle="tooltip" title="스크랩"></i> 
+            		<div class="col-12 text-right">
+        				<a id="kakao-link-btn" href="javascript:;" onClick="shareKakaotalk();" style="text-decoration:none;"> 
+						<img src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" height=38 style="margin-right:2px;"/>
+					</a>
+        			 <i class="fa fa-bookmark-o cursorPointer" id="scrap"
+						data-toggle="tooltip" title="스크랩" style="font-size:30px;margin:15px;"></i> 
 						<c:if test="${iPage.id != sessionScope.loginInfo.id}">
 						<button type="button" class="btn btn-primary" id="report">신고하기</button>
 						</c:if>
@@ -164,8 +222,30 @@
 						</div>					
             		</div>
             	</div> 
+            	<div class=row>
+	            	<div class=col-12>
+	            		<br>
+	            	</div>
+            	</div>
         </div>
-
+        <div class=container>
+		
+					<div class="row">
+					<div class="col-12 text-right pt-2">
+					<a class="btn btn-primary" href="/industry/industryStatusList.do"
+						role="button">돌아가기</a>
+					<c:if test="${iPage.id == sessionScope.loginInfo.id}">
+					<a class="btn btn-primary"
+							href="/industry/industryStatusModify.do?seq=${iPage.seq }"
+							role="button">수정하기</a>
+					
+						<a class="btn btn-primary"
+							href="/industry/industryStatusDeleteProc.do?seq=${iPage.seq}"
+							role="button">삭제하기</a>
+				</c:if>
+					</div>
+					</div>
+				</div>
 			<!--       몸통 끝!!!   -->
 
 			<div class=container>
@@ -255,8 +335,22 @@
 				console.log("실패");
 			})
         });
-         	
-			function coModFunction(seq,contents,indSeq){     
+    	$("#coCancel").on("click",function(){
+			var check = confirm("정말 취소하시겠습니까?");
+			if(check){
+				$("#pCoContents").val("");
+			}
+		});
+			function coModFunction(seq,contents,indSeq){
+				$.ajax({
+					url : "/industry/memLevel.do",
+					type : "post",
+					dataType : "json",
+					data : {
+						id : "${sessionScope.loginInfo.id}"
+					}
+				}).done(function(resp){
+					if(resp > 1){
 				$(".commentBox"+seq).find(".commentBtns").css("display","none");
 				$(".commentBox"+seq).find(".commentContent").css("display","none");
            		$(".commentBox"+seq).wrap('<form action="/industry/comment/modifyProc.do" method="post" id="coModFrm"></form>');
@@ -272,7 +366,14 @@
     					'<div class="row"><div class="col-12 text-center p-0">',
     					'<button type="button" class="btn btn-warning" style="width:80%;" id="coMoBtn">수정</button>',
     					'</div></div></div></div></div>');
-    			$(".commentBox"+seq).append(html.join(""));    			
+    			$(".commentBox"+seq).append(html.join(""));
+					}else{
+						alert("권한이 없습니다. 관리자에게 문의해주세요.")
+						return false;
+					}	
+				}).fail(function(resp){
+					console.log("실패");
+				})
            	}
            	
            	$(document).on("click","#coMoCancel",function(){
@@ -366,6 +467,8 @@
     		$("#report").on("click",function(){
     			var check = "해당 게시물을 신고하시겠습니까?";
     			if(check){
+    				
+    				
     				$.ajax({
     					url:"/industry/reportDuplCheck.do",
     					type:"post",
@@ -382,6 +485,8 @@
     				});
     				return false;
     			}
+    			
+    			
     		});
 			
     		$("#reportFrm").on("submit",function(){

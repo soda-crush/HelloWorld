@@ -62,7 +62,7 @@
 	top:2px;
 	}
 	#titleForCss{
-	font-size: 16px;
+	font-size: 18px;
 	}
 	.orangeFt{
 		font-size: 12px;
@@ -113,18 +113,17 @@
 				  		</c:when>
 				  		<c:otherwise>
 				  			<c:forEach items="${list}" var="dto">
-				  				<div class="row p-0 tableBody cursorPointer" onclick="location.href='${pageContext.request.contextPath}/itnews/detail?seq=${dto.seq}&page=${page}'">
+				  				<div class="row p-0 tableBody" >
 									<div class="col-md-1 d-none d-md-block order-md-1 notTitle text-center pt-3">${dto.seq}</div>
-					    			<div class="col-12 col-md-6 order-1 order-md-2" style="padding-left:0px;padding-right:0px;" >
-						    			<div class="font-weight-bold" id=titleForCss style="max-width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;font-weight:bold;padding-top:10.8px;padding-left:5px;padding-right:5px;">
-						    			${dto.title}
-						    			&ensp;
-						    			</div>
+					    			<div class="col-12 col-md-6 order-1 order-md-2 cursorPointer pl-3 pr-3" style="padding-left:0px;padding-right:0px;"  onclick="location.href='${pageContext.request.contextPath}/itnews/detail?seq=${dto.seq}&page=${page}'">
+						    		
+						    			<p style="max-width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;padding-top:10.8px;padding-left:5px;padding-right:5px;" class="font-weight-bolder" id=titleForCss>${dto.title}</p>
+
 						    			<c:if test="${dto.commentCount>0}">
 						    			<p class=orangeFt style="display:inline;position:relative;bottom: 22px;">${dto.commentCount}</p>
 						    			</c:if>
 					    			</div>
-					    			<div class="col-2 col-md-2 order-2 order-md-3 notTitle text-left text-md-center pt-3 pl-1 pr-1"><a onclick="popUp('/Portfolio/toPlog.do?owner=${p.id}')">${dto.writer}</a></div>
+					    			<div class="col-3 col-md-2 order-2 order-md-3 notTitle text-left text-md-center pt-3 pl-3 pr-3 cursorPointer" onclick="popUp('/Portfolio/toPlog.do?owner=${dto.id}')">${dto.writer}</div>
 					    			<div class="col-3 col-md-2 order-3 order-md-4 notTitle text-left text-md-center pt-3">${dto.getDate()}</div>
 					    			<div class="col-1 col-md-1 order-4 order-md-5 notTitle text-left text-md-center pt-3">${dto.viewCount}</div>
 								</div>
@@ -145,7 +144,7 @@
 						</div>
 						<div class="col-12 col-md-2 text-right pt-1">
 							<c:if test="${loginInfo!=null}">
-							<a class="btn btn-primary" href="${pageContext.request.contextPath}/itnews/write?page=${page}" role="button">글쓰기</a>	
+							<a class="btn btn-primary text-white" id=writeBtn role="button">글쓰기</a>	
 							</c:if>
 							<h5><br></h5>
 						</div>
@@ -174,6 +173,15 @@
             window.open(link, "pLogPopUp", "width=600,height=600");
          }
         $(".pNavi${page}").addClass("active");
+        
+        $("#writeBtn").on("click",function(){
+        	if(${loginInfo.memLevel==1}){
+        		alert("권한이 없습니다. 관리자에게 문의하세요.");
+        	}else{
+        		location.href="${pageContext.request.contextPath}/itnews/write?page=${page}";
+        	}
+        })
+        
         </script>
 </body>
 </html>

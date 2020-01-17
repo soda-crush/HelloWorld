@@ -15,6 +15,13 @@
 <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 
 <style>
+.fontThin{
+	font-family: "Nanumgothic";
+	font-size:13.7px;
+}
+.mpExpla{
+line-height: 60%;
+}
 .boardCon{
 padding-left: 3%;
 padding-right: 3%;
@@ -22,9 +29,13 @@ padding-right: 3%;
 .boardEle{
 width: 100%;
 background-color: white;
+border-radius: 3px;
 }
 .boardEleTop{
-padding-top: 5%;padding-bottom: 3%;color:white;padding-left: 2%;}
+padding-top: 5%;padding-bottom: 3%;color:white;padding-left: 2%;
+border-top-left-radius: 3px;
+border-top-right-radius: 3px;
+}
 .bdt1{
 background-color:#c25f55;}
 .bdt2{
@@ -63,6 +74,9 @@ line-height: 200px;
 }
 .fs1{
 font-size: 11px;}
+.boardEleCon{
+border:1px solid #d4d4d4;
+}
 </style>
 </head>
 <body>
@@ -84,14 +98,14 @@ font-size: 11px;}
             		<div class="co1-12 col-lg-4 boardCon">
 	            		<div class="boardEle">
 		            		<div class="boardEleTop bdt1">
-		            			<p class=mainTitle>대나무 숲</p>
-		            			<p class=fs1>주간 조회수 TOP5</p>
+		            			<p class="fs1 pl-3 pt-3" style="line-height:35%;">주간 조회수 TOP5</p>
+		            			<p class="mainTitle pl-3 pb-2" style="line-height:35%;">대나무 숲</p>
 		            		</div>
 		            		<div class="boardEleCon">
 			            		<c:choose>
 			            		<c:when test="${bamList.size()!=0}">
 			            			<c:forEach items="${bamList}" var="bam" varStatus="status">
-			            			<div class="cursorPointer" onclick="location.href='/bamboo/bambooDetailView.do?seq=${bam.seq}'" style="width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${status.count}&emsp; ${bam.title}</div>
+			            			<div class="cursorPointer" onclick="location.href='/bamboo/bambooDetailView.do?seq=${bam.seq}'" style="width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${status.count}&emsp; <p class="fontThin" style="display:inline;'">${bam.title}</p></div>
 			            			<br>
 			            			</c:forEach>
 			            		</c:when>
@@ -99,17 +113,18 @@ font-size: 11px;}
 		            		</div>
 	            		</div>
             		</div>
+            		<div class="col-12 d-lg-none"><br></div>
             		<div class="co1-12 col-lg-4 boardCon">
 	            		<div class="boardEle">
 			            	<div class="boardEleTop bdt2">
-			            		<p class=mainTitle>Code-How</p>
-			            		<p class=fs1>주간 조회수 TOP5</p>
+			            		<p class="fs1 pl-3 pt-3" style="line-height:35%;">주간 조회수 TOP5</p>
+		            			<p class="mainTitle pl-3 pb-2" style="line-height:35%;">Code-How</p>
 			            	</div>
 			            	<div class="boardEleCon">
 			            		<c:choose>
 			            		<c:when test="${codeList.size()!=0}">
 			            			<c:forEach items="${codeList}" var="code" varStatus="status">
-			            			<div class="cursorPointer" onclick="location.href='${pageContext.request.contextPath}/code/codeDetail.do?seq=${code.seq}'" style="width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${status.count}&emsp; ${code.title}</div>
+			            			<div class="cursorPointer" onclick="location.href='${pageContext.request.contextPath}/code/codeDetail.do?seq=${code.seq}'" style="width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${status.count}&emsp; <p class="fontThin" style="display:inline;'">${code.title}</p></div>
 			            			<br>
 			            			</c:forEach>
 			            		</c:when>
@@ -117,17 +132,18 @@ font-size: 11px;}
 			            	</div>
 		            	</div>
             		</div>
+            		<div class="col-12 d-lg-none"><br></div>
             		<div class="co1-12 col-lg-4 boardCon">
 	            		<div class="boardEle">
 			            	<div class="boardEleTop bdt3">
-			            		<p class=mainTitle>업계현황</p>
-		            			<p class=fs1>주간 조회수 TOP5</p>
+			            		<p class="fs1 pl-3 pt-3" style="line-height:35%;">주간 조회수 TOP5</p>
+		            			<p class="mainTitle pl-3 pb-2" style="line-height:35%;">업계현황</p>
 			            	</div>
 			            	<div class="boardEleCon">
 			            		<c:choose>
 			            		<c:when test="${indusList.size()!=0}">
 			            			<c:forEach items="${indusList}" var="indus" varStatus="status">
-			            			<div class="cursorPointer" onclick="location.href='/industry/industryStatusDetailView.do?seq=${indus.seq}'"  style="width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${status.count}&emsp; ${indus.title}</div>
+			            			<div class="cursorPointer" onclick="location.href='/industry/industryStatusDetailView.do?seq=${indus.seq}'"  style="width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${status.count}&emsp; <p class="fontThin" style="display:inline;'">${indus.title}</p></div>
 			            			<br>
 			            			</c:forEach>
 			            		</c:when>
@@ -161,10 +177,15 @@ font-size: 11px;}
 		            				<h4 style="word-break:break-all;word-break:break-word;">"${pro.languages}"</h4>
 		            				<br>
 		            				<div style="word-break:break-all;word-break:break-word;">${pro.title}</div>
-		            				<br>모집인원 : ${pro.capacity}<br>
-		            				지역 : ${pro.location1}&ensp;${pro.location2}<br>
-		            				팀장 : ${pro.writer}<br>
-		            				기간 : ${pro.formedAllDate }<br>
+		            				<hr>
+		            				<p class="mpExpla fontThin">모집인원. ${pro.capacity}명</p>
+		            				<hr>
+		            				<p class="mpExpla fontThin">지역. ${pro.location1}&ensp;${pro.location2}</p>
+		            				<hr>
+		            				<p class="mpExpla fontThin">팀장. ${pro.writer}</p>
+		            				<hr>
+		            				<p class="mpExpla fontThin">기간. ${pro.formedAllDate }</p>
+		            				<hr>
 		            			</div>
             				</div>
             				<script>

@@ -23,7 +23,6 @@ import kh.hello.dao.CodeDAO;
 import kh.hello.dto.CodeCommentsDTO;
 import kh.hello.dto.CodeQuestionDTO;
 import kh.hello.dto.CodeReplyDTO;
-import kh.hello.dto.MemberDTO;
 import kh.hello.dto.ReportDTO;
 import kh.hello.dto.ScrapDTO;
 
@@ -86,7 +85,7 @@ public class CodeService {
 		// 글쓴이 point 계산
 		int writePointStart = dao.selectPoint(id);
 		int adoptPoint = point;
-		int resultPoint = writePointStart - adoptPoint; 
+		int resultPoint = writePointStart + adoptPoint; 
 		dao.pointQResult(resultPoint, id);
 		dao.downLevel();
 	}
@@ -170,31 +169,6 @@ public class CodeService {
 	
 	public List<CodeReplyDTO> selectReplyAll() {
 		return dao.selectReplyAll();
-	}
-	
-	public void imageUploadR(CodeReplyDTO dto,String path) throws Exception{
-		Pattern p = Pattern.compile("<img.+?src=\"(.+?)\".+?data-filename=\"(.+?)\".*?>");
-		Matcher m = p.matcher(dto.getContent());
-
-		String oriName = null;
-		String sysName = null;
-		while(m.find()) { 
-			oriName = m.group(2); 
-			if(oriName.equals("")) { 
-				break;
-			}
-			else {
-				sysName = System.currentTimeMillis() + "_" + oriName;
-				String imageString = m.group(1).split(",")[1];
-				byte[] imgByte = Base64Utils.decodeFromString(imageString); 
-				FileOutputStream fos = new FileOutputStream(path + "/" + sysName);
-				DataOutputStream dos = new DataOutputStream(fos);
-				dos.write(imgByte);
-				dos.flush();
-				dos.close();
-				String contents = dto.getContent().replaceFirst(Pattern.quote(m.group(1)), "/files/"+sysName);
-			}
-		}
 	}
 	
 	@Transactional("txManager")

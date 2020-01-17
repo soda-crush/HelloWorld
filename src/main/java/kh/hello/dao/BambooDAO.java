@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 
 import kh.hello.dto.BambooCoDTO;
 import kh.hello.dto.BambooDTO;
-import kh.hello.dto.LoginInfoDTO;
 import kh.hello.dto.ReportDTO;
 
 @Repository

@@ -14,6 +14,7 @@ import kh.hello.configuration.Configuration;
 import kh.hello.dto.ItnewsCoDTO;
 import kh.hello.dto.ItnewsDTO;
 import kh.hello.dto.LoginInfoDTO;
+import kh.hello.dto.ReportDTO;
 import kh.hello.dto.ScrapDTO;
 import kh.hello.services.ItnewsService;
 
@@ -89,6 +90,11 @@ public class ItnewsController {
 			is.increViewCount(seq);
 			List<ItnewsCoDTO> list = is.commentList(seq);
 			ItnewsDTO result = is.itnewsDetail(seq);
+			if(result==null) {
+				return "/itnews/itnewsView";
+			}
+			String profileImg = is.getImgByWriter(result.getWriter());
+			m.addAttribute("profileImg", profileImg);
 			m.addAttribute("list", list);
 			m.addAttribute("result", result);
 			m.addAttribute("page", page);
@@ -101,6 +107,7 @@ public class ItnewsController {
 		dto.setId(((LoginInfoDTO)session.getAttribute("loginInfo")).getId());
 		dto.setWriter(((LoginInfoDTO)session.getAttribute("loginInfo")).getNickName());
 		is.coWrite(dto, seq);
+		System.out.println( is.coWriteAfter(seq));
 		return is.coWriteAfter(seq);
 	}
 	
@@ -167,5 +174,32 @@ public class ItnewsController {
 		return is.scrap(dto);
 	}
 	
+	//신고
+	@ResponseBody
+	@RequestMapping("/reportDuplCheck")
+	public String reportDuplCheck(int seq, HttpSession session) {
+		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
+		String id = sessionValue.getId();
+		int result = is.reportDuplCheck(id, seq);
+		if(result>0) {
+			return "dupl";
+		}else {
+			return "possible";
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping("/report")
+	public String reportProject(ReportDTO dto, HttpSession session) {
+		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
+		dto.setReporterID(sessionValue.getId());
+		dto.setReporterNick(sessionValue.getNickName());		
+		int result = is.reportProject(dto);
+		if(result>0) {
+			return "success";
+		}else {
+			return "redirect:/home/error";
+		}
+	}
 	
 }

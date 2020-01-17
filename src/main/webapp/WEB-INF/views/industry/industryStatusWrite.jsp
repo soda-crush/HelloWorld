@@ -67,16 +67,25 @@
 
 		<!--      몸통 시작!!!   -->
 		<div class=container id="projectPage" style="background-color: white">
-			<div id="pageTitle">
-				<table>
-					<tr>
-						<td colspan="3" style="font-size: 60px; font-weight: 100;">업계현황</td>
-						<td></td>
-						<td style="font-size: 15px; color: gray;">업계현황에 대한 정보를 나누는
-							게시판입니다.</td>
-						<td></td>
-					</tr>
-				</table>
+			<div class=row>
+				<div class="col-12 d-none d-md-block">
+					<div id="pageTitle">
+						<table>
+							<tr>
+								<td colspan="3" style="font-size: 60px; font-weight: 100; vertical-align: text-bottom">업계현황</td>
+								<td></td>
+								<td style="font-size: 15px; color: gray; vertical-align: text-bottom">     업계현황에 대한 정보를 나누는 게시판입니다.</td>
+								<td></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class=row>
+				<div class="d-md-none">
+					<div style="font-size: 60px; font-weight: 100;">업계현황</div>
+					<div style="font-size: 15px; color: gray;">업계현황에 대한 정보를 나누는 게시판입니다.</div>
+				</div>
 			</div>
 
 		<form action="industryStatusWriteProc.do" method="post"
@@ -112,11 +121,9 @@
 				</div>
 			</div>	
 			<div class=row>
-				<div class="col-1 title">
-					<h4>제목</h4>
-				</div>
-				<div class="col-11 title" >
-					<input type="text" name=title style="width: 100%" maxlength="100">
+				
+				<div class="col-12 title" >
+					<input type="text" name=title style="width: 100%" maxlength="100" placeholder="제목을 입력해주세요.">
 				</div>
 			</div>	
 			<div class=row>

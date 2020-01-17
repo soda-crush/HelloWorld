@@ -37,7 +37,7 @@
 	</insert>
 	
 	<select id="coList" resultType="kh.hello.dto.ItnewsCoDTO">
-		select itnewsComments.*, profileImg from itnewsComments inner join member on itnewsComments.id = member.id where itSeq=${seq}
+		select itnewsComments.*, profileImg from itnewsComments inner join member on itnewsComments.id = member.id where itSeq=${seq} 
 	</select>
 	
 	<delete id="coRemove" parameterType="java.util.Map">
@@ -125,4 +125,16 @@
 	<update id="pointCheck" parameterType="string">
 		update member set memlevel=1 where id = #{id} and point &lt; 0
 	</update>
+	
+	<select id="getImgByWriter" parameterType="string" resultType="string">
+		select profileImg from member where nickName=#{writer}
+	</select>
+	
+	<select id="reportDuplCheck" resultType="integer" parameterType="java.util.Map">
+		select count(*) from reportedBoard where reporterID=#{id} and boardName='Itnews' and boardSeq=#{seq}
+	</select>
+	<insert id="insertReport" parameterType="kh.hello.dto.ReportDTO">
+		insert into reportedBoard values(reportedBoardSeq.nextval, 'N', 'Itnews', #{boardSeq}, #{title}, #{reporterNick}, #{reporterID} , sysdate, #{reason}, null)
+	</insert>
+	
 </mapper> 

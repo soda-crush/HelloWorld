@@ -9,17 +9,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/css/mainBase.css">
 <link rel="stylesheet" type="text/css" href="/css/font-awesome/css/font-awesome.css">
 <link rel="stylesheet" href="/css/project/list.css" type="text/css"/>
 	<style>
-		h1{text-align: center;padding-top: 50px;padding-bottom: 50px;}
 		ul{background-color: lightgray;font-size: 13px;}
-		.card{width:200px;height:300px;margin: auto;;float :left;}
-		.myprofile{float: left;margin-top: 20px;width:200px;text-align:center;}
+		.card{width:200px;height:300px;margin: auto;float :left;}
+		.myprofile{float: left;margin-top: 20px;}
 		#mycard{ float:none;display:flex;align-items:center;}
 		.commentwrite{width:100%;height:100px;padding: 0px;margin-top: 10px;float: left;}
 		.commentlist{width:100%;padding: 0px;margin-top: 10px;float: left;}
@@ -38,7 +36,6 @@
         .scrapnavi>div>a:hover{color:gray;}
         .scrapnavi{background-color: lightgray;border-radius:5px;margin-top:30px;width:200px;display:inline-block;border-right:1px solid gray;}	
         .line-over{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-        .pg{background-color:white;border-radius:5px 0px 0px 5px;border:1px solid gray;}
 	</style>
 	<script>
 	$(function(){
@@ -47,7 +44,7 @@
 	</script>
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/standard/header.jsp"/>
+	<jsp:include page="/WEB-INF/views/standard/plogHeader.jsp"/>
 	
  		<div id=baseBackgroundColor>
             <div class=container>
@@ -61,30 +58,6 @@
 
             
             <div class="container">
-				<h1 class="d-none d-sm-block"> Programming-Log</h1>
-				<h3 class="d-sm-none"> Programming-Log</h3>
-	            <div class="row navi" style="background-color: #008EDC;">
-					<div class="col nvlink1 d-none d-sm-block"><a class="text-light" href="${pageContext.request.contextPath}/Portfolio/toPlogmain.do">내 포트폴리오</a></div>
-					<c:choose>
-						<c:when test="${loginInfo.id ==ownerInfo.id }">
-							<div class="col nvlink1 d-none d-sm-block"><a class="text-light" href="${pageContext.request.contextPath}/Plog/toPlogCohow.do">내 지식인</a></div>
-							<div class="col nvlink1 d-none d-sm-block"><a class="text-light" href="${pageContext.request.contextPath}/Scrap/itNews.do">내 스크랩</a></div>
-						</c:when>
-					</c:choose>
-					<div class="col nvlink1 d-none d-sm-block"><a class="text-light" href="${pageContext.request.contextPath}/Plog/toPlogProject.do">내 프로젝트</a></div>
-					<div class="col nvlink1 d-none d-sm-block"><a class="text-light" href="${pageContext.request.contextPath}/GuestBook/selectList.do">방명록</a></div>
-				</div>
-				<div class="row navi" style="background-color: #008EDC;">
-					<div class="col nvlink2 d-sm-none"><a class="text-light" href="${pageContext.request.contextPath}/Portfolio/toPlogmain.do">내 포트폴리오</a></div>
-					<c:choose>
-						<c:when test="${loginInfo.id ==ownerInfo.id }">
-							<div class="col nvlink2 d-sm-none"><a class="text-light" href="${pageContext.request.contextPath}/Plog/toPlogCohow.do">내 지식인</a></div>
-							<div class="col nvlink2 d-sm-none"><a class="text-light" href="${pageContext.request.contextPath}/Scrap/itNews.do">내 스크랩</a></div>
-						</c:when>
-					</c:choose>
-					<div class="col nvlink2 d-sm-none"><a class="text-light" href="${pageContext.request.contextPath}/Plog/toPlogProject.do">내 프로젝트</a></div>
-					<div class="col nvlink2 d-sm-none"><a class="text-light" href="${pageContext.request.contextPath}/GuestBook/selectList.do">방명록</a></div>
-				</div>
 	            <div class="row">
 	                <div class="col-12 col-md-4 col-lg-3 myprofile">
 	                    <div>
@@ -98,7 +71,7 @@
 	                    </div>
 	                </div>
 	                <div class="col-12 col-md-8 col-lg-9 scraptwrap">
-	                	<div style="margin-top:20px;">
+	                	<div style="margin-top:20px;margin-buttom:20px;">
 	    	 				<div class="btn-group" role="group" aria-label="Basic example">
 								<button type="button" class="btn btn-flat btn-xs btn-secondary" onclick="location.href='${pageContext.request.contextPath}/Scrap/itNews.do'">IT 뉴스</button>
 								<button type="button" class="btn btn-flat btn-xs btn-outline-secondary" onclick="location.href='${pageContext.request.contextPath}/Scrap/cohow.do'">코드 지식인</button>
@@ -120,7 +93,7 @@
 						  		<c:otherwise>
 						  			<c:forEach items="${nlist}" var="dto">
 						  				<div class="row tableBody p-0">
-							    			<div class="col-7 col-lg-5 line-over"><a href="${pageContext.request.contextPath}/itnews/detail?seq=${dto.seq}&page=${page}">${dto.title}</a></div>
+							    			<div style="cursor:pointer;" class="col-7 col-lg-5 line-over"><a href="${pageContext.request.contextPath}/itnews/detail?seq=${dto.seq}&page=${page}">${dto.title}</a></div>
 							    			<div class="col-2 line-over">${dto.writer}</div>
 							    			<div class="col-3">${dto.getDate()}</div>
 							    			<div class="col-2 d-none d-lg-block">${dto.viewCount}</div>	

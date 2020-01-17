@@ -15,28 +15,28 @@
 <link rel="stylesheet" type="text/css" href="/css/font-awesome/css/font-awesome.css">
 	<style>
    		*{spellcheck="false"}
-        h1,h3{text-align: center;padding-top: 50px; padding-bottom: 50px;}
         ul{background-color: lightgray;font-size: 13px;}
-        .card{ width:200px;height:300px;margin: auto; float :left;}
-        .myprofile{float: left;margin-top: 20px;}
+        .card{width:200px;height:300px;margin:auto;float:left;}
+        .myprofile{float: left;margin-top: 20px;padding-right:0px;}
         #mycard{float:none;display:flex;align-items:center;}
         .commentwrite{width:100%; height:100px;padding: 0px;margin-top: 10px;float: left;}
         .commentlist{width:100%;padding: 0px;margin-top: 10px;float: left;}
         .col{margin: 0px; padding: 0px;}
         .content{height:90%;float: left;resize: none;}
         .sendbt{height:90%;float: left;}
-        #writer{text-underline-position: auto;margin-right: 30px;}
         .commentlist>div>div{margin-right: 5px;}
         #commentForm{height:100%;}
+        .commentwrap{background-color:white;border-radius:5px;padding: 15px;}
         textarea{resize:none;}
         .page-item{padding:0px;height:10px;width:10px;}
 		.navi{text-align: center;}
 		.nvlink1{height:45px;line-height:45px;font-size:14px;}
 		.nvlink2{height:45px;line-height:45px;font-size:10px;}
     	a:hover{text-decoration:none;}
-        .message{background-color:#efefef;margin:10px;width:100%;height:100%;border:0px;}
-        .listwrap{border:1px solid gray;margin: 10px; padding:5px;}
+        .message{background-color:white;margin:10px;width:100%;height:100%;border:0px;}
+        .listwrap{margin: 10px; padding:5px;}
     	.line-over{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+    	.interval{width:100%;background-color:black;border-radius: 8px;height:1px;margin-left:15px;"}
     </style>
 	<script>
 	$(function(){
@@ -45,7 +45,7 @@
 	</script>
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/standard/header.jsp"/>
+	<jsp:include page="/WEB-INF/views/standard/plogHeader.jsp"/>
  		<div id=baseBackgroundColor>
             <div class=container>
                 <div class=row>
@@ -54,30 +54,6 @@
                 </div>
             </div>         
             <div class="container">
-				<h1 class="d-none d-sm-block"> Programming-Log</h1>
-				<h3 class="d-sm-none"> Programming-Log</h3>
-	            <div class="row navi" style="background-color: #008EDC;">
-					<div class="col nvlink1 d-none d-sm-block"><a class="text-light" href="${pageContext.request.contextPath}/Portfolio/toPlogmain.do">내 포트폴리오</a></div>
-					<c:choose>
-						<c:when test="${loginInfo.id ==ownerInfo.id }">
-							<div class="col nvlink1 d-none d-sm-block"><a class="text-light" href="${pageContext.request.contextPath}/Plog/toPlogCohow.do">내 지식인</a></div>
-							<div class="col nvlink1 d-none d-sm-block"><a class="text-light" href="${pageContext.request.contextPath}/Scrap/itNews.do">내 스크랩</a></div>
-						</c:when>
-					</c:choose>
-					<div class="col nvlink1 d-none d-sm-block"><a class="text-light" href="${pageContext.request.contextPath}/Plog/toPlogProject.do">내 프로젝트</a></div>
-					<div class="col nvlink1 d-none d-sm-block"><a class="text-light" href="${pageContext.request.contextPath}/GuestBook/selectList.do">방명록</a></div>
-				</div>
-				<div class="row navi" style="background-color: #008EDC;">
-					<div class="col nvlink2 d-sm-none"><a class="text-light" href="${pageContext.request.contextPath}/Portfolio/toPlogmain.do">내 포트폴리오</a></div>
-					<c:choose>
-						<c:when test="${loginInfo.id ==ownerInfo.id }">
-					<div class="col nvlink2 d-sm-none"><a class="text-light" href="${pageContext.request.contextPath}/Plog/toPlogCohow.do">내 지식인</a></div>
-					<div class="col nvlink2 d-sm-none"><a class="text-light" href="${pageContext.request.contextPath}/Scrap/itNews.do">내 스크랩</a></div>
-						</c:when>
-					</c:choose>
-					<div class="col nvlink2 d-sm-none"><a class="text-light" href="${pageContext.request.contextPath}/Plog/toPlogProject.do">내 프로젝트</a></div>
-					<div class="col nvlink2 d-sm-none"><a class="text-light" href="${pageContext.request.contextPath}/GuestBook/selectList.do">방명록</a></div>
-				</div>
 	            <div class="row">
 	                <div class="col-12 col-md-4 col-lg-3 myprofile">
 	                    <div>
@@ -101,19 +77,21 @@
 		                        <button class="col-2 sendbt">작성</button>
 	                    	</form>	
 	                    </div>
-	                    <div class="commentlist row" style="float: left">
+	                    <div class="commentlist row">
 	                    
 	                    	<c:forEach items="${list}"  var="dto">
+	                    		<div class="interval"> </div>
 	                    		<div class="listwrap col-12">
-			                		<div class="row" style="margin:5px;">
-			                            <div>작성자 : </div>
-			                            <div class="writer${dto.seq}" style="margin-right:30px;"> ${dto.writer }</div>
-			                            <div>작성일 :</div>
-			                            <div id="writeDate"> ${dto.getDate()}</div>
-			                        </div>
-			                        <div class="row">
+			                		<div>
+			                			<div style="float:left;">
+			                				<img src="${dto.writerImg }" style="width:50px;">
+			                			</div>
+			                			<div style="float:left;margin-left:10px;">
+				                            <div>작성자 : ${dto.writer } </div>
+				                            <div>작성일 : ${dto.getDate()}</div>
+			                			</div>
 			                            <textarea id="list${dto.seq }" class="message" onkeydown="resize(this)" onkeyup="resize(this)" maxlength="1300" readonly >${dto.content }</textarea>
-			                        </div>
+			                  		</div>
 			                        <c:choose>
 										<c:when test="${dto.writer == loginInfo.nickName}">
 											<div style="text-align:right">
@@ -162,7 +140,6 @@
 	  				},
         		}).done(function(){
             		$('#list'+seq).prop('readonly', true);
-            		$('#list'+seq).attr('style','background-color:#efefef');
             		$('#update'+seq).attr('style','visibility:hidden');
             		$('#toModify'+seq).attr('style','visibility:visible');
             		var resizeList = document.getElementsByClassName("message");
@@ -177,7 +154,6 @@
         
         	function modify(seq){
         		$('#list'+seq).prop('readonly', false);
-        		$('#list'+seq).attr('style','background-color:white');
         		$('#update'+seq).attr('style','visibility:visible');
         		$('#toModify'+seq).attr('style','visibility:hidden');
         		var resizeList = document.getElementsByClassName("message");

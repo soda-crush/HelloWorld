@@ -105,9 +105,9 @@ a:hover {
 					<div class="row tableHead">					    
 					    <div class="col-xl-1 d-none d-xl-block">글번호</div>
 					    <div class="col-xl-1 col-3 col-md-2">구분</div>
-					    <div class="col-xl-5 col-9 col-md-8" style="width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">게시판제목</div>
+					    <div class="col-xl-5 col-7 col-md-8" style="width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">게시판제목</div>
 					    <div class="col-xl-1 col-md-1 d-none d-md-block">작성자</div>
-					    <div class="col-xl-1 col-md-1 d-none d-md-block">포인트</div>
+					    <div class="col-xl-1 col-2 col-md-1">포인트</div>
 					    <div class="col-xl-2 d-none d-xl-block">날짜</div>
 					    <div class="col-xl-1 d-none d-xl-block">조회수</div>					    
 					</div>
@@ -127,7 +127,7 @@ a:hover {
 <%-- 											<span class="badge badge-pill badge-success" style="margin: 10; width: 60px;">${dto.division}</span> --%>
 											${dto.division}
 										</div>
-										<div class="col-xl-5 col-9 col-md-8" onClick="detailView(${dto.seq})">
+										<div class="col-xl-5 col-7 col-md-8" onClick="detailView(${dto.seq})">
 											<div class="row">
 											<div style="max-width:85%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;">${dto.title}</div>
 												<c:if test="${dto.replyCount>0 }">
@@ -142,7 +142,7 @@ a:hover {
 											</span>
 										</div> 
 <!-- 										 <span class="badge badge-pill badge-info">실무자</span></td> -->
-										<div class="col-xl-1 col-md-1 d-none d-md-block">${dto.point}</div>
+										<div class="col-xl-1 col-2 col-md-1">${dto.point}</div>
 										<div class="col-xl-2 d-none d-xl-block">${dto.formedDate}</div>
 										<div class="col-xl-1 d-none d-xl-block">${dto.viewCount}</div>
 									</div>
@@ -233,24 +233,32 @@ a:hover {
 	});
 	
 	$("#write").on("click",function(){
-		$.ajax({
-	        url : "/code/memLevel.do",
-	        type : "post",
-	        dataType : "json",
-	        data : {
-	           id : "${sessionScope.loginInfo.id}"	           
-	        }
-	     }).done(function(resp){
-	        if(resp > 1){
-	           location.href="/code/codeQWrite.do";   
-	        }else{
-	           alert("권한이 없습니다. 관리자에게 문의하세요.")
-	           return false;
-	        }    
-	     }).fail(function(resp){
-	        console.log("실패");
-	     })
+		if("${sessionScope.loginInfo.memLevel}" == 1){
+			alert("권한이 없습니다. 관리자에게 문의하세요.");
+			return false;
+		}
+		else{
+			 location.href="/code/codeQWrite.do";
+		}
 	})
+	
+// 		$.ajax({
+// 	        url : "/code/memLevel.do",
+// 	        type : "post",
+// 	        dataType : "json",
+// 	        data : {
+// 	           id : "${sessionScope.loginInfo.id}"	           
+// 	        }
+// 	     }).done(function(resp){
+// 	        if(resp > 1){
+// 	           location.href="/code/codeQWrite.do";   
+// 	        }else{
+// 	           alert("권한이 없습니다. 관리자에게 문의하세요.")
+// 	           return false;
+// 	        }    
+// 	     }).fail(function(resp){
+// 	        console.log("실패");
+// 	     })
 	
 	$("#search").on("click",function(){
 		$("frm").submit();

@@ -10,4 +10,12 @@ public class Utils {
 		return (((int)(Math.random()*max)) + 1);
 	}
 	
+	public static String protectXss(String input) {
+		input = input.replaceAll("&", "&amp;");
+		input = input.replaceAll("<", "&lt;");
+		input = input.replaceAll(">", "&gt;");
+		
+		return input;		
+	}
+	
 }

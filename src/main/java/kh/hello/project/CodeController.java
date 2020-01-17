@@ -15,7 +15,6 @@ import kh.hello.dto.CodeCommentsDTO;
 import kh.hello.dto.CodeQuestionDTO;
 import kh.hello.dto.CodeReplyDTO;
 import kh.hello.dto.LoginInfoDTO;
-import kh.hello.dto.MemberDTO;
 import kh.hello.dto.ReportDTO;
 import kh.hello.dto.ScrapDTO;
 import kh.hello.services.CodeService;
@@ -87,7 +86,8 @@ public class CodeController {
 		List<CodeReplyDTO> rResult = sv.detailReply(seq); //queSeq
 		List<CodeCommentsDTO> cResult = sv.commentList(seq); //queSeq  
 		int repCount = sv.replyCount(seq); //답글 수 
-		int adoptCount = sv.adoptCount(seq);
+		int adoptCount = sv.adoptCount(seq);	
+		String ip = Configuration.ip;
 
 //		답글에서 실무자 비실무자 구분
 		for (CodeReplyDTO c : rResult) {
@@ -100,7 +100,8 @@ public class CodeController {
 		m.addAttribute("rResult", rResult);			
 		m.addAttribute("cResult", cResult);
 		m.addAttribute("repCount", repCount);
-		m.addAttribute("adoptCount", adoptCount);		
+		m.addAttribute("adoptCount", adoptCount);
+		m.addAttribute("ip", ip);
 //		m.addAttribute("repSeq", repSeq);
 //		m.addAttribute("nowPoint", nowPoint);
 		
@@ -291,6 +292,7 @@ public class CodeController {
 		dto.setReporterID(sessionValue.getId());
 		dto.setReporterNick(sessionValue.getNickName());		
 		int result = sv.reportCode(dto);
+		System.out.println(result);
 		if(result>0) {
 			return "success";
 		}else {

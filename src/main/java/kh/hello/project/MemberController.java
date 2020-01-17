@@ -27,8 +27,6 @@ public class MemberController {
 	@Autowired
 	private MemberService ms;
 
-	@Autowired
-	private JavaMailSender mailSender;
 
 	@RequestMapping("/login")
 	public String loginFrm(Model m, String result, String noMemPath, String seq){ //로그인 폼이동
@@ -81,7 +79,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/logout")
-	public String logout(HttpSession session){ //로그아웃 프로세스
+	public String memLogout(HttpSession session){ //로그아웃 프로세스
 		session.invalidate();
 		return "redirect:/";
 	}
@@ -99,8 +97,8 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/modifyProc")
-	public String signUpProc(MemberDTO mdto, String empCheck, String empEmail, String unempEmail 
-			,String otherJoinPath, Timestamp birthday, String demotionMail) { //회원가입 프로세스
+	public String memModifyProc(MemberDTO mdto, String empCheck, String empEmail, String unempEmail 
+			,String otherJoinPath, Timestamp birthday, String demotionMail) { 
 		ms.modify(mdto, empCheck, empEmail, unempEmail, otherJoinPath, birthday, demotionMail);
 		return "redirect:modifyTemp";
 	}
@@ -111,7 +109,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/modifyTemp")
-	public String modifyTemp() {
+	public String memModifyTemp() {
 		return "member/modifyTemp";
 	}
 	
@@ -168,33 +166,12 @@ public class MemberController {
 	 @RequestMapping(value = "/mailSending", produces = "text/html; charset=utf-8")
 	 @ResponseBody
 	  public String mailSending(String email) {
-		 try {
-				String ctfCode = Utils.getRandomCode();
-			    String setfrom = "sohyunKH4862@gmail.com";         
-			    String tomail  = email;     // 받는 사람 이메일
-			    String title   = "[Hello World!] This is your verification code.";      // 제목
-			    String content = "Please enter this code : " + ctfCode;    // 내용
-			  
-			    
-			    	//디비에 이메일이랑 인증코드 저장
-				    ms.insertCtfCode(email, ctfCode);
-				 
-				    	 MimeMessage message = mailSender.createMimeMessage();
-					      MimeMessageHelper messageHelper 
-					                        = new MimeMessageHelper(message, true, "UTF-8");
-					      
-					      messageHelper.setFrom(setfrom);  // 보내는사람 생략하거나 하면 정상작동을 안함
-					      messageHelper.setTo(tomail);     // 받는사람 이메일
-					      messageHelper.setSubject(title); // 메일제목은 생략이 가능하다
-					      messageHelper.setText(content);  // 메일 내용
-					     
-					      mailSender.send(message);
-
-						  return "send";
-			}catch(Exception e) {
-				e.printStackTrace();
-				return "에러";
-			}
+		try {
+			return ms.mailSending(email);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "에러";
+		}
 	  }
 	 
 	 @RequestMapping("/ctfCodeProc")
@@ -209,7 +186,7 @@ public class MemberController {
 		}
 	
 	 @RequestMapping("/mypage")
-	 public String myPage(){
+	 public String memMyPage(){
 		 return "member/mypage";
 	 }
 	 
@@ -225,40 +202,9 @@ public class MemberController {
 	 
 	 @RequestMapping(value = "/idFindmailSending", produces = "text/html; charset=utf-8")
 	 @ResponseBody
-	  public String idFindmailSending(String name, String email) { //아이디 찾기
-		 int result = ms.isEmailExist(name, email);
-		 if(result > 0){
-			 try {
-					String ctfCode = Utils.getRandomCode();
-				    String setfrom = "sohyunKH4862@gmail.com";         
-				    String tomail  = email;     // 받는 사람 이메일
-				    String title   = "[Hello World!] This is your verification code.";      // 제목
-				    String content = "Please enter this code : " + ctfCode;    // 내용
-				  
-				    
-				    	//디비에 이메일이랑 인증코드 저장
-					    ms.insertCtfCode(email, ctfCode);
-					 
-					    	 MimeMessage message = mailSender.createMimeMessage();
-						      MimeMessageHelper messageHelper 
-						                        = new MimeMessageHelper(message, true, "UTF-8");
-						      
-						      messageHelper.setFrom(setfrom);  // 보내는사람 생략하거나 하면 정상작동을 안함
-						      messageHelper.setTo(tomail);     // 받는사람 이메일
-						      messageHelper.setSubject(title); // 메일제목은 생략이 가능하다
-						      messageHelper.setText(content);  // 메일 내용
-						     
-						      mailSender.send(message);
-
-							  return "send";
-				}catch(Exception e) {
-					e.printStackTrace();
-					return "에러";
-				}
-		 }else {
-			 return "false";
-		 }
-	}
+	 public String idFindmailSending(String name, String email) {
+		 return ms.idFindmailSending(name, email);
+	 }
 	 
 	 @RequestMapping("/isEmailALready")
 	 @ResponseBody
@@ -296,24 +242,24 @@ public class MemberController {
 	 }
 	 
 	 @RequestMapping("/withdrawal")
-	 public String withdrawalFrm() {
+	 public String memWithdrawalFrm() {
 		 return "member/withdrawal";
 	 }
 	 
 	 @RequestMapping(value = "/withdrawalCheck",produces="text/html;charset=utf8")
 	 @ResponseBody
-	 public String withdrawalCheck(String pw, HttpSession session) {
+	 public String memWithdrawalCheck(String pw, HttpSession session) {
 		 return ms.withdrawalCheck(((LoginInfoDTO)session.getAttribute("loginInfo")).getId(), pw);
 	 }
 	 
 	 @RequestMapping("/modifyCheck")
-	 public String toModifyCheckFrm() {
+	 public String memToModifyCheckFrm() {
 		 return "member/modifyCheck";
 	 }
 	
 	 @RequestMapping("/modifyPwCheck")
 	 @ResponseBody
-		public String modifyPwCheck(String pw, HttpSession session){ 
+		public String memModifyPwCheck(String pw, HttpSession session){ 
 				int result = ms.login(((LoginInfoDTO)session.getAttribute("loginInfo")).getId(), pw);
 				if(result > 0) {
 					return "true";
@@ -323,7 +269,7 @@ public class MemberController {
 		}
 	 
 	 @RequestMapping("/modify")
-	 public String toModifyFrm(Model m, HttpSession session) {
+	 public String memToModifyFrm(Model m, HttpSession session) {
 		 m.addAttribute("dto",ms.selectMember(((LoginInfoDTO)session.getAttribute("loginInfo")).getId()));
 		 return "member/modify";
 	 }
@@ -339,6 +285,21 @@ public class MemberController {
 	 public String toNoMemForm2(String result, Model m) {
 		 m.addAttribute("noMemPath", result);
 		 return "member/noMem";
+	 }
+	 
+	 @RequestMapping("/noMem")
+	 public String toNoMemForm() {
+		 return "member/noMem";
+	 }
+	 
+	 @RequestMapping("/mLevelIs1")
+	 public String mLevelIs1() {
+		 return "member/memLevelIs1";
+	 }
+	 
+	 @RequestMapping("/toMyInquiry")
+	 public String toMyInquiry() {
+		 return "redirect:../member1/myInquiry";
 	 }
 	 
 }

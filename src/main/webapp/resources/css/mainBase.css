@@ -1,13 +1,21 @@
 @charset "UTF-8";
 
 @font-face {
-	font-family: 'NanumGothic';
+	font-family: 'NanumGothicBold';
 	src: url(/font/NanumGothicBold.ttf) format('truetype');
+}
+@font-face {
+	font-family: 'NanumGothic';
+	src: url(/font/NanumGothic.ttf) format('truetype');
 }
 
 * {
-	font-family: "Nanumgothic";
+	font-family: "NanumgothicBold";
 	box-sizing: border-box;
+}
+.fontThin{
+	font-family: "Nanumgothic";
+	font-size:13.7px;
 }
 
 .navbar-collapse {
@@ -120,3 +128,10 @@ button {
 .navbar {
 	padding: 0px;
 }
+.inputStyle1{
+	height: 38px;
+	border-radius: 6%;
+	border:1px solid #a8a8a8;
+	position:relative;
+	top:2px;
+	}

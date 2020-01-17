@@ -1,9 +1,5 @@
 package kh.hello.dto;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-
 public class CommentLogDTO {
 	private String dateis;
 	private int newCom;

@@ -65,7 +65,7 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/main")
-	public String main(Model m) {
+	public String adMain(Model m) {
 		//1-1. 방문자 통계(today, total)
 		try {
 			Map<String, Integer> count = as.getVisitorCount();
@@ -110,12 +110,12 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/modifyForm")
-	public String modifyForm() {
+	public String adModifyForm() {
 		return "admin/modifyForm";
 	}
 	
 	@RequestMapping("/modifyInfo")
-	public String modifyInfo(String password, String email, HttpServletRequest request) {
+	public String adModifyInfo(String password, String email, HttpServletRequest request) {
 		String adminId = (String)session.getAttribute("loginInfo");
 		int result = as.modifyInfo(adminId, password, email);
 		if(result > 0) {
@@ -127,7 +127,7 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/inquiryList")
-	public String inquiryList(String page, Model m) {
+	public String adInquiryList(String page, Model m) {
 		int currentPage = 1;		
 		
 		if(page!= null && !page.equals("") && !page.equals("null")) currentPage = Integer.parseInt(page);
@@ -147,7 +147,7 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/inquiryDetailView")
-	public String inquiryDetailView(int seq, int page, Model m) {
+	public String adInquiryDetailView(int seq, int page, Model m) {
 		//글 받아오기
 		InquiryDTO dto = as.inquiryDetailView(seq);
 		m.addAttribute("dto", dto);
@@ -162,7 +162,7 @@ public class AdminController {
 	
 	@RequestMapping(value="/writeInquiry", produces="text/html; charset=utf8")
 	@ResponseBody
-	public String writeInquiry(String reply, int boardSeq) {
+	public String adWriteInquiry(String reply, int boardSeq) {
 		InquiryReplyDTO dto = as.writeInquiry(reply, boardSeq);
 		JsonObject obj = new JsonObject();
 		obj.addProperty("seq", dto.getSeq());
@@ -174,7 +174,7 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/deleteInquiryReply")
-	public String deleteInquiryReply(int seq, int boardSeq, int page) {		
+	public String adDeleteInquiryReply(int seq, int boardSeq, int page) {		
 		//댓글 삭제하고
 		as.deleteInquiryReply(seq, boardSeq);
 		//boardSeq가지고 디테일뷰로 이동하기
@@ -182,7 +182,7 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/memberList")
-	public String memberList(String page, Model m) {
+	public String adMemberList(String page, Model m) {
 		//회원 목록 받아오기(byPage)
 		int currentPage = 1;
 		if(page!= null && !page.equals("") && !page.equals("null")) currentPage = Integer.parseInt(page);
@@ -210,7 +210,7 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/getMemberInfo")
-	public String getMemberInfo(String id, Model m) {
+	public String adGetMemberInfo(String id, Model m) {
 		MemberDTO dto = as.getMemberInfo(id);
 		m.addAttribute("dto", dto);
 		
@@ -218,7 +218,7 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/memberModify")
-	public String memberModify(String id, String email, String phone, Model m) {		
+	public String adMemberModify(String id, String email, String phone, Model m) {		
 		int result = as.memberModify(id, email, phone);
 		if(result == 0) {
 			m.addAttribute("id", id);
@@ -228,28 +228,43 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/memberStop")
-	public String memberStop(String id, Model m) {
+	public String adMemberStop(String id, Model m) {
 		int result = as.memberStop(id);
 		m.addAttribute("result", result);
 		return "admin/memberStopResult";
 	}
 	
 	@RequestMapping("/memberStart")
-	public String memberStart(String id, Model m) {
+	public String adMemberStart(String id, Model m) {
 		int result = as.memberStart(id);
 		m.addAttribute("result", result);
 		return "admin/memberStartResult";
 	}
 	
+	@RequestMapping("/memberOutForm")
+	public String adMemberOutForm(String id, Model m) {
+		MemberDTO dto = as.getMemberInfo(id);
+		m.addAttribute("dto", dto);
+		return "admin/memberOutForm";
+	}
+	
 	@RequestMapping("/memberOut")
-	public String memberOut(String id, String reason, Model m) {
-		int result = as.memberOut(id, reason);
+	public String adMemberOut(String id, String reason, String etcReason, Model m) {
+		if(reason.contentEquals("etc")) {
+			reason = etcReason;
+		}
+		int result = 0;
+		try {
+			result = as.memberOut(id, reason);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		m.addAttribute("result", result);
 		return "admin/memberOutResult";
 	}
 	
 	@RequestMapping("/forcedOutList")
-	public String forcedOutList(String page, Model m) {
+	public String adForcedOutList(String page, Model m) {
 		//목록 받아오기(page)
 		int currentPage = 1;
 		if(page!= null && !page.equals("") && !page.equals("null")) currentPage = Integer.parseInt(page);
@@ -270,14 +285,14 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/forcedOutDel")
-	public String forcedOutDel(int seq, Model m) {
+	public String adForcedOutDel(int seq, Model m) {
 		int result = as.forcedOutDel(seq);
 		m.addAttribute("result", result);
 		return "admin/forcedOutDelResult";
 	}
 	
 	@RequestMapping("/searchMember")
-	public String searchMember(String col, String searchWord, String page, Model m) {
+	public String adSearchMember(String col, String searchWord, String page, Model m) {
 		//검색 후 목록 받아오기
 		int currentPage = 1;
 		if(page!= null && !page.equals("") && !page.equals("null")) currentPage = Integer.parseInt(page);
@@ -298,7 +313,7 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/blackList")
-	public String blackList(String page, Model m) {//활동 점수가 0점 이하
+	public String adBlackList(String page, Model m) {//활동 점수가 0점 이하
 		//검색 후 목록 받아오기
 		int currentPage = 1;
 		if(page!= null && !page.equals("") && !page.equals("null")) currentPage = Integer.parseInt(page);
@@ -319,28 +334,36 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/stopForBlack")
-	public String stopForBlack(String id, Model m) {
+	public String adStopForBlack(String id, Model m) {
 		int result = as.memberStop(id);
 		m.addAttribute("result", result);
 		return "admin/blackStopResult";		
 	}
 	
 	@RequestMapping("/startForBlack")
-	public String startForBlack(String id, Model m) {
+	public String adStartForBlack(String id, Model m) {
 		int result = as.memberStart(id);
 		m.addAttribute("result", result);
 		return "admin/blackStartResult";
 	}
 	
 	@RequestMapping("/blackOut")
-	public String outBlack(String id, String reason, Model m) {
-		int result = as.memberOut(id, reason);
+	public String adOutBlack(String id, String reason, String etcReason, Model m) {
+		if(reason.contentEquals("etc")) {
+			reason = etcReason;
+		}
+		int result = 0;
+		try {
+			result = as.memberOut(id, reason);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		m.addAttribute("result", result);
 		return "admin/blackOutResult";
 	}
 	
 	@RequestMapping("/searchBlack")
-	public String searchBlack(String col, String searchWord, String page, Model m) {
+	public String adSearchBlack(String col, String searchWord, String page, Model m) {
 		//검색 후 목록 받아오기
 		int currentPage = 1;
 		if(page!= null && !page.equals("") && !page.equals("null")) currentPage = Integer.parseInt(page);
