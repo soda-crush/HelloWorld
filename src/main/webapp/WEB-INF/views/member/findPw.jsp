@@ -42,7 +42,7 @@
 						<input type = text id = name name=name placeholder="이름"><br>
 						&emsp;<input type = text id = email name=email placeholder="이메일 주소">
 						<button id=send>인증번호 받기 </button><br>
-						<input type=text id=codeInput name = codeInput placeholder="인증코트 입력"><br>
+						<input type=text id=codeInput name = codeInput placeholder="인증코드 입력"><br>
 						<button id=findBtn>다음</button>
 					</div>
 				</div>
