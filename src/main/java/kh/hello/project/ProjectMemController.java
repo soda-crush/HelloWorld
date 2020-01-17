@@ -74,7 +74,11 @@ public class ProjectMemController {
 	}
 	
 	@RequestMapping("/detailView")
-	public String projectDetailView(int seq, Model m, HttpServletRequest request) {
+	public String projectDetailView(String page, int seq, Model m, HttpServletRequest request) {
+		int listPage = 1;
+		if(page!=null) {
+			listPage = Integer.parseInt(page);
+		}
 		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
 		String id = sessionValue.getId();				
 		ProjectDTO result = svc.projectDetailView(seq);		
@@ -82,6 +86,7 @@ public class ProjectMemController {
 		List<ProjectCoDTO> coResult = svc.commentList(seq); 
 		String data = svc.projectWrite();
 		ProjectApplyDTO applyCheck = svc.getApplyCheck(seq);
+		m.addAttribute("page", listPage);
 		m.addAttribute("data", data);
 		m.addAttribute("pPage", result);
 		m.addAttribute("comments", coResult);

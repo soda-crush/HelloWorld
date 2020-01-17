@@ -45,6 +45,12 @@
 					<h1>프로젝트 모집</h1>
 				</div>
 				<div class="border border-secondary rounded" id="pageBody">
+					<c:if test="${pPage==null }">
+						<script>
+							alert("삭제되었거나 존재하지 않는 글입니다");
+							location.href="/project/list?page=${page}";
+						</script>
+					</c:if>
 					<c:if test="${pPage.seq !=null }">
 						<div id="pHeader">
 							<label class="${pPage.state } badge badge-pill ml-4" id="stateLabel">${pPage.stateInKor }</label>
@@ -84,7 +90,7 @@
 									<c:when test="${pPage.id == sessionScope.loginInfo.id}">										
 											<c:choose>
 												<c:when test="${pPage.state=='N' }">
-													<button type="button" class="btn btn-warning" id="applyCheckBtn">신규신청자
+													<button type="button" class="btn btn-warning" id="applyCheckBtn">신규신청
 														<c:if test="${pPage.applyCount>0 }">
 									  						<span class="pApply font-weight-bold">${pPage.applyCount }</span>
 									  					</c:if>

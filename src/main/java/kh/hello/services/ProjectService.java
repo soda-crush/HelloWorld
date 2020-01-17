@@ -25,6 +25,7 @@ import kh.hello.dto.ProjectDTO;
 import kh.hello.dto.ProjectImageDTO;
 import kh.hello.dto.ProjectPLogDTO;
 import kh.hello.dto.ReportDTO;
+import kh.hello.utils.Utils;
 
 @Service
 public class ProjectService {
@@ -120,6 +121,7 @@ public class ProjectService {
 		if(!filePath.exists()) {			
 			filePath.mkdirs();
 		}
+		dto.setTitle(Utils.protectXss(dto.getTitle()));
 		String contents = dto.getContents();
 		Pattern p = Pattern.compile("<img.+?src=\"(.+?)\".+?data-filename=\"(.+?)\".*?>");
 		Matcher m = p.matcher(contents);
@@ -158,6 +160,7 @@ public class ProjectService {
 		if(!filePath.exists()) {			
 			filePath.mkdirs();
 		}
+		dto.setTitle(Utils.protectXss(dto.getTitle()));
 		String contents = dto.getContents();
 		Pattern p = Pattern.compile("<img.+?src=\"(.+?)\".+?data-filename=\"(.+?)\".*?>");
 		Matcher m = p.matcher(contents);
@@ -251,6 +254,7 @@ public class ProjectService {
 	@Transactional("txManager")
 	public String commentWriteConfirm(ProjectCoDTO dto) {
 		String option = "commentAdd";
+		dto.setContents(Utils.protectXss(dto.getContents()));
 		dao.insertProjectCo(dto);
 		dao.updatePoint(option, dto.getId());
 		Gson gson = new Gson();
@@ -266,6 +270,7 @@ public class ProjectService {
 	
 	@Transactional("txManager")
 	public String commentModifyConfirm(ProjectCoDTO dto) {
+		dto.setContents(Utils.protectXss(dto.getContents()));
 		dao.updateProjectCo(dto);
 		Gson gson = new Gson();
 		List<ProjectCoDTO> result = dao.getCoList(dto.getProjectSeq());
@@ -307,6 +312,8 @@ public class ProjectService {
 	
 	
 	public String projectApplyWriteProc(ProjectApplyDTO dto) {
+		dto.setEmail(Utils.protectXss(dto.getEmail()));
+		dto.setEtc(Utils.protectXss(dto.getEtc()));
 		int result = dao.insertProjectApply(dto);
 		if(result>0) {
 			return "success";
@@ -417,6 +424,7 @@ public class ProjectService {
 		return dao.reportDuplCheck(id, seq);
 	}
 	public int reportProject(ReportDTO dto) {
+		dto.setReason(Utils.protectXss(dto.getReason()));
 		return dao.insertReport(dto);					
 	}
 }
