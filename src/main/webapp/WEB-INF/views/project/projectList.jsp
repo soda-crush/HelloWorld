@@ -132,7 +132,7 @@
         
         <script>
         	var pageOrder = "${pageOrder}";
-        	console.log(pageOrder);
+//         	console.log(pageOrder);
 			if(pageOrder=='seq'){
 				$("#latestOrder").addClass("active");
 				$("#deadlineOrder").removeClass("active");

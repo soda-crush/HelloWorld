@@ -246,8 +246,8 @@
 						$('#reportModal').modal('show');						
 					}
 				}).fail(function(resp){
-					console.log("실패");
-					console.log(resp);
+// 					console.log("실패");
+// 					console.log(resp);
 				});
 				return false;
 			}
@@ -268,7 +268,7 @@
 				$('#reportModal').modal('hide');
 				$("#rSuccessModal").modal('show');				
 			}).fail(function(resp){
-				console.log(resp);
+// 				console.log(resp);
 			});
 			return false;
 		});
@@ -328,8 +328,8 @@
 				data: $("#coReplyWriteFrm").serialize(),
 				dataType: "json"
 			}).done(function(resp){
-				console.log("성공");
-				console.log(resp);
+// 				console.log("성공");
+// 				console.log(resp);
 				$(".pPageComments").html("");
 				commentRecall(resp);
 			}).fail(function(resp){
