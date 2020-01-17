@@ -235,6 +235,15 @@
 				alert("제목을 입력해주세요");
 				return false;
 			}
+			regex = /^[(<p><br></p>)(<p>(&nbsp; ){1,}</p>)]{0,}$/g;
+		   	var content = $(".summernote").val();
+		   	var result = regex.exec(content);
+		   	if(result!=null){
+		   		alert("내용을 입력해주세요");
+		   		$(".note-editable").html("<p><br></p>");
+		   		$(".note-placeholder").show();
+		   		return false;
+		   	}
 			$("#phone").val($("#phone1").val()+"-"+$("#phone2").val()+"-"+$("#phone3").val());
 			if($("#phone").val()=="--"){$("#phone").val("");}	
 			var loc1 = $("#loc1").find("option[value='"+$("#loc1").val()+"']").text();

@@ -44,7 +44,7 @@
 				  			<c:forEach items="${makeProjectList }" var="m">
 				  				<div class="row makeTableBody tableBody p-0">
 									<div class="col-1 pl-2 state${m.state }">${m.stateInKor }</div>
-									<div class="col-1"><button type="button" class="btn btn-outline-warning btn-sm mb-1" onclick="popUp('/project/applyCheck?projectSeq=${m.seq }')">신청목록</button></div>
+									<div class="col-1"><button type="button" class="btn btn-outline-warning btn-sm mb-1" onclick="popUp('/project/apply/list?projectSeq=${m.seq }')">신청목록</button></div>
 									<div class="col-1">${m.totalApply } <small class="text-secondary">명</small></div>									
 									<div class="col-1"><strong class="capaCheck achieve<fmt:parseNumber integerOnly= "true" value= "${m.totalApprove/m.capacity }" />">${m.totalApprove }/${m.capacity }</strong> <small class="text-secondary">명</small></div>
 									<div class="col-3">${m.formedAllDate }</div>

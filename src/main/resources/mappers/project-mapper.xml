@@ -10,15 +10,19 @@
 	
 	<select id="getArticleCount" resultType="integer">
 		select count(*) from project
-			<if test="pageOrder == 'startDate'">
-				where state = 'N'
-				<if test="searchOption!=null">
-					<include refid="searchAnd"></include>
-				</if>				
-			</if>
-		<if test="searchOption!=null">
-			<include refid="search"></include>
-		</if>		
+			<choose>
+				<when test="pageOrder == 'startDate'">
+					where state = 'N'
+					<if test="searchOption!=null">
+						<include refid="searchAnd"></include>
+					</if>
+				</when>
+				<otherwise>
+					<if test="searchOption!=null">
+						<include refid="search"></include>
+					</if>
+				</otherwise>
+			</choose>				
 	</select>
 
 	<select id="getListByPage" resultType="kh.hello.dto.ProjectDTO">
@@ -32,16 +36,20 @@
 			</when>
 		</choose>
 		) as num from project
-			<if test="pageOrder == 'startDate'">
+		<choose>
+			<when test="pageOrder == 'startDate'">
 				where state = 'N'
 				<if test="searchOption!=null">
 					<include refid="searchAnd"></include>
 				</if>
-			</if>
-		<if test="searchOption!=null">
-			<include refid="search"></include>
-		</if>
-		)where num between #{start} and #{end}		
+			</when>
+			<otherwise>
+				<if test="searchOption!=null">
+					<include refid="search"></include>
+				</if>
+			</otherwise>
+		</choose>		
+		) where num between #{start} and #{end}		
 	</select>
 	
 	<sql id="search">

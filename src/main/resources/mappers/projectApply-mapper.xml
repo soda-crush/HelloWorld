@@ -3,9 +3,15 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ProjectApply">
-	<select id="getList" resultType="kh.hello.dto.ProjectApplyDTO">
+<!-- 	<select id="getList" resultType="kh.hello.dto.ProjectApplyDTO"> -->
 <!-- 		select * from projectApply where projectSeq=#{value} -->
-		select projectApply.*,(select ifmOpenCheck from member where id=projectApply.id) as portfolio from projectApply where projectSeq=#{value} order by seq desc
+<!-- 		select projectApply.*,(select ifmOpenCheck from member where id=projectApply.id) as portfolio from projectApply where projectSeq=#{projectSeq} order by seq desc -->
+<!-- 	</select> -->
+	<select id="getListByPage" resultType="kh.hello.dto.ProjectApplyDTO">
+		select * from (select projectApply.*,(select ifmOpenCheck from member where id=projectApply.id) as portfolio, row_number() over (order by seq desc) as num from projectApply where projectSeq=#{projectSeq} order by seq desc) where num between #{start} and #{end}
+	</select>
+	<select id="getArticleCount" resultType="integer">
+		select count(*) from projectApply where projectSeq=#{value}							
 	</select>
 	<select id="getProjectApplyDetailView" resultType="kh.hello.dto.ProjectApplyDTO">
 <!-- 		select * from projectApply where seq=#{value}  -->
