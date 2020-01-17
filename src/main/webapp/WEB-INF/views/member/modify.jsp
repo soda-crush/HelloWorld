@@ -92,11 +92,11 @@
              <div class=row>
             	<div class="col-12 col-sm-6">
             	<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow>비밀번호</h5><p class=redP style="display:inline">*</p><br>
-            		&emsp;<input type=text name=pw id=pw placeholder="비밀번호 입력">
+            		&emsp;<input type=password name=pw id=pw placeholder="비밀번호 입력">
             	</div>
             	<div class="col-12 col-sm-6">
             	<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow>비밀번호 확인</h5><p class=redP style="display:inline">*</p><br>
-            		&emsp;<input type=text name=pwRe id=pwRe placeholder="비밀번호 재입력">
+            		&emsp;<input type=password name=pwRe id=pwRe placeholder="비밀번호 재입력">
             		<img id=pwCheck style="display:none;">
             	</div>
             </div>
@@ -230,7 +230,7 @@
             </div>
             <div class=row>
             	<div class=col-12>
-            		<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow>연락처</h5><p class=redP style="display:inline">*</p><br>
+            		<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow>휴대전화</h5><p class=redP style="display:inline">*</p><br>
             		&emsp;<input type=text name=phone id=phone  value="${dto.phone}">
             		<img id=phoneCheck style="display:none;">
             		<div id=phoneMsg></div>

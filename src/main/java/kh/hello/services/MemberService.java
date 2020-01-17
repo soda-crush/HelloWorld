@@ -24,7 +24,8 @@ public class MemberService {
 	private JavaMailSender mailSender;
 	
 	//로그인
-	public int login(String id, String pw){
+	public int login(String id, String pw)throws Exception{
+		pw = Utils.encrypt(pw);
 		return mdao.login(id, pw);
 	}
 	
@@ -55,8 +56,7 @@ public class MemberService {
 		
 	//회원가입
 		public int signUp(MemberDTO mdto, String empCheck, String empEmail, String unempEmail 
-				,String otherJoinPath, Timestamp birthDate) {
-			System.out.println(mdto);
+				,String otherJoinPath, Timestamp birthDate) throws Exception{
 			//스크립트 공격 방지
 			mdto.setAddr2(Utils.protectXss(mdto.getAddr2()));
 			
@@ -68,6 +68,8 @@ public class MemberService {
 				mdto.setEmail(Utils.protectXss(unempEmail));
 				mdto.setMemLevel(2);
 			}
+			//비밀번호 암호화
+			mdto.setPw(Utils.encrypt(mdto.getPw()));
 			//가입경로 설정
 			if(mdto.getJoinPath().contentEquals("jp1")) {
 				mdto.setJoinPath("지인 추천");
@@ -90,7 +92,7 @@ public class MemberService {
 		
 		//정보수정
 				public int modify(MemberDTO mdto, String empCheck, String empEmail, String unempEmail 
-						,String otherJoinPath, Timestamp birthDate, String demotionMail) {
+						,String otherJoinPath, Timestamp birthDate, String demotionMail) throws Exception{
 					//pw* / name* / nickName* / email* / phone* / postcode* / addr1* / addr2* / joinPath* / 
 					//gender* / memLevel / Reportcount / point / ifmOpenCheck* / jD / ll / img / birth*
 					//스크립트 공격방지
@@ -107,6 +109,8 @@ public class MemberService {
 						mdto.setEmail(unempEmail);
 						mdto.setMemLevel(2);
 					}
+					//비밀번호 암호화
+					mdto.setPw(Utils.encrypt(mdto.getPw()));
 					//가입경로 설정
 					if(mdto.getJoinPath().contentEquals("jp1")) {
 						mdto.setJoinPath("지인 추천");
@@ -144,7 +148,8 @@ public class MemberService {
 			return mdao.selectIdByEmail(email);
 		}
 	//비밀번호 변경
-		public int modifyPw(String id, String pw) {
+		public int modifyPw(String id, String pw) throws Exception{
+			pw = Utils.encrypt(pw);
 			return mdao.modifyPw(id, pw);
 		}
 	//아이디로 DTO꺼내기

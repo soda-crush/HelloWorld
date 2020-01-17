@@ -2,12 +2,9 @@ package kh.hello.project;
 
 import java.sql.Timestamp;
 
-import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +15,6 @@ import com.google.gson.JsonObject;
 import kh.hello.dto.LoginInfoDTO;
 import kh.hello.dto.MemberDTO;
 import kh.hello.services.MemberService;
-import kh.hello.utils.Utils;
 
 @Controller
 @RequestMapping("/member")
@@ -44,38 +40,46 @@ public class MemberController {
 	
 	@RequestMapping("/loginProc")
 	public String loginProc(String id, String pw, HttpSession session, String noMemPath, String seq){ //로그인 프로세스
-			int result = ms.login(id, pw);
-			if(result > 0) {
-				LoginInfoDTO dto = new LoginInfoDTO(id, ms.selectMember(id).getNickName(), ms.selectMember(id).getMemLevel());
-				session.setAttribute("loginInfo", dto);
-				ms.updateLastLogin(id);
-				if((seq==null)||(seq=="")){
-					if(noMemPath.contentEquals("projectMainList")){
-						return "redirect:../project/list";
-					}else if(noMemPath.contentEquals("bamboolistView")) {
-						return "redirect:../bamboo/bambooList.do";
-					}else if(noMemPath.contentEquals("IndustryStatusListView")) {
-						return "redirect:../industry/industryStatusList.do";
-					}else if(noMemPath.contentEquals("toPlog")){
-						//수정 필요
-						return "redirect:../Portfolio/toPlog.do?owner="+((LoginInfoDTO)session.getAttribute("loginInfo")).getId();
+			int result;
+			try {
+				result = ms.login(id, pw);
+				
+				if(result > 0) {
+					LoginInfoDTO dto = new LoginInfoDTO(id, ms.selectMember(id).getNickName(), ms.selectMember(id).getMemLevel());
+					session.setAttribute("loginInfo", dto);
+					ms.updateLastLogin(id);
+					if((seq==null)||(seq=="")){
+						if(noMemPath.contentEquals("projectMainList")){
+							return "redirect:../project/list";
+						}else if(noMemPath.contentEquals("bamboolistView")) {
+							return "redirect:../bamboo/bambooList.do";
+						}else if(noMemPath.contentEquals("IndustryStatusListView")) {
+							return "redirect:../industry/industryStatusList.do";
+						}else if(noMemPath.contentEquals("toPlog")){
+							//수정 필요
+							return "redirect:../Portfolio/toPlog.do?owner="+((LoginInfoDTO)session.getAttribute("loginInfo")).getId();
+						}else {
+							return "redirect:/";
+						}
 					}else {
-						return "redirect:/";
+						if(noMemPath.contentEquals("projectDetailView")){
+							return "redirect:../project/detailView?seq="+seq;
+						}else if(noMemPath.contentEquals("bambooDetailView")) {
+							return "redirect:../bamboo/" + noMemPath + ".do?seq="+seq;
+						}else if(noMemPath.contains("industryStatusDetailView")){  
+							return "redirect:../industry/" + noMemPath + ".do?seq="+seq;
+						}else {
+							return "redirect:/";
+						}
 					}
 				}else {
-					if(noMemPath.contentEquals("projectDetailView")){
-						return "redirect:../project/detailView?seq="+seq;
-					}else if(noMemPath.contentEquals("bambooDetailView")) {
-						return "redirect:../bamboo/" + noMemPath + ".do?seq="+seq;
-					}else if(noMemPath.contains("industryStatusDetailView")){  
-						return "redirect:../industry/" + noMemPath + ".do?seq="+seq;
-					}else {
-						return "redirect:/";
-					}
+					return "redirect:login?result=false";
 				}
-			}else {
-				return "redirect:login?result=false";
+			} catch (Exception e) {
+				e.printStackTrace();
+				return "error";
 			}
+			
 	}
 	
 	@RequestMapping("/logout")
@@ -92,15 +96,25 @@ public class MemberController {
 	@RequestMapping(value = "/signUpProc")
 	public String signUpProc(MemberDTO mdto, String empCheck, String empEmail, String unempEmail 
 			,String otherJoinPath, Timestamp birthday) { //회원가입 프로세스
-		ms.signUp(mdto, empCheck, empEmail, unempEmail, otherJoinPath, birthday);
-		return "redirect:signUpTemp";
+		try {
+			ms.signUp(mdto, empCheck, empEmail, unempEmail, otherJoinPath, birthday);
+			return "redirect:signUpTemp";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "error";
+		}
 	}
 	
 	@RequestMapping(value = "/modifyProc")
 	public String memModifyProc(MemberDTO mdto, String empCheck, String empEmail, String unempEmail 
 			,String otherJoinPath, Timestamp birthday, String demotionMail) { 
-		ms.modify(mdto, empCheck, empEmail, unempEmail, otherJoinPath, birthday, demotionMail);
-		return "redirect:modifyTemp";
+		try {
+			ms.modify(mdto, empCheck, empEmail, unempEmail, otherJoinPath, birthday, demotionMail);
+			return "redirect:modifyTemp";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "error";
+		}
 	}
 	
 	@RequestMapping("/signUpTemp")
@@ -232,8 +246,13 @@ public class MemberController {
 	  
 	 @RequestMapping("/showPwMdf")
 	 public String showPwMdf(String id, String pw) {
-		 ms.modifyPw(id, pw);
-		 return "redirect:afterFindPw";
+		 try {
+			ms.modifyPw(id, pw);
+			return "redirect:afterFindPw";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "error";
+		}
 	 }
 	 
 	 @RequestMapping("/afterFindPw")
@@ -260,11 +279,16 @@ public class MemberController {
 	 @RequestMapping("/modifyPwCheck")
 	 @ResponseBody
 		public String memModifyPwCheck(String pw, HttpSession session){ 
-				int result = ms.login(((LoginInfoDTO)session.getAttribute("loginInfo")).getId(), pw);
-				if(result > 0) {
-					return "true";
-				}else {
-					return "false";
+				try {
+					int result = ms.login(((LoginInfoDTO)session.getAttribute("loginInfo")).getId(), pw);
+					if(result > 0) {
+						return "true";
+					}else {
+						return "false";
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+					return "error";
 				}
 		}
 	 
@@ -301,5 +325,11 @@ public class MemberController {
 	 public String toMyInquiry() {
 		 return "redirect:../member1/myInquiry";
 	 }
+	 
+	 @RequestMapping("/error")
+	 public String toErrorForm() {
+		 return "error";
+	 }
+	 
 	 
 }

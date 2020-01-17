@@ -36,8 +36,8 @@
 	            			<hr>
 	            			${id}님 비밀번호를 변경해주세요. <br>
 	            			<input type=text name=id style="display:none;" value="${id}">
-	            			<input type="text" name=pw id=pw placeholder="비밀번호 입력"><br>
-	            			<input type="text" name=pwRe id=pwRe placeholder="비밀번호 재입력">
+	            			<input type="password" name=pw id=pw placeholder="비밀번호 입력"><br>
+	            			<input type="password" name=pwRe id=pwRe placeholder="비밀번호 재입력">
 	            			<div id=pwMsg style="color:red;font-size:13px;"></div>
 	            			<button id=btn type=button>변경</button>
 	            		</div>

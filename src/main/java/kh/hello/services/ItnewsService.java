@@ -240,6 +240,9 @@ public class ItnewsService {
 	
 	public String coWriteAfter(String seq) {
 		List<ItnewsCoDTO> list = commentList(Integer.parseInt(seq));
+		for(ItnewsCoDTO i : list) {
+			i.setFormedDate(i.getWriteDate());
+		}
 		Gson gson = new Gson();
 		return gson.toJson(list);
 	}
