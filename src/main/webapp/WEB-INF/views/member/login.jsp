@@ -59,7 +59,7 @@ button{
 	            			<div class="col-8">
 	            				<br>
 	            				<input type="text" name="id" id="id" class="input1" placeholder="아이디 입력"><br>
-	            				<input type="text" name="pw" id="pw" class="input1" placeholder="비밀번호 입력"><br>
+	            				<input type="password" name="pw" id="pw" class="input1" placeholder="비밀번호 입력"><br>
 	            				아이디를 기억합니다. <input type="checkbox" id="remID">
 	            				<input type="text" name="noMemPath" value="${noMemPath}" style="display:none">
 	            				<input type="text" name="seq" value="${seq}" style="display:none">
