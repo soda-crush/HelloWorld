@@ -56,13 +56,16 @@ public class MemberService {
 	//회원가입
 		public int signUp(MemberDTO mdto, String empCheck, String empEmail, String unempEmail 
 				,String otherJoinPath, Timestamp birthDate) {
+			System.out.println(mdto);
+			//스크립트 공격 방지
+			mdto.setAddr2(Utils.protectXss(mdto.getAddr2()));
 			
 			//이메일 설정
 			if(empCheck.contentEquals("employee")){
-				mdto.setEmail(empEmail);
+				mdto.setEmail(Utils.protectXss(empEmail));
 				mdto.setMemLevel(3);
 			}else {
-				mdto.setEmail(unempEmail);
+				mdto.setEmail(Utils.protectXss(unempEmail));
 				mdto.setMemLevel(2);
 			}
 			//가입경로 설정
@@ -73,7 +76,8 @@ public class MemberService {
 			}else if(mdto.getJoinPath().contentEquals("jp3")) {
 				mdto.setJoinPath("'프로젝트 모집' 검색");
 			}else{
-				mdto.setJoinPath(otherJoinPath);
+				//스크립트 공격 방지
+				mdto.setJoinPath(Utils.protectXss(otherJoinPath));
 			}
 			//기본설정
 			mdto.setReportCount(0);
@@ -89,6 +93,8 @@ public class MemberService {
 						,String otherJoinPath, Timestamp birthDate, String demotionMail) {
 					//pw* / name* / nickName* / email* / phone* / postcode* / addr1* / addr2* / joinPath* / 
 					//gender* / memLevel / Reportcount / point / ifmOpenCheck* / jD / ll / img / birth*
+					//스크립트 공격방지
+					mdto.setAddr2(Utils.protectXss(mdto.getAddr2()));
 					
 					//이메일 설정
 					if(empCheck.contentEquals("employee")){
@@ -109,7 +115,7 @@ public class MemberService {
 					}else if(mdto.getJoinPath().contentEquals("jp3")) {
 						mdto.setJoinPath("'프로젝트 모집' 검색");
 					}else{
-						mdto.setJoinPath(otherJoinPath);
+						mdto.setJoinPath(Utils.protectXss(otherJoinPath));
 					}
 					//기본설정
 					mdto.setReportCount(0);
