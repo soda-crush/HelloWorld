@@ -5,27 +5,25 @@
 <mapper namespace="Scrap">
 	
 	<select id="selectIndustryStatus"  parameterType="java.util.Map" resultType="kh.hello.dto.IndustryStatusDTO">
-		select categoryseq as seq,field,duty,writer, title, writeDate, viewCount,rown from (select scrap.*, row_number() over (order by seq desc) as rown from scrap where category='industryStatus' and id=#{id}) cscrap inner join industryStatus on cscrap.categoryseq = industryStatus.seq where  rown between #{start} and #{end}
+		select categoryseq as seq,field,duty,industryStatus.id,writer, title, writeDate, viewCount,rown from (select scrap.*, row_number() over (order by seq desc) as rown from scrap where category='industryStatus' and id=#{id}) cscrap inner join industryStatus on cscrap.categoryseq = industryStatus.seq where  rown between #{start} and #{end}
 	</select>
 	
 	<select id="selectCodeQuestion"  parameterType="java.util.Map" resultType="kh.hello.dto.CodeQuestionDTO">
-		select categoryseq as seq, division, title, writer, writeDate, viewCount,rown from (select scrap.*, row_number() over (order by seq desc) as rown from scrap where category='codeQuestion' and id=#{id}) cscrap inner join CodeQuestion on cscrap.categoryseq = CodeQuestion.seq where  rown between #{start} and #{end}
+		select categoryseq as seq, division,CodeQuestion.id, title, writer, writeDate, viewCount,rown from (select scrap.*, row_number() over (order by seq desc) as rown from scrap where category='codeQuestion' and id=#{id}) cscrap inner join CodeQuestion on cscrap.categoryseq = CodeQuestion.seq where  rown between #{start} and #{end}
 	</select>
 	
 	<select id="selectProject"  parameterType="java.util.Map" resultType="kh.hello.dto.ProjectDTO">
-		select categoryseq as seq, title, location1, location2, capacity, writer, writeDate, state, rown from (select scrap.*, row_number() over (order by seq desc) as rown from scrap where category='project' and id=#{id}) cscrap inner join project on cscrap.categoryseq = project.seq where  rown between #{start} and #{end}
+		select categoryseq as seq,project.id, title, location1, location2, capacity, writer, writeDate, state, rown from (select scrap.*, row_number() over (order by seq desc) as rown from scrap where category='project' and id=#{id}) cscrap inner join project on cscrap.categoryseq = project.seq where  rown between #{start} and #{end}
 	</select>
 	
 	<select id="selectItnews"  parameterType="java.util.Map" resultType="kh.hello.dto.ItnewsDTO">
-		select categoryseq as seq, title,writer, writeDate, viewCount, rown from (select scrap.*, row_number() over (order by seq desc) as rown from scrap where category='itNews' and id=#{id}) cscrap inner join itNews on cscrap.categoryseq = itNews.seq where  rown between #{start} and #{end}
+		select categoryseq as seq,itNews.id, title,writer, writeDate, viewCount, rown from (select scrap.*, row_number() over (order by seq desc) as rown from scrap where category='itNews' and id=#{id}) cscrap inner join itNews on cscrap.categoryseq = itNews.seq where  rown between #{start} and #{end}
 	</select>
 	
 	
 	<select id="ScrapTotalCount" parameterType="java.util.Map" resultType="integer">
 		select count(*) from (select * from scrap where category=#{colum} and id=#{id}) cscrap inner join ${colum} on cscrap.categoryseq = ${colum}.seq
 	</select>
-	
-	
 	
 </mapper>
 

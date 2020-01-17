@@ -88,27 +88,27 @@ public class PlogCohowService {
 		
 		List<String> pages = new ArrayList<>();
 		if(colum =="Q"){
-			if(qneedPrev) pages.add("<div class=\"page-item\" style='width:30px;display:inline-block;'><a class=page-link  href='/Plog/toPlogCohow.do?qcpage=" + (qstartNavi - 1) + "&rcpage="+reversepage +"'>< </a></div>");
+			if(qneedPrev) pages.add("<div class=\"page-item\" ><a class=page-link  href='/Plog/toPlogCohow.do?qcpage=" + (qstartNavi - 1) + "&rcpage="+reversepage +"'>< </a></div>");
 			for(int i = qstartNavi; i <= qendNavi; i++) {
 				StringBuilder sb = new StringBuilder();
-				sb.append("<div class=\"page-item\" style='width:30px;display:inline-block;'><a class=page-link  href='/Plog/toPlogCohow.do?qcpage="+ i +"&rcpage="+reversepage +"'>");
+				sb.append("<div class=\"page-item\" ><a class=page-link  href='/Plog/toPlogCohow.do?qcpage="+ i +"&rcpage="+reversepage +"'>");
 				sb.append(i + " ");
 				sb.append("</a></div>");
 				pages.add(sb.toString());
 			}
-			if(qneedNext) pages.add("<div class=\"page-item\" style='width:30px;display:inline-block;'><a class=page-link  href='/Plog/toPlogCohow.do?qcpage=" + (qendNavi + 1) + "&rcpage="+reversepage +"'>> </a></div>");
+			if(qneedNext) pages.add("<div class=\"page-item\" ><a class=page-link  href='/Plog/toPlogCohow.do?qcpage=" + (qendNavi + 1) + "&rcpage="+reversepage +"'>> </a></div>");
 			return pages;
 
 		}else {
-			if(rneedPrev) pages.add("<div class=\"page-item\" style='width:30px;display:inline-block;'><a class=page-link  href='/Plog/toPlogCohow.do?rcpage=" + (rstartNavi - 1) +"&qcpage="+reversepage +"'>< </a></div>");
+			if(rneedPrev) pages.add("<div class=\"page-item\" ><a class=page-link  href='/Plog/toPlogCohow.do?rcpage=" + (rstartNavi - 1) +"&qcpage="+reversepage +"'>< </a></div>");
 			for(int i = rstartNavi; i <= rendNavi; i++) {
 			StringBuilder sb = new StringBuilder();
-				sb.append("<div class=\"page-item\" style='width:30px;display:inline-block;'><a class=page-link  href='/Plog/toPlogCohow.do?rcpage="+ i +"&qcpage="+reversepage +"'>");
+				sb.append("<div class=\"page-item\" ><a class=page-link  href='/Plog/toPlogCohow.do?rcpage="+ i +"&qcpage="+reversepage +"'>");
 				sb.append(i + " ");
 				sb.append("</a></div>");
 				pages.add(sb.toString());
 			}
-			if(rneedNext) pages.add("<div class=\"page-item\" style='width:30px;display:inline-block;'><a class=page-link  href='/Plog/toPlogCohow.do?rcpage=" + (rendNavi + 1) + "&qcpage="+reversepage +"'>> </a></div>");
+			if(rneedNext) pages.add("<div class=\"page-item\" ><a class=page-link  href='/Plog/toPlogCohow.do?rcpage=" + (rendNavi + 1) + "&qcpage="+reversepage +"'>> </a></div>");
 			return pages;
 		}
 	}	

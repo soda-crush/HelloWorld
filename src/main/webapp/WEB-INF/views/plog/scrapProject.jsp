@@ -15,7 +15,6 @@
 <link rel="stylesheet" type="text/css" href="/css/font-awesome/css/font-awesome.css">
 <link rel="stylesheet" href="/css/project/list.css" type="text/css"/>
 	<style>
-		ul{background-color: lightgray;font-size: 13px;}
 		.card{width:200px;height:300px;margin: auto;;float :left;}
 		.myprofile{float: left;margin-top: 20px;width:200px;text-align:center;}
 		#mycard{ float:none;display:flex;align-items:center;}
@@ -28,20 +27,16 @@
 		#page${page}{color:blue;}
 		.coltheme{margin:30px;}
 		.navi{text-align: center;}
-		.nvlink1{height:45px;line-height:45px;font-size:14px;}
-		.nvlink2{height:45px;line-height:45px;font-size:10px;}
+/* 		.nvlink1{height:45px;line-height:45px;font-size:14px;} */
+/* 		.nvlink2{height:45px;line-height:45px;font-size:10px;} */
         a:hover{text-decoration:none;}	
         .scrapnavi>div{height:50px;line-height:50px;}
         .scrapnavi>div>a{color:black;}
         .scrapnavi>div>a:hover{font-weight:bold;color:gray;}
         .scrapnavi{background-color: lightgray;border-radius:5px;margin-top:30px;width:200px;display:inline-block;border-right:1px solid gray;}	
         .line-over{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+        #plogScrap{background-color:#efefef;border-radius:5px 5px 0px 0px;padding:12px;}
 	</style>
-	<script>
-	$(function(){
-		$("#plogNavi").attr('class','nav-item nav-link active');
-	});
-	</script>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/standard/plogHeader.jsp"/>
@@ -71,14 +66,12 @@
 	                    </div>
 	                </div>
 	                <div class="col-12 col-md-8 col-lg-9 scraptwrap">
-	                	<div style="margin-top:20px;margin-buttom:20px;">
-	    	 				<div class="btn-group" role="group" aria-label="Basic example">
+	    	 				<div class="btn-group" role="group" aria-label="Basic example" style="margin-top:20px;margin-bottom:20px;">
 								<button type="button" class="btn btn-flat btn-xs btn-outline-secondary" onclick="location.href='${pageContext.request.contextPath}/Scrap/itNews.do'">IT 뉴스</button>
 								<button type="button" class="btn btn-flat btn-xs btn-outline-secondary" onclick="location.href='${pageContext.request.contextPath}/Scrap/cohow.do'">코드 지식인</button>
 								<button type="button" class="btn btn-flat btn-xs btn-outline-secondary" onclick="location.href='${pageContext.request.contextPath}/Scrap/industryStatus.do'">업계 현황</button>
 								<button type="button" class="btn btn-flat btn-xs btn-secondary" onclick="location.href='${pageContext.request.contextPath}/Scrap/project.do'">프로젝트</button>
 			           		</div>
-	                	</div>
 			         	<div class="tableDiv">
 							<div class="row tableHead">
 							    <div class="col-2">모집상태</div>
@@ -103,18 +96,26 @@
 												</div>
 											<div class="col-1" style="text-align:center">${p.location1 }</div>
 											<div class="col-lg-1 d-none d-lg-block">${p.capacity }명</div>
-											<div class="col-2 line-over">${p.writer }</div>
+											<div class="col-2 line-over">
+												<span style="cursor:pointer" onclick="popUp('${p.id}','${p.writer}')">
+													${p.writer}
+												</span>
+											</div>
 											<div class="col-2 d-none d-lg-block">${p.formedWriteDate }</div>
 										</div>	
 						  			</c:forEach>
 						  		</c:otherwise>
 						  	</c:choose>				    
 						</div>
-						<div class="naviwrap"style="width:100%;text-align:center;margin-top:20px;">
-		                    <c:forEach items="${pageNavi}" var="navi">									
-								${navi}
-							</c:forEach>
-	               		</div>
+						<div style="float:left;width:100%;margin-top:15px;">
+	                	<nav aria-label="List navi">
+							<ul class="pagination justify-content-center">
+								<c:forEach items="${pageNavi}" var="navi">									
+									<li id="page-navi" class="page-item pageNavi">${navi}</li>
+								</c:forEach>
+							</ul>
+						</nav>
+	                </div>
 	                </div>
 	          	</div>
             </div>
@@ -130,5 +131,29 @@
         </div>
         
         <jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
+        
+        <script>
+        $(function(){
+    		var element = $(".pageNavi");
+    		var cpage = "${cpage}";
+    		if(cpage > 0 && cpage <= 10){
+    			element[cpage-1].classList.add('active');
+    		}else if(page % 10 == 0){
+    			element[10].classList.add('active');
+    		}else{
+    			element[cpage % 10].classList.add('active');
+    		}	
+    	});
+        function popUp(id,writer){
+    		if(writer == null){
+    			alert("탈퇴한 회원입니다.");
+    			return false;
+    		}
+    		else{
+    			window.open("/Portfolio/toPlog.do?owner="+id, "pLogPopUp", "width=600,height=600");
+    		}
+          
+         }
+        </script>
 </body>
 </html>

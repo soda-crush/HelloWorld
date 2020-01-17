@@ -69,17 +69,17 @@ public class ScrapService {
 			}
 
 			List<String> pages = new ArrayList<>();
-			if(needPrev) pages.add("<div class=\"page-item\" style='width:30px;display:inline-block;'><a class=page-link  href='/Scrap/"+colum+".do?cpage=" + (startNavi - 1) + "'>< </a></div>");
+			if(needPrev) pages.add("<div class=\"page-item\" ><a class=page-link  href='/Scrap/"+colum+".do?cpage=" + (startNavi - 1) + "'>< </a></div>");
 
 			for(int i = startNavi; i <= endNavi; i++) {
 				StringBuilder sb = new StringBuilder();
-				sb.append("<div class=\"page-item\" style='width:30px;display:inline-block;'><a class=page-link  href='/Scrap/"+colum+".do?cpage="+ i +"'>");
+				sb.append("<div class=\"page-item\"><a class=page-link  href='/Scrap/"+colum+".do?cpage="+ i +"'>");
 				sb.append(i + " ");
 				sb.append("</a></div>");
 				pages.add(sb.toString());
 			}
 
-			if(needNext) pages.add("<div class=\"page-item\" style='width:30px;display:inline-block;'><a class=page-link  href='/Scrap/"+colum+".do?cpage=" + (endNavi + 1) + "'>> </a></div>");
+			if(needNext) pages.add("<div class=\"page-item\"><a class=page-link  href='/Scrap/"+colum+".do?cpage=" + (endNavi + 1) + "'>> </a></div>");
 
 			return pages;
 		}
