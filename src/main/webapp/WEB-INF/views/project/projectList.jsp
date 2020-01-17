@@ -51,7 +51,7 @@
 								<button type="button" class="btn btn-outline-warning btn-sm active" id="latestOrder">최신순</button>
 								<button type="button" class="btn btn-outline-warning btn-sm" id="deadlineOrder" data-toggle="tooltip" title="모집마감된 글은 제외됩니다">마감임박순</button>
 							</div>
-							<input type="hidden" name="pageOrder" id="pageOrder">
+<!-- 							<input type="hidden" name="pageOrder" id="pageOrder"> -->
 						</div>
 					</div>
 					<div class="row tableHead">					    
@@ -106,6 +106,7 @@
 							    <option value="capacity">인원</option>
 							    <option value="writer">작성자</option>									    
 							</select>
+							<input type="hidden" name="pageOrder" id="pageOrder">
 						    <input class="form-control mr-sm-2" type="search" placeholder="검색어를 입력하세요" aria-label="Search" name="keyword" id="keyword" style="max-width:250px;">
 						    <button class="btn btn-dark my-2 my-sm-0 ml-1" type="submit" id="searchBtn">검색</button>
 						  </form>
