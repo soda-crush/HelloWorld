@@ -240,6 +240,10 @@ public class AdminService {
 		}
 	}
 	
+	public int memberUp(String id) {
+		return adao.memberUp(id);
+	}
+	
 	public List<ForcedOutMemberDTO> forcedOutListByPage(int start, int end) {
 		return adao.forcedOutListByPage(start, end);
 	}

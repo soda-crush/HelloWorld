@@ -71,6 +71,9 @@
   <insert id="memberOutList" parameterType="java.util.Map">
   	insert into forcedOut values(forcedOutSeq.nextval, #{id}, #{email}, #{reason}, sysdate)
   </insert>
+  <update id="memberUp">
+  	update member set memLevel='3' where id=#{id}
+  </update>
   <select id="forcedOutListByPage" resultType="kh.hello.dto.ForcedOutMemberDTO">
   	select * from (select forcedOut.*, row_number() over(order by outDate desc) rown from forcedOut) where rown between #{start} and #{end}
   </select>

@@ -266,6 +266,13 @@ public class AdminController {
 		return "admin/memberOutResult";
 	}
 	
+	@RequestMapping("/memberUp")
+	public String adMemberUp(String id, Model m) {
+		int result = as.memberUp(id);
+		m.addAttribute("result", result);
+		return "admin/memberUpResult";
+	}
+	
 	@RequestMapping("/forcedOutList")
 	public String adForcedOutList(String page, Model m) {
 		//목록 받아오기(page)

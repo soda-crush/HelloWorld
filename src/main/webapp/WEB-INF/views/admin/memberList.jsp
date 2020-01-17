@@ -129,6 +129,9 @@
 														  </button>
 														  <div class="dropdown-menu">
 														    <p class="dropdown-item" id="memberInfo${dto.id}">회원정보</p>
+														    <c:if test="${dto.memLevel == '2'}">
+														    	<p class="dropdown-item" id="level3${dto.id}">레벨 3 인증</p>
+														    </c:if>
 														    <c:choose>
 														    	<c:when test="${dto.memLevel == '1'}">
 														    		<p class="dropdown-item" id="memberStart${dto.id}">활동정지 해제</p>	
@@ -163,7 +166,12 @@
                                                			$("#memberOut${dto.id}").on("click", function(){
                                                				window.open("${pageContext.request.contextPath}/admin/memberOutForm?id=${dto.id}", "", "width=434px,innerHeight=453px,top=300px,left=600px");	
                                                			})
-                                               			
+                                               			$("#level3${dto.id}").on("click", function(){
+                                               				var result = confirm("${dto.nickName}(${dto.id}) 님의 등급 Lv.3으로 변경할까요?");
+                                               				if(result){
+                                               					location.href = "${pageContext.request.contextPath}/admin/memberUp?id=${dto.id}";
+                                               				}
+                                               			})
                                                		</script>
                                             	</c:forEach>                                                                                                
                                             </tbody>

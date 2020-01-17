@@ -129,6 +129,10 @@ public class AdminDAO {
 		return jdbc.insert("Admin.memberOutList", param);				
 	}
 	
+	public int memberUp(String id) {
+		return jdbc.update("Admin.memberUp", id);
+	}
+	
 	public List<ForcedOutMemberDTO> forcedOutListByPage(int start, int end){//강퇴 아이디 리스트 페이지 별로 받아오기
 		Map<String, Integer> param = new HashMap<>();
 		param.put("start", start);
