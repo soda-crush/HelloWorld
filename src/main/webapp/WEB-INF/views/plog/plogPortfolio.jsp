@@ -24,13 +24,9 @@
 		.navi{text-align: center;}
 		.nvlink1{height:45px;line-height:45px;font-size:14px;}
 		.nvlink2{height:45px;line-height:45px;font-size:10px;}
-		.line-over{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}  
+		.line-over{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+		#plogPortfolio{background-color:#efefef;border-radius:5px 5px 0px 0px;padding:12px;}
   	</style>
-	<script>
-	$(function(){
-		$("#plogNavi").attr('class','nav-item nav-link active');
-	});
-	</script>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/standard/plogHeader.jsp"/>
@@ -73,12 +69,15 @@
 		                        </div>
 	                    	</div>
 						</c:forEach>
-						<div class="cardwrap col-6 col-xl-4">
-<!-- 							<div style="margin-top:20px;text-align:center;line-height:250px;height:250px;"> -->
-							<div style="margin-top:20px;text-align:center;line-height:31.4vw;height:31.4vw;width:20vs;border: 1px solid rgba(0,0,0,.125);border-radius: .25rem;">
-								<img id="addPF" src="/icon/plus.svg" style="width:35%;vertical-align:middle;" onclick="location.href='${pageContext.request.contextPath}/Portfolio/toInsert.do'">
+					<c:choose>
+						<c:when test="${loginInfo.id ==ownerInfo.id}">
+							<div class="cardwrap col-6 col-xl-4">
+								<div style="margin-top:20px;text-align:center;line-height:31.4vw;height:31.4vw;width:20vs;border: 1px solid rgba(0,0,0,.125);border-radius: .25rem;">
+									<img id="addPF" src="/icon/plus.svg" style="width:35%;vertical-align:middle;" onclick="location.href='${pageContext.request.contextPath}/Portfolio/toInsert.do'">
+								</div>
 							</div>
-						</div>
+						</c:when>
+					</c:choose>
 	                </div>
 	            </div>
             </div>
@@ -99,6 +98,26 @@
             $("#addPF").on("click",function(){
                 location.href = "${pageContext.request.contextPath}/Portfolio/toInsert.do";
             })
+	    	$(function(){
+	    		var element = $(".pageNavi");
+	    		var page = "${page}";
+	    		if(page > 0 && page <= 10){
+	    			element[page-1].classList.add('active');
+	    		}else if(page % 10 == 0){
+	    			element[10].classList.add('active');
+	    		}else{
+	    			element[page % 10].classList.add('active');
+	    		}	
+	    	});
+            function popUp(id,writer){
+        		if(writer == null){
+        			alert("탈퇴한 회원입니다.");
+        			return false;
+        		}
+        		else{
+        			window.open("/Portfolio/toPlog.do?owner="+id, "pLogPopUp", "width=600,height=600");
+        		}
+             }
         </script>
 </body>
 </html>

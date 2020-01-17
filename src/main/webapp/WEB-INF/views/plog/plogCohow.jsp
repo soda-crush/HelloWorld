@@ -15,7 +15,6 @@
 <link rel="stylesheet" type="text/css" href="/css/font-awesome/css/font-awesome.css">
 <link rel="stylesheet" href="/css/project/list.css" type="text/css"/>
 	<style>
-		ul{background-color: lightgray;font-size: 13px;}
 		.card{width:200px;height:300px;margin: auto;}
 		.myprofile{margin-top: 20px;padding-right:0px;}
 		#mycard{ float:none;display:flex;align-items:center;}
@@ -32,12 +31,8 @@
         a:hover{text-decoration:none;}
         .tableBody{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
         .line-over{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+        #plogCohow{background-color:#efefef;border-radius:5px 5px 0px 0px;padding:12px;}
 	</style>
-	<script>
-	$(function(){
-		$("#plogNavi").attr('class','nav-item nav-link active');
-	});
-	</script>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/standard/plogHeader.jsp"/>
@@ -89,7 +84,13 @@
 								  					</c:if>	
 							  					</div>				  					
 											</div>
-											<div class="col-3" style="text-align:center;"><div class="line-over">${dto.writer}</div></div>
+											<div class="col-3" style="text-align:center;">
+												<div class="line-over">
+													<span style="cursor:pointer" onclick="popUp('${dto.id}','${dto.writer}')">
+														${dto.writer}
+													</span>
+												</div>
+											</div>
 											<div class="col-2 d-none d-lg-block">${dto.scrapDate}</div>
 											<div class="col-1 d-none d-lg-block">${dto.viewCount}</div>
 										</div>	
@@ -97,11 +98,15 @@
 						  		</c:otherwise>
 						  	</c:choose>				    
 						</div>
-						<div class="naviwrap"style="width:100%;text-align:center;margin-top:20px;">
-		                    <c:forEach items="${qpageNavi}" var="navi">									
-								${navi}
-							</c:forEach>
-	               		</div>
+						<div style="float:left;width:100%;margin-top:15px;">
+		                	<nav aria-label="List navi">
+								<ul class="pagination justify-content-center">
+									<c:forEach items="${qpageNavi}" var="navi">									
+										<li id="page-navi" class="page-item qpageNavi">${navi}</li>
+									</c:forEach>
+								</ul>
+							</nav>
+		                </div>
 	               		<div class="tableDiv">
 	                		<div class="coltheme"> 내 답변</div>
 							<div class="row tableHead">
@@ -127,7 +132,13 @@
 								  					</c:if>	
 							  					</div>				  					
 											</div>
-											<div class="col-3" style="text-align:center;">${dto.writer}</div>
+											<div class="col-3" style="text-align:center;">
+												<div class="line-over">
+													<span style="cursor:pointer" onclick="popUp('${dto.id}','${dto.writer}')">
+														${dto.writer}
+													</span>
+												</div>
+											</div>
 											<div class="col-2 d-none d-lg-block">${dto.scrapDate}</div>
 											<div class="col-1 d-none d-lg-block">${dto.viewCount}</div>
 										</div>
@@ -135,11 +146,15 @@
 						  		</c:otherwise>
 						  	</c:choose>				    
 						</div>
-						<div class="naviwrap"style="width:100%;text-align:center;margin-top:20px;">
-		                    <c:forEach items="${rpageNavi}" var="navi">									
-								${navi}
-							</c:forEach>
-	               		</div>
+						<div style="float:left;width:100%;margin-top:15px;">
+		                	<nav aria-label="List navi">
+								<ul class="pagination justify-content-center">
+									<c:forEach items="${rpageNavi}" var="navi">									
+										<li id="page-navi" class="page-item rpageNavi">${navi}</li>
+									</c:forEach>
+								</ul>
+							</nav>
+		                </div>
 	                </div>
 	          	</div>
             </div>
@@ -152,5 +167,40 @@
         </div>
         
         <jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
+        
+        <script>
+	    	$(function(){
+	    		var element = $(".qpageNavi");
+	    		var qcpage = "${qcpage}";
+	    		if(qcpage > 0 && qcpage <= 10){
+	    			element[qcpage-1].classList.add('active');
+	    		}else if(qcpage % 10 == 0){
+	    			element[10].classList.add('active');
+	    		}else{
+	    			element[qcpage % 10].classList.add('active');
+	    		}	
+	    	});
+	    	$(function(){
+	    		var element = $(".rpageNavi");
+	    		var rcpage = "${rcpage}";
+	    		if(rcpage > 0 && rcpage <= 10){
+	    			element[rcpage-1].classList.add('active');
+	    		}else if(rcpage % 10 == 0){
+	    			element[10].classList.add('active');
+	    		}else{
+	    			element[rcpage % 10].classList.add('active');
+	    		}	
+	    	});
+	    	function popUp(id,writer){
+	    		if(writer == null){
+	    			alert("탈퇴한 회원입니다.");
+	    			return false;
+	    		}
+	    		else{
+	    			window.open("/Portfolio/toPlog.do?owner="+id, "pLogPopUp", "width=600,height=600");
+	    		}
+	          
+	         }
+        </script>
 </body>
 </html>

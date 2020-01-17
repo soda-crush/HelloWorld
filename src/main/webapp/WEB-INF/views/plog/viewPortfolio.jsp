@@ -29,6 +29,7 @@
 		#funcname1,#funcname2,#funcname3{margin-bottom: 8px;}
 		textarea{background-color:lightgray;}
 		.line-over{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+		#plogPortfolio{background-color:#efefef;border-radius:5px 5px 0px 0px;font-size: 15px}
     </style>
 </head>
 <body>
