@@ -160,7 +160,6 @@ public class BambooMemController {
 	//게시판 목록 검색
 	@RequestMapping("/bambooSearch.do")
 	public String bambooSearch(String search, String value, Model m, String page) {
-		search = Utils.protectXss(search);
 		//페이지네비
 		int currentPage = 1;		
 

@@ -152,7 +152,6 @@ public class IndustryStatusMemController {
 	//게시판 목록 검색
 	@RequestMapping("/industrySearch.do")
 	public String industrySearch(String search, String value, Model m, String page) {
-		search = Utils.protectXss(search);
 		//검색결과 페이지 네비
 		int currentPage = 1;		
 
