@@ -28,7 +28,7 @@
 					    <div class="col-1">상태</div>								    					    
 					    <div class="col-1">인원</div>						    
 					  	<div class="col-1">지역</div>
-					    <div class="col-2">기간</div>
+					    <div class="col-2">프로젝트 기간</div>
 					    <div class="col-3">제목</div>
 					    <div class="col-1">작성자</div>
 

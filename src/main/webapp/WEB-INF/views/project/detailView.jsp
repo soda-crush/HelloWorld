@@ -24,7 +24,7 @@
    });
 </script>
 <style>
-
+#applyFrm > div.modal-body > div:nth-child(1) > div.col-7.pApplyInput > div > span > input.tt-input{max-width:250px;}
 </style>
 </head>
 
@@ -74,16 +74,16 @@
 						</div>
 						<hr>
 						<div id="pInfo">
-							<div><label class="ml-4">지역</label><span>${pPage.location1 } ${pPage.location2 }</span></div>
-							<div><label class="ml-4">모집인원</label><span>${pPage.capacity }명</span></div>
-							<div><label class="ml-4">기간</label><span>${pPage.formedAllDate }</span></div>
-							<div><label class="ml-4">사용언어</label><span>${pPage.languages }</span></div>
+							<div class="row"><div class="ml-4 col-4 col-md-3 col-lg-2 dLabel">지역</div><div class="col-7 col-xl-9">${pPage.location1 } ${pPage.location2 }</div></div>
+							<div class="row"><div class="ml-4 col-4 col-md-3 col-lg-2 dLabel">모집인원</div><div class="col-7">${pPage.capacity }명</div></div>
+							<div class="row"><div class="ml-4 col-4 col-md-3 col-lg-2 dLabel">프로젝트 기간</div><div class="col-7">${pPage.formedAllDate }</div></div>
+							<div class="row"><div class="ml-4 col-4 col-md-3 col-lg-2 dLabel">사용언어</div><div class="col-7 col-xl-9" style="word-break:break-all;word-break:break-word;">${pPage.languages }</div></div>
 						</div>
 						<hr>
 						<div id="pBody">						
 							<div id="pPageContents" style="word-break:break-all;word-break:break-word;">${pPage.contents }</div>							
-							<div><label class="ml-4">연락처</label><span>${pPage.phone }</span></div>
-							<div><label class="ml-4">메일주소</label><span>${pPage.email }</span></div>
+							<div class="row"><div class="ml-4 col-3 col-md-2 col-xl-1 dLabel">연락처</div><div class="col-7">${pPage.phone }</div></div>
+							<div class="row"><div class="ml-4 col-3 col-md-2 col-xl-1 dLabel">메일주소</div><div class="col-7">${pPage.email }</div></div>
 						
 							<div class="text-center checkBtn">
 								<c:choose>
@@ -103,18 +103,18 @@
 												</c:otherwise>
 											</c:choose>										
 									</c:when>
-									<c:when test="${applyCheck==null }">
+									<c:when test="${myApply==null }">
 										<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#pApplyModal" id="getApplyBtn">신청하기</button>
 									</c:when>
-									<c:when test="${applyCheck.id == sessionScope.loginInfo.id }">
+									<c:when test="${myApply.id == sessionScope.loginInfo.id }">
 										<c:choose>
-											<c:when test="${applyCheck.approve eq 'W' }">
+											<c:when test="${myApply.approve eq 'W' }">
 												<p style="font-weight:bold;">신청 후 <span style="color:orange;font-weight:bold;">승인 대기중</span>입니다.</p>
 											</c:when>
-											<c:when test="${applyCheck.approve eq 'O' }">
+											<c:when test="${myApply.approve eq 'O' }">
 												<p style="font-weight:bold;">신청 <span style="color:limegreen;font-weight:bold;">승인</span>된 프로젝트입니다.</p>
 											</c:when>
-											<c:when test="${applyCheck.approve eq 'X' }">
+											<c:when test="${myApply.approve eq 'X' }">
 												<p style="font-weight:bold;">신청 <span style="color:red;font-weight:bold;">거절</span>된 프로젝트입니다.</p>
 											</c:when>
 										</c:choose>
@@ -144,7 +144,7 @@
 																<div class="col-12 commentWriteDate">
 																	<span>${c.formedWriteDate }</span>
 																	<c:if test="${c.changeDate!=null }">
-																		<span style="margin-left: 10px;">(수정일자 ${c.formedChangeDate })</span>
+																		<span style="margin-left: 10px;">(수정일 : ${c.formedChangeDate })</span>
 																	</c:if>
 																</div>
 															</div>
@@ -164,7 +164,7 @@
 													</div>
 												</c:when>
 												<c:otherwise>
-													<span class="row align-middle m-2 mt-2">삭제된 댓글입니다.<span class="delCoDate" style="margin-left: 10px;color:darkgray;">(삭제일자 ${c.formedChangeDate })</span></span>
+													<span class="row align-middle m-2 mt-2">삭제된 댓글입니다.<span class="delCoDate" style="margin-left: 10px;color:darkgray;">(삭제일 : ${c.formedChangeDate })</span></span>
 												</c:otherwise>											
 											</c:choose>
 										</div>
@@ -204,7 +204,7 @@
 					</c:if>
 					<span class="float-right">
 						<c:if test="${pPage.id == sessionScope.loginInfo.id}">
-							<a class="btn btn-info" href="/project/modify?seq=${pPage.seq }" role="button">수정</a>
+							<button type="button" class="btn btn-info" id="pModBtn">수정</button>
 							<button type="button" class="btn btn-danger" id="pDelBtn">삭제</button>
 						</c:if>
 						<a class="btn btn-secondary" href="/project/list" role="button">목록</a>
@@ -268,7 +268,6 @@
 				$('#reportModal').modal('hide');
 				$("#rSuccessModal").modal('show');				
 			}).fail(function(resp){
-// 				console.log(resp);
 			});
 			return false;
 		});
@@ -277,14 +276,14 @@
 			$("#reportReasonInput").val("");
 		});
 		function coReplyFunction(seq){
-			console.log("확인");
 			if($("#pCoReplyInput").length>0){
 				alert("현재 열려있는 답글 입력창이 있습니다.");
+				$("#pCoReplyInput textarea").focus();
 				return false;
 			}
 			var html = [];
 			html.push(
-					'<div id="pCoReplyInput" class="row commentDiv commentBox p-0 pt-2 pb-2">',
+					'<div id="pCoReplyInput" class="row commentDiv commentBox p-0 pb-2">',
 					'<div class="col-1 text-right pt-1"><span>┗</span></div>',
 					'<div class="col-11 commentInnerBox pb-0">',
 					'<div class="row mt-2">',
@@ -305,7 +304,11 @@
 				    '</div>',
 					'</div>'
 			);
-			$('.commentBox'+seq).after(html.join(""));
+			if($('.commentBox'+seq).nextAll('.coLevel0:first').length==0){
+				$('.commentBox'+seq).after(html.join(""));
+			}else{
+				$('.commentBox'+seq).nextAll('.coLevel0:first').before(html.join(""));	
+			}
 			$("#pCoReplyInput").wrap('<form method="post" id="coReplyWriteFrm"></form>');
 			$("#pCoReplyContents").focus();
 		}//답댓기능.
@@ -328,13 +331,9 @@
 				data: $("#coReplyWriteFrm").serialize(),
 				dataType: "json"
 			}).done(function(resp){
-// 				console.log("성공");
-// 				console.log(resp);
 				$(".pPageComments").html("");
 				commentRecall(resp);
 			}).fail(function(resp){
-				console.log("실패");
-				console.log(resp);
 			});
 		});
 		$(document).on("click","#scrapNull",function(){
@@ -345,13 +344,9 @@
 					categorySeq : $("#pageSeq").val()
 				}
 			}).done(function(resp){
-				console.log("성공");
-				console.log(resp);
 				alert("스크랩되었습니다.");
 				$("#scrapNull").replaceWith('<i class="fa fa-bookmark" id="scrapDone" data-toggle="tooltip" title="스크랩"></i>');
 			}).fail(function(resp){
-				console.log("실패");
-				console.log(resp);
 			});
 		});
 		$(document).on("click","#scrapDone",function(){
@@ -362,266 +357,281 @@
 					categorySeq : $("#pageSeq").val()
 				}
 			}).done(function(resp){
-				console.log("성공");
-				console.log(resp);
 				alert("스크랩이 취소되었습니다.");
 				$("#scrapDone").replaceWith('<i class="fa fa-bookmark-o" id="scrapNull" data-toggle="tooltip" title="스크랩"></i>');
 			}).fail(function(resp){
-				console.log("실패");
-				console.log(resp);
 			});
 		});
 		$("#applyCheckBtn").on("click",function(){
 			window.open("/project/apply/list?projectSeq="+$("#pageSeq").val(), "applyListPopUp", "width=1000,height=750,scrollbars=no, resizable=no, toolbars=no, menubar=no");
 		});
 		
-//		var loginInfo = $("#sessionId");
-			$("#pCloseBtn").on("click",function(){
-				var check = confirm("프로젝트 모집을 마감하시겠습니까?\n마감된 모집글은 상태를 변경할 수 없습니다.");
-				if(check){
-					location.href="/project/closeProject?seq="+$("#pageSeq").val();
-				}
-			});
-			var applyCount = $("#applyCount").val();
-           	$("#pDelBtn").on("click",function(){
-           		var check = confirm("정말 삭제하시겠습니까?");
-           		if(check){
+		$("#pCloseBtn").on("click",function(){
+			var check = confirm("프로젝트 모집을 마감하시겠습니까?\n마감된 모집글은 상태를 변경할 수 없습니다.");
+			if(check){
+				location.href="/project/closeProject?seq="+$("#pageSeq").val();
+			}
+		});
+		var applyCount = $("#applyCount").val();
+		$("#pModBtn").on("click",function(){
+			var check = ${checkApplyCount};
+			if(check>0){
+				alert("신청 대기중 또는 신청 승인된 회원이 있는 모집글은\n수정이 불가합니다");
+				return false;
+			}else{
+				location.href="/project/modify?seq="+$("#pageSeq").val();
+			}
+		});
+       	$("#pDelBtn").on("click",function(){
+       		var check = ${checkApplyCount};
+       		if(check>0){
+       			var confirm = confirm("신청 대기중 또는 신청 승인된 회원이 있습니다\n정말 삭제하시겠습니까?");
+       			if(check){
+       				location.href="/project/deleteProc?seq="+$("#pageSeq").val();
+       			}
+       		}else{
+       			var check = confirm("정말 삭제하시겠습니까?");
+           		if(check){           			
            			location.href="/project/deleteProc?seq="+$("#pageSeq").val();
-           		}
-           	});
+           		}	
+       		}           		
+       	});
            	
-           	function coModFunction(seq,contents){  
-    			if($("#pCoModContents").length>0){
-    				alert("현재 열려있는 댓글 수정창이 있습니다.");
-    				return false;
-    			}
-				$(".commentBox"+seq).find(".commentBtns").css("display","none");
-				$(".commentBox"+seq).find(".commentContent").css("display","none");
-           		$(".commentBox"+seq).wrap('<form action="/project/comment/modifyProc" method="post" id="coModFrm"></form>');
-				var html = [];	
-    			html.push(
-    					'<div class="row coModBox mt-2 mb-2"><div class="col-12"><div class="row">',
-    					'<div class="col-9 col-md-10 col-xl-11 pr-0"><textarea class="form-control" placeholder="댓글 내용을 입력해주세요" id="pCoModContents" style="height:80px;" name="contents" maxlength="1300">'+contents+'</textarea></div>',
-    					'<div class="col-3 col-md-2 col-xl-1"><input type="hidden" name="seq" value="'+seq+'"><input type="hidden" name="projectSeq" value="'+$("#pageSeq").val()+'">',
-    					'<div class="row">',
-    					'<div class="col-12 text-center p-0">',
-    					'<button type="button" class="btn btn-secondary" style="margin-bottom:5px;width:80%;" id="coMoCancel">취소</button>',
-    					'</div></div>',
-    					'<div class="row"><div class="col-12 text-center p-0">',
-    					'<button type="button" class="btn btn-warning" style="width:80%;" id="coMoConfirmBtn">수정</button>',
-    					'</div></div></div></div></div></div>'
-    			);
-    			$(".commentBox"+seq).find(".commentHeader").after(html.join(""));  
-           	}
+		function coModFunction(seq,contents){  
+			if($("#pCoModContents").length>0){
+   				alert("현재 열려있는 댓글 수정창이 있습니다.");
+   				$("#pCoModContents").focus();
+   				return false;
+   			}
+			$(".commentBox"+seq).find(".commentBtns").css("display","none");
+			$(".commentBox"+seq).find(".commentContent").css("display","none");
+          		$(".commentBox"+seq).wrap('<form action="/project/comment/modifyProc" method="post" id="coModFrm"></form>');
+			var html = [];	
+   			html.push(
+   					'<div class="row coModBox mt-2 mb-2"><div class="col-12"><div class="row">',
+   					'<div class="col-9 col-md-10 col-xl-11 pr-0"><textarea class="form-control" placeholder="댓글 내용을 입력해주세요" id="pCoModContents" style="height:80px;" name="contents" maxlength="1300">'+contents+'</textarea></div>',
+   					'<div class="col-3 col-md-2 col-xl-1"><input type="hidden" name="seq" value="'+seq+'"><input type="hidden" name="projectSeq" value="'+$("#pageSeq").val()+'">',
+   					'<div class="row">',
+   					'<div class="col-12 text-center p-0">',
+   					'<button type="button" class="btn btn-secondary" style="margin-bottom:5px;width:80%;" id="coMoCancel">취소</button>',
+   					'</div></div>',
+   					'<div class="row"><div class="col-12 text-center p-0">',
+   					'<button type="button" class="btn btn-warning" style="width:80%;" id="coMoConfirmBtn">수정</button>',
+   					'</div></div></div></div></div></div>'
+   			);
+   			$(".commentBox"+seq).find(".commentHeader").after(html.join(""));  
+		}
            	
-           	$(document).on("click","#coMoCancel",function(){
-           		var check = confirm("수정을 취소하시겠습니까?");
-           		if(check){
-           			$(this).closest(".commentDiv").unwrap();
-           			$(this).closest(".commentDiv").find(".commentInnerBox").find(".commentHeader").find(".commentBtns").show();
-           			$(this).closest(".commentDiv").find(".commentInnerBox").find(".commentContent").show();           			
-           			$(this).closest(".coModBox").remove();           			
-           		}
-           	});
+       	$(document).on("click","#coMoCancel",function(){
+       		var check = confirm("수정을 취소하시겠습니까?");
+       		if(check){
+       			$(this).closest(".commentDiv").unwrap();
+       			$(this).closest(".commentDiv").find(".commentInnerBox").find(".commentHeader").find(".commentBtns").show();
+       			$(this).closest(".commentDiv").find(".commentInnerBox").find(".commentContent").show();           			
+       			$(this).closest(".coModBox").remove();           			
+       		}
+       	});
            	
-           	$(document).on("click","#coMoConfirmBtn",function(){
-				$("#pCoModContents").val($.trim($("#pCoModContents").val()));
-				if($("#pCoModContents").val()==""){
-					alert("댓글 내용을 입력해주세요.");
-					return false;
-				}
+        $(document).on("click","#coMoConfirmBtn",function(){
+			$("#pCoModContents").val($.trim($("#pCoModContents").val()));
+			if($("#pCoModContents").val()==""){
+				alert("댓글 내용을 입력해주세요.");
+				return false;
+			}
 				
-				$.ajax({
-					url : "/project/comment/modifyProc",
-					type : "post",
-					dataType : "json",
-					data : $("#coModFrm").serialize()
-				}).done(function(resp){
-					console.log("성공");
-					console.log(resp);
-					$(".pPageComments").html("");
-					commentRecall(resp);
-				}).fail(function(resp){
-					console.log("실패");
-					console.log(resp);
-				})
-           	});
+			$.ajax({
+				url : "/project/comment/modifyProc",
+				type : "post",
+				dataType : "json",
+				data : $("#coModFrm").serialize()
+			}).done(function(resp){
+				$(".pPageComments").html("");
+				commentRecall(resp);
+			}).fail(function(resp){
+			});
+		});
            	
            	
-           	function coDelFunction(seq){
-           		var check = confirm("정말 삭제하시겠습니까?");
-           		if(check){
-           			$.ajax({
-           				url : "/project/comment/deleteProc",
-           				type : "post",
-           				dataType : "json",
-           				data :{
-           					seq:seq,
-           					projectSeq : $("#pageSeq").val()
-           				}
-           			}).done(function(resp){
-    					$(".pPageComments").html("");
-    					commentRecall(resp);
-           			}).fail(function(resp){
-    					console.log("실패");
-    					console.log(resp);
-           			})
-           		}
+		function coDelFunction(seq){
+			var check = confirm("정말 삭제하시겠습니까?");
+           	if(check){
+           		$.ajax({
+           			url : "/project/comment/deleteProc",
+           			type : "post",
+           			dataType : "json",
+           			data :{
+           				seq:seq,
+           				projectSeq : $("#pageSeq").val()
+       				}
+           		}).done(function(resp){
+    				$(".pPageComments").html("");
+    				commentRecall(resp);
+        		}).fail(function(resp){
+       			});
            	}
-           	$("#coCancel").on("click",function(){
-				var check = confirm("정말 취소하시겠습니까?");
-				if(check){
-					$("#pCoContents").val("");
+		}
+		$("#coCancel").on("click",function(){
+			var check = confirm("정말 취소하시겠습니까?");
+			if(check){
+				$("#pCoContents").val("");
+			}
+		});
+		$("#coWriteBtn").on("click",function(){
+			$("#pCoContents").val($.trim($("#pCoContents").val()));
+			if($("#pCoContents").val()==""){
+				alert("댓글 내용을 입력해주세요.");
+				return false;
+			}				
+			$.ajax({
+				url : "/project/comment/writeProc",
+				type : "post",
+				dataType : "json",
+				data :{
+					projectSeq : $("#pageSeq").val(),
+					contents : $("#pCoContents").val(),						
 				}
+			}).done(function(resp){
+				$("#pCoContents").val("");
+				$(".pPageComments").html("");					
+				commentRecall(resp);
+			}).fail(function(resp){
 			});
-			$("#coWriteBtn").on("click",function(){
-				$("#pCoContents").val($.trim($("#pCoContents").val()));
-				if($("#pCoContents").val()==""){
-					alert("댓글 내용을 입력해주세요.");
-					return false;
-				}				
-				$.ajax({
-					url : "/project/comment/writeProc",
-					type : "post",
-					dataType : "json",
-					data :{
-						projectSeq : $("#pageSeq").val(),
-						contents : $("#pCoContents").val(),						
-					}
-				}).done(function(resp){
-					$("#pCoContents").val("");
-					$(".pPageComments").html("");					
-					commentRecall(resp);
-				}).fail(function(resp){
-					console.log("실패");
-					console.log(resp);
-				})
-			});
+		});
 			
-			var result = ${data};
-			var data = JSON.stringify(result);			
-			var task = new Bloodhound({
-				datumTokenizer: Bloodhound.tokenizers.obj.whitespace("text"),
-				queryTokenizer: Bloodhound.tokenizers.whitespace,
-				local: jQuery.parseJSON(data) //your can use json type
-			});		
-			task.initialize();		
-			var elt = $("#languages");
-			elt.tagsinput({
-				itemValue: "value",
-				itemText: "text",
-				typeaheadjs: {
-				  name: "task",
-				  displayKey: "text",
-				  source: task.ttAdapter()
-				}
-			});
+		var result = ${data};
+		var data = JSON.stringify(result);			
+		var task = new Bloodhound({
+			datumTokenizer: Bloodhound.tokenizers.obj.whitespace("text"),
+			queryTokenizer: Bloodhound.tokenizers.whitespace,
+			local: jQuery.parseJSON(data) //your can use json type
+		});		
+		task.initialize();		
+		var elt = $("#languages");
+		elt.tagsinput({
+			itemValue: "value",
+			itemText: "text",
+			typeaheadjs: {
+			  name: "task",
+			  displayKey: "text",
+			  source: task.ttAdapter()
+			}
+		});
 			
-			$("#applyProjectSeq").val($("#pageSeq").val());
-			$("#leaderId").val($("#writerId").val());
-			$("#applyFrm").on("keypress", function(e) {
-		        if(e.keyCode == 13) {
-		        	e.preventDefault();
-		        }
-		    });
-			$("#applyFrm").on("submit",function(){
-				var genderCheck = $("input:radio[name='gender']").is(":checked");
-				var workInCheck = $("input:radio[name='workIn']").is(":checked");
-				if($("#languages").val()==""|$("#age")==null|!genderCheck|!workInCheck){
-					alert("필수 입력 항목을 확인해주세요");
+		$("#applyProjectSeq").val($("#pageSeq").val());
+		$("#leaderId").val($("#writerId").val());
+		$("#applyFrm").on("keypress", function(e) {
+	        if(e.keyCode == 13) {
+	        	e.preventDefault();
+	        }
+	    });
+		$("#applyFrm").on("submit",function(){
+			var genderCheck = $("input:radio[name='gender']").is(":checked");
+			var workInCheck = $("input:radio[name='workIn']").is(":checked");
+			if($("#languages").val()==""|$("#age")==null|!genderCheck|!workInCheck){
+				alert("필수 입력 항목을 확인해주세요");
+				return false;
+			}	
+			if($("#email").val()!=""){
+				var regex = /^\w+@[a-z]+(\.[a-z]+){1,2}$/gm;
+	            var data = $("#email").val();
+	            var result = regex.exec(data);
+	            if(result == null){			
+					alert("올바른 이메일 형식이 아닙니다");				
+					$("#email").focus();
 					return false;
-				}								
-				$.ajax({
-					type:"post",
-					url:"/project/apply/writeProc",
-					data:$("#applyFrm").serialize()
-				}).done(function(resp){
-					$('#pApplyConfirmModal').modal('show');
-					$(".pApplyInput").children('input').val("");
-					$(".pApplyInput").children('select').val("");
-					$("#etc").val("");
-					$(".bootstrap-tagsinput").children('.label-info').remove();					
-					$('#pApplyModal').modal('hide');
-				}).fail(function(resp){
-					alert("신청 실패!");
-				});
-				return false;				
-			});
-			$("#applyCancelBtn").on("click",function(){
+	            }					
+			}
+			$.ajax({
+				type:"post",
+				url:"/project/apply/writeProc",
+				data:$("#applyFrm").serialize()
+			}).done(function(resp){
+				$('#pApplyConfirmModal').modal('show');
 				$(".pApplyInput").children('input').val("");
 				$(".pApplyInput").children('select').val("");
 				$("#etc").val("");
-				$(".bootstrap-tagsinput").children('.label-info').remove();				
+				$(".bootstrap-tagsinput").children('.label-info').remove();					
+				$('#pApplyModal').modal('hide');
+			}).fail(function(resp){
+				alert("신청 실패!");
 			});
-			
-			$("#applyConfirmCheckBtn").on("click",function(){
-				$("#getApplyBtn").remove();
-				$(".checkBtn").append('<p style="font-weight:bold;">신청 후 <span style="color:orange;font-weight:bold;">승인 대기중</span>입니다.</p>');
-			});
-
-			function commentRecall(resp){
-				var loginInfo = $("#sessionId").val();
-				for(var i=0;i<resp.length;i++){
-					var html = [];
-					html.push(							
-							'<div class="row commentDiv commentBox'+resp[i].seq+' coLevel'+resp[i].depth+' p-0 pb-1">'
-					);
-					if(resp[i].depth==1){
-						html.push(
-							'<div class="col-1 text-right pt-1"><span>┗</span></div>'		
-						);
-					}
-					html.push(
-						'<div class="col-'+(12-resp[i].depth)+' commentInnerBox pb-0">'		
-					);
-					
-					if(resp[i].contents!=null){
-						html.push(
-								'<div class="row commentHeader">',
-								'<div class="col-lg-1 d-none d-lg-block profileBox pl-1 pt-2 pr-0"><img src="'+resp[i].profileImg+'" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>',
-								'<div class="col-7 col-lg-6 pt-1">',
-								'<div class="row commentInfo pl-2">',
-								'<div class="col-12 commentWriter"><span style="font-weight:bold;cursor:pointer;" onclick="popUp(\'/Portfolio/toPlog.do?owner='+resp[i].id+'\')">'+resp[i].writer+'</span></div>',
-								'<div class="col-12 commentWriteDate">',
-								'<span>'+resp[i].formedWriteDate+'</span>'
-						);
-						if(resp[i].changeDate!=null){
-							html.push(
-									'<span style="margin-left: 10px;">(수정일자 '+resp[i].formedChangeDate+')</span>'
-							);
-						}
-						html.push(
-								'</div></div></div>',
-								'<div class="col-5 pt-2 text-right commentBtns">'
-						);
-						if(resp[i].depth==0){
-							html.push(
-									'<a class="btn btn-warning coReplyBtn" href="#" onclick="coReplyFunction('+resp[i].seq+');return false;" role="button">답글</a>\n'
-							);
-						}
-						if(resp[i].id==loginInfo){
-							html.push(									
-									'<a class="btn btn-info coModBtn" onclick="coModFunction('+resp[i].seq+',\''+resp[i].contents+'\');return false;" role="button">수정</a>\n',									
-									'<a class="btn btn-danger coDelBtn" onclick="coDelFunction('+resp[i].seq+');return false;" role="button">삭제</a>'									
-							);
-						}
-						html.push(							
-							'</div></div>',
-							'<div class="row commentContent">',
-							'<div class="col-12 pt-1 pl-4" style="word-break:break-all;word-break:break-word;">'+resp[i].contents+'</div></div>'	
-						);
-					}else{
-						html.push(								
-								'<span class="row align-middle m-2 mt-2">삭제된 댓글입니다.<span class="delCoDate" style="margin-left: 10px;color:darkgray;">(삭제일자 '+resp[i].formedChangeDate+')</span></span>'
-						);
-					}
-					html.push(
-							'</div></div>'		
-					);
-					$(".pPageComments").append(html.join(""));	
-				}
-			}	
+			return false;				
+		});
+		$("#applyCancelBtn").on("click",function(){
+			$(".pApplyInput").children('input').val("");
+			$(".pApplyInput").children('select').val("");
+			$("#etc").val("");
+			$("input.tt-input").val("");
+			$(".bootstrap-tagsinput").children('.label-info').remove();				
+		});
 		
-		</script>
+		$("#applyConfirmCheckBtn").on("click",function(){			
+			$("#getApplyBtn").remove();
+			$(".checkBtn").append('<p style="font-weight:bold;">신청 후 <span style="color:orange;font-weight:bold;">승인 대기중</span>입니다.</p>');
+		});
+
+		function commentRecall(resp){
+			var loginInfo = $("#sessionId").val();
+			for(var i=0;i<resp.length;i++){
+				var html = [];
+				html.push(							
+						'<div class="row commentDiv commentBox'+resp[i].seq+' coLevel'+resp[i].depth+' p-0 pb-1">'
+				);
+				if(resp[i].depth==1){
+					html.push(
+						'<div class="col-1 text-right pt-1"><span>┗</span></div>'		
+					);
+				}
+				html.push(
+					'<div class="col-'+(12-resp[i].depth)+' commentInnerBox pb-0">'		
+				);
+				
+				if(resp[i].contents!=null){
+					html.push(
+							'<div class="row commentHeader">',
+							'<div class="col-lg-1 d-none d-lg-block profileBox pl-1 pt-2 pr-0"><img src="'+resp[i].profileImg+'" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>',
+							'<div class="col-7 col-lg-6 pt-1">',
+							'<div class="row commentInfo pl-2">',
+							'<div class="col-12 commentWriter"><span style="font-weight:bold;cursor:pointer;" onclick="popUp(\'/Portfolio/toPlog.do?owner='+resp[i].id+'\')">'+resp[i].writer+'</span></div>',
+							'<div class="col-12 commentWriteDate">',
+							'<span>'+resp[i].formedWriteDate+'</span>'
+					);
+					if(resp[i].changeDate!=null){
+						html.push(
+								'<span style="margin-left: 10px;">(수정일 : '+resp[i].formedChangeDate+')</span>'
+						);
+					}
+					html.push(
+							'</div></div></div>',
+							'<div class="col-5 pt-2 text-right commentBtns">'
+					);
+					if(resp[i].depth==0){
+						html.push(
+								'<a class="btn btn-warning coReplyBtn" href="#" onclick="coReplyFunction('+resp[i].seq+');return false;" role="button">답글</a>\n'
+						);
+					}
+					if(resp[i].id==loginInfo){
+						html.push(									
+								'<a class="btn btn-info coModBtn" href="#" onclick="coModFunction('+resp[i].seq+',\''+resp[i].contents+'\');return false;" role="button">수정</a>\n',									
+								'<a class="btn btn-danger coDelBtn" href="#" onclick="coDelFunction('+resp[i].seq+');return false;" role="button">삭제</a>'									
+						);
+					}
+					html.push(							
+						'</div></div>',
+						'<div class="row commentContent">',
+						'<div class="col-12 pt-1 pl-4" style="word-break:break-all;word-break:break-word;">'+resp[i].contents+'</div></div>'	
+					);
+				}else{
+					html.push(								
+							'<span class="row align-middle m-2 mt-2">삭제된 댓글입니다.<span class="delCoDate" style="margin-left: 10px;color:darkgray;">(삭제일 : '+resp[i].formedChangeDate+')</span></span>'
+					);
+				}
+				html.push(
+						'</div></div>'		
+				);
+				$(".pPageComments").append(html.join(""));	
+			}
+		}			
+	</script>
 </body>
 </html>

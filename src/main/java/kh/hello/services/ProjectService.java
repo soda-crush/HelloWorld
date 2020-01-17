@@ -245,6 +245,7 @@ public class ProjectService {
 		dao.deleteImagesByProjectSeq(seq);
 		dao.updatePoint(option, id);
 		dao.checkPoint(id);
+		dao.allApplyDeny(seq);
 		return dao.deleteProject(seq);
 	}
 	
@@ -413,10 +414,13 @@ public class ProjectService {
 		return dao.getProjectApplyDetailView(seq);
 	}
 	
-	public ProjectApplyDTO getApplyCheck(int projectSeq) {
-		return dao.getApplyCheck(projectSeq);
+	public ProjectApplyDTO checkMyApply(int projectSeq, String id) {
+		return dao.checkMyApply(projectSeq, id);
 	}
 	
+	public int checkApplyCount(int projectSeq) {
+		return dao.checkApplyCount(projectSeq);
+	}
 	public int projectApplyDeleteConfirm(int seq) {
 		return dao.deleteProjectApply(seq);
 	}

@@ -30,7 +30,7 @@
 					    <div class="col-1">신청내역</div>
 					    <div class="col-1">총신청</div>
 						<div class="col-1">승인</div>
-					    <div class="col-3">기간</div>
+					    <div class="col-3">프로젝트 기간</div>
 					    <div class="col-3">제목</div>					    
 					    <div class="col-1">작성일</div>	
 					    <div class="col-1">조회</div>				    					    

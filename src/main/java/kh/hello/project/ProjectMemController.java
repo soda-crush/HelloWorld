@@ -83,13 +83,15 @@ public class ProjectMemController {
 		String scrap = svc.checkScrap(id, seq);
 		List<ProjectCoDTO> coResult = svc.commentList(seq); 
 		String data = svc.projectWrite();
-		ProjectApplyDTO applyCheck = svc.getApplyCheck(seq);
+		ProjectApplyDTO myApply = svc.checkMyApply(seq, id);
+		int checkApplyCount = svc.checkApplyCount(seq);
 		m.addAttribute("page", listPage);
 		m.addAttribute("data", data);
 		m.addAttribute("pPage", result);
 		m.addAttribute("comments", coResult);
 		m.addAttribute("scrap", scrap);		
-		m.addAttribute("applyCheck", applyCheck);		
+		m.addAttribute("myApply", myApply);		
+		m.addAttribute("checkApplyCount", checkApplyCount);
 		return "/project/detailView";
 	}
 	

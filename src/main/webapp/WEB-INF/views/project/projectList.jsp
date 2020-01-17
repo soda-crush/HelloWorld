@@ -60,7 +60,7 @@
 					    <div class="col-xl-3 col-8 col-md-5">제목</div>
 					    <div class="col-xl-1 col-2 col-md-1">지역</div>
 					    <div class="col-xl-1 col-lg-1 d-none d-lg-block">인원</div>
-					    <div class="col-xl-2 col-md-4 d-none d-md-block">기간</div>
+					    <div class="col-xl-2 col-md-4 d-none d-md-block">프로젝트 기간</div>
 					    <div class="col-xl-1 d-none d-xl-block">작성자</div>
 					    <div class="col-xl-1 d-none d-xl-block">작성일</div>
 					    <div class="col-xl-1 d-none d-xl-block">조회</div>					    

@@ -90,7 +90,7 @@ body{background-color:#e9ecef;}
 				<div id="pageFooter">
 					<span class="float-right">
 						<c:if test="${aPage.leaderId == sessionScope.loginInfo.id }">
-							<a class="btn btn-secondary" href="/project/applyCheck?projectSeq=${aPage.projectSeq}" role="button">목록</a>
+							<a class="btn btn-secondary" href="/project/apply/list?projectSeq=${aPage.projectSeq}" role="button">목록</a>
 						</c:if>
 					</span>
 				</div>          
@@ -139,15 +139,11 @@ body{background-color:#e9ecef;}
         				url:"/project/apply/approveApply",
         				data:{seq:"${aPage.seq}"}
         			}).done(function(resp){
-//         				console.log("성공");
-//     					console.log(resp);
         				$("#pApproveModal").modal('show');
         				$("#approveProcBtns").remove();
         				$(".checkBtn").append('<span style="font-weight:bold;">신청 <span style="color:limegreen;font-weight:bold;">승인</span>되었습니다.</span>');
         				window.opener.document.location.href = window.opener.document.URL;
         			}).fail(function(resp){
-//         				console.log("실패");
-//     					console.log(resp);
     					alert("신청 실패!");
         			});
         		}        		
@@ -161,15 +157,11 @@ body{background-color:#e9ecef;}
         				url:"/project/apply/denyApply",
         				data:{seq:"${aPage.seq}"}
         			}).done(function(resp){
-//         				console.log("성공");
-//     					console.log(resp);
         				$("#pDenialModal").modal('show');
     					$("#approveProcBtns").remove();
         				$(".checkBtn").append('<span style="font-weight:bold;">신청 <span style="color:red;font-weight:bold;">거절</span>되었습니다.</span>');
         				window.opener.document.location.href = window.opener.document.URL;
         			}).fail(function(resp){
-//         				console.log("실패");
-//     					console.log(resp);
     					alert("신청 실패!");
         			});
         		}        		
