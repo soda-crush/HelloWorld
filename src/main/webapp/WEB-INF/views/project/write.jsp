@@ -170,7 +170,7 @@
 		    language : "ko"	//달력의 언어 선택, 그에 맞는 js로 교체해줘야한다.			    
 		}).on("changeDate", function(e) {
             changeDate : true	//사용자가 클릭해서 날짜가 변경되면 호출 (개인적으로 가장 많이 사용함)
-            console.log(e); 
+//             console.log(e); 
 		});			
 		
 		var result = ${data};
