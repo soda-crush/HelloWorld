@@ -56,6 +56,7 @@ public class ScrapMemController {
 		int start = end - (Configuration.pLogProjectRecordCountPerPage - 1);
 		List<ItnewsDTO> nlist = ss.selectItnewsByPage(ownerID,start,end);
 		List<String> pageNavi = ss.getScrapPageNavi(ownerID, currentPage, "itNews");
+		request.setAttribute("cpage", currentPage);
 		request.setAttribute("pageNavi", pageNavi);
 		request.setAttribute("nlist", nlist);
 		return "plog/scrapItNews";
@@ -71,6 +72,7 @@ public class ScrapMemController {
 		int start = end - (Configuration.pLogProjectRecordCountPerPage - 1);
 		List<CodeQuestionDTO> clist = ss.selectCodeQuestionByPage(ownerID,start,end);
 		List<String> pageNavi = ss.getScrapPageNavi(ownerID, currentPage, "cohow");
+		request.setAttribute("cpage", currentPage);
 		request.setAttribute("pageNavi", pageNavi);
 		request.setAttribute("clist", clist);
 		return "plog/scrapCohow";
@@ -86,6 +88,7 @@ public class ScrapMemController {
 		int start = end - (Configuration.pLogProjectRecordCountPerPage - 1);
 		List<IndustryStatusDTO> ilist = ss.selectIndustryStatusByPage(ownerID,start,end);
 		List<String> pageNavi = ss.getScrapPageNavi(ownerID, currentPage, "industryStatus");
+		request.setAttribute("cpage", currentPage);
 		request.setAttribute("pageNavi", pageNavi);
 		request.setAttribute("ilist", ilist);
 		return "plog/scrapIndustryStatus";
@@ -101,6 +104,7 @@ public class ScrapMemController {
 		int start = end - (Configuration.pLogProjectRecordCountPerPage - 1);
 		List<ProjectDTO> plist = ss.selectProjectByPage(ownerID,start,end);
 		List<String> pageNavi = ss.getScrapPageNavi(ownerID, currentPage, "project");
+		request.setAttribute("cpage", currentPage);
 		request.setAttribute("pageNavi", pageNavi);
 		request.setAttribute("plist", plist);
 		return "plog/scrapProject";

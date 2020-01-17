@@ -14,7 +14,7 @@
 <body>
 	<script>
 		$(function(){
-			alert("사용자가 또는 관리자가 비공개로 설정 한 P-Log입니다.");
+			alert("사용자 또는 관리자가 비공개로 설정 한 P-Log입니다.");
 			window.close();
 		})
 	</script>

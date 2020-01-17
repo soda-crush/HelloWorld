@@ -93,7 +93,7 @@ public class ReportDTO {
 	}
 	
 	public String getFormedDate() {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.mm.dd HH:mm");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
 		return sdf.format(this.reportDate);
 	}
 	

@@ -275,7 +275,7 @@ a:hover {
 			return false;
 		}
 		else{
-			window.open("/Portfolio/toPlog.do?owner="+id, "pLogPopUp", "width=600,height=600");
+			window.open("/Portfolio/toPlog.do?owner="+id, "pLogPopUp", "width=800,height=800");
 		}
       
      }

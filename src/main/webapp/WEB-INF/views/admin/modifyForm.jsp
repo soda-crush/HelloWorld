@@ -98,9 +98,11 @@
                                 </div>
                                 <div class="form-group mb-0">
                                 	<label for="exampleInputEmail1">이메일 주소</label>
-                                    <input type="text" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter Email" name="email"
+                                	<div class="row pl-3 pr-3">
+                                    <input type="text" class="form-control col-12 col-md-6" id="email" aria-describedby="emailHelp" placeholder="Enter Email" name="email"
                                     value="${email}" required>     
-                                    <label class="col-12 pt-1" id="emailResult"></label>                                          
+                                    <label class="col-12 col-md-6 pt-1" id="emailResult"></label>       
+                                    </div>                                   
                                	</div>           
                                 <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4" id="btn">변경하기</button>
 							</form>

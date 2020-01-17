@@ -28,6 +28,7 @@
         #funcexpl{line-height: 150px;}
         #funcname1,#funcname2,#funcname3{margin-bottom: 8px;}
         .line-over{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+        #plogPortfolio{background-color:#efefef;border-radius:5px 5px 0px 0px;padding:12px;}
     </style>
 </head>
 <body>
@@ -97,7 +98,7 @@
 		                </div>
 		                <div class="col-12 col-sm-9 col-xl-10">
 		                    <div class="row">
-		                        <div class="col-3 col-sm-2  col-lg-1" id="funcname"> 기능명</div>
+		                        <div class="col-3 col-sm-2  col-lg-1" id="funcname" accept="image/*"> 기능명</div>
 		                        <div class="col-9 col-sm-10 col-lg-11" id="funcname1"><input name="function1" style="height:18px margin-bottom:" value="${pdto.function1 }" maxlength="100"> </div>
 		                        <div class="col-3 col-sm-2  col-lg-1" id="funcexpl" > 설명</div>
 		                        <div class="col-9 col-sm-10 col-lg-11"><textarea name="explanation1" style="height:150px;" maxlength="1300">${pdto.explanation1 }</textarea></div>
@@ -113,7 +114,7 @@
 		                </div>
 		                <div class="col-12 col-sm-9 col-xl-10">
 		                    <div class="row">
-		                        <div class="col-3 col-sm-2  col-lg-1" id="funcname"> 기능명</div>
+		                        <div class="col-3 col-sm-2  col-lg-1" id="funcname" accept="image/*"> 기능명</div>
 		                        <div class="col-9 col-sm-10 col-lg-11" id="funcname2"><input name="function2" style="height:18px margin-bottom:" value="${pdto.function2 }" maxlength="100"></div>
 		                        <div class="col-3 col-sm-2  col-lg-1" id="funcexpl" > 설명</div>
 		                        <div class="col-9 col-sm-10 col-lg-11"><textarea name="explanation2" style="height:150px;" maxlength="1300">${pdto.explanation2 }</textarea></div>
@@ -123,7 +124,7 @@
 		            <div class="interval"></div>
 		            <div class="row">
 		                <div class="col-12 col-sm-3 col-xl-2">
-		                	<input type="file" id="fileUpload3" name="fileUpload3">
+		                	<input type="file" id="fileUpload3" name="fileUpload3" accept="image/*">
 		                	<img id="fileImg3"src="${pdto.image3}" style="height: 95%;width:100%;max-height: 170px;">
 		                	<input type="hidden" name ="image3" id="file3" value="${pdto.image3}">
 		                </div>
@@ -198,6 +199,12 @@
             })
             
             $("#fileUpload1").on("change",function(){
+	  			var ext = this.value.split('.').pop().toLowerCase();
+	  			console.log(ext);
+	 			if($.inArray(ext, ['gif','png','jpg','jpeg']) == -1) {
+	  			alert('gif,png,jpg,jpeg 파일만 업로드 할수 있습니다.');
+	  				return;
+	  		    }
 	  				var data = new FormData();
 	  				data.append("fileUpload1", $('#fileUpload1').prop('files')[0]);
 	  				$.ajax({
@@ -218,6 +225,12 @@
 	  			    })
                 })
                 $("#fileUpload2").on("change",function(){
+		  			var ext = this.value.split('.').pop().toLowerCase();
+		  			console.log(ext);
+		 			if($.inArray(ext, ['gif','png','jpg','jpeg']) == -1) {
+		  			alert('gif,png,jpg,jpeg 파일만 업로드 할수 있습니다.');
+		  				return;
+		  		    }
 	  				var data = new FormData();
 	  				data.append("fileUpload2", $('#fileUpload2').prop('files')[0]);
 	  				$.ajax({
@@ -238,6 +251,12 @@
 	  			    })
                 })
                 $("#fileUpload3").on("change",function(){
+		  			var ext = this.value.split('.').pop().toLowerCase();
+		  			console.log(ext);
+		 			if($.inArray(ext, ['gif','png','jpg','jpeg']) == -1) {
+		  			alert('gif,png,jpg,jpeg 파일만 업로드 할수 있습니다.');
+		  				return;
+		  		    }
 	  				var data = new FormData();
 	  				data.append("fileUpload3", $('#fileUpload3').prop('files')[0]);
 	  				$.ajax({
@@ -257,7 +276,6 @@
 	  			    	console.log(fail);
 	  			    })
                 })
-                
        			$("#update").on("click",function(){
                 	console.log($("#portfolioTitle").val());
                 	if($("#portfolioTitle").val() && $("#purpose").val()){

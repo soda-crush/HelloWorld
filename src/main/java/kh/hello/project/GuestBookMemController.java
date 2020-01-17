@@ -60,7 +60,7 @@ public class GuestBookMemController {
 		int start = end - (Configuration.pLogProjectRecordCountPerPage - 1);
 		List<GuestBookDTO> list = gs.selectListByPage(ownerID,start,end);
 		List<String> pageNavi = gs.getGuestBookPageNavi(ownerID, currentPage);
-		request.setAttribute("cpage", cpage);
+		request.setAttribute("cpage", currentPage);
 		request.setAttribute("list", list);
 		request.setAttribute("pageNavi", pageNavi);
 		return "plog/guestBook";

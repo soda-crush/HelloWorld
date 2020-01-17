@@ -45,8 +45,10 @@ public class PlogMemController {
 		List<String> rpageNavi = pcs.getScrapPageNavi(id, rcurrentPage, "R",qcurrentPage);
 		request.setAttribute("qlist", qlist);
 		request.setAttribute("qpageNavi", qpageNavi);
+		request.setAttribute("qcpage", qcurrentPage);
 		request.setAttribute("rlist", rlist);
 		request.setAttribute("rpageNavi", rpageNavi);
+		request.setAttribute("rcpage", rcurrentPage);
 		return "/plog/plogCohow";
 	}
 

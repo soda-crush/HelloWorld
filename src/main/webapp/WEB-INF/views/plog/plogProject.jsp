@@ -29,12 +29,8 @@
 		.nvlink2{height:45px;line-height:45px;font-size:10px;}
         a:hover{text-decoration:none;}
         .line-over{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+        #plogProject{background-color:#efefef;border-radius:5px 5px 0px 0px;padding:12px;}
 	</style>
-	<script>
-	$(function(){
-		$("#plogNavi").attr('class','nav-item nav-link active');
-	});
-	</script>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/standard/plogHeader.jsp"/>
@@ -80,5 +76,29 @@
         </div>
         
         <jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
+        
+        <script>
+	    	$(function(){
+	    		var element = $(".pageNavi");
+	    		var page = "${page}";
+	    		if(page > 0 && page <= 10){
+	    			element[page-1].classList.add('active');
+	    		}else if(page % 10 == 0){
+	    			element[10].classList.add('active');
+	    		}else{
+	    			element[page % 10].classList.add('active');
+	    		}	
+	    	});
+	    	function popUp(id,writer){
+	    		if(writer == null){
+	    			alert("탈퇴한 회원입니다.");
+	    			return false;
+	    		}
+	    		else{
+	    			window.open("/Portfolio/toPlog.do?owner="+id, "pLogPopUp", "width=600,height=600");
+	    		}
+	          
+	         }
+        </script>
 </body>
 </html>
