@@ -11,6 +11,7 @@ public class IndustryStatusCoDTO {
 	private Timestamp writeDate;
 	private String id;
 	private String profileImg;
+	private String formedWriteDate;
 	
 	public String getProfileImg() {
 		return profileImg;
@@ -27,6 +28,7 @@ public class IndustryStatusCoDTO {
 	}
 
 	public void setFormedWriteDate(String formedWriteDate) {
+		this.formedWriteDate = formedWriteDate;
 	}
 
 	public IndustryStatusCoDTO() {

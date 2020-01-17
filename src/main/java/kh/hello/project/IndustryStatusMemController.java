@@ -17,6 +17,7 @@ import kh.hello.dto.LoginInfoDTO;
 import kh.hello.dto.ReportDTO;
 import kh.hello.dto.ScrapDTO;
 import kh.hello.services.IndustryStatusService;
+import kh.hello.utils.Utils;
 
 @Controller
 @RequestMapping("/industry")
@@ -49,6 +50,9 @@ public class IndustryStatusMemController {
 	@RequestMapping("/industryStatusDetailView.do")
 	public String industryStatusDetailView (int seq, Model m) {//업계현황 글보기
 		IndustryStatusDTO result = service.industryStatusDetailView(seq);
+		if(result == null) {
+			return "/industry/industryStatusDetailView";
+		}
 		List<IndustryStatusCoDTO> coResult = service.commentList(seq);
 
 		m.addAttribute("iPage", result);
@@ -73,6 +77,7 @@ public class IndustryStatusMemController {
 		LoginInfoDTO loginInfo = (LoginInfoDTO)session.getAttribute("loginInfo");
 		dto.setWriter(loginInfo.getNickName());
 		dto.setId(loginInfo.getId());
+		dto.setTitle(Utils.protectXss(dto.getTitle()));
 		String path = session.getServletContext().getRealPath("attached");
 		int result = 0;
 		try {
@@ -98,7 +103,7 @@ public class IndustryStatusMemController {
 	@RequestMapping("/industryStatusModifyProc.do")
 	public String modifyProcIndustryStatus(IndustryStatusDTO dto) {
 		String path = session.getServletContext().getRealPath("attached");
-
+		dto.setTitle(Utils.protectXss(dto.getTitle()));
 		int result = 0;
 		try {
 			result = service.industryStatusModifyConfirm(dto, path);
@@ -126,12 +131,14 @@ public class IndustryStatusMemController {
 	@ResponseBody
 	@RequestMapping(value="/comment/writeProc.do",produces="text/html;charset=utf8")
 	public String coWriteProc(IndustryStatusCoDTO dto) {
+		dto.setContent(Utils.protectXss(dto.getContent()));
 		return service.commentWriteConfirm(dto);		
 	}
 
 	@ResponseBody
 	@RequestMapping(value="/comment/modifyProc.do",produces="text/html;charset=utf8")
 	public String coMdfProc(IndustryStatusCoDTO dto) {
+		dto.setContent(Utils.protectXss(dto.getContent()));
 		return service.commentModifyConfirm(dto);
 	}
 	@ResponseBody
@@ -145,6 +152,7 @@ public class IndustryStatusMemController {
 	//게시판 목록 검색
 	@RequestMapping("/industrySearch.do")
 	public String industrySearch(String search, String value, Model m, String page) {
+		search = Utils.protectXss(search);
 		//검색결과 페이지 네비
 		int currentPage = 1;		
 
@@ -189,7 +197,8 @@ public class IndustryStatusMemController {
 	public String reportProject(ReportDTO dto) {
 		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
 		dto.setReporterID(sessionValue.getId());
-		dto.setReporterNick(sessionValue.getNickName());		
+		dto.setReporterNick(sessionValue.getNickName());
+		dto.setReason(Utils.protectXss(dto.getReason()));
 		int result = service.reportProject(dto);
 		if(result>0) {
 			return "success";

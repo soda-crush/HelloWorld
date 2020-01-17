@@ -16,6 +16,7 @@ import kh.hello.dto.BambooDTO;
 import kh.hello.dto.LoginInfoDTO;
 import kh.hello.dto.ReportDTO;
 import kh.hello.services.BambooService;
+import kh.hello.utils.Utils;
 
 @Controller
 @RequestMapping("/bamboo")
@@ -46,6 +47,9 @@ public class BambooMemController {
 	@RequestMapping("/bambooDetailView.do")
 	public String bambooDetailView (int seq, Model m) {//대나무숲 글보기
 		BambooDTO result = service.bambooDetailView(seq);
+		if(result == null) {
+			return "/bamboo/bambooDetailView";
+		}
 		List<BambooCoDTO> coResult = service.commentList(seq);
 		m.addAttribute("bPage", result);
 		m.addAttribute("comments", coResult);
@@ -68,6 +72,7 @@ public class BambooMemController {
 	public String writeProcBamboo(BambooDTO dto) {//섬머노트
 		LoginInfoDTO loginInfo = (LoginInfoDTO)session.getAttribute("loginInfo");
 		dto.setWriter(loginInfo.getId());
+		dto.setTitle(Utils.protectXss(dto.getTitle()));
 		String path = session.getServletContext().getRealPath("attached");
 		int result = 0;
 		try {
@@ -93,7 +98,7 @@ public class BambooMemController {
 	@RequestMapping("/bambooModifyProc.do")
 	public String modifyProcBamboo(BambooDTO dto) {
 		String path = session.getServletContext().getRealPath("attached");
-
+		dto.setTitle(Utils.protectXss(dto.getTitle()));
 		int result = 0;
 		try {
 			result = service.bambooModifyConfirm(dto, path);
@@ -133,12 +138,14 @@ public class BambooMemController {
 	public String coWriteProc(BambooCoDTO dto) {
 		LoginInfoDTO loginInfo = (LoginInfoDTO)session.getAttribute("loginInfo");
 		dto.setWriter(loginInfo.getId());
+		dto.setContent(Utils.protectXss(dto.getContent()));
 		return service.commentWriteConfirm(dto,dto.getWriter());
 	}
 
 	@ResponseBody
 	@RequestMapping(value="/comment/modifyProc.do",produces="text/html;charset=utf8")
 	public String coMdfProc(BambooCoDTO dto) {
+		dto.setContent(Utils.protectXss(dto.getContent()));
 		return service.commentModifyConfirm(dto);
 	}
 
@@ -153,6 +160,7 @@ public class BambooMemController {
 	//게시판 목록 검색
 	@RequestMapping("/bambooSearch.do")
 	public String bambooSearch(String search, String value, Model m, String page) {
+		search = Utils.protectXss(search);
 		//페이지네비
 		int currentPage = 1;		
 
@@ -168,18 +176,6 @@ public class BambooMemController {
 
 		return "/bamboo/bambooList";
 	}
-
-	//신고
-//	@RequestMapping("/report.do")
-//	public String bambooReport(BambooDTO bamDto, String reason, LoginInfoDTO loginDto) {
-//		service.report(bamDto, reason, loginDto);
-//		return "redirect:/bamboo/bambooDetailView.do?seq="+bamDto.getSeq();
-//	}
-//
-//	@RequestMapping("/kakao.do")
-//	public String kakao ( ) {
-//		return "/bamboo/kakao";
-//	}
 	
 //	게시글신고
 	
@@ -201,7 +197,8 @@ public class BambooMemController {
 	public String reportBamboo(ReportDTO dto) {
 		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
 		dto.setReporterID(sessionValue.getId());
-		dto.setReporterNick(sessionValue.getNickName());		
+		dto.setReporterNick(sessionValue.getNickName());
+		dto.setReason(Utils.protectXss(dto.getReason()));
 		int result = service.reportProject(dto);
 		if(result>0) {
 			return "success";

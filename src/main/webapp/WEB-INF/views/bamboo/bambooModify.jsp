@@ -82,8 +82,8 @@ $(function() {
 			</div>
 			<div class=row>
 					<div class="col-12 content">
-			<div id="summernote">${bPage.content}</div>
-			<textarea style="display: none" name=content id=content></textarea>
+			
+			<textarea style="display: none" name=content id=content class="summernote">${bPage.content}</textarea>
 					</div>
 				</div> 
 			<div class=row>
@@ -98,21 +98,32 @@ $(function() {
 		$("#return").on('click',function() {
 			location.href = "bambooDetailView.do?seq=${bPage.seq}";
 						})
-		$('#summernote').summernote({
+		$('.summernote').summernote({
 			lang: 'ko-KR',
 			 height : 500
      	});
 		$("#write").on("click", function() {
-			$("#title").val($.trim($("#title").val())); 						
-			if (($("#title").val()=="" || $(".note-editable").text()== "")) {
-				alert("작성 하지 않는 문항이 있습니다. 다시 한번 확인해주세요.");
-				return false;
-			} else {
-				var result = confirm("이대로 작성 하시겠습니까?");
-				if (result) {
-					$("#writeForm").submit();
+			regex = /^[(<p><br></p>)(<p>(&nbsp; ){1,}</p>)]{0,}$/g;
+			   var content = $(".summernote").val();
+			   console.log(content);
+			   var result = regex.exec(content);
+			   console.log(result);
+			   $("#title").val($.trim($("#title").val())); 
+			   if(($("#title").val()=="")&&(result!=null)){
+			      alert("제목과 내용을 입력해주세요.");
+			      return false;
+			   }else if(result!=null){
+			      alert("내용을 입력해 주세요.");
+			      return false;
+			   }else if($("#title").val()==""){
+			      alert("제목을 입력해 주세요.");
+			      return false;
+			   }else {
+					var result = confirm("이대로 작성 하시겠습니까?");
+					if (result) {
+						$("#writeForm").submit();
+					}
 				}
-			}
 		})
 		</script>
             
