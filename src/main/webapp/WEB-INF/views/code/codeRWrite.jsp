@@ -73,14 +73,14 @@ $(function(){
             <input type="hidden" name="queSeq" value="${parent_seq}">
             <div class=row>
                <div class="col-12 content">
-                  <textarea name="content" id="content" style="display:none"></textarea>
-                  <div id="summernote"></div>
+                  <textarea name="content" id="content" style="display:none" class="summernote"></textarea>
+<!--                   <div id="summernote"></div> -->
                </div>
             </div>
             
             <div class=row>
                <div class="col-12 btn" style="text-align:right;">
-                  <button class="btn btn-primary" type="submit">답변등록</button>
+                  <button class="btn btn-primary" type="button" id="write">답변등록</button>
                   <button class="btn btn-primary" type="button" id="cancle">취소</button>
                </div>
             </div>
@@ -97,13 +97,31 @@ $(function(){
    <jsp:include page="/WEB-INF/views/standard/footer.jsp" />
    
    <script>
-      $('#summernote').summernote({
-    	  height : 500,
-		  lang: 'ko-KR'
-      })
       $("#cancle").on("click",function(){
          location.href="${pageContext.request.contextPath}/code/codeDetail.do?seq=${parent_seq}";
       })
+      
+      $('.summernote').summernote({
+			height : 500,
+			lang: 'ko-KR'
+		})
+      
+      $("#write").on("click", function(){
+		   regex = /^[(<p><br></p>)(<p>(&nbsp; ){1,}</p>)]{0,}$/g;
+ 		   var content = $(".summernote").val();
+		   var result = regex.exec(content);
+
+		   if(result!=null){
+		      alert("내용을 작성하지 않았습니다. 다시 한번 확인해주세요.");
+		      return false;
+		   }
+		   else{
+			   var result = confirm("이대로 작성 하시겠습니까?");
+				if (result) {
+					$("#writeForm").submit();
+				}
+		   }
+		})
    </script>
 </body>
 </html>

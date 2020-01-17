@@ -73,8 +73,8 @@ $(function(){
 
 				<div class=row>
 					<div class="col-12 content">
-						<textarea name="content" id="content" style="display:none"></textarea>
-						<div id="summernote">${dto.content}</div>
+						<textarea name="content" id="content" style="display:none" class="summernote">${dto.content}</textarea>
+<%-- 						<div id="summernote">${dto.content}</div> --%>
 					</div>
 				</div>
 				
@@ -98,22 +98,30 @@ $(function(){
 	<jsp:include page="/WEB-INF/views/standard/footer.jsp" />
 	
 	<script>
-		$('#summernote').summernote({
-			height: 500
-		})
 		$("#cancle").on("click",function(){
 			location.href="${pageContext.request.contextPath}/code/codeDetail.do?seq=${parent_seq}";
 		})
-		$("#modify").on("click", function() {
-			if (($(".note-editable").text()== "")) {
-				alert("내용이 입력 되지 않았습니다. 다시 한번 확인해주세요.");
-				return false;
-			} else {
-				var result = confirm("이대로 수정 하시겠습니까?");
+		
+		$('.summernote').summernote({
+			height : 500,
+			lang: 'ko-KR'
+		})
+      
+      $("#modify").on("click", function(){
+		   regex = /^[(<p><br></p>)(<p>(&nbsp; ){1,}</p>)]{0,}$/g;
+ 		   var content = $(".summernote").val();
+		   var result = regex.exec(content);
+
+		   if(result!=null){
+		      alert("내용을 작성하지 않았습니다. 다시 한번 확인해주세요.");
+		      return false;
+		   }
+		   else{
+			   var result = confirm("이대로 수정 하시겠습니까?");
 				if (result) {
 					$("#writeForm").submit();
 				}
-			}
+		   }
 		})
 	</script>
 </body>
