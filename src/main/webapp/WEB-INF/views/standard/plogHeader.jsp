@@ -30,7 +30,7 @@
 	</div>
 
 	<nav class="navbar navbar-expand-md navbar-light" style="background-color: #f7941e;margin-bottom:0px;">
-		<div style="margin-left:20px;" class="navbar-brand">
+		<div style="margin-left:20px;cursor:pointer;" class="navbar-brand" onClick="location.href='${pageContext.request.contextPath}/Portfolio/toPlogmain.do'">
 			<div style="display:inline;font-size:20px;">P -</div>
 			<div style="color:#3b2e72;display:inline;font-size:20px;">Log</div>
 		</div>
@@ -39,11 +39,15 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 			<div class="navbar-nav" id="naviCon">
-				<a class="nav-item nav-link" style="color:black" href="${pageContext.request.contextPath}/Portfolio/toPlogmain.do">포트폴리오</a>
-				<a class="nav-item nav-link" style="color:black" href="${pageContext.request.contextPath}/Plog/toPlogCohow.do">지식인</a>
-				<a class="nav-item nav-link" style="color:black" href="${pageContext.request.contextPath}/Scrap/itNews.do">내 스크랩</a>
-				<a class="nav-item nav-link" style="color:black" href="${pageContext.request.contextPath}/Plog/toPlogProject.do">내 프로젝트</a>
-				<a class="nav-item nav-link" style="color:black" href="${pageContext.request.contextPath}/GuestBook/selectList.do">방명록</a>
+				<a id="plogPortfolio" class="nav-item nav-link" style="color:black" href="${pageContext.request.contextPath}/Portfolio/toPlogmain.do">포트폴리오</a>
+				<c:choose>
+					<c:when test="${loginInfo.id ==ownerInfo.id}">
+						<a id="plogCohow" class="nav-item nav-link" style="color:black" href="${pageContext.request.contextPath}/Plog/toPlogCohow.do">CoHow</a>
+						<a id="plogScrap" class="nav-item nav-link" style="color:black" href="${pageContext.request.contextPath}/Scrap/itNews.do">스크랩</a>
+					</c:when>
+				</c:choose>
+				<a id="plogProject" class="nav-item nav-link" style="color:black" href="${pageContext.request.contextPath}/Plog/toPlogProject.do">프로젝트</a>
+				<a id="plogGuestBook" class="nav-item nav-link" style="color:black" href="${pageContext.request.contextPath}/GuestBook/selectList.do">방명록</a>
 			</div>
 		</div>
 	</nav>

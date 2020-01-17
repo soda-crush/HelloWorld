@@ -15,7 +15,6 @@
 <link rel="stylesheet" type="text/css" href="/css/font-awesome/css/font-awesome.css">
 	<style>
    		*{spellcheck="false"}
-        ul{background-color: lightgray;font-size: 13px;}
         .card{width:200px;height:300px;margin:auto;float:left;}
         .myprofile{float: left;margin-top: 20px;padding-right:0px;}
         #mycard{float:none;display:flex;align-items:center;}
@@ -28,21 +27,17 @@
         #commentForm{height:100%;}
         .commentwrap{background-color:white;border-radius:5px;padding: 15px;}
         textarea{resize:none;}
-        .page-item{padding:0px;height:10px;width:10px;}
-		.navi{text-align: center;}
+/*         .page-item{padding:0px;height:10px;width:10px;} */
+/* 		.navi{text-align: center;} */
 		.nvlink1{height:45px;line-height:45px;font-size:14px;}
 		.nvlink2{height:45px;line-height:45px;font-size:10px;}
     	a:hover{text-decoration:none;}
         .message{background-color:white;margin:10px;width:100%;height:100%;border:0px;}
         .listwrap{margin: 10px; padding:5px;}
     	.line-over{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-    	.interval{width:100%;background-color:black;border-radius: 8px;height:1px;margin-left:15px;"}
+    	.interval{width:100%;background-color:black;border-radius: 8px;height:1px;margin-left:15px;}
+        #plogGuestBook{background-color:#efefef;border-radius:5px 5px 0px 0px;padding:12px;}
     </style>
-	<script>
-	$(function(){
-		$("#plogNavi").attr('class','nav-item nav-link active');
-	});
-	</script>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/standard/plogHeader.jsp"/>
@@ -87,7 +82,11 @@
 			                				<img src="${dto.writerImg }" style="width:50px;">
 			                			</div>
 			                			<div style="float:left;margin-left:10px;">
-				                            <div>작성자 : ${dto.writer } </div>
+				                            <div>작성자 :
+				                            	<span style="cursor:pointer" onclick="popUp('${dto.writerID}','${dto.writer}')">
+													${dto.writerID}
+												</span>
+											</div>
 				                            <div>작성일 : ${dto.getDate()}</div>
 			                			</div>
 			                            <textarea id="list${dto.seq }" class="message" onkeydown="resize(this)" onkeyup="resize(this)" maxlength="1300" readonly >${dto.content }</textarea>
@@ -109,14 +108,19 @@
 									</c:choose>
 								</div>
 							</c:forEach>
-							 <div class="naviwrap col-12"style="width:100%;text-align:center;">
-			                    <c:forEach items="${pageNavi}" var="navi">									
-									${navi}
-								</c:forEach>
-	               			</div>
 	                    </div>
-	                   
+	                <div style="float:left;width:100%;margin-top:15px;">
+	                	<nav aria-label="List navi">
+							<ul class="pagination justify-content-center">
+								<c:forEach items="${pageNavi}" var="navi">									
+									<li id="page-navi" class="page-item pageNavi">${navi}</li>
+								</c:forEach>
+							</ul>
+						</nav>
 	                </div>
+					
+	                </div>
+
 	            </div>
             </div>
             <div class=container>
@@ -174,6 +178,27 @@
         	  obj.style.height = "1px";
         	  obj.style.height = (12+obj.scrollHeight)+"px";
         	}
+	    	$(function(){
+	    		var element = $(".pageNavi");
+	    		var cpage = "${cpage}";
+	    		if(cpage > 0 && cpage <= 10){
+	    			element[cpage-1].classList.add('active');
+	    		}else if(page % 10 == 0){
+	    			element[10].classList.add('active');
+	    		}else{
+	    			element[cpage % 10].classList.add('active');
+	    		}	
+	    	});
+	    	function popUp(id,writer){
+	    		if(writer == null){
+	    			alert("탈퇴한 회원입니다.");
+	    			return false;
+	    		}
+	    		else{
+	    			window.open("/Portfolio/toPlog.do?owner="+id, "pLogPopUp", "width=600,height=600");
+	    		}
+	          
+	         }
         </script>
 </body>
 </html>

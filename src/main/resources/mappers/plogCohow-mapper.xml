@@ -5,11 +5,11 @@
 <mapper namespace="PlogCohow">
 
 	<select id="selectMyQuestionListByPage" parameterType="java.util.Map" resultType="kh.hello.dto.CodeQuestionDTO">	
-		select seq, division, title, writer, writeDate, viewCount,rown from (select codeQuestion.*, row_number() over (order by seq desc) as rown from codeQuestion where id=#{id}) where rown between #{start} and #{end}
+		select seq, division, id, title, writer, writeDate, viewCount,rown from (select codeQuestion.*, row_number() over (order by seq desc) as rown from codeQuestion where id=#{id}) where rown between #{start} and #{end}
 	</select>
 	
 	<select id="selectMyReplyListByPage" parameterType="java.util.Map" resultType="kh.hello.dto.CodeQuestionDTO">
-		select seq, division, c.title, c.writer, c.writeDate, viewCount from (select queseq from (select codeReply.*, row_number() over (order by seq desc) as rown from codeReply) where id=#{id} and rown between #{start} and #{end}) rep inner join codeQuestion c on rep.queseq = c.seq
+		select seq, division, c.title,c.id, c.writer, c.writeDate, viewCount from (select queseq from (select codeReply.*, row_number() over (order by seq desc) as rown from codeReply) where id=#{id} and rown between #{start} and #{end}) rep inner join codeQuestion c on rep.queseq = c.seq
 	</select>
 	
 	<select id="TotalCount" parameterType="java.util.Map" resultType="integer">

@@ -29,6 +29,7 @@
 		#funcname1,#funcname2,#funcname3{margin-bottom: 8px;}
 		.redStar{color:red;}
 		.line-over{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+		#plogPortfolio{background-color:#efefef;border-radius:5px 5px 0px 0px;padding:12px;}
     </style>
 </head>
 <body>
@@ -90,9 +91,9 @@
 		            <h4>구현 기능</h4>
 		            <div class="row">
 		                <div class="col-12 col-sm-3 col-xl-2">
-                       		<input type="file" id="fileUpload1" name="fileUpload1">
-		                	<img id="fileImg1"src="/files/noImage.png" style="height: 95%;width:100%;max-height: 170px;">
-		                	<input type="hidden" name ="image1" id="file1" value="/files/noImage.png">
+                       		<input type="file" id="fileUpload1" name="fileUpload1" accept="image/*">
+		                	<img id="fileImg1"src="/img/noImage.png" style="height: 95%;width:100%;max-height: 170px;">
+		                	<input type="hidden" name ="image1" id="file1" value="/img/noImage.png">
 		                </div>
 		                <div class="col-12 col-sm-9 col-xl-10">
 		                    <div class="row">
@@ -107,9 +108,9 @@
 		            <div class="interval"></div>
 		            <div class="row">
 		                <div class="col-12 col-sm-3 col-xl-2">
-                       		<input type="file" id="fileUpload2" name="fileUpload2">
-		                	<img id="fileImg2"src="" style="height: 95%;width:100%;max-height: 170px;">
-		                	<input type="hidden" name ="image2" id="file2">
+                       		<input type="file" id="fileUpload2" name="fileUpload2" accept="image/*">
+		                	<img id="fileImg2"src="/img/noImage.png" style="height: 95%;width:100%;max-height: 170px;">
+		                	<input type="hidden" name ="image2" id="file2" value="/img/noImage.png">
 		                </div>
 		                <div class="col-12 col-sm-9 col-xl-10">
 		                    <div class="row">
@@ -124,9 +125,9 @@
 		            <div class="interval"></div>
 		            <div class="row">
 		                <div class="col-12 col-sm-3 col-xl-2">
-		                	<input type="file" id="fileUpload3" name="fileUpload3">
-		                	<img id="fileImg3"src="" style="height: 95%;width:100%;max-height: 170px;">
-		                	<input type="hidden" name ="image3" id="file3">
+		                	<input type="file" id="fileUpload3" name="fileUpload3" accept="image/*">
+		                	<img id="fileImg3"src="/img/noImage.png" style="height: 95%;width:100%;max-height: 170px;">
+		                	<input type="hidden" name ="image3" id="file3" value="/img/noImage.png">
 		                </div>
 		                <div class="col-12 col-sm-9 col-xl-10">
 		                    <div class="row">
@@ -198,6 +199,12 @@
                 	location.href="${pageContext.request.contextPath}/Portfolio/toPlogmain.do";
                 })
 	  			$("#fileUpload1").on("change",function(){
+		  			var ext = this.value.split('.').pop().toLowerCase();
+		  			console.log(ext);
+		 			if($.inArray(ext, ['gif','png','jpg','jpeg']) == -1) {
+		  			alert('gif,png,jpg,jpeg 파일만 업로드 할수 있습니다.');
+		  				return;
+		  		    }
 	  				var data = new FormData();
 	  				data.append("fileUpload1", $('#fileUpload1').prop('files')[0]);
 	  				$.ajax({
@@ -208,13 +215,18 @@
 	  			        processData: false,
 	  			        cache: false
 	  			    }).done(function(resp){
-	  			    	console.log(resp);
 	  			    	$("#fileImg1").attr("src",resp);
 	  			    	$("#file1").val(resp);
 	  			    }).fail(function(fail){
 	  			    })
                 })
                 $("#fileUpload2").on("change",function(){
+		  			var ext = this.value.split('.').pop().toLowerCase();
+		  			console.log(ext);
+		 			if($.inArray(ext, ['gif','png','jpg','jpeg']) == -1) {
+		  			alert('gif,png,jpg,jpeg 파일만 업로드 할수 있습니다.');
+		  				return;
+		  		    }
 	  				var data = new FormData();
 	  				data.append("fileUpload2", $('#fileUpload2').prop('files')[0]);
 	  				$.ajax({
@@ -225,13 +237,18 @@
 	  			        processData: false,
 	  			        cache: false
 	  			    }).done(function(resp){
-	  			    	console.log(resp);
 	  			    	$("#fileImg2").attr("src",resp);
 	  			    	$("#file2").val(resp);
 	  			    }).fail(function(fail){
 	  			    })
                 })
                 $("#fileUpload3").on("change",function(){
+		  			var ext = this.value.split('.').pop().toLowerCase();
+		  			console.log(ext);
+		 			if($.inArray(ext, ['gif','png','jpg','jpeg']) == -1) {
+		  			alert('gif,png,jpg,jpeg 파일만 업로드 할수 있습니다.');
+		  				return;
+		  		    }
 	  				var data = new FormData();
 	  				data.append("fileUpload3", $('#fileUpload3').prop('files')[0]);
 	  				$.ajax({
@@ -242,7 +259,6 @@
 	  			        processData: false,
 	  			        cache: false
 	  			    }).done(function(resp){
-	  			    	console.log(resp);
 	  			    	$("#fileImg3").attr("src",resp);
 	  			    	$("#file3").val(resp);
 	  			    }).fail(function(fail){
