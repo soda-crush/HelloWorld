@@ -84,7 +84,6 @@
 }
 
 .botD {
-	/* 	margin-right: 550px; */
 	display: block;
 	text-align: left;
 }
@@ -191,7 +190,7 @@ span:nth-child(4) {
 				<span><img src="/icon/q.png" width=50,height=50></span> <span class="badge badge-pill badge-danger">${qResult.point}</span>
 				<span class="badge badge-pill badge-success"
 					style="margin: 10; padding: 10; width: 80px; font-size:15px;">${qResult.division}</span>
-<!-- 				영어 길게치면 영역넘어감 style설정해줘야함 -->
+					<!-- 영어 길게치면 영역넘어감 style설정해줘야함 -->
 				<span style="word-break:break-all; word-break:break-word; font-size:25px;">${qResult.title}</span>
 			</div>
 			<br>
@@ -233,6 +232,7 @@ span:nth-child(4) {
                   <div style="text-align: right;">
                      <!-- 답변이 있으면 삭제,수정이 안됨. -->
                      <c:if test="${repCount==0}">
+                     	<button class="btn btn-dark" id="scrap">스크랩</button>
                         <button class="btn btn-dark" class="btnDIv2" id="modify">수정</button>
                         <button class="btn btn-danger" class="btnDIv2" id="delete">삭제</button>
                      </c:if>
@@ -242,9 +242,7 @@ span:nth-child(4) {
 				<!-- 답글 시작-->
 				<c:forEach items="${rResult}" var="r">
 					<div class="topQ">
-<!-- 						<hr> -->
 						<hr>
-
 						<c:if test="${r.adopt=='Y'}">
 							<div>
 								<span class="ti-crown text-warning"></span>
@@ -341,10 +339,10 @@ span:nth-child(4) {
 															</div>
 															<div class="col-5 pt-2 text-right commentBtns">
 																<c:if test="${c.id==sessionScope.loginInfo.id }">
-																	<a class="btn btn-info coModifyBtn"
+																	<a class="btn btn-info coModifyBtn" style="color:white;"
 																		onclick="coModFunction(${c.queSeq}, ${c.repSeq}, ${c.seq}, '${c.content}');return false;"
 																		role="button">수정</a>
-																	<a class="btn btn-danger coDeleteBtn"
+																	<a class="btn btn-danger coDeleteBtn" style="color:white;"
 																		onclick="coDelFunction(${c.queSeq}, ${c.repSeq}, ${c.seq});return false;"
 																		role="button">삭제</a>
 																</c:if>
@@ -432,8 +430,8 @@ span:nth-child(4) {
 					                  if(resp[i].id==loginInfo){
 					                     
 					                     html.push(
-					                           '<a class="btn btn-info coModifyBtn" onclick="coModFunction('+resp[i].queSeq+','+resp[i].repSeq+','+resp[i].seq+',\''+resp[i].content+'\');return false;" role="button">수정</a>\n',
-					                           '<a class="btn btn-danger coDeleteBtn" onclick="coDelFunction('+resp[i].queSeq+','+resp[i].repSeq+','+resp[i].seq+');return false;" role="button">삭제</a>'
+					                           '<a class="btn btn-info coModifyBtn" style="color:white;" onclick="coModFunction('+resp[i].queSeq+','+resp[i].repSeq+','+resp[i].seq+',\''+resp[i].content+'\');return false;" role="button">수정</a>\n',
+					                           '<a class="btn btn-danger coDeleteBtn" style="color:white;" onclick="coDelFunction('+resp[i].queSeq+','+resp[i].repSeq+','+resp[i].seq+');return false;" role="button">삭제</a>'
 					                           );
 					                  }
 					                  
@@ -465,7 +463,7 @@ span:nth-child(4) {
 		<!--       몸통 끝!!!   -->
 
 		<div class=container>
-			<div style="text-align: right; margin-top:20px;" class="btnDIv">
+			<div style="text-align: right; margin-top:5px; margin-left:5px" class="btnDIv">
                    <a class="btn btn-dark" href="/code/codeQList.do" role="button">목록</a>
             </div>
 			<div class=row>
@@ -748,8 +746,8 @@ span:nth-child(4) {
 	                  if(resp[i].id==loginInfo){
 	                     
 	                     html.push(
-	                           '<a class="btn btn-info coModifyBtn" onclick="coModFunction('+resp[i].queSeq+','+resp[i].repSeq+','+resp[i].seq+',\''+resp[i].content+'\');return false;" role="button">수정</a>\n',
-	                           '<a class="btn btn-danger coDeleteBtn" onclick="coDelFunction('+resp[i].queSeq+','+resp[i].repSeq+','+resp[i].seq+');return false;" role="button">삭제</a>'
+	                           '<a class="btn btn-info coModifyBtn" style="color:white;" onclick="coModFunction('+resp[i].queSeq+','+resp[i].repSeq+','+resp[i].seq+',\''+resp[i].content+'\');return false;" role="button">수정</a>\n',
+	                           '<a class="btn btn-danger coDeleteBtn" style="color:white;" onclick="coDelFunction('+resp[i].queSeq+','+resp[i].repSeq+','+resp[i].seq+');return false;" role="button">삭제</a>'
 	                           );
 	                  }
 	                  
@@ -836,8 +834,8 @@ span:nth-child(4) {
 		  	                  if(resp[i].id==loginInfo){
 		  	                     
 		  	                     html.push(
-		  	                           '<a class="btn btn-info coModifyBtn" onclick="coModFunction('+resp[i].queSeq+','+resp[i].repSeq+','+resp[i].seq+',\''+resp[i].content+'\');return false;" role="button">수정</a>\n',
-		  	                           '<a class="btn btn-danger coDeleteBtn" onclick="coDelFunction('+resp[i].queSeq+','+resp[i].repSeq+','+resp[i].seq+');return false;" role="button">삭제</a>'
+		  	                           '<a class="btn btn-info coModifyBtn" style="color:white;" onclick="coModFunction('+resp[i].queSeq+','+resp[i].repSeq+','+resp[i].seq+',\''+resp[i].content+'\');return false;" role="button">수정</a>\n',
+		  	                           '<a class="btn btn-danger coDeleteBtn" style="color:white;" onclick="coDelFunction('+resp[i].queSeq+','+resp[i].repSeq+','+resp[i].seq+');return false;" role="button">삭제</a>'
 		  	                           );
 		  	                  }
 		  	                  
