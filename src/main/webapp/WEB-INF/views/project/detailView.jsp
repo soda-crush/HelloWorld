@@ -372,7 +372,7 @@
 			});
 		});
 		$("#applyCheckBtn").on("click",function(){
-			window.open("/project/applyCheck?projectSeq="+$("#pageSeq").val(), "applyListPopUp", "width=1000,height=750,scrollbars=no, resizable=no, toolbars=no, menubar=no");
+			window.open("/project/apply/list?projectSeq="+$("#pageSeq").val(), "applyListPopUp", "width=1000,height=750,scrollbars=no, resizable=no, toolbars=no, menubar=no");
 		});
 		
 //		var loginInfo = $("#sessionId");

@@ -138,8 +138,8 @@
 				$("#deadlineOrder").removeClass("active");
 				$("#pageOrder").val("seq");
 			}else if(pageOrder=='startDate'){
-				$("#latestOrder").removeClass("active");
 				$("#deadlineOrder").addClass("active");
+				$("#latestOrder").removeClass("active");
 				$("#pageOrder").val("startDate");
 			}
         	$("#deadlineOrder").on("click",function(){

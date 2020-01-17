@@ -54,8 +54,6 @@ public class ProjectMemController {
 		m.addAttribute("pageNavi", pageNavi);
 		m.addAttribute("currentPage", currentPage);
 		m.addAttribute("pageOrder", checkOrder);
-		System.out.println(pageOrder);
-		System.out.println(checkOrder);
 		return "/project/projectList";
 	}
 	
@@ -157,12 +155,12 @@ public class ProjectMemController {
 		return "redirect:/project/detailView?seq="+seq;
 	}
 	
-	@RequestMapping("/applyCheck")
-	public String projectApplyCheck(int projectSeq, Model m) {
-		List<ProjectApplyDTO> result = svc.projectApplyList(projectSeq);
-		m.addAttribute("applyList", result);
-		return "/project/applyList";
-	}
+//	@RequestMapping("/applyCheck")
+//	public String projectApplyCheck(int projectSeq, Model m) {
+//		List<ProjectApplyDTO> result = svc.projectApplyList(projectSeq);
+//		m.addAttribute("applyList", result);
+//		return "/project/applyList";
+//	}
 	
 	@ResponseBody
 	@RequestMapping("/scrap")
@@ -243,13 +241,22 @@ public class ProjectMemController {
 		dto.setWriter(sessionValue.getNickName());
 		dto.setId(sessionValue.getId());
 		return svc.projectApplyWriteProc(dto);
-	}
+	}	
 	
 	@RequestMapping("/apply/list")
-	public String projectApplyList(int projectSeq, Model m) {
-		List<ProjectApplyDTO> result = svc.projectApplyList(projectSeq);
+	public String projectApplyList(String page, int projectSeq, Model m) {
+		int currentPage = 1;
+		if(page!=null) {
+			currentPage = Integer.parseInt(page);
+		}
+		int start = currentPage * (Configuration.recordCountPerPage)-(Configuration.recordCountPerPage-1);
+		int end = currentPage * (Configuration.recordCountPerPage);
+		List<ProjectApplyDTO> result = svc.projectApplyList(start, end, projectSeq);
 		m.addAttribute("projectApplyList", result);
-		return "/project/projectApplyList";
+		String pageNavi = svc.getApplyPageNavi(currentPage, projectSeq);
+		m.addAttribute("pageNavi", pageNavi);
+		m.addAttribute("currentPage", currentPage);		
+		return "/project/applyList";
 	}
 	
 	@RequestMapping("/apply/detailView")

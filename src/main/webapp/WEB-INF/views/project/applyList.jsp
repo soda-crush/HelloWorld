@@ -14,6 +14,7 @@
 <link rel="stylesheet" type="text/css" href="/css/font-awesome/css/font-awesome.css">
 <style>
 body{background-color:#e9ecef;}
+#aPageNavi{margin-top:20px;}
 </style>
 </head>
 <body>
@@ -44,11 +45,11 @@ body{background-color:#e9ecef;}
 					</div>
 					
 				  	<c:choose>
-				  		<c:when test="${applyList.size()==0 }">
+				  		<c:when test="${projectApplyList.size()==0 }">
 				  		<div class="row text-center tableBodyNull"><div class="col-12">신청 내역이 없습니다.</div></div>
 				  		</c:when>
 				  		<c:otherwise>
-				  			<c:forEach items="${applyList }" var="a">				  			
+				  			<c:forEach items="${projectApplyList }" var="a">				  			
 				  				<div class="row tableBody p-0 text-decoration-none applyRow${a.approve }" onclick="openApplyPage(${a.seq },'${a.approve}')">
 									<div class="col-1">${a.seq }</div>
 									<div class="col-2">${a.writer }</div>
@@ -60,8 +61,9 @@ body{background-color:#e9ecef;}
 				  			</c:forEach>
 				  		</c:otherwise>
 				  	</c:choose>				    
-				</div>
+				</div>				
 			</div>
+			<nav aria-label="List navi" id="aPageNavi">${pageNavi }</nav>
             <!--       몸통 끝!!!   -->
             <div class=container>
                 <div class=row>
@@ -74,6 +76,7 @@ body{background-color:#e9ecef;}
 <%--         <jsp:include page="/WEB-INF/views/standard/footer.jsp"/> --%>
         
         <script>
+        	$(".pNavi${currentPage}").addClass("active");	
         	function openApplyPage(seq,approve){
         		if(approve=='X'){
         			return false;
