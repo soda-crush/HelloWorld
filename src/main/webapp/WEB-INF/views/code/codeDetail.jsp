@@ -166,6 +166,14 @@ span:nth-child(4) {
 </style>
 </head>
 <body>
+
+   <c:if test="${qResult==null}">
+      <script>
+         alert("삭제되었거나 존재하지 않는 글입니다");
+         location.href="${pageContext.request.contextPath}/code/codeQList.do";
+      </script>
+   </c:if>
+
 	<jsp:include page="/WEB-INF/views/standard/header.jsp" />
 
 	<div id=baseBackgroundColor style="text-align: left;">
@@ -197,20 +205,7 @@ span:nth-child(4) {
 				</div>
 				<br>
 
-				
-<%-- 					<c:when test="${sessionScope.loginInfo.id==null }"> --%>
-<!-- 						<div style="text-align: right;" class="btnDIv"> -->
-<!-- 							<a class="btn btn-dark" href="/code/codeQList.do" role="button">목록</a> -->
-<!-- 						</div> -->
-<%-- 					</c:when> --%>		
-			
-<%--                <c:when test="${sessionScope.loginInfo.id==null }"> --%>
-<!--                   <div style="text-align: right;" class="btnDIv"> -->
-<!--                      <a class="btn btn-dark" href="/code/codeQList.do" role="button">목록</a> -->
-<!--                   </div> -->
-<%--                </c:when> --%>
-			<c:choose>
-               <c:when test="${qResult.id!=sessionScope.loginInfo.id}">
+               <c:if test="${qResult.id!=sessionScope.loginInfo.id}">
                   <div style="text-align: right;" class="btnDIv">
                      <a id="kakao-link-btn" href="javascript:;" onClick="shareKakaotalk();" style="text-decoration:none"> 
                          <img src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" height=45/>
@@ -227,11 +222,14 @@ span:nth-child(4) {
                      <!--    <button type="button" class="btn btn-outline-warning" id="sharing"></button> -->
                       
                      <!-- <i class="fa fa-bookmark" id="scrapDone" data-toggle="tooltip" title="스크랩"></i> -->
-                     <button class="btn btn-dark" id="scrap">스크랩</button>
-                     <button class="btn btn-danger" id="report">신고</button>
+                     <c:if test="${sessionScope.loginInfo.id!=null}">
+	                     <button class="btn btn-dark" id="scrap">스크랩</button>
+	                     <button class="btn btn-danger" id="report">신고</button>
+                     </c:if>
                   </div>
-               </c:when>
-               <c:when test="${qResult.id==sessionScope.loginInfo.id}">
+               </c:if>
+               
+               <c:if test="${qResult.id==sessionScope.loginInfo.id}">
                   <div style="text-align: right;">
                      <!-- 답변이 있으면 삭제,수정이 안됨. -->
                      <c:if test="${repCount==0}">
@@ -239,55 +237,8 @@ span:nth-child(4) {
                         <button class="btn btn-danger" class="btnDIv2" id="delete">삭제</button>
                      </c:if>
                   </div>
-               </c:when>
-            </c:choose>	
-            
-<%--             <c:choose>  이렇게 바꿀예정--%> 
-<%-- 						<c:when test="${qResult.id!=sessionScope.loginInfo.id}"> --%>
-<%-- 							<c:if test="${count==0 && adoptCount==0}"> --%>
-<!-- 								<div style="text-align: left;"> -->
-<!-- 									<a class="btn btn-dark" -->
-<%-- 										href="/code/codeRWrite.do?seq=${qResult.seq}" role="button">답변 --%>
-<!-- 									</a> -->
-<!-- 								</div> -->
-<%-- 							</c:if> --%>
-<!-- 								<div style="text-align: right;" class="btnDIv"> -->
-<!-- 									<button class="btn btn-outline-warning" id="scrap">스크랩</button>							 -->
-<!-- 									<button class="btn btn-danger" id="report">신고</button>	 -->
-<!-- 								</div> -->
-<%-- 						</c:when> --%>
-<!-- 						<div style="text-align: right;" class="btnDIv">					 -->
-<%-- 							<c:when test="${qResult.id==sessionScope.loginInfo.id}"> --%>
-<!-- 								답변이 있으면 삭제,수정이 안됨.	 -->
-<%-- 								<c:if test="${repCount==0}"> --%>
-<!-- 									<button class="btn btn-dark" class="btnDIv2" id="modify">수정</button> -->
-<!-- 									<button class="btn btn-danger" class="btnDIv2" id="delete">삭제</button> -->
-<%-- 								</c:if> --%>
-<%-- 							</c:when> --%>
-<%-- 							<c:otherwise> --%>
-<!-- 								<a id="kakao-link-btn" href="javascript:;" onClick="shareKakaotalk();">  -->
-<!-- 	 								<img src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" height=38/> -->
-<!-- 	 							</a> -->
-<%-- 							</c:otherwise> --%>
-<!-- 						</div>							 -->
-<%-- 				</c:choose> --%>
-            
-            
-<!-- 							<a id="kakao-link-btn" href="javascript:;" -->
-<!-- 								onClick="shareKakaotalk();">  -->
-<!-- 								<img src="/icon/kakaoTalk.png" height=40> -->
-<!-- 							</a> -->
-							<!-- 	<button class="btn btn-warning" id="sharing">공유</button> -->
-							<!-- 	<button type="button" class="btn btn-outline-warning" id="sharing"></button> -->
- 							
-							<!-- <i class="fa fa-bookmark" id="scrapDone" data-toggle="tooltip" title="스크랩"></i> -->
-								
-					
-					
-<!-- 						<div style="text-align: right;"> -->
-													
-<!-- 						</div> -->			
-
+               </c:if>
+            	
 				<!-- 답글 시작-->
 				<c:forEach items="${rResult}" var="r">
 					<div class="topQ">
@@ -300,11 +251,7 @@ span:nth-child(4) {
 								질문자 채택
 							</div>
 						</c:if>
-
-<!--  <div class="col-xl-1 col-2 col-md-1">포인트</div> -->
-<!-- <div class="col-xl-2 d-none d-xl-block">날짜</div> -->
-<!-- <div class="col-xl-1 d-none d-xl-block">조회수</div>	 -->
-					    
+		    
 						<div class="row">
 							<div class="col-xl-1 col-md-2">
 								<img src="${r.profileImg}" width=90,height=200> 
@@ -350,8 +297,6 @@ span:nth-child(4) {
 						</c:if>
 						<br>
 						<c:choose>
-<%-- 							<c:when test="${sessionScope.loginInfo.id==null }"> --%>
-<%-- 							</c:when> --%>
 							<c:when test="${r.id == sessionScope.loginInfo.id}">
 								<div style="text-align: right;">
 									<button class="btn btn-dark" id="modifyR"
@@ -361,24 +306,26 @@ span:nth-child(4) {
 								</div>
 							</c:when>
 							<c:otherwise>
-								<div style="text-align: right;">
-									<button class="btn btn-danger" onclick="reportR(${qResult.seq},'${r.writer}','${r.id}')" id="reportR${r.seq}">신고</button>
-								</div>
+								<c:if test="${sessionScope.loginInfo.id!=null}">
+									<div style="text-align: right;">
+										<button class="btn btn-danger" onclick="reportR(${qResult.seq},'${r.writer}','${r.id}')" id="reportR${r.seq}">신고</button>
+									</div>
+								</c:if>
 							</c:otherwise>
 						</c:choose>
 						<br>
-						<%-- 					<c:if test="${sessionScope.loginInfo.id!=null }">	 --%>
+						
 						<div style="text-align: left;">
 							<button class="btn btn-dark" id="commentBtn"
 								onclick="hideCo(${r.seq})">댓글</button>
 						</div>
-						<%-- 					</c:if>	 --%>
+						
 						<br>
 						<div class="contentDivBot dSeq${r.seq}" style="display: none;">
 							<div class="pPageComments${r.seq}">
 								<c:if test="${cResult.size()>0 }">
 									<c:forEach items="${cResult }" var="c">
-										<!-- 										댓글seq = 답글seq 같은것만 보여지게 -->
+										<!-- 댓글seq = 답글seq 같은것만 보여지게 -->
 										<c:choose>
 											<c:when test="${c.repSeq == r.seq}">
 												<div
@@ -393,7 +340,6 @@ span:nth-child(4) {
 																</div>
 															</div>
 															<div class="col-5 pt-2 text-right commentBtns">
-																<!-- 													<button type="button" class="btn btn-warning coReplyBtn">답글</button> -->
 																<c:if test="${c.id==sessionScope.loginInfo.id }">
 																	<a class="btn btn-info coModifyBtn"
 																		onclick="coModFunction(${c.queSeq}, ${c.repSeq}, ${c.seq}, '${c.content}');return false;"
@@ -426,7 +372,6 @@ span:nth-child(4) {
 											<button type="button" class="btn btn-primary"
 												id="coWriteBtn${r.seq}">작성</button>
 											<button type="button" class="btn btn-secondary" id="coCancel">취소</button>
-											<!-- 											style="margin-bottom:10px;"  -->
 										</div>
 									</div>
 									<div class="row">
@@ -469,8 +414,6 @@ span:nth-child(4) {
 						              writer: "${sessionScope.loginInfo.nickName}"
 						           }
 						        }).done(function(resp){
-						        	console.log(resp);
-						        	
 						            $("#pCoContents${r.seq}").val("");
 						            $(".pPageComments${r.seq}").html("");
 						           
@@ -531,9 +474,6 @@ span:nth-child(4) {
 		</div>
 	</div>
 	
-<%-- 	<jsp:include page="/WEB-INF/views/code/reportQ/reportModal.jsp"/> --%>
-<%-- 	<jsp:include page="/WEB-INF/views/code/reportQ/reportSuccessModal.jsp"/> --%>
-<%-- 	<jsp:include page="/WEB-INF/views/code/reportR/reportModal.jsp"/> --%>
 	<jsp:include page="/WEB-INF/views/code/reportQModal.jsp"/>
 	<jsp:include page="/WEB-INF/views/code/reportRModal.jsp"/>
 	<jsp:include page="/WEB-INF/views/code/reportSuccessModal.jsp"/>
@@ -588,7 +528,7 @@ span:nth-child(4) {
 			$("#reportReasonInput").val("");
 		});
 	
-		//답변 글 신고하기
+	//답변 글 신고하기
 		function reportR(seq,writer,id){
 			var check = "해당 게시물을 신고하시겠습니까?";
 			if(check){
@@ -777,6 +717,7 @@ span:nth-child(4) {
 	      
 	     }
     	
+	//답글-댓글 삭제
 		function coDelFunction(queSeq, repSeq, seq){
 			 var check = confirm("정말 삭제하시겠습니까?");
              if(check){
@@ -790,7 +731,8 @@ span:nth-child(4) {
                       seq:seq
                    }
                 }).done(function(resp){
-               $(".pPageComments"+repSeq).html("");               
+               $(".pPageComments"+repSeq).html("");
+               
              //call list
 	               var loginInfo = "${sessionScope.loginInfo.id}";
 	               for(var i=0;i<resp.length;i++){
@@ -822,7 +764,8 @@ span:nth-child(4) {
 		        })
             }
 		}
-		
+	
+	//답글-댓글 수정
 		function coModFunction(queSeq,repSeq,seq,content){	
 			if("${sessionScope.loginInfo.memLevel}" == 1){
 				alert("권한이 없습니다. 관리자에게 문의하세요.");
