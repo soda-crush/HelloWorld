@@ -84,7 +84,7 @@
 	
 	<update id="modify"  parameterType="kh.hello.dto.MemberDTO">
 		update member set pw=#{pw}, name=#{name}, email=#{email}, phone=#{phone},postcode=#{postcode},addr1=#{addr1}
-		,addr2=#{addr2},joinPath=#{joinPath}, gender=#{gender}, ifmOpenCheck=#{ifmOpenCheck}, birth=#{birth}
+		,addr2=#{addr2},joinPath=#{joinPath}, gender=#{gender}, ifmOpenCheck=#{ifmOpenCheck}, birth=#{birth} where id=#{id}
 	</update>
 	
 </mapper>
