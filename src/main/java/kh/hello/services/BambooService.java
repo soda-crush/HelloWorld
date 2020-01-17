@@ -261,23 +261,6 @@ public class BambooService {
 	public int getMemLevel(String id) {
 		return dao.getMemLevel(id);
 	}
-	//신고하기
-//	@Transactional("txManager")
-//	public String report (BambooDTO bamDto, String reason, LoginInfoDTO loginDto) {
-//		//중복검사
-//		int reportDupResult = dao.reportDupCheck(bamDto.getSeq(), loginDto.getId());
-//		if(reportDupResult > 0) {
-//			//중복
-//			return "dupl";
-//		}else {
-//			int scrapResult = dao.report(bamDto, reason, loginDto);
-//			if(scrapResult > 0) {
-//				return "success";
-//			}else {
-//				return "fail";
-//			}
-//		}
-//	}
 	
 //	게시글신고
 	public int reportDuplCheck(String id, int seq) {

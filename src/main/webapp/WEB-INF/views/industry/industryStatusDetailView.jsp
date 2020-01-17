@@ -107,6 +107,12 @@
 </style>
 </head>
 <body>
+<c:if test="${iPage.seq==null}">
+      <script>
+         alert("삭제되었거나 존재하지 않는 글입니다");
+         location.href="${pageContext.request.contextPath}/industry/industryStatusList.do";
+      </script>
+   </c:if>
 	<jsp:include page="/WEB-INF/views/standard/header.jsp" />
 	
 	<div id=baseBackgroundColor>
@@ -158,13 +164,14 @@
         				<a id="kakao-link-btn" href="javascript:;" onClick="shareKakaotalk();" style="text-decoration:none;"> 
 						<img src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" height=38 style="margin-right:2px;"/>
 					</a>
-        			 <i class="fa fa-bookmark-o cursorPointer" id="scrap"
-						data-toggle="tooltip" title="스크랩" style="font-size:30px;margin:15px;"></i> 
-						<c:if test="${iPage.id != sessionScope.loginInfo.id}">
-						<button type="button" class="btn btn-primary" id="report">신고하기</button>
-						</c:if>
+       					<button type="button" class="btn btn-success text-right" id="scrap">스크랩</button> 
         	</div>
         	</div>
+        	<div class=row>
+	            	<div class=col-12>
+	            		<br>
+	            	</div>
+            	</div>
         	<div class="row">
             		<div class="col-12" id=adver style="height:200px;background-color:green;color:white;">광고자리</div>
             	</div>
@@ -232,17 +239,20 @@
 		
 					<div class="row">
 					<div class="col-12 text-right pt-2">
-					<a class="btn btn-primary" href="/industry/industryStatusList.do"
-						role="button">돌아가기</a>
+					<c:if test="${iPage.id != sessionScope.loginInfo.id}">
+						<button type="button" class="btn btn-danger" id="report">신고하기</button>
+						</c:if>
 					<c:if test="${iPage.id == sessionScope.loginInfo.id}">
-					<a class="btn btn-primary"
+					<a class="btn btn-info"
 							href="/industry/industryStatusModify.do?seq=${iPage.seq }"
-							role="button">수정하기</a>
+							role="button">수정</a>
 					
-						<a class="btn btn-primary"
+						<a class="btn btn-danger"
 							href="/industry/industryStatusDeleteProc.do?seq=${iPage.seq}"
-							role="button">삭제하기</a>
+							role="button">삭제</a>
 				</c:if>
+				<a class="btn btn-secondary" href="/industry/industryStatusList.do"
+						role="button">목록</a>
 					</div>
 					</div>
 				</div>
@@ -462,7 +472,7 @@
              }
             //신고하기
         	function popUp(link){
-    			window.open(link, "pLogPopUp", "width=600,height=600");
+    			window.open(link, "pLogPopUp", "width=800,height=600");
     		}
     		$("#report").on("click",function(){
     			var check = "해당 게시물을 신고하시겠습니까?";
