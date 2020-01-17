@@ -92,12 +92,12 @@
              <div class=row>
             	<div class="col-12 col-sm-6">
             	<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow>비밀번호</h5><p class=redP style="display:inline">*</p><br>
-            		&emsp;<input type=text name=pw id=pw placeholder="비밀번호 입력">
+            		&emsp;<input type=password name=pw id=pw placeholder="비밀번호 입력">
             		<div id=pwMsg></div>
             	</div>
             	<div class="col-12 col-sm-6">
             	<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow>비밀번호 확인</h5><p class=redP style="display:inline">*</p><br>
-            		&emsp;<input type=text name=pwRe id=pwRe placeholder="비밀번호 재입력">
+            		&emsp;<input type=password name=pwRe id=pwRe placeholder="비밀번호 재입력">
             		<img id=pwCheck style="display:none;">
             	</div>
             </div>
@@ -231,8 +231,8 @@
             </div>
             <div class=row>
             	<div class=col-12>
-            		<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow>연락처</h5><p class=redP style="display:inline">*</p><br>
-            		&emsp;<input type=text name=phone id=phone placeholder="연락처 입력">
+            		<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow>휴대전화</h5><p class=redP style="display:inline">*</p><br>
+            		&emsp;<input type=text name=phone id=phone placeholder="-을 빼고 숫자만 입력">
             		<img id=phoneCheck style="display:none;">
             		<div id=phoneMsg></div>
             	</div>
@@ -810,7 +810,6 @@
             	
             //가입버튼 누르기전 마지막 체크
             	$("#send").on("click",function(){
-            		console.log(idTest+" : "+pwTest+" : "+birthYearTest+" : "+birthMonthTest+" : "+birthDayTest+" : "+nickTest+" : "+phoneTest+" : "+jpTest+" : "+genderTest+" : "+nameTest+" : "+emailTest);
                 
              		if((idTest*pwTest*birthYearTest*birthMonthTest*birthDayTest*nickTest*phoneTest*jpTest*genderTest*nameTest*emailTest) != 1){
                      	alert("조건에 만족하지 않는 문항이 있습니다. 확인부탁드립니다.")

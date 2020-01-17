@@ -42,6 +42,9 @@
 	<aop:config>
 		<aop:pointcut expression="execution(* kh.hello.project.*MemController.*(..))" id="essentialMemCheckMethod"/>
 		<aop:pointcut expression="execution(* kh.hello.project.MemberController.mem*(..))" id="essentialMemCheckMethod2"/>	
+		<aop:pointcut expression="execution(* kh.hello.project.ItnewsController.*(..))" id="pathRememberMethod1"/>
+		<aop:pointcut expression="execution(* kh.hello.project.CodeController.*(..))" id="pathRememberMethod2"/>
+		<aop:pointcut expression="execution(* kh.hello.project.MemberController.loginFrm(..))" id="toLoginFrmMethod"/>
 		
 		<aop:aspect id="memCheckAsp" ref="memCheckAdv">
 			<aop:around pointcut-ref="essentialMemCheckMethod" method="loginCheck"/>
@@ -52,6 +55,15 @@
 		<aop:aspect id="memLevelCheckAsp" ref="memLevelCheckAdv">
 			<aop:around pointcut-ref="essentialMemCheckMethod" method="memLevelCheck"/>
 		</aop:aspect>	
+		<aop:aspect id="pathRememberAsp" ref="memCheckAdv">
+			<aop:around pointcut-ref="pathRememberMethod1" method="forPathRemember"/>
+		</aop:aspect>	
+		<aop:aspect id="pathRememberAsp" ref="memCheckAdv">
+			<aop:around pointcut-ref="pathRememberMethod2" method="forPathRemember"/>
+		</aop:aspect>
+		<aop:aspect id="toLoginFrmAsp" ref="memCheckAdv">
+			<aop:around pointcut-ref="toLoginFrmMethod" method="toLoginFrmMethod"/>
+		</aop:aspect>
 		
 	</aop:config>	
 

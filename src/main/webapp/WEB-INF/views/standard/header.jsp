@@ -35,12 +35,12 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 
                 <div class="navbar-nav box text-center" id="naviCon">
-                    <a id="bambooNavi" class="nav-item nav-link" href="${pageContext.request.contextPath}/bamboo/bambooList.do" style="font-family:'Nanumgothic';">대나무숲</a>
-                    <a id="codeNavi" class="nav-item nav-link" href="${pageContext.request.contextPath}/code/codeQList.do" style="font-family:'Nanumgothic';">Code-How</a>
-                    <a id="indusNavi" class="nav-item nav-link" href="${pageContext.request.contextPath}/industry/industryStatusList.do" style="font-family:'Nanumgothic';">업계현황</a>
-                    <a id="itNavi" class="nav-item nav-link" href="${pageContext.request.contextPath}/itnews/itnewsList" style="font-family:'Nanumgothic';">IT 뉴스</a>
-                    <a id="proNavi" class="nav-item nav-link" href="${pageContext.request.contextPath}/project/list" style="font-family:'Nanumgothic';">프로젝트</a>
-                    <a id="plogNavi" class="nav-item nav-link" href="${pageContext.request.contextPath}/Portfolio/toPlog.do?owner=${loginInfo.id}" style="font-family:'Nanumgothic';">P-log</a>
+                    <a id="bambooNavi" class="nav-item nav-link" href="${pageContext.request.contextPath}/bamboo/bambooList.do" style="font-family:'NanumgothicBold';">대나무숲</a>
+                    <a id="codeNavi" class="nav-item nav-link" href="${pageContext.request.contextPath}/code/codeQList.do" style="font-family:'NanumgothicBold';">Code-How</a>
+                    <a id="indusNavi" class="nav-item nav-link" href="${pageContext.request.contextPath}/industry/industryStatusList.do" style="font-family:'NanumgothicBold';">업계현황</a>
+                    <a id="itNavi" class="nav-item nav-link" href="${pageContext.request.contextPath}/itnews/itnewsList" style="font-family:'NanumgothicBold';">IT 뉴스</a>
+                    <a id="proNavi" class="nav-item nav-link" href="${pageContext.request.contextPath}/project/list" style="font-family:'NanumgothicBold';">프로젝트</a>
+                    <a id="plogNavi" class="nav-item nav-link" href="${pageContext.request.contextPath}/Portfolio/toPlog.do?owner=${loginInfo.id}" style="font-family:'NanumgothicBold';">P-log</a>
                 </div>
             </div>
         </nav>

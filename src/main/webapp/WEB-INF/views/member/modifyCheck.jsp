@@ -64,11 +64,13 @@
     							type : "post",
     							data : {pw : $("#pw").val()}
                 		}).done(function(data){
-                			if (data == "true" || data ==true) {
+                			if(data == "true") {
                 				location.href="${pageContext.request.contextPath}/member/modify";
-                               }else{
+                               }else if(data == "false"){
                                	alert("비밀번호가 일치하지않습니다.");
-                				}
+                			   }else{
+                				location.href="${pageContext.request.contextPath}/member/error";
+                			   }
                 		});
             		}else{
             		 	alert("비밀번호를 입력해주세요");
