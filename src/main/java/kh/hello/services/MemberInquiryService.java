@@ -17,6 +17,7 @@ import kh.hello.configuration.Configuration;
 import kh.hello.dao.MemberInquiryDAO;
 import kh.hello.dto.InquiryDTO;
 import kh.hello.dto.InquiryReplyDTO;
+import kh.hello.utils.Utils;
 
 @Service
 public class MemberInquiryService {
@@ -117,9 +118,11 @@ public class MemberInquiryService {
 		//1. boardSeq 받아오기
 		int boardSeq = dao.getInquirySeq();
 		dto.setSeq(boardSeq);
-		//2. 이미지 저장하고 주소 변환
+		//2-1. 이미지 저장하고 주소 변환
 		String content = imgUpload(path, boardSeq, dto.getContent());
 		dto.setContent(content);
+		//2-2. 제목 protectXss
+		dto.setTitle(Utils.protectXss(dto.getTitle()));
 		//3. 글 업로드
 		dao.writeInquiry(dto);
 		//4. 디테일뷰로 이동하기 위해 boardSeq 리턴

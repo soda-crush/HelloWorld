@@ -12,7 +12,6 @@ public class SessionListener implements HttpSessionListener{
 	
 	@Override
 	public void sessionCreated(HttpSessionEvent se) {
-		System.out.println("세션생성");
 		getCountDAO(se).plusVisitCount();
 	}
 	@Override

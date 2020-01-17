@@ -13,9 +13,7 @@ public class AdminAdvisor {
 	public Object loginCheck(ProceedingJoinPoint jp) {
 		String id = (String)session.getAttribute("AdminInfo");
 		Object result = null;
-		System.out.println("관리자 로그인 체크 :" + id + ":");
 		if(id == null) {
-			System.out.println("로그인 정보 없음");
 			return "redirect:../needLogin";
 		}else {
 			try {
