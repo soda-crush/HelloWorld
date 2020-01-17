@@ -93,6 +93,7 @@
             	<div class="col-12 col-sm-6">
             	<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow>비밀번호</h5><p class=redP style="display:inline">*</p><br>
             		&emsp;<input type=text name=pw id=pw placeholder="비밀번호 입력">
+            		<div id=pwMsg></div>
             	</div>
             	<div class="col-12 col-sm-6">
             	<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow>비밀번호 확인</h5><p class=redP style="display:inline">*</p><br>
@@ -220,7 +221,7 @@
             		<h5><img src="/icon/arrow.svg" class=arrow>주소</h5>
             		&emsp;<input type="text" id="postcode" name="postcode" placeholder="우편번호" readonly>
             		<input type="button" onclick="sample4_execDaumPostcode()" value="찾기"><br>
-            		&emsp;<input type="text" id="addr1" name=addr1 placeholder="도로명주소">
+            		&emsp;<input type="text" id="addr1" name=addr1 placeholder="도로명주소" readonly>
             		<input type=text name=addr2 id=addr2 placeholder="상세주소">
             	</div>
             </div>  <div class=row>
@@ -350,6 +351,7 @@
 
                     if(result == null){
                         $("#idMsg").html("&emsp;아이디는 소문자로 시작해야하며 숫자,소문자를 이용해  7-14자로 입력하십시오.");
+                        idTest = 0;
                     }else{
                     	 $("#idMsg").html("");
                     	$.ajax({
@@ -361,6 +363,7 @@
 									if (data.result == "true") {
 										$("#idCheck").css("display","inline");
 										$("#idCheck").attr("src","/icon/x.svg");
+										idTest = 0;
 									}else{
 										$("#idCheck").css("display","inline");
 										$("#idCheck").attr("src","/icon/check.svg");
@@ -375,34 +378,60 @@
         
                //비밀번호 
                 $("#pw").on("focusout",function(){
-                    var pw =$("#pw").val();
-                    var pwRe =$("#pwRe").val();
+                	var regex = /[0-8a-zA-Z]{4,12}/;
+                	var data = $("#pw").val();
+                	var result = regex.exec(data);
+                	
+                	if(result == null){
+                		 $("#pwMsg").html("&emsp;4~12자의 영문 대/소문자, 숫자만 사용 가능");
+                		 $("#pwCheck").css("display","inline");
+   						 $("#pwCheck").attr("src","/icon/x.svg");
+                         pwTest = 0;
+                	}else{
+                		 $("#pwMsg").html("");
+                		 var pw =$("#pw").val();
+                         var pwRe =$("#pwRe").val();
 
-                    if((pw != "")||(pwRe != "")){
-                    	 if(pw == pwRe){
-                         	$("#pwCheck").css("display","inline");
-     						$("#pwCheck").attr("src","/icon/check.svg");
-     						pwTest = 1;
-                         }else{
-                         	$("#pwCheck").css("display","inline");
-     						$("#pwCheck").attr("src","/icon/x.svg");
-                         }
+                         if((pw != "")||(pwRe != "")){
+                         	 if(pw == pwRe){
+                              	$("#pwCheck").css("display","inline");
+          						$("#pwCheck").attr("src","/icon/check.svg");
+          						pwTest = 1;
+                              }else{
+                              	$("#pwCheck").css("display","inline");
+          						$("#pwCheck").attr("src","/icon/x.svg");
+          						pwTest = 0;
+                              }
+                     	}
                 	}
                 }) 
+                
                 $("#pwRe").on("focusout",function(){
-                    var pw =$("#pw").val();
-                    var pwRe =$("#pwRe").val();
+                	var regex = /[0-8a-zA-Z]{4,12}/;
+                    var data = $("#pwRe").val();
+                    var result = regex.exec(data);
+                    
+                    if(result == null){
+               		 $("#pwMsg").html("&emsp;4~12자의 영문 대/소문자, 숫자만 사용 가능");
+               		 $("#pwCheck").css("display","inline");
+					 $("#pwCheck").attr("src","/icon/x.svg");
+                     pwTest = 0;
+               		}else{
+               		 $("#pwMsg").html("");
+               		 var pw =$("#pw").val();
+                     var pwRe =$("#pwRe").val();
 
-					if((pw != "")||(pwRe != "")){
-						 if(pw == pwRe){
-		                    	$("#pwCheck").css("display","inline");
-								$("#pwCheck").attr("src","/icon/check.svg");
-								pwTest = 1;
-		                    }else{
-		                    	$("#pwCheck").css("display","inline");
-								$("#pwCheck").attr("src","/icon/x.svg");
-		                    }
-                	}
+ 					if((pw != "")||(pwRe != "")){
+ 						 if(pw == pwRe){
+ 		                    	$("#pwCheck").css("display","inline");
+ 								$("#pwCheck").attr("src","/icon/check.svg");
+ 								pwTest = 1;
+ 		                    }else{
+ 		                    	$("#pwCheck").css("display","inline");
+ 								$("#pwCheck").attr("src","/icon/x.svg");
+ 		                    }
+                 	}
+               		}
                 }) 
                 
         	
@@ -414,7 +443,8 @@
                    var result = regex.exec(data);
 
                     if(result == null){
-                        $("#nickMsg").html("&emsp;닉네임은 한글,영문자를 조합하여 2-10자로 입력해 주세요.");
+                        $("#nickMsg").html("&emsp;닉네임은 한글,영문자,숫자를 조합하여 2-10자로 입력해 주세요.");
+                    	nickTest = 0;
                     }else{
                     	$("#nickMsg").html("");
                     	$.ajax({
@@ -426,6 +456,7 @@
 									if (data.result == "true") {
 										$("#nickCheck").css("display","inline");
 										$("#nickCheck").attr("src","/icon/x.svg");
+										nickTest = 0;
 									}else{
 										$("#nickCheck").css("display","inline");
 										$("#nickCheck").attr("src","/icon/check.svg");
@@ -440,13 +471,14 @@
                 
             //이름
              $("#name").on("focusout",function(){
-                   var regex = /^[ㄱ-ㅎㅏ-ㅣ가-힣]{2,15}$/gm;
+                   var regex = /^[가-힣]{2,15}$/gm;
                    var data =$("#name").val();
                    var result = regex.exec(data);
 
                     if(result == null){
                     	$("#nameCheck").css("display","inline");
 						$("#nameCheck").attr("src","/icon/x.svg");
+						nameTest = 0;
                     }else{
 						$("#nameCheck").css("display","inline");
 						$("#nameCheck").attr("src","/icon/check.svg");
@@ -455,6 +487,7 @@
                 })
                 $("#nameName").on("input",function(){
                 	$("#nameCheck").css("display","none");
+                	nameTest = 0;
                 })
                 
             //휴대폰 번호 중복,유효성 검사
@@ -465,6 +498,7 @@
 
                     if(result == null){
                         $("#phoneMsg").html("&emsp;올바른 휴대폰번호 형식이 아닙니다.");
+                        phoneTest = 0;
                     }else{
                     	$("#phoneMsg").html("");
                     	$.ajax({
@@ -476,6 +510,7 @@
 									if (data.result == "true") {
 										$("#phoneCheck").css("display","inline");
 										$("#phoneCheck").attr("src","/icon/x.svg");
+										 phoneTest = 0;
 									}else{
 										$("#phoneCheck").css("display","inline");
 										$("#phoneCheck").attr("src","/icon/check.svg");
@@ -636,6 +671,7 @@
             $("#certification1").on("click",function(){
             	if(emailTest2 == 0){
             		alert("인증 메일 발송부터 진행하여 주십시오.");
+            		emailTest = 0;
             	}else{
             		$.ajax({
             			url:"${pageContext.request.contextPath}/member/ctfCodeProc",
@@ -660,6 +696,7 @@
             	$("#certification2").on("click",function(){
             		if(emailTest2 == 0){
                 		alert("인증 메일 발송부터 진행하여 주십시오.");
+                		emailTest = 0;
                 	}else{
                 		$.ajax({
                 			url:"${pageContext.request.contextPath}/member/ctfCodeProc",
@@ -674,6 +711,7 @@
                     			emailTest = 1;
                 			}else{
                 				alert("인증에 실패하였습니다. 코드를 다시 확인해주시기 바랍니다.");
+                				emailTest = 0;
                 			}
                 		});
                 	}
@@ -772,9 +810,11 @@
             	
             //가입버튼 누르기전 마지막 체크
             	$("#send").on("click",function(){
+            		console.log(idTest+" : "+pwTest+" : "+birthYearTest+" : "+birthMonthTest+" : "+birthDayTest+" : "+nickTest+" : "+phoneTest+" : "+jpTest+" : "+genderTest+" : "+nameTest+" : "+emailTest);
+                
              		if((idTest*pwTest*birthYearTest*birthMonthTest*birthDayTest*nickTest*phoneTest*jpTest*genderTest*nameTest*emailTest) != 1){
                      	alert("조건에 만족하지 않는 문항이 있습니다. 확인부탁드립니다.")
-                     }else{
+                     	 }else{
                     	var result = confirm("이대로 회원가입하시겠습니까?");
                     	if(result){
                     		//날짜 다시 2009-03-20 10:20:30.0

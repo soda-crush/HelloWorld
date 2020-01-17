@@ -36,7 +36,7 @@
 
                 <div class="navbar-nav box text-center" id="naviCon">
                     <a id="bambooNavi" class="nav-item nav-link" href="${pageContext.request.contextPath}/bamboo/bambooList.do" style="font-family:'Nanumgothic';">대나무숲</a>
-                    <a id="codeNavi" class="nav-item nav-link" href="${pageContext.request.contextPath}/code/codeQList.do" style="font-family:'Nanumgothic';">코드지식인</a>
+                    <a id="codeNavi" class="nav-item nav-link" href="${pageContext.request.contextPath}/code/codeQList.do" style="font-family:'Nanumgothic';">Code-How</a>
                     <a id="indusNavi" class="nav-item nav-link" href="${pageContext.request.contextPath}/industry/industryStatusList.do" style="font-family:'Nanumgothic';">업계현황</a>
                     <a id="itNavi" class="nav-item nav-link" href="${pageContext.request.contextPath}/itnews/itnewsList" style="font-family:'Nanumgothic';">IT 뉴스</a>
                     <a id="proNavi" class="nav-item nav-link" href="${pageContext.request.contextPath}/project/list" style="font-family:'Nanumgothic';">프로젝트</a>

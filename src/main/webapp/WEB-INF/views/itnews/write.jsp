@@ -74,12 +74,23 @@ $('.summernote').summernote({
 });     
 
 $("#writeBtn").on("click", function(){
+	regex = /^[(<p><br></p>)(<p>(&nbsp; ){1,}</p>)]{0,}$/g;
+	var content = $(".summernote").val();
+	var result = regex.exec(content);
+	
 	$("#title").val($.trim($("#title").val())); 
-	if($("#title").val()==""){
-		alert("제목을 입력해주세요");
+	if(($("#title").val()=="")&&(result!=null)){
+		alert("제목과 내용을 입력해주세요.");
+		return false;
+	}else if(result!=null){
+		alert("내용을 입력해 주세요.");
+		return false;
+	}else if($("#title").val()==""){
+		alert("제목을 입력해 주세요.");
 		return false;
 	}
 })
+
 
 $(".back").on("click", function(){
 	var result = confirm("모든 입력 내용이 사라집니다. 글쓰기를 취소할까요?");
