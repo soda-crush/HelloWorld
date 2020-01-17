@@ -222,7 +222,7 @@ span:nth-child(4) {
                       
                      <!-- <i class="fa fa-bookmark" id="scrapDone" data-toggle="tooltip" title="스크랩"></i> -->
                      <c:if test="${sessionScope.loginInfo.id!=null}">
-	                     <button class="btn btn-dark" id="scrap">스크랩</button>
+	                     <button class="btn btn-success" id="scrap">스크랩</button>
 	                     <button class="btn btn-danger" id="report">신고</button>
                      </c:if>
                   </div>
@@ -230,9 +230,9 @@ span:nth-child(4) {
                
                <c:if test="${qResult.id==sessionScope.loginInfo.id}">
                   <div style="text-align: right;">
+                  		<button class="btn btn-success" id="scrap">스크랩</button>
                      <!-- 답변이 있으면 삭제,수정이 안됨. -->
-                     <c:if test="${repCount==0}">
-                     	<button class="btn btn-dark" id="scrap">스크랩</button>
+                     <c:if test="${repCount==0}">                     	
                         <button class="btn btn-dark" class="btnDIv2" id="modify">수정</button>
                         <button class="btn btn-danger" class="btnDIv2" id="delete">삭제</button>
                      </c:if>
@@ -243,31 +243,32 @@ span:nth-child(4) {
 				<c:forEach items="${rResult}" var="r">
 					<div class="topQ">
 						<hr>
-						<c:if test="${r.adopt=='Y'}">
-							<div>
-								<span class="ti-crown text-warning"></span>
-								질문자 채택
-							</div>
-						</c:if>
+						
+
+						
 		    
 						<div class="row">
 							<div class="col-xl-1 col-md-2">
-								<img src="${r.profileImg}" width=90,height=200> 
+								<img src="${r.profileImg}" width=90,height=200>							 
+								<div class="d-md-none" style="float:right">
+									<c:if test="${r.adopt=='Y'}">
+										<span class="ti-crown text-warning" style="font-size:18px;"></span>
+										질문자 채택
+									</c:if>
+								</div>
 							</div>
 
-							<div class="col-xl-8 col-md-8">
+							<div class="col-xl-9 col-md-8">
 								<div class="row">
-									<div class="col-12">
+									<div class="col-12 pt-0" style="font-size: 30px; font-weight: 100; padding-top:0px;">
+										<c:if test="${r.memLevel == 3}">
+											<span style="font-size: 18px; font-weight: 50; color: gray;">실무자</span>
+										</c:if>
+									</div>
+									<div class="col-12" style="padding-top:0px;">
 										<span style="cursor:pointer" onclick="popUp('${r.id}','${r.writer}')">${r.writer}</span>
 										<span style="font-size: 15px; font-weight: 50; color: gray;">님의 답변입니다.</span>
-									</div>
-									<div class="col-12" style="font-size: 30px; font-weight: 100;">
-										<c:choose>
-											<c:when test="${r.memLevel == 3}">
-												<span style="font-size: 18px; font-weight: 50; color: gray;">실무자</span>
-											</c:when>
-										</c:choose>
-									</div>
+									</div>									
 								</div>
 										
 								<%-- 						<c:if test="${r.adopt=='Y'}"> --%>
@@ -276,8 +277,14 @@ span:nth-child(4) {
 								<!-- 							<img src="/icon/check.svg" width=150 height=70><h3 style="color:red;">질문자채택</h3> -->
 								<%-- 						</c:if> --%>
 							</div>
-							<div class="col-xl-3 col-md-2">
+							
+						<c:if test="${r.adopt=='Y'}">
+							<div class="col-2 d-none d-md-block">
+								<span class="ti-crown text-warning" style="font-size:90px;"></span>
 							</div>
+						</c:if>	
+								
+							
 						</div>
 						<hr>
 						<br>
