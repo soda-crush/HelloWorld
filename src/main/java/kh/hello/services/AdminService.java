@@ -50,6 +50,10 @@ public class AdminService {
 		return adao.validLogin(adminId, password);
 	}
 	
+	public String getAdminEmail(String adminId) {
+		return adao.getAdminEmail(adminId);
+	}
+	
 	public int modifyInfo(String adminId, String password, String email) {
 		return adao.modifyInfo(adminId, password, email);
 	}

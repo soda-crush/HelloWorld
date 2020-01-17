@@ -19,6 +19,5 @@ public class ChartScheduler {
 		cdao.delBoard();
 		cdao.newCo();
 		cdao.delCo();
-		System.out.println("정상동작");
 	}
 }

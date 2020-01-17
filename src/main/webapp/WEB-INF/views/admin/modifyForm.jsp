@@ -75,36 +75,40 @@
             </div>
             <!-- page title area end -->
             <div class="main-content-inner">
-                <!-- MAIN CONTENT GOES HERE -->
-              
-              <!-- basic form start -->
-                            <div class="col-12 mt-5">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4 class="header-title">정보 변경하기</h4>
-                                        <form action="${pageContext.request.contextPath }/admin/modifyInfo" method="post">
-                                        	<div class="form-group">
-                                                <label for="password">Password</label>
-                                                <input type="password" class="form-control" id="password" placeholder="Password" name="password">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="passwordCheck">Password</label>
-                                                <input type="password" class="form-control" id="passwordCheck" placeholder="Password Check">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1">Email address</label>
-                                                <input type="text" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter Email" name="email">                                               
-                                            </div>           
-                                            <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">변경하기</button>
-                                        </form>
+			<!-- MAIN CONTENT GOES HERE -->              
+            	<!-- basic form start -->
+				<div class="col-12 mt-5">
+                	<div class="card">
+                    	<div class="card-body">
+                        	<h4 class="header-title">정보 변경하기</h4>
+                            <form action="${pageContext.request.contextPath }/admin/modifyInfo" method="post">
+                                <div class="form-group">
+                                    <label for="password">비밀번호</label>
+                                    <div class="row pl-3 pr-3">
+                                    <input type="password" class="form-control col-12 col-md-6" id="password" placeholder="Password" name="password" required>
+                                    <label class="col-12 col-md-6 pt-1" id="pwResult"></label>
                                     </div>
+                               	</div>
+                                <div class="form-group">
+                                	<label for="passwordCheck">비밀번호 확인</label>
+                                	<div class="row pl-3 pr-3">
+                                   	<input type="password" class="form-control col-12 col-md-6" id="passwordCheck" placeholder="Password Check" required>
+                                   	<label class="col-12 col-md-6 pt-1" id="pwCheckResult"></label>
+                                   	</div>
                                 </div>
-                            </div>
-                            <!-- basic form end -->
-              
-              
-            </div>
-       
+                                <div class="form-group mb-0">
+                                	<label for="exampleInputEmail1">이메일 주소</label>
+                                    <input type="text" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter Email" name="email"
+                                    value="${email}" required>     
+                                    <label class="col-12 pt-1" id="emailResult"></label>                                          
+                               	</div>           
+                                <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4" id="btn">변경하기</button>
+							</form>
+						</div>
+                  	</div>
+				</div>
+				<!-- basic form end -->       
+            </div>      
         </div>
         <!-- main content area end -->
         <!-- footer area start-->
@@ -128,6 +132,96 @@
     <script src="${pageContext.request.contextPath }/adRsc/js/scripts.js"></script>
     <script>
     $("#modify").addClass("active");
+    
+    $("#password").on("focusout", function(){
+    	var data = $("#password").val();
+    	var regex = /^[a-zA-z0-9]{4,12}$/;
+    	var result = regex.exec(data);
+    	
+    	if(result == null){
+    		$("#password").css("border", "1px solid red");
+    		$("#pwResult").html("<p class='text-danger'><small>4~12자의 영문 대/소문자, 숫자만 사용 가능</small></p>");
+    	}else{
+    		$("#password").css("border", "1px solid green");
+    		$("#pwResult").html("<p class='text-success'><small>사용 가능한 비밀번호</small></p>");
+    	}
+    })
+    
+    $("#passwordCheck").on("click", function(){
+    	if($("#password").val() == ""){
+    		alert("비밀번호를 먼저 입력해주세요");
+    		$("#password").focus();
+    	}
+    })
+    
+    $("#passwordCheck").on("keyup", function(){
+    	var pw = $("#password").val();
+    	var pwCheck = $("#passwordCheck").val()
+    	if(pw == pwCheck){
+    		$("#passwordCheck").css("border", "1px solid green");
+    		$("#pwCheckResult").html("<p class='text-success'><small>비밀번호가 일치합니다</small></p>");
+    	}else{
+    		$("#passwordCheck").css("border", "1px solid red");
+    		$("#pwCheckResult").html("<p class='text-danger'><small>비밀번호가 일치하지않습니다.</small></p>");
+    	}    	
+    })
+    
+    $("#password").on("keyup", function(){
+    	if($("#passwordCheck").val() != ""){
+        	var pw = $("#password").val();
+        	var pwCheck = $("#passwordCheck").val()
+        	if(pw == pwCheck){
+        		$("#passwordCheck").css("border", "1px solid green");
+        		$("#pwCheckResult").html("<p class='text-success'><small>비밀번호가 일치합니다</small></p>");
+        	}else{
+        		$("#passwordCheck").css("border", "1px solid red");
+        		$("#pwCheckResult").html("<p class='text-danger'><small>비밀번호가 일치하지않습니다.</small></p>");
+        	}
+    	}
+    })
+    
+    $("#email").on("focusout", function(){
+    	var data = $("#email").val();
+    	var regex = /^\w+@[a-z]+(\.[a-z]+){1,2}$/g;
+    	var result = regex.exec(data);
+    	
+    	if(result == null){
+    		$("#email").css("border", "1px solid red");
+    		$("#emailResult").html("<p class='text-danger'><small>올바른 이메일이 아닙니다. 다시 확인해주세요.</small></p>");
+    	}else{
+    		$("#email").css("border", "1px solid green");
+    		$("#emailResult").html("<p class='text-success'><small>사용가능한 이메일 입니다.</small></p>");
+    	}    	
+    })
+    
+    $("#btn").on("click", function(){
+    	var pwResult = $("#pwResult").children("p").css("color");
+    	var pwCheckResult = $("#pwCheckResult").children("p").css("color");
+    	var emailCheckResult = $("#emailResult").children("p").css("color");
+		
+    	if($("#password").val() == ""){
+    		alert("비밀번호를 입력해주세요");
+    		return false;
+    	}else if($("#passwordCheck").val() == ""){
+    		alert("비밀번호가 일치하는지 확인해주세요");
+    		return false;
+    	}else if($("#email").val() == ""){
+    		alert("이메일을 입력해주세요");
+    		return false;
+    	}else{
+        	if(pwResult == "rgb(220, 53, 69)"){
+        		alert("비밀번호 양식을 확인해주세요");
+        		return false;
+        	}else if(pwCheckResult == "rgb(220, 53, 69)"){
+        		alert("비밀번호가 일치하지 않습니다. 다시 확인해주세요");
+        		return false;
+        	}else if(emailCheckResult == "rgb(220, 53, 69)"){
+        		alert("올바른 이메일이 아닙니다. 다시 확인해주세요");
+        		return false;
+        	}        		
+    	}	
+    })
+    
     </script>
 </body>
 </html>

@@ -26,6 +26,10 @@ public class AdminDAO {
 		return jdbc.selectOne("Admin.validLogin", param);
 	}
 	
+	public String getAdminEmail(String adminId) {
+		return jdbc.selectOne("Admin.getAdminEmail", adminId);
+	}
+	
 	public int modifyInfo(String adminId, String password, String email) {//비밀번호/이메일 수정
 		Map<String, String> param = new HashMap<>();
 		param.put("adminId", adminId);

@@ -6,6 +6,9 @@
   <select id="validLogin" resultType="integer">
   	select count(*) from adminAccount where adminId=#{adminId} and password=#{password}
   </select>
+  <select id="getAdminEmail" resultType="String">
+  	select email from adminAccount where adminId=#{adminId}
+  </select>
   <update id="modifyInfo" parameterType="java.util.Map">
   	update adminAccount set password=#{password}, email=#{email} where adminId=#{adminId}
   </update>
