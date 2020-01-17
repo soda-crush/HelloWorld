@@ -65,7 +65,7 @@
 				<div class="border border-secondary rounded" id="pageBody">
 						<div id="pHeader" class="pl-2 pr-2">
 							<div class="ml-4 titleWrap wordWrap" style="font-weight:bold;">${dto.title}</div>
-							<label class="ml-4">작성일 : ${dto.formedDate}</label>
+							<label class="ml-4">${dto.formedDate}</label>
 						</div>
 						<hr>
 						<div id="pBody">
@@ -86,7 +86,7 @@
 												</div>											
 											</div>											
 											<div class="row commentContent">
-												<div class="col-12 pt-1 pl-4">${list.reply}</div>
+												<div class="col-12 pt-1 pl-4 wordWrap">${list.reply}</div>
 											</div>
 										</div>
 									</div>								
