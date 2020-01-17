@@ -18,6 +18,7 @@ import kh.hello.dto.LoginInfoDTO;
 import kh.hello.dto.ReportDTO;
 import kh.hello.dto.ScrapDTO;
 import kh.hello.services.CodeService;
+import kh.hello.utils.Utils;
 
 @Controller
 @RequestMapping("/code")
@@ -31,11 +32,8 @@ public class CodeController {
 	//질문 CodeQuestion
 	@RequestMapping("/codeQList.do")
 	public String codeList(Model m,String page) {
-		//LoginInfoDTO dto = new LoginInfoDTO("test","닉네임");		
-		//LoginInfoDTO dto = new LoginInfoDTO("test2","닉네임2");	
-//			LoginInfoDTO dto = new LoginInfoDTO("test1234","펭수2");	
-//			LoginInfoDTO dto = new LoginInfoDTO("test3","닉네임3");	
-//			session.setAttribute("loginInfo", dto);
+	  //LoginInfoDTO dto = new LoginInfoDTO("test","닉네임");		
+      //session.setAttribute("loginInfo", dto);
 
 		int currentPage = 1;
 		if(page != null) currentPage = Integer.parseInt(page);
@@ -65,6 +63,7 @@ public class CodeController {
 		LoginInfoDTO info = (LoginInfoDTO)session.getAttribute("loginInfo");
 		dto.setId(info.getId());
 		dto.setWriter(info.getNickName());
+		dto.setTitle(Utils.protectXss(dto.getTitle()));
 		String path = session.getServletContext().getRealPath("attached");
 		int result = 0;
 		try {
@@ -83,6 +82,9 @@ public class CodeController {
 	@RequestMapping("/codeDetail.do")
 	public String codeDetail(int seq, Model m) {			
 		CodeQuestionDTO qResult = sv.detailQuestion(seq); //queSeq
+		if(qResult==null) {	
+			return "/code/codeDetail";
+		}
 		List<CodeReplyDTO> rResult = sv.detailReply(seq); //queSeq
 		List<CodeCommentsDTO> cResult = sv.commentList(seq); //queSeq  
 		int repCount = sv.replyCount(seq); //답글 수 
@@ -136,6 +138,7 @@ public class CodeController {
 
 	@RequestMapping("/modifyProc.do")
 	public String modifyProcCode(CodeQuestionDTO dto) {
+		dto.setTitle(Utils.protectXss(dto.getTitle()));
 		sv.modify(dto);
 		int seq = dto.getSeq();
 		return "redirect:/code/codeDetail.do?seq="+seq;
@@ -185,6 +188,7 @@ public class CodeController {
 		LoginInfoDTO info = (LoginInfoDTO)session.getAttribute("loginInfo");
 		dto.setId(info.getId());
 		dto.setWriter(info.getNickName());
+		dto.setTitle(Utils.protectXss(dto.getTitle()));
 		int queSeq = dto.getQueSeq();
 		String path = session.getServletContext().getRealPath("attached");
 		int result = 0;
@@ -232,12 +236,14 @@ public class CodeController {
 		LoginInfoDTO info = (LoginInfoDTO)session.getAttribute("loginInfo");
 		dto.setId(info.getId());
 		dto.setWriter(info.getNickName());
+		dto.setContent(Utils.protectXss(dto.getContent()));
 		return sv.insertComment(dto);		
 	}
 
 	@ResponseBody
 	@RequestMapping(value="/codeCModifyProc.do",produces="text/html;charset=utf8")
 	public String coMdfProcCode(CodeCommentsDTO dto) {
+		dto.setContent(Utils.protectXss(dto.getContent()));
 		return sv.updateComment(dto);
 	}
 
@@ -290,9 +296,9 @@ public class CodeController {
 	public String reportCode(ReportDTO dto) {
 		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
 		dto.setReporterID(sessionValue.getId());
-		dto.setReporterNick(sessionValue.getNickName());		
+		dto.setReporterNick(sessionValue.getNickName());
+		dto.setReason(Utils.protectXss(dto.getReason()));
 		int result = sv.reportCode(dto);
-		System.out.println(result);
 		if(result>0) {
 			return "success";
 		}else {
@@ -319,7 +325,8 @@ public class CodeController {
 		public String reportCodeR(ReportDTO dto) {
 			LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");	
 			dto.setReporterID(sessionValue.getId());
-			dto.setReporterNick(sessionValue.getNickName());		
+			dto.setReporterNick(sessionValue.getNickName());
+			dto.setReason(Utils.protectXss(dto.getReason()));
 			int result = sv.reportCodeR(dto);
 			if(result>0) {
 				return "success";
