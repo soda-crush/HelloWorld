@@ -150,9 +150,7 @@
 			$("#write").on("click", function() {
 				regex = /^[(<p><br></p>)(<p>(&nbsp; ){1,}</p>)]{0,}$/g;
 				   var content = $(".summernote").val();
-				   console.log(content);
 				   var result = regex.exec(content);
-				   console.log(result);
 				   $("#title").val($.trim($("#title").val())); 
 				   if(($("#title").val()=="")&&(result!=null)){
 				      alert("제목과 내용을 입력해주세요.");
