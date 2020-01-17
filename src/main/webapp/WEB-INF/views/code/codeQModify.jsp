@@ -69,7 +69,7 @@ $(function(){
 						언어
 					</div>
 					<div class="col-xl-11 col-9 title" >
-						<select name="division" class="sele">
+						<select name="division" class="sele" id="division">
 							<option value="">언어 선택</option>
 							<option value="java" <c:if test="${result.division eq 'java'}">selected</c:if>>java</option>
 							<option value="php" <c:if test="${result.division eq 'php'}">selected</c:if>>php</option>
@@ -89,7 +89,7 @@ $(function(){
 						포인트
 					</div>
 					<div class="col-xl-11 col-9 title">
-						<select name="point" class="sele">
+						<select name="point" class="sele" id="point">
 							<option value="0"><c:if test="${result.point == 0}"></c:if>포인트X</option>
 							<option value="10" <c:if test="${result.point == 10}">selected</c:if>>10</option>
 							<option value="30" <c:if test="${result.point == 30}">selected</c:if>>30</option>
@@ -106,7 +106,7 @@ $(function(){
 						질 문
 					</div>
 					<div class="col-xl-11 col-9 title">
-						<input type="text" name="title" style="width:100%" maxlength="100" value="${result.title}">
+						<input type="text" name="title" style="width:100%" maxlength="100" id="title" value="${result.title}">
 					</div>
 				</div>
 				
@@ -114,8 +114,8 @@ $(function(){
 				
 				<div class=row>
 					<div class="col-12 content">
-						<textarea name="content" id="content" style="display:none"></textarea>
-						<div id="summernote">${result.content}</div>
+						<textarea name="content" id="content" style="display:none" class="summernote">${result.content}</textarea>
+<%-- 						<div id="summernote">${result.content}</div> --%>
 					</div>
 				</div>
 				
@@ -139,23 +139,31 @@ $(function(){
 	<jsp:include page="/WEB-INF/views/standard/footer.jsp" />
 	
 	<script>
-		$('#summernote').summernote({
-			height: 500
+		$('.summernote').summernote({
+			height : 500,
+			lang: 'ko-KR'
 		})
+		
 		$("#cancle").on("click",function(){
 			location.href="${pageContext.request.contextPath}/code/codeDetail.do?seq=${parent_seq}";
 		})
-		$("#modify").on("click", function() {
-			$("#title").val($.trim($("#title").val())); 
-			if (($("#division").val()== "" || $("#point").val()== "" || $("#title").val()=="" || $(".note-editable").text()== "")) {
-				alert("작성 하지 않는 문항이 있습니다. 다시 한번 확인해주세요.");
-				return false;
-			} else {
-				var result = confirm("이대로 수정 하시겠습니까?");
+		
+		$("#modify").on("click", function(){
+		   regex = /^[(<p><br></p>)(<p>(&nbsp; ){1,}</p>)]{0,}$/g;
+ 		   var content = $(".summernote").val();
+		   var result = regex.exec(content);
+
+		   $("#title").val($.trim($("#title").val())); 
+		   if(($("#division").val()== "" || $("#point").val()== "" || $("#title").val()=="" || (result!=null))){
+		      alert("작성 하지 않는 문항이 있습니다. 다시 한번 확인해주세요.");
+		      return false;
+		   }
+		   else{
+			   var result = confirm("이대로 수정 하시겠습니까?");
 				if (result) {
 					$("#writeForm").submit();
 				}
-			}
+		   }
 		})
 	</script>
 </body>
