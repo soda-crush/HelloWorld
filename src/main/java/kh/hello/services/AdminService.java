@@ -29,6 +29,7 @@ import kh.hello.dto.ForcedOutMemberDTO;
 import kh.hello.dto.InquiryDTO;
 import kh.hello.dto.InquiryReplyDTO;
 import kh.hello.dto.MemberDTO;
+import kh.hello.utils.Utils;
 
 @Service
 public class AdminService {
@@ -47,6 +48,10 @@ public class AdminService {
 	
 	public int validLogin(String adminId, String password) {
 		return adao.validLogin(adminId, password);
+	}
+	
+	public String getAdminEmail(String adminId) {
+		return adao.getAdminEmail(adminId);
 	}
 	
 	public int modifyInfo(String adminId, String password, String email) {
@@ -115,7 +120,9 @@ public class AdminService {
 	
 	@Transactional("txManager")
 	public InquiryReplyDTO writeInquiry(String reply, int boardSeq) {
-		//1. 댓글 입력
+		//1-1. 댓글내용 xss
+		reply = Utils.protectXss(reply);
+		//1-2. 댓글 입력
 		int result = adao.writeInquiry(reply, boardSeq);
 		//2. 일대일 문의글 댓글 수 +1
 		result = adao.plusInquiryCount(boardSeq);
@@ -204,6 +211,8 @@ public class AdminService {
 		//존재하는 회원인지 확인하기
 		MemberDTO dto = adao.getMemberInfo(id);
 		if(dto.getPw() != null) {
+			//강퇴사유 xss
+			reason = Utils.protectXss(reason);
 			//강퇴시키고
 			adao.memberOut(id);
 			//이메일 정보 받아오기

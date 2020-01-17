@@ -21,6 +21,7 @@ import kh.hello.dto.ItnewsDTO;
 import kh.hello.dto.ItnewsImgDTO;
 import kh.hello.dto.ReportDTO;
 import kh.hello.dto.ScrapDTO;
+import kh.hello.utils.Utils;
 
 @Service
 public class ItnewsService {
@@ -148,6 +149,8 @@ public class ItnewsService {
 	
 	@Transactional("txManager")
 	public int writeItnews(String path, ItnewsDTO dto) throws Exception{
+		//스크립트 공격 방지
+		dto.setTitle(Utils.protectXss(dto.getTitle()));
 		//1. boardSeq 받아오기
 		int boardSeq = dao.getItnewsSeq();
 		dto.setSeq(boardSeq);
@@ -164,6 +167,8 @@ public class ItnewsService {
 	
 	@Transactional("txManager")
 	public int modifyItnews(String path, ItnewsDTO dto) throws Exception{
+		//스크립트 공격 방지 
+		dto.setTitle(Utils.protectXss(dto.getTitle()));
 		//1. 이미지 저장하고 주소 변환
 		String content = this.imgUpload(path, dto.getSeq(), dto.getContent());
 		dto.setContent(content);
@@ -223,6 +228,8 @@ public class ItnewsService {
 		dto.setItSeq(Integer.parseInt(seq));
 		//포인트 증가
 		dao.increCoPoint(dto.getId());
+		//스크립트 공격 방지
+		dto.setContent(Utils.protectXss(dto.getContent()));
 		
 		return dao.coWrite(dto);
 	}
@@ -259,6 +266,8 @@ public class ItnewsService {
 	}
 	
 	public int modifyItnewsCo(ItnewsCoDTO dto) {
+		//스크립트 공격 방지
+		dto.setContent(Utils.protectXss(dto.getContent()));
 		return dao.modifyItnewsCo(dto);
 	}
 	
@@ -294,6 +303,8 @@ public class ItnewsService {
 		return dao.reportDuplCheck(id, seq);
 	}
 	public int reportProject(ReportDTO dto) {
+		//스크립트 공격 방지
+		dto.setReason(dto.getReason());
 		return dao.insertReport(dto);					
 	}
 	

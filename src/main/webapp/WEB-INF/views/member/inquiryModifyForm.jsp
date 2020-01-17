@@ -17,6 +17,7 @@
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
+<script src="/js/summernote-ko-KR.js"></script>
 <style>
 	#titleLink:hover{
 		cursor:pointer;
@@ -87,15 +88,27 @@
 $('.summernote').summernote({
     placeholder: '내용을 입력해주세요',	        
     minHeight: 300,
-    maxHeight: 300,   
+    maxHeight: 300, 
+    lang: 'ko-KR'
 });     
 
 $("#writeBtn").on("click", function(){
+	var regex = /^[(<p><br></p>)(<p>(&nbsp; ){1,}</p>)]{0,}$/g;
+	var content = $(".summernote").val();
+	var result = regex.exec(content);
+	   
 	$("#title").val($.trim($("#title").val())); 
-	if($("#title").val()==""){
-		alert("제목을 입력해주세요");
-		return false;
-	}
+	
+	if(($("#title").val() == "")&&(result != null)){
+		alert("제목과 내용을 입력해주세요.");
+	    return false;
+	}else if(result != null){
+	    alert("내용을 입력해 주세요.");
+	    return false;
+	}else if($("#title").val()==""){
+	    alert("제목을 입력해 주세요.");
+	    return false;
+	}	
 })
 
 $(".back").on("click", function(){

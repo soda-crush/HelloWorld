@@ -110,13 +110,16 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/modifyForm")
-	public String adModifyForm() {
+	public String adModifyForm(Model m) {
+		String adminId = (String)session.getAttribute("AdminInfo");		
+		String email = as.getAdminEmail(adminId);
+		m.addAttribute("email", email);
 		return "admin/modifyForm";
 	}
 	
 	@RequestMapping("/modifyInfo")
 	public String adModifyInfo(String password, String email, HttpServletRequest request) {
-		String adminId = (String)session.getAttribute("loginInfo");
+		String adminId = (String)session.getAttribute("AdminInfo");
 		int result = as.modifyInfo(adminId, password, email);
 		if(result > 0) {
 			request.setAttribute("result", true);

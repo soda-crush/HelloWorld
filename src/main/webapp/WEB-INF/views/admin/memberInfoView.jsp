@@ -78,15 +78,17 @@
 								<hr>
 								<form action="${contextPath.request.contextPath}/admin/memberModify?id=${dto.id}" method="post">
 									<div class="form-group">
-										<label for="exampleInputEmail1">Email address</label>
-										<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email" value="${dto.email}" name="email">
+										<label for="exampleInputEmail1">이메일 주소</label>
+										<input type="email" class="form-control" id="email" placeholder="Enter email" value="${dto.email}" name="email">
+										<label class="col-12 pt-1" id="emailResult"></label>
 									</div>
 									<div class="form-group">
-										<label for="exampleInputPassword1">Phone</label>
-										<input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter phone number" value="${dto.phone}" name="phone">
+										<label for="exampleInputPassword1">휴대전화</label>
+										<input type="text" class="form-control" id="phone" placeholder="- 를 빼고 숫자만 입력해주세요" value="${dto.phone}" name="phone">
+										<label class="col-12 pt-1" id="phoneResult"></label>
 									</div>
 									<div class="text-center">
-									<button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">수정하기</button>
+									<button type="submit" class="btn btn-primary mt-4 pr-4 pl-4" id="modifyBtn">수정하기</button>
 									<button type="button" class="btn btn-secondary mt-4 pr-4 pl-4" id="cancelBtn">취소</button>
 									</div>
 								</form>
@@ -111,9 +113,58 @@
     <script src="${pageContext.request.contextPath }/adRsc/js/plugins.js"></script>
     <script src="${pageContext.request.contextPath }/adRsc/js/scripts.js"></script>
     <script>
-    	$("#cancelBtn").on("click",function(){
-    		window.close();
-    	})
+	$("#cancelBtn").on("click",function(){
+		window.close();
+	})
+    	
+    $("#email").on("focusout", function(){
+    	var data = $("#email").val();
+    	var regex = /^\w+@[a-z]+(\.[a-z]+){1,2}$/g;
+    	var result = regex.exec(data);
+    	
+    	if(result == null){
+    		$("#email").css("border", "1px solid red");
+    		$("#emailResult").html("<p class='text-danger'><small>올바른 이메일이 아닙니다. 다시 확인해주세요.</small></p>");
+    	}else{
+    		$("#email").css("border", "1px solid green");
+    		$("#emailResult").html("<p class='text-success'><small>사용가능한 이메일 입니다.</small></p>");
+    	}    	
+    })
+    
+    $("#phone").on("focusout", function(){
+    	var data = $("#phone").val();
+    	var regex = /^01\d\d{3,4}\d{4}$/g;
+    	var result = regex.exec(data);
+    	
+    	if(result == null){
+    		$("#phone").css("border", "1px solid red");
+    		$("#phoneResult").html("<p class='text-danger'><small>올바른 전화번호가 아닙니다. 다시 확인해주세요.</small></p>");
+    	}else{
+    		$("#phone").css("border", "1px solid green");
+    		$("#phoneResult").html("<p class='text-success'><small>사용가능한 전화번호 입니다.</small></p>");
+    	} 
+    })
+    
+    $("#modifyBtn").on("click", function(){
+    	var emailResult = $("#emailResult").children("p").css("color");
+    	var phoneResult = $("#phoneResult").children("p").css("color");
+    	
+    	if($("#email").val() == ""){
+    		alert("이메일을 입력해주세요");
+    		return false;
+    	}else if($("#phone").val() == ""){
+    		alert("휴대전화 번호를 입력해주세요");
+    		return false;
+    	}else{
+        	if(emailResult == "rgb(220, 53, 69)"){
+        		alert("올바른 이메일을 입력해주세요");
+        		return false;
+        	}else if(phoneResult == "rgb(220, 53, 69)"){
+        		alert("사용 가능한 전화번호를 입력해주세요");
+        		return false;
+        	}    		
+    	}
+    })
     </script>
 </body>
 </html>

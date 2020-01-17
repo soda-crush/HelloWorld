@@ -37,7 +37,8 @@
 	            			${id}님 비밀번호를 변경해주세요. <br>
 	            			<input type=text name=id style="display:none;" value="${id}">
 	            			<input type="text" name=pw id=pw placeholder="비밀번호 입력"><br>
-	            			<input type="text" name=pwRe id=pwRe placeholder="비밀번호 재입력"><br>
+	            			<input type="text" name=pwRe id=pwRe placeholder="비밀번호 재입력">
+	            			<div id=pwMsg style="color:red;font-size:13px;"></div>
 	            			<button id=btn type=button>변경</button>
 	            		</div>
 	            	</div>
@@ -45,7 +46,28 @@
             </form>
             
             <script>
+            var pwTest = 0;
+            $("#pw").on("focusout",function(){
+            	var regex = /[0-8a-zA-Z]{4,12}/;
+            	var data = $("#pw").val();
+            	var result = regex.exec(data);
+            	
+            	if(result == null){
+            		 $("#pwMsg").html("&emsp;4~12자의 영문 대/소문자, 숫자만 사용 가능");
+            		 pwTest = 0;
+            	}else{
+            		$("#pwMsg").html("");
+            		pwTest = 1;
+            	}
+            
+            })
+            
+            
             	$("#btn").on("click",function(){
+            		if(pwTest == 0){
+            			alert("비밀번호가 조건에 만족하지 않습니다. 조건을 확인해 주세요.");
+            			return false;
+            		}
             		  var pw =$("#pw").val();
                       var pwRe =$("#pwRe").val();
 

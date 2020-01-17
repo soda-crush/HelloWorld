@@ -122,8 +122,8 @@
 				
 				<div class=row>
 					<div class="col-12 content">
-						<textarea name="content" id="content" style="display: none"></textarea>
-						<div id="summernote"></div>
+						<textarea name="content" id="content" style="display: none" class="summernote"></textarea>
+<!-- 						<div id="summernote"></div> -->
 					</div>
 				</div>
 
@@ -152,7 +152,7 @@
 // 		var titleTest = $("#title").val();
 // 		var contentTest = $(".note-editable").text();
 		
-		$('#summernote').summernote({
+		$('.summernote').summernote({
 			height : 500,
 			lang: 'ko-KR'
 		})
@@ -161,17 +161,23 @@
 			location.href = "${pageContext.request.contextPath}/code/codeQList.do";
 		})
 		
-		$("#write").on("click", function() {
-			$("#title").val($.trim($("#title").val())); 						
-			if (($("#division").val()== "" || $("#point").val()== "" || $("#title").val()=="" || $(".note-editable").text()== "")) {
-				alert("작성 하지 않는 문항이 있습니다. 다시 한번 확인해주세요.");
-				return false;
-			} else {
-				var result = confirm("이대로 작성 하시겠습니까?");
+		$("#write").on("click", function(){
+		   regex = /^[(<p><br></p>)(<p>(&nbsp; ){1,}</p>)]{0,}$/g;
+//		   var content = $(".note-editable").text();
+ 		   var content = $(".summernote").val();
+		   var result = regex.exec(content);
+
+		   $("#title").val($.trim($("#title").val())); 
+		   if(($("#division").val()== "" || $("#point").val()== "" || $("#title").val()=="" || (result!=null))){
+		      alert("작성 하지 않는 문항이 있습니다. 다시 한번 확인해주세요.");
+		      return false;
+		   }
+		   else{
+			   var result = confirm("이대로 작성 하시겠습니까?");
 				if (result) {
 					$("#writeForm").submit();
 				}
-			}
+		   }
 		})
 		
 		$("#point").on("change",function(){

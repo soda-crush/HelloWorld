@@ -17,7 +17,7 @@ import kh.hello.services.MemberInquiryService;
 
 @Controller
 @RequestMapping("/member1")
-public class MemberInquiryController {
+public class InquiryMemController {
 	
 	@Autowired
 	private MemberInquiryService ms;
