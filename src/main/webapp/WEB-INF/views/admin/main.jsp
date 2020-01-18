@@ -190,7 +190,7 @@
 		                        <div class="card">
 		                            <div class="card-body">
 		                                <div class="col-12">
-		                                	<h4 class="header-title">가입 경로 순위</h4>
+		                                	<h4 class="header-title">가입 경로</h4>
 		                                </div>		                            
 		                                <div id="ambarchart4"></div>
 		                            </div>
