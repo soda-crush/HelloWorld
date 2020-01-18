@@ -12,6 +12,7 @@ import kh.hello.dto.ForcedOutMemberDTO;
 import kh.hello.dto.InquiryDTO;
 import kh.hello.dto.InquiryReplyDTO;
 import kh.hello.dto.MemberDTO;
+import kh.hello.dto.NoticeDTO;
 
 @Repository
 public class AdminDAO {
@@ -193,6 +194,36 @@ public class AdminDAO {
 		param.put("col", col);
 		param.put("searchWord", "%"+searchWord+"%");
 		return jdbc.selectOne("Admin.getSearchBlackResultTotal", param);
+	}
+	
+	public List<NoticeDTO> noticeMainListByPage(int start, int end){
+		Map<String, Integer> param = new HashMap<>();
+		param.put("start", start);
+		param.put("end", end);
+		return jdbc.selectList("Admin.noticeMainListByPage", param);
+	}
+	
+	public int getNoticeTotal() {
+		return jdbc.selectOne("Admin.getNoticeTotal");
+	}
+	
+	public int insertImg(int boardSeq, String sysName) {
+		Map<String, Object> param = new HashMap<>();
+		param.put("boardSeq", boardSeq);
+		param.put("sysName", sysName);
+		return jdbc.insert("Admin.insertImg", param);
+	}
+	
+	public int getNoticeSeq() {
+		return jdbc.selectOne("Admin.getNoticeSeq");
+	}
+	
+	public int writeNotice(NoticeDTO dto) {
+		return jdbc.insert("Admin.writeNotice", dto);
+	}
+	
+	public NoticeDTO noticeDetailView(int seq) {
+		return jdbc.selectOne("Admin.noticeDetailView", seq);
 	}
 }
 

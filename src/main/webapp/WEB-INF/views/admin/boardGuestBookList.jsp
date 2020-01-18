@@ -41,10 +41,10 @@
 		display:none;
 	}
 	.contentCard{
-		max-width: 1000px;
+		max-width: 1200px;
 	}
 	.table{
-		min-width: 730px;
+		min-width: 1000px;
 	}
 	.notification-area {
 		text-align:right;
@@ -59,6 +59,10 @@
 	}	
 	.btn-primary.focus, .btn-primary:focus{
 		color: black;
+	}
+	.wordWrap{
+		word-break:break-all;
+		word-break:break-word;		
 	}
 </style>
 </head>
@@ -126,7 +130,7 @@
                                             <tbody>
                                             	<c:choose>
                                             		<c:when test="${list.size() ==0}">
-                                            			<tr><th colspan='6'><marquee direction="right">게시물이 없습니다</marquee><th></tr>
+                                            			<tr><th colspan='6'><marquee direction="right">게시물이 없습니다</marquee></th></tr>
                                             		</c:when>
                                             		<c:otherwise>
 		                                            	<c:forEach items="${list}" var="dto">
@@ -173,7 +177,7 @@
 			                                               		<td colspan="6" class="p-0 noBorder">
 																	<div class="collapse" id="detail${dto.seq}">
 																		<hr>
-																		<div class="card card-body pt-0">${dto.content}</div>
+																		<div class="card card-body pt-0 wordWrap">${dto.content}</div>
 																	</div>
 																</td>															
 															</tr>	                                               		                                           		
@@ -246,8 +250,8 @@
     <!-- others plugins -->
     <script src="${pageContext.request.contextPath }/adRsc/js/plugins.js"></script>
     <script src="${pageContext.request.contextPath }/adRsc/js/scripts.js"></script>
-    <script>
-		if(${pageNavi.size() > 0}){
+	<c:if test="${list.size() != 0}">	
+	<script>
 			var element = $(".pageNavi");
 			var page = "${page}";
 			if(page > 0 && page <= 10){
@@ -257,7 +261,9 @@
 			}else{
 				element[page % 10].classList.add('active');
 			}			
-		}
+	</script>
+	</c:if>    
+    <script>
 		$("#board").addClass("active");
 		$("#board").children("ul").addClass("in");
 		$("#guest").addClass("active");	  

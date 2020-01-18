@@ -98,44 +98,51 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                            	<c:forEach items="${list}" var="dto">
-                                            		<tr>
-                                                    <td class="toDetail${dto.seq}">${dto.seq}</td>                                            		
-                                                    <td class="toDetail${dto.seq} text-left">
-		                                            	<c:set var="text" value="${dto.title}"/>	
-		                                                	<c:choose>
-		                                                    	<c:when test="${fn:length(text) > 25}">
-				                                                    <c:set var="value" value="${fn:substring(text, 0, 25)}"/>	                                                    	
-																	${value}...	                                                    		
-		                                                    	</c:when>
-		                                                    	<c:otherwise>
-		                                                    		${dto.title}
-		                                                    	</c:otherwise>
-		                                                    </c:choose>	                                                    
-                                                    <c:if test="${dto.replyCount != 0}">
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong class="text-warning">${dto.replyCount}</strong>
-                                                    </c:if>
-                                                    </td>
-                                                    <td class="toDetail${dto.seq}">${dto.writer}</td>
-                                                    <td class="toDetail${dto.seq}">${dto.formedWriteDateForAdmin}</td>
-                                                    <td class="toDetail${dto.seq}">${dto.viewCount}</td>
-                                                    <td><i class="ti-trash" id="delProc${dto.seq }"></i></td>
-                                               		</tr>
-                                               		<script>
-                                               			$("#delProc${dto.seq}").on("click", function(){
-                                               				var result = confirm("이 게시물을 삭제할까요?");
-                                               				if(result){
-                                               					location.href = "${pageContext.request.contextPath}/adBoard/delCohow?page=${page}&seq=${dto.seq}";
-                                               				}                                              				                                             				
-                                               			})
-                                               			$(".toDetail${dto.seq}").hover(function(){
-                                               				$(".toDetail${dto.seq}").css("cursor", "pointer");
-                                               			});
-                                               			$(".toDetail${dto.seq}").on("click",function(){
-                                               				location.href = "${pageContext.request.contextPath}/adBoard/detailViewCohow?page=${page}&seq=${dto.seq}";
-                                               			})
-                                               		</script>
-                                            	</c:forEach>                                                                                               
+                                            <c:choose>
+                                            	<c:when test="${list.size() == 0}">
+                                            		<tr><th colspan='6'><marquee direction="right">게시물이 없습니다</marquee></th></tr>
+                                            	</c:when>
+                                            	<c:otherwise>
+	                                            	<c:forEach items="${list}" var="dto">
+	                                            		<tr>
+	                                                    <td class="toDetail${dto.seq}">${dto.seq}</td>                                            		
+	                                                    <td class="toDetail${dto.seq} text-left">
+			                                            	<c:set var="text" value="${dto.title}"/>	
+			                                                	<c:choose>
+			                                                    	<c:when test="${fn:length(text) > 25}">
+					                                                    <c:set var="value" value="${fn:substring(text, 0, 25)}"/>	                                                    	
+																		${value}...	                                                    		
+			                                                    	</c:when>
+			                                                    	<c:otherwise>
+			                                                    		${dto.title}
+			                                                    	</c:otherwise>
+			                                                    </c:choose>	                                                    
+	                                                    <c:if test="${dto.replyCount != 0}">
+	                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong class="text-warning">${dto.replyCount}</strong>
+	                                                    </c:if>
+	                                                    </td>
+	                                                    <td class="toDetail${dto.seq}">${dto.writer}</td>
+	                                                    <td class="toDetail${dto.seq}">${dto.formedWriteDateForAdmin}</td>
+	                                                    <td class="toDetail${dto.seq}">${dto.viewCount}</td>
+	                                                    <td><i class="ti-trash" id="delProc${dto.seq }"></i></td>
+	                                               		</tr>
+	                                               		<script>
+	                                               			$("#delProc${dto.seq}").on("click", function(){
+	                                               				var result = confirm("이 게시물을 삭제할까요?");
+	                                               				if(result){
+	                                               					location.href = "${pageContext.request.contextPath}/adBoard/delCohow?page=${page}&seq=${dto.seq}";
+	                                               				}                                              				                                             				
+	                                               			})
+	                                               			$(".toDetail${dto.seq}").hover(function(){
+	                                               				$(".toDetail${dto.seq}").css("cursor", "pointer");
+	                                               			});
+	                                               			$(".toDetail${dto.seq}").on("click",function(){
+	                                               				location.href = "${pageContext.request.contextPath}/adBoard/detailViewCohow?page=${page}&seq=${dto.seq}";
+	                                               			})
+	                                               		</script>
+	                                            	</c:forEach>                                               		
+                                            	</c:otherwise>
+                                            </c:choose>                                                                                           
                                             </tbody>
                                         </table>
                                     </div>
@@ -179,19 +186,20 @@
     <!-- others plugins -->
     <script src="${pageContext.request.contextPath }/adRsc/js/plugins.js"></script>
     <script src="${pageContext.request.contextPath }/adRsc/js/scripts.js"></script>
+	<c:if test="${list.size() != 0}">	
+	<script>
+			var element = $(".pageNavi");
+			var page = "${page}";
+			if(page > 0 && page <= 10){
+				element[page-1].classList.add('active');
+			}else if(page % 10 == 0){
+				element[10].classList.add('active');
+			}else{
+				element[page % 10].classList.add('active');
+			}			
+	</script>
+	</c:if>    
     <script>
-	if(${pageNavi.size() > 0}){
-		var element = $(".pageNavi");
-		var page = "${page}";
-		if(page > 0 && page <= 10){
-			element[page-1].classList.add('active');
-		}else if(page % 10 == 0){
-			element[10].classList.add('active');
-		}else{
-			element[page % 10].classList.add('active');
-		}
-	}
-
 	$("#board").addClass("active");
 	$("#board").children("ul").addClass("in");
 	$("#cohow").addClass("active");	  	

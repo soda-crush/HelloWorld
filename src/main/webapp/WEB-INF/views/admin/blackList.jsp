@@ -118,57 +118,64 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                            	<c:forEach items="${list}" var="dto">
-                                            		<tr>
-<!--                                             		<td class="align-self-center"><input type="checkbox"></td> -->
-	                                                <td scope="row">
-														<div class="btn-group dropright">
-														  <button class="btn btn-secondary btn-sm dropdown-toggle nameBtn p-0" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-boundary="viewport">
-														    ${dto.nickName}(${dto.id})&nbsp;&nbsp;&nbsp;<i class="fa fa-external-link"></i>
-														  </button>
-														  <div class="dropdown-menu">
-														    <p class="dropdown-item" id="memberInfo${dto.id}">회원정보</p>
-														    <c:choose>
-														    	<c:when test="${dto.memLevel == '1'}">
-														    		<p class="dropdown-item" id="memberStart${dto.id}">활동정지 해제</p>	
-														    	</c:when>
-														    	<c:otherwise>
-														    		<p class="dropdown-item" id="memberStop${dto.id}">활동정지</p>
-														    	</c:otherwise>
-														    </c:choose>														    
-														    <p class="dropdown-item" id="memberOut${dto.id}">강제탈퇴</p>
-														  </div>
-														</div>
-                                                    </td>
-                                                    <td>${dto.formedLastLogin}</td>
-                                                    <td>${dto.memLevel}</td>
-                                               		</tr>
-                                               		<form action="${pageContext.request.contextPath}/admin/blackOut" method="post" id="frm${dto.id}">
-                                               			<input type="hidden" name="id" value="${dto.id}">
-                                               			<input type="hidden" name="reason" id="reason${dto.id}">
-                                               		</form>
-                                               		<script>
-                                               			$("#memberInfo${dto.id}").on("click", function(){
-                                               				window.open("${pageContext.request.contextPath}/admin/getMemberInfo?id=${dto.id}","","width=518px,height=592px,top=300px,left=600px");
-                                               			})
-                                               			$("#memberStop${dto.id}").on("click", function(){
-                                               				var result = confirm("${dto.nickName}(${dto.id}) 님을 활동정지 하시겠습니까?");
-                                               				if(result){
-                                               					location.href = "${pageContext.request.contextPath}/admin/stopForBlack?id=${dto.id}";
-                                               				};
-                                               			})
-                                               			$("#memberStart${dto.id}").on("click", function(){
-                                               				var result = confirm("${dto.nickName}(${dto.id}) 님 활동정지를 해제할까요?");
-                                               				if(result){
-                                               					location.href = "${pageContext.request.contextPath}/admin/startForBlack?id=${dto.id}";
-                                               				};
-                                               			})
-                                               			$("#memberOut${dto.id}").on("click", function(){
-                                               				window.open("${pageContext.request.contextPath}/admin/memberOutForm?id=${dto.id}", "", "width=434px,innerHeight=453px,top=300px,left=600px");	
-                                               			})
-                                               			
-                                               		</script>
-                                            	</c:forEach>                                                                                                
+                                            	<c:choose>
+                                            		<c:when test="${list.size() == 0}">
+                                            			<tr><th colspan='3'><marquee direction="right">결과가 없습니다</marquee></th></tr>
+                                            		</c:when>
+                                            		<c:otherwise>
+		                                            	<c:forEach items="${list}" var="dto">
+		                                            		<tr>
+		<!--                                             		<td class="align-self-center"><input type="checkbox"></td> -->
+			                                                <td scope="row">
+																<div class="btn-group dropright">
+																  <button class="btn btn-secondary btn-sm dropdown-toggle nameBtn p-0" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-boundary="viewport">
+																    ${dto.nickName}(${dto.id})&nbsp;&nbsp;&nbsp;<i class="fa fa-external-link"></i>
+																  </button>
+																  <div class="dropdown-menu">
+																    <p class="dropdown-item" id="memberInfo${dto.id}">회원정보</p>
+																    <c:choose>
+																    	<c:when test="${dto.memLevel == '1'}">
+																    		<p class="dropdown-item" id="memberStart${dto.id}">활동정지 해제</p>	
+																    	</c:when>
+																    	<c:otherwise>
+																    		<p class="dropdown-item" id="memberStop${dto.id}">활동정지</p>
+																    	</c:otherwise>
+																    </c:choose>														    
+																    <p class="dropdown-item" id="memberOut${dto.id}">강제탈퇴</p>
+																  </div>
+																</div>
+		                                                    </td>
+		                                                    <td>${dto.formedLastLogin}</td>
+		                                                    <td>${dto.memLevel}</td>
+		                                               		</tr>
+		                                               		<form action="${pageContext.request.contextPath}/admin/blackOut" method="post" id="frm${dto.id}">
+		                                               			<input type="hidden" name="id" value="${dto.id}">
+		                                               			<input type="hidden" name="reason" id="reason${dto.id}">
+		                                               		</form>
+		                                               		<script>
+		                                               			$("#memberInfo${dto.id}").on("click", function(){
+		                                               				window.open("${pageContext.request.contextPath}/admin/getMemberInfo?id=${dto.id}","","width=518px,height=592px,top=300px,left=600px");
+		                                               			})
+		                                               			$("#memberStop${dto.id}").on("click", function(){
+		                                               				var result = confirm("${dto.nickName}(${dto.id}) 님을 활동정지 하시겠습니까?");
+		                                               				if(result){
+		                                               					location.href = "${pageContext.request.contextPath}/admin/stopForBlack?id=${dto.id}";
+		                                               				};
+		                                               			})
+		                                               			$("#memberStart${dto.id}").on("click", function(){
+		                                               				var result = confirm("${dto.nickName}(${dto.id}) 님 활동정지를 해제할까요?");
+		                                               				if(result){
+		                                               					location.href = "${pageContext.request.contextPath}/admin/startForBlack?id=${dto.id}";
+		                                               				};
+		                                               			})
+		                                               			$("#memberOut${dto.id}").on("click", function(){
+		                                               				window.open("${pageContext.request.contextPath}/admin/memberOutForm?id=${dto.id}", "", "width=434px,innerHeight=453px,top=300px,left=600px");	
+		                                               			})
+		                                               			
+		                                               		</script>
+		                                            	</c:forEach>                                               		
+                                            		</c:otherwise>
+                                            	</c:choose>                                                
                                             </tbody>
                                         </table>
                                     </div>
@@ -198,7 +205,7 @@
 	                                </div>
 	                                <div class="col-sm-6 my-1 pl-1 pr-1">
 									<input type="text" class="form-control form-control-sm" id="searchWord" name="searchWord"
-									placeholder="검색어를 입력하세요">
+									placeholder="검색어를 입력하세요" maxlength="12">
 									</div>
 									<div class="col-sm-2 my-1 p-0 pl-1 pr-1 text-center">
 									<button type="button" class="btn btn-primary btn-xs btn-block" id="searchBtn">검색</button>
@@ -228,8 +235,8 @@
     <!-- others plugins -->
     <script src="${pageContext.request.contextPath }/adRsc/js/plugins.js"></script>
     <script src="${pageContext.request.contextPath }/adRsc/js/scripts.js"></script>
-	 <script>
-		if(${pageNavi.size() > 0}){
+	<c:if test="${list.size() != 0}">	
+	<script>
 			var element = $(".pageNavi");
 			var page = "${page}";
 			if(page > 0 && page <= 10){
@@ -239,8 +246,9 @@
 			}else{
 				element[page % 10].classList.add('active');
 			}			
-		}
-	 
+	</script>
+	</c:if>
+<script>	 
 	 function checkAll(){
 		 if($("#checkAll").is(':checked')){
 			 $("input[type=checkbox]").prop("checked", true);

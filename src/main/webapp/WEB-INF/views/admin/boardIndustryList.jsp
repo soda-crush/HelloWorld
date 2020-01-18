@@ -100,7 +100,7 @@
                                             <tbody>
                                             	<c:choose>
                                             		<c:when test="${list.size() == 0}">
-                                            			<tr><th colspan='6'><marquee direction="right">게시물이 없습니다</marquee><th></tr>
+                                            			<tr><th colspan='6'><marquee direction="right">게시물이 없습니다</marquee></th></tr>
                                             		</c:when>
                                             		<c:otherwise>
 		                                            	<c:forEach items="${list}" var="dto">
@@ -188,8 +188,8 @@
     <!-- others plugins -->
     <script src="${pageContext.request.contextPath }/adRsc/js/plugins.js"></script>
     <script src="${pageContext.request.contextPath }/adRsc/js/scripts.js"></script>
-    <script>
-		if(${pageNavi.size() > 0}){
+	<c:if test="${list.size() != 0}">	
+	<script>
 			var element = $(".pageNavi");
 			var page = "${page}";
 			if(page > 0 && page <= 10){
@@ -199,8 +199,9 @@
 			}else{
 				element[page % 10].classList.add('active');
 			}			
-		}	
-		
+	</script>
+	</c:if>    
+    <script>
 		$("#board").addClass("active");
 		$("#board").children("ul").addClass("in");
 		$("#industry").addClass("active");	 		

@@ -102,7 +102,7 @@
 		                                            <tbody>
 		                                            	<c:choose>
 		                                            		<c:when test="${list.size() == 0}">
-		                                            			<tr><th colspan='3'><marquee direction="right">강퇴한 회원이 없습니다.</marquee><th></tr>
+		                                            			<tr><th colspan='3'><marquee direction="right">강퇴한 회원이 없습니다.</marquee></th></tr>
 		                                            		</c:when>
 		                                            		<c:otherwise>
 				                                            	<c:forEach items="${list}" var="dto">
@@ -167,19 +167,20 @@
     <!-- others plugins -->
     <script src="${pageContext.request.contextPath }/adRsc/js/plugins.js"></script>
     <script src="${pageContext.request.contextPath }/adRsc/js/scripts.js"></script>
-   	<script>
-	if(${pageNavi.size() > 0}){
-		var element = $(".pageNavi");
-		var page = "${page}";
-		if(page > 0 && page <= 10){
-			element[page-1].classList.add('active');
-		}else if(page % 10 == 0){
-			element[10].classList.add('active');
-		}else{
-			element[page % 10].classList.add('active');
-		}			
-	}
-	
+	<c:if test="${list.size() != 0}">	
+	<script>
+			var element = $(".pageNavi");
+			var page = "${page}";
+			if(page > 0 && page <= 10){
+				element[page-1].classList.add('active');
+			}else if(page % 10 == 0){
+				element[10].classList.add('active');
+			}else{
+				element[page % 10].classList.add('active');
+			}			
+	</script>
+	</c:if>    
+   	<script>	
 	$("#member").addClass("active");
 	$("#member").children("ul").addClass("in");
 	$("#outMember").addClass("active");	  

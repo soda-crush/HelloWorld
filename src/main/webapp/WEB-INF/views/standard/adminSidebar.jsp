@@ -13,7 +13,9 @@
 			<nav>
 				<ul class="metismenu" id="menu">
 					<li id="monitoring"><a href="${pageContext.request.contextPath }/admin/main"><i class="ti-dashboard"></i><span>모니터링</span></a></li>
-
+					
+					<li id="notice"><a href="${pageContext.request.contextPath }/admin/noticeList"><i class="ti-announcement"></i><span>공지사항</span></a></li>
+					
 					<li id="member"><a href="javascript:void(0)" aria-expanded="true"><i class="ti-user"></i><span>회원관리</span></a>
 						<ul class="collapse">
 							<li id="allMember"><a href="${pageContext.request.contextPath }/admin/memberList">회원 관리</a></li>

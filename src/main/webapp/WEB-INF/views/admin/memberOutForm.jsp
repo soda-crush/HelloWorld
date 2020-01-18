@@ -111,7 +111,7 @@ textarea{
 		                    	<input type="radio" id="radio4" name="reason" class="custom-control-input" value="etc">
 		                    	<label class="custom-control-label col-12" for="radio4"></label>
 		                    	<textarea class="form-control pt-0" aria-label="With textarea" id="etcReason" placeholder="기타  사유를 입력해주세요"
-		                    	disabled></textarea>                    	
+		                    	disabled maxlength="300"></textarea>                    	
 		                   	</div>    	
 							</div>
 							<input type="hidden" value="${dto.id}" name="id">
