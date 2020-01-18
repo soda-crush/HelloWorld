@@ -221,7 +221,7 @@
 	                                </div>
 	                                <div class="col-sm-6 my-1 pl-1 pr-1">
 									<input type="text" class="form-control form-control-sm" id="searchWord" name="searchWord"
-									placeholder="검색어를 입력하세요">
+									placeholder="검색어를 입력하세요" maxlength="12">
 									</div>
 									<div class="col-sm-2 my-1 p-0 pl-1 pr-1 text-center">
 									<button type="button" class="btn btn-primary btn-xs btn-block" id="searchBtn">검색</button>
@@ -251,8 +251,8 @@
     <!-- others plugins -->
     <script src="${pageContext.request.contextPath }/adRsc/js/plugins.js"></script>
     <script src="${pageContext.request.contextPath }/adRsc/js/scripts.js"></script>
-	 <script>
-		if(${pageNavi.size() > 0}){
+	<c:if test="${list.size() != 0}">	
+	<script>
 			var element = $(".pageNavi");
 			var page = "${page}";
 			if(page > 0 && page <= 10){
@@ -262,8 +262,9 @@
 			}else{
 				element[page % 10].classList.add('active');
 			}			
-		}
-	 
+	</script>
+	</c:if>    
+	<script>	 
 	 $("#searchBtn").on("click", function(){	 
 		var regex = /^[\w,가-힣,ㄱ-ㅎ,ㅏ-ㅣ]+/g;
 		var data = $("#searchWord").val();

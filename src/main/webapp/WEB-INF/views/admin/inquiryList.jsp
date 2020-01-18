@@ -191,20 +191,21 @@
     <!-- others plugins -->
     <script src="${pageContext.request.contextPath }/adRsc/js/plugins.js"></script>
     <script src="${pageContext.request.contextPath }/adRsc/js/scripts.js"></script>
-    <script>
-	if("${pageNavi.size() > 0}"){
-		var element = $(".pageNavi");
-		var page = "${page}";
-		if(page > 0 && page <= 10){
-			element[page-1].classList.add('active');
-		}else if(page % 10 == 0){
-			element[10].classList.add('active');
-		}else{
-			element[page % 10].classList.add('active');
-		}			
-	}	
-	
+	<c:if test="${list.size() != 0}">	
+	<script>
+			var element = $(".pageNavi");
+			var page = "${page}";
+			if(page > 0 && page <= 10){
+				element[page-1].classList.add('active');
+			}else if(page % 10 == 0){
+				element[10].classList.add('active');
+			}else{
+				element[page % 10].classList.add('active');
+			}			
+	</script>
+	</c:if>    
+    <script>	
 	$("#inquiry").addClass("active");
-</script>
+	</script>
 </body>
 </html>

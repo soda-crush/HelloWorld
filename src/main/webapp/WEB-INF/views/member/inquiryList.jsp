@@ -128,7 +128,7 @@
         </div>
         
         <jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
-        
+        <c:if test="${list.size() != 0}">
         <script>
 		$(function(){
 			var element = $(".pageNavi");
@@ -140,8 +140,8 @@
 			}else{
 				element[page % 10].classList.add('active');
 			}	
-		});
-		
+		});		
         </script>
+        </c:if>
 </body>
 </html>

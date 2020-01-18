@@ -34,34 +34,36 @@
 	.notification-area {
 		text-align:right;
 	}
+	.table{
+		min-width: 800px;
+	}
 </style>
 </head>
 <body>
 	<!-- preloader area start -->
-	<div id="preloader">
-		<div class="loader"></div>
-	</div>
-	<!-- preloader area end -->
-	<!-- page container area start -->
+    <div id="preloader">
+        <div class="loader"></div>
+    </div>
+    <!-- preloader area end -->
+    <!-- page container area start -->
     <div class="page-container">
-        <!-- sidebar menu area start -->
-        <jsp:include page="/WEB-INF/views/standard/adminSidebar.jsp"/>
-        <!-- sidebar menu area end -->
-        
-        <!-- main content area start -->
+		<!-- sidebar menu area start -->
+		<jsp:include page="/WEB-INF/views/standard/adminSidebar.jsp" />
+		<!-- sidebar menu area end -->
+		<!-- main content area start -->
         <div class="main-content">
-            <!-- header area start -->
-            <jsp:include page="/WEB-INF/views/standard/adminHeader.jsp"/>
-            <!-- header area end -->
-            <!-- page title area start -->
+			<!-- header area start -->
+			<jsp:include page="/WEB-INF/views/standard/adminHeader.jsp" />
+			<!-- header area end -->
+			<!-- page title area start -->
             <div class="page-title-area">
                 <div class="row align-items-center">
                     <div class="col-sm-6">
                         <div class="breadcrumbs-area clearfix">
-                            <h4 class="page-title pull-left">프로젝트 모집 관리</h4>
+                            <h4 class="page-title pull-left">일대일문의</h4>
                             <ul class="breadcrumbs pull-left">
                                 <li><a href="${pageContext.request.contextPath }/admin/main">Home</a></li>
-                                <li><span>프로젝트 모집</span></li>
+                                <li><span>일대일문의</span></li>
                             </ul>
                         </div>
                     </div>
@@ -91,23 +93,32 @@
                                             <thead class="text-uppercase">
                                                 <tr>
                                                     <th scope="col">번호</th>                                                
-                                                	<th scope="col">제목</th>
-                                                    <th scope="col">작성자</th>
-                                                    <th scope="col">작성일</th>
-                                                    <th scope="col">조회수</th>
-                                                    <th scope="col">삭제</th>                                                   
+                                                	<th scope="col">상태</th>
+                                                    <th scope="col">제목</th>
+                                                    <th scope="col">글쓴이</th>
+                                                    <th scope="col">작성일</th>                                                    
                                                 </tr>
                                             </thead>
                                             <tbody>
                                             	<c:choose>
-                                            		<c:when test="${list.size()==0}">
+                                            		<c:when test="${list.size() == 0}">
                                             			<tr><th colspan='6'><marquee direction="right">게시물이 없습니다</marquee><th></tr>
                                             		</c:when>
                                             		<c:otherwise>
-		                                            	<c:forEach items="${list}" var="dto">
-		                                            		<tr>
-		                                                    <td class="toDetail${dto.seq}">${dto.seq}</td>                                            		
-		                                                    <td class="toDetail${dto.seq} text-left">
+		                                            	<c:forEach items="${list }" var="dto">
+		                                            		<tr id="toDetail${dto.seq}">
+		                                                    <td>${dto.seq}</td>                                            		
+		                                                    <td scope="row">
+		                                                    <c:choose>
+		                                                    	<c:when test="${dto.count > 0}">
+		                                                    		<p class="text-success"><strong>답변완료</strong></p>
+		                                                    	</c:when>
+		                                                    	<c:otherwise>
+		                                                    		<p class="text-danger"><strong>답변대기중</strong></p>
+		                                                    	</c:otherwise>
+		                                                    </c:choose>
+		                                                    </td>
+		                                                    <td class="text-left">
 		                                                    	<c:set var="text" value="${dto.title}"/>	
 		                                                    	<c:choose>
 		                                                    		<c:when test="${fn:length(text) > 25}">
@@ -117,34 +128,22 @@
 		                                                    		<c:otherwise>
 		                                                    			${dto.title}
 		                                                    		</c:otherwise>
-		                                                    	</c:choose>	
-			                                                    <c:if test="${dto.commentCount != 0}">
-			                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong class="text-warning">${dto.commentCount}</strong>
-			                                                    </c:if>		                                                    	
+		                                                    	</c:choose>		                                                    
 		                                                    </td>
-		                                                    <td class="toDetail${dto.seq}">${dto.writer}(${dto.id})</td>
-		                                                    <td class="toDetail${dto.seq}">${dto.formedWriteDate }</td>
-		                                                    <td class="toDetail${dto.seq}">${dto.viewCount}</td>
-		                                                    <td><i class="ti-trash" id="delProc${dto.seq }"></i></td>
+		                                                    <td>${dto.writer}(${dto.writerID})</td>
+		                                                    <td>${dto.formedDate}</td>
 		                                               		</tr>
 		                                               		<script>
-		                                               			$("#delProc${dto.seq}").on("click", function(){
-		                                               				var result = confirm("이 게시물을 삭제할까요?");
-		                                               				if(result){
-		                                               					location.href = "${pageContext.request.contextPath}/adBoard/delProject?page=${page}&seq=${dto.seq}";
-		                                               				}                                              				                                             				
+		                                               			$("#toDetail${dto.seq}").hover(function(){
+		                                               				$("#toDetail${dto.seq}").css("cursor","pointer");
 		                                               			})
-		                                               			$(".toDetail${dto.seq}").hover(function(){
-		                                               				$(".toDetail${dto.seq}").css("cursor", "pointer");
-		                                               			});
-		                                               			$(".toDetail${dto.seq}").on("click",function(){
-		                                               				location.href = "${pageContext.request.contextPath}/adBoard/detailViewProject?page=${page}&seq=${dto.seq}";
+		                                               			$("#toDetail${dto.seq}").on("click",function(){
+		                                               				location.href = "inquiryDetailView?page=${page}&seq=${dto.seq}";
 		                                               			})
 		                                               		</script>
-		                                            	</c:forEach>                                             		
+		                                            	</c:forEach>                                            		
                                             		</c:otherwise>
-                                            	</c:choose>
-                                                                                              
+                                            	</c:choose>                                                                                               
                                             </tbody>
                                         </table>
                                     </div>
@@ -162,7 +161,7 @@
 													<li class="page-item pageNavi">${navi}</li>
 												</c:forEach>                                    		
                                     		</c:when>
-                                    	</c:choose>  
+                                    	</c:choose> 
                                     </ul>
                                 </nav>
                             </div>
@@ -170,7 +169,8 @@
                         
                     </div>
                     <!-- Hoverable Rows Table end -->
-
+                    
+               
             </div>
         </div>
         <!-- main content area end -->
@@ -179,8 +179,7 @@
         <!-- footer area end-->
     </div>
     <!-- page container area end -->
-
-
+   
     <!-- bootstrap 4 js -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
@@ -206,20 +205,7 @@
 	</script>
 	</c:if>    
     <script>	
-	function checkAll(){
-		var all = $("#all").prop("checked");
-		if(all){
-			$(".sel").prop("checked", true);
-			console.log("true");
-		}else{
-			$(".sel").prop("checked", false);
-			console.log("false");
-		}
-	}
-	
-	$("#board").addClass("active");
-	$("#board").children("ul").addClass("in");
-	$("#project").addClass("active");	  
+	$("#notice").addClass("active");
 	</script>
 </body>
 </html>

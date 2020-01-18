@@ -468,6 +468,7 @@ public class AdminService {
 	public List<CommentLogDTO> getComLog(){
 		return cdao.getComLog();
 	}
+	
 }
 
 

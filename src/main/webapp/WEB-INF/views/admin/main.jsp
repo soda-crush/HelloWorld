@@ -124,7 +124,7 @@
                 <!-- 1st report area end -->   
                 
                	<!-- 2nd report area start -->
-                <div class="visitor-area mt-5 mb-5">
+                <div class="visitor-area mt-5 mb-5 d-none d-lg-block">
                     <div class="row">
                         <div class="col-md-8">
 		                    <div class="col-12">
@@ -152,7 +152,7 @@
                 </div>
                 <!-- 2nd report area end -->    
                	<!-- 3rd report area start -->
-                <div class="visitor-area mt-5 mb-5">
+                <div class="visitor-area mt-5 mb-5 d-none d-lg-block">
                     <div class="row">
                         <div class="col-md-6">
 		                    <div class="col-12">
@@ -183,7 +183,7 @@
                 <!-- 3rd report area end -->    
                                           
                	<!-- 4th report area start -->
-                <div class="visitor-area mt-5 mb-5">
+                <div class="visitor-area mt-5 mb-5 d-none d-lg-block">
                     <div class="row">
                         <div class="col-md-4">
 							<div class="col-12">
@@ -224,7 +224,17 @@
                     </div>
                 </div>
                 <!-- 4th report area end -->                 
-                
+               	<!-- mobile area start -->
+                <div class="mt-5 mb-5 d-lg-none">
+					<div class="col-12">
+		            	<div class="card">
+		                	<div class="card-body">
+			                    <div class="col-12 text-center"><strong>모니터링 전체 기능은<br>PC 화면에서만 지원됩니다.</strong></div>                
+		                   	</div>
+						</div>
+					</div>
+                </div>
+                <!-- mobile area end -->                 
             </div>
         </div>
         <!-- main content area end -->
@@ -484,7 +494,7 @@ if ($('#visitChange').length > 0) {
 	        "labelRadius": -65,
 	        "labelText": "[[title]]%",
 	        "dataProvider": [{
-	            "title": "기타",
+	            "title": "알수없음",
 	            "value": num1
 	        }, {
 	            "title": "비재직자",

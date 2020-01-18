@@ -189,13 +189,6 @@ public class AdminController {
 		//회원 목록 받아오기(byPage)
 		int currentPage = 1;
 		if(page!= null && !page.equals("") && !page.equals("null")) currentPage = Integer.parseInt(page);
-//		if(currentPage > 0 && currentPage <= Configuration.naviCountPerPage) {
-//			m.addAttribute("currentPage", currentPage);
-//		}else if(currentPage % Configuration.naviCountPerPage == 0) {
-//			m.addAttribute("currentPage", Configuration.naviCountPerPage + 1);
-//		}else {
-//			m.addAttribute("currentPage", (currentPage % Configuration.naviCountPerPage + 1));
-//		}
 		
 		int end = currentPage * Configuration.recordCountPerPage;
 		int start = end - (Configuration.recordCountPerPage - 1);
@@ -391,6 +384,25 @@ public class AdminController {
 		m.addAttribute("page", currentPage);
 				
 		return "admin/searchBlackList";
+	}
+	
+	@RequestMapping("/noticeList")
+	public String adNoticeList(String page, Model m) {
+		int currentPage = 1;		
+		
+		if(page!= null && !page.equals("") && !page.equals("null")) currentPage = Integer.parseInt(page);
+				
+		int end = currentPage * Configuration.recordCountPerPage;
+		int start = end - (Configuration.recordCountPerPage - 1);	
+		
+		//List<InquiryDTO> list = as.noticeMainListByPage(start, end);
+		//m.addAttribute("list", list);
+		
+		//List<String> pageNavi = as.getNoticePageNavi(currentPage);
+		//m.addAttribute("pageNavi", pageNavi);
+		
+		m.addAttribute("page", currentPage);		
+		return "admin/noticeList";
 	}
 }
 
