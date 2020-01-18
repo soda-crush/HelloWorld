@@ -102,7 +102,7 @@
 		                                            <tbody>
 		                                            	<c:choose>
 		                                            		<c:when test="${list.size() == 0}">
-		                                            			<tr><th colspan='3'><marquee direction="right">강퇴한 회원이 없습니다.</marquee><th></tr>
+		                                            			<tr><th colspan='3'><marquee direction="right">강퇴한 회원이 없습니다.</marquee></th></tr>
 		                                            		</c:when>
 		                                            		<c:otherwise>
 				                                            	<c:forEach items="${list}" var="dto">

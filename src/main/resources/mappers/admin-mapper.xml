@@ -104,4 +104,22 @@
   <select id="getSearchBlackResultTotal" resultType="integer">
   	select count(*) from member where ${col} like #{searchWord} and (point&lt;=0 or memLevel=1) and pw is not null
   </select>
+  <select id="noticeMainListByPage" resultType="kh.hello.dto.NoticeDTO">
+  	select * from (select notice.*, row_number() over(order by seq desc) rown from notice) where rown between #{start} and #{end}
+  </select>
+  <select id="getNoticeTotal" resultType="integer">
+  	select count(*) from notice
+  </select>
+  <insert id="insertImg">
+  	insert into noticeImg values(noticeImgSeq.nextval, #{boardSeq}, #{sysName})
+  </insert>
+  <select id="getNoticeSeq" resultType="integer">
+  	select noticeSeq.nextval from dual
+  </select> 
+  <insert id="writeNotice">
+  	insert into notice values(#{seq}, #{title}, #{content}, sysdate, 0)
+  </insert>
+  <select id="noticeDetailView" resultType="kh.hello.dto.NoticeDTO">
+  	select * from notice where seq=#{seq}
+  </select>
 </mapper>

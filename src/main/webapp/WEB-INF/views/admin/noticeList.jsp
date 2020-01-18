@@ -60,10 +60,10 @@
                 <div class="row align-items-center">
                     <div class="col-sm-6">
                         <div class="breadcrumbs-area clearfix">
-                            <h4 class="page-title pull-left">일대일문의</h4>
+                            <h4 class="page-title pull-left">공지사항</h4>
                             <ul class="breadcrumbs pull-left">
                                 <li><a href="${pageContext.request.contextPath }/admin/main">Home</a></li>
-                                <li><span>일대일문의</span></li>
+                                <li><span>공지사항</span></li>
                             </ul>
                         </div>
                     </div>
@@ -93,31 +93,20 @@
                                             <thead class="text-uppercase">
                                                 <tr>
                                                     <th scope="col">번호</th>                                                
-                                                	<th scope="col">상태</th>
-                                                    <th scope="col">제목</th>
-                                                    <th scope="col">글쓴이</th>
-                                                    <th scope="col">작성일</th>                                                    
+                                                	<th scope="col">제목</th>
+                                                    <th scope="col">작성일</th>
+                                                    <th scope="col">조회수</th>                                                 
                                                 </tr>
                                             </thead>
                                             <tbody>
                                             	<c:choose>
                                             		<c:when test="${list.size() == 0}">
-                                            			<tr><th colspan='6'><marquee direction="right">게시물이 없습니다</marquee><th></tr>
+                                            			<tr><th colspan='4'><marquee direction="right">게시물이 없습니다</marquee></th></tr>
                                             		</c:when>
                                             		<c:otherwise>
-		                                            	<c:forEach items="${list }" var="dto">
+		                                            	<c:forEach items="${list}" var="dto">
 		                                            		<tr id="toDetail${dto.seq}">
 		                                                    <td>${dto.seq}</td>                                            		
-		                                                    <td scope="row">
-		                                                    <c:choose>
-		                                                    	<c:when test="${dto.count > 0}">
-		                                                    		<p class="text-success"><strong>답변완료</strong></p>
-		                                                    	</c:when>
-		                                                    	<c:otherwise>
-		                                                    		<p class="text-danger"><strong>답변대기중</strong></p>
-		                                                    	</c:otherwise>
-		                                                    </c:choose>
-		                                                    </td>
 		                                                    <td class="text-left">
 		                                                    	<c:set var="text" value="${dto.title}"/>	
 		                                                    	<c:choose>
@@ -130,15 +119,15 @@
 		                                                    		</c:otherwise>
 		                                                    	</c:choose>		                                                    
 		                                                    </td>
-		                                                    <td>${dto.writer}(${dto.writerID})</td>
 		                                                    <td>${dto.formedDate}</td>
+		                                                    <td>${dto.viewCount}</td>
 		                                               		</tr>
 		                                               		<script>
 		                                               			$("#toDetail${dto.seq}").hover(function(){
 		                                               				$("#toDetail${dto.seq}").css("cursor","pointer");
 		                                               			})
 		                                               			$("#toDetail${dto.seq}").on("click",function(){
-		                                               				location.href = "inquiryDetailView?page=${page}&seq=${dto.seq}";
+		                                               				location.href = "noticeDetailView?page=${page}&seq=${dto.seq}";
 		                                               			})
 		                                               		</script>
 		                                            	</c:forEach>                                            		
@@ -150,7 +139,11 @@
                                 </div>
                             </div>
                         </div>
-                        
+                         <div class="card">
+                            <div class="card-body text-right pt-0 pb-0">
+                            	<button type="button" class="btn btn-primary" id="write">글쓰기</button>
+                            </div>
+                         </div>                        
                          <div class="card">
                             <div class="card-body">
                                 <nav aria-label="Page navigation example">
@@ -193,19 +186,23 @@
     <script src="${pageContext.request.contextPath }/adRsc/js/scripts.js"></script>
 	<c:if test="${list.size() != 0}">	
 	<script>
-			var element = $(".pageNavi");
-			var page = "${page}";
-			if(page > 0 && page <= 10){
-				element[page-1].classList.add('active');
-			}else if(page % 10 == 0){
-				element[10].classList.add('active');
-			}else{
-				element[page % 10].classList.add('active');
-			}			
+	var element = $(".pageNavi");
+	var page = "${page}";
+	if(page > 0 && page <= 10){
+		element[page-1].classList.add('active');
+	}else if(page % 10 == 0){
+		element[10].classList.add('active');
+	}else{
+		element[page % 10].classList.add('active');
+	}			
 	</script>
 	</c:if>    
     <script>	
 	$("#notice").addClass("active");
+	
+	$("#write").on("click", function(){
+		location.href="${pageContext.request.contextPath}/admin/noticeWriteForm?page=${page}";
+	})
 	</script>
 </body>
 </html>
