@@ -22,6 +22,12 @@
 	#titleLink strong{
 		font-size:25px;
 	}
+	.tableBody div:nth-child(3){
+		cursor:default;
+	}
+	.tableBody div:nth-child(2){
+		cursor:pointer;
+	}	
 </style>
 </head>
 <body>
@@ -47,57 +53,68 @@
   				
 				<div id="pageTitle" class="row ml-1 mb-4">
 					<div class="col-12" id="titleLink">
-						<div class="col-auto vertical-align:text-top p-0"><strong>일대일문의</strong></div>
+						<div class="col-auto vertical-align:text-top p-0"><strong>공지사항</strong></div>
 					</div>
 					<script>
 						$("#titleLink").on("click", function(){
-							location.href="${pageContext.request.contextPath}/member1/myInquiry?page=${page}";
+							location.href="${pageContext.request.contextPath}/notice/noticeList?page=${page}";
 						})
 					</script>
-				</div>				
+				</div>	
+				<div class="searchDiv">
+					<form action="${pageContext.request.contextPath}/notice/noticeList" method="post">
+					  <div class="form-group row">
+					  	<div class="col-6 d-none d-md-block"></div>
+					    <div class="col-4 col-md-2 pr-0 pl-0">
+					      <label class="sr-only" for="inlineFormCustomSelect">Preference</label>
+					      <select class="custom-select" name="searchOption" id="inlineFormCustomSelect">
+					        <option selected value="all">제목+내용</option>
+					        <option value="title">제목</option>
+					        <option value="content">내용</option>
+					      </select>
+					    </div>
+					    <div class="col-6 col-md-3 pr-0 pl-0">
+					      <div class="custom-control custom-checkbox pl-0">
+					        <input type="text" class="form-control" name="keyword" placeholder="검색어를 입력하세요">
+					      </div>
+					    </div>
+					    <div class="col-2 col-md-1 pr-0 pl-0">
+					      <button type="submit" class="btn btn-primary">검색</button>
+					    </div>
+					  </div>
+					</form>
+				</div>			
 				<div class="tableDiv">
 					<div class="row tableHead">					    
-				    	<div class="col-4 col-md-3">답변상태</div>
-				    	<div class="col-1 d-none d-md-block">번호</div>
-				    	<div class="col-8 col-md-6">제목</div>
-				    	<div class="col-2 d-none d-md-block">작성일</div>
+				    	<div class="col-2">번호</div>
+				    	<div class="col-6">제목</div>
+				    	<div class="col-2">작성일</div>
+				    	<div class="col-2">조회수</div>
 					</div>
 					
 				  	<c:choose>
 				  		<c:when test="${list.size()==0}">
-				  		<div class="row"><div class="col-12" style="min-height:200px;">작성된 글이 없습니다.</div></div>
+				  		<div class="row"><div class="col-12 text-center" style="min-height:200px;">작성된 글이 없습니다.</div></div>
 				  		</c:when>
 				  		<c:otherwise>
 				  			<c:forEach items="${list}" var="dto">
-				  				<div class="row tableBody p-0">
-				  					<div class="col-4 col-md-3">
-				  					<c:choose>
-				  						<c:when test="${dto.count > 0}">
-				  							<p class="text-success m-0"><strong>답변완료</strong></p>
-				  						</c:when>
-				  						<c:otherwise>
-				  							<p class="text-danger m-0"><strong>답변대기중</strong></p>
-				  						</c:otherwise>
-				  					</c:choose>	
-				  					</div>			  					
-									<div class="col-1 d-none d-md-block">${dto.seq}</div>
-									<div class="col-8 col-md-6 pl-2" id="toDetail${dto.seq}" style="max-width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;">
+				  				<div class="row tableBody p-0">			  					
+									<div class="col-2">${dto.seq}</div>
+									<div class="col-6 text-left" id="toDetail${dto.seq}" style="max-width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;">
 									${dto.title}</div>
-									<div class="col-2 d-none d-md-block">${dto.formedDate}</div>
+									<div class="col-2 text-center">${dto.formedDate}</div>
+									<div class="col-2">${dto.viewCount}</div>
 								</div>
 								<script>
 									$("#toDetail${dto.seq}").on("click", function(){
-										location.href = "${pageContext.request.contextPath}/member1/detailViewInquiry?page=${page}&seq=${dto.seq}";
+										location.href = "${pageContext.request.contextPath}/notice/detailViewNotice?page=${page}&seq=${dto.seq}";
 									})
 								</script>	
 				  			</c:forEach>
 				  		</c:otherwise>
 				  	</c:choose>				    
 				</div>								
-				<div class="pageListFooter text-right">
-					<a class="btn btn-primary" href="${pageContext.request.contextPath}/member1/toInquiryForm?page=${page}" role="button">글쓰기</a>					
-				</div>
-				<nav aria-label="Page navigation example">
+				<nav aria-label="Page navigation example" class="mt-4">
 				  <ul class="pagination justify-content-center">
 				  <c:forEach items="${pageNavi}" var="page">
 				  	<li class="page-item pageNavi">${page}</li>
