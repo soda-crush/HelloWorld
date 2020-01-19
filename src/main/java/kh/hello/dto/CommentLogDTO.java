@@ -20,13 +20,13 @@ public class CommentLogDTO {
 		this.dateis = dateis;
 	}
 	public int getNewCom() {
-		return newCom-1;
+		return newCom;
 	}
 	public void setNewCom(int newCom) {
 		this.newCom = newCom;
 	}
 	public int getDelCom() {
-		return delCom-1;
+		return delCom;
 	}
 	public void setDelCom(int delCom) {
 		this.delCom = delCom;

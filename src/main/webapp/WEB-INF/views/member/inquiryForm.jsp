@@ -43,11 +43,7 @@
             <div class=container id="projectPage">
 				<div id="pageTitle" class="row ml-1 mb-4">
 					<div class="col-12" id="titleLink">
-							<div class="row">
-							<div class="col-auto vertical-align:text-top p-0"><i class="fa fa-quote-left"></i></div>
-							<div class="col-auto vertical-align:text-top p-0"><strong>일대일문의</strong></div>
-							<div class="col-auto vertical-align:text-top p-0"><i class="fa fa-quote-right"></i></div>
-							</div>
+						<div class="col-auto vertical-align:text-top p-0"><strong>일대일문의</strong></div>
 					</div>
 					<script>
 						$("#titleLink").on("click", function(){
@@ -76,7 +72,7 @@
             
             <div class=container>
                 <div class=row>
-                    <div class="col-12" id=aroundContent>
+                    <div class="col-12" id="aroundContent">
                     </div>
                 </div>
             </div>
@@ -88,7 +84,20 @@ $('.summernote').summernote({
     placeholder: '내용을 입력해주세요',	        
     minHeight: 300,
     maxHeight: 300,   
-    lang: 'ko-KR'
+    lang: 'ko-KR',
+    toolbar: [
+        ['style', ['style']],
+        ['font', ['bold', 'underline', 'clear']],
+        ['fontname', ['fontname']],
+        ['fontsize', ['fontsize']],
+        ['color', ['color']],
+        ['para', ['ul', 'ol', 'paragraph']],
+        ['height', ['height']],
+        ['table', ['table']],
+        ['insert', ['link', 'picture', 'hr']],
+        ['view', ['fullscreen']],
+        ['help', ['help']]
+  ]
 });     
 
 $("#writeBtn").on("click", function(){

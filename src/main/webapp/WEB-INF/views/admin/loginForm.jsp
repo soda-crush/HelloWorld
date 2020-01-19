@@ -98,6 +98,18 @@
 		    	}	    	
 		    }
 		    
+		    $("#frm").on("submit", function(){
+		    	var exDate = new Date();
+		    	var rem = $("#ckb1").prop("checked");
+		    	if(rem){
+		    		exDate.setDate(exDate.getDate() + 30);
+		    		var id = $("#name").val();
+		    		document.cookie = "adminId="+id+";expires="+exDate.toString();	
+		    	}else{
+		    		document.cookie = "adminId=;expires="+exDate.toString();
+		    	}
+		    })
+		    
 	})
 	
 </script>
