@@ -76,7 +76,7 @@
             
             <div class=container>
                 <div class=row>
-                    <div class="col-12" id=aroundContent>
+                    <div class="col-12" id="aroundContent">
                     </div>
                 </div>
             </div>
@@ -88,7 +88,20 @@ $('.summernote').summernote({
     placeholder: '내용을 입력해주세요',	        
     minHeight: 300,
     maxHeight: 300,   
-    lang: 'ko-KR'
+    lang: 'ko-KR',
+    toolbar: [
+        ['style', ['style']],
+        ['font', ['bold', 'underline', 'clear']],
+        ['fontname', ['fontname']],
+        ['fontsize', ['fontsize']],
+        ['color', ['color']],
+        ['para', ['ul', 'ol', 'paragraph']],
+        ['height', ['height']],
+        ['table', ['table']],
+        ['insert', ['link', 'picture', 'hr']],
+        ['view', ['fullscreen']],
+        ['help', ['help']]
+  ]
 });     
 
 $("#writeBtn").on("click", function(){
