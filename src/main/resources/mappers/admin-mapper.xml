@@ -122,4 +122,16 @@
   <select id="noticeDetailView" resultType="kh.hello.dto.NoticeDTO">
   	select * from notice where seq=#{seq}
   </select>
+  <update id="modifyNotice">
+  	update notice set title=#{title}, content=#{content}, writeDate=sysdate where seq=#{seq}
+  </update>
+  <delete id="deleteNotice">
+  	delete from notice where seq=#{seq}
+  </delete>
+  <select id="getImgsByBoardSeq" resultType="String">
+  	select sysName from noticeImg where boardSeq=#{boardSeq}
+  </select>
+  <delete id="delImgsByBoardSeq">
+  	delete from noticeImg where boardSeq=#{boardSeq}
+  </delete>
 </mapper>

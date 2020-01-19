@@ -413,12 +413,12 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/writeNotice")
-	public String writeNotice(NoticeDTO dto, Model m) {
+	public String writeNotice(String page, NoticeDTO dto) {
 		String path = session.getServletContext().getRealPath("attached");
 		try {
 			int seq = as.writeNotice(dto, path);
 			if(seq > 0) {
-				return "redirect:noticeDetailView?seq="+seq;
+				return "redirect:noticeDetailView?page="+page+"&seq="+seq;
 			}else {
 				return "redirect:adminError";
 			}
@@ -429,13 +429,54 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/noticeDetailView")
-	public String deetailViewNotice(String page, int seq, Model m) {
+	public String detailViewNotice(String page, int seq, Model m) {
 		//글 본문
 		NoticeDTO dto = as.noticeDetailView(seq);
 		m.addAttribute("dto", dto);
 		//페이지
 		m.addAttribute("page", page);
 		return "admin/noticeDetailView";
+	}
+	
+	@RequestMapping("/noticeModifyForm")
+	public String noticeModifyForm(String page, int seq, Model m) {
+		NoticeDTO dto = as.noticeDetailView(seq);
+		m.addAttribute("dto", dto);
+		m.addAttribute("page", page);
+		return "admin/noticeModifyForm";				
+	}
+	
+	@RequestMapping("/modifyNotice")
+	public String modifyNotice(String page, NoticeDTO dto) {
+		String path = session.getServletContext().getRealPath("attached");
+		try {
+			int seq = as.modifyNotice(dto, path);
+			if(seq > 0) {
+				return "redirect:noticeDetailView?page="+page+"&seq="+dto.getSeq();
+			}else {
+				return "redirect:adminError";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "redirect:adminError";
+		}		
+	}
+	
+	@RequestMapping("/delNotice")
+	public String delNotice(String page, int seq, Model m) {
+		String path = session.getServletContext().getRealPath("attached/notice");		
+		try {
+			int result = as.deleteNotice(path, seq);
+			m.addAttribute("result", result);
+			if(result == 0) {				
+				m.addAttribute("seq", seq);
+			}
+			m.addAttribute("page", page);
+			return "admin/noticeDeleteResult";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "redirect:adminError";
+		}
 	}
 }
 

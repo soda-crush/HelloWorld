@@ -90,12 +90,12 @@ text-align:right;
                     <div class="col-lg-12 mt-5 contentCard">
                         <div class="card">
                             <div class="card-body">
-	                            <form action="${pageContext.request.contextPath}/admin/writeNotice?page=${page}" method="post" enctype="multipart/form-data">
+	                            <form action="${pageContext.request.contextPath}/admin/modifyNotice?page=${page}" method="post" enctype="multipart/form-data">
 	                                <div class="invoice-area">
 	                                    <div class="invoice-head">
 	                                        <div class="row">
 	                                            <div class="iv-left col-12">
-	                                                <span>공지 쓰기</span>
+	                                                <span>수정하기</span>
 	                                            </div>
 	                                        </div>
 	                                    </div>
@@ -103,16 +103,17 @@ text-align:right;
 	                                        <div class="col-12">
 	                                            <div class="invoice-address mb-2">
 													<input type="text" class="form-control form-control-lg" name="title" maxlength="100"
-													id="title" placeholder="제목을 입력해주세요">
+													id="title" placeholder="제목을 입력해주세요" value="${dto.title}">
 	                                            </div>
 	                                            <div class="invoice-address">
-	                                            	<textarea class="form-control summernote" name="content" id="content"></textarea>
+	                                            	<textarea class="form-control summernote" name="content" id="content">${dto.content}</textarea>
 	                                            </div>
 	                                        </div>
 	                                    </div>                                   
 	                                </div> 
+	                                <input type="hidden" value="${dto.seq}" name="seq">
 	                                <div class="btn-area mt-2 text-center">
-	                                	<button type="submit" class="btn btn-primary mr-2" id="writeBtn">글쓰기</button>
+	                                	<button type="submit" class="btn btn-primary mr-2" id="modifyBtn">수정</button>
 	                                	<button type="button" class="btn btn-secondary ml-2" id="back">취소</button>
 	                                </div>
 	                            </form>                                  
@@ -149,7 +150,7 @@ text-align:right;
         lang: 'ko-KR'
     });  
     
-    $("#writeBtn").on("click", function(){
+    $("#modifyBtn").on("click", function(){
     	var regex = /^[(<p><br></p>)(<p>(&nbsp; ){1,}</p>)]{0,}$/g;
     	var content = $(".summernote").val();
     	var result = regex.exec(content);
@@ -171,7 +172,7 @@ text-align:right;
 	$("#back").on("click",function(){
 		var result = confirm("모든 입력 내용이 사라집니다. 글쓰기를 취소할까요?");
 		if(result){
-			location.href="noticeList?page=${page}";
+			location.href="noticeDetailView?page=${page}&seq=${dto.seq}";
 		}		
 	})        	
     $("#notice").addClass("active");

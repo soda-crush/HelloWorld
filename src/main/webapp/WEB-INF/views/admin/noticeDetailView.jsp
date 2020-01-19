@@ -130,7 +130,7 @@ cursor:default;
 		                                </div>
 		                                <div class="invoice-buttons text-right col-6">      
 		                                    <c:if test="${dto.title != null}">
-		                                    <a href="${pageContext.request.contextPath}/admin/modifyNotice?seq=${dto.seq}" class="invoice-btn">수정하기</a>
+		                                    <a href="${pageContext.request.contextPath}/admin/noticeModifyForm?seq=${dto.seq}" class="invoice-btn">수정하기</a>
 		                                    <a href="${pageContext.request.contextPath}/admin/delNotice?seq=${dto.seq}" class="invoice-btn">삭제하기</a>
 		                                    </c:if>
 		                                </div>
