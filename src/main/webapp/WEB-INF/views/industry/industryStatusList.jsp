@@ -182,6 +182,9 @@
 // 				console.log("실패");
 // 			})
 		});
+		</script>
+		<c:if test="${industryStatusList.size() != 0}">
+		<script>
 		$(function(){
 			var element = $(".pageNavi");
 			var page = "${page}";
@@ -193,6 +196,9 @@
 				element[page % 10].classList.add('active');
 			}	
 			});
+			</script>
+			</c:if>
+			<script>
 		//닉네임 눌렀을때 새창 띄우기
 		function popUp(id,writer){
 			if(writer == null){
