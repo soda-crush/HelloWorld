@@ -52,7 +52,7 @@ body{background-color:#e9ecef;}
 							<div><label class="ml-4">재직여부</label><span class="ml-1">${aPage.workInInKor }</span></div>
 							<div><label class="ml-4">포트폴리오 열람 공개여부</label><span class="ml-1">${aPage.portfolioInKor }</span>
 								<c:if test="${aPage.portfolio=='Y' }">
-									<span onclick="popUp('/Portfolio/toPlog.do?owner=${aPage.id}')" class="badge badge-info" id="openPortfolio" style="cursor:pointer;">열람하기</span>
+									<span onclick="pLogPopUp('/Portfolio/toPlog.do?owner=${aPage.id}')" class="badge badge-info" id="openPortfolio" style="cursor:pointer;">열람하기</span>
 								</c:if>
 							</div>
 							<div><label class="ml-4">하고싶은 말</label></div>
@@ -114,6 +114,9 @@ body{background-color:#e9ecef;}
 			function popUp(link){
 				window.open(link, "applyPopUp", "width=1000,height=750");
 			}
+			function pLogPopUp(link){
+				window.open(link, "pLogPopUp", "width=800,height=600");
+			}			
 	        $("#applyCancelBtn").on("click",function(){
 	        	var check = confirm("신청을 취소하시겠습니까?");
 	        	if(check){

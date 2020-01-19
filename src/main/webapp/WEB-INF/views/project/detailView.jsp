@@ -95,10 +95,10 @@
 									  						<span class="pApply font-weight-bold">${pPage.applyCount }</span>
 									  					</c:if>
 													</button>										
-													<button type="button" class="btn btn-success" id="pCloseBtn">모집완료처리</button>
+													<button type="button" class="btn btn-success" id="pCloseBtn">모집마감처리</button>
 												</c:when>
 												<c:otherwise>
-													<p style="font-weight:bold;"><span style="color:red;font-weight:bold;">모집완료</span>되었습니다.</p>
+													<p style="font-weight:bold;"><span style="color:red;font-weight:bold;">모집마감</span>되었습니다.</p>
 													<button type="button" class="btn btn-warning" id="applyCheckBtn">전체신청내역</button>
 												</c:otherwise>
 											</c:choose>										
@@ -230,7 +230,7 @@
 		
 		<script>
 		function popUp(link){
-			window.open(link, "pLogPopUp", "width=600,height=600");
+			window.open(link, "pLogPopUp", "width=800,height=600");
 		}
 		$("#pReportBtn").on("click",function(){
 			var check = "해당 게시물을 신고하시겠습니까?";
@@ -246,8 +246,6 @@
 						$('#reportModal').modal('show');						
 					}
 				}).fail(function(resp){
-// 					console.log("실패");
-// 					console.log(resp);
 				});
 				return false;
 			}
@@ -385,7 +383,7 @@
        	$("#pDelBtn").on("click",function(){
        		var check = ${checkApplyCount};
        		if(check>0){
-       			var confirm = confirm("신청 대기중 또는 신청 승인된 회원이 있습니다\n정말 삭제하시겠습니까?");
+       			var check = confirm("신청 대기중 또는 신청 승인된 회원이 있습니다\n정말 삭제하시겠습니까?");
        			if(check){
        				location.href="/project/deleteProc?seq="+$("#pageSeq").val();
        			}

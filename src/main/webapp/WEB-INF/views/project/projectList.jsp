@@ -18,8 +18,6 @@
       $("#proNavi").attr('class','nav-item nav-link active');
    });
 </script>
-<style>
-</style>
 </head>
 
 <body>
@@ -51,13 +49,12 @@
 								<button type="button" class="btn btn-outline-warning btn-sm active" id="latestOrder">최신순</button>
 								<button type="button" class="btn btn-outline-warning btn-sm" id="deadlineOrder" data-toggle="tooltip" title="모집마감된 글은 제외됩니다">마감임박순</button>
 							</div>
-<!-- 							<input type="hidden" name="pageOrder" id="pageOrder"> -->
 						</div>
 					</div>
 					<div class="row tableHead">					    
 					    <div class="col-xl-1 d-none d-xl-block">번호</div>
-					    <div class="col-xl-1 col-2 col-md-2 col-lg-1">상태</div>
-					    <div class="col-xl-3 col-8 col-md-5">제목</div>
+					    <div class="col-xl-1 col-3 col-md-2 col-lg-1">상태</div>
+					    <div class="col-xl-3 col-7 col-md-5">제목</div>
 					    <div class="col-xl-1 col-2 col-md-1">지역</div>
 					    <div class="col-xl-1 col-lg-1 d-none d-lg-block">인원</div>
 					    <div class="col-xl-2 col-md-4 d-none d-md-block">프로젝트 기간</div>
@@ -74,8 +71,8 @@
 				  			<c:forEach items="${projectList }" var="p">
 				  				<div class="row tableBody p-0">
 									<div class="col-xl-1 d-none d-xl-block">${p.seq }</div>
-									<div class="col-xl-1 col-2 col-md-2 col-lg-1 ${p.state }">${p.stateInKor }</div>
-				  					<div class="col-xl-3 col-8 col-md-5 text-decoration-none" onclick="location.href='/project/detailView?page=${currentPage}&seq=${p.seq }'">
+									<div class="col-xl-1 col-3 col-md-2 col-lg-1 ${p.state }">${p.stateInKor }</div>
+				  					<div class="col-xl-3 col-7 col-md-5 text-decoration-none" onclick="location.href='/project/detailView?page=${currentPage}&seq=${p.seq }'">
 											<div class="row">
 											<div style="max-width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;font-weight:bold;">${p.title }</div> 
 					  						<c:if test="${p.commentCount>0 }">
@@ -85,8 +82,8 @@
 									</div>
 									<div class="col-xl-1 col-2 col-md-1">${p.location1 }</div>
 									<div class="col-xl-1 col-lg-1 d-none d-lg-block">${p.capacity }명</div>
-									<div class="col-xl-2 col-md-4 d-none d-md-block">${p.formedAllDate }</div>
-									<div class="col-xl-1 d-none d-xl-block text-decoration-none" onclick="popUp('/Portfolio/toPlog.do?owner=${p.id}')">${p.writer }</div>
+									<div class="col-xl-2 col-md-4 d-none d-md-block"><small>${p.formedAllDate }</small></div>
+									<div class="col-xl-1 d-none d-xl-block text-decoration-none" onclick="popUp('/Portfolio/toPlog.do?owner=${p.id}')"><small>${p.writer }</small></div>
 									<div class="col-xl-1 d-none d-xl-block">${p.formedDate }</div>
 									<div class="col-xl-1 d-none d-xl-block">${p.viewCount }</div>
 								</div>	
@@ -95,9 +92,9 @@
 				  	</c:choose>				    
 				</div>
 				<div class="row pageListFooter">
-					<div class="col-12 order-2 order-md-1 col-md-10">
+					<div class="col-12 order-2 order-lg-1 col-lg-10">
 						  <form class="form-inline" action="/project/list" method="post" id="searchFrm">
-							<select class="form-control searchSelect" name="searchOption" id="searchOption" style="margin-right:5px;max-width:135px;">
+							<select class="form-control searchSelect" name="searchOption" id="searchOption" style="margin-right:5px;">
 								<option selected disabled>선택</option>
 								<option value="all">제목+내용</option>
 							    <option value="title">제목</option>
@@ -107,12 +104,12 @@
 							    <option value="writer">작성자</option>									    
 							</select>
 							<input type="hidden" name="pageOrder" id="pageOrder">
-						    <input class="form-control mr-sm-2" type="search" placeholder="검색어를 입력하세요" aria-label="Search" name="keyword" id="keyword" style="max-width:250px;">
+						    <input class="form-control mr-sm-2" type="search" placeholder="검색어를 입력하세요" aria-label="Search" name="keyword" id="keyword" style="margin-right:5px;">
 						    <button class="btn btn-dark my-2 my-sm-0 ml-1" type="submit" id="searchBtn">검색</button>
 						  </form>
 					</div>								
-					<div class="col-12 order-1 order-md-2 col-md-2 text-right">
-						<a class="btn btn-success" href="/project/write" role="button">글쓰기</a>					
+					<div class="col-12 order-1 order-lg-2 col-lg-2 text-right">
+						<a class="btn btn-success mb-2" href="/project/write" role="button">글쓰기</a>					
 					</div>
 				</div>
 				<nav aria-label="List navi" id="pPageNavi">${pageNavi }</nav>
@@ -158,7 +155,7 @@
 	        });
         	$(".pNavi${currentPage}").addClass("active");
 			function popUp(link){
-				window.open(link, "pLogPopUp", "width=600,height=600");
+				window.open(link, "pLogPopUp", "width=800,height=600");
 			}
         </script>
 </body>
