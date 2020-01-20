@@ -114,7 +114,7 @@
 		                	<input type="hidden" name ="image2" id="file2" value="/img/noImage.png">
 		                </div>
 		                <div class="col-12 col-sm-9 col-xl-10">
-		                    <div class="row">
+		                    <div class="row">	
 		                        <div class="col-3 col-sm-2  col-lg-1" id="funcname"> 기능명</div>
 		                        <div class="col-9 col-sm-10 col-lg-11" id="funcname2"><input name="function2" value="Hello World(세미 프로젝트)" style="height:18px margin-bottom:" maxlength="100"> </div>
 		                        <div class="col-3 col-sm-2  col-lg-1" id="funcexpl" > 설명</div>
