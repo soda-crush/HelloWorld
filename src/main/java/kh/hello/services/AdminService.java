@@ -53,16 +53,16 @@ public class AdminService {
 	@Autowired
 	private JavaMailSender informMail;
 	
-	public int validLogin(String adminId, String password) {
-		return adao.validLogin(adminId, password);
+	public int validLogin(String adminId, String password) throws Exception{
+		return adao.validLogin(adminId, Utils.encrypt(password));
 	}
 	
 	public String getAdminEmail(String adminId) {
 		return adao.getAdminEmail(adminId);
 	}
 	
-	public int modifyInfo(String adminId, String password, String email) {
-		return adao.modifyInfo(adminId, password, email);
+	public int modifyInfo(String adminId, String password, String email) throws Exception{
+		return adao.modifyInfo(adminId, Utils.encrypt(password), email);
 	}
 	
 	public List<InquiryDTO> selectInquiryByPage(int start, int end){			
