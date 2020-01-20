@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Hello World!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="${pageContext.request.contextPath }/icon/favicon.ico"/>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
@@ -27,8 +28,6 @@
 		#page${page}{color:blue;}
 		.coltheme{margin:30px;}
 		.navi{text-align: center;}
-		.nvlink1{height:45px;line-height:45px;font-size:14px;}
-		.nvlink2{height:45px;line-height:45px;font-size:10px;}
         a:hover{text-decoration:none;}	
         .scrapnavi>div{height:50px;line-height:50px;}
         .scrapnavi>div>a{color:black;font-size:16px;}
@@ -128,13 +127,15 @@
         $(function(){
     		var element = $(".pageNavi");
     		var cpage = "${cpage}";
-    		if(cpage > 0 && cpage <= 10){
-    			element[cpage-1].classList.add('active');
-    		}else if(page % 10 == 0){
-    			element[10].classList.add('active');
-    		}else{
-    			element[cpage % 10].classList.add('active');
-    		}	
+    		if(element.length != 0){
+	    		if(cpage > 0 && cpage <= 10){
+	    			element[cpage-1].classList.add('active');
+	    		}else if(page % 10 == 0){
+	    			element[10].classList.add('active');
+	    		}else{
+	    			element[cpage % 10].classList.add('active');
+	    		}
+    		}
     	});
         function popUp(id,writer){
     		if(writer == null){
