@@ -37,14 +37,8 @@
 .sele {
 	width: 200px;
 }
-
-.btn {
-	margin: 20px;
-}
-
-.btn-primary {
-	width: 110px;
-	height: 30px;
+.btn{
+	margin:5px;
 }
 </style>
 <script>
@@ -126,11 +120,13 @@
 <!-- 						<div id="summernote"></div> -->
 					</div>
 				</div>
-
+				
+			<br>
+			
 				<div class=row>
 					<div class="col-12 btn" style="text-align: right;">
-						<button class="btn btn-primary" type="button" id="write">작성완료</button>
-						<button class="btn btn-primary" type="button" id="cancle">작성취소</button>
+						<button class="btn btn-primary cursorPointer" type="button" id="write">작성완료</button>
+						<button class="btn btn-danger cursorPointer" type="button" id="cancle">작성취소</button>
 					</div>
 				</div>
 			</div>
@@ -162,7 +158,9 @@
 		})
 		
 		$("#write").on("click", function(){
-		   regex = /^[(<p><br></p>)(<p>(&nbsp; ){1,}</p>)]{0,}$/g;
+// 		   regex = /^[(<p><br></p>)(<p>(&nbsp; ){1,}</p>)]{0,}$/g;
+		   var regex = /^[(<p><br></p>)(<p>(&nbsp; )+</p>)]{0,}$/g;
+		   
 //		   var content = $(".note-editable").text();
  		   var content = $(".summernote").val();
 		   var result = regex.exec(content);

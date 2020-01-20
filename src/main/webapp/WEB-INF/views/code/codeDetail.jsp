@@ -31,7 +31,7 @@
 	src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script type="text/javascript">
 	function shareKakaotalk() {
-		Kakao.init("7fce3c86f0e6aeeac11028850040589c"); // 사용할 앱의 JavaScript 키를 설정
+		Kakao.init("17c512cbe4e17a204cce3c9b7d64d274"); // 사용할 앱의 JavaScript 키를 설정
 		Kakao.Link.sendDefault({
 			objectType : "feed",
 			content : {
@@ -187,9 +187,9 @@ span:nth-child(4) {
 			<!-- 			<div id="pageTitle"> -->
 			<div class="topQ" style="margin-top:20px;">
 				<input type="hidden" name="seq" value="${qResult.seq}" id="qSeq">
-				<span><img src="/icon/q.png" width=50,height=50></span> <span class="badge badge-pill badge-danger">${qResult.point}</span>
+				<span><img src="/icon/q.png" width=50,height=50></span> <span class="badge badge-pill badge-danger" style="font-size:15px;">${qResult.point}</span>
 				<span class="badge badge-pill badge-success"
-					style="margin: 10; padding: 10; width: 80px; font-size:15px;">${qResult.division}</span>
+					style="width: 80px; font-size:15px;">${qResult.division}</span>
 					<!-- 영어 길게치면 영역넘어감 style설정해줘야함 -->
 				<span style="word-break:break-all; word-break:break-word; font-size:25px;">${qResult.title}</span>
 			</div>
@@ -204,32 +204,38 @@ span:nth-child(4) {
 				</div>
 				<br>
 
-               <c:if test="${qResult.id!=sessionScope.loginInfo.id}">
-                  <div style="text-align: right;" class="btnDIv">
-                     <a id="kakao-link-btn" href="javascript:;" onClick="shareKakaotalk();" style="text-decoration:none"> 
-                         <img src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" height=45/>
-                      </a>
-                     <c:if test="${count==0 && adoptCount==0}">
-                        <a class="btn btn-dark"
-                           href="/code/codeRWrite.do?seq=${qResult.seq}" role="button">답변</a>
-                     </c:if>
-<!--                      <a id="kakao-link-btn" href="javascript:;" -->
-<!--                         onClick="shareKakaotalk();">  -->
-<!--                         <img src="/icon/kakaoTalk.png" height=40> -->
-<!--                      </a> -->
-                     <!--    <button class="btn btn-warning" id="sharing">공유</button> -->
-                     <!--    <button type="button" class="btn btn-outline-warning" id="sharing"></button> -->
-                      
-                     <!-- <i class="fa fa-bookmark" id="scrapDone" data-toggle="tooltip" title="스크랩"></i> -->
-                     <c:if test="${sessionScope.loginInfo.id!=null}">
-	                     <button class="btn btn-success" id="scrap">스크랩</button>
-	                     <button class="btn btn-danger" id="report">신고</button>
-                     </c:if>
-                  </div>
-               </c:if>
+               	<c:if test="${qResult.id!=sessionScope.loginInfo.id}">
+               	  	  <div style="float:left">
+               	  		<c:if test="${count==0 && adoptCount==0}">
+	                        <a class="btn btn-dark"
+	                           href="/code/codeRWrite.do?seq=${qResult.seq}" role="button">답변하기</a>
+	                     </c:if>
+	                  </div>
+	                  <div style="text-align: right;">
+	                     <a id="kakao-link-btn" href="javascript:;" onClick="shareKakaotalk();" style="text-decoration:none"> 
+	                         <img src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" height=38/>
+	                      </a>
+	                     
+	<!--                      <a id="kakao-link-btn" href="javascript:;" -->
+	<!--                         onClick="shareKakaotalk();">  -->
+	<!--                         <img src="/icon/kakaoTalk.png" height=40> -->
+	<!--                      </a> -->
+	                     <!--    <button class="btn btn-warning" id="sharing">공유</button> -->
+	                     <!--    <button type="button" class="btn btn-outline-warning" id="sharing"></button> -->
+	                      
+	                     <!-- <i class="fa fa-bookmark" id="scrapDone" data-toggle="tooltip" title="스크랩"></i> -->
+	                     <c:if test="${sessionScope.loginInfo.id!=null}">
+		                     <button class="btn btn-success" id="scrap">스크랩</button>
+		                     <button class="btn btn-danger" id="report">신고</button>
+	                     </c:if>
+	                  </div>
+               	</c:if>
                
                <c:if test="${qResult.id==sessionScope.loginInfo.id}">
                   <div style="text-align: right;">
+                  	  <a id="kakao-link-btn" href="javascript:;" onClick="shareKakaotalk();" style="text-decoration:none"> 
+                         <img src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" height=38/>
+                      </a>
                   		<button class="btn btn-success" id="scrap">스크랩</button>
                      <!-- 답변이 있으면 삭제,수정이 안됨. -->
                      <c:if test="${repCount==0}">                     	
@@ -259,17 +265,29 @@ span:nth-child(4) {
 							</div>
 
 							<div class="col-xl-9 col-md-8">
-								<div class="row">
-									<div class="col-12 pt-0" style="font-size: 30px; font-weight: 100; padding-top:0px;">
-										<c:if test="${r.memLevel == 3}">
-											<span style="font-size: 18px; font-weight: 50; color: gray;">실무자</span>
-										</c:if>
+							<c:choose>
+								<c:when test="${r.memLevel == 3}">
+									<div class="row">
+										<div class="col-12 pt-0" style="font-size: 30px; font-weight: 100; padding-top:0px;">							
+											<c:if test="${r.memLevel == 3}">
+												<span style="font-size: 18px; font-weight: 50; color: gray;">실무자</span>
+											</c:if>
+										</div>
+										<div class="col-12" style="padding-top:0px; position: relative; bottom: 10px;">
+											<span style="cursor:pointer" onclick="popUp('${r.id}','${r.writer}')">${r.writer}</span>
+											<span style="font-size: 15px; font-weight: 50; color: gray;">님의 답변입니다.</span>
+										</div>									
 									</div>
-									<div class="col-12" style="padding-top:0px;">
-										<span style="cursor:pointer" onclick="popUp('${r.id}','${r.writer}')">${r.writer}</span>
-										<span style="font-size: 15px; font-weight: 50; color: gray;">님의 답변입니다.</span>
-									</div>									
-								</div>
+								</c:when>
+								<c:otherwise>
+									<div class="row">										
+										<div class="col-12" style="padding-top:0px; position: relative; top: 20px;">
+											<span style="cursor:pointer" onclick="popUp('${r.id}','${r.writer}')">${r.writer}</span>
+											<span style="font-size: 15px; font-weight: 50; color: gray;">님의 답변입니다.</span>
+										</div>									
+									</div>
+								</c:otherwise>
+							</c:choose>
 										
 								<%-- 						<c:if test="${r.adopt=='Y'}"> --%>
 								<!-- 							<i data-brackets-id="1484" class="fa fa-check-circle-o"  style="font-size:100px;"><h3 style="color:red;">질문자채택</h3></i> -->

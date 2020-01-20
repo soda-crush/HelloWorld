@@ -35,12 +35,9 @@
    width:200px;
 }
 .btn{
-   margin:20px;
+   margin:5px;
 }
-.btn-primary{
-   width:110px;
-   height:30px;
-}
+
 </style>
 <script>
 $(function(){
@@ -69,6 +66,9 @@ $(function(){
                   <h4>${sessionScope.loginInfo.nickName}님 답변해주세요.</h4>
                </div>
             </div>
+            
+            <br>
+            
 <!--          <input type="hidden" name="seq" value="1"> -->
             <input type="hidden" name="queSeq" value="${parent_seq}">
             <div class=row>
@@ -78,10 +78,12 @@ $(function(){
                </div>
             </div>
             
+            <br>
+            
             <div class=row>
                <div class="col-12 btn" style="text-align:right;">
-                  <button class="btn btn-primary" type="button" id="write">답변등록</button>
-                  <button class="btn btn-primary" type="button" id="cancle">취소</button>
+                  <button class="btn btn-primary cursorPointer" type="button" id="write">답변등록</button>
+                  <button class="btn btn-danger cursorPointer" type="button" id="cancle">취소</button>
                </div>
             </div>
          </div>
@@ -107,7 +109,9 @@ $(function(){
 		})
       
       $("#write").on("click", function(){
-		   regex = /^[(<p><br></p>)(<p>(&nbsp; ){1,}</p>)]{0,}$/g;
+// 		   regex = /^[(<p><br></p>)(<p>(&nbsp; ){1,}</p>)]{0,}$/g;
+		   var regex = /^[(<p><br></p>)(<p>(&nbsp; )+</p>)]{0,}$/g;
+		   
  		   var content = $(".summernote").val();
 		   var result = regex.exec(content);
 

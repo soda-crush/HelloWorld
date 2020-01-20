@@ -66,16 +66,16 @@
 		 select count(seq) from codeQuestion
 		 <choose>
 		 <when test="value == 'all'">								
-			 where (division like '%${search}%') or (writer like '%${search}%') or (title like '%${search}%') 
+			 where (upper(division) like upper('%${search}%')) or (upper(writer) like upper('%${search}%')) or (upper(title) like upper('%${search}%')) 
 		</when>
 		<when test="value == 'division'">								
-			 where (division like '%${search}%')
+			 where (upper(division) like upper('%${search}%')) 
 		</when>
 		<when test="value == 'title'">								
-			 where (title like '%${search}%')
+			 where (upper(title) like upper('%${search}%')) 
 		</when>
 		<when test="value == 'writer'">								
-			 where (writer like '%${search}%')
+			 where (upper(writer) like upper('%${search}%')) 
 		</when>
 		</choose>
 	</select>
@@ -102,16 +102,16 @@
 		select *
 		<choose>
 		 <when test="value == 'all'">								
-			 from (select codeQuestion.*, row_number() over(order by seq desc) rown,(select count(*) from codeReply where queSeq=codeQuestion.seq) as replyCount from codeQuestion where (division like '%${search}%') or (writer like '%${search}%') or (title like '%${search}%')) where rown between #{start} and #{end} order by seq desc
+			 from (select codeQuestion.*, row_number() over(order by seq desc) rown,(select count(*) from codeReply where queSeq=codeQuestion.seq) as replyCount from codeQuestion where (upper(division) like upper('%${search}%')) or (upper(writer) like upper('%${search}%')) or (upper(title) like upper('%${search}%'))) where rown between #{start} and #{end} order by seq desc
 		</when>
 		<when test="value == 'division'">
-			 from (select codeQuestion.*, row_number() over(order by seq desc) rown,(select count(*) from codeReply where queSeq=codeQuestion.seq) as replyCount  from codeQuestion where (division like '%${search}%')) where rown between #{start} and #{end}						
+			 from (select codeQuestion.*, row_number() over(order by seq desc) rown,(select count(*) from codeReply where queSeq=codeQuestion.seq) as replyCount  from codeQuestion where (upper(division) like upper('%${search}%'))) where rown between #{start} and #{end}						
 		</when>
 		<when test="value == 'writer'">
-			 from (select codeQuestion.*, row_number() over(order by seq desc) rown,(select count(*) from codeReply where queSeq=codeQuestion.seq) as replyCount  from codeQuestion where (writer like '%${search}%')) where rown between #{start} and #{end}						
+			 from (select codeQuestion.*, row_number() over(order by seq desc) rown,(select count(*) from codeReply where queSeq=codeQuestion.seq) as replyCount  from codeQuestion where (upper(writer) like upper'%${search}%'))) where rown between #{start} and #{end}						
 		</when>
 		<when test="value == 'title'">								
-			 from (select codeQuestion.*, row_number() over(order by seq desc) rown,(select count(*) from codeReply where queSeq=codeQuestion.seq) as replyCount  from codeQuestion where (title like '%${search}%')) where rown between #{start} and #{end}
+			 from (select codeQuestion.*, row_number() over(order by seq desc) rown,(select count(*) from codeReply where queSeq=codeQuestion.seq) as replyCount  from codeQuestion where (upper(title) like upper('%${search}%'))) where rown between #{start} and #{end}
 		</when>
 		</choose>
 	</select>
