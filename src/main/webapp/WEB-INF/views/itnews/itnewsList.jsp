@@ -69,6 +69,16 @@
 		font-size: 12px;
 		color:orange;
 	}
+ #aroundContent1{ 
+  	height: 100px; 
+ } 
+  #aroundContent{ 
+  	height: 150px; 
+ } 
+ #cateTitle{
+ color:#e6e6e6;}
+ #cateCmt{
+ color:#f2f2f2;}
 </style>
 
 <script>
@@ -83,7 +93,7 @@
  		<div id=baseBackgroundColor>
             <div class=container>
                 <div class=row>
-                    <div class="col-12" id=aroundContent>
+                    <div class="col-12" id=aroundContent1>
                     </div>
                 </div>
             </div>

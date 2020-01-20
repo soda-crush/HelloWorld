@@ -4,6 +4,7 @@ import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.sql.Date;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,7 @@ import kh.hello.dto.ProjectApplyDTO;
 import kh.hello.dto.ProjectCoDTO;
 import kh.hello.dto.ProjectDTO;
 import kh.hello.dto.ProjectImageDTO;
+import kh.hello.dto.ProjectChartDTO;
 import kh.hello.dto.ProjectPLogDTO;
 import kh.hello.dto.ReportDTO;
 import kh.hello.utils.Utils;
@@ -59,10 +61,27 @@ public class ProjectService {
 	 * 프로젝트 모집
 	 */
 	
-	public List<ProjectDTO> projectList(){
-		return dao.getProjectList();
+	public List<ProjectChartDTO> projectList(String id){
+		List<ProjectChartDTO> result = dao.getProjectList(id);
+		LocalDate today = LocalDate.now();
+		int tYear = today.getYear();
+		int tMonth = today.getMonthValue();
+		for(ProjectChartDTO m : result) {
+			LocalDate sDate = m.getStartDate().toLocalDate();
+			LocalDate eDate = m.getEndDate().toLocalDate();
+			int sYear = sDate.getYear();
+			int sMonth = sDate.getMonthValue();
+			int sDay = sDate.getDayOfMonth();						
+			if(tYear==sYear) {
+				long distance = (sMonth-tMonth)*105 + sDay*3;
+				m.setDistance(distance);
+				long duration = Duration.between(sDate.atStartOfDay(), eDate.atStartOfDay()).toDays()*3;
+				m.setWidth(duration);							
+			}
+		}
+		return result;
 	}
-		
+			
 	public String getPageNavi(int currentPage, String pageOrder, String searchOption, String keyword) {
 		int recordTotalCount = dao.getArticleCount(pageOrder, searchOption, keyword);
 		int pageTotalCount = 0;		

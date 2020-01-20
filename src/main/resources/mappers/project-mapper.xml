@@ -3,8 +3,9 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Project">
-	<select id="getList" resultType="kh.hello.dto.ProjectDTO">
-		select project.*,(select count(*) from projectComment where projectSeq=project.seq) as commentCount from project order by seq desc		
+	<select id="getList" resultType="kh.hello.dto.ProjectChartDTO">
+<!-- 		select project.*,(select count(*) from projectComment where projectSeq=project.seq) as commentCount from project order by seq desc		 -->
+		select * from (select project.*, (select count(*) from scrap where id=#{value} and category='project' and categorySeq=project.seq) as scrap from project where state = 'N') order by seq desc
 	</select>
 	<select id="checkForcedCloseProject" resultType="kh.hello.dto.ProjectDTO">
 		select seq from project where startDate = #{value} and state = 'N'

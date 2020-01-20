@@ -16,6 +16,7 @@ import kh.hello.dto.LoginInfoDTO;
 import kh.hello.dto.ProjectApplyDTO;
 import kh.hello.dto.ProjectCoDTO;
 import kh.hello.dto.ProjectDTO;
+import kh.hello.dto.ProjectChartDTO;
 import kh.hello.dto.ProjectPLogDTO;
 import kh.hello.dto.ReportDTO;
 import kh.hello.services.ProjectService;
@@ -59,17 +60,19 @@ public class ProjectMemController {
 	
 	@RequestMapping("/chart")
 	public String projectChart(Model m) {
-		List<ProjectDTO> result = svc.projectList();
+		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
+		String id = sessionValue.getId();				
+		List<ProjectChartDTO> result = svc.projectList(id);
 		m.addAttribute("projectList", result);
 		return "/project/projectChart";
 	}
 	
-	@RequestMapping("/map")
-	public String projectMap(Model m) {
-		List<ProjectDTO> result = svc.projectList();
-		m.addAttribute("projectList", result);
-		return "/project/projectMap";
-	}
+//	@RequestMapping("/map")
+//	public String projectMap(Model m) {
+//		List<ProjectDTO> result = svc.projectList();
+//		m.addAttribute("projectList", result);
+//		return "/project/projectMap";
+//	}
 	
 	@RequestMapping("/detailView")
 	public String projectDetailView(String page, int seq, Model m, HttpServletRequest request) {
