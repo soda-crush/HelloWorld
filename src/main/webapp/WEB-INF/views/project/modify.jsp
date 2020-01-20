@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Hello World!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="${pageContext.request.contextPath }/icon/favicon.ico"/>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
@@ -174,7 +175,17 @@
 	        placeholder: '내용을 입력해주세요',	        
 	        minHeight: 400,
 	        maxHeight: 400,
-	        
+	        toolbar: [
+	            ['style', ['style']],
+	            ['font', ['bold', 'underline', 'clear']],
+	            ['fontname', ['fontname']],
+	            ['color', ['color']],
+	            ['para', ['ul', 'ol', 'paragraph']],
+	            ['table', ['table']],
+	            ['insert', ['link', 'picture', 'hr']],
+	            ['view', ['fullscreen']],
+	            ['help', ['help']]
+	          ]
 	    });
 		
 		$('.datePicker').datepicker({
@@ -238,7 +249,7 @@
 				alert("제목을 입력해주세요");
 				return false;
 			}
-			regex = /^[(<p><br></p>)(<p>(&nbsp; ){1,}</p>)]{0,}$/g;
+			regex = /^[(<p><br></p>)(<p>(&nbsp; )+</p>)]{0,}$/;
 		   	var content = $(".summernote").val();
 		   	var result = regex.exec(content);
 		   	if(result!=null){

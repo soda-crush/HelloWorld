@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Hello World!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="${pageContext.request.contextPath }/icon/favicon.ico"/>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
@@ -18,17 +19,15 @@
 <link rel="stylesheet" href="/css/project/projectBase.css" type="text/css"/>
 <link rel="stylesheet" href="/css/project/detailView.css" type="text/css"/>
 <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.css" type="text/css"/>
+<script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script>
    $(function(){
       $("#proNavi").attr('class','nav-item nav-link active');
    });
 </script>
 <style>
-<<<<<<< HEAD
 #pInfo > div:nth-child(4) > div.col-md-7 > div > span > input.tt-input{max-width:620px;}
-=======
 #applyFrm > div.modal-body > div:nth-child(1) > div.col-7.pApplyInput > div > span > input.tt-input{max-width:250px;}
->>>>>>> d8fddf1a5bc6861cebf42e78bee38466518e877e
 </style>
 </head>
 
@@ -633,7 +632,40 @@
 				);
 				$(".pPageComments").append(html.join(""));	
 			}
-		}			
+		}
+		//카카오톡
+		  function shareKakaotalk() {
+		      Kakao.init("7fce3c86f0e6aeeac11028850040589c"); // 사용할 앱의 JavaScript 키를 설정
+		      Kakao.Link.sendDefault({
+		         objectType : "feed",
+		         content : {
+		            title : "${pPage.title}", // 콘텐츠의 타이틀 
+		            description : "프로젝트 모집", // 콘텐츠 상세설명
+		            imageUrl : "https://miro.medium.com/max/3840/1*U-R58ahr5dtAvtSLGK2wXg.png", // 썸네일 이미지          
+		            link : {
+		               mobileWebUrl : "http://${ip}/project/detailView?page=${page}&seq=${pPage.seq }", // 모바일 카카오톡에서 사용하는 웹 링크 URL		            		   
+		               webUrl : "http://${ip}/project/detailView?page=${page}&seq=${pPage.seq }" // PC버전 카카오톡에서 사용하는 웹 링크 URL
+		            }
+		         },
+		         social : {
+		            likeCount : 0 // LIKE 개수
+		            ,
+		            commentCount : 0 // 댓글 개수
+		            ,
+		            sharedCount : 0
+		         // 공유 회수
+		         },
+		         buttons : [ {
+		            title : "링크 이동하기" // 버튼 제목
+		            ,
+		            link : {
+		               mobileWebUrl : "http://${ip}/project/detailView?page=${page}&seq=${pPage.seq }",  // 모바일 카카오톡에서 사용하는 웹 링크 URL
+		               webUrl : "http://${ip}/project/detailView?page=${page}&seq=${pPage.seq }" // PC버전 카카오톡에서 사용하는 웹 링크 URL
+		            }
+		         } ]
+		      });
+		   }
+		  $("#kakaoSharing").on("click",shareKakaotalk);
 	</script>
 </body>
 </html>

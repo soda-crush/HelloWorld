@@ -14,6 +14,7 @@ import kh.hello.dto.ProjectApplyDTO;
 import kh.hello.dto.ProjectCoDTO;
 import kh.hello.dto.ProjectDTO;
 import kh.hello.dto.ProjectImageDTO;
+import kh.hello.dto.ProjectChartDTO;
 import kh.hello.dto.ProjectPLogDTO;
 import kh.hello.dto.ReportDTO;
 
@@ -31,8 +32,8 @@ public class ProjectDAO {
 	public List<ProjectDTO> checkForcedCloseProject(Date today){
 		return jdbc.selectOne("Project.checkForcedCloseProject", today);
 	}
-	public List<ProjectDTO> getProjectList(){//프로젝트 모집글 전체리스트
-		return jdbc.selectList("Project.getList");
+	public List<ProjectChartDTO> getProjectList(String id){//프로젝트 모집글 전체리스트
+		return jdbc.selectList("Project.getList", id);
 	}
 	
 	public int getArticleCount(String pageOrder, String searchOption, String keyword) {//프로젝트 모집글 전체 개수
