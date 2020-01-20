@@ -9,6 +9,7 @@ import kh.hello.dao.HomeDAO;
 import kh.hello.dto.BambooDTO;
 import kh.hello.dto.CodeQuestionDTO;
 import kh.hello.dto.IndustryStatusDTO;
+import kh.hello.dto.ItnewsDTO;
 import kh.hello.dto.ProjectDTO;
 
 @Service
@@ -27,6 +28,10 @@ public class HomeService {
 	
 	public List<IndustryStatusDTO> getIndusList(){
 		return dao.getIndusList();
+	}
+
+	public List<ItnewsDTO> getITList(){
+		return dao.getItList();
 	}
 	
 	public List<ProjectDTO> getProList(){

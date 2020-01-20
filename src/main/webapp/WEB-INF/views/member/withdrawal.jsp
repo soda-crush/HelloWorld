@@ -39,7 +39,7 @@
 				</div>
 				<div class="col-12 text-center">
 					<h1><br></h1>
-					<input type = text id = pw name=pw placeholder="비밀번호 입력" class=inputStyle1>
+					<input type = "password" id = pw name=pw placeholder="비밀번호 입력" class=inputStyle1>
 					<button type="button" class="btn btn-dark" id=do>탈퇴</button>
 					<h1><br><br><br></h1>
 				</div>

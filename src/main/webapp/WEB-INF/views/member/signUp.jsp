@@ -438,12 +438,12 @@
         
             //닉네임 중복검사
            		  $("#nickName").on("focusout",function(){
-                   var regex = /^[a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ가-힣]{2,10}$/gm;
+                   var regex = /^[a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ가-힣]{2,7}$/g;
                    var data =$("#nickName").val();
                    var result = regex.exec(data);
 
                     if(result == null){
-                        $("#nickMsg").html("&emsp;닉네임은 한글,영문자,숫자를 조합하여 2-10자로 입력해 주세요.");
+                        $("#nickMsg").html("&emsp;닉네임은 한글,영문자,숫자를 조합하여 2-7자로 입력해 주세요.");
                     	nickTest = 0;
                     }else{
                     	$("#nickMsg").html("");
@@ -492,7 +492,7 @@
                 
             //휴대폰 번호 중복,유효성 검사
             	$("#phone").on("focusout",function(){
-                   var regex = /^\d{10,11}$/gm;
+                   var regex = /^01\d\d{3,4}\d{4}$/g;
                    var data =$("#phone").val();
                    var result = regex.exec(data);
 
@@ -559,7 +559,7 @@
  	            	$("#unempEmailCheck").css("display","none");
  	               //실무자 체크했을때
  	            	 $("#sendMail1").on("click",function(){
- 	                     var regex = /^\w+@[a-z]+(\.[a-z]+){1,2}$/gm;
+ 	                     var regex = /^\w+@[a-z]+(\.[a-z]+){1,2}$/g;
  	                     var data = $("#empEmail").val();
  	                     var result = regex.exec(data);
 
@@ -580,11 +580,11 @@
  	 	 	              			if(resp == "true"){
  	 	 	              				alert("이미 등록된 이메일입니다.");
  	 	 	              			}else{
-	 	 	 	              			var regex = /^\w+@\w+.co.kr$/gm;
+	 	 	 	              			var regex = /^\w+@\w+.co.kr$/g;
 	 	 	 	                    	var data = $("#empEmail").val();
 	 	 	 	 	                    var result = regex.exec(data);
 	 	 	 	 	                    
-	 	 	 	 	                    var regex2 = /^\w+@\w+.pe.kr$/gm;
+	 	 	 	 	                    var regex2 = /^\w+@\w+.pe.kr$/g;
 	 	 		 	                    var result2 = regex2.exec(data);
 	 	 		 	                    
 	 	 		 	                    if(result2 != null){
@@ -619,7 +619,7 @@
  	            	$("#empEmailCheck").css("display","none");
  	            	//비실무자 체크했을때
  	            	  $("#sendMail2").on("click",function(){
- 	                     var regex = /^\w+@[a-z]+(\.[a-z]+){1,2}$/gm;
+ 	                     var regex = /^\w+@[a-z]+(\.[a-z]+){1,2}$/g;
  	                     var data = $("#unempEmail").val();
  	                     var result = regex.exec(data);
 
@@ -640,7 +640,7 @@
  	 	 	              			if(data == "true"){
  	 	 	              				alert("이미 등록된 이메일입니다.");
  	 	 	              			}else{
- 	 	 	              			var regex = /^\w+@\w+.co.kr$/gm;
+ 	 	 	              			var regex = /^\w+@\w+.co.kr$/g;
  	 	 	                    	var data = $("#unempEmail").val();
  	 	 	 	                    var result = regex.exec(data);
  	 	 	 	                    if(result == null){

@@ -34,9 +34,12 @@
             			<br>
             			<h1>아이디 찾기</h1>
             			<hr>
-            			아이디 : ${id} <br>
-            			<a href="${pageContext.request.contextPath}/member/login">로그인하러가기</a>&emsp;
-            			<a href="${pageContext.request.contextPath}/member/findPw">비밀번호 찾기</a>
+            			<p class="text-center">아이디 : ${id} </p>
+            			<div class="text-center">
+            			<a href="${pageContext.request.contextPath}/member/login" style="color:gray;">로그인하러가기</a>&emsp;
+            			<a href="${pageContext.request.contextPath}/member/findPw" style="color:gray;">비밀번호 찾기</a>
+            			</div>
+            			<br><br>
             		</div>
             	</div>
             </div>

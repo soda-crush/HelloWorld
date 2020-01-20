@@ -22,6 +22,12 @@
 		order by viewCount desc) where rown between 1 and 5
 	</select>
 	
+	<select id="getIt" resultType="kh.hello.dto.ItnewsDTO">
+		select * from(select itnews.*,row_number() over(order by seq desc) rown from itnewsd   
+		where writeDate > (sysDate-7)
+		order by viewCount desc) where rown between 1 and 5
+	</select>
+	
 	<select id="getPro" resultType="kh.hello.dto.ProjectDTO">
 		select * from project where state ='N'
 	</select>

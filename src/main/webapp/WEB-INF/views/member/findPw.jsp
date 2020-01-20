@@ -13,6 +13,13 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/css/mainBase.css">
 <link rel="stylesheet" type="text/css" href="/css/font-awesome/css/font-awesome.css">
+<style>
+input{
+	height: 38px;
+	border-radius: 5px;
+	border:1px solid #a8a8a8;
+	}
+</style>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/standard/header.jsp"/>
@@ -28,7 +35,7 @@
             <!--      몸통 시작!!!   -->
 
             
-            <div class="container">
+            <div class="container eleCon">
             
 	            <div class=row>
 					<div class=col-12>
@@ -38,12 +45,14 @@
 						<p>본인확인 이메일 주소와 입력한 이메일 주소가 같아야, 인증번호를 받을 수 있습니다.</p><br>
 					</div>
 					<div class="col-12 text-center">
-						<input type="text" id=id name=id placeholder="아이디"><br>
+						<input type="text" id=id name=id placeholder="아이디" style="position:relative;bottom:2px;"><br>
 						<input type = text id = name name=name placeholder="이름"><br>
-						&emsp;<input type = text id = email name=email placeholder="이메일 주소">
-						<button id=send>인증번호 받기 </button><br>
-						<input type=text id=codeInput name = codeInput placeholder="인증코드 입력"><br>
-						<button id=findBtn>다음</button>
+						&emsp;<input type = text id = email name=email placeholder="이메일 주소" style="position:relative;left:55px;top:1.6px;">
+						<button type="button" class="btn btn-secondary" id=send  style="position:relative;left:55px;top:1.6px;">인증번호 받기</button>
+						<br>
+						<input type=text id=codeInput name = codeInput placeholder="인증코드 입력" style="position:relative;top:2px;"><br>
+						<button type="button" class="btn btn-success" id=findBtn style="position:relative;top:4px;">다음</button>
+						<br><br>
 					</div>
 				</div>
 				

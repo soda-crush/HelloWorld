@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import kh.hello.dto.BambooDTO;
 import kh.hello.dto.CodeQuestionDTO;
 import kh.hello.dto.IndustryStatusDTO;
+import kh.hello.dto.ItnewsDTO;
 import kh.hello.dto.ProjectDTO;
 
 @Repository
@@ -27,6 +28,10 @@ public class HomeDAO {
 	
 	public List<IndustryStatusDTO> getIndusList(){
 		return jdbc.selectList("Home.getIndus");
+	}
+	
+	public List<ItnewsDTO> getItList(){
+		return jdbc.selectList("Home.getIt");
 	}
 	
 	public List<ProjectDTO> getProList(){

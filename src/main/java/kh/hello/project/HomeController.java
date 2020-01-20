@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import kh.hello.dto.BambooDTO;
 import kh.hello.dto.CodeQuestionDTO;
 import kh.hello.dto.IndustryStatusDTO;
+import kh.hello.dto.ItnewsDTO;
 import kh.hello.dto.ProjectDTO;
 import kh.hello.services.HomeService;
 
@@ -24,10 +25,12 @@ public class HomeController {
 		List<BambooDTO> bamList = hs.getBamList();
 		List<CodeQuestionDTO> codeList = hs.getCodeList();
 		List<IndustryStatusDTO> indusList = hs.getIndusList();
+		List<ItnewsDTO> itList = hs.getItList();
 		
 		m.addAttribute("bamList", bamList);
 		m.addAttribute("codeList", codeList);
 		m.addAttribute("indusList", indusList);
+		m.addAttribute("itList", itList);
 		
 		List<ProjectDTO> proList = hs.getProList();
 		m.addAttribute("proList", proList);
