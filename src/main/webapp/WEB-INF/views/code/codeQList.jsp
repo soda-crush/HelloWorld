@@ -221,16 +221,6 @@ a:hover {
 				element[page % 10].classList.add('active');
 			}	
 		});
-		
-		$("#write").on("click",function(){
-			if("${sessionScope.loginInfo.memLevel}" == 1){
-				alert("권한이 없습니다. 관리자에게 문의하세요.");
-				return false;
-			}
-			else{
-				 location.href="/code/codeQWrite.do";
-			}
-		})
 	</script>
 </c:if>
 	
@@ -253,6 +243,17 @@ a:hover {
 // 	     }).fail(function(resp){
 // 	        console.log("실패");
 // 	     })
+
+		
+	$("#write").on("click",function(){
+		if("${sessionScope.loginInfo.memLevel}" == 1){
+			alert("권한이 없습니다. 관리자에게 문의하세요.");
+			return false;
+		}
+		else{
+			 location.href="/code/codeQWrite.do";
+		}
+	})
 	
 	$("#search").on("click",function(){
 		$("frm").submit();
