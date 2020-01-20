@@ -25,6 +25,7 @@
 		.content{height:90%;float: left;resize: none;}
 		.sendbt{height:90%;float: left;}
 		#writer{text-underline-position: auto;margin-right: 30px;}
+		.scraptwrap{background-color:white;border:1px solid #BDBDBD;}
 		#page${page}{color:blue;}
 		.coltheme{margin:30px;}
 		.navi{text-align: center;}

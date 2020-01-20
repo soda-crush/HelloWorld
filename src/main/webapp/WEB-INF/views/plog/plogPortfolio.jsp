@@ -19,6 +19,7 @@
         .card{margin-top:20px;text-align:center;}
         .myprofile{margin-top: 20px;margin-bottom: 30px;padding-right:0px;}
         #mycard{float:none; display:flex;width:200px;height:300px;margin: auto;}
+        .wrapportfolio{background-color:white;border:1px solid #BDBDBD;}
         .cardwrap{float:left;}
         .card-text{font-size:12px;}
         a:hover{text-decoration:none;}
@@ -65,7 +66,7 @@
 	                </div>
 	                <div class ="col-12 col-md-8 col-lg-9 wrapportfolio">
 	                	<c:forEach items="${list}"  var="dto">
-	                		<div class="cardwrap col-6 col-xl-4">
+	                		<div class="cardwrap col-6 col-xl-4" onclick="location.href='${pageContext.request.contextPath}/Portfolio/detail.do?seq=${dto.seq}'" style="curser:pointer">
 		                        <div class="card">
 		                            <img src="${dto.image1}" class="card-img-top" alt="..." style="height:20vw;width:20vs;width:85%;margin:7.5%;">
 		                            <div class="card-body" style="padding: 5px;width:95%;height:115px;text-align:left;">

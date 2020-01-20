@@ -19,7 +19,6 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <style>
 	    div{font-size:13px;}
-		.interval{margin-top: 10px;margin-bottom: 10px;background-color:lightgray;border-radius: 8px;height:10px;}
 		textarea{border :0px;width:100%;height: 100px;resize: none;}
 		input{width:100%;}
 		#datepicker,#datepicker2{width:20%}
@@ -31,6 +30,7 @@
 		.redStar{color:red;}
 		.line-over{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 		#plogPortfolio{background-color:#efefef;border-radius:5px 5px 0px 0px;padding:12px;}
+        input, textarea{border:1px solid #BDBDBD;background-color:#EAEAEA}
     </style>
 </head>
 <body>
@@ -53,38 +53,38 @@
 		                <div class="col-3 col-md-2"><span class=redStar>*</span>프로젝트명  </div>
 		                <div class="col-9 col-md-10"><input id="portfolioTitle" name="portfolioTitle" maxlength="100"></div>               
 		            </div>
-		            <div class="interval"></div>
+			        <hr class="sp">
 		            <div class="row">
 		                <div class="col-3 col-md-2"> 수행 기간  </div>
 		                <div class="col-9 col-md-10"> <input name="startDateTemp" type="text" id="datepicker">
 		                    ~ <input name="endDateTemp" type="text" id="datepicker2"> </div>               
 		            </div>
-		            <div class="interval"></div>
+			        <hr class="sp">
 		            <div class="row">
 		                <div class="col-3 col-md-2"><span class=redStar>*</span>개발 목표 </div>
 		                <div class="col-9 col-md-10"><input id="purpose" name="purpose" maxlength="300"></div>               
 		            </div>
-		            <div class="interval"></div>
+			        <hr class="sp">
 		            <div class="row">
 		                <div class="col-3 col-md-2 theme"> 개발 환경 </div>
 		                <div class="col-9 col-md-10"> <textarea name="environment" maxlength="300"></textarea></div>               
 		            </div>
-		            <div class="interval"></div>
+			        <hr class="sp">
 		            <div class="row">
 		                <div class="col-3 col-md-2 theme"> 구현 기능 </div>
 		                <div class="col-9 col-md-10"> <textarea name="allFunction" maxlength="1300"></textarea></div>               
 		            </div>
-		            <div class="interval"></div>
+			        <hr class="sp">
 		            <div class="row">
 		                <div class="col-3 col-md-2 theme">  DB 설계 </div>
 		                <div class="col-9 col-md-10"> <textarea name="dbUnitPlan" maxlength="1300"></textarea></div>               
 		            </div>
-		            <div class="interval"></div>
+			        <hr class="sp">
 		            <div class="row">
 		                <div class="col-3 col-md-2 theme"> 담당 역할 </div>
 		                <div class="col-9 col-md-10"> <textarea name="role" maxlength="1300"></textarea></div>               
 		            </div>
-		            <div class="interval"></div>
+			        <hr class="sp">
 		            <div class="row">
 		                <div class="col-3 col-md-2 theme"> 참여/기여도 </div>
 		                <div class="col-9 col-md-10"> <textarea name="contribution" maxlength="1300"></textarea></div>               
@@ -106,7 +106,7 @@
 		                    </div>
 		                </div>
 		            </div>
-		            <div class="interval"></div>
+			        <hr class="sp">
 		            <div class="row">
 		                <div class="col-12 col-sm-3 col-xl-2">
                        		<input type="file" id="fileUpload2" name="fileUpload2" accept="image/*">
@@ -123,7 +123,7 @@
 		                    </div>
 		                </div>
 		            </div>
-		            <div class="interval"></div>
+			        <hr class="sp">
 		            <div class="row">
 		                <div class="col-12 col-sm-3 col-xl-2">
 		                	<input type="file" id="fileUpload3" name="fileUpload3" accept="image/*">
@@ -140,15 +140,15 @@
 		                    </div>
 		                </div>
 		            </div>
-		            <div class="interval"></div>
+			        <hr class="sp">
 		             <div class="row">
 		                <div class="col-3 col-md-2"> 깃 링크  </div>
 		                <div class="col-9 col-md-10"><input name="git" maxlength="130"> </div>               
 		            </div>
 		            <div class="interval"></div>
 		            <div style="text-align: end;">
-		            	<button class="btn btn-secondary" type="button" id="return">돌아가기</button>
-		            	<button class="btn btn-secondary" type="button" id="insert">작성 완료</button>
+		            	<button class="btn btn-primary" type="button" id="insert">작성</button>
+		            	<button class="btn btn-secondary" type="button" id="return">목록</button>
 		            </div>
 		            
 		        </div>

@@ -26,6 +26,7 @@
 		.content{height:90%;float: left;resize: none;}
 		.sendbt{height:90%;float: left;}
 		#writer{text-underline-position: auto;margin-right: 30px;}
+        .projectwrap{background-color:white;border:1px solid #BDBDBD;}
         a:hover{text-decoration:none;}
         .line-over{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
         #plogProject{background-color:#efefef;border-radius:5px 5px 0px 0px;padding:12px;}

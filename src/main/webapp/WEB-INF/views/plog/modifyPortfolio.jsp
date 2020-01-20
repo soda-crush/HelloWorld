@@ -19,7 +19,6 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <style>
 	    div{font-size:13px;}
-        .interval{margin-top: 10px;margin-bottom: 10px;background-color:lightgray;border-radius: 8px;height:10px;}
         textarea{border :0px;width:100%;height: 100px;resize: none;}
         input{width:100%;}
         #datepicker,#datepicker2{width:20%}
@@ -30,6 +29,8 @@
         #funcname1,#funcname2,#funcname3{margin-bottom: 8px;}
         .line-over{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
         #plogPortfolio{background-color:#efefef;border-radius:5px 5px 0px 0px;padding:12px;}
+        .page{background-color:white;border-radius:5px;padding:10px;}
+        input, textarea{border:1px solid #BDBDBD;background-color:#EAEAEA}
     </style>
 </head>
 <body>
@@ -48,107 +49,109 @@
             <form action="${pageContext.request.contextPath}/Portfolio/update.do" method="post" id="updateForm">
             	<input type="hidden" value="${pdto.seq}" name="seq">
 	            <div class="container">
-		            <h1> 포 트 폴 리 오</h1>
-		            <div class="row">
-		                <div class="col-3 col-md-2"> 프로젝트명  </div>
-		                <div class="col-9 col-md-10"><input id="portfolioTitle" name="portfolioTitle" maxlength="100" value="${pdto.portfolioTitle }"> </div>               
+		            <div class="page">
+			            <h1> 포 트 폴 리 오</h1>
+			            <div class="row">
+			                <div class="col-3 col-md-2"> 프로젝트명  </div>
+			                <div class="col-9 col-md-10"><input id="portfolioTitle" name="portfolioTitle" maxlength="100" value="${pdto.portfolioTitle }"> </div>               
+			            </div>
+			            <hr class="sp">
+			            <div class="row">
+			                <div class="col-3 col-md-2"> 수행 기간  </div>
+			                 <div class="col-9 col-md-10"> <input name="startDateTemp" type="text" id="datepicker">
+			                    ~ <input name="endDateTemp" type="text" id="datepicker2"> </div>         
+			            </div>
+			            <hr class="sp">
+			            <div class="row">
+			                <div class="col-3 col-md-2"> 개발 목표 </div>
+			                <div class="col-9 col-md-10"> <input id="purpose" name="purpose" maxlength="300" value="${pdto.purpose }"></div>               
+			            </div>
+			            <hr class="sp">
+			            <div class="row">
+			                <div class="col-3 col-md-2 theme"> 개발 환경 </div>
+			                <div class="col-9 col-md-10"> <textarea name="environment" maxlength="1300"> ${pdto.environment }</textarea></div>               
+			            </div>
+			            <hr class="sp">
+			            <div class="row">
+			                <div class="col-3 col-md-2 theme"> 구현 기능 </div>
+			                <div class="col-9 col-md-10"> <textarea name="allFunction" maxlength="1300">${pdto.allFunction }</textarea></div>               
+			            </div>
+			            <hr class="sp">
+			            <div class="row">
+			                <div class="col-3 col-md-2 theme">  DB 설계 </div>
+			                <div class="col-9 col-md-10"> <textarea name="dbUnitPlan" maxlength="1300">${pdto.dbUnitPlan }</textarea></div>               
+			            </div>
+			            <hr class="sp">
+			            <div class="row">
+			                <div class="col-3 col-md-2 theme"> 담당 역할 </div>
+			                <div class="col-9 col-md-10"> <textarea name="role" maxlength="1300">${pdto.role }</textarea></div>               
+			            </div>
+			            <hr class="sp">
+			            <div class="row">
+			                <div class="col-3 col-md-2 theme"> 참여/기여도 </div>
+			                <div class="col-9 col-md-10"> <textarea name="contribution" maxlength="1300">${pdto.contribution }</textarea></div>               
+			            </div>
 		            </div>
-		            <div class="interval"></div>
-		            <div class="row">
-		                <div class="col-3 col-md-2"> 수행 기간  </div>
-		                 <div class="col-9 col-md-10"> <input name="startDateTemp" type="text" id="datepicker">
-		                    ~ <input name="endDateTemp" type="text" id="datepicker2"> </div>     
-		                             
+		            <div class="page" style="margin-top:20px;">
+			            <h4 style="background-color: #f7941e;">구현 기능</h4>
+			            <div class="row">
+			                <div class="col-12 col-sm-3 col-xl-2">
+			                	<input type="file" id="fileUpload1" name="fileUpload1">
+			                	<img id="fileImg1"src="${pdto.image1}" style="height: 95%;width:100%;max-height: 170px;">
+			                	<input type="hidden" name ="image1" id="file1" value="${pdto.image1}">
+			                </div>
+			                <div class="col-12 col-sm-9 col-xl-10">
+			                    <div class="row">
+			                        <div class="col-3 col-sm-2  col-lg-1" id="funcname" accept="image/*"> 기능명</div>
+			                        <div class="col-9 col-sm-10 col-lg-11" id="funcname1"><input name="function1" style="height:18px margin-bottom:" value="${pdto.function1 }" maxlength="100"> </div>
+			                        <div class="col-3 col-sm-2  col-lg-1" id="funcexpl" > 설명</div>
+			                        <div class="col-9 col-sm-10 col-lg-11"><textarea name="explanation1" style="height:150px;" maxlength="1300">${pdto.explanation1 }</textarea></div>
+			                    </div>
+			                </div>
+			            </div>
+			            <hr class="sp">
+			            <div class="row">
+			                <div class="col-12 col-sm-3 col-xl-2">
+			                	<input type="file" id="fileUpload2" name="fileUpload2">
+			                	<img id="fileImg2"src="${pdto.image2}" style="height: 95%;width:100%;max-height: 170px;">
+			                	<input type="hidden" name ="image2" id="file2" value="${pdto.image2}">
+			                </div>
+			                <div class="col-12 col-sm-9 col-xl-10">
+			                    <div class="row">
+			                        <div class="col-3 col-sm-2  col-lg-1" id="funcname" accept="image/*"> 기능명</div>
+			                        <div class="col-9 col-sm-10 col-lg-11" id="funcname2"><input name="function2" style="height:18px margin-bottom:" value="${pdto.function2 }" maxlength="100"></div>
+			                        <div class="col-3 col-sm-2  col-lg-1" id="funcexpl" > 설명</div>
+			                        <div class="col-9 col-sm-10 col-lg-11"><textarea name="explanation2" style="height:150px;" maxlength="1300">${pdto.explanation2 }</textarea></div>
+			                    </div>
+			                </div>
+			            </div>
+			            <hr class="sp">
+			            <div class="row">
+			                <div class="col-12 col-sm-3 col-xl-2">
+			                	<input type="file" id="fileUpload3" name="fileUpload3" accept="image/*">
+			                	<img id="fileImg3"src="${pdto.image3}" style="height: 95%;width:100%;max-height: 170px;">
+			                	<input type="hidden" name ="image3" id="file3" value="${pdto.image3}">
+			                </div>
+			                <div class="col-12 col-sm-9 col-xl-10">
+			                    <div class="row">
+			                        <div class="col-3 col-sm-2  col-lg-1" id="funcname"> 기능명</div>
+			                        <div class="col-9 col-sm-10 col-lg-11 " id="funcname3"><input name="function3" style="height:18px margin-bottom:" value="${pdto.function3 }" maxlength="100"></div>
+			                        <div class="col-3 col-sm-2  col-lg-1" id="funcexpl" > 설명</div>
+			                        <div class="col-9 col-sm-10 col-lg-11"><textarea name="explanation3" style="height:150px;" maxlength="1300">${pdto.explanation3 }</textarea></div>
+			                    </div>
+			                </div>
+			            </div>
+			            <hr class="sp">
+			             <div class="row">
+			             	<div class="col-3 col-md-2"> 깃 링크  </div>
+			                <div class="col-9 col-md-10"><input type="text" name="git" value="${pdto.git }" maxlength="200"></div>               
+			            </div>
+			            <hr class="sp">
+			            <div style="text-align: end;">
+			            	<button class="btn btn-info" type="button" id="update">수정 완료</button>
+							<button class="btn btn-secondary" type="button" id="return">목록</button>
+			            </div>
 		            </div>
-		            <div class="interval"></div>
-		            <div class="row">
-		                <div class="col-3 col-md-2"> 개발 목표 </div>
-		                <div class="col-9 col-md-10"> <input id="purpose" name="purpose" maxlength="300" value="${pdto.purpose }"></div>               
-		            </div>
-		            <div class="interval"></div>
-		            <div class="row">
-		                <div class="col-3 col-md-2 theme"> 개발 환경 </div>
-		                <div class="col-9 col-md-10"> <textarea name="environment" maxlength="1300"> ${pdto.environment }</textarea></div>               
-		            </div>
-		            <div class="interval"></div>
-		            <div class="row">
-		                <div class="col-3 col-md-2 theme"> 구현 기능 </div>
-		                <div class="col-9 col-md-10"> <textarea name="allFunction" maxlength="1300">${pdto.allFunction }</textarea></div>               
-		            </div>
-		            <div class="interval"></div>
-		            <div class="row">
-		                <div class="col-3 col-md-2 theme">  DB 설계 </div>
-		                <div class="col-9 col-md-10"> <textarea name="dbUnitPlan" maxlength="1300">${pdto.dbUnitPlan }</textarea></div>               
-		            </div>
-		            <div class="interval"></div>
-		            <div class="row">
-		                <div class="col-3 col-md-2 theme"> 담당 역할 </div>
-		                <div class="col-9 col-md-10"> <textarea name="role" maxlength="1300">${pdto.role }</textarea></div>               
-		            </div>
-		            <div class="interval"></div>
-		            <div class="row">
-		                <div class="col-3 col-md-2 theme"> 참여/기여도 </div>
-		                <div class="col-9 col-md-10"> <textarea name="contribution" maxlength="1300">${pdto.contribution }</textarea></div>               
-		            </div>
-		            <h4>구현 기능</h4>
-		            <div class="row">
-		                <div class="col-12 col-sm-3 col-xl-2">
-		                	<input type="file" id="fileUpload1" name="fileUpload1">
-		                	<img id="fileImg1"src="${pdto.image1}" style="height: 95%;width:100%;max-height: 170px;">
-		                	<input type="hidden" name ="image1" id="file1" value="${pdto.image1}">
-		                </div>
-		                <div class="col-12 col-sm-9 col-xl-10">
-		                    <div class="row">
-		                        <div class="col-3 col-sm-2  col-lg-1" id="funcname" accept="image/*"> 기능명</div>
-		                        <div class="col-9 col-sm-10 col-lg-11" id="funcname1"><input name="function1" style="height:18px margin-bottom:" value="${pdto.function1 }" maxlength="100"> </div>
-		                        <div class="col-3 col-sm-2  col-lg-1" id="funcexpl" > 설명</div>
-		                        <div class="col-9 col-sm-10 col-lg-11"><textarea name="explanation1" style="height:150px;" maxlength="1300">${pdto.explanation1 }</textarea></div>
-		                    </div>
-		                </div>
-		            </div>
-		            <div class="interval"></div>
-		            <div class="row">
-		                <div class="col-12 col-sm-3 col-xl-2">
-		                	<input type="file" id="fileUpload2" name="fileUpload2">
-		                	<img id="fileImg2"src="${pdto.image2}" style="height: 95%;width:100%;max-height: 170px;">
-		                	<input type="hidden" name ="image2" id="file2" value="${pdto.image2}">
-		                </div>
-		                <div class="col-12 col-sm-9 col-xl-10">
-		                    <div class="row">
-		                        <div class="col-3 col-sm-2  col-lg-1" id="funcname" accept="image/*"> 기능명</div>
-		                        <div class="col-9 col-sm-10 col-lg-11" id="funcname2"><input name="function2" style="height:18px margin-bottom:" value="${pdto.function2 }" maxlength="100"></div>
-		                        <div class="col-3 col-sm-2  col-lg-1" id="funcexpl" > 설명</div>
-		                        <div class="col-9 col-sm-10 col-lg-11"><textarea name="explanation2" style="height:150px;" maxlength="1300">${pdto.explanation2 }</textarea></div>
-		                    </div>
-		                </div>
-		            </div>
-		            <div class="interval"></div>
-		            <div class="row">
-		                <div class="col-12 col-sm-3 col-xl-2">
-		                	<input type="file" id="fileUpload3" name="fileUpload3" accept="image/*">
-		                	<img id="fileImg3"src="${pdto.image3}" style="height: 95%;width:100%;max-height: 170px;">
-		                	<input type="hidden" name ="image3" id="file3" value="${pdto.image3}">
-		                </div>
-		                <div class="col-12 col-sm-9 col-xl-10">
-		                    <div class="row">
-		                        <div class="col-3 col-sm-2  col-lg-1" id="funcname"> 기능명</div>
-		                        <div class="col-9 col-sm-10 col-lg-11 " id="funcname3"><input name="function3" style="height:18px margin-bottom:" value="${pdto.function3 }" maxlength="100"></div>
-		                        <div class="col-3 col-sm-2  col-lg-1" id="funcexpl" > 설명</div>
-		                        <div class="col-9 col-sm-10 col-lg-11"><textarea name="explanation3" style="height:150px;" maxlength="1300">${pdto.explanation3 }</textarea></div>
-		                    </div>
-		                </div>
-		            </div>
-		            <div class="interval"></div>
-		             <div class="row">
-		             	<div class="col-3 col-md-2"> 깃 링크  </div>
-		                <div class="col-9 col-md-10"><input type="text" name="git" value="${pdto.git }" maxlength="200"></div>               
-		            </div>
-		            <div class="interval"></div>
-		            <div style="text-align: end;">
-						<button class="btn btn-secondary" type="button" id="return">목록으로 돌아가기</button>
-		            	<button class="btn btn-secondary" type="button" id="update">수정 완료</button>
-		            </div>
-		            
 		        </div>
 			</form>
             <!--       몸통 끝!!!   -->
