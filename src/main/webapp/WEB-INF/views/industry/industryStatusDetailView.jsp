@@ -19,8 +19,6 @@
 	type="text/css" />
 <link rel="stylesheet" href="/css/project/projectBase.css"
 	type="text/css" />
-<link rel="stylesheet" href="/css/project/detailView.css"
-	type="text/css" />
 	<script type="text/JavaScript"
    src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script>
@@ -148,10 +146,10 @@
             		<div class="col-12" style="font-size: 15px;color:#707070;"><br>${iPage.field } / ${iPage.duty }</div>
             	</div>
             	<div class="row">
-            		<input type="hidden" name="seq" value="${iPage.seq}">
+            		<input type="hidden" name="seq" value="${iPage.seq}" id="iPageSeq">
             		<input type="hidden" name="id" value="${iPage.id}">
             		
-            		<div class="col-12" style="font-size: 15px;color:#707070;"><hr><img src="${iPage.profileImg }" width=40,height=40><span style="cursor:pointer" onclick="popUpPlog('${iPage.id}','${iPage.writer}')"> ${iPage.writer}</span>&emsp;작성일 : ${iPage.formedWriteDate}&emsp;조회수 : ${iPage.viewCount}<hr></div>
+            		<div class="col-12" style="font-size: 13px;color:#707070;"><hr><img src="${iPage.profileImg }" width=40,height=40><span style="cursor:pointer" onclick="popUpPlog('${iPage.id}','${iPage.writer}')"> ${iPage.writer}</span>&emsp;작성일 : ${iPage.formedWriteDate}&emsp;조회수 : ${iPage.viewCount}<hr></div>
             	</div>
             	<div class="row">
             		<div class="col-12" id=contentCon style="word-break:break-all;
@@ -214,17 +212,17 @@
 				
 				<div id="pCoInput" class="row">
             		<div class="col-10">
-            			<textarea style="width:100%;height:100%;" placeholder="댓글 입력" id="pCoContents" maxlength="1300"></textarea>
+            			<textarea style="width:100%;height:100%;" placeholder="댓글내용을 입력해주세요" id="pCoContents" maxlength="1300"></textarea>
             		</div>
             		<div class="col-2">
             			<div class="row">
 							<div class="col-12">
-								<button type="button" class="btn btn-secondary" style="margin-bottom:10px;" id="coCancel">취소</button>
+								<button type="button" class="btn btn-secondary" style="margin-bottom:10px;width:95%" id="coCancel">취소</button>
 							</div>										
 						</div>
 						<div class="row">
 							<div class="col-12">
-								<button type="button" class="btn btn-primary" id="coWriteBtn">작성</button>
+								<button type="button" class="btn btn-primary" style="width:95%" id="coWriteBtn">작성</button>
 							</div>										
 						</div>					
             		</div>
@@ -371,10 +369,10 @@
     					'<div class="col-3 col-md-2 col-xl-1"><input type="hidden" name="seq" value="'+seq+'"><input type="hidden" name="indSeq" value="'+indSeq+'">',
     					'<div class="row">',
     					'<div class="col-12 text-center p-0">',
-    					'<button type="button" class="btn btn-secondary" style="margin-bottom:5px;width:80%;" id="coMoCancel">취소</button>',
+    					'<button type="button" class="btn btn-secondary" style="margin-bottom:10px;width:95%;" id="coMoCancel">취소</button>',
     					'</div></div>',
     					'<div class="row"><div class="col-12 text-center p-0">',
-    					'<button type="button" class="btn btn-warning" style="width:80%;" id="coMoBtn">수정</button>',
+    					'<button type="button" class="btn btn-warning" style="width:95%;" id="coMoBtn">수정</button>',
     					'</div></div></div></div></div>');
     			$(".commentBox"+seq).append(html.join(""));
 					}else{

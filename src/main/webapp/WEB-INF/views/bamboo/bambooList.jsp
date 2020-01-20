@@ -106,7 +106,7 @@
 				  	</c:choose>
           	    </div>
     			<div class="row pageListFooter">
-    			<div class="col-6">
+    			<div class="col-10">
 					<form class="form-inline" action="/bamboo/bambooSearch.do" method="post">
 					<select name=value class="form-control searchSelect" id="searchOption" style="margin-right:5px;">
 						<option value="all">전체(제목+내용)</option>
@@ -117,17 +117,21 @@
 					</form>
 				</div>
 				
-				<div class="col-6 text-right">
+				<div class="col-2 text-right">
 					<button type="button" class="btn btn-primary" id="write">글쓰기</button>					
 				</div>
 				</div>
+				
     			<nav aria-label="List navi">
-					<ul class="pagination justify-content-center">				
+					<ul class="pagination justify-content-center">	
+								
 						<c:forEach items="${pageNavi}" var="navi">									
 							<li id="page-navi" class="page-item pageNavi">${navi}</li>
-						</c:forEach>		
+						</c:forEach>
+							
 					</ul>
 				</nav>
+				
             </div>
             <!--       몸통 끝!!!   -->
             
@@ -175,6 +179,9 @@
 // 				console.log("실패");
 // 			})
 		})
+		</script>
+		<c:if test="${bambooList.size() != 0}">
+		<script>
 		$(function(){
 		var element = $(".pageNavi");
 		var page = "${page}";
@@ -187,4 +194,5 @@
 		}	
 		});
 	</script>
+	</c:if>
 </html>
