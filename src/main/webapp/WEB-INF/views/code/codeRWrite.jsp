@@ -54,9 +54,11 @@ $(function(){
    <div id=baseBackgroundColor>
       <div class=container>
          <div class=row>
-            <div class="col-12" id=aroundContent></div>
+            <div class="col-12" id=aroundContent1></div>
          </div>
       </div>
+      
+      <br>
 
       <!--      몸통 시작!!!   -->
       <form action="codeRWriteProc.do" method="post" id="writeForm">
@@ -105,8 +107,22 @@ $(function(){
       })
       
       $('.summernote').summernote({
+			placeholder : '내용을 입력해주세요',
 			height : 500,
-			lang: 'ko-KR'
+			lang: 'ko-KR',
+			toolbar: [
+	            ['style', ['style']],
+	            ['font', ['bold', 'underline', 'clear']],
+	            ['fontname', ['fontname']],
+	            ['fontsize', ['fontsize']],
+	            ['color', ['color']],
+	            ['para', ['ul', 'ol', 'paragraph']],
+	            ['height', ['height']],
+	            ['table', ['table']],
+	            ['insert', ['link', 'picture', 'hr']],
+	            ['view', ['fullscreen']],
+	            ['help', ['help']]
+	      ]
 		})
       
       $("#write").on("click", function(){
