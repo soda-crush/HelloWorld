@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeUtility;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -11,6 +12,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import kh.hello.dao.MemberDAO;
+import kh.hello.dto.LoginInfoDTO;
 import kh.hello.dto.MemberDTO;
 import kh.hello.utils.Utils;
 
@@ -158,8 +160,8 @@ public class MemberService {
 		}
 		
 	//탈퇴전 비번 체크
-		public String withdrawalCheck(String id, String pw) {
-			int result = mdao.withdrawalCheck(id, pw);
+		public String withdrawalCheck(String id, String pw) throws Exception{
+			int result = mdao.withdrawalCheck(id, Utils.encrypt(pw));
 			if(result > 0) {
 				int memLevel = mdao.selectMember(id).getMemLevel();
 				int result2 = -1;

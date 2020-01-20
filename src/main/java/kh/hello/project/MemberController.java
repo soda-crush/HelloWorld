@@ -15,6 +15,7 @@ import com.google.gson.JsonObject;
 import kh.hello.dto.LoginInfoDTO;
 import kh.hello.dto.MemberDTO;
 import kh.hello.services.MemberService;
+import kh.hello.utils.Utils;
 
 @Controller
 @RequestMapping("/member")
@@ -108,7 +109,8 @@ public class MemberController {
 	
 	@RequestMapping(value = "/modifyProc")
 	public String memModifyProc(MemberDTO mdto, String empCheck, String empEmail, String unempEmail 
-			,String otherJoinPath, Timestamp birthday, String demotionMail) { 
+			,String otherJoinPath, Timestamp birthday, String demotionMail, HttpSession session) { 
+		mdto.setId(((LoginInfoDTO)session.getAttribute("loginInfo")).getId());
 		try {
 			ms.modify(mdto, empCheck, empEmail, unempEmail, otherJoinPath, birthday, demotionMail);
 			return "redirect:modifyTemp";
@@ -269,7 +271,12 @@ public class MemberController {
 	 @RequestMapping(value = "/withdrawalCheck",produces="text/html;charset=utf8")
 	 @ResponseBody
 	 public String memWithdrawalCheck(String pw, HttpSession session) {
-		 return ms.withdrawalCheck(((LoginInfoDTO)session.getAttribute("loginInfo")).getId(), pw);
+		 try {
+			return ms.withdrawalCheck(((LoginInfoDTO)session.getAttribute("loginInfo")).getId(), pw);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "error";
+		}
 	 }
 	 
 	 @RequestMapping("/modifyCheck")
