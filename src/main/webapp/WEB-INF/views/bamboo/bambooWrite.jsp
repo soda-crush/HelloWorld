@@ -81,6 +81,11 @@
 					<input type="text" id=title name=title style="width: 100%" maxlength="100" placeholder="제목을 입력해주세요.">
 				</div>
 			</div>
+			<div class=row>
+	            	<div class=col-12>
+	            		<br>
+	            	</div>
+            	</div>
 				<div class=row>
 					<div class="col-12 content">
 			<textarea style="display: none" name=content id=content class="summernote"></textarea>
@@ -88,8 +93,8 @@
 				</div>
 			<div class=row>
 				<div class="col-12 btn" style="text-align: right;">
-					<button class="btn btn-primary" type="button" id="write">작성하기</button>
-					<button class="btn btn-primary" type="button" id="return">돌아가기</button>
+					<button class="btn btn-primary" type="button" id="write">글쓰기</button>
+					<button class="btn btn-secondary" type="button" id="return">취소</button>
 				</div>
 			</div>
 		</form>
@@ -100,7 +105,20 @@
 						})
 		 $('.summernote').summernote({
 			 lang: 'ko-KR',
-			 height : 500
+			 height : 500,
+			 toolbar: [
+		            ['style', ['style']],
+		            ['font', ['bold', 'underline', 'clear']],
+		            ['fontname', ['fontname']],
+		            ['fontsize', ['fontsize']],
+		            ['color', ['color']],
+		            ['para', ['ul', 'ol', 'paragraph']],
+		            ['height', ['height']],
+		            ['table', ['table']],
+		            ['insert', ['link', 'picture', 'hr']],
+		            ['view', ['fullscreen']],
+		            ['help', ['help']]
+		      ]
    		  });
 		
 		$("#write").on("click", function() {
