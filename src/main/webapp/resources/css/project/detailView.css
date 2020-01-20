@@ -10,7 +10,10 @@
 #pHeader span:first-of-type{font-size:20px;}	
 #pHeader .fa{margin-left:15px;margin-top:10px;font-size:25px;}
 #pInfo *,#pBody *{font-size:15px;font-weight:500;}
-#pInfo label,#pBody label{width:100px;color:darkgray;}
+.dLabel{
+	color:#9c9c9c;
+	margin-bottom:10px;
+}
 .applyBtn{margin-bottom:20px;}
 .modal-title{font-weight:bold;}
 .aItem{margin-top:5px;font-size:15px;font-weight:bold;}

@@ -15,25 +15,25 @@
 <link rel="stylesheet" href="/css/project/projectBase.css" type="text/css"/>
 <link rel="stylesheet" href="/css/project/pLogList.css" type="text/css"/>
 <style>
-	.capaCheck:not(.achieve0){color:crimson;}
+	.capaCheck:not(.achieve0){color:limegreen;}
 </style>
 </head>
 
 <body>
-			<div>
+			<div style="width:96%;">
 				<div id="pageTitle" class="row">
 					<div class="col-12"><h4>내가 <span style="color:#1D1294;">모집</span>한 프로젝트</h4></div>					
 				</div>
-				<div class="tableDiv" style="width:100%;">
+				<div class="tableDiv">
 					<div class="row tableHead">					    
-					    <div class="col-1 pl-2">상태</div>
-					    <div class="col-1">신청내역</div>
-					    <div class="col-1">총신청</div>
-						<div class="col-1">승인</div>
-					    <div class="col-3">기간</div>
-					    <div class="col-3">제목</div>					    
-					    <div class="col-1">작성일</div>	
-					    <div class="col-1">조회</div>				    					    
+					    <div class="col-3 col-md-1 col-lg-1 pl-2">상태</div>
+					    <div class="col-3 col-md-2 col-lg-1">신청내역</div>
+					    <div class="d-none col-md-1 d-md-block col-lg-1">총신청</div>
+						<div class="col-2 col-md-2 col-lg-1">승인</div>
+					    <div class="d-none col-md-3 d-md-block col-lg-3">프로젝트 기간</div>
+					    <div class="col-4 col-md-3 col-lg-3">제목</div>					    
+					    <div class="d-none d-lg-block col-lg-1">작성일</div>	
+					    <div class="d-none d-lg-block col-lg-1">조회</div>				    					    
 					</div>
 					
 				  	<c:choose>
@@ -43,12 +43,12 @@
 				  		<c:otherwise>
 				  			<c:forEach items="${makeProjectList }" var="m">
 				  				<div class="row makeTableBody tableBody p-0">
-									<div class="col-1 pl-2 state${m.state }">${m.stateInKor }</div>
-									<div class="col-1"><button type="button" class="btn btn-outline-warning btn-sm mb-1" onclick="popUp('/project/apply/list?projectSeq=${m.seq }')">신청목록</button></div>
-									<div class="col-1">${m.totalApply } <small class="text-secondary">명</small></div>									
-									<div class="col-1"><strong class="capaCheck achieve<fmt:parseNumber integerOnly= "true" value= "${m.totalApprove/m.capacity }" />">${m.totalApprove }/${m.capacity }</strong> <small class="text-secondary">명</small></div>
-									<div class="col-3">${m.formedAllDate }</div>
-									<div class="col-3 text-decoration-none" onclick="popUp('/project/detailView?seq=${m.seq }')">
+									<div class="col-3 col-md-1 col-lg-1 pl-2 state${m.state }">${m.stateInKor }</div>
+									<div class="col-3 col-md-2 col-lg-1"><button type="button" class="btn btn-outline-warning btn-sm mb-1" onclick="popUp('/project/apply/list?projectSeq=${m.seq }')">신청목록</button></div>
+									<div class="d-none col-md-1 d-md-block col-lg-1">${m.totalApply } <small class="text-secondary">명</small></div>									
+									<div class="col-2 col-md-2 col-lg-1"><strong class="capaCheck achieve<fmt:parseNumber integerOnly= "true" value= "${m.totalApprove/m.capacity }" />">${m.totalApprove }/${m.capacity }</strong> <small class="text-secondary">명</small></div>
+									<div class="d-none col-md-3 d-md-block col-lg-3"><small>${m.formedAllDate }</small></div>
+									<div class="col-4 col-md-3 col-lg-3 text-decoration-none" onclick="popUp('/project/detailView?seq=${m.seq }')">
 										<div class="row">
 											<div style="max-width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;">${m.title }</div> 
 											<c:if test="${m.commentCount>0 }">
@@ -56,17 +56,15 @@
 											</c:if>
 										</div>
 									</div>
-									
-									
-									<div class="col-1">${m.formedDate }</div>
-									<div class="col-1">${m.viewCount }</div>
+									<div class="d-none d-lg-block col-lg-1">${m.formedDate }</div>
+									<div class="d-none d-lg-block col-lg-1">${m.viewCount }</div>
 								</div>	
 				  			</c:forEach>
 				  		</c:otherwise>
 				  	</c:choose>				    
 				</div>
 				<div class="row pageListFooter">
-					<div class="col-6">
+					<div class="col-12 order-2 order-lg-1 col-lg-10">
 						  <form class="form-inline" action="/project/pLog/makeProjectList" method="post" id="searchFrm">
 							<select class="form-control searchSelect" name="searchOption" id="searchOption" style="margin-right:5px;">
 								<option selected disabled>선택</option>
@@ -76,12 +74,12 @@
 							    <option value="location">지역</option>
 							    <option value="capacity">인원</option>								    
 							</select>
-						    <input class="form-control mr-sm-2" type="search" placeholder="검색어를 입력하세요" aria-label="Search" name="keyword" id="keyword">
+						    <input class="form-control mr-sm-2" type="search" placeholder="검색어를 입력하세요" aria-label="Search" name="keyword" id="keyword" style="margin-right:5px;">
 						    <button class="btn btn-dark my-2 my-sm-0" type="submit" id="searchBtn">검색</button>
 						  </form>
 					</div>								
-					<div class="col-6 text-right">
-						<button class="btn btn-success" type="button" onclick="popUp('/project/write')">글쓰기</button>			
+					<div class="col-12 order-1 order-lg-2 col-lg-2 text-right">
+						<button class="btn btn-success mb-2" type="button" onclick="popUp('/project/write')">글쓰기</button>			
 					</div>
 				</div>
 				<nav aria-label="List navi" id="mPageNavi">${makePageNavi }</nav>
@@ -94,7 +92,7 @@
 	        	}
 	        });		
 			function popUp(link){
-				window.open(link, "makeListPopUp", "width=1000,height=750");
+				window.open(link, "makeListPopUp", "width=1000,height=840");
 			}
         	$(".pNavi${makeCurrentPage}").addClass("active");
         </script>

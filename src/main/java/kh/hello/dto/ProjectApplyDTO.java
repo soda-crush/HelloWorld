@@ -20,13 +20,14 @@ public class ProjectApplyDTO {
 	private String portfolio;
 	private String title;
 	private String leaderId;
+	private String denyReason;
 
 	public ProjectApplyDTO() {
 		super();
 	}
 	public ProjectApplyDTO(int seq, int projectSeq, String writer, String id, String languages, String gender,
 			String age, String workIn, String email, String etc, Timestamp writeDate, String approve, String portfolio,
-			String title, String leaderId) {
+			String title, String leaderId, String denyReason) {
 		super();
 		this.seq = seq;
 		this.projectSeq = projectSeq;
@@ -43,7 +44,9 @@ public class ProjectApplyDTO {
 		this.portfolio = portfolio;
 		this.title = title;
 		this.leaderId = leaderId;
+		this.denyReason = denyReason;
 	}
+
 
 	public int getSeq() {
 		return seq;
@@ -134,6 +137,12 @@ public class ProjectApplyDTO {
 	}
 	public void setLeaderId(String leaderId) {
 		this.leaderId = leaderId;
+	}
+	public String getDenyReason() {
+		return denyReason;
+	}
+	public void setDenyReason(String denyReason) {
+		this.denyReason = denyReason;
 	}
 	
 	

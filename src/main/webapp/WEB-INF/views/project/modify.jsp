@@ -28,6 +28,9 @@
       $("#proNavi").attr('class','nav-item nav-link active');
    });
 </script>
+<style>
+#pInfo > div:nth-child(4) > div.col-md-7 > div > span > input.tt-input{max-width:620px;}
+</style>
 </head>
 
 <body>
@@ -87,7 +90,7 @@
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-md-2"><label class="pItem">기간</label><label class="star">*</label></div>
+								<div class="col-md-2"><label class="pItem">프로젝트 기간</label><label class="star">*</label></div>
 								<div class="col-md-10">
 	        						<input type="text" class="form-control form-control-sm datePicker" placeholder="시작일" name="startDate" id="startDate" value="${pPage.formedCalStartDate }" readonly>
 	        						<span> ~ </span>
@@ -244,8 +247,43 @@
 		   		$(".note-placeholder").show();
 		   		return false;
 		   	}
+			if($("#phone1").val()!=""||$("#phone2").val()!=""||$("#phone3").val()!=""){
+				var regex1 = /^\d.+?$/;
+	            var data1 = $("#phone1").val();
+	            var result1 = regex1.exec(data1);
+				if(result1 == null){
+					alert("숫자를 입력해주세요");
+					$("#phone1").focus();
+					return false;
+				}            	
+				var regex2 = /^\d.+?$/;
+	            var data2 = $("#phone2").val();
+	            var result2 = regex2.exec(data2);
+				if(result2 == null){
+					alert("숫자를 입력해주세요");
+					$("#phone2").focus();
+					return false;
+				}
+				var data3 = $("#phone3").val();
+				var result3 = regex2.exec(data3);
+				if(result3 == null){
+					alert("숫자를 입력해주세요");
+					$("#phone3").focus();
+					return false;
+				}
+			}	
 			$("#phone").val($("#phone1").val()+"-"+$("#phone2").val()+"-"+$("#phone3").val());
-			if($("#phone").val()=="--"){$("#phone").val("");}	
+			if($("#phone").val()=="--"){$("#phone").val("");}
+			if($("#email").val()!=""){
+				var regex = /^\w+@[a-z]+(\.[a-z]+){1,2}$/gm;
+	            var data = $("#email").val();
+	            var result = regex.exec(data);
+	            if(result == null){			
+					alert("올바른 이메일 형식이 아닙니다");				
+					$("#email").focus();
+					return false;
+	            }					
+			}
 			var loc1 = $("#loc1").find("option[value='"+$("#loc1").val()+"']").text();
 			var loc2 = $("#loc2").find("option[value='"+$("#loc2").val()+"']").text();
 			$("input[name=location1]").val(loc1);
