@@ -54,9 +54,10 @@ public class IndustryStatusMemController {
 			return "/industry/industryStatusDetailView";
 		}
 		List<IndustryStatusCoDTO> coResult = service.commentList(seq);
-
+		String ip = Configuration.ip;
 		m.addAttribute("iPage", result);
 		m.addAttribute("comments", coResult);
+		m.addAttribute("ip",ip);
 		return "/industry/industryStatusDetailView";
 	}
 

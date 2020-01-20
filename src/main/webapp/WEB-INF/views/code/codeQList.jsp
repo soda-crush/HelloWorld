@@ -75,7 +75,7 @@ a:hover {
 	<div id=baseBackgroundColor>
 		<div class=container>
 			<div class=row>
-				<div class="col-12" id=aroundContent></div>
+				<div class="col-12" id=aroundContent1></div>
 			</div>
 		</div>
 
@@ -222,14 +222,17 @@ a:hover {
 
 			</div>
 		</div>
-	</div>
-			<!--       몸통 끝!!!   -->
-
-			<div class=container>
 				<div class=row>
 					<div class="col-12" id=aroundContent></div>
 				</div>
-			</div>
+	</div>
+			<!--       몸통 끝!!!   -->
+
+<!-- 			<div class=container> -->
+<!-- 				<div class=row> -->
+<!-- 					<div class="col-12" id=aroundContent></div> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
 		
 <script>
 

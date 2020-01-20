@@ -34,7 +34,7 @@
 <body>
 	<jsp:include page="/WEB-INF/views/standard/plogHeader.jsp"/>
 	
- 		<div id=baseBackgroundColor>
+ 		<div id="plogBaseBackgroundColor">
             <div class=container>
                 <div class=row>
                     <div class="col-12" id=aroundContent>
@@ -55,6 +55,15 @@
 		                        <div class="card-body">
 		                            <div class="card-title line-over" style="text-align: center;font-size:20px;">${ownerInfo.nickName} 님</div>
 		                            <p class="card-text" style="text-align: center;font-size:15px;">point : ${ownerInfo.point }</p>
+		                        </div>
+	                    	</div>
+	                    	<div class="d-md-none" style="background-color:white;border-radius:5px;height:200px;border: 1px solid rgba(0,0,0,.125); padding:15px;margin-right:10px;">
+	                    		<div style="float:left">
+		                        	<img src="${ownerInfo.profileImg }" style="width:150px;margin:10px;">
+	                    		</div>
+		                        <div style="float:left;margin-top:100px;margin-left:20px;">
+		                            <div class="line-over" style="text-align: center;font-size:20px;">${ownerInfo.nickName} 님</div>
+		                            <p style="text-align: center;font-size:15px;">point : ${ownerInfo.point }</p>
 		                        </div>
 	                    	</div>
 	                    </div>
