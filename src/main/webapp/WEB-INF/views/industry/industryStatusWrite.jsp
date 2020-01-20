@@ -166,7 +166,7 @@
      	      ]
 		 	});
 			$("#write").on("click", function() {
-				regex = /^[(<p><br></p>)(<p>(&nbsp; ){1,}</p>)]{0,}$/g;
+				regex = /^[(<p><br></p>)(<p>(&nbsp; )+</p>)]{0,}$/g;
 				   var content = $(".summernote").val();
 				   var result = regex.exec(content);
 				   $("#title").val($.trim($("#title").val())); 

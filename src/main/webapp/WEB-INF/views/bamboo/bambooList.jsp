@@ -13,7 +13,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/css/mainBase.css">
 <link rel="stylesheet" type="text/css" href="/css/font-awesome/css/font-awesome.css">
-<link rel="stylesheet" href="/css/project/list.css" type="text/css"/>
+<link rel="stylesheet" href="/css/industry/list.css" type="text/css"/>
 <style>
 	#pageTitle{margin-bottom:20px;}
 	#pageTitle h1{display:inline;margin-right:10px;font-weight:bold;}
@@ -90,7 +90,7 @@
 				  					<div class="col-xl-2 col-3 col-md-3 notTitle text-center">
 				  					<c:choose>
             							<c:when test="${b.writer == sessionScope.loginInfo.id}">
-            								${sessionScope.loginInfo.nickName}
+            								<small>${sessionScope.loginInfo.nickName}</small>
             							</c:when>
             							<c:otherwise>
             								익명
@@ -105,19 +105,21 @@
 				  		</c:otherwise>
 				  	</c:choose>
           	    </div>
+          	    
+          	    
     			<div class="row pageListFooter">
-    			<div class="col-10">
+    			<div class="col-12 order-2 order-lg-1 col-lg-10">
 					<form class="form-inline" action="/bamboo/bambooSearch.do" method="post">
 					<select name=value class="form-control searchSelect" id="searchOption" style="margin-right:5px;">
 						<option value="all">전체(제목+내용)</option>
 						<option value="title">제목</option>
 					</select>
 					<input class="form-control mr-sm-2" type="text" name=search aria-label="Search" maxlength="100">
-					<input class="btn btn-dark my-2 my-sm-0" type="button" id=search value="검색">
+					<input class="btn btn-dark my-2 my-sm-0 ml-1" type="button" id=search value="검색">
 					</form>
 				</div>
 				
-				<div class="col-2 text-right">
+				<div class="col-12 order-1 order-lg-2 col-lg-2 text-right">
 					<button type="button" class="btn btn-primary" id="write">글쓰기</button>					
 				</div>
 				</div>
