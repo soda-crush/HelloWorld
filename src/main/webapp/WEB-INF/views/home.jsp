@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Hello World</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="${pageContext.request.contextPath }/icon/favicon.ico"/>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
@@ -27,18 +28,20 @@ div{
 line-height: 60%;
 }
 .boardCon{
-padding-left: 1%;
-padding-right: 1%;
+padding-left: 0.4%;
+padding-right: 0.4%;
 }
 .boardEle{
 width: 100%;
-background-color: white;
 border-radius: 3px;
 }
 .boardEleTop{
 padding-top: 5%;padding-bottom: 3%;color:white;padding-left: 2%;
 border-top-left-radius: 3px;
 border-top-right-radius: 3px;
+border-top: 1px solid boardEleTop;
+border-left: 1px solid boardEleTop;
+border-right: 1px solid boardEleTop;
 }
 .bdt1{
 background-color:#c25f55;}
@@ -54,6 +57,10 @@ padding-bottom:5%;
 padding-left:3%;
 padding-right:3%;
 line-height: 150%;
+background-color: #f0f0f0; 
+border:1px solid #cfcfcf;
+border-bottom-left-radius: 3px;
+border-bottom-right-radius: 3px;
 }
 .boardEleCon a{
 color:black;
@@ -74,15 +81,13 @@ border-radius: 2%;
 #adverEle{
 width:100%;
 height: 200px;
-background-color: lightgray;
+background-color: #2f2f2f;
+color:white;
 text-align: center;
 line-height: 200px;
 }
 .fs1{
 font-size: 11px;}
-.boardEleCon{
-border:1px solid #d4d4d4;
-}
 </style>
 </head>
 <body>
@@ -91,7 +96,7 @@ border:1px solid #d4d4d4;
  		<div id=baseBackgroundColor>
             <div class=container>
                 <div class=row>
-                    <div class="col-12" id=aroundContent>
+                    <div class="col-12" id=aroundContent1>
                     </div>
                 </div>
             </div>
@@ -104,7 +109,7 @@ border:1px solid #d4d4d4;
             		<div class="co1-12 col-md-6 col-lg-3 boardCon">
 	            		<div class="boardEle">
 		            		<div class="boardEleTop bdt1">
-		            			<p class="fs1 pl-3 pt-3" style="line-height:35%;">주간 조회수 TOP5</p>
+		            			<p class="fs1 pl-3 pt-3" style="line-height:35%;">주간 조회수 TOP10</p>
 		            			<p class="mainTitle pl-3 pb-2" style="line-height:35%;">대나무 숲</p>
 		            		</div>
 		            		<div class="boardEleCon">
@@ -124,7 +129,7 @@ border:1px solid #d4d4d4;
             		<div class="co1-12 col-md-6 col-lg-3 boardCon">
 	            		<div class="boardEle">
 			            	<div class="boardEleTop bdt2">
-			            		<p class="fs1 pl-3 pt-3" style="line-height:35%;">주간 조회수 TOP5</p>
+			            		<p class="fs1 pl-3 pt-3" style="line-height:35%;">주간 조회수 TOP10</p>
 		            			<p class="mainTitle pl-3 pb-2" style="line-height:35%;">Code-How</p>
 			            	</div>
 			            	<div class="boardEleCon">
@@ -144,7 +149,7 @@ border:1px solid #d4d4d4;
             		<div class="co1-12 col-md-6 col-lg-3 boardCon">
 	            		<div class="boardEle">
 			            	<div class="boardEleTop bdt3">
-			            		<p class="fs1 pl-3 pt-3" style="line-height:35%;">주간 조회수 TOP5</p>
+			            		<p class="fs1 pl-3 pt-3" style="line-height:35%;">주간 조회수 TOP10</p>
 		            			<p class="mainTitle pl-3 pb-2" style="line-height:35%;">업계현황</p>
 			            	</div>
 			            	<div class="boardEleCon">
@@ -164,7 +169,7 @@ border:1px solid #d4d4d4;
             		<div class="co1-12 col-md-6 col-lg-3 boardCon">
 	            		<div class="boardEle">
 			            	<div class="boardEleTop bdt4">
-			            		<p class="fs1 pl-3 pt-3" style="line-height:35%;">주간 조회수 TOP5</p>
+			            		<p class="fs1 pl-3 pt-3" style="line-height:35%;">주간 조회수 TOP10</p>
 		            			<p class="mainTitle pl-3 pb-2" style="line-height:35%;">IT News</p>
 			            	</div>
 			            	<div class="boardEleCon">
@@ -190,7 +195,7 @@ border:1px solid #d4d4d4;
             				광고 자리
             			</div>
             		<br><br>
-            		<h3>진행중인 프로젝트</h3>
+            		<h3 style="color:#ededed;" class=text-left>진행중인 프로젝트 》</h3>
             		<hr>
             		</div>
             	</div>
