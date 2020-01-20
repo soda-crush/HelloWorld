@@ -23,7 +23,7 @@
 	</select>
 	
 	<select id="getIt" resultType="kh.hello.dto.ItnewsDTO">
-		select * from(select itnews.*,row_number() over(order by seq desc) rown from itnewsd   
+		select * from(select itnews.*,row_number() over(order by seq desc) rown from itnews   
 		where writeDate > (sysDate-7)
 		order by viewCount desc) where rown between 1 and 5
 	</select>

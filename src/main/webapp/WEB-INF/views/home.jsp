@@ -132,6 +132,7 @@ border:1px solid #d4d4d4;
 			            	</div>
 		            	</div>
             		</div>
+            		
             		<div class="col-12 d-lg-none"><br></div>
             		<div class="co1-12 col-md-6 col-lg-3 boardCon">
 	            		<div class="boardEle">

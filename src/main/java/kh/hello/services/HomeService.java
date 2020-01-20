@@ -30,7 +30,7 @@ public class HomeService {
 		return dao.getIndusList();
 	}
 
-	public List<ItnewsDTO> getITList(){
+	public List<ItnewsDTO> getItList(){
 		return dao.getItList();
 	}
 	
