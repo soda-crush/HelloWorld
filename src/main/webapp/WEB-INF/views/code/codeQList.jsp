@@ -115,8 +115,8 @@ a:hover {
 					</div>
 						<c:choose>
 							<c:when test="${list.size()==0 }">
-								<div class="row text-center tableBodyNull">
-									<div class="col-12">
+								<div class="row text-center tableBodyNull" style="height:200px;">
+									<div class="col-12" style="line-height:200px;">
 									작성된 글이 없습니다.
 									</div>
 								</div>
@@ -207,30 +207,34 @@ a:hover {
 <!-- 					<div class="col-12" id=aroundContent></div> -->
 <!-- 				</div> -->
 <!-- 			</div> -->
-		
-<script>
 
-	$(function(){
-		var element = $(".pageNavi");
-		var page = "${page}";
-		if(page > 0 && page <= 10){
-			element[page-1].classList.add('active');
-		}else if(page % 10 == 0){
-			element[10].classList.add('active');
-		}else{
-			element[page % 10].classList.add('active');
-		}	
-	});
+<c:if test="${list.size()!=0 }">	
+	<script>
+		$(function(){
+			var element = $(".pageNavi");
+			var page = "${page}";
+			if(page > 0 && page <= 10){
+				element[page-1].classList.add('active');
+			}else if(page % 10 == 0){
+				element[10].classList.add('active');
+			}else{
+				element[page % 10].classList.add('active');
+			}	
+		});
+		
+		$("#write").on("click",function(){
+			if("${sessionScope.loginInfo.memLevel}" == 1){
+				alert("권한이 없습니다. 관리자에게 문의하세요.");
+				return false;
+			}
+			else{
+				 location.href="/code/codeQWrite.do";
+			}
+		})
+	</script>
+</c:if>
 	
-	$("#write").on("click",function(){
-		if("${sessionScope.loginInfo.memLevel}" == 1){
-			alert("권한이 없습니다. 관리자에게 문의하세요.");
-			return false;
-		}
-		else{
-			 location.href="/code/codeQWrite.do";
-		}
-	})
+<script>
 	
 // 		$.ajax({
 // 	        url : "/code/memLevel.do",
