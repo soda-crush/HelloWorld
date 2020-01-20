@@ -77,12 +77,12 @@ button{
             		<div class="col-12 col-md-4 order-2 order-md-4">
             			&emsp;<img src="/icon/whiteArrow.svg"><h4 style="display:inline">처음이신가요?</h4>
             			<br>
-            			&emsp;&emsp;<a class=aT href="${pageContext.request.contextPath}/member/signUp">회원가입</a>
+            			&emsp;&emsp;&emsp;<a class=aT href="${pageContext.request.contextPath}/member/signUp">회원가입</a>
             			<h1><br></h1>
             			&emsp;<img src="/icon/whiteArrow.svg"><h4 style="display:inline">기억이 나지 않으신가요?</h4>
             			<br>
-            			&emsp;&emsp;<a class=aT href="${pageContext.request.contextPath}/member/findId">아이디</a>ㆍ
-            			&emsp;&emsp;<a class=aT href="${pageContext.request.contextPath}/member/findPw">비밀번호 찾기</a>
+            			&emsp;&emsp;&emsp;<a class=aT href="${pageContext.request.contextPath}/member/findId">아이디</a>ㆍ
+            			<a class=aT href="${pageContext.request.contextPath}/member/findPw">비밀번호 찾기</a>
             		</div>
             	<div class="col-md-1 d-none d-md-block order-md-5"></div>
             	</div>
@@ -127,21 +127,8 @@ button{
 	                    }  
 	                }
 	            })
-        		//체크하는 순간 인풋 내용을 쿠키에 저장
-	            $("#remID").on("change",function(){
-	                var exDate = new Date();
-	                if($("#remID").prop("checked")){
-	                    exDate.setDate(exDate.getDate() + 30);
-	
-	                    var id = $("#id").val();
-	                    document.cookie = 
-	                        "id = " + id + ";expires=" + exDate.toString();
-	                }else{
-	                    exDate.setDate(exDate.getDate() -1);
-	                    document.cookie = "id =;expires=" + exDate.toString();
-	                    //키값이 중요하니까 value는 비워도됨
-	                }
-	            })
+	                 
+	            
         	
         	//로그인 전 유효성 검사(빈칸인지 아닌지만)
         		$("#login").on("click",function(){
@@ -158,6 +145,20 @@ button{
         				alert("비밀번호를 입력하세요.");
         				return false;
         			}else{
+        				  var exDate = new Date();
+        				 if($("#remID").prop("checked")){
+        					 
+        					 //로그인하는 순간 체크 되어있으면 아이디 쿠키에 저장
+        					 exDate.setDate(exDate.getDate() + 30);
+        						
+      	                    var id = $("#id").val();
+      	                    document.cookie = 
+      	                        "id = " + id + ";expires=" + exDate.toString();
+        				 }else{
+        					 exDate.setDate(exDate.getDate() -1);
+     	                    document.cookie = "id =;expires=" + exDate.toString();
+        				 }
+        				
         				location.href="member/loginProc";
         			}
         		})

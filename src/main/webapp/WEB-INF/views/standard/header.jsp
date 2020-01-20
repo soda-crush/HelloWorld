@@ -5,13 +5,15 @@
   <c:choose>
 			<c:when test="${loginInfo.id ==null}">
 			 <div class="row" id="loginCon">
-                <div class="col-12 text-right"><a href="${pageContext.request.contextPath}/member/login">로그인</a> 
+                <div class="col-6">&emsp;<a href="${pageContext.request.contextPath}/notice/noticeList" style="display:inline;color:#787878;font-family:'Nanumgothic';" class="font-weight-bold">공지사항</a></div>
+                <div class="col-6 text-right"><a href="${pageContext.request.contextPath}/member/login">로그인</a> 
                 | <a href="${pageContext.request.contextPath}/member/signUp">회원가입</a></div>
             </div>
 			</c:when>
 			<c:otherwise>
 			 <div class="row" id="loginCon">
-                <div class="col-12 text-right" style="font-family:'Nanumgothic';"><p style="display:inline;color:#787878;font-family:'Nanumgothic';" class="font-weight-bold">${sessionScope.loginInfo.nickName}님 환영합니다 Lv.${sessionScope.loginInfo.memLevel}</p>&emsp;<a href="${pageContext.request.contextPath}/member/mypage">마이페이지</a> | <a href="${pageContext.request.contextPath}/member/logout">로그아웃</a></div>
+			   <div class="col-6">&emsp;<a href="${pageContext.request.contextPath}/notice/noticeList" style="display:inline;color:#787878;font-family:'Nanumgothic';" class="font-weight-bold">공지사항</a></div>
+                <div class="col-6 text-right" style="font-family:'Nanumgothic';"><p style="display:inline;color:#787878;font-family:'Nanumgothic';" class="font-weight-bold">${sessionScope.loginInfo.nickName}님 환영합니다 Lv.${sessionScope.loginInfo.memLevel}</p>&emsp;<a href="${pageContext.request.contextPath}/member/mypage">마이페이지</a> | <a href="${pageContext.request.contextPath}/member/logout">로그아웃</a></div>
             </div>
 			</c:otherwise>
 	</c:choose>
@@ -20,7 +22,7 @@
                 <div class = "d-none d-md-block col-md-2"></div>
                 <div class = "col-12 col-md-8" id = "logoCon">
                     <br>
-                    <img src="/img/logo7.PNG" id="logo">
+                    <img src="/img/logoReal.png" id="logo">
                     <br><br>
                 </div>
                 <div class = "d-none d-md-block col-md-2 text-muted"></div>

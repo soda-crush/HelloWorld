@@ -149,6 +149,7 @@
 	            	<div class="col-12 col-sm-6">
 		            	<h5 style="display:inline;"><img src="/icon/doubleArrow.svg" class=arrow>인증 코드</h5><p class=redP style="display:inline">*</p>
 		            	<p style="display:inline;">-메일로 전송된 코드를 입력해주세요.</p>
+		            		&emsp;<br>&emsp;<input type=text name=unempCode id=unempCode placeholder="인증 코드 입력">
 		            		<button type=button id = "certification2">인증</button>
 	            	</div>
            		 </div>
@@ -471,7 +472,7 @@
             emailTest = 1;
  	               //실무자 체크했을때
  	            	 $("#sendMail1").on("click",function(){
- 	                     var regex = /^\w+@[a-z]+(\.[a-z]+){1,2}$/gm;
+ 	                     var regex = /^\w+@[a-z]+(\.[a-z]+){1,2}$/g;
  	                     var data = $("#empEmail").val();
  	                     var result = regex.exec(data);
  	                     var oriMail = '${dto.email}'; 
@@ -497,11 +498,11 @@
 	  	 	 	              			if(resp == "true"){
 	  	 	 	              				alert("이미 등록된 이메일입니다.");
 	  	 	 	              			}else{
-	 	 	 	 	              			var regex = /^\w+@\w+.co.kr$/gm;
+	 	 	 	 	              			var regex = /^\w+@\w+.co.kr$/g;
 	 	 	 	 	                    	var data = $("#empEmail").val();
 	 	 	 	 	 	                    var result = regex.exec(data);
 	 	 	 	 	 	                    
-	 	 	 	 	 	                    var regex2 = /^\w+@\w+.pe.kr$/gm;
+	 	 	 	 	 	                    var regex2 = /^\w+@\w+.pe.kr$/g;
 	 	 	 		 	                    var result2 = regex2.exec(data);
 	 	 	 		 	                    
 	 	 	 		 	                    if(result2 != null){
@@ -533,7 +534,7 @@
  	           
  	            	//비실무자 체크했을때
  	            	  $("#sendMail2").on("click",function(){
- 	                     var regex = /^\w+@[a-z]+(\.[a-z]+){1,2}$/gm;
+ 	                     var regex = /^\w+@[a-z]+(\.[a-z]+){1,2}$/g;
  	                     var data = $("#unempEmail").val();
  	                     var result = regex.exec(data);
 						 var oriMail = '${dto.email}'; 
@@ -559,7 +560,7 @@
  	 	 	 	              			if(data == "true"){
  	 	 	 	              				alert("이미 등록된 이메일입니다.");
  	 	 	 	              			}else{
- 	 	 	 	              			var regex = /^\w+@\w+.co.kr$/gm;
+ 	 	 	 	              			var regex = /^\w+@\w+.co.kr$/g;
  	 	 	 	                    	var data = $("#unempEmail").val();
  	 	 	 	 	                    var result = regex.exec(data);
  	 	 	 	 	                    if(result == null){
@@ -741,7 +742,7 @@
 				nameTest = 1;
 				//이름
 	             $("#name").on("focusout",function(){
-	                   var regex = /^[ㄱ-ㅎㅏ-ㅣ가-힣]{2,15}$/gm;
+	                   var regex = /^[ㄱ-ㅎㅏ-ㅣ가-힣]{2,15}$/g;
 	                   var data =$("#name").val();
 	                   var result = regex.exec(data);
 
@@ -765,7 +766,7 @@
 	                nickTest=1;
 	                //닉네임 중복검사
 	           		  $("#nickName").on("focusout",function(){
-	                   var regex = /^[a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ가-힣]{2,10}$/gm;
+	                   var regex = /^[a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ가-힣]{2,10}$/g;
 	                   var data =$("#nickName").val();
 	                   var result = regex.exec(data);
 	                   var oriNick = '${dto.nickName}';
@@ -810,7 +811,7 @@
 	                phoneTest = 1;
 	           		//휴대폰 번호 중복,유효성 검사
 	              	$("#phone").on("focusout",function(){
-	                     var regex = /^\d{10,11}$/gm;
+	                     var regex = /^\d{10,11}$/g;
 	                     var data =$("#phone").val();
 	                     var result = regex.exec(data);
 	                     var oriPhone = '${dto.phone}';
@@ -886,8 +887,8 @@
             	$("#send").on("click",function(){
             		if(${dto.memLevel!=1}){
             			if((pwTest*birthYearTest*birthMonthTest*birthDayTest*nickTest*phoneTest*jpTest*genderTest*nameTest*emailTest) != 1){
-            				console.log("pwTest*birthYearTest*birthMonthTest*birthDayTest*nickTest*phoneTest*jpTest*genderTest*nameTest");
-                			console.log(pwTest + " : " + birthYearTest + " : " + birthMonthTest + " : " + birthDayTest + " : " + nickTest + " : " + phoneTest + " : " + jpTest + " : " + genderTest + " : " + nameTest);
+            				//console.log("pwTest*birthYearTest*birthMonthTest*birthDayTest*nickTest*phoneTest*jpTest*genderTest*nameTest");
+                			//console.log(pwTest + " : " + birthYearTest + " : " + birthMonthTest + " : " + birthDayTest + " : " + nickTest + " : " + phoneTest + " : " + jpTest + " : " + genderTest + " : " + nameTest);
             				alert("조건에 만족하지 않는 문항이 있습니다. 확인부탁드립니다.")
                          }else{
                         	var result = confirm("이대로 수정하시겠습니까?");
@@ -907,8 +908,8 @@
                         	}
                         }
             		}else{
-            			console.log("pwTest*birthYearTest*birthMonthTest*birthDayTest*nickTest*phoneTest*jpTest*genderTest*nameTest");
-            			console.log(pwTest + " : " + birthYearTest + " : " + birthMonthTest + " : " + birthDayTest + " : " + nickTest + " : " + phoneTest + " : " + jpTest + " : " + genderTest + " : " + nameTest);
+            			//console.log("pwTest*birthYearTest*birthMonthTest*birthDayTest*nickTest*phoneTest*jpTest*genderTest*nameTest");
+            			//console.log(pwTest + " : " + birthYearTest + " : " + birthMonthTest + " : " + birthDayTest + " : " + nickTest + " : " + phoneTest + " : " + jpTest + " : " + genderTest + " : " + nameTest);
             			if((pwTest*birthYearTest*birthMonthTest*birthDayTest*nickTest*phoneTest*jpTest*genderTest*nameTest) != 1){
                          	alert("조건에 만족하지 않는 문항이 있습니다. 확인부탁드립니다.")
                          }else{

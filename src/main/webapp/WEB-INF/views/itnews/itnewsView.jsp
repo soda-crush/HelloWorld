@@ -96,9 +96,12 @@
             	
             	
             	<div class=row>
-            		<div class="col-12 text-center pb-1">
+            		<div class="col-12 text-right pb-1">
             		<c:if test="${loginInfo!=null}">
-            			<button type="button" class="btn btn-warning" id=scrap style="width:100px;">스크랩</button>
+            			<a id="kakao-link-btn" href="javascript:;" onClick="shareKakaotalk();" style="text-decoration:none"> 
+						<img src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" height=38 style="margin-right:2px;"/>
+						</a>
+            			<button type="button" class="btn btn-success" id=scrap style="width:100px;">스크랩</button>
             			<c:if test="${loginInfo.id!=result.id}">
             			<button type="button" class="btn btn-dark" style="width:100px;color:white;" id=reportBtn>신고</button>
             			</c:if>
@@ -175,19 +178,21 @@
            
             </div>
             
-           <c:choose>
-            	<c:when test="${loginInfo.nickName==result.writer}">
+
             	<div class=container>
 	            	<div class="row">
 	            		<div class="col-12 text-right pt-2">
+	            		           <c:choose>
+            	<c:when test="${loginInfo.nickName==result.writer}">
 	            		<button type="button" class="btn btn-info" id=modify>수정</button>
 	            		<button type="button" class="btn btn-danger" id=remove>삭제</button>
+	            		
+            	</c:when>
+            	</c:choose>
 	            		<button type="button" class="btn btn-secondary" onclick="location.href='${pageContext.request.contextPath}/itnews/itnewsList'">목록</button>
 	            		</div>
 	            	</div>
             	</div>
-            	</c:when>
-            	</c:choose>
             
             <!--       몸통 끝!!!   -->
             
@@ -202,8 +207,8 @@
         <jsp:include page="/WEB-INF/views/itnews/jsp/reportModal.jsp"/>
 		<jsp:include page="/WEB-INF/views/itnews/jsp/reportSuccessModal.jsp"/>
         <jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
-        
-        <script>
+        <script type="text/JavaScript"  src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+        <script type="text/JavaScript">
         function popUp(link){
             window.open(link, "pLogPopUp", "width=600,height=600");
          }
@@ -398,7 +403,6 @@
             		function commentRecall(resp){
 						var loginInfo = "${sessionScope.loginInfo.nickName}";
 						for(var i=0;i<resp.length;i++){
-							console.log(resp[i].id);
 							var html = [];
 							html.push(
 									'<div class="row commentDiv commentBox'+resp[i].seq+' p-0 pb-2 m-2"><div class="col-12 commentInnerBox"><div class="row commentHeader">',
@@ -420,7 +424,40 @@
 									);
 							$(".coContainer").append(html.join(""));	
 							}
-					}			
+					}	
+                  
+                  //카카오톡
+            		  function shareKakaotalk() {
+            		      Kakao.init("7fce3c86f0e6aeeac11028850040589c"); // 사용할 앱의 JavaScript 키를 설정
+            		      Kakao.Link.sendDefault({
+            		         objectType : "feed",
+            		         content : {
+            		            title : "${result.title}", // 콘텐츠의 타이틀 
+            		            description : "IT 뉴스", // 콘텐츠 상세설명
+            		            imageUrl : "https://miro.medium.com/max/3840/1*U-R58ahr5dtAvtSLGK2wXg.png", // 썸네일 이미지          
+            		            link : {
+            		               mobileWebUrl : "http://${ip}/itnews/detail?seq=${result.seq}&page=${page}", // 모바일 카카오톡에서 사용하는 웹 링크 URL            
+            		               webUrl : "http://${ip}/itnews/detail?seq=${result.seq}&page=${page}" // PC버전 카카오톡에서 사용하는 웹 링크 URL
+            		            }
+            		         },
+            		         social : {
+            		            likeCount : 0 // LIKE 개수
+            		            ,
+            		            commentCount : 0 // 댓글 개수
+            		            ,
+            		            sharedCount : 0
+            		         // 공유 회수
+            		         },
+            		         buttons : [ {
+            		            title : "링크 이동하기" // 버튼 제목
+            		            ,
+            		            link : {
+            		               mobileWebUrl : "http://${ip}/itnews/detail?seq=${result.seq}&page=${page}",  // 모바일 카카오톡에서 사용하는 웹 링크 URL
+            		               webUrl : "http://${ip}/itnews/detail?seq=${result.seq}&page=${page}" // PC버전 카카오톡에서 사용하는 웹 링크 URL
+            		            }
+            		         } ]
+            		      });
+            		   }
        	 </script>
 </body>
 </html>

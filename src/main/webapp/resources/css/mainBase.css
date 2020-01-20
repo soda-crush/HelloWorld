@@ -135,3 +135,6 @@ button {
 	position:relative;
 	top:2px;
 	}
+img{
+	max-width: 100%;
+}
