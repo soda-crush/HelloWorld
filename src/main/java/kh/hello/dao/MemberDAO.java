@@ -126,4 +126,8 @@ public class MemberDAO {
 			return jdbc.update("Member.modify", dto);
 		}
 		
+	//아이디로 레벨 찾기
+		public int selectMemLevelById(String id) {
+			return jdbc.selectOne("Member.selectMemLevelById",id);
+		}
 }

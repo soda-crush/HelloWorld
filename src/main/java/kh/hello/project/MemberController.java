@@ -339,5 +339,19 @@ public class MemberController {
 		 return "error";
 	 }
 	 
+	 @RequestMapping("/reboot")
+	 public String getReboot(HttpSession session) {
+		 String sysId = ((LoginInfoDTO)session.getAttribute("loginInfo")).getId();
+		 session.invalidate();
+		 return "redirect:reboot2?id="+sysId;
+	 }
 	 
+	 @RequestMapping("/reboot2")
+	 public String getReboot2(HttpSession session, String id) {
+		 MemberDTO mdto = ms.selectMember(id);
+		 LoginInfoDTO dto = new LoginInfoDTO(id, mdto.getNickName(), mdto.getMemLevel());
+		 session.setAttribute("loginInfo", dto);
+		 ms.updateLastLogin(id);
+		 return "member/rebootFrm";
+	 }
 }
