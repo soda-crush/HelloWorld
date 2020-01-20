@@ -255,7 +255,7 @@ span:nth-child(4) {
 						
 		    
 						<div class="row">
-							<div class="col-xl-1 col-md-2">
+							<div class="col-xl-1 col-md-2" style="padding-top:0px; position: relative; top: 10px;">
 								<img src="${r.profileImg}" width=90,height=200>							 
 								<div class="d-md-none" style="float:right">
 									<c:if test="${r.adopt=='Y'}">
@@ -265,7 +265,7 @@ span:nth-child(4) {
 								</div>
 							</div>
 
-							<div class="col-xl-9 col-md-8">
+							<div class="col-xl-9 col-md-8" style="position: relative; right: 10px;">
 							<c:choose>
 								<c:when test="${r.memLevel == 3}">
 									<div class="row">

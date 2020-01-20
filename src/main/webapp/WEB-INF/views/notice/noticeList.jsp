@@ -29,6 +29,9 @@
 	.tableBody div:nth-child(2){
 		cursor:pointer;
 	}	
+	#baseBackgroundColor{
+		min-height:680px;
+	}
 </style>
 </head>
 <body>

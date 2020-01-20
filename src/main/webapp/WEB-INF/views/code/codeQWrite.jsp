@@ -63,8 +63,6 @@
 				<div class="col-12" id=aroundContent1></div>
 			</div>
 		</div>
-
-		<br>
 		
 		<!--      몸통 시작!!!   -->
 		<form action="codeQWriteProc.do" method="post" id="writeForm">

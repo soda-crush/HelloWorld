@@ -35,6 +35,7 @@
         .scrapnavi{background-color: lightgray;border-radius:5px;margin-top:30px;width:200px;display:inline-block;border-right:1px solid gray;}
         .line-over{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
         #plogScrap{background-color:#efefef;border-radius:5px 5px 0px 0px;padding:12px;}
+        .btn-group>button{font-size:15px;}
 	</style>
 </head>
 <body>
@@ -43,7 +44,7 @@
  		<div id="plogBaseBackgroundColor">
             <div class=container>
                 <div class=row>
-                    <div class="col-12" id=aroundContent>
+                    <div class="col-12" id=plogAroundContent>
                     </div>
                 </div>
             </div>
