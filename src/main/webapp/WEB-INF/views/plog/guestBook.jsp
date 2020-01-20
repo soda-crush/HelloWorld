@@ -26,7 +26,7 @@
         .sendbt{height:90%;float: left;color:#fff;background-color:#343a40;font-size:20px;font-family:NanumgothicBold;}
         .commentlist>div>div{margin-right: 5px;}
         #commentForm{height:100%;}
-        .commentwrap{background-color:white;border-radius:5px;padding: 15px;}
+        .commentwrap{background-color:white;border-radius:5px;padding: 15px;margin-top:20px;}
         textarea{resize:none;}
     	a:hover{text-decoration:none;}
         .message{background-color:white;margin:10px;width:100%;height:100%;border:0px;}
@@ -41,7 +41,7 @@
  		<div id="plogBaseBackgroundColor">
             <div class=container>
                 <div class=row>
-                    <div class="col-12" id=aroundContent>
+                    <div class="col-12" id=plogAroundContent>
                     </div>
                 </div>
             </div>         

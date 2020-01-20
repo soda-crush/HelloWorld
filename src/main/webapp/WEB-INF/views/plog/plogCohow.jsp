@@ -39,7 +39,7 @@
  		<div id="plogBaseBackgroundColor">
             <div class=container>
                 <div class=row>
-                    <div class="col-12" id=aroundContent>
+                    <div class="col-12" id=plogAroundContent>
                     </div>
                 </div>
             </div>
