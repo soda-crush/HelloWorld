@@ -87,4 +87,5 @@
 		,addr2=#{addr2},joinPath=#{joinPath}, gender=#{gender}, ifmOpenCheck=#{ifmOpenCheck}, birth=#{birth} where id=#{id}
 	</update>
 	
+	
 </mapper>
