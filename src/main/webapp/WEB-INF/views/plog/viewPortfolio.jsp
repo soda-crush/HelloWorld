@@ -19,7 +19,6 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <style>
 	    div{font-size:13px;}
-		.interval{margin-top: 10px;margin-bottom: 10px;background-color:lightgray;border-radius: 8px;height:10px;}
 		textarea{border :0px;width:100%;height: 100px;resize: none;}
 		input{width:100%;}
 		#datepicker,#datepicker2{width:20%}
@@ -31,6 +30,7 @@
 		textarea{background-color:lightgray;}
 		.line-over{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 		#plogPortfolio{background-color:#efefef;border-radius:5px 5px 0px 0px;padding:12px;}
+        input, textarea{border:1px solid #BDBDBD;background-color:#EAEAEA}
     </style>
 </head>
 <body>
@@ -135,14 +135,13 @@
 		            </div>
 		            <div class="interval"></div>
 		            <div style="text-align: end;">
-		            	<button class="btn btn-secondary" type="button" id="return">목록으로 돌아가기</button>
 		            	<c:choose>
 							<c:when test="${loginInfo.id ==ownerInfo.id}">
-								<button class="btn btn-secondary" type="button" id="delete">삭제하기</button>
-		            			<button class="btn btn-secondary" type="submit">수정하기</button>
+								<button class="btn btn-danger" type="button" id="delete">삭제</button>
+		            			<button class="btn btn-info" type="submit">수정</button>
 							</c:when>
 						</c:choose>
-		            
+		            	<button class="btn btn-secondary" type="button" id="return">목록</button>
 		            </div>
 		            
 		        </div>

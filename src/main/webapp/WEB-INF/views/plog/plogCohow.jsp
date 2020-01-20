@@ -25,6 +25,7 @@
 		.content{height:90%;float: left;resize: none;}
 		.sendbt{height:90%;float: left;}
 		#writer{text-underline-position: auto;margin-right: 30px;}
+        .cohowwrap{background-color:white;border:1px solid #BDBDBD;}
 		.coltheme{margin:30px;}
 		.navi{text-align: center;}
         a:hover{text-decoration:none;}
@@ -66,7 +67,7 @@
 	                    	</div>
 	                    </div>
 	                </div>
-	                <div class="col-12 col-md-8 col-lg-9 scraptwrap">
+	                <div class="col-12 col-md-8 col-lg-9 cohowwrap">
 	                	<div class="tableDiv">
 	                		<div class="coltheme"> 내 질문</div>
 							<div class="row tableHead">

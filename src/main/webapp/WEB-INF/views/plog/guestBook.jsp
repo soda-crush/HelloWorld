@@ -26,7 +26,7 @@
         .sendbt{height:90%;float: left;color:#fff;background-color:#343a40;font-size:20px;font-family:NanumgothicBold;}
         .commentlist>div>div{margin-right: 5px;}
         #commentForm{height:100%;}
-        .commentwrap{background-color:white;border-radius:5px;padding: 15px;margin-top:20px;}
+        .commentwrap{border-radius:5px;padding: 15px;margin-top:20px;background-color:white;border:1px solid #BDBDBD;}
         textarea{resize:none;}
     	a:hover{text-decoration:none;}
         .message{background-color:white;margin:10px;width:100%;height:100%;border:0px;}
