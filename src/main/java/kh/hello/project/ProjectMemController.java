@@ -64,6 +64,7 @@ public class ProjectMemController {
 		String id = sessionValue.getId();				
 		List<ProjectChartDTO> result = svc.projectList(id);
 		m.addAttribute("projectList", result);
+		m.addAttribute("ip", Configuration.ip);
 		return "/project/projectChart";
 	}
 	
@@ -95,6 +96,7 @@ public class ProjectMemController {
 		m.addAttribute("scrap", scrap);		
 		m.addAttribute("myApply", myApply);		
 		m.addAttribute("checkApplyCount", checkApplyCount);
+		m.addAttribute("ip", Configuration.ip);
 		return "/project/detailView";
 	}
 	
