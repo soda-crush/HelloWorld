@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Hello World!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="${pageContext.request.contextPath }/icon/favicon.ico"/>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
@@ -22,8 +23,6 @@
         .card-text{font-size:12px;}
         a:hover{text-decoration:none;}
 		.navi{text-align: center;}
-		.nvlink1{height:45px;line-height:45px;font-size:14px;}
-		.nvlink2{height:45px;line-height:45px;font-size:10px;}
 		.line-over{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 		#plogPortfolio{background-color:#efefef;border-radius:5px 5px 0px 0px;padding:12px;}
   	</style>
@@ -53,6 +52,15 @@
 		                            <p class="card-text" style="text-align: center;font-size:15px;">point : ${ownerInfo.point }</p>
 		                        </div>
 	                    	</div>
+	                    	<div class="d-md-none" style="background-color:white;border-radius:5px;height:200px;border: 1px solid rgba(0,0,0,.125); padding:15px;margin-right:10px;">
+	                    		<div style="float:left">
+		                        	<img src="${ownerInfo.profileImg }" style="width:150px;margin:10px;">
+	                    		</div>
+		                        <div style="float:left;margin-top:100px;margin-left:20px;">
+		                            <div class="line-over" style="text-align: center;font-size:20px;">${ownerInfo.nickName} 님</div>
+		                            <p style="text-align: center;font-size:15px;">point : ${ownerInfo.point }</p>
+		                        </div>
+	                    	</div>
 	                    </div>
 	                </div>
 	                <div class ="col-12 col-md-8 col-lg-9 wrapportfolio">
@@ -72,8 +80,8 @@
 					<c:choose>
 						<c:when test="${loginInfo.id ==ownerInfo.id}">
 							<div class="cardwrap col-6 col-xl-4">
-								<div style="margin-top:20px;text-align:center;line-height:31.4vw;height:31.4vw;width:20vs;border: 1px solid rgba(0,0,0,.125);border-radius: .25rem;">
-									<img id="addPF" src="/icon/plus.svg" style="width:35%;vertical-align:middle;" onclick="location.href='${pageContext.request.contextPath}/Portfolio/toInsert.do'">
+								<div style="margin-top:20px;text-align:center;line-height:31.4vw;height:31.4vw;width:20vs;">
+									<img id="addPF" src="/icon/plus.svg" style="opacity: 0.3;width:35%;vertical-align:middle;cursor:pointer;" onclick="location.href='${pageContext.request.contextPath}/Portfolio/toInsert.do'">
 								</div>
 							</div>
 						</c:when>
@@ -98,17 +106,6 @@
             $("#addPF").on("click",function(){
                 location.href = "${pageContext.request.contextPath}/Portfolio/toInsert.do";
             })
-	    	$(function(){
-	    		var element = $(".pageNavi");
-	    		var page = "${page}";
-	    		if(page > 0 && page <= 10){
-	    			element[page-1].classList.add('active');
-	    		}else if(page % 10 == 0){
-	    			element[10].classList.add('active');
-	    		}else{
-	    			element[page % 10].classList.add('active');
-	    		}	
-	    	});
             function popUp(id,writer){
         		if(writer == null){
         			alert("탈퇴한 회원입니다.");

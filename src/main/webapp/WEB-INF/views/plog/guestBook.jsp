@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Hello World!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="${pageContext.request.contextPath }/icon/favicon.ico"/>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
@@ -22,15 +23,11 @@
         .commentlist{width:100%;padding: 0px;margin-top: 10px;float: left;}
         .col{margin: 0px; padding: 0px;}
         .content{height:90%;float: left;resize: none;}
-        .sendbt{height:90%;float: left;}
+        .sendbt{height:90%;float: left;color:#fff;background-color:#343a40;font-size:20px;font-family:NanumgothicBold;}
         .commentlist>div>div{margin-right: 5px;}
         #commentForm{height:100%;}
         .commentwrap{background-color:white;border-radius:5px;padding: 15px;}
         textarea{resize:none;}
-/*         .page-item{padding:0px;height:10px;width:10px;} */
-/* 		.navi{text-align: center;} */
-		.nvlink1{height:45px;line-height:45px;font-size:14px;}
-		.nvlink2{height:45px;line-height:45px;font-size:10px;}
     	a:hover{text-decoration:none;}
         .message{background-color:white;margin:10px;width:100%;height:100%;border:0px;}
         .listwrap{margin: 10px; padding:5px;}
@@ -68,7 +65,7 @@
 	                    	<form action="${pageContext.request.contextPath}/GuestBook/insert.do" method="post" id="commentForm">
 		                        <div class="row"></div>
 <%-- 		                        <input type="hidden" name="owner" value="${sessionScope.loginInfo}">  --%>
-		                        <textarea class="col-10 content" placeholder="내용을 입력해주세요" name="content"></textarea>
+		                        <textarea maxlength="1300" class="col-10 content" placeholder="내용을 입력해주세요" name="content"></textarea>
 		                        <button class="col-2 sendbt">작성</button>
 	                    	</form>	
 	                    </div>
@@ -82,12 +79,12 @@
 			                				<img src="${dto.writerImg }" style="width:50px;">
 			                			</div>
 			                			<div style="float:left;margin-left:10px;">
-				                            <div>작성자 :
-				                            	<span style="cursor:pointer" onclick="popUp('${dto.writerID}','${dto.writer}')">
-													${dto.writerID}
+				                            <div>
+				                            	<span style="cursor:pointer;font-size:20px;" onclick="popUp('${dto.writerID}','${dto.writer}')">
+													${dto.writer}
 												</span>
+												<span style="color:gray;font-size:12px;">${dto.getDate()}</span>
 											</div>
-				                            <div>작성일 : ${dto.getDate()}</div>
 			                			</div>
 			                            <textarea id="list${dto.seq }" class="message" onkeydown="resize(this)" onkeyup="resize(this)" maxlength="1300" readonly >${dto.content }</textarea>
 			                  		</div>
@@ -96,11 +93,11 @@
 											<div style="text-align:right">
 												<c:choose>
 													<c:when test = "${dto.writerID == loginInfo.id || dto.ownerID == loginInfo.id }">
-							                        	<button id="update${dto.seq}" onclick="update(${dto.seq})" style="visibility:hidden;">수정완료</button>
-							                        	<button id="toModify${dto.seq }" onclick="modify(${dto.seq})">수정하기</button>
+														<button id="update${dto.seq}" class="btn btn-dark" onclick="update(${dto.seq})" style="visibility:hidden;">수정완료</button>
+														<button id="toModify${dto.seq }" class="btn btn-dark" onclick="modify(${dto.seq})">수정</button>
 													</c:when>
 												</c:choose>
-					                        	<button id="delete" onclick="location.href='${pageContext.request.contextPath}/GuestBook/delete.do?seq=${dto.seq}&cpage=${cpage}'">삭제하기</button>
+												<button class="btn btn-danger" id="delete" onclick="del(${dto.seq},${cpage})">삭제</button>
 					                        </div>
 										</c:when>
 										<c:otherwise>
@@ -133,6 +130,8 @@
         <jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
         
         <script>
+        	
+        
         	function update(seq){
         		var content = $('#list'+seq).val();
         		$.ajax({
@@ -168,6 +167,13 @@
         		focustext.focus();
         		focustext.setSelectionRange(focustext.value.length,focustext.value.length);
         	}
+        	
+        	function del(seq,cpage){
+        		if(confirm("정말 삭제하시겠습니까?")){
+        			location.href='${pageContext.request.contextPath}/GuestBook/delete.do?seq='+seq+'&cpage='+cpage;
+        		}
+        	}
+        	
         	$(function(){
         		var resizeList = document.getElementsByClassName("message");
         		for(var i=0 ; i<resizeList.length;i++){
@@ -181,13 +187,15 @@
 	    	$(function(){
 	    		var element = $(".pageNavi");
 	    		var cpage = "${cpage}";
-	    		if(cpage > 0 && cpage <= 10){
-	    			element[cpage-1].classList.add('active');
-	    		}else if(page % 10 == 0){
-	    			element[10].classList.add('active');
-	    		}else{
-	    			element[cpage % 10].classList.add('active');
-	    		}	
+	    		if(element.length != 0){
+	    			if(cpage > 0 && cpage <= 10){
+		    			element[cpage-1].classList.add('active');
+		    		}else if(page % 10 == 0){
+		    			element[10].classList.add('active');
+		    		}else{
+		    			element[cpage % 10].classList.add('active');
+		    		}	
+	    		}
 	    	});
 	    	function popUp(id,writer){
 	    		if(writer == null){

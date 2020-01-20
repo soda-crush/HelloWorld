@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Hello World!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="${pageContext.request.contextPath }/icon/favicon.ico"/>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
@@ -133,7 +134,16 @@
 		                <div class="col-9 col-md-10"><div>${pdto.git }</div></div>               
 		            </div>
 		            <div class="interval"></div>
-		            <div style="text-align: end;"><button type="button" id="return">목록으로 돌아가기</button><button type="button" id="delete">삭제하기</button><button>수정하기</button></div>
+		            <div style="text-align: end;">
+		            	<button class="btn btn-secondary" type="button" id="return">목록으로 돌아가기</button>
+		            	<c:choose>
+							<c:when test="${loginInfo.id ==ownerInfo.id}">
+								<button class="btn btn-secondary" type="button" id="delete">삭제하기</button>
+		            			<button class="btn btn-secondary" type="submit">수정하기</button>
+							</c:when>
+						</c:choose>
+		            
+		            </div>
 		            
 		        </div>
 			</form>
