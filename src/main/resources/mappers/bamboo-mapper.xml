@@ -41,10 +41,10 @@
 		 select count(seq) from bamboo
 		 <choose>
 		 <when test="value == 'all'">								
-			 where (title like '%${search}%') or (content like '%${search}%')
+			 where (lower(title) like lower('%${search}%')) or (content like lower('%${search}%'))
 		</when>
 		<when test="value == 'title'">								
-			 where (title like '%${search}%')
+			 where (lower(title) like lower('%${search}%'))
 		</when>
 		</choose>
 	</select>
@@ -66,11 +66,11 @@
 		select * 
 		<choose>
 		 <when test="value == 'all'">								
-			 from (select bamboo.*, row_number() over (order by seq desc) as rown, (select count(*) from bambooComments where bamSeq=bamboo.seq) as commentCount from bamboo where (title like '%${search}%') or (content like '%${search}%')) where rown between #{start} and #{end}
+			 from (select bamboo.*, row_number() over (order by seq desc) as rown, (select count(*) from bambooComments where bamSeq=bamboo.seq) as commentCount from bamboo where (lower(title) like lower('%${search}%')) or (lower(content) like lower('%${search}%'))) where rown between #{start} and #{end}
 			 
 		</when>
 		<when test="value == 'title'">								
-			 from (select bamboo.*, row_number() over (order by seq desc) as rown, (select count(*) from bambooComments where bamSeq=bamboo.seq) as commentCount from bamboo where (title like '%${search}%')) where rown between #{start} and #{end}
+			 from (select bamboo.*, row_number() over (order by seq desc) as rown, (select count(*) from bambooComments where bamSeq=bamboo.seq) as commentCount from bamboo where (lower(title) like lower('%${search}%'))) where rown between #{start} and #{end}
 		</when>
 		</choose>
 	</select>
