@@ -120,6 +120,10 @@ font-size: 11px;}
 		background-color : #F3F8FB;
 		text-align: center;
 	}
+	.infoBoxBottom>div:nth-child(2){
+		max-height:120px;
+		overflow:auto;
+	}
 	
 </style>
 </head>
@@ -259,19 +263,19 @@ font-size: 11px;}
 			            					<div class="col-12"><small>기간</small></div>
 			            					<div class="col-12 p-0">${pro.formedAllDate }</div>
 			            				</div>
-		            				</div>
-		            				
-			            			<div class="row ml-1 mr-1 pt-4 text-center p-absolute">
-			            				<div class="col-12">
-			            				<c:choose>
-			            					<c:when test="${pro.splitLanguage.size() > 0 }">
-			            						<c:forEach items="${pro.splitLanguage}" var="lang">
-			            							<div class="col-auto ml-1 mr-1 langTag">${lang}</div>
-			            						</c:forEach>
-			            					</c:when>
-			            				</c:choose>
-			            				</div>
-			            			</div>		            				
+			            				<div class="row infoBox infoBox infoBoxBottom ml-1 mr-1">
+			            					<div class="col-12"><small>사용언어</small></div>
+			            					<div class="col-12 p-2">
+					            				<c:choose>
+					            					<c:when test="${pro.splitLanguage.size() > 0 }">
+					            						<c:forEach items="${pro.splitLanguage}" var="lang">
+					            							<div class="col-auto ml-1 mr-1 langTag">${lang}</div>
+					            						</c:forEach>
+					            					</c:when>
+					            				</c:choose>			            					
+			            					</div>
+			            				</div>			            				
+		            				</div>		            				            				
 		            			</div>
             				</div>
             				<script>
