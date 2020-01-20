@@ -3,6 +3,8 @@ package kh.hello.services;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -32,6 +34,25 @@ public class ProjectService {
 
 	@Autowired
 	private ProjectDAO dao;
+	
+	
+//	프로젝트 강제 모집완료
+	
+	@Transactional("txManager")
+	public void letProjectClose() {
+		LocalDate today = LocalDate.now();
+		Date date = Date.valueOf(today);
+		List<ProjectDTO> list = dao.checkForcedCloseProject(date);
+		int result = dao.letProjectClose(date);		
+		if(list.size()>0) {
+			for(ProjectDTO p : list) {
+				dao.closeProjectApply(p.getSeq());
+			}
+		}
+		System.out.println("모집완료 변경된 프로젝트 : "+result+"개");
+		System.out.println("거절된 프로젝트신청 : "+list.size()+"개");
+	}
+	
 	
 	
 	/*
@@ -245,6 +266,7 @@ public class ProjectService {
 		dao.deleteImagesByProjectSeq(seq);
 		dao.updatePoint(option, id);
 		dao.checkPoint(id);
+		dao.allApplyDeny(seq);
 		return dao.deleteProject(seq);
 	}
 	
@@ -413,10 +435,13 @@ public class ProjectService {
 		return dao.getProjectApplyDetailView(seq);
 	}
 	
-	public ProjectApplyDTO getApplyCheck(int projectSeq) {
-		return dao.getApplyCheck(projectSeq);
+	public ProjectApplyDTO checkMyApply(int projectSeq, String id) {
+		return dao.checkMyApply(projectSeq, id);
 	}
 	
+	public int checkApplyCount(int projectSeq) {
+		return dao.checkApplyCount(projectSeq);
+	}
 	public int projectApplyDeleteConfirm(int seq) {
 		return dao.deleteProjectApply(seq);
 	}

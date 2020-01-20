@@ -89,7 +89,7 @@
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-md-2"><label class="pItem">기간</label><label class="star">*</label></div>
+								<div class="col-md-2"><label class="pItem">프로젝트 기간</label><label class="star">*</label></div>
 								<div class="col-md-10">
 	        						<input type="text" class="form-control form-control-sm datePicker" placeholder="시작일" name="startDate" id="startDate" readonly>
 	        						<span> ~ </span>
@@ -98,8 +98,8 @@
 							</div>							
 							<div class="row">
 								<div class="col-md-2"><label class="pItem">사용언어</label><label class="star">*</label></div>
-								<div class="col-md-7">
-									<input type="text" class="form-control" id="languages" name="languages">
+								<div class="col-md-7" style="word-break:break-all;word-break:break-word;">
+									<input type="text" class="form-control" id="languages" name="languages" style="word-break:break-all;word-break:break-word;">
 								</div>
 							</div>
 							<div class="row">
@@ -143,7 +143,7 @@
         <jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
         
 		<script src="/js/project/location.js"></script>
-		<script>
+		<script>		
 		$('.summernote').summernote({
 			lang: 'ko-KR',
 	        placeholder: '내용을 입력해주세요',	        
@@ -195,14 +195,14 @@
 			}
 		});
 		
-		$("#writeBtn").on("click",function(){				
+		$("#writeBtn").on("click",function(){	
 			if($("#loc1").val()==null|$("#loc2").val()==null|$("#capacity")==null|$("#startDate").val()==""|$("#endDate").val()==""|$("#languages").val()==""){
 				alert("필수 입력 항목을 확인해주세요");
 				return false;
 			}
 			if($("#startDate").val()>$("#endDate").val()){
 				alert("시작일이 종료일보다 늦은 날짜일 수 없습니다");
-				$("#startDate").focus();
+				$("#startDate").focus();				
 				return false;
 			}				
 			$("#title").val($.trim($("#title").val())); 				
@@ -218,9 +218,44 @@
 		   		$(".note-editable").html("<p><br></p>");
 		   		$(".note-placeholder").show();
 		   		return false;
-		   	}		   	
-			$("#phone").val($("#phone1").val()+"-"+$("#phone2").val()+"-"+$("#phone3").val());
-			if($("#phone").val()=="--"){$("#phone").val("");}	
+		   	}
+			if($("#phone1").val()!=""||$("#phone2").val()!=""||$("#phone3").val()!=""){
+				var regex1 = /^\d.+?$/;
+	            var data1 = $("#phone1").val();
+	            var result1 = regex1.exec(data1);
+				if(result1 == null){
+					alert("숫자를 입력해주세요");
+					$("#phone1").focus();
+					return false;
+				}            	
+				var regex2 = /^\d.+?$/;
+	            var data2 = $("#phone2").val();
+	            var result2 = regex2.exec(data2);
+				if(result2 == null){
+					alert("숫자를 입력해주세요");
+					$("#phone2").focus();
+					return false;
+				}
+				var data3 = $("#phone3").val();
+				var result3 = regex2.exec(data3);
+				if(result3 == null){
+					alert("숫자를 입력해주세요");
+					$("#phone3").focus();
+					return false;
+				}
+			}	
+		   	$("#phone").val($("#phone1").val()+"-"+$("#phone2").val()+"-"+$("#phone3").val());
+			if($("#phone").val()=="--"){$("#phone").val("");}
+			if($("#email").val()!=""){
+				var regex = /^\w+@[a-z]+(\.[a-z]+){1,2}$/gm;
+	            var data = $("#email").val();
+	            var result = regex.exec(data);
+	            if(result == null){			
+					alert("올바른 이메일 형식이 아닙니다");				
+					$("#email").focus();
+					return false;
+	            }					
+			}
 			var loc1 = $("#loc1").find("option[value='"+$("#loc1").val()+"']").text();
 			var loc2 = $("#loc2").find("option[value='"+$("#loc2").val()+"']").text();
 			$("input[name=location1]").val(loc1);
