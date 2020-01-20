@@ -123,8 +123,8 @@
 									<div class="row commentDiv commentBox${dto.seq} p-0 pb-2 m-2">
 										<div class="col-12 commentInnerBox">
 											<div class="row commentHeader">
-												<div class="col-1 profileBox pl-1 pt-2"><img src="${dto.profileImg}" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>
-												<div class="col-7 pt-1">
+												<div class="d-none d-md-block col-1 profileBox pl-1 pt-2"><img src="${dto.profileImg}" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>
+												<div class="col-8 col-md-7 pt-1">
 													<div class="row commentInfo">
 														<div class="col-12 commentWriter"><a onclick="popUp('/Portfolio/toPlog.do?owner=${dto.id}')">${dto.writer }</a></div>
 														<div class="col-12 commentWriteDate">${dto.formedDate}</div>
@@ -409,8 +409,8 @@
 							var html = [];
 							html.push(
 									'<div class="row commentDiv commentBox'+resp[i].seq+' p-0 pb-2 m-2"><div class="col-12 commentInnerBox"><div class="row commentHeader">',
-									'<div class="col-1 profileBox pl-1 pt-2"><img src="'+resp[i].profileImg+'" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>',
-									'<div class="col-7 pt-1"><div class="row commentInfo">',
+									'<div class="d-none d-md-block col-1 profileBox pl-1 pt-2"><img src="'+resp[i].profileImg+'" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>',
+									'<div class="col-8 col-md-7 pt-1"><div class="row commentInfo">',
 									'<div class="col-12 commentWriter"><a onclick="popUp(\'/Portfolio/toPlog.do?owner='+resp[i].id+'\')" >'+resp[i].writer+'</a></div>',
 									'<div class="col-12 commentWriteDate">'+resp[i].formedDate+'</div></div></div>',
 									'<div class="col-4 pt-2 text-right commentBtns">'

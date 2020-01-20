@@ -3,7 +3,7 @@ package kh.hello.configuration;
 public class Configuration {
 	public static int recordCountPerPage = 10;
 	public static int naviCountPerPage = 5;
-	public static String ip = "192.168.60.24";
+	public static String ip = "192.168.60.28";
 	
 	//프로젝트(PLog용)
 	public static int pLogProjectRecordCountPerPage = 5;

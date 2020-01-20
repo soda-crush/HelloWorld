@@ -15,7 +15,11 @@
 <link rel="stylesheet" type="text/css" href="/css/font-awesome/css/font-awesome.css">
 <link rel="stylesheet" href="/css/industry/industryBase.css" type="text/css"/>
 <link rel="stylesheet" href="/css/industry/list.css" type="text/css"/>
-
+<style>
+ #baseBackgroundColor{
+ min-height:680px;
+ }
+</style>
 <script>
    $(function(){
       $("#indusNavi").attr('class','nav-item nav-link active');

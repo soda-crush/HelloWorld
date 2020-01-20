@@ -84,13 +84,13 @@
 		select * 
 		<choose>
 		 <when test="cate == 'cateAll'">								
-			 from (select itnews.*, row_number() over (order by seq desc) as rown from itnews where (title like '%${search}%') or (writer like '%${search}%')) where rown between #{start} and #{end} 
+			 from (select itnews.*, row_number() over (order by seq desc) as rown from itnews where (lower(title) like lower('%${search}%')) or (lower(writer) like lower('%${search}%'))) where rown between #{start} and #{end} 
 		</when>
 		<when test="cate == 'cateTitle'">								
-			 from (select itnews.*, row_number() over (order by seq desc) as rown from itnews where (title like '%${search}%')) where rown between #{start} and #{end}
+			 from (select itnews.*, row_number() over (order by seq desc) as rown from itnews where (lower(title) like lower('%${search}%'))) where rown between #{start} and #{end}
 		</when>
 		<when test="cate == 'cateWriter'">								
-			 from (select itnews.*, row_number() over (order by seq desc) as rown from itnews where (writer like '%${search}%')) where rown between #{start} and #{end}
+			 from (select itnews.*, row_number() over (order by seq desc) as rown from itnews where (lower(writer) like lower('%${search}%'))) where rown between #{start} and #{end}
 		</when>
 		</choose>
 	</select>
@@ -99,13 +99,13 @@
 		select count(*) from itnews
 		 <choose>
 		 <when test="cate == 'cateAll'">								
-			 where (title like '%${search}%') or (writer like '%${search}%')
+			 where (lower(title) like lower('%${search}%')) or (lower(writer) like lower('%${search}%'))
 		</when>
 		<when test="cate == 'cateWriter'">								
-			 where (writer like '%${search}%')
+			 where (lower(writer) like lower('%${search}%'))
 		</when>
 		<when test="cate == 'cateTitle'">								
-			 where (title like '%${search}%')
+			 where (lower(title) like lower('%${search}%'))
 		</when>
 		</choose>
 	</select>

@@ -14,7 +14,7 @@
 			<c:otherwise>
 			 <div class="row" id="loginCon">
 			   <div class="col-6">&emsp;<a class="text-decoration-none" href="${pageContext.request.contextPath}/notice/noticeList" style="display:inline;color:orange;font-family:'Nanumgothic';">package<span style="color:white;">&emsp;notice;</span></a></div>
-                <div class="col-6 text-right" style="font-family:'Nanumgothic';"><p style="display:inline;color:#ededed;font-family:'Nanumgothic';">${sessionScope.loginInfo.nickName}님 환영합니다 Lv.${sessionScope.loginInfo.memLevel}</p>&emsp;<a href="${pageContext.request.contextPath}/member/mypage">마이페이지</a> | <a href="${pageContext.request.contextPath}/member/logout">로그아웃</a></div>
+                <div class="col-6 text-right" style="font-family:'Nanumgothic';"><p class="d-none d-md-inline" style="display:inline;color:#ededed;font-family:'Nanumgothic';">${sessionScope.loginInfo.nickName}님 환영합니다 Lv.${sessionScope.loginInfo.memLevel}</p>&emsp;<a href="${pageContext.request.contextPath}/member/mypage">마이페이지</a> | <a href="${pageContext.request.contextPath}/member/logout">로그아웃</a></div>
             </div>
 			</c:otherwise>
 	</c:choose>

@@ -19,6 +19,7 @@
 	#pageTitle{margin-bottom:20px;}
 	#pageTitle h1{display:inline;margin-right:10px;font-weight:bold;}
 	#pageTitle .btn{margin-left:5px;}
+ 	#baseBackgroundColor{min-height:680px;}
 </style>
 <script>
    $(function(){
