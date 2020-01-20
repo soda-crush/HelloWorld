@@ -60,7 +60,9 @@
   #aroundContent{ 
   	height: 150px; 
  } 
-
+  #plogAroundContent{ 
+  	height: 75px; 
+ } 
 #realFooter {
 	text-align: left;
 	position: relative;

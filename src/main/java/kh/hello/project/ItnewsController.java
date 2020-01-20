@@ -94,7 +94,7 @@ public class ItnewsController {
 				return "/itnews/itnewsView";
 			}
 			String profileImg = is.getImgByWriter(result.getWriter());
-			String ip = "172.30.1.7";
+			String ip = Configuration.ip;
 			m.addAttribute("profileImg", profileImg);
 			m.addAttribute("list", list);
 			m.addAttribute("result", result);
