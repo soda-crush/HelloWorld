@@ -1,19 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
+<div id=headerBackground>
  <div class=container>
   <c:choose>
 			<c:when test="${loginInfo.id ==null}">
 			 <div class="row" id="loginCon">
-                <div class="col-6">&emsp;<a href="${pageContext.request.contextPath}/notice/noticeList" style="display:inline;color:#787878;font-family:'Nanumgothic';" class="font-weight-bold">공지사항</a></div>
+                <div class="col-6">&emsp;<a class="text-decoration-none" href="${pageContext.request.contextPath}/notice/noticeList" style="display:inline;color:orange;font-family:'Nanumgothic';">package<span style="color:white;">&emsp;notice</span></a></div>
                 <div class="col-6 text-right"><a href="${pageContext.request.contextPath}/member/login">로그인</a> 
                 | <a href="${pageContext.request.contextPath}/member/signUp">회원가입</a></div>
             </div>
 			</c:when>
 			<c:otherwise>
 			 <div class="row" id="loginCon">
-			   <div class="col-6">&emsp;<a href="${pageContext.request.contextPath}/notice/noticeList" style="display:inline;color:#787878;font-family:'Nanumgothic';" class="font-weight-bold">공지사항</a></div>
-                <div class="col-6 text-right" style="font-family:'Nanumgothic';"><p style="display:inline;color:#787878;font-family:'Nanumgothic';" class="font-weight-bold">${sessionScope.loginInfo.nickName}님 환영합니다 Lv.${sessionScope.loginInfo.memLevel}</p>&emsp;<a href="${pageContext.request.contextPath}/member/mypage">마이페이지</a> | <a href="${pageContext.request.contextPath}/member/logout">로그아웃</a></div>
+			   <div class="col-6">&emsp;<a class="text-decoration-none" href="${pageContext.request.contextPath}/notice/noticeList" style="display:inline;color:orange;font-family:'Nanumgothic';">package<span style="color:white;">&emsp;notice</span></a></div>
+                <div class="col-6 text-right" style="font-family:'Nanumgothic';"><p style="display:inline;color:#ededed;font-family:'Nanumgothic';">${sessionScope.loginInfo.nickName}님 환영합니다 Lv.${sessionScope.loginInfo.memLevel}</p>&emsp;<a href="${pageContext.request.contextPath}/member/mypage">마이페이지</a> | <a href="${pageContext.request.contextPath}/member/logout">로그아웃</a></div>
             </div>
 			</c:otherwise>
 	</c:choose>
@@ -57,3 +58,4 @@
         		}
         	})
         </script>
+        </div>
