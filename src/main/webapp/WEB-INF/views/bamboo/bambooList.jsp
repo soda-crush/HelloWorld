@@ -14,6 +14,7 @@
 <link rel="stylesheet" href="/css/mainBase.css">
 <link rel="stylesheet" type="text/css" href="/css/font-awesome/css/font-awesome.css">
 <link rel="stylesheet" href="/css/industry/list.css" type="text/css"/>
+<link rel="stylesheet" href="/css/industry/industryBase.css" type="text/css"/>
 <style>
 	#pageTitle{margin-bottom:20px;}
 	#pageTitle h1{display:inline;margin-right:10px;font-weight:bold;}
