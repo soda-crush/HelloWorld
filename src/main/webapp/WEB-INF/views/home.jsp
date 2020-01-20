@@ -52,11 +52,11 @@ background-color:#5181a2;}
 .bdt4{
 background-color:#d1a93b;}
 .boardEleCon{
-padding-top: 9%;
+padding-top: 6%;
 padding-bottom:5%;
 padding-left:3%;
 padding-right:3%;
-line-height: 150%;
+line-height:128%;
 background-color: #f0f0f0; 
 border:1px solid #cfcfcf;
 border-bottom-left-radius: 3px;
@@ -65,6 +65,11 @@ border-bottom-right-radius: 3px;
 .boardEleCon a{
 color:black;
 font-size: 11px;
+}
+.boardEleCon p{
+font-size:12.5px;
+position:relative;
+bottom : 1px;
 }
 .projectCon{
 padding-top: 3%;
@@ -96,7 +101,7 @@ font-size: 11px;}
  		<div id=baseBackgroundColor>
             <div class=container>
                 <div class=row>
-                    <div class="col-12" id=aroundContent1>
+                    <div class="col-12" id=aroundContent1 style="height: 8px;">
                     </div>
                 </div>
             </div>
@@ -108,7 +113,7 @@ font-size: 11px;}
             	<div class="row">
             		<div class="co1-12 col-md-6 col-lg-3 boardCon">
 	            		<div class="boardEle">
-		            		<div class="boardEleTop bdt1">
+		            		<div class="boardEleTop bdt1 cursorPointer" onclick="location.href='/bamboo/bambooList.do'">
 		            			<p class="fs1 pl-3 pt-3" style="line-height:35%;">주간 조회수 TOP10</p>
 		            			<p class="mainTitle pl-3 pb-2" style="line-height:35%;">대나무 숲</p>
 		            		</div>
@@ -116,8 +121,7 @@ font-size: 11px;}
 			            		<c:choose>
 			            		<c:when test="${bamList.size()!=0}">
 			            			<c:forEach items="${bamList}" var="bam" varStatus="status">
-			            			<div class="cursorPointer" onclick="location.href='/bamboo/bambooDetailView.do?seq=${bam.seq}'" style="width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${status.count}&emsp; <p class="fontThin" style="display:inline;'">${bam.title}</p></div>
-			            			<br>
+			            			<div class="cursorPointer" onclick="location.href='/bamboo/bambooDetailView.do?seq=${bam.seq}'" style="width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${status.count}&emsp; <p class="fontThin " style="display:inline;'">${bam.title}</p></div>
 			            			</c:forEach>
 			            		</c:when>
 			            		</c:choose>
@@ -125,10 +129,10 @@ font-size: 11px;}
 	            		</div>
             		</div>
             		
-<!--             		<div class="col-12 d-lg-none"><br></div> -->
+            		<div class="col-12 d-md-none"><div style="height:8px;"></div></div>
             		<div class="co1-12 col-md-6 col-lg-3 boardCon">
 	            		<div class="boardEle">
-			            	<div class="boardEleTop bdt2">
+			            	<div class="boardEleTop bdt2 cursorPointer" onclick="location.href='/code/codeQList.do'">
 			            		<p class="fs1 pl-3 pt-3" style="line-height:35%;">주간 조회수 TOP10</p>
 		            			<p class="mainTitle pl-3 pb-2" style="line-height:35%;">Code-How</p>
 			            	</div>
@@ -137,7 +141,6 @@ font-size: 11px;}
 			            		<c:when test="${codeList.size()!=0}">
 			            			<c:forEach items="${codeList}" var="code" varStatus="status">
 			            			<div class="cursorPointer" onclick="location.href='${pageContext.request.contextPath}/code/codeDetail.do?seq=${code.seq}'" style="width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${status.count}&emsp; <p class="fontThin" style="display:inline;'">${code.title}</p></div>
-			            			<br>
 			            			</c:forEach>
 			            		</c:when>
 			            		</c:choose>
@@ -145,10 +148,10 @@ font-size: 11px;}
 		            	</div>
             		</div>
             		
-<!--             		<div class="col-12 d-lg-none"><br></div> -->
+            		<div class="col-12 d-lg-none"><div style="height:8px;"></div></div>
             		<div class="co1-12 col-md-6 col-lg-3 boardCon">
 	            		<div class="boardEle">
-			            	<div class="boardEleTop bdt3">
+			            	<div class="boardEleTop bdt3 cursorPointer" onclick="location.href='/industry/industryStatusList.do'">
 			            		<p class="fs1 pl-3 pt-3" style="line-height:35%;">주간 조회수 TOP10</p>
 		            			<p class="mainTitle pl-3 pb-2" style="line-height:35%;">업계현황</p>
 			            	</div>
@@ -157,7 +160,6 @@ font-size: 11px;}
 			            		<c:when test="${indusList.size()!=0}">
 			            			<c:forEach items="${indusList}" var="indus" varStatus="status">
 			            			<div class="cursorPointer" onclick="location.href='/industry/industryStatusDetailView.do?seq=${indus.seq}'"  style="width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${status.count}&emsp; <p class="fontThin" style="display:inline;'">${indus.title}</p></div>
-			            			<br>
 			            			</c:forEach>
 			            		</c:when>
 			            		</c:choose>
@@ -165,10 +167,10 @@ font-size: 11px;}
 		            	</div>
             		</div>
             	
-<!--             		<div class="col-12 d-lg-none"><br></div> -->
+					<div class="col-12 d-md-none"><div style="height:8px;"></div></div>
             		<div class="co1-12 col-md-6 col-lg-3 boardCon">
 	            		<div class="boardEle">
-			            	<div class="boardEleTop bdt4">
+			            	<div class="boardEleTop bdt4 cursorPointer" onclick="location.href='/itnews/itnewsList'">
 			            		<p class="fs1 pl-3 pt-3" style="line-height:35%;">주간 조회수 TOP10</p>
 		            			<p class="mainTitle pl-3 pb-2" style="line-height:35%;">IT News</p>
 			            	</div>
@@ -177,7 +179,6 @@ font-size: 11px;}
 			            		<c:when test="${itList.size()!=0}">
 			            			<c:forEach items="${itList}" var="it" varStatus="status">
 			            			<div class="cursorPointer" onclick="location.href='/itnews/detail?seq=${it.seq}'"  style="width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${status.count}&emsp; <p class="fontThin" style="display:inline;'">${it.title}</p></div>
-			            			<br>
 			            			</c:forEach>
 			            		</c:when>
 			            		</c:choose>
@@ -195,7 +196,7 @@ font-size: 11px;}
             				광고 자리
             			</div>
             		<br><br>
-            		<h3 style="color:#ededed;" class=text-left>진행중인 프로젝트 》</h3>
+            		<h3 style="color:#ededed;" class="text-left cursorPointer" onclick="location.href='/project/list'">진행중인 프로젝트 》</h3>
             		<hr>
             		</div>
             	</div>
