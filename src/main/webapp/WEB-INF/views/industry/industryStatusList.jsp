@@ -69,7 +69,10 @@
 				  	 </div>
             		 <c:choose>
 				  		<c:when test="${industryStatusList.size()==0 }">
-				  		<div class="row tableBodyNull"><div class="col-12">작성된 글이 없습니다.</div></div>
+				  		<div class="row tableBodyNull" style="height:200px;">
+				  		<div class="col-12" style="line-height:200px;">작성된 글이 없습니다.</div>
+				  		</div>
+				  		
 				  		</c:when>
 				  		<c:otherwise>
 				  			<c:forEach items="${industryStatusList }" var="i">
