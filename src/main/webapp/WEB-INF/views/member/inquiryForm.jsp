@@ -20,12 +20,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
 <script src="/js/summernote-ko-KR.js"></script>
 <style>
-	#titleLink:hover{
-		cursor:pointer;
-		color:gray;
-	}
-	#titleLink strong{
+	#titleLink{
 		font-size:25px;
+		text-decoration:none;
+		color:black;
 	}
 </style>
 </head>
@@ -43,8 +41,8 @@
             <!--      몸통 시작!!!   -->
             <div class=container id="projectPage">
 				<div id="pageTitle" class="row ml-1 mb-4">
-					<div class="col-12" id="titleLink">
-						<div class="col-auto vertical-align:text-top p-0"><strong>일대일문의</strong></div>
+					<div class="col-12">
+						<a href="${pageContext.request.contextPath}/member1/myInquiry?page=${page}" id="titleLink"><strong>일대일문의</strong></a>
 					</div>
 					<script>
 						$("#titleLink").on("click", function(){
