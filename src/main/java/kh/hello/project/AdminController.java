@@ -45,11 +45,17 @@ public class AdminController {
 	
 	@RequestMapping("/login")
 	public String login(String name, String password) {
-		int result = as.validLogin(name, password);
-		if(result > 0) {
-			session.setAttribute("AdminInfo", name);
-			return "redirect:main";
-		}else {
+		int result;
+		try {
+			result = as.validLogin(name, password);
+			if(result > 0) {
+				session.setAttribute("AdminInfo", name);
+				return "redirect:main";
+			}else {
+				return "redirect:loginFail";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 			return "redirect:loginFail";
 		}
 	}
@@ -121,10 +127,16 @@ public class AdminController {
 	@RequestMapping("/modifyInfo")
 	public String adModifyInfo(String password, String email, HttpServletRequest request) {
 		String adminId = (String)session.getAttribute("AdminInfo");
-		int result = as.modifyInfo(adminId, password, email);
-		if(result > 0) {
-			request.setAttribute("result", true);
-		}else {
+		int result;
+		try {
+			result = as.modifyInfo(adminId, password, email);
+			if(result > 0) {
+				request.setAttribute("result", true);
+			}else {
+				request.setAttribute("result", false);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 			request.setAttribute("result", false);
 		}
 		return "admin/modifyResult";
