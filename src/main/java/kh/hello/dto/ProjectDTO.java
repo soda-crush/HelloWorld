@@ -4,6 +4,8 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProjectDTO {
 
@@ -272,4 +274,13 @@ public class ProjectDTO {
 		}	
 	}
 
+	public List<String> getSplitLanguage(){
+		String languages = this.languages;
+		String[] array = languages.split(",");
+		List<String> result = new ArrayList<>();
+		for(String tmp : array) {
+			result.add(tmp);
+		}
+		return result;
+	}
 }
