@@ -232,7 +232,7 @@
 		   		return false;
 		   	}
 			if($("#phone1").val()!=""||$("#phone2").val()!=""||$("#phone3").val()!=""){
-				var regex1 = /^\d.+?$/;
+				var regex1 = /^(\d){3}$/;
 	            var data1 = $("#phone1").val();
 	            var result1 = regex1.exec(data1);
 				if(result1 == null){
@@ -240,7 +240,7 @@
 					$("#phone1").focus();
 					return false;
 				}            	
-				var regex2 = /^\d.+?$/;
+				var regex2 = /^(\d){3,4}$/;
 	            var data2 = $("#phone2").val();
 	            var result2 = regex2.exec(data2);
 				if(result2 == null){
@@ -259,7 +259,7 @@
 		   	$("#phone").val($("#phone1").val()+"-"+$("#phone2").val()+"-"+$("#phone3").val());
 			if($("#phone").val()=="--"){$("#phone").val("");}
 			if($("#email").val()!=""){
-				var regex = /^\w+@[a-z]+(\.[a-z]+){1,2}$/gm;
+				var regex = /^\w+@[a-z]+(\.[a-z]+){1,2}$/;
 	            var data = $("#email").val();
 	            var result = regex.exec(data);
 	            if(result == null){			

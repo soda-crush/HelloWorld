@@ -21,30 +21,10 @@ public class ProjectChartDTO {
 	private Timestamp changeDate;
 	private long width;
 	private long distance;
+	private String today;
 	
 	public ProjectChartDTO() {
 		super();
-	}
-	public ProjectChartDTO(int seq, String title, String location1, String location2, int capacity, Date startDate,
-			Date endDate, String languages, String writer, String id, Timestamp writeDate, String state, int scrap,
-			Timestamp changeDate, long width, long distance) {
-		super();
-		this.seq = seq;
-		this.title = title;
-		this.location1 = location1;
-		this.location2 = location2;
-		this.capacity = capacity;
-		this.startDate = startDate;
-		this.endDate = endDate;
-		this.languages = languages;
-		this.writer = writer;
-		this.id = id;
-		this.writeDate = writeDate;
-		this.state = state;
-		this.scrap = scrap;
-		this.changeDate = changeDate;
-		this.width = width;
-		this.distance = distance;
 	}
 
 	public int getSeq() {
@@ -143,6 +123,14 @@ public class ProjectChartDTO {
 	public void setDistance(long distance) {
 		this.distance = distance;
 	}
+	public String getToday() {
+		return today;
+	}
+	public void setToday(String today) {
+		this.today = today;
+	}
+
+	
 	
 	
 	public String getStateInKor() {

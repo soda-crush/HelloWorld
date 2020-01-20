@@ -35,11 +35,11 @@
             <!--      몸통 시작!!!   -->
             <div class=container id="projectPage">
 				<div id="pageTitle" class="row">
-					<div class="col-12 col-lg-4"><h1>프로젝트 모집</h1></div>
-					<div class="col-12 col-lg-8 pt-2">
+					<div class="col-12 col-lg-5"><h1>프로젝트 모집</h1></div>
+					<div class="col-12 col-lg-7 pt-2">
 						<a class="btn btn-danger" href="/project/list" role="button">게시판</a>
-						<a class="btn btn-secondary" href="/project/chart" role="button">그래픽</a>
-						<a class="btn btn-secondary" href="/project/map" role="button">지도</a>
+						<a class="btn btn-secondary" href="/project/chart" role="button">일정</a>
+						<a class="btn btn-secondary" href="#" role="button">지도</a>
 						<a class="btn btn-warning" href="/project/pLog/pLogProjectList" role="button">임시</a>
 					</div>
 				</div>				
