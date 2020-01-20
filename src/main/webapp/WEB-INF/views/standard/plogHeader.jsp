@@ -42,7 +42,7 @@
 				<a id="plogPortfolio" class="nav-item nav-link" style="color:black" href="${pageContext.request.contextPath}/Portfolio/toPlogmain.do">포트폴리오</a>
 				<c:choose>
 					<c:when test="${loginInfo.id ==ownerInfo.id}">
-						<a id="plogCohow" class="nav-item nav-link" style="color:black" href="${pageContext.request.contextPath}/Plog/toPlogCohow.do">CoHow</a>
+						<a id="plogCohow" class="nav-item nav-link" style="color:black" href="${pageContext.request.contextPath}/Plog/toPlogCohow.do">Code-How</a>
 						<a id="plogScrap" class="nav-item nav-link" style="color:black" href="${pageContext.request.contextPath}/Scrap/itNews.do">스크랩</a>
 					</c:when>
 				</c:choose>
