@@ -37,9 +37,12 @@ cursor:default;
 .notification-area {
 text-align:right;
 }
-	.contentCard{
-		max-width: 1000px;
-	}
+.contentCard{
+	max-width: 1000px;
+}
+.note-toolbar {
+	z-index:1;
+}
 </style>
 
 </head>
@@ -163,7 +166,7 @@ text-align:right;
     });  
     
     $("#writeBtn").on("click", function(){
-    	var regex = /^[(<p><br></p>)(<p>(&nbsp; ){1,}</p>)]{0,}$/g;
+    	var regex = /^[(<p><br></p>)(<p>(&nbsp; )+</p>)]{0,}$/g;
     	var content = $(".summernote").val();
     	var result = regex.exec(content);
     	   
