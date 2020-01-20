@@ -75,10 +75,9 @@
   #aroundContent{ 
   	height: 150px; 
  } 
- #cateTitle{
- color:#e6e6e6;}
- #cateCmt{
- color:#f2f2f2;}
+ #baseBackgroundColor{
+ background-color: #e8e8e890;}
+ 
 </style>
 
 <script>
@@ -120,7 +119,7 @@
 					
 				  	<c:choose>
 				  		<c:when test="${list.size()==0 }">
-				  		<div class="row"><div class="col-12">작성된 글이 없습니다.</div></div>
+				  		<div class="row"><div class="col-12 text-center" style="height: 150px;line-height: 150px;">작성된 글이 없습니다.</div></div>
 				  		</c:when>
 				  		<c:otherwise>
 				  			<c:forEach items="${list}" var="dto">

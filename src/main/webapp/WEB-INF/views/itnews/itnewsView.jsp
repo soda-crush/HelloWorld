@@ -39,10 +39,9 @@
 		color:#c2c2c2;
 		font-size: 14px;
 	}
-	 #cateTitle{
- color:#e6e6e6;}
- #cateCmt{
- color:#f2f2f2;}
+	
+ #baseBackgroundColor{
+ background-color: #e8e8e890;}
 </style>
 <script>
 	$(function(){
