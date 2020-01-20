@@ -39,6 +39,10 @@
 		color:#c2c2c2;
 		font-size: 14px;
 	}
+	 #cateTitle{
+ color:#e6e6e6;}
+ #cateCmt{
+ color:#f2f2f2;}
 </style>
 <script>
 	$(function(){
@@ -61,7 +65,7 @@
  		<div id=baseBackgroundColor>
             <div class=container>
                 <div class=row>
-                    <div class="col-12" id=aroundContent>
+                    <div class="col-12" id=aroundContent1>
                     </div>
                 </div>
             </div>
