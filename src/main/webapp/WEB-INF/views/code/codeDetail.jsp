@@ -179,7 +179,7 @@ span:nth-child(4) {
 	<div id=baseBackgroundColor style="text-align: left;">
 		<div class=container>
 			<div class=row>
-				<div class="col-12" id=aroundContent></div>
+				<div class="col-12" id=aroundContent1></div>
 			</div>
 		</div>
 
