@@ -54,7 +54,7 @@
   				
 				<div id="pageTitle" class="row ml-1 mb-4">
 					<div class="col-12" id="titleLink">
-						<div class="col-auto vertical-align:text-top p-0"><strong>공지사항</strong></div>
+						<div class="col-auto vertical-align:text-top p-0"><h1>공지사항</h1></div>
 					</div>
 					<script>
 						$("#titleLink").on("click", function(){
