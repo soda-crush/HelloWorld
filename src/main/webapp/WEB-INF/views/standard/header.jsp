@@ -20,7 +20,7 @@
                 <div class = "d-none d-md-block col-md-2"></div>
                 <div class = "col-12 col-md-8" id = "logoCon">
                     <br>
-                    <img src="/img/logo7.PNG" id="logo">
+                    <img src="/img/logoReal.png" id="logo">
                     <br><br>
                 </div>
                 <div class = "d-none d-md-block col-md-2 text-muted"></div>
