@@ -202,7 +202,7 @@ border:1px solid #d4d4d4;
 		            				<p class="mpExpla fontThin">모집인원. ${pro.capacity}명</p>
 		            				<hr>
 		            				<p class="mpExpla fontThin">지역. ${pro.location1}&ensp;${pro.location2}</p>
-		            				<hr>r
+		            				<hr>
 		            				<p class="mpExpla fontThin">팀장. ${pro.writer}</p>
 		            				<hr>
 		            				<p class="mpExpla fontThin">기간. ${pro.formedAllDate }</p>
