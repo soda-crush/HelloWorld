@@ -35,6 +35,9 @@
 	#startInputDate{
 	width:130px;
 	}
+	.eleCon {
+	background-color:#f7f7f7;
+	}
 </style>
 </head>
 <body>

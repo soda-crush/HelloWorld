@@ -18,6 +18,15 @@
 	.btnM{
 		width:120px;
 	}
+	h1{
+		color:#ffffff;
+	}
+	hr{
+		border-top:1px solid #ffffff50;
+	}
+	#baseBackgroundColor{
+		min-height:650px;
+	}
 </style>
 </head>
 <body>
