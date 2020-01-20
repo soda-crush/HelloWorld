@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import kh.hello.dao.MemberDAO;
 import kh.hello.dto.LoginInfoDTO;
 
 public class MemAdvisor {
@@ -15,8 +16,12 @@ public class MemAdvisor {
 	@Autowired
 	private HttpSession session;
 	
+	@Autowired
+	private MemberDAO dao;
+	
 	public String loginCheck(ProceedingJoinPoint pjp) {
 		LoginInfoDTO dto = (LoginInfoDTO)session.getAttribute("loginInfo");
+		
 
 		if(dto == null) {
 			String oriMethod = pjp.toShortString();
@@ -44,7 +49,12 @@ public class MemAdvisor {
 			}
 			return "redirect:../member/noMem";
 		}
-		
+		//dto null아닌경우
+		int sysMemLevel = dao.selectMemLevelById(dto.getId());
+		int lastLoginMemLevel = dto.getMemLevel();
+		if(sysMemLevel != lastLoginMemLevel) {
+			return "redirect:../member/reboot";
+		}
 		
 		String result = "";
 		try {

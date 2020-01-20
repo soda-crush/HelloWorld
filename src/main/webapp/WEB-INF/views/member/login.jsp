@@ -27,11 +27,13 @@ button{
 }
 .aT{
 	font-size: 14px;
-	color: gray;
+	color: #bdbdbd;
 }
  #aroundContent1{ 
   	height: 140px; 
  } 
+ h4{
+ color:black;}
 </style>
 </head>
 <body>
@@ -58,13 +60,13 @@ button{
             	<div class="row">
             	<div class="col-md-1 d-none d-md-block order-md-1"></div>
             		<div class="col-12 col-md-5 order-1 order-md-2">
-	            		<img src="/icon/blackArrow.svg"><h4 style="display:inline">로그인</h4>
+	            		<img src="/icon/blackArrow.svg"><h4 style="display:inline;position:relative;top:3.5px;left:2px;">로그인</h4>
 	            		<div class="row">
 	            			<div class="col-8">
 	            				<br>
 	            				<input type="text" name="id" id="id" class="input1" placeholder="아이디 입력"><br>
 	            				<input type="password" name="pw" id="pw" class="input1" placeholder="비밀번호 입력"><br>
-	            				아이디를 기억합니다. <input type="checkbox" id="remID">
+	            				<p style="color:black;display:inline;">아이디를 기억합니다.</p> <input type="checkbox" id="remID">
 	            				<input type="text" name="noMemPath" value="${noMemPath}" style="display:none">
 	            				<input type="text" name="seq" value="${seq}" style="display:none">
 	            			</div>
@@ -79,11 +81,11 @@ button{
             		</div>
             		<div class="col-md-1 d-none d-md-block order-md-3"></div>
             		<div class="col-12 col-md-4 order-2 order-md-4">
-            			&emsp;<img src="/icon/whiteArrow.svg"><h4 style="display:inline">처음이신가요?</h4>
+            			&emsp;<img src="/icon/whiteArrow.svg"><h4 style="display:inline;position:relative;top:3.5px;left:2px;">처음이신가요?</h4>
             			<br>
-            			&emsp;&emsp;&emsp;<a class=aT href="${pageContext.request.contextPath}/member/signUp">회원가입</a>
+            			&emsp;&emsp;&emsp;<a class=aT href="${pageContext.request.contextPath}/member/signUp"">회원가입</a>
             			<h1><br></h1>
-            			&emsp;<img src="/icon/whiteArrow.svg"><h4 style="display:inline">기억이 나지 않으신가요?</h4>
+            			&emsp;<img src="/icon/whiteArrow.svg"><h4 style="display:inline;position:relative;top:3.5px;left:2px;">기억이 나지 않으신가요?</h4>
             			<br>
             			&emsp;&emsp;&emsp;<a class=aT href="${pageContext.request.contextPath}/member/findId">아이디</a>ㆍ
             			<a class=aT href="${pageContext.request.contextPath}/member/findPw">비밀번호 찾기</a>
