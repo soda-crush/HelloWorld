@@ -6,7 +6,12 @@
 	<select id="getList" resultType="kh.hello.dto.ProjectDTO">
 		select project.*,(select count(*) from projectComment where projectSeq=project.seq) as commentCount from project order by seq desc		
 	</select>
-	
+	<select id="checkForcedCloseProject" resultType="kh.hello.dto.ProjectDTO">
+		select seq from project where startDate = #{value} and state = 'N'
+	</select>
+	<update id="letProjectClose">
+		update project set state = 'Y' where startDate = #{value} and state = 'N'
+	</update>
 	
 	<select id="getArticleCount" resultType="integer">
 		select count(*) from project

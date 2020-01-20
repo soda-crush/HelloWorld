@@ -17,12 +17,21 @@
 <!-- 		select * from projectApply where seq=#{value}  -->
 		select a.*, m.ifmOpenCheck as portfolio, p.title from projectApply a, member m, project p where a.projectSeq = p.seq and a.id = m.id and a.seq=#{value}
 	</select>
-	<select id="getApplyCheck" resultType="kh.hello.dto.ProjectApplyDTO">
-		select id, approve from projectApply where projectSeq=#{value}
+	<select id="checkMyApply" resultType="kh.hello.dto.ProjectApplyDTO">
+		select id, approve from projectApply where projectSeq=#{projectSeq} and id=#{id}
+	</select>
+<!-- 	<select id="checkMyApply" resultType="kh.hello.dto.ProjectApplyDTO"> -->
+<!-- 		select id, approve, denyReason from projectApply where projectSeq=#{projectSeq} and id=#{id} -->
+<!-- 	</select> -->
+	<select id="checkApplyCount" resultType="integer">
+		select count(id) from projectApply where projectSeq=#{value} and approve not in('X')
 	</select>
 	<insert id="insertProjectApply" parameterType="kh.hello.dto.ProjectApplyDTO">
 		insert into projectApply values(projectApplySeq.nextval,#{projectSeq},#{writer},#{id},#{languages},#{gender},#{age},#{workIn},#{email},#{etc},sysdate,'W',#{leaderId})
 	</insert>
+<!-- 	<insert id="insertProjectApply" parameterType="kh.hello.dto.ProjectApplyDTO"> -->
+<!-- 		insert into projectApply values(projectApplySeq.nextval,#{projectSeq},#{writer},#{id},#{languages},#{gender},#{age},#{workIn},#{email},#{etc},sysdate,'W',#{leaderId},null) -->
+<!-- 	</insert> -->
 	<update id="updateProjectApply" parameterType="kh.hello.dto.ProjectApplyDTO">
 		update projectApply set approve=#{approve} where seq=#{seq}
 	</update>
@@ -32,6 +41,9 @@
 	<update id="closeProjectApply">
 		update projectApply set approve='X' where projectSeq=#{value} and approve='W'
 	</update>
+<!-- 	<update id="closeProjectApply"> -->
+<!-- 		update projectApply set approve='X', denyReason=#{denyReason} where projectSeq=#{projectSeq} and approve='W' -->
+<!-- 	</update> -->
 	<select id="getCountInApprove" resultType="integer">
 		select count(*) from projectApply where id=#{value} and approve='O'
 	</select>
@@ -41,4 +53,13 @@
 	<update id="approveDeny" parameterType="integer">
 		update projectApply set approve='X' where seq=#{value}
 	</update>
+<!-- 	<update id="approveDeny" parameterType="integer"> -->
+<!-- 		update projectApply set approve='X', denyReason=#{denyReason} where seq=#{seq} -->
+<!-- 	</update> -->
+	<update id="allApplyDeny">
+		update projectApply set approve='X' where projectSeq=#{value}
+	</update>
+<!-- 	<update id="allApplyDeny"> -->
+<!-- 		update projectApply set approve='X', denyReason=#{denyReason} where projectSeq=#{projectSeq} -->
+<!-- 	</update> -->
 </mapper>

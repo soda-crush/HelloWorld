@@ -95,7 +95,7 @@ border:1px solid #d4d4d4;
             <div class="container">
             
             	<div class="row">
-            		<div class="co1-12 col-lg-4 boardCon">
+            		<div class="co1-12 col-md-6 col-lg-3 boardCon">
 	            		<div class="boardEle">
 		            		<div class="boardEleTop bdt1">
 		            			<p class="fs1 pl-3 pt-3" style="line-height:35%;">주간 조회수 TOP5</p>
@@ -114,7 +114,7 @@ border:1px solid #d4d4d4;
 	            		</div>
             		</div>
             		<div class="col-12 d-lg-none"><br></div>
-            		<div class="co1-12 col-lg-4 boardCon">
+            		<div class="co1-12 col-md-6 col-lg-3 boardCon">
 	            		<div class="boardEle">
 			            	<div class="boardEleTop bdt2">
 			            		<p class="fs1 pl-3 pt-3" style="line-height:35%;">주간 조회수 TOP5</p>
@@ -132,8 +132,9 @@ border:1px solid #d4d4d4;
 			            	</div>
 		            	</div>
             		</div>
+            		
             		<div class="col-12 d-lg-none"><br></div>
-            		<div class="co1-12 col-lg-4 boardCon">
+            		<div class="co1-12 col-md-6 col-lg-3 boardCon">
 	            		<div class="boardEle">
 			            	<div class="boardEleTop bdt3">
 			            		<p class="fs1 pl-3 pt-3" style="line-height:35%;">주간 조회수 TOP5</p>
@@ -144,6 +145,26 @@ border:1px solid #d4d4d4;
 			            		<c:when test="${indusList.size()!=0}">
 			            			<c:forEach items="${indusList}" var="indus" varStatus="status">
 			            			<div class="cursorPointer" onclick="location.href='/industry/industryStatusDetailView.do?seq=${indus.seq}'"  style="width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${status.count}&emsp; <p class="fontThin" style="display:inline;'">${indus.title}</p></div>
+			            			<br>
+			            			</c:forEach>
+			            		</c:when>
+			            		</c:choose>
+			            	</div>
+		            	</div>
+            		</div>
+            	</div>
+            	<div class="col-12 d-lg-none"><br></div>
+            		<div class="co1-12 col-md-6 col-lg-3 boardCon">
+	            		<div class="boardEle">
+			            	<div class="boardEleTop bdt3">
+			            		<p class="fs1 pl-3 pt-3" style="line-height:35%;">주간 조회수 TOP5</p>
+		            			<p class="mainTitle pl-3 pb-2" style="line-height:35%;">IT News</p>
+			            	</div>
+			            	<div class="boardEleCon">
+			            		<c:choose>
+			            		<c:when test="${itList.size()!=0}">
+			            			<c:forEach items="${itList}" var="it" varStatus="status">
+			            			<div class="cursorPointer" onclick="location.href='/itnews/detail?seq=${it.seq}'"  style="width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${status.count}&emsp; <p class="fontThin" style="display:inline;'">${it.title}</p></div>
 			            			<br>
 			            			</c:forEach>
 			            		</c:when>

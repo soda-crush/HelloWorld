@@ -145,7 +145,7 @@ public class ProjectPLogDTO {
 		if(state.contentEquals("N")) {
 			state = "모집중";
 		}else if(state.contentEquals("Y")) {
-			state = "모집마감";
+			state = "마감";
 		}
 		return state;
 	}

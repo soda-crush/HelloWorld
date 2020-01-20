@@ -48,7 +48,7 @@
 					</div>
 					<div class="col-12 text-center">
 					<h3><br></h3>
-						<input type="text" id=pw name=pw placeholder="비밀번호">&ensp;<button type="button" class="btn btn-secondary" id="do" style="display:inline;">확인</button>
+						<input type="password" id=pw name=pw placeholder="비밀번호">&ensp;<button type="button" class="btn btn-secondary" id="do" style="display:inline;">확인</button>
 						<h3><br><br><br><br></h3>
 					</div>
 				</div>

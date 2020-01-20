@@ -1,5 +1,6 @@
 package kh.hello.dao;
 
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +25,12 @@ public class ProjectDAO {
 	
 	
 	//project 테이블
+	public int letProjectClose(Date today) {//프로젝트 시작기간이 '오늘'인 미완료 프로젝트 모두 모집완료처리.
+		return jdbc.update("Project.letProjectClose", today);
+	}
+	public List<ProjectDTO> checkForcedCloseProject(Date today){
+		return jdbc.selectOne("Project.checkForcedCloseProject", today);
+	}
 	public List<ProjectDTO> getProjectList(){//프로젝트 모집글 전체리스트
 		return jdbc.selectList("Project.getList");
 	}
@@ -35,7 +42,7 @@ public class ProjectDAO {
 		param.put("keyword", keyword);
 		return jdbc.selectOne("Project.getArticleCount", param);
 	}
-	public List<ProjectDTO> getProjectListPerPage(int start, int end, String pageOrder, String searchOption, String keyword){
+	public List<ProjectDTO> getProjectListPerPage(int start, int end, String pageOrder, String searchOption, String keyword){//프로젝트 페이지별 리스트
 		Map<String, Object> param = new HashMap<>();
 		param.put("start", start);
 		param.put("end", end);
@@ -62,21 +69,21 @@ public class ProjectDAO {
 	public int deleteProject(int seq) {//프로젝트 모집글 삭제
 		return jdbc.delete("Project.deleteProject", seq);
 	}
-	public int closeProject(int seq) {
+	public int closeProject(int seq) {//프로젝트 마감
 		return jdbc.update("Project.closeProject", seq);
 	}
 	
 	//projectImage 테이블
-	public int insertImage(ProjectImageDTO dto) {
+	public int insertImage(ProjectImageDTO dto) {//이미지 삽입
 		return jdbc.insert("Project.insertImage",dto);
 	}	
-	public List<ProjectImageDTO> getImages(int projectSeq) {
+	public List<ProjectImageDTO> getImages(int projectSeq) {//이미지 정보획득
 		return jdbc.selectList("Project.getImages", projectSeq);
 	}
-	public int deleteImage(String sysName) {
+	public int deleteImage(String sysName) {//이미지 삭제
 		return jdbc.delete("Project.deleteImage", sysName);
 	}
-	public int deleteImagesByProjectSeq(int projectSeq) {
+	public int deleteImagesByProjectSeq(int projectSeq) {//이미지 삭제2
 		return jdbc.delete("Project.deleteImagesByProjectSeq", projectSeq);
 	}
 	
@@ -113,8 +120,14 @@ public class ProjectDAO {
 	public ProjectApplyDTO getProjectApplyDetailView(int seq) {//프로젝트 지원 상세보기
 		return jdbc.selectOne("ProjectApply.getProjectApplyDetailView", seq);
 	}
-	public ProjectApplyDTO getApplyCheck(int projectSeq) {//지원여부체크
-		return jdbc.selectOne("ProjectApply.getApplyCheck", projectSeq);
+	public ProjectApplyDTO checkMyApply(int projectSeq, String id) {//지원여부체크
+		Map<String, Object> param = new HashMap<>();
+		param.put("projectSeq", projectSeq);
+		param.put("id", id);
+		return jdbc.selectOne("ProjectApply.checkMyApply", param);
+	}
+	public int checkApplyCount(int projectSeq) {//대기중,승인상태 지원자 명수 체크
+		return jdbc.selectOne("ProjectApply.checkApplyCount", projectSeq);
 	}
 	public int insertProjectApply(ProjectApplyDTO dto) {//프로젝트 지원 작성
 		return jdbc.insert("ProjectApply.insertProjectApply", dto);
@@ -137,7 +150,9 @@ public class ProjectDAO {
 	public int denyProjectApply(int seq) {//프로젝트 지원 승인거절
 		return jdbc.update("ProjectApply.approveDeny", seq);
 	}
-	
+	public int allApplyDeny(int projectSeq) {//모든 지원 거절
+		return jdbc.update("ProjectApply.allApplyDeny", projectSeq);
+	}
 	//PLog용(Project, ProjectComment, ProjectApply 등 참고)
 //	public List<ProjectDTO> getMakeProjectList(String id){//나의 프로젝트 전체리스트
 //		return jdbc.selectList("Project.getPLogMakeList", id);
