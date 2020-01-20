@@ -54,8 +54,8 @@ background-color:#d1a93b;}
 .boardEleCon{
 padding-top: 6%;
 padding-bottom:5%;
-padding-left:3%;
-padding-right:3%;
+padding-left:10%;
+padding-right:10%;
 line-height:128%;
 background-color: #f0f0f0; 
 border:1px solid #cfcfcf;
@@ -93,6 +93,38 @@ line-height: 200px;
 }
 .fs1{
 font-size: 11px;}
+
+<!-- -->
+.langTag{
+	border:1px solid orange;
+	background-color:orange;
+	border-radius:5px;
+	padding: 3px;
+	margin-bottom : 2px;
+	display:inline-block;
+}
+
+	.info{
+		position:relative;
+		left:50%;
+		transform:translateX(-50%);
+	}
+	.infoBoxTop{
+		border-top: 1px solid #f5f5f2;
+	}
+	.infoBox{
+		border-bottom : 1px solid #f5f5f2;	
+	}
+	
+	.infoBox>div:first-child{
+		background-color : #F3F8FB;
+		text-align: center;
+	}
+	.infoBoxBottom>div:nth-child(2){
+		max-height:120px;
+		overflow:auto;
+	}
+	
 </style>
 </head>
 <body>
@@ -121,7 +153,7 @@ font-size: 11px;}
 			            		<c:choose>
 			            		<c:when test="${bamList.size()!=0}">
 			            			<c:forEach items="${bamList}" var="bam" varStatus="status">
-			            			<div class="cursorPointer" onclick="location.href='/bamboo/bambooDetailView.do?seq=${bam.seq}'" style="width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${status.count}&emsp; <p class="fontThin " style="display:inline;'">${bam.title}</p></div>
+			            			<div class="cursorPointer" onclick="location.href='/bamboo/bambooDetailView.do?seq=${bam.seq}'" style="width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${status.count}&emsp; <p class="fontThin " style="display:inline;'">${bam.title}</p></div>
 			            			</c:forEach>
 			            		</c:when>
 			            		</c:choose>
@@ -140,7 +172,7 @@ font-size: 11px;}
 			            		<c:choose>
 			            		<c:when test="${codeList.size()!=0}">
 			            			<c:forEach items="${codeList}" var="code" varStatus="status">
-			            			<div class="cursorPointer" onclick="location.href='${pageContext.request.contextPath}/code/codeDetail.do?seq=${code.seq}'" style="width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${status.count}&emsp; <p class="fontThin" style="display:inline;'">${code.title}</p></div>
+			            			<div class="cursorPointer" onclick="location.href='${pageContext.request.contextPath}/code/codeDetail.do?seq=${code.seq}'" style="width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${status.count}&emsp; <p class="fontThin" style="display:inline;'">${code.title}</p></div>
 			            			</c:forEach>
 			            		</c:when>
 			            		</c:choose>
@@ -159,7 +191,7 @@ font-size: 11px;}
 			            		<c:choose>
 			            		<c:when test="${indusList.size()!=0}">
 			            			<c:forEach items="${indusList}" var="indus" varStatus="status">
-			            			<div class="cursorPointer" onclick="location.href='/industry/industryStatusDetailView.do?seq=${indus.seq}'"  style="width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${status.count}&emsp; <p class="fontThin" style="display:inline;'">${indus.title}</p></div>
+			            			<div class="cursorPointer" onclick="location.href='/industry/industryStatusDetailView.do?seq=${indus.seq}'"  style="width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${status.count}&emsp; <p class="fontThin" style="display:inline;'">${indus.title}</p></div>
 			            			</c:forEach>
 			            		</c:when>
 			            		</c:choose>
@@ -178,7 +210,7 @@ font-size: 11px;}
 			            		<c:choose>
 			            		<c:when test="${itList.size()!=0}">
 			            			<c:forEach items="${itList}" var="it" varStatus="status">
-			            			<div class="cursorPointer" onclick="location.href='/itnews/detail?seq=${it.seq}'"  style="width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${status.count}&emsp; <p class="fontThin" style="display:inline;'">${it.title}</p></div>
+			            			<div class="cursorPointer" onclick="location.href='/itnews/detail?seq=${it.seq}'"  style="width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${status.count}&emsp; <p class="fontThin" style="display:inline;'">${it.title}</p></div>
 			            			</c:forEach>
 			            		</c:when>
 			            		</c:choose>
@@ -207,21 +239,43 @@ font-size: 11px;}
             		<c:set var="cnt" value="1"/>
             			<c:forEach items="${proList}" var="pro">
             			<c:set var="sum" value="${sum+1}"/>
-            				<div class="col-6 col-md-4 col-xl-3 projectCon">
+            				<div class="col-12 col-md-4 col-xl-3 projectCon">
 		            			<div class="projectEle text-center cursorPointer" id="projectEle${sum}"  data-aos="fade-up">
-		            			<br>
-		            				<h4 style="word-break:break-all;word-break:break-word;">"${pro.languages}"</h4>
-		            				<br>
-		            				<div style="word-break:break-all;word-break:break-word;">${pro.title}</div>
-		            				<hr>
-		            				<p class="mpExpla fontThin">모집인원. ${pro.capacity}명</p>
-		            				<hr>
-		            				<p class="mpExpla fontThin">지역. ${pro.location1}&ensp;${pro.location2}</p>
-		            				<hr>
-		            				<p class="mpExpla fontThin">팀장. ${pro.writer}</p>
-		            				<hr>
-		            				<p class="mpExpla fontThin">기간. ${pro.formedAllDate }</p>
-		            				<hr>
+		            				<p class="text-secondary text-left pl-3 pt-2">#${pro.seq}</p>
+		            				<div style="max-width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;">		            				
+		            				<strong>&nbsp;${pro.title}</strong>
+		            				</div>
+		            				
+		            				<div class="info m-auto">
+			            				<div class="row infoBox infoBoxTop ml-1 mr-1">
+			            					<div class="col-4"><small>모집인원</small></div>
+			            					<div class="col-8 p-0">${pro.capacity}명</div>
+			            				</div>
+			            				<div class="row infoBox ml-1 mr-1">
+			            					<div class="col-4"><small>지역</small></div>
+			            					<div class="col-8 p-0">${pro.location1}&ensp;${pro.location2}</div>
+			            				</div>
+			            				<div class="row infoBox ml-1 mr-1">
+			            					<div class="col-4"><small>팀장</small></div>
+			            					<div class="col-8 p-0">${pro.writer}</div>
+			            				</div>
+			            				<div class="row infoBox infoBox ml-1 mr-1">
+			            					<div class="col-12"><small>기간</small></div>
+			            					<div class="col-12 p-0">${pro.formedAllDate }</div>
+			            				</div>
+			            				<div class="row infoBox infoBox infoBoxBottom ml-1 mr-1">
+			            					<div class="col-12"><small>사용언어</small></div>
+			            					<div class="col-12 p-2">
+					            				<c:choose>
+					            					<c:when test="${pro.splitLanguage.size() > 0 }">
+					            						<c:forEach items="${pro.splitLanguage}" var="lang">
+					            							<div class="col-auto ml-1 mr-1 langTag">${lang}</div>
+					            						</c:forEach>
+					            					</c:when>
+					            				</c:choose>			            					
+			            					</div>
+			            				</div>			            				
+		            				</div>		            				            				
 		            			</div>
             				</div>
             				<script>
