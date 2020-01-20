@@ -58,8 +58,6 @@ $(function(){
          </div>
       </div>
       
-      <br>
-
       <!--      몸통 시작!!!   -->
       <form action="codeRWriteProc.do" method="post" id="writeForm">
          <div class=container>

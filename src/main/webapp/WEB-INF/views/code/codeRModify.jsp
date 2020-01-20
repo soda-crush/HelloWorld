@@ -57,8 +57,6 @@ $(function(){
 			</div>
 		</div>
 		
-		<br>
-
 		<!--      몸통 시작!!!   -->
 		<form action="modifyRProc.do" method="post" id="writeForm">
 		<input type="hidden" name="seq" value="${dto.seq}">

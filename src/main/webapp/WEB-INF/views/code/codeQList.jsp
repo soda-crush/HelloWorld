@@ -151,9 +151,6 @@ a:hover {
 													${dto.replyCount}
 												</c:otherwise>
 											</c:choose>
-<%-- 											<c:if test="${dto.replyCount>0 }"> --%>													
-<%-- 							  					<span class="pComment font-weight-bold ml-2" style="display:inline-block;">${dto.replyCount}</span> --%>
-<%-- 							  				</c:if> --%>
 							  			</div>
 										<div class="col-xl-1 d-none d-xl-block">${dto.formedDate}</div>
 										<div class="col-xl-1 d-none d-xl-block">${dto.viewCount}</div>
@@ -173,15 +170,9 @@ a:hover {
 		
 				<nav aria-label="List navi">
 					<ul class="pagination justify-content-center">
-<!-- 						<li class="page-item"><a class="page-link" href="#" -->
-<!-- 							aria-label="Previous"> <span aria-hidden="true">&laquo;</span> -->
-<!-- 						</a></li> -->
 						<c:forEach items="${pageNavi}" var="navi">									
 							<li id="page-navi" class="page-item pageNavi">${navi}</li>
 						</c:forEach>
-<!-- 						<li class="page-item"><a class="page-link" href="#" -->
-<!-- 							aria-label="Next"> <span aria-hidden="true">&raquo;</span> -->
-<!-- 						</a></li> -->
 					</ul>
 				</nav>
 <!-- 검색 -->
@@ -199,27 +190,10 @@ a:hover {
 									<input type="text" class="form-control form-control-sm" name="search" placeholder="검색어를 입력하세요">
 									</div>
 									<div class="col-sm-2 my-1 p-0 pl-1 pr-1 text-center">
-										<button class="btn btn-primary btn-xs btn-block" id="search">검색</button>
-<!-- 									<button type="button" class="btn btn-primary btn-xs btn-block" id="search">검색</button>  버튼안먹..? -->
+										<button class="btn btn-primary btn-xs btn-block" id="search" style="height:30px; text-align:center; line-height:0px;">검색</button>
 									</div>
 							</div>
 							</form>
-		
-					
-<!-- 					  <div class="card"> -->
-<!--                             <div class="card-body"> -->
-<!--                                 <nav aria-label="Page navigation example"> -->
-<!--                                     <ul class="pagination justify-content-center"> -->
-<%-- 										<c:forEach items="${pageNavi}" var="navi">									 --%>
-<%-- 											<li class="page-item pageNavi">${navi}</li> --%>
-<%-- 										</c:forEach> --%>
-
-
-<!--                                     </ul> -->
-<!--                                 </nav> -->
-<!--                             </div> -->
-<!--                         </div> -->
-
 			</div>
 		</div>
 				<div class=row>

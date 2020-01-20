@@ -55,8 +55,6 @@ $(function(){
 				<div class="col-12" id=aroundContent1></div>
 			</div>
 		</div>
-		
-		<br>
 
 		<!--      몸통 시작!!!   -->
 		<form action="modifyProc.do" method="post" id="writeForm">
