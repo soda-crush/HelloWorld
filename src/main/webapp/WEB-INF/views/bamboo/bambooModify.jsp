@@ -49,7 +49,7 @@ $(function() {
                 </div>
             </div>      
             <!--      몸통 시작!!!   -->
-            <div class=container id="projectPage" style="background-color:white">
+            <div class=container id="projectPage">
             <div class=row>
 				<div class="col-12 d-none d-md-block">
 					<div id="pageTitle">
@@ -72,13 +72,11 @@ $(function() {
 			</div>
 		<form action="bambooModifyProc.do" method="post" enctype="multipart/form-data" id=writeForm>
 			<div class=row>
-				<div class="col-1 title">
-					<h4>제목</h4>
-				</div>
+				
 				<input type="hidden" name="writer" value="${bPage.writer}">
              <input type="hidden" name="seq" value="${bPage.seq}"> 
-				<div class="col-11 title" >
-					<input type="text" id=title name=title style="width: 100%" value="${bPage.title}" maxlength="100">
+				<div class="col-12 title" >
+					<input type="text" id=title name=title style="width: 100%" value="${bPage.title}" maxlength="100" placeholder="제목을 입력해주세요.">
 				</div>
 			</div>
 			<div class=row>
