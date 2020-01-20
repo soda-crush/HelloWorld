@@ -31,6 +31,9 @@
 	.titleWrap{
 		font-size:25px;
 	}
+	#baseBackgroundColor{
+		min-height:680px;
+	}
 </style>
 </head>
 <body>

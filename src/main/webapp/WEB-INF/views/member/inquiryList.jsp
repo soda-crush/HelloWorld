@@ -21,6 +21,9 @@
 		text-decoration:none;
 		color:black;
 	}
+	#baseBackgroundColor{
+		min-height:680px;
+	}
 	
 </style>
 </head>
