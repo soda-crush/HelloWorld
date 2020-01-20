@@ -52,7 +52,7 @@ $(function() {
 		</div>
 
 		<!--      몸통 시작!!!   -->
-		<div class=container id="projectPage" style="background-color:white">
+		<div class=container id="projectPage">
 		<div class=row>
 				<div class="col-12 d-none d-md-block">
 					<div id="pageTitle">
@@ -108,12 +108,10 @@ $(function() {
 				</div>
 			</div>
 				<div class=row>
-				<div class="col-1 title">
-					<h4>제목</h4>
-				</div>
+				
 					<input type="hidden" name="writer" value="${iPage.writer}">
-				<div class="col-11 title" >
-					<input type="text" id=title name=title style="width: 100%" value="${iPage.title}" maxlength="100">
+				<div class="col-12 title" >
+					<input type="text" id=title name=title style="width: 100%" value="${iPage.title}" maxlength="100" placeholder="제목을 입력해주세요.">
 				</div>
 			</div>
 			<div class=row>
@@ -135,6 +133,7 @@ $(function() {
 			</div>
 			</form>
 		</c:if>
+		</div>
 		<script>
 		$("#return").on('click',function() {
 			location.href = "industryStatusDetailView.do?seq=${iPage.seq}";
@@ -185,7 +184,7 @@ $(function() {
 				<div class="col-12" id=aroundContent></div>
 			</div>
 		</div>
-	</div>
+	
 	</div>
 	<jsp:include page="/WEB-INF/views/standard/footer.jsp" />
 </body>

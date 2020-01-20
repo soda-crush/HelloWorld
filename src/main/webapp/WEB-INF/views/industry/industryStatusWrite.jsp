@@ -67,7 +67,7 @@
 		</div>
 
 		<!--      몸통 시작!!!   -->
-		<div class=container id="projectPage" style="background-color: white">
+		<div class=container id="projectPage">
 			<div class=row>
 				<div class="col-12 d-none d-md-block">
 					<div id="pageTitle">
