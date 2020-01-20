@@ -89,13 +89,17 @@ $(function(){
             </div>
          </div>
       </form>
+      
+      <div class=row>
+			<div class="col-12" id=aroundContent></div>
+		</div>
    </div>
    <!--       몸통 끝!!!   -->
-   <div class=container>
-      <div class=row>
-         <div class="col-12" id=aroundContent></div>
-      </div>
-   </div>
+<!--    <div class=container> -->
+<!--       <div class=row> -->
+<!--          <div class="col-12" id=aroundContent></div> -->
+<!--       </div> -->
+<!--    </div> -->
 
    <jsp:include page="/WEB-INF/views/standard/footer.jsp" />
    
