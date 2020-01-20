@@ -101,7 +101,7 @@ $('.summernote').summernote({
 });     
 
 $("#writeBtn").on("click", function(){
-	var regex = /^[(<p><br></p>)(<p>(&nbsp; ){1,}</p>)]{0,}$/g;
+	var regex = /^[(<p><br></p>)(<p>(&nbsp; )+</p>)]{0,}$/g;
 	var content = $(".summernote").val();
 	var result = regex.exec(content);
 	   
