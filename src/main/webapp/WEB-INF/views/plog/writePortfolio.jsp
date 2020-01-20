@@ -51,7 +51,7 @@
 		            <h1> 포 트 폴 리 오</h1>
 		            <div class="row">
 		                <div class="col-3 col-md-2"><span class=redStar>*</span>프로젝트명  </div>
-		                <div class="col-9 col-md-10"><input id="portfolioTitle" name="portfolioTitle" maxlength="100" value="Hello World(세미 프로젝트)"></div>               
+		                <div class="col-9 col-md-10"><input id="portfolioTitle" name="portfolioTitle" maxlength="100"></div>               
 		            </div>
 		            <div class="interval"></div>
 		            <div class="row">
@@ -62,7 +62,7 @@
 		            <div class="interval"></div>
 		            <div class="row">
 		                <div class="col-3 col-md-2"><span class=redStar>*</span>개발 목표 </div>
-		                <div class="col-9 col-md-10"><input id="purpose" name="purpose" maxlength="300" value="Hello World(세미 프로젝트)Hello World(세미 프로젝트)Hello World(세미 프로젝트)"></div>               
+		                <div class="col-9 col-md-10"><input id="purpose" name="purpose" maxlength="300"></div>               
 		            </div>
 		            <div class="interval"></div>
 		            <div class="row">
@@ -99,7 +99,7 @@
 		                <div class="col-12 col-sm-9 col-xl-10">
 		                    <div class="row">
 		                        <div class="col-3 col-sm-2  col-lg-1" id="funcname"> 기능명</div>
-		                        <div class="col-9 col-sm-10 col-lg-11" id="funcname1"><input  name="function1" value="Hello World(세미 프로젝트)" style="height:18px margin-bottom:" maxlength="100"> </div>
+		                        <div class="col-9 col-sm-10 col-lg-11" id="funcname1"><input  name="function1" style="height:18px margin-bottom:" maxlength="100"> </div>
 		                        <div class="col-3 col-sm-2  col-lg-1" id="funcexpl" > 설명</div>
 		                        <div class="col-9 col-sm-10 col-lg-11"><textarea name="explanation1" style="height:150px;" maxlength="1300">123</textarea>
 		                        </div>
@@ -116,7 +116,7 @@
 		                <div class="col-12 col-sm-9 col-xl-10">
 		                    <div class="row">	
 		                        <div class="col-3 col-sm-2  col-lg-1" id="funcname"> 기능명</div>
-		                        <div class="col-9 col-sm-10 col-lg-11" id="funcname2"><input name="function2" value="Hello World(세미 프로젝트)" style="height:18px margin-bottom:" maxlength="100"> </div>
+		                        <div class="col-9 col-sm-10 col-lg-11" id="funcname2"><input name="function2" style="height:18px margin-bottom:" maxlength="100"> </div>
 		                        <div class="col-3 col-sm-2  col-lg-1" id="funcexpl" > 설명</div>
 		                        <div class="col-9 col-sm-10 col-lg-11"><textarea name="explanation2" style="height:150px;" maxlength="1300">123</textarea>
 		                        </div>
@@ -133,7 +133,7 @@
 		                <div class="col-12 col-sm-9 col-xl-10">
 		                    <div class="row">
 		                        <div class="col-3 col-sm-2  col-lg-1" id="funcname"> 기능명</div>
-		                        <div class="col-9 col-sm-10 col-lg-11 " id="funcname3"><input name="function3" value="Hello World(세미 프로젝트)" style="height:18px margin-bottom:" maxlength="100"> </div>
+		                        <div class="col-9 col-sm-10 col-lg-11 " id="funcname3"><input name="function3" style="height:18px margin-bottom:" maxlength="100"> </div>
 		                        <div class="col-3 col-sm-2  col-lg-1" id="funcexpl" > 설명</div>
 		                        <div class="col-9 col-sm-10 col-lg-11"><textarea name="explanation3" style="height:150px;" maxlength="1300">123</textarea>
 		                        </div>
@@ -143,7 +143,7 @@
 		            <div class="interval"></div>
 		             <div class="row">
 		                <div class="col-3 col-md-2"> 깃 링크  </div>
-		                <div class="col-9 col-md-10"><input name="git" value="Hello World(세미 프로젝트)" maxlength="130"> </div>               
+		                <div class="col-9 col-md-10"><input name="git" maxlength="130"> </div>               
 		            </div>
 		            <div class="interval"></div>
 		            <div style="text-align: end;">
