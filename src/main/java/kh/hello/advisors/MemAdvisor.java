@@ -86,6 +86,7 @@ public class MemAdvisor {
 		return result;
 	}
 	
+	
 	public String forPathRemember(ProceedingJoinPoint pjp) {
 		
 			String oriMethod = pjp.toShortString();
