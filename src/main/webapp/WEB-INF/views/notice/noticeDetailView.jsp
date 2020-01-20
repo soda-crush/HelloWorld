@@ -50,11 +50,11 @@
             <div class=container id="projectPage">
 				<div id="pageTitle" class="row ml-1 mb-4">
 					<div class="col-12" id="titleLink">
-						<div class="col-auto vertical-align:text-top p-0"><strong>일대일문의</strong></div>
+						<div class="col-auto vertical-align:text-top p-0"><strong>공지사항</strong></div>
 					</div>
 					<script>
 						$("#titleLink").on("click", function(){
-							location.href="${pageContext.request.contextPath}/member1/myInquiry?page=${page}";
+							location.href="${pageContext.request.contextPath}/notice/noticeList";
 						})
 					</script>
 				</div>
@@ -64,42 +64,13 @@
 							<label class="ml-4">${dto.formedDate}</label>
 						</div>
 						<hr>
-						<div id="pBody">
-						
+						<div id="pBody">						
 							<div id="pPageContents" class="wordWrap">${dto.content}</div>
-							
-							<div class="pPageComments">
-							<c:if test="${list.size()>0 }">
-								<c:forEach items="${list}" var="list">
-									<div class="row commentDiv commentBox${list.seq} p-0 pb-2 m-2">
-										<div class="col-12 commentInnerBox">
-											<div class="row commentHeader">								
-												<div class="col-7 pt-1">
-													<div class="row commentInfo">
-														<div class="col-12 commentWriter">관리자</div>
-														<div class="col-12 commentWriteDate">${list.formedDate}</div>
-													</div>
-												</div>											
-											</div>											
-											<div class="row commentContent">
-												<div class="col-12 pt-1 pl-4 wordWrap">${list.reply}</div>
-											</div>
-										</div>
-									</div>								
-								</c:forEach>
-							</c:if>
-							</div>
 						</div>
 				</div>
 				
-				<div id="pageFooter">
-						<div class="btn-group float-right" role="group" aria-label="Basic example">
-							<c:if test="${list.size() == 0}">                               
-                            	<button type="button" class="btn btn-outline-primary" id="modify">수정</button>
-							</c:if>
-                            <button type="button" class="btn btn-outline-primary" id="delete">삭제</button>
-                       	</div>							
-						<a class="btn btn-outline-dark" href="${pageContext.request.contextPath}/member1/myInquiry?page=${page}" role="button">목록</a>
+				<div id="pageFooter">						
+					<a class="btn btn-outline-dark" href="${pageContext.request.contextPath}/notice/noticeList" role="button">목록</a>
 				</div>          
             </div>
             
@@ -114,16 +85,5 @@
         </div>
         
         <jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
-        <script>
-        	$("#modify").on("click", function(){
-        		location.href="${pageContext.request.contextPath}/member1/modifyForm?page=${page}&seq=${dto.seq}";
-        	})
-        	$("#delete").on("click", function(){
-        		var result = confirm("이 문의글을 삭제하시겠습니까?")
-        		if(result){
-        			location.href="${pageContext.request.contextPath}/member1/deleteInquiry?page${page}&seq=${dto.seq}";
-        		}
-        	})
-        </script>
 </body>
 </html>
