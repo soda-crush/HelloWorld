@@ -61,7 +61,6 @@
 	</c:choose>	
 	
 	<jsp:include page="/WEB-INF/views/standard/header.jsp"/>
-	
  		<div id=baseBackgroundColor>
             <div class=container>
                 <div class=row>
