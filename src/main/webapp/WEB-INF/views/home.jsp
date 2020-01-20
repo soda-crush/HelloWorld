@@ -17,6 +17,7 @@
 <style>
 div{
 /* border:0.5px solid green; */
+
 }
 .fontThin{
 	font-family: "Nanumgothic";
