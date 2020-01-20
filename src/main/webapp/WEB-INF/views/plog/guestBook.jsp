@@ -38,7 +38,7 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/standard/plogHeader.jsp"/>
- 		<div id=baseBackgroundColor>
+ 		<div id="plogBaseBackgroundColor">
             <div class=container>
                 <div class=row>
                     <div class="col-12" id=aroundContent>
