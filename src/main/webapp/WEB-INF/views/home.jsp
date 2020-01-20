@@ -15,6 +15,10 @@
 <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 
 <style>
+div{
+/* border:0.5px solid green; */
+
+}
 .fontThin{
 	font-family: "Nanumgothic";
 	font-size:13.7px;
@@ -23,8 +27,8 @@
 line-height: 60%;
 }
 .boardCon{
-padding-left: 3%;
-padding-right: 3%;
+padding-left: 1%;
+padding-right: 1%;
 }
 .boardEle{
 width: 100%;
@@ -42,6 +46,8 @@ background-color:#c25f55;}
 background-color:#53a998;}
 .bdt3{
 background-color:#5181a2;}
+.bdt4{
+background-color:#d1a93b;}
 .boardEleCon{
 padding-top: 9%;
 padding-bottom:5%;
@@ -113,7 +119,8 @@ border:1px solid #d4d4d4;
 		            		</div>
 	            		</div>
             		</div>
-            		<div class="col-12 d-lg-none"><br></div>
+            		
+<!--             		<div class="col-12 d-lg-none"><br></div> -->
             		<div class="co1-12 col-md-6 col-lg-3 boardCon">
 	            		<div class="boardEle">
 			            	<div class="boardEleTop bdt2">
@@ -133,7 +140,7 @@ border:1px solid #d4d4d4;
 		            	</div>
             		</div>
             		
-            		<div class="col-12 d-lg-none"><br></div>
+<!--             		<div class="col-12 d-lg-none"><br></div> -->
             		<div class="co1-12 col-md-6 col-lg-3 boardCon">
 	            		<div class="boardEle">
 			            	<div class="boardEleTop bdt3">
@@ -152,11 +159,11 @@ border:1px solid #d4d4d4;
 			            	</div>
 		            	</div>
             		</div>
-            	</div>
-            	<div class="col-12 d-lg-none"><br></div>
+            	
+<!--             		<div class="col-12 d-lg-none"><br></div> -->
             		<div class="co1-12 col-md-6 col-lg-3 boardCon">
 	            		<div class="boardEle">
-			            	<div class="boardEleTop bdt3">
+			            	<div class="boardEleTop bdt4">
 			            		<p class="fs1 pl-3 pt-3" style="line-height:35%;">주간 조회수 TOP5</p>
 		            			<p class="mainTitle pl-3 pb-2" style="line-height:35%;">IT News</p>
 			            	</div>
@@ -172,7 +179,9 @@ border:1px solid #d4d4d4;
 			            	</div>
 		            	</div>
             		</div>
+            	
             	</div>
+            	
             	
             	<div class= row>
             		<div class="col-12 adverCon text-center">
