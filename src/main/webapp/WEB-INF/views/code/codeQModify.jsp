@@ -17,7 +17,7 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
 <link rel="stylesheet" href="/css/mainBase.css">
-
+<link rel="stylesheet" href="/css/code/codeBase.css" type="text/css"/>
 <script>
    $(function(){
       $("#codeNavi").attr('class','nav-item nav-link active');
@@ -34,12 +34,9 @@
 	width:200px;
 }
 .btn{
-	margin:20px;
+	margin:5px;
 }
-.btn-primary{
-	width:110px;
-	height:30px;
-}
+
 </style>
 <script>
 $(function(){
@@ -119,10 +116,12 @@ $(function(){
 					</div>
 				</div>
 				
+				<br>
+				
 				<div class=row>
 					<div class="col-12 btn" style="text-align:right;">
-						<button class="btn btn-primary" type="button" id="modify">수정완료</button>
-						<button class="btn btn-primary" type="button" id="cancle">작성취소</button>
+						<button class="btn btn-primary cursorPointer" type="button" id="modify">수정완료</button>
+						<button class="btn btn-danger cursorPointer" type="button" id="cancle">작성취소</button>
 					</div>
 				</div>
 			</div>
@@ -149,7 +148,9 @@ $(function(){
 		})
 		
 		$("#modify").on("click", function(){
-		   regex = /^[(<p><br></p>)(<p>(&nbsp; ){1,}</p>)]{0,}$/g;
+// 		   regex = /^[(<p><br></p>)(<p>(&nbsp; ){1,}</p>)]{0,}$/g;
+		   var regex = /^[(<p><br></p>)(<p>(&nbsp; )+</p>)]{0,}$/g;
+		   
  		   var content = $(".summernote").val();
 		   var result = regex.exec(content);
 

@@ -137,9 +137,10 @@ public class CodeController {
 	}
 
 	@RequestMapping("/modifyProc.do")
-	public String modifyProcCode(CodeQuestionDTO dto) {
+	public String modifyProcCode(CodeQuestionDTO dto,String id) {
+		LoginInfoDTO info = (LoginInfoDTO)session.getAttribute("loginInfo");
 		dto.setTitle(Utils.protectXss(dto.getTitle()));
-		sv.modify(dto);
+		sv.modify(dto,info.getId());
 		int seq = dto.getSeq();
 		return "redirect:/code/codeDetail.do?seq="+seq;
 	}

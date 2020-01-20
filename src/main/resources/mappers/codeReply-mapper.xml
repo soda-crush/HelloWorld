@@ -57,13 +57,19 @@
 	<select id="replyCount" parameterType="integer" resultType="integer">
 		select count(*) from codeReply where queSeq = #{value} 
 	</select>
+	
 	<select id="selectPoint" parameterType="String" resultType="integer">
 		select point from member where id = #{value} 
+	</select>
+	
+	<select id="selectQuestionPoint" parameterType="integer" resultType="integer">
+		select point from codeQuestion where seq = #{value} 
 	</select>
 
 	<update id="pointQResult" parameterType="java.util.Map">
 		update member set point = #{point} where id=#{id}
 	</update>
+	
 	<update id="pointRResult" parameterType="java.util.Map">
 		update member set point = #{point} where id=#{id}
 	</update>
