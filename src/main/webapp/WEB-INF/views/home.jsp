@@ -93,6 +93,34 @@ line-height: 200px;
 }
 .fs1{
 font-size: 11px;}
+
+<!-- -->
+.langTag{
+	border:1px solid orange;
+	background-color:orange;
+	border-radius:5px;
+	padding: 3px;
+	margin-bottom : 2px;
+	display:inline-block;
+}
+
+	.info{
+		position:relative;
+		left:50%;
+		transform:translateX(-50%);
+	}
+	.infoBoxTop{
+		border-top: 1px solid #f5f5f2;
+	}
+	.infoBox{
+		border-bottom : 1px solid #f5f5f2;	
+	}
+	
+	.infoBox>div:first-child{
+		background-color : #F3F8FB;
+		text-align: center;
+	}
+	
 </style>
 </head>
 <body>
@@ -207,21 +235,43 @@ font-size: 11px;}
             		<c:set var="cnt" value="1"/>
             			<c:forEach items="${proList}" var="pro">
             			<c:set var="sum" value="${sum+1}"/>
-            				<div class="col-6 col-md-4 col-xl-3 projectCon">
+            				<div class="col-12 col-md-4 col-xl-3 projectCon">
 		            			<div class="projectEle text-center cursorPointer" id="projectEle${sum}"  data-aos="fade-up">
-		            			<br>
-		            				<h4 style="word-break:break-all;word-break:break-word;">"${pro.languages}"</h4>
-		            				<br>
-		            				<div style="word-break:break-all;word-break:break-word;">${pro.title}</div>
-		            				<hr>
-		            				<p class="mpExpla fontThin">모집인원. ${pro.capacity}명</p>
-		            				<hr>
-		            				<p class="mpExpla fontThin">지역. ${pro.location1}&ensp;${pro.location2}</p>
-		            				<hr>
-		            				<p class="mpExpla fontThin">팀장. ${pro.writer}</p>
-		            				<hr>
-		            				<p class="mpExpla fontThin">기간. ${pro.formedAllDate }</p>
-		            				<hr>
+		            				<p class="text-secondary text-left pl-3 pt-2">#${pro.seq}</p>
+		            				<div style="max-width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;">		            				
+		            				<strong>&nbsp;${pro.title}</strong>
+		            				</div>
+		            				
+		            				<div class="info m-auto">
+			            				<div class="row infoBox infoBoxTop ml-1 mr-1">
+			            					<div class="col-4"><small>모집인원</small></div>
+			            					<div class="col-8 p-0">${pro.capacity}명</div>
+			            				</div>
+			            				<div class="row infoBox ml-1 mr-1">
+			            					<div class="col-4"><small>지역</small></div>
+			            					<div class="col-8 p-0">${pro.location1}&ensp;${pro.location2}</div>
+			            				</div>
+			            				<div class="row infoBox ml-1 mr-1">
+			            					<div class="col-4"><small>팀장</small></div>
+			            					<div class="col-8 p-0">${pro.writer}</div>
+			            				</div>
+			            				<div class="row infoBox infoBox ml-1 mr-1">
+			            					<div class="col-12"><small>기간</small></div>
+			            					<div class="col-12 p-0">${pro.formedAllDate }</div>
+			            				</div>
+		            				</div>
+		            				
+			            			<div class="row ml-1 mr-1 pt-4 text-center p-absolute">
+			            				<div class="col-12">
+			            				<c:choose>
+			            					<c:when test="${pro.splitLanguage.size() > 0 }">
+			            						<c:forEach items="${pro.splitLanguage}" var="lang">
+			            							<div class="col-auto ml-1 mr-1 langTag">${lang}</div>
+			            						</c:forEach>
+			            					</c:when>
+			            				</c:choose>
+			            				</div>
+			            			</div>		            				
 		            			</div>
             				</div>
             				<script>
