@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Notice">
+	<select id="noticeListByPage" resultType="kh.hello.dto.NoticeDTO">
+		select * from (select notice.*, row_number() over (order by seq desc) rown from notice 
+		<choose>
+			<when test="searchOption != null">
+				<include refid="search"></include>
+			</when>
+		</choose>
+		) where rown between #{start} and #{end}	
+	</select>
+	
+	<sql id="search">
+		<choose>
+			<when test="searchOption == 'all'">
+				where title like #{keyword} or content like #{keyword}
+			</when>
+			<otherwise>
+				where ${searchOption} like #{keyword}
+			</otherwise>
+		</choose>
+	</sql>
+	
+	<select id="getNoticeTotal" resultType="integer">
+		select count(*) from notice
+		<choose>
+			<when test="searchOption != null">
+				<include refid="search"></include>
+			</when>
+		</choose>		
+	</select>
+	<update id="plusNoticeView">
+		update notice set viewCount=viewCount+1 where seq=#{seq}
+	</update>
+	<select id="detailViewNotice" resultType="kh.hello.dto.NoticeDTO">
+		select * from Notice where seq=#{seq}
+	</select>
+</mapper>

@@ -225,6 +225,22 @@ public class AdminDAO {
 	public NoticeDTO noticeDetailView(int seq) {
 		return jdbc.selectOne("Admin.noticeDetailView", seq);
 	}
+	
+	public int modifyNotice(NoticeDTO dto) {
+		return jdbc.update("Admin.modifyNotice", dto);
+	}
+	
+	public int deleteNotice(int seq) {
+		return jdbc.delete("Admin.deleteNotice", seq);
+	}
+	
+	public List<String> getImgsByBoardSeq(int boardSeq){
+		return jdbc.selectList("Admin.getImgsByBoardSeq", boardSeq);
+	}
+	
+	public int delImgsByBoardSeq(int boardSeq) {
+		return jdbc.delete("Admin.delImgsByBoardSeq", boardSeq);
+	}
 }
 
 
