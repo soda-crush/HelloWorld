@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Hello World!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="${pageContext.request.contextPath }/icon/favicon.ico"/>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
@@ -25,8 +26,6 @@
 		.content{height:90%;float: left;resize: none;}
 		.sendbt{height:90%;float: left;}
 		#writer{text-underline-position: auto;margin-right: 30px;}
-		.nvlink1{height:45px;line-height:45px;font-size:14px;}
-		.nvlink2{height:45px;line-height:45px;font-size:10px;}
         a:hover{text-decoration:none;}
         .line-over{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
         #plogProject{background-color:#efefef;border-radius:5px 5px 0px 0px;padding:12px;}
@@ -78,27 +77,6 @@
         <jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
         
         <script>
-	    	$(function(){
-	    		var element = $(".pageNavi");
-	    		var page = "${page}";
-	    		if(page > 0 && page <= 10){
-	    			element[page-1].classList.add('active');
-	    		}else if(page % 10 == 0){
-	    			element[10].classList.add('active');
-	    		}else{
-	    			element[page % 10].classList.add('active');
-	    		}	
-	    	});
-	    	function popUp(id,writer){
-	    		if(writer == null){
-	    			alert("탈퇴한 회원입니다.");
-	    			return false;
-	    		}
-	    		else{
-	    			window.open("/Portfolio/toPlog.do?owner="+id, "pLogPopUp", "width=600,height=600");
-	    		}
-	          
-	         }
         </script>
 </body>
 </html>

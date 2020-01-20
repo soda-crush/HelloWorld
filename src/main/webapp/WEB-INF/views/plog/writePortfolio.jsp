@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Hello World!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="${pageContext.request.contextPath }/icon/favicon.ico"/>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
@@ -66,7 +67,7 @@
 		            <div class="interval"></div>
 		            <div class="row">
 		                <div class="col-3 col-md-2 theme"> 개발 환경 </div>
-		                <div class="col-9 col-md-10"> <textarea name="environment" maxlength="1300"></textarea></div>               
+		                <div class="col-9 col-md-10"> <textarea name="environment" maxlength="300"></textarea></div>               
 		            </div>
 		            <div class="interval"></div>
 		            <div class="row">
@@ -142,10 +143,13 @@
 		            <div class="interval"></div>
 		             <div class="row">
 		                <div class="col-3 col-md-2"> 깃 링크  </div>
-		                <div class="col-9 col-md-10"><input name="git" value="Hello World(세미 프로젝트)" maxlength="200"> </div>               
+		                <div class="col-9 col-md-10"><input name="git" value="Hello World(세미 프로젝트)" maxlength="130"> </div>               
 		            </div>
 		            <div class="interval"></div>
-		            <div style="text-align: end;"><button type="button" id="return">돌아가기</button><button type="button" id="insert">작성 완료</button></div>
+		            <div style="text-align: end;">
+		            	<button class="btn btn-secondary" type="button" id="return">돌아가기</button>
+		            	<button class="btn btn-secondary" type="button" id="insert">작성 완료</button>
+		            </div>
 		            
 		        </div>
 			</form>
