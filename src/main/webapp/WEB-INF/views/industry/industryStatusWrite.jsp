@@ -15,6 +15,7 @@
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/css/mainBase.css">
+<link rel="stylesheet" href="/css/industry/industryBase.css" type="text/css"/>
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css"
 	rel="stylesheet">
@@ -61,7 +62,7 @@
 	<div id=baseBackgroundColor>
 		<div class=container>
 			<div class=row>
-				<div class="col-12" id=aroundContent></div>
+				<div class="col-12" id=aroundContent1></div>
 			</div>
 		</div>
 
@@ -144,6 +145,7 @@
 				</div>
 			</div>
 		</form>
+	</div>
 			<script>
 			$("#return").on('click',function() {
 			location.href = "industryStatusList.do";
@@ -194,7 +196,6 @@
 					<div class="col-12" id=aroundContent></div>
 				</div>
 			</div>
-		</div>
 	</div>
 	<jsp:include page="/WEB-INF/views/standard/footer.jsp" />
 </body>

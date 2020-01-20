@@ -51,8 +51,10 @@ public class BambooMemController {
 			return "/bamboo/bambooDetailView";
 		}
 		List<BambooCoDTO> coResult = service.commentList(seq);
+		String ip = Configuration.ip;
 		m.addAttribute("bPage", result);
 		m.addAttribute("comments", coResult);
+		m.addAttribute("ip",ip);
 		return "/bamboo/bambooDetailView";
 	}
 

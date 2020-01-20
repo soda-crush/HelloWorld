@@ -15,7 +15,7 @@
 }
 .tableHead,.tableBody,.tableBodyNull{text-align:center;height: 50px;line-height: 50px;}
 .tableBody div:nth-child(2){font-weight:bold;}
-.tableBody div:nth-child(3){text-align:left;cursor:pointer;}   
+/* .tableBody div:nth-child(3){text-align:left;cursor:pointer;}    */
 /* .tableBody div:nth-child(7){cursor:pointer;} */
 /* .tableBody div:nth-child(7):hover{color:orange;} */
 .tableBody .N{color:limegreen;}
