@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Hello World!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="${pageContext.request.contextPath }/icon/favicon.ico"/>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
@@ -26,8 +27,6 @@
 		#writer{text-underline-position: auto;margin-right: 30px;}
 		.coltheme{margin:30px;}
 		.navi{text-align: center;}
-		.nvlink1{height:45px;line-height:45px;font-size:14px;}
-		.nvlink2{height:45px;line-height:45px;font-size:10px;}
         a:hover{text-decoration:none;}
         .tableBody{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
         .line-over{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
@@ -172,24 +171,28 @@
 	    	$(function(){
 	    		var element = $(".qpageNavi");
 	    		var qcpage = "${qcpage}";
-	    		if(qcpage > 0 && qcpage <= 10){
-	    			element[qcpage-1].classList.add('active');
-	    		}else if(qcpage % 10 == 0){
-	    			element[10].classList.add('active');
-	    		}else{
-	    			element[qcpage % 10].classList.add('active');
-	    		}	
+	    		if(element.length != 0){
+	    			if(qcpage > 0 && qcpage <= 10){
+		    			element[qcpage-1].classList.add('active');
+		    		}else if(qcpage % 10 == 0){
+		    			element[10].classList.add('active');
+		    		}else{
+		    			element[qcpage % 10].classList.add('active');
+		    		}
+	    		}
 	    	});
 	    	$(function(){
 	    		var element = $(".rpageNavi");
 	    		var rcpage = "${rcpage}";
-	    		if(rcpage > 0 && rcpage <= 10){
-	    			element[rcpage-1].classList.add('active');
-	    		}else if(rcpage % 10 == 0){
-	    			element[10].classList.add('active');
-	    		}else{
-	    			element[rcpage % 10].classList.add('active');
-	    		}	
+	    		if(element.length != 0){
+	    			if(rcpage > 0 && rcpage <= 10){
+		    			element[rcpage-1].classList.add('active');
+		    		}else if(rcpage % 10 == 0){
+		    			element[10].classList.add('active');
+		    		}else{
+		    			element[rcpage % 10].classList.add('active');
+		    		}	
+	    		}
 	    	});
 	    	function popUp(id,writer){
 	    		if(writer == null){
