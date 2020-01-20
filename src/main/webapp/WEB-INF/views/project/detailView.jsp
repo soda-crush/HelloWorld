@@ -24,7 +24,7 @@
    });
 </script>
 <style>
-
+#pInfo > div:nth-child(4) > div.col-md-7 > div > span > input.tt-input{max-width:620px;}
 </style>
 </head>
 
