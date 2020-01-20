@@ -18,9 +18,7 @@ public class BambooCoDTO {
 	public void setProfileImg(String profileImg) {
 		this.profileImg = profileImg;
 	}
-	public void setFormedWriteDate(String formedWriteDate) {
-		this.formedWriteDate = formedWriteDate;
-	}
+
 	public int getSeq() {
 		return seq;
 	}
@@ -63,6 +61,10 @@ public class BambooCoDTO {
 		super();
 	}
 	
+	public void setFormedWriteDate(String formedWriteDate) {
+		this.formedWriteDate = formedWriteDate;
+	}
+	
 	public String getFormedWriteDate() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
 		String result = sdf.format(this.writeDate);
@@ -74,6 +76,5 @@ public class BambooCoDTO {
 		String result = sdf.format(this.writeDate);
 		return result;
 	}
-	
 	
 }
