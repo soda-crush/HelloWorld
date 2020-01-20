@@ -217,6 +217,10 @@ public class CodeDAO {
 			return jdbc.selectOne("CodeR.selectPoint",id);
 		}
 		
+		public int selectQuestionPoint(int seq) {
+			return jdbc.selectOne("CodeR.selectQuestionPoint",seq);
+		}
+		
 		public int pointQResult(int point,String id){
 			Map<String, Object> param = new HashMap<>();
 			param.put("point", point);

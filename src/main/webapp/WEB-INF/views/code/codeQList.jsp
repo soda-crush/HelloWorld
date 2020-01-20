@@ -14,6 +14,7 @@
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/css/mainBase.css">
+<link rel="stylesheet" href="/css/code/codeBase.css" type="text/css"/>
 
 <script>
    $(function(){
@@ -105,10 +106,11 @@ a:hover {
 					<div class="row tableHead">					    
 					    <div class="col-xl-1 d-none d-xl-block">글번호</div>
 					    <div class="col-xl-1 col-3 col-md-2">구분</div>
-					    <div class="col-xl-5 col-7 col-md-8" style="width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">게시판제목</div>
-					    <div class="col-xl-1 col-md-1 d-none d-md-block">작성자</div>
+					    <div class="col-xl-5 col-7 col-md-7" style="width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">제목</div>
+					    <div class="col-xl-1 col-md-2 d-none d-md-block">작성자</div>
 					    <div class="col-xl-1 col-2 col-md-1">포인트</div>
-					    <div class="col-xl-2 d-none d-xl-block">날짜</div>
+					    <div class="col-xl-1 d-none d-xl-block">답변수</div>
+					    <div class="col-xl-1 d-none d-xl-block">날짜</div>
 					    <div class="col-xl-1 d-none d-xl-block">조회수</div>					    
 					</div>
 						<c:choose>
@@ -127,23 +129,33 @@ a:hover {
 <%-- 											<span class="badge badge-pill badge-success" style="margin: 10; width: 60px;">${dto.division}</span> --%>
 											${dto.division}
 										</div>
-										<div class="col-xl-5 col-7 col-md-8" onClick="detailView(${dto.seq})">
+										<div class="col-xl-5 col-7 col-md-7" onClick="detailView(${dto.seq})">
 											<div class="row">
-											<div style="max-width:85%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;">${dto.title}</div>
-												<c:if test="${dto.replyCount>0 }">
-						  							<span class="pComment font-weight-bold ml-2" style="display:inline-block;">${dto.replyCount}</span>
-						  						</c:if>	
+											<div style="max-width:85%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;">${dto.title}</div>												
 											<%-- <span class="badge badge-pill badge-danger ml-1" style="height:20px; margin-top:15px;">${dto.newWriteDate}</span> --%>
 											</div>
 										</div>
-										<div class="col-xl-1 col-md-1 d-none d-md-block">
+										<div class="col-xl-1 col-md-2 d-none d-md-block">
 											<span style="cursor:pointer" onclick="popUp('${dto.id}','${dto.writer}')">
 												${dto.writer}
 											</span>
 										</div> 
-<!-- 										 <span class="badge badge-pill badge-info">실무자</span></td> -->
+<!-- 										 <span class="badge badge-pill badge-info">실무자</span></td> -->										
 										<div class="col-xl-1 col-2 col-md-1">${dto.point}</div>
-										<div class="col-xl-2 d-none d-xl-block">${dto.formedDate}</div>
+										<div class="col-xl-1 d-none d-xl-block">
+											<c:choose>
+												<c:when test="${dto.replyCount==0 }">
+													0
+												</c:when>
+												<c:otherwise>
+													${dto.replyCount}
+												</c:otherwise>
+											</c:choose>
+<%-- 											<c:if test="${dto.replyCount>0 }"> --%>													
+<%-- 							  					<span class="pComment font-weight-bold ml-2" style="display:inline-block;">${dto.replyCount}</span> --%>
+<%-- 							  				</c:if> --%>
+							  			</div>
+										<div class="col-xl-1 d-none d-xl-block">${dto.formedDate}</div>
 										<div class="col-xl-1 d-none d-xl-block">${dto.viewCount}</div>
 									</div>
 									
@@ -210,6 +222,7 @@ a:hover {
 
 			</div>
 		</div>
+	</div>
 			<!--       몸통 끝!!!   -->
 
 			<div class=container>
@@ -217,7 +230,7 @@ a:hover {
 					<div class="col-12" id=aroundContent></div>
 				</div>
 			</div>
-		</div>
+		
 <script>
 
 	$(function(){

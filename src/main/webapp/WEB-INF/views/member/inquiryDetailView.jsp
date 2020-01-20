@@ -18,12 +18,11 @@
 <style>
 
 #pPageContents img{max-width:100%;}
-	#titleLink:hover{
-		cursor:pointer;
-		color:gray;
-	}
-	#titleLink strong{
+	#titleLink{
 		font-size:25px;
+		text-decoration:none;
+		color:black;
+	}font-size:25px;
 	}
 	.wordWrap{
 		word-break:break-all;
@@ -50,8 +49,8 @@
             
             <div class=container id="projectPage">
 				<div id="pageTitle" class="row ml-1 mb-4">
-					<div class="col-12" id="titleLink">
-						<div class="col-auto vertical-align:text-top p-0"><strong>일대일문의</strong></div>
+					<div class="col-12">
+						<a href="${pageContext.request.contextPath}/member1/myInquiry?page=${page}" id="titleLink"><strong>일대일문의</strong></a>
 					</div>
 					<script>
 						$("#titleLink").on("click", function(){

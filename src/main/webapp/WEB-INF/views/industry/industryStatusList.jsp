@@ -13,8 +13,8 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/css/mainBase.css">
 <link rel="stylesheet" type="text/css" href="/css/font-awesome/css/font-awesome.css">
-<link rel="stylesheet" href="/css/project/projectBase.css" type="text/css"/>
-<link rel="stylesheet" href="/css/project/list.css" type="text/css"/>
+<link rel="stylesheet" href="/css/industry/industryBase.css" type="text/css"/>
+<link rel="stylesheet" href="/css/industry/list.css" type="text/css"/>
 
 <script>
    $(function(){
@@ -58,10 +58,11 @@
 				
             	<div class="tableDiv">
 				  	 <div class="row tableHead">					    
-		   			 	<div class="col-xl-1 col-2 col-md-2 d-xl-block">번호</div>
+		   			 	<div class="col-xl-1 col-2 col-md-1 d-xl-block">번호</div>
 					    <div class="col-xl-1 col-md-1 d-none d-md-block">분야</div>
-					    <div class="col-xl-1 col-md-1 d-none d-md-block">직무</div>
-					    <div class="col-xl-5 col-7 col-md-6">제목</div>
+					    <div class="col-xl-1 col-md-1 d-none d-xl-block">직무</div>
+					    <div class="col-xl-1 col-md-1 d-none d-md-block"></div>
+					    <div class="col-xl-4 col-7 col-md-6">제목</div>
 					    <div class="col-xl-1 col-3 col-md-2">작성자</div>
 					    <div class="col-xl-2 d-none d-xl-block">작성일</div>
 					    <div class="col-xl-1 d-none d-xl-block">조회수</div>
@@ -73,12 +74,12 @@
 				  		<c:otherwise>
 				  			<c:forEach items="${industryStatusList }" var="i">
 				  				<div class="row tableBody p-0">
-				  					<div class="col-xl-1 col-2 col-md-2 d-xl-block notTitle">${i.seq }</div>
+				  					<div class="col-xl-1 col-2 col-md-1 d-xl-block notTitle">${i.seq }</div>
 				  					
 									<div class="col-xl-1 col-md-1 d-none d-md-block notTitle" style="font-weight:normal">${i.field}</div>
-				  					<div class="col-xl-1 col-md-1 d-none d-md-block notTitle text-center" style="cursor:default">${i.duty}</div>
-				  					
-				  					<div class="col-xl-5 col-7 col-md-6" id=titleForCss>
+				  					<div class="col-xl-1 col-md-1 d-none d-xl-block notTitle text-center" style="cursor:default;font-size:12px;">${i.duty}</div>
+				  					<div class="col-xl-1 col-md-1 d-none d-md-block"></div>
+				  					<div class="col-xl-4 col-7 col-md-6" id=titleForCss>
 				  					<div class="row cursorPointer" onclick="location.href='/industry/industryStatusDetailView.do?seq=${i.seq}'">
 				  					<div style="max-width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;font-weight:bold;">
 				  						${i.title }
@@ -92,7 +93,7 @@
 				  					</div>
 				  					</div>
 				  					<div class="col-xl-1 col-3 col-md-2 notTitle text-center">
-				  					<div style="cursor:pointer" onclick="popUp('${i.id}','${i.writer}')">${i.writer }</div>
+				  					<small style="cursor:pointer" onclick="popUp('${i.id}','${i.writer}')">${i.writer }</small>
 				  					</div>
 				  					<div class="col-xl-2 d-none d-xl-block notTitle">${i.formedWriteDate }</div>
 				  					<div class="col-xl-1 d-none d-xl-block notTitle">${i.viewCount }</div>
@@ -103,7 +104,7 @@
 				  	</c:choose>
             	</div>
             		<div class="row pageListFooter">
-    				<div class="col-6">
+    				<div class="col-12 order-2 order-lg-1 col-lg-10">
 					<form class="form-inline" action="/industry/industrySearch.do" method="post">
 					<select name=value style="margin-right:5px;" class="form-control searchSelect" id="searchOption">
 						<option value="all">전체(제목+내용)</option>
@@ -113,10 +114,10 @@
 						<option value="title">제목</option>
 					</select>
 					<input class="form-control mr-sm-2" type="text" name=search aria-label="Search" maxlength="100">
-					<input class="btn btn-dark my-2 my-sm-0" type="button" id=search value="검색">
+					<input class="btn btn-dark my-2 my-sm-0 ml-1" type="button" id=search value="검색">
 					</form>
 					</div>
-				<div class="col-6 text-right">
+				<div class="col-12 order-1 order-lg-2 col-lg-2 text-right">
 					<button type="button" class="btn btn-primary" id="write">글쓰기</button>				
 				</div>
 				</div>

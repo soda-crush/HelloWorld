@@ -16,13 +16,12 @@
 <link rel="stylesheet" href="/css/project/list.css" type="text/css"/>
 <link rel="stylesheet" type="text/css" href="/css/font-awesome/css/font-awesome.css">
 <style>
-	#titleLink:hover{
-		cursor:pointer;
-		color:gray;
-	}
-	#titleLink strong{
+	#titleLink{
 		font-size:25px;
+		text-decoration:none;
+		color:black;
 	}
+	
 </style>
 </head>
 <body>
@@ -47,14 +46,11 @@
 				</div>
   				
 				<div id="pageTitle" class="row ml-1 mb-4">
-					<div class="col-12" id="titleLink">
-						<div class="col-auto vertical-align:text-top p-0"><strong>일대일문의</strong></div>
+					<div class="col-12">
+						<div class="col-auto vertical-align:text-top p-0">
+						<a href="${pageContext.request.contextPath}/member1/myInquiry?page=${page}" id="titleLink"><strong>일대일문의</strong></a>
+						</div>
 					</div>
-					<script>
-						$("#titleLink").on("click", function(){
-							location.href="${pageContext.request.contextPath}/member1/myInquiry?page=${page}";
-						})
-					</script>
 				</div>				
 				<div class="tableDiv">
 					<div class="row tableHead">					    

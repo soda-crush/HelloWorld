@@ -90,7 +90,28 @@ public class CodeService {
 		dao.downLevel();
 	}
 	
-	public void modify(CodeQuestionDTO dto) {
+	@Transactional("txManager")
+	public void modify(CodeQuestionDTO dto,String id) {
+		// 글쓴이 point 계산
+		int writePointStart = dao.selectPoint(id);
+		int originalPoint = dao.selectQuestionPoint(dto.getSeq()); // 수정 전 포인트
+		int adoptPoint = dto.getPoint(); // 수정 후 포인트
+		int resultPoint = 0;
+		
+		if(originalPoint<adoptPoint) {
+			int result1 = originalPoint - adoptPoint;
+			resultPoint = writePointStart + result1; 
+		}
+		else if(originalPoint>adoptPoint) {
+			int result2 = originalPoint - adoptPoint;
+			resultPoint = writePointStart + result2; 
+		}
+		else {
+			resultPoint = writePointStart + 0;
+		}
+		
+		dao.pointQResult(resultPoint, id);	
+		dao.downLevel();
 		dao.modify(dto);
 	}
 	

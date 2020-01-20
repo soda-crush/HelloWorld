@@ -41,19 +41,19 @@
 		 select count(seq) from industryStatus
 		 <choose>
 		 <when test="value == 'all'">								
-			 where (title like '%${search}%') or (content like '%${search}%')
+			 where (lower(title) like lower('%${search}%')) or (lower(content) like lower('%${search}%'))
 		</when>
 		<when test="value == 'field'">								
-			 where (field like '%${search}%')
+			 where (lower(field) like lower('%${search}%'))
 		</when>
 		<when test="value == 'duty'">								
-			 where (duty like '%${search}%')
+			 where (lower(duty) like lower('%${search}%'))
 		</when>
 		<when test="value == 'writer'">								
-			 where (writer like '%${search}%')
+			 where (lower(writer) like lower('%${search}%'))
 		</when>
 		<when test="value == 'title'">								
-			 where (title like '%${search}%')
+			 where (lower(title) like lower('%${search}%'))
 		</when>
 		</choose>
 	</select>
@@ -62,23 +62,23 @@
 		select * 
 		<choose>
 		 <when test="value == 'all'">								
-			 from (select industryStatus.*, row_number() over (order by seq desc) as rown, (select count(*) from industryComments where indSeq=industryStatus.seq) as commentCount from industryStatus where (title like '%${search}%') or (content like '%${search}%')) where rown between #{start} and #{end}
+			 from (select industryStatus.*, row_number() over (order by seq desc) as rown, (select count(*) from industryComments where indSeq=industryStatus.seq) as commentCount from industryStatus where (lower(title) like lower('%${search}%')) or (lower(content) like lower('%${search}%'))) where rown between #{start} and #{end}
 			 
 		</when>
 		<when test="value == 'field'">
-			 from (select industryStatus.*, row_number() over (order by seq desc) as rown, (select count(*) from industryComments where indSeq=industryStatus.seq) as commentCount from industryStatus where (field like '%${search}%')) where rown between #{start} and #{end}
+			 from (select industryStatus.*, row_number() over (order by seq desc) as rown, (select count(*) from industryComments where indSeq=industryStatus.seq) as commentCount from industryStatus where (lower(field) like lower('%${search}%'))) where rown between #{start} and #{end}
 										
 		</when>
 		<when test="value == 'duty'">
-			 from (select industryStatus.*, row_number() over (order by seq desc) as rown, (select count(*) from industryComments where indSeq=industryStatus.seq) as commentCount from industryStatus where (duty like '%${search}%')) where rown between #{start} and #{end}
+			 from (select industryStatus.*, row_number() over (order by seq desc) as rown, (select count(*) from industryComments where indSeq=industryStatus.seq) as commentCount from industryStatus where (lower(duty) like lower('%${search}%'))) where rown between #{start} and #{end}
 										
 		</when>
 		<when test="value == 'writer'">
-			 from (select industryStatus.*, row_number() over (order by seq desc) as rown, (select count(*) from industryComments where indSeq=industryStatus.seq) as commentCount from industryStatus where (writer like '%${search}%')) where rown between #{start} and #{end}
+			 from (select industryStatus.*, row_number() over (order by seq desc) as rown, (select count(*) from industryComments where indSeq=industryStatus.seq) as commentCount from industryStatus where (lower(writer) like lower('%${search}%'))) where rown between #{start} and #{end}
 										
 		</when>
 		<when test="value == 'title'">								
-			 from (select industryStatus.*, row_number() over (order by seq desc) as rown, (select count(*) from industryComments where indSeq=industryStatus.seq) as commentCount from industryStatus where (title like '%${search}%')) where rown between #{start} and #{end}
+			 from (select industryStatus.*, row_number() over (order by seq desc) as rown, (select count(*) from industryComments where indSeq=industryStatus.seq) as commentCount from industryStatus where (lower(title) like lower('%${search}%'))) where rown between #{start} and #{end}
 		</when>
 		</choose>
 	</select>

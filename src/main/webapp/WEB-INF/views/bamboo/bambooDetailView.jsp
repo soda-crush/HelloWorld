@@ -52,7 +52,7 @@
 </script>
 <script type="text/javascript">
    function shareKakaotalk() {
-      Kakao.init("7fce3c86f0e6aeeac11028850040589c"); // 사용할 앱의 JavaScript 키를 설정
+	  Kakao.init("17c512cbe4e17a204cce3c9b7d64d274"); // 사용할 앱의 JavaScript 키를 설정
       Kakao.Link.sendDefault({
          objectType : "feed",
          content : {
@@ -161,6 +161,11 @@
             	<div class="row">
             		<div class="col-12" id=adver style="height:200px;background-color:green;color:white;">광고자리</div>
             	</div>
+            	<div class=row>
+	            	<div class=col-12>
+	            		<br>
+	            	</div>
+            	</div>
             	<div class="pPageComments">
             	<c:if test="${comments.size()>0 }">
 					<c:forEach items="${comments }" var="c">
@@ -214,7 +219,7 @@
 					</c:forEach>
 				</c:if>
             	</div>
-   	
+   				
             	<div id="pCoInput" class="row">
             		<div class="col-10">
             			<textarea style="width:100%;height:100%;" placeholder="댓글내용을 입력해주세요" id="pCoContents" maxlength="1300"></textarea>

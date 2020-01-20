@@ -29,6 +29,9 @@ button{
 	font-size: 14px;
 	color: gray;
 }
+ #aroundContent1{ 
+  	height: 140px; 
+ } 
 </style>
 </head>
 <body>
@@ -44,14 +47,14 @@ button{
  		<div id=baseBackgroundColor>
             <div class=container>
                 <div class=row>
-                    <div class="col-12" id=aroundContent>
+                    <div class="col-12" id=aroundContent1>
                     </div>
                 </div>
             </div>
             
             <!--      몸통 시작!!!   -->
             <form action="${pageContext.request.contextPath}/member/loginProc" method="post">
-            <div class=container>
+            <div class=container style="min-height: 350px;">
             	<div class="row">
             	<div class="col-md-1 d-none d-md-block order-md-1"></div>
             		<div class="col-12 col-md-5 order-1 order-md-2">

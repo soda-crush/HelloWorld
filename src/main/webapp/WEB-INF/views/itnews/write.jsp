@@ -23,6 +23,12 @@
 		$("#itNavi").attr('class','nav-item nav-link active');
 	});
 </script>
+<style>
+ #cateTitle{
+ color:#e6e6e6;}
+ #cateCmt{
+ color:#f2f2f2;}
+</style>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/standard/header.jsp"/>
@@ -38,7 +44,7 @@
             <!--      몸통 시작!!!   -->
             <div class=container id="projectPage">
 				<div id="pageTitle" class="mb-4">
-					<h1>IT News 글쓰기</h1>
+					<h1 id=cateTitle>IT News 글쓰기</h1>
 				</div>
 				
 				<form action="${pageContext.request.contextPath}/itnews/writeProc" method="post" id="writeFrm" enctype="multipart/form-data">
