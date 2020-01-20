@@ -143,7 +143,7 @@ font-size: 11px;}
             <div class="container">
             
             	<div class="row">
-            		<div class="co1-12 col-md-6 col-lg-3 boardCon">
+            		<div class="co1-12 col-md-6 col-lg-3 boardCon pl-4 pr-4 pl-md-1 pr-md-1">
 	            		<div class="boardEle">
 		            		<div class="boardEleTop bdt1 cursorPointer" onclick="location.href='/bamboo/bambooList.do'">
 		            			<p class="fs1 pl-3 pt-3" style="line-height:35%;">주간 조회수 TOP10</p>
@@ -162,7 +162,7 @@ font-size: 11px;}
             		</div>
             		
             		<div class="col-12 d-md-none"><div style="height:8px;"></div></div>
-            		<div class="co1-12 col-md-6 col-lg-3 boardCon">
+            		<div class="co1-12 col-md-6 col-lg-3 boardCon pl-4 pr-4 pl-md-1 pr-md-1">
 	            		<div class="boardEle">
 			            	<div class="boardEleTop bdt2 cursorPointer" onclick="location.href='/code/codeQList.do'">
 			            		<p class="fs1 pl-3 pt-3" style="line-height:35%;">주간 조회수 TOP10</p>
@@ -181,7 +181,7 @@ font-size: 11px;}
             		</div>
             		
             		<div class="col-12 d-lg-none"><div style="height:8px;"></div></div>
-            		<div class="co1-12 col-md-6 col-lg-3 boardCon">
+            		<div class="co1-12 col-md-6 col-lg-3 boardCon pl-4 pr-4 pl-md-1 pr-md-1">
 	            		<div class="boardEle">
 			            	<div class="boardEleTop bdt3 cursorPointer" onclick="location.href='/industry/industryStatusList.do'">
 			            		<p class="fs1 pl-3 pt-3" style="line-height:35%;">주간 조회수 TOP10</p>
@@ -200,7 +200,7 @@ font-size: 11px;}
             		</div>
             	
 					<div class="col-12 d-md-none"><div style="height:8px;"></div></div>
-            		<div class="co1-12 col-md-6 col-lg-3 boardCon">
+            		<div class="co1-12 col-md-6 col-lg-3 boardCon pl-4 pr-4 pl-md-1 pr-md-1">
 	            		<div class="boardEle">
 			            	<div class="boardEleTop bdt4 cursorPointer" onclick="location.href='/itnews/itnewsList'">
 			            		<p class="fs1 pl-3 pt-3" style="line-height:35%;">주간 조회수 TOP10</p>

@@ -49,6 +49,13 @@ public class MemAdvisor {
 			}
 			return "redirect:../member/noMem";
 		}
+		
+		
+		//로그인중강제탈퇴체크
+		String nickName = dao.selectMember(dto.getId()).getNickName();
+		if(nickName == null) {
+			return "redirect:../member/compulsionWithdrawal";
+		}
 		//dto null아닌경우
 		int sysMemLevel = dao.selectMemLevelById(dto.getId());
 		int lastLoginMemLevel = dto.getMemLevel();

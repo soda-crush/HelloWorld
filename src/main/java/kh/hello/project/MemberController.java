@@ -354,4 +354,10 @@ public class MemberController {
 		 ms.updateLastLogin(id);
 		 return "member/rebootFrm";
 	 }
+	 
+	 @RequestMapping("/compulsionWithdrawal")
+	 public String compulsionWithdrawal(HttpSession session) {
+		 session.invalidate();
+		 return "member/compulsionWithdrawalTmp";
+	 }
 }
