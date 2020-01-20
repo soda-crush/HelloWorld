@@ -110,4 +110,5 @@ color:#787878;
 .cursorPointer:hover {
    cursor: pointer;
 }
+img{max-width:100%;}
 /* autocomplete tagsinput*/

@@ -19,8 +19,10 @@
 </script>
 <style>
 iframe.noScrolling{
-  width: 1100px;
-  height: 600px;
+/*   width: 1100px; */
+/*   height: 600px; */
+  width: 100%;
+  height: 100%;
   overflow: hidden;
 }
 #applyFrame{
@@ -41,11 +43,13 @@ iframe.noScrolling{
             
             <!--      몸통 시작!!!   -->
             <div class=container id="projectPage">						
-					<div class="embed-responsive embed-responsive-21by9 p-0" style="width:1100px;overflow-x:hidden;height:550px;" id="makeFrame">
+<!-- 					<div class="embed-responsive embed-responsive-21by9 p-0" style="width:1100px;overflow-x:hidden;height:550px;" id="makeFrame"> -->
+					<div class="embed-responsive p-0" style="overflow:hidden;height:655px;" id="makeFrame">
 					  <iframe class="noScrolling" src="/project/pLog/makeProjectList"></iframe>
 					</div>
 					<hr>		
-					<div class="embed-responsive embed-responsive-21by9 p-0" style="width:1100px;overflow-x:hidden;height:550px;" id="applyFrame">
+<!-- 					<div class="embed-responsive embed-responsive-21by9 p-0" style="width:1100px;overflow-x:hidden;height:550px;" id="applyFrame"> -->
+					<div class="embed-responsive p-0" style="overflow:hidden;height:605px;" id="applyFrame">
 					  <iframe class="noScrolling" src="/project/pLog/applyProjectList"></iframe>
 					</div>
             </div>

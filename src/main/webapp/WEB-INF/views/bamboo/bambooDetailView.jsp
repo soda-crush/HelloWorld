@@ -19,8 +19,6 @@
 	type="text/css" />
 <link rel="stylesheet" href="/css/project/projectBase.css"
 	type="text/css" />
-<link rel="stylesheet" href="/css/project/detailView.css"
-	type="text/css" />
 	<script type="text/JavaScript"
    src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 	
@@ -129,7 +127,7 @@
             	<div class=row>
             		<input type="hidden" name="seq" value="${bPage.seq}" id=bPageSeq>
             		<input type="hidden" name="writer" value="${bPage.writer}">
-            		<div class="col-12" style="font-size: 15px;color:#707070;"><hr>
+            		<div class="col-12" style="font-size: 13px;color:#707070;"><hr>
             		<c:choose>
             			<c:when test="${bPage.writer == sessionScope.loginInfo.id}">
             			<img src="${bPage.profileImg }" width=40,height=40> ${sessionScope.loginInfo.nickName}
@@ -152,7 +150,7 @@
         			<a id="kakao-link-btn" href="javascript:;" onClick="shareKakaotalk();" style="text-decoration:none"> 
 						<img src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" height=38 style="margin-right:2px;"/>
 					</a>
- 					<button type="button" class="btn btn-success text-right" id="scrap">스크랩</button>	
+<!--  					<button type="button" class="btn btn-success text-right" id="scrap">스크랩</button>	 -->
         	</div>
         	</div>
       		<div class=row>
@@ -198,7 +196,7 @@
 											<a class="btn btn-info coModBtn"
 												href="/bamboo/comment/modifyProc.do?seq=${c.seq }&bamSeq=${c.bamSeq}"
 												onclick="coModFunction(${c.seq},'${c.content}',${c.bamSeq });return false;"
-												role="button">수정</a>
+												role="button" style="!important">수정</a>
 											<a class="btn btn-danger coDelBtn"
 												href="/bamboo/comment/deleteProc.do?seq=${c.seq }&bamSeq=${c.bamSeq}"
 												onclick="coDelFunction(${c.seq});return false;"
@@ -219,17 +217,17 @@
    	
             	<div id="pCoInput" class="row">
             		<div class="col-10">
-            			<textarea style="width:100%;height:100%;" placeholder="댓글 입력" id="pCoContents" maxlength="1300"></textarea>
+            			<textarea style="width:100%;height:100%;" placeholder="댓글내용을 입력해주세요" id="pCoContents" maxlength="1300"></textarea>
             		</div>
             		<div class="col-2">
             			<div class="row">
 							<div class="col-12">
-								<button type="button" class="btn btn-secondary" style="margin-bottom:10px;" id="coCancel">취소</button>
+								<button type="button" class="btn btn-secondary" style="margin-bottom:10px;width:95%" id="coCancel">취소</button>
 							</div>										
 						</div>
 						<div class="row">
 							<div class="col-12">
-								<button type="button" class="btn btn-primary" id="coWriteBtn">작성</button>
+								<button type="button" class="btn btn-primary" style="width:95%" id="coWriteBtn">작성</button>
 							</div>										
 						</div>					
             		</div>
@@ -365,10 +363,10 @@
 		    					'<div class="col-3 col-md-2 col-xl-1"><input type="hidden" name="seq" value="'+seq+'"><input type="hidden" name="bamSeq" value="'+bamSeq+'">',
 		    					'<div class="row">',
 		    					'<div class="col-12 text-center p-0">',
-		    					'<button type="button" class="btn btn-secondary" style="margin-bottom:5px;width:80%;" id="coMoCancel">취소</button>',
+		    					'<button type="button" class="btn btn-secondary" style="margin-bottom:10px;width:95%;" id="coMoCancel">취소</button>',
 		    					'</div></div>',
 		    					'<div class="row"><div class="col-12 text-center p-0">',
-		    					'<button type="button" class="btn btn-warning" style="width:80%;" id="coMoBtn">수정</button>',
+		    					'<button type="button" class="btn btn-warning" style="width:95%;" id="coMoBtn">수정</button>',
 		    					'</div></div></div></div></div>');
 		    			$(".commentBox"+seq).append(html.join(""));
 					}else{

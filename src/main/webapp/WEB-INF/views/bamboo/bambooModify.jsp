@@ -81,6 +81,11 @@ $(function() {
 				</div>
 			</div>
 			<div class=row>
+	            	<div class=col-12>
+	            		<br>
+	            	</div>
+            	</div>
+			<div class=row>
 					<div class="col-12 content">
 			
 			<textarea style="display: none" name=content id=content class="summernote">${bPage.content}</textarea>
@@ -88,8 +93,8 @@ $(function() {
 				</div> 
 			<div class=row>
 				<div class="col-12 btn" style="text-align: right;">
-					<button class="btn btn-primary" type="button" id="write">작성하기</button>
-					<button class="btn btn-primary" type="button" id="return">돌아가기</button>
+					<button class="btn btn-primary" type="button" id="write">수정</button>
+					<button class="btn btn-secondary" type="button" id="return">취소</button>
 				</div>
 			</div>
 		</form>
@@ -100,7 +105,20 @@ $(function() {
 						})
 		$('.summernote').summernote({
 			lang: 'ko-KR',
-			 height : 500
+			 height : 500,
+			 toolbar: [
+		            ['style', ['style']],
+		            ['font', ['bold', 'underline', 'clear']],
+		            ['fontname', ['fontname']],
+		            ['fontsize', ['fontsize']],
+		            ['color', ['color']],
+		            ['para', ['ul', 'ol', 'paragraph']],
+		            ['height', ['height']],
+		            ['table', ['table']],
+		            ['insert', ['link', 'picture', 'hr']],
+		            ['view', ['fullscreen']],
+		            ['help', ['help']]
+		      ]
      	});
 		$("#write").on("click", function() {
 			regex = /^[(<p><br></p>)(<p>(&nbsp; ){1,}</p>)]{0,}$/g;
