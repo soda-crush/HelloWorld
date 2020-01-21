@@ -71,7 +71,6 @@
 	position: relative;
 	left: 50%;
 	transform:translateX(-50%);
-	width: 30%;
 }
 
 #realFooter p, #realFooter a {
@@ -145,6 +144,7 @@ button {
 	font-size: 17px !important;
 	line-height: 28px;
 }
+
 .navbar {
 	padding: 0px;
 }
@@ -172,3 +172,6 @@ img{
 		font-size: 11px;
 		color:red;
 	}
+#codeNavi:hover{
+font-size:14px!important;
+}
