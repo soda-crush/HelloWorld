@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Hello World!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="${pageContext.request.contextPath }/icon/favicon.ico"/>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
@@ -184,7 +185,7 @@ span:nth-child(4) {
 		</div>
 
 		<!--      몸통 시작!!!   -->
-		<div class="container eleCon" id="projectPage" style="background-color: white;">
+		<div class="container eleCon" id="projectPage" style="background-color: white; min-height:380px;">
 			<!-- 			<div id="pageTitle"> -->
 			<div class="topQ" style="margin-top:20px;">
 				<input type="hidden" name="seq" value="${qResult.seq}" id="qSeq">
@@ -250,10 +251,6 @@ span:nth-child(4) {
 				<c:forEach items="${rResult}" var="r">
 					<div class="topQ">
 						<hr>
-						
-
-						
-		    
 						<div class="row">
 							<div class="col-xl-1 col-md-2" style="padding-top:0px; position: relative; top: 10px;">
 								<img src="${r.profileImg}" width=90,height=200>							 
@@ -492,6 +489,12 @@ span:nth-child(4) {
 			<div style="text-align: right; margin-top:5px; margin-left:5px" class="btnDIv">
                    <a class="btn btn-dark" href="/code/codeQList.do" role="button">목록</a>
             </div>
+            <br>
+            
+            <div class="row">
+            	<div class="col-12" id=adver style="height:200px;background-color:dodgerblue;color:white; text-align:center; line-height:200px;">광고자리</div>
+            </div>
+                     
 			<div class=row>
 				<div class="col-12" id=aroundContent></div>
 			</div>
