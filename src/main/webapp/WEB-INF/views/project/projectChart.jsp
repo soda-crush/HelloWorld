@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,30 +40,49 @@
 	.pInfoBox span:nth-of-type(2){width:90px;}
     .pTitleBox{font-weight:bold;}     
     .pTextInfo{z-index:1;}
-/*     .graphNaviItemBlock{ */
-/*     	z-index:2; */
-/*     	background-color:#f2f2f2; */
-/*     	width:300px; */
-/*     	height:150px; */
-/*     	display:inline-block; */
-/*     } */
-	
-/* 	.graphNaviItem{background-color:#e0e0e0;color:#ffe88790;width:53px;line-height:120px;} */	
-	.graphNaviItem{background-color:#e0e0e0;color:#ffe88790;width:103px;line-height:150px;}
+	.graphNaviItem{background-color:#e0e0e0;color:#59595990;text-align:center;width:103px;padding-top:130px;}
 	.progressBar{
 		height:50px;
-		width:623px;
 		background-color:#ffc107;		
 		position:absolute;
 		top:50%; 
- 		left:50%; 
-      	width:625px; 
+ 		left:50%;       	 
     }
-    .progressBar:hover{cursor:pointer;}
-    
+    .todayBar{
+    	height:70px;
+    	width:2px;
+    	background-color:crimson;
+    	position:absolute;
+    	top:50%;
+    	left:50%;
+    	z-index:5;
+    }
+    .todayFlag{
+            padding: 1px;
+            font-size: 13px;
+            font-weight: bold;            
+            text-align: center;
+            background-color: crimson;
+            color:white;
+    		position:absolute;
+    	    width:50px;
+            top: -18px;
+            left: -25px;
+            border-radius: 10px;            
+    }
+    .pTitleBox:hover{cursor:pointer;}
+    .progressBar:hover{cursor:pointer;}    
     .scrapDone{color:crimson;}
 	.kakaoSharing,.scrapDone,.scrapNull:hover{cursor:pointer;}
 	.kakaoSharing:hover{color:#ffc107;}
+	#stateCountLabel{
+		background-color:limegreen;
+		color:white;
+		line-height:30px;
+		font-size:25px;
+		position:relative;
+		top:-5px;
+	}
 </style>
 </head>
 <body>
@@ -81,11 +101,11 @@
                
 	            <div class=container id="projectPage">
 					<div id="pageTitle" class="row">
-						<div class="col-12 col-lg-4"><h1>프로젝트 모집</h1></div>
-						<div class="col-12 col-lg-8 pt-2">
+						<div class="col-12 col-lg-5"><h1>프로젝트 모집</h1><span class="badge badge-pill ml-2" id="stateCountLabel">${projectList.size() }</span></div>
+						<div class="col-12 col-lg-7 pt-2">
 							<a class="btn btn-secondary" href="/project/list" role="button">게시판</a>
-							<a class="btn btn-danger" href="/project/chart" role="button">그래픽</a>
-							<a class="btn btn-secondary" href="/project/map" role="button">지도</a>
+							<a class="btn btn-danger" href="/project/chart" role="button">일정</a>
+							<a class="btn btn-secondary" href="#" role="button">지도</a>
 						</div>
 					</div>	
 					
@@ -98,11 +118,11 @@
 							<c:when test="${projectList.size()==0 }">
 					  			<div class="row"><div class="col-12">모집중인 프로젝트가 없습니다.</div></div>
 					  		</c:when>
-					  		<c:otherwise>
+					  		<c:otherwise>					  		
 					  			<c:forEach items="${projectList }" var="p">
 									<div class="row projectList">
 										<div class="col-xl-5 d-none d-xl-block pTextInfo">
-											<label class="${p.state } badge badge-pill ml-0" id="stateLabel">${p.stateInKor }</label>
+											<label class="${p.state } badge badge-pill ml-0 stateLabel">${p.stateInKor }</label>
 											<i class="fa fa-share-alt kakaoSharing" data-toggle="tooltip" title="카카오톡 공유하기"></i>
 											<c:choose>
 												<c:when test="${p.scrap==1 }">
@@ -113,7 +133,7 @@
 												</c:otherwise>
 											</c:choose>
 											<span class="float-right"><i class="fa fa-calendar-check-o"></i> ${p.formedAllDate }</span>
-											<div class="pTitleBox mt-1 mb-1" style="max-width:430px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${p.title }</div>
+											<div class="pTitleBox mt-1 mb-1" style="max-width:430px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" onclick="popUp('/project/detailView?seq=${p.seq }')">${p.title }</div>
 											<div class="pInfoBox mt-1" style="height:50px;">
 												<div>
 													<span><i class="fa fa-map-marker"></i> ${p.location1 } ${p.location2 }</span>
@@ -125,25 +145,31 @@
 											</div>
 										</div>
 										
+										
 										<div class="col-xl-7 d-none d-xl-block pGraphBar p-0">
 											<ul class="nav graphNavi">
-											  <li class="nav-item graphNaviItem">.</li>
-											  <li class="nav-item graphNaviItem"> </li>
-											  <li class="nav-item graphNaviItem"> </li>
-											  <li class="nav-item graphNaviItem"> </li>
-											  <li class="nav-item graphNaviItem"> </li>
-											  <li class="nav-item graphNaviItem"> </li>											  
+											<c:set var="month" value="${fn:split(p.today,'-')[0] }"></c:set>
+											  <c:forEach begin="0" end="5" step="1" var="m">
+											  	<li class="nav-item graphNaviItem">${month+m }월</li>
+											  </c:forEach>
+<!-- 											  <li class="nav-item graphNaviItem"></li> -->
+<!-- 											  <li class="nav-item graphNaviItem"> </li> -->
+<!-- 											  <li class="nav-item graphNaviItem"> </li> -->
+<!-- 											  <li class="nav-item graphNaviItem"> </li> -->
+<!-- 											  <li class="nav-item graphNaviItem"> </li>											   -->
 <!-- 											  <li class="nav-item graphNaviItem"> </li> -->
 <!-- 											  <li class="nav-item graphNaviItem"> </li> -->
 <!-- 											  <li class="nav-item graphNaviItem"> </li> -->
 <!-- 											  <li class="nav-item graphNaviItem"> </li> -->
 <!-- 											  <li class="nav-item graphNaviItem"> </li> -->
 <!-- 											  <li class="nav-item graphNaviItem"> </li>											  											   -->
-											</ul>												
-											<div class="progressBar text-decoration-none" id="pBar${p.seq }" style="transform: translate(${p.distance -330}px, -50%);width:${p.width}px;" onclick="location.href='/project/detailView?seq=${p.seq }'"></div>											
+											</ul>
+											<div class="todayBar" style="transform: translate(${fn:split(p.today,'-')[1]*3 -330}px, -50%);"><div class="todayFlag" data-toggle="tooltip" title="${fn:split(p.today,'-')[0] }월 ${fn:split(p.today,'-')[1] }일" style="cursor:pointer;">오늘</div></div>												
+											<div class="progressBar text-decoration-none" id="pBar${p.seq }" style="transform: translate(${p.distance -330}px, -50%);width:${p.width}px;" onclick="popUp('/project/detailView?seq=${p.seq }')"></div>											
 										</div>										
 									</div>					
 								</c:forEach>
+								<div class="d-xl-none text-center">해당 서비스는 PC 전체화면에서 지원됩니다</div>
 							</c:otherwise>
 						</c:choose>						
 					</div>
@@ -165,6 +191,9 @@
         <jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
         
 <script>
+function popUp(link){
+	window.open(link, "pLogPopUp", "width=1000,height=750");
+}
 function scrapFunc(seq){
 	$.ajax({
 		url : "/project/scrap",
