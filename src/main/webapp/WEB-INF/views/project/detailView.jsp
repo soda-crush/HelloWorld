@@ -93,7 +93,7 @@
 									<c:when test="${pPage.id == sessionScope.loginInfo.id}">										
 											<c:choose>
 												<c:when test="${pPage.state=='N' }">
-													<button type="button" class="btn btn-warning" id="applyCheckBtn">신규신청
+													<button type="button" class="btn btn-warning" id="applyCheckBtn">신청현황
 														<c:if test="${pPage.applyCount>0 }">
 									  						<span class="pApply font-weight-bold">${pPage.applyCount }</span>
 									  					</c:if>
