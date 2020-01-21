@@ -26,10 +26,20 @@
 		.content{height:90%;float: left;resize: none;}
 		.sendbt{height:90%;float: left;}
 		#writer{text-underline-position: auto;margin-right: 30px;}
-        .projectwrap{background-color:white;border:1px solid #BDBDBD;}
+/*         .projectwrap{background-color:white;border:1px solid #BDBDBD;} */
         a:hover{text-decoration:none;}
         .line-over{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
         #plogProject{background-color:#efefef;border-radius:5px 5px 0px 0px;padding:12px;}
+        
+        
+        iframe.noScrolling{
+		  width: 100%;
+		  height: 100%;
+		  overflow: hidden;
+		}
+		#applyFrame{
+			margin-top:50px;
+		}
 	</style>
 </head>
 <body>
@@ -49,7 +59,7 @@
             <div class="container">
             
 	            <div class="row">
-	                <div class="col-12 col-md-4 col-lg-3 myprofile">
+	                <div class="col-12 col-md-4 d-md-block d-lg-none myprofile">
 	                    <div>
 	                    	<div class="card d-none d-md-block" id="mycard">
 		                        <img src="${ownerInfo.profileImg }" class="card-img-top" alt="..." style="width: 170px;height: 170px;margin:15px;">
@@ -69,8 +79,25 @@
 	                    	</div>
 	                    </div>
 	                </div>
-	                <div class="col-12 col-sm-6 col-md-8 col-lg-9 projectwrap">
+	                
+	                
+	                
+	                
+	                <div class="col-12 col-sm-6 col-md-8 col-lg-12 projectwrap">
+	                
+	                	                
+						<div class="embed-responsive p-0" style="overflow:hidden;height:655px;" id="makeFrame">
+						  <iframe class="noScrolling" src="/project/pLog/makeProjectList"></iframe>
+						</div>
+						<hr>		
+						<div class="embed-responsive p-0" style="overflow:hidden;height:605px;" id="applyFrame">
+						  <iframe class="noScrolling" src="/project/pLog/applyProjectList"></iframe>
+						</div>
+	                
 	                </div>
+	                
+	                
+	                
 	          	</div>
             </div>
             

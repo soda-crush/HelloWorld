@@ -104,8 +104,7 @@
 						<div class="col-12 col-lg-5"><h1>프로젝트 모집</h1><span class="badge badge-pill ml-2" id="stateCountLabel">${projectList.size() }</span></div>
 						<div class="col-12 col-lg-7 pt-2">
 							<a class="btn btn-secondary" href="/project/list" role="button">게시판</a>
-							<a class="btn btn-danger" href="/project/chart" role="button">일정</a>
-							<a class="btn btn-secondary" href="#" role="button">지도</a>
+							<a class="btn btn-danger" href="/project/chart" role="button">일정</a>							
 						</div>
 					</div>	
 					
