@@ -36,7 +36,7 @@ body{background-color:#e9ecef;}
             </div>
             
             <!--      몸통 시작!!!   -->
-            <div class=container id="projectPage">
+            <div class="container d-none d-md-block" id="projectPage">
 				<div id="pageTitle">
 					<h1>프로젝트 신청 상세보기</h1>
 				</div>
@@ -96,6 +96,7 @@ body{background-color:#e9ecef;}
 					</span>
 				</div>          
             </div>
+            <div class="d-md-none text-center">해당 해상도에서는 지원하지 않습니다</div>
             <!--       몸통 끝!!!   -->
 
 

@@ -85,6 +85,7 @@
 		position:relative;
 		top:-5px;
 	}
+#baseBackgroundColor{min-height:603px;}
 </style>
 </head>
 <body>
@@ -122,7 +123,7 @@
 							</div>
 						</div>
 											
-					<div class="projectContainer">
+					<div class="projectContainer text-center">
 						<c:choose>
 							<c:when test="${projectList.size()==0 }">
 					  			<div class="row"><div class="col-12">모집중인 프로젝트가 없습니다.</div></div>
@@ -244,7 +245,7 @@ function unScrapFunc(seq){
 
 //카카오톡
 function shareKakaotalk() {
-    Kakao.init("7fce3c86f0e6aeeac11028850040589c"); // 사용할 앱의 JavaScript 키를 설정
+    Kakao.init("17c512cbe4e17a204cce3c9b7d64d274"); // 사용할 앱의 JavaScript 키를 설정
     Kakao.Link.sendDefault({
        objectType : "feed",
        content : {

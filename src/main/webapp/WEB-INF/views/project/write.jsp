@@ -207,8 +207,8 @@
 			}
 		});
 		
-		$("#writeBtn").on("click",function(){				
-			if($("#loc1").val()==null|$("#loc2").val()==null|$("#capacity")==null|$("#startDate").val()==""|$("#endDate").val()==""|$("#languages").val()==""){
+		$("#writeBtn").on("click",function(){					
+			if($("#loc1").val()==null|$("#loc2").val()==null|$("#capacity").val()==""|$("#startDate").val()==""|$("#endDate").val()==""|$("#languages").val()==""){
 				if($("#pInfo").find(".tt-input").val()!=""){
 					$("#pInfo").find(".tt-input").val("");
 				}

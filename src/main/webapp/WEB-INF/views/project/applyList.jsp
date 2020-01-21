@@ -30,19 +30,19 @@ body{background-color:#e9ecef;}
             </div>
             
             <!--      몸통 시작!!!   -->
-            <div class="container" id="projectApplyPage">
+            <div class="container d-none d-md-block" id="projectApplyPage">
             	<div id="pageTitle" class="row">
 					<div class="col-12"><h1>프로젝트 신청 내역</h1></div>					
 				</div>	           
            
-           		<div class="tableDiv">
+           		<div class="tableDiv d-none d-md-block">
 					<div class="row tableHead">					    
-					    <div class="col-1">번호</div>
-					    <div class="col-2">신청자</div>
-					    <div class="col-4">사용가능언어</div>
-					    <div class="col-2">재직여부</div>
-					    <div class="col-2">포트폴리오</div>
-					    <div class="col-1">승인상태</div>
+					    <div class="d-none d-lg-block col-lg-1">번호</div>
+					    <div class="d-none d-lg-block col-lg-2">신청자</div>
+					    <div class="d-none d-md-block col-md-3 col-lg-4">사용가능언어</div>
+					    <div class="d-none d-md-block col-md-3 col-lg-2">재직여부</div>
+					    <div class="d-none d-md-block col-md-3 col-lg-2">포트폴리오</div>
+					    <div class="d-none d-md-block col-md-3 col-lg-1">승인상태</div>
 					</div>
 					
 				  	<c:choose>
@@ -52,19 +52,20 @@ body{background-color:#e9ecef;}
 				  		<c:otherwise>				  			
 				  			<c:forEach items="${projectApplyList }" var="a" varStatus="status">					  							  			
 				  				<div class="row tableBody p-0 text-decoration-none applyRow${a.approve }" onclick="openApplyPage(${a.seq },'${a.approve}')">
-									<div class="col-1">${projectApplyList.size() - status.index}</div>
-									<div class="col-2"><small>${a.writer }</small></div>
-									<div class="col-4">${a.languages }</div>
-									<div class="col-2">${a.workInInKor }</div>									
-									<div class="col-2">${a.portfolioInKor }</div>
-									<div class="col-1 approve${a.approve }">${a.approveInKor }</div>									
+									<div class="d-none d-lg-block col-lg-1">${projectApplyList.size() - status.index}</div>
+									<div class="d-none d-lg-block col-lg-2"><small>${a.writer }</small></div>
+									<div class="d-none d-md-block col-md-3 col-lg-4">${a.languages }</div>
+									<div class="d-none d-md-block col-md-3 col-lg-2">${a.workInInKor }</div>									
+									<div class="d-none d-md-block col-md-3 col-lg-2">${a.portfolioInKor }</div>
+									<div class="d-none d-md-block col-md-3 col-lg-1 approve${a.approve }">${a.approveInKor }</div>									
 								</div>	
 				  			</c:forEach>
 				  		</c:otherwise>
 				  	</c:choose>				    
 				</div>				
 			</div>
-			<nav aria-label="List navi" id="aPageNavi">${pageNavi }</nav>
+			<nav aria-label="List navi" id="aPageNavi" class="d-none d-md-block">${pageNavi }</nav>
+			<div class="d-md-none text-center">해당 해상도에서는 지원하지 않습니다</div>
             <!--       몸통 끝!!!   -->
             <div class=container>
                 <div class=row>
