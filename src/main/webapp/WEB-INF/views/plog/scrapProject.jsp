@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="/css/project/list.css" type="text/css"/>
 	<style>
 		.card{width:200px;height:300px;margin: auto;;float :left;}
-		.myprofile{float: left;width:200px;text-align:center;}
+		.myprofile{margin-bottom:30px;float: left;width:200px;text-align:center;}
 		#mycard{ float:none;display:flex;align-items:center;}
 		.commentwrite{width:100%;height:100px;padding: 0px;margin-top: 10px;float: left;}
 		.commentlist{width:100%;padding: 0px;margin-top: 10px;float: left;}
@@ -25,7 +25,7 @@
 		.content{height:90%;float: left;resize: none;}
 		.sendbt{height:90%;float: left;}
 		#writer{text-underline-position: auto;margin-right: 30px;}
-		.scraptwrap{background-color:white;border:1px solid #BDBDBD;}
+		.scraptwrap{background-color:white;border: 1px solid rgba(0,0,0,.125);}
 		#page${page}{color:blue;}
 		.coltheme{margin:30px;}
 		.navi{text-align: center;}
@@ -99,7 +99,7 @@
 						  			<c:forEach items="${plist }" var="p">
 						  				<div class="row tableBody p-0">
 											<div class="col-2 ${p.state }" style="text-align:center;">${p.stateInKor }</div>
-												<div  style="cursor:pointer;" class="col-7 col-lg-4 line-over text-decoration-none" onclick="location.href='${pageContext.request.contextPath}/project/detailView?seq=${p.seq }'">${p.title } 
+												<div  style="text-align:left;cursor:pointer;" class="col-7 col-lg-4 line-over text-decoration-none" onclick="location.href='${pageContext.request.contextPath}/project/detailView?seq=${p.seq }'">${p.title } 
 							  						<c:if test="${p.commentCount>0 }">
 							  							<span class="pComment font-weight-bold">${p.commentCount }</span>
 							  						</c:if>					  					

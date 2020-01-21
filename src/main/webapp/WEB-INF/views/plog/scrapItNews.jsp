@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="/css/project/list.css" type="text/css"/>
 	<style>
 		.card{width:200px;height:300px;margin: auto;float :left;}
-		.myprofile{float: left;}
+		.myprofile{margin-bottom:30px;float: left;}
 		#mycard{ float:none;display:flex;align-items:center;}
 		.commentwrite{width:100%;height:100px;padding: 0px;margin-top: 10px;float: left;}
 		.commentlist{width:100%;padding: 0px;margin-top: 10px;float: left;}
@@ -25,7 +25,7 @@
 		.content{height:90%;float: left;resize: none;}
 		.sendbt{height:90%;float: left;}
 		#writer{text-underline-position: auto;margin-right: 30px;}
-		.scraptwrap{background-color:white;border:1px solid #BDBDBD;}
+		.scraptwrap{background-color:white;border: 1px solid rgba(0,0,0,.125);}
 		#page${page}{color:blue;}
 		.coltheme{margin:30px;}
 		.navi{text-align: center;}
@@ -97,7 +97,7 @@
 						  			<c:forEach items="${nlist}" var="dto">
 						  				<div class="row tableBody p-0">
 							    			<div style="cursor:pointer;" class="col-7 col-lg-5 line-over"><a href="${pageContext.request.contextPath}/itnews/detail?seq=${dto.seq}&page=${page}">${dto.title}</a></div>
-							    			<div class="col-2 line-over">
+							    			<div class="col-2 line-over" style="text-align:left;">
 							    				<span style="cursor:pointer" onclick="popUp('${dto.id}','${dto.writer}')">
 													${dto.writer}
 												</span>
