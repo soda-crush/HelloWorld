@@ -120,6 +120,7 @@
 				</div>
 			</div>
 
+
 					<div class="row tableHead p-0">					    
 					    <div class="d-none col-md-1 d-md-block text-center p1-0 pr-0" style="padding-top:12px;">번호</div>
 					    <div class="d-none col-md-6 d-md-block text-center" style="padding-top:12px;">제목</div>
