@@ -59,11 +59,19 @@ public class ProjectMemController {
 	}
 	
 	@RequestMapping("/chart")
-	public String projectChart(Model m) {
+	public String projectChart(String pageOrder, Model m) {
 		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
-		String id = sessionValue.getId();				
-		List<ProjectChartDTO> result = svc.projectList(id);
+		String id = sessionValue.getId();	
+		String checkOrder = "seq";
+		if(pageOrder==null||pageOrder.contentEquals("seq")) {
+			checkOrder="seq";
+			pageOrder="seq";
+		}else if(pageOrder.contentEquals("startDate")) {
+			checkOrder="startDate";
+		}
+		List<ProjectChartDTO> result = svc.projectList(id, pageOrder);
 		m.addAttribute("projectList", result);
+		m.addAttribute("pageOrder", checkOrder);
 		m.addAttribute("ip", Configuration.ip);
 		return "/project/projectChart";
 	}

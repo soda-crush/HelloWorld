@@ -59,7 +59,7 @@
             <div class="container">
             
 	            <div class="row">
-	                <div class="col-12 col-md-4 d-md-block d-lg-none myprofile">
+	                <div class="col-12 col-md-4 d-md-block d-lg-none myprofile pb-2">
 	                    <div>
 	                    	<div class="card d-none d-md-block" id="mycard">
 		                        <img src="${ownerInfo.profileImg }" class="card-img-top" alt="..." style="width: 170px;height: 170px;margin:15px;">
@@ -83,7 +83,7 @@
 	                
 	                
 	                
-	                <div class="col-12 col-sm-6 col-md-8 col-lg-12 projectwrap">
+	                <div class="col-12 col-md-8 col-lg-12 projectwrap pt-2">
 	                
 	                	                
 						<div class="embed-responsive p-0" style="overflow:hidden;height:655px;" id="makeFrame">
@@ -92,14 +92,9 @@
 						<hr>		
 						<div class="embed-responsive p-0" style="overflow:hidden;height:605px;" id="applyFrame">
 						  <iframe class="noScrolling" src="/project/pLog/applyProjectList"></iframe>
-						</div>
+						</div>	                
 	                
-	                <div class="col-12 col-sm-6 col-md-8 col-lg-9 projectwrap" style="min-height:500px;">
-
 	                </div>
-	                
-	                
-	                
 	          	</div>
             </div>
             

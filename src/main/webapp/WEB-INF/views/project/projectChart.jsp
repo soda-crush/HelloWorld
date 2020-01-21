@@ -23,9 +23,10 @@
    });
 </script>
 <style>
-	#pageTitle{margin-bottom:40px;}
+	#pageTitle{margin-bottom:20px;}
 	#pageTitle h1{display:inline;margin-right:10px;font-weight:bold;}
 	#pageTitle .btn{margin-left:5px;}
+	#pageComment{margin-bottom:20px;}
 	.projectList{margin-bottom:10px;}	
 	.pTextInfo label.N{background-color:limegreen;}
 	.pTextInfo label.Y{background-color:red;}
@@ -66,7 +67,7 @@
             color:white;
     		position:absolute;
     	    width:50px;
-            top: -18px;
+            top: -20px;
             left: -25px;
             border-radius: 10px;            
     }
@@ -108,10 +109,23 @@
 						</div>
 					</div>	
 					
-								
-					<div class="choice">
-<!-- 					정렬선택 -->
-					</div>
+<!-- 					<div class="row"> -->
+<!-- 						<div id="pageComment" class="col-12">모집중인 프로젝트만 표시됩니다</div> -->
+<!-- 					</div>				 -->
+					
+					
+					<div class="projectChartDiv">
+						<div class="row mb-3">
+							<div class="col-12">
+								<div class="btn-group" role="group">
+									<button type="button" class="btn btn-outline-warning btn-sm active" id="latestOrder">최신순</button>
+									<button type="button" class="btn btn-outline-warning btn-sm" id="deadlineOrder">마감임박순</button>
+									<span class="ml-3 pt-1" style="height:15px;color:#8a8a8a;"><strong>모집중인 프로젝트만 표시됩니다</strong></span>
+									<input type="hidden" name="pageOrder" id="pageOrder">
+								</div>
+							</div>
+						</div>
+											
 					<div class="projectContainer">
 						<c:choose>
 							<c:when test="${projectList.size()==0 }">
@@ -173,7 +187,7 @@
 						</c:choose>						
 					</div>
 	            </div>
-            
+            </div>		
             </section>           
             <!--       몸통 끝!!!   -->
             
@@ -190,6 +204,26 @@
         <jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
         
 <script>
+var pageOrder = "${pageOrder}";
+if(pageOrder=='seq'){
+	$("#latestOrder").addClass("active");
+	$("#deadlineOrder").removeClass("active");
+	$("#pageOrder").val("seq");
+}else if(pageOrder=='startDate'){
+	$("#deadlineOrder").addClass("active");
+	$("#latestOrder").removeClass("active");
+	$("#pageOrder").val("startDate");
+}
+$("#deadlineOrder").on("click",function(){
+	$("#pageOrder").val("startDate");
+	location.href="/project/chart?pageOrder="+$("#pageOrder").val();
+// 	location.href="/project/list?pageOrder="+$("#pageOrder").val();
+});
+$("#latestOrder").on("click",function(){
+	$("#pageOrder").val("seq");
+	location.href="/project/chart?pageOrder="+$("#pageOrder").val();
+// 	location.href="/project/list?pageOrder="+$("#pageOrder").val();
+});
 function popUp(link){
 	window.open(link, "pLogPopUp", "width=1000,height=750");
 }
