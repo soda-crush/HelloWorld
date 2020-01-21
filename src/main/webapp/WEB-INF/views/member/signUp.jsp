@@ -216,7 +216,7 @@
             		&emsp;<input type="text" id="postcode" name="postcode" placeholder="우편번호" onclick="sample4_execDaumPostcode()" readonly>
             		<input type="button" onclick="sample4_execDaumPostcode()" value="찾기"><br>
             		&emsp;<input type="text" id="addr1" name=addr1 placeholder="도로명주소" onclick="sample4_execDaumPostcode()" readonly>
-            		<input type=text name=addr2 id=addr2 placeholder="상세주소">
+            		<input type=text name=addr2 id=addr2 placeholder="상세주소" maxlength="15">
             	</div>
             </div>  <div class=row>
             	<div class=col-12>
@@ -243,7 +243,7 @@
             		&emsp;<input type=radio name=joinPath value="jp2">'Hello World!' 검색<br>
             		&emsp;<input type=radio name=joinPath value="jp3">'프로젝트 모집' 검색<br>
             		&emsp;<input type=radio name=joinPath value="jp4">기타
-            		<input type="text" placeholder="15자 내외의 사유를 입력해주세요" id="otherJoinPath" name="otherJoinPath" maxlength="14" readonly>
+            		<input type="text" placeholder="15자 이내의 사유를 입력해주세요" id="otherJoinPath" name="otherJoinPath" maxlength="14" readonly>
             		<p class=redP style="display:none" id=jp4Reason>* 기타가입사유를 꼭 입력해주세요.</p>
             	</div>
             </div>
@@ -373,7 +373,7 @@
         
                //비밀번호 
                 $("#pw").on("focusout",function(){
-                	var regex = /[0-8a-zA-Z]{4,12}/;
+                	var regex = /^[0-8a-zA-Z]{4,12}$/;
                 	var data = $("#pw").val();
                 	var result = regex.exec(data);
                 	
@@ -402,7 +402,7 @@
                 }) 
                 
                 $("#pwRe").on("focusout",function(){
-                	var regex = /[0-8a-zA-Z]{4,12}/;
+                	var regex = /^[0-8a-zA-Z]{4,12}$/;
                     var data = $("#pwRe").val();
                     var result = regex.exec(data);
                     

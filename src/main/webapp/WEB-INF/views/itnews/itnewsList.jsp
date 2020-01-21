@@ -16,7 +16,7 @@
 <link rel="stylesheet" type="text/css" href="/css/font-awesome/css/font-awesome.css">
 <style>
 	div{
-/*    	border: 1px solid green;     */
+/*      	border: 1px solid green;        */ 
 	}
 	#cateCmt{
 	color:gray;
@@ -26,16 +26,13 @@
 		font-size:60px;
 	}
 	.tableHead{
-		height: 50px;
+ 		height: 50px; 
 		background-color:#e9ecef;
 		border-top: 1px solid #dadde0;
 		border-bottom: 1px solid #dadde0;
 	}
-	.tableHead div{
-		line-height:50px;
-	}
 	.tableBody{
-		background-color:#f7f7f7;
+		background-color:#ffffff;
 		border-top: 1px solid #dadde0;
 		border-bottom: 1px solid #dadde0;
 	}
@@ -123,12 +120,12 @@
 				</div>
 			</div>
 
-					<div class="row tableHead">					    
-					    <div class="d-none col-md-1 d-md-block text-center" style="padding:0px;">번호</div>
-					    <div class="d-none col-md-6 d-md-block text-center">제목</div>
-					    <div class="d-none col-md-2 d-md-block text-center">작성자</div>
-					    <div class="d-none col-md-2 d-md-block text-center">작성일</div>
-					    <div class="d-none col-md-1 d-md-block text-center" style="padding:0px;">조회</div>				    
+					<div class="row tableHead p-0">					    
+					    <div class="d-none col-md-1 d-md-block text-center p1-0 pr-0" style="padding-top:12px;">번호</div>
+					    <div class="d-none col-md-6 d-md-block text-center" style="padding-top:12px;">제목</div>
+					    <div class="d-none col-md-2 d-md-block text-center" style="padding-top:12px;">작성자</div>
+					    <div class="d-none col-md-2 d-md-block text-center" style="padding-top:12px;">작성일</div>
+					    <div class="d-none col-md-1 d-md-block text-center p1-0 pr-0" style="padding-top:12px;">조회</div>				    
 					</div>
 					
 				  	<c:choose>
@@ -144,7 +141,7 @@
 						    			<div style="max-width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;padding-top:10.8px;padding-left:5px;padding-right:5px;" class="fontBold" id=titleForCss>${dto.title}</div>
 
 						    			<c:if test="${dto.commentCount>0}">
-						    			<div class=orangeFt style="display:inline;position:relative;bottom:22px;">${dto.commentCount}</div>
+						    			<div class="orangeFt font-weight-bolder" style="display:inline;position:relative;bottom:22px;">${dto.commentCount}</div>
 						    			</c:if>
 					    			</div>
 					    			<div class="col-4 col-md-2 order-2 order-md-3 notTitle text-left text-md-center pt-3 pl-3 pr-0 cursorPointer" onclick="popUp('/Portfolio/toPlog.do?owner=${dto.id}')">${dto.writer}</div>
@@ -163,7 +160,7 @@
 								<option value="cateTitle">제목</option>
 								<option value="cateWriter">작성자</option>
 							</select>
-							<input type="text" name="search" id=search placeholder="검색어를 입력하세요">
+							<input type="text" name="search" id=search placeholder="검색어를 검색어를 입력하세요(20자 이내)" maxlength="20">
 							<button class="btn btn-secondary" id=searchBtn>검색</button>
 						</div>
 						<div class="col-12 col-md-2 text-right pt-1">

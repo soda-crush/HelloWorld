@@ -14,7 +14,7 @@
 </head>
 <body>
 	<script>
-		alert("레벨 조절로 인해 재부팅합니다.");
+		alert("레벨 재조정으로 인해 메인페이지로 이동합니다.");
 		location.href="${pageContext.request.contextPath}/";
 	</script>
 </body>

@@ -245,14 +245,14 @@
             		<br>
             	</div>
             </div>
-            <div class=row>
+            <div class=row style="display:none;">
             	<div class=col-12>
             		<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow>가입 경로</h5><p class=redP style="display:inline">*</p><br>
             		&emsp;<input type=radio name=joinPath value="jp1">지인 추천<br>
             		&emsp;<input type=radio name=joinPath value="jp2">'Hello World!' 검색<br>
             		&emsp;<input type=radio name=joinPath value="jp3">'프로젝트 모집' 검색<br>
             		&emsp;<input type=radio name=joinPath value="jp4">
-            		<input type="text" placeholder="15자 내외의 사유를 입력해주세요" id=otherJoinPath name=otherJoinPath maxlength="15" readonly>
+            		<input type="text" placeholder="15자 이내의 사유를 입력해주세요" id=otherJoinPath name=otherJoinPath maxlength="15" readonly>
             		<p class=redP style="display:none" id=jp4Reason>* 기타가입사유를 꼭 입력해주세요.</p>
             	</div>
             </div>
@@ -380,7 +380,7 @@
         
                //비밀번호 
                 $("#pw").on("focusout",function(){
-                	var regex = /[0-8a-zA-Z]{4,12}/;
+                	var regex = /^[0-8a-zA-Z]{4,12}$/;
                 	var data = $("#pw").val();
                 	var result = regex.exec(data);
                 	
@@ -409,7 +409,7 @@
                 }) 
 
 				 $("#pwRe").on("focusout",function(){
-                	var regex = /[0-8a-zA-Z]{4,12}/;
+                	var regex = /^[0-8a-zA-Z]{4,12}$/;
                     var data = $("#pwRe").val();
                     var result = regex.exec(data);
                     
