@@ -23,7 +23,8 @@
         .commentlist{width:100%;padding: 0px;margin-top: 10px;float: left;}
         .col{margin: 0px; padding: 0px;}
         .content{height:90%;float: left;resize: none;}
-        .sendbt{height:90%;float: left;color:#fff;background-color:#343a40;font-size:20px;font-family:NanumgothicBold;}
+/*         .sendbt{height:90%;float: left;color:#fff;background-color:#343a40;font-size:20px;font-family:NanumgothicBold;} */
+        .sendbt{height:90%;float: left;}
         .commentlist>div>div{margin-right: 5px;}
         #commentForm{height:100%;}
         .commentwrap{border-radius:5px;padding: 15px;background-color:white;border: 1px solid rgba(0,0,0,.125);}
@@ -32,7 +33,7 @@
         .message{background-color:white;margin:10px;width:100%;height:100%;border:0px;}
         .listwrap{margin: 10px; padding:5px;}
     	.line-over{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-    	.interval{width:100%;background-color:black;border-radius: 8px;height:1px;margin-left:15px;}
+    	.interval{width:100%;background-color:lightgray;border-radius: 8px;height:1px;margin-left:15px;}
         #plogGuestBook{background-color:#efefef;border-radius:5px 5px 0px 0px;padding:12px;}
     </style>
 </head>
@@ -52,8 +53,8 @@
 	                    	<div class="card d-none d-md-block" id="mycard">
 		                        <img src="${ownerInfo.profileImg }" class="card-img-top" alt="..." style="width: 170px;height: 170px;margin:15px;">
 		                        <div class="card-body">
-		                            <div class="card-title line-over" style="text-align: center;font-size:20px;">${ownerInfo.nickName} 님</div>
-		                            <p class="card-text" style="text-align: center;font-size:18px;">POINT : <span style="font-size:15px;font-weight:bold;">${ownerInfo.point }</span></p>
+	                            <div class="card-title line-over" style="text-align: center;font-size:20px;font-weight:bold;margin-bottom:0px;">${ownerInfo.nickName} <span style="font-size:15px;">님</span></div>
+		                            <p class="card-text" style="text-align: center;font-size:12px;">POINT <span style="font-size:15px;font-weight:bold;">${ownerInfo.point }</span></p>
 		                        </div>
 	                    	</div>
 	                    	<div class="d-md-none" style="background-color:white;border-radius:5px;height:200px;border: 1px solid rgba(0,0,0,.125); padding:15px;margin-right:10px;">
@@ -61,8 +62,8 @@
 		                        	<img src="${ownerInfo.profileImg }" style="width:150px;margin:10px;">
 	                    		</div>
 		                        <div style="float:left;margin-top:100px;margin-left:20px;">
-		                            <div class="line-over" style="text-align: center;font-size:20px;">${ownerInfo.nickName} 님</div>
-		                            <p class="card-text" style="text-align: center;font-size:18px;">POINT : <span style="font-size:15px;font-weight:bold;">${ownerInfo.point }</span></p>
+	                            <div class="card-title line-over" style="text-align: center;font-size:20px;font-weight:bold;margin-bottom:0px;">${ownerInfo.nickName} <span style="font-size:15px;">님</span></div>
+		                            <p class="card-text" style="text-align: center;font-size:12px;">POINT <span style="font-size:15px;font-weight:bold;">${ownerInfo.point }</span></p>
 		                        </div>
 	                    	</div>
 	                    </div>
@@ -75,11 +76,10 @@
 		                        <div class="row"></div>
 <%-- 		                        <input type="hidden" name="owner" value="${sessionScope.loginInfo}">  --%>
 		                        <textarea maxlength="1300" class="col-10 content" placeholder="내용을 입력해주세요" name="content"></textarea>
-		                        <button class="col-2 sendbt">작성</button>
+		                        <button class="col-2 btn btn-outline-dark sendbt" >작성</button>
 	                    	</form>	
 	                    </div>
 	                    <div class="commentlist row">
-	                    
 	                    	<c:forEach items="${list}"  var="dto">
 	                    		<div class="interval"> </div>
 	                    		<div class="listwrap col-12">
@@ -89,7 +89,7 @@
 			                			</div>
 			                			<div style="float:left;margin-left:10px;">
 				                            <div>
-				                            	<span style="cursor:pointer;font-size:20px;" onclick="popUp('${dto.writerID}','${dto.writer}')">
+				                            	<span style="cursor:pointer;font-size:20px;font-weight:bold;" onclick="popUp('${dto.writerID}','${dto.writer}')">
 													${dto.writer}
 												</span>
 												<span style="color:gray;font-size:12px;">${dto.getDate()}</span>
@@ -102,11 +102,11 @@
 											<div style="text-align:right">
 												<c:choose>
 													<c:when test = "${dto.writerID == loginInfo.id || dto.ownerID == loginInfo.id }">
-														<button id="update${dto.seq}" class="btn btn-dark" onclick="update(${dto.seq})" style="visibility:hidden;">수정완료</button>
-														<button id="toModify${dto.seq }" class="btn btn-dark" onclick="modify(${dto.seq})">수정</button>
+														<button id="update${dto.seq}" class="btn btn-outline-dark" onclick="update(${dto.seq})" style="visibility:hidden;">수정완료</button>
+														<button id="toModify${dto.seq }" class="btn btn-outline-dark" onclick="modify(${dto.seq})">수정</button>
 													</c:when>
 												</c:choose>
-												<button class="btn btn-danger" id="delete" onclick="del(${dto.seq},${cpage})">삭제</button>
+												<button class="btn btn-outline-danger" id="delete" onclick="del(${dto.seq},${cpage})">삭제</button>
 					                        </div>
 										</c:when>
 										<c:otherwise>
