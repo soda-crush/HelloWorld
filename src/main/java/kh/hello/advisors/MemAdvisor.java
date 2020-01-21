@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 
 import kh.hello.dao.MemberDAO;
 import kh.hello.dto.LoginInfoDTO;
@@ -108,6 +109,7 @@ public class MemAdvisor {
 	
 	
 	public String forPathRemember(ProceedingJoinPoint pjp) {
+			String sysMethod = "";
 		
 			String oriMethod = pjp.toShortString();
 			Pattern p = Pattern.compile("execution\\(.+Controller.(.+?)\\(..\\)\\)");
@@ -119,7 +121,7 @@ public class MemAdvisor {
 			
 			while(m.find()){
 				while(m2.find()) {
-				String sysMethod = m.group(1).toString();
+				sysMethod = m.group(1).toString();
 				String sysFirstParam = m2.group(1).toString();
 				System.out.println("oriMethod : " + oriMethod);
 				System.out.println("getSig : " + getSig);
@@ -129,6 +131,11 @@ public class MemAdvisor {
 					
 				}
 			}
+		
+			
+		//경로 model에 저장
+		//	pjp.getArgs()
+	//model.addAttribute("remPath", sysMethod);
 			
 		String result = "";
 		try {
@@ -138,6 +145,7 @@ public class MemAdvisor {
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
+		
 		return result;
 	}
 	
