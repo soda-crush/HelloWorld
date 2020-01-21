@@ -26,6 +26,8 @@
 	#startInputDate{
 	width:130px;
 	}
+	* {font-family: "NanumgothicBold";}
+	
 </style>
 </head>
 <body>
@@ -117,7 +119,7 @@
             <div id=empEle style="display:none;">
             	<div class=row>
 	            	<div class="col-12 col-sm-6">
-		            	<h5 style="display:inline;"><img src="/icon/doubleArrow.svg" class=arrow>회사 메일</h5><p class=redP style="display:inline">* 오랜시간이 걸리니 메일 전송 경고창이 뜰때까지 기다려주세요.</p>
+		            	<h5 style="display:inline;"><img src="/icon/doubleArrow.svg" class=arrow>회사 메일</h5><p class=redP style="display:inline">* 메일을 전송하는데 다소 시간이 걸립니다. 메일 전송 알림창이 뜰 때 까지 잠시만 기다려 주세요.</p>
 		            		&emsp;<br>&emsp;<input type=text name=empEmail id=empEmail placeholder="메일 주소 입력">
 		            		<button type=button id=sendMail1>인증 메일 발송</button>
 	            	</div>
@@ -133,7 +135,7 @@
             <div id=unempEle style="display:none">
              	<div class=row>
 	            	<div class="col-12 col-sm-6">
-		            	<h5 style="display:inline"><img src="/icon/doubleArrow.svg" class=arrow>개인 메일</h5><p class=redP style="display:inline">* 오랜시간이 걸리니 메일 전송 경고창이 뜰때까지 기다려주세요.</p>
+		            	<h5 style="display:inline"><img src="/icon/doubleArrow.svg" class=arrow>개인 메일</h5><p class=redP style="display:inline">* 메일을 전송하는데 다소 시간이 걸립니다. 메일 전송 알림창이 뜰 때 까지 잠시만 기다려 주세요.</p>
 		            		&emsp;<br>&emsp;<input type=text name=unempEmail id=unempEmail placeholder="메일 주소 입력">
 		            		<button type=button id=sendMail2>인증 메일 발송</button>
 	            	</div>
@@ -211,9 +213,9 @@
             <div class=row>
             	<div class=col-12>
             		<h5><img src="/icon/arrow.svg" class=arrow>주소</h5>
-            		&emsp;<input type="text" id="postcode" name="postcode" placeholder="우편번호" readonly>
+            		&emsp;<input type="text" id="postcode" name="postcode" placeholder="우편번호" onclick="sample4_execDaumPostcode()" readonly>
             		<input type="button" onclick="sample4_execDaumPostcode()" value="찾기"><br>
-            		&emsp;<input type="text" id="addr1" name=addr1 placeholder="도로명주소" readonly>
+            		&emsp;<input type="text" id="addr1" name=addr1 placeholder="도로명주소" onclick="sample4_execDaumPostcode()" readonly>
             		<input type=text name=addr2 id=addr2 placeholder="상세주소">
             	</div>
             </div>  <div class=row>

@@ -52,7 +52,7 @@ input{
 						<button type="button" class="btn btn-secondary" id=send  style="position:relative;left:55px;top:1.6px;">인증번호 받기</button>
 						<br>
 						<input type=text id=codeInput name = codeInput placeholder="인증코드 입력" style="position:relative;top:2px;">
-						<div><p class=redP id=noticeCmt style="position:relative;left:65px;display:none;">* 오랜시간이 걸리니 메일 전송 경고창이 뜰때까지 기다려주세요.</p></div>
+						<div><p class=redP id=noticeCmt style="position:relative;left:65px;display:none;">* 메일을 전송하는데 다소 시간이 걸립니다. 메일 전송 알림창이 뜰 때 까지 잠시만 기다려 주세요.</p></div>
 						<button type="button" class="btn btn-success" id=findBtn style="position:relative;top:4px;">다음</button>
 						<br><br>
 					</div>

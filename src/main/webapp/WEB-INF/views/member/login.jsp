@@ -63,7 +63,7 @@ button{
             	<div class="row">
             	<div class="col-md-1 d-none d-md-block order-md-1"></div>
             		<div class="col-12 col-md-5 order-1 order-md-2 pl-5">
-	            		<img src="/icon/blackArrow.svg"><h4 style="display:inline;position:relative;top:3.5px;left:2px;">로그인</h4>
+	            		<img src="/icon/blackArrow.svg"><h4 style="display:inline;position:relative;top:3.5px;left:10px;" class=fontBold>로그인</h4>
 	            		<div class="row">
 	            			<div class="col-8">
 	            				<br>
@@ -75,7 +75,7 @@ button{
 	            			</div>
 	            			<div class="col-2">
 	            			<br>
-	            			<button id=login>로그인</button>
+	            			<button id=login class=fontBold>로그인</button>
 	            			</div>
 	            			<div class="col-2">
 	            			<br>
@@ -84,14 +84,14 @@ button{
             		</div>
             		<div class="col-md-1 d-none d-md-block order-md-3"></div>
             		<div class="col-12 col-md-4 order-2 order-md-4 pt-5 pt-md-0 pl-5">
-            			<img src="/icon/whiteArrow.svg"><h4 style="display:inline;position:relative;top:3.5px;left:2px;">처음이신가요?</h4>
+            			<img src="/icon/whiteArrow.svg"><h4 style="display:inline;position:relative;top:3.5px;left:10px;" class=fontBold>처음이신가요?</h4>
             			<br>
-            			<a class="aT pl-4" href="${pageContext.request.contextPath}/member/signUp">회원가입</a>
+            			<a class="aT" href="${pageContext.request.contextPath}/member/signUp" style="position:relative;left:35px;">회원가입</a>
             			<h3><br></h3>
-            			<img src="/icon/whiteArrow.svg"><h4 style="display:inline;position:relative;top:3.5px;left:2px;">기억이 나지 않으신가요?</h4>
+            			<img src="/icon/whiteArrow.svg"><h4 style="display:inline;position:relative;top:3.5px;left:10px;" class=fontBold>기억이 나지 않으신가요?</h4>
             			<br>
-            			<a class="aT pl-4" href="${pageContext.request.contextPath}/member/findId">아이디</a>ㆍ
-            			<a class="aT pl-0" href="${pageContext.request.contextPath}/member/findPw">비밀번호 찾기</a>
+            			<a class="aT" href="${pageContext.request.contextPath}/member/findId" style="position:relative;left:35px;">아이디</a><p style="display:inline;position:relative;left:35px;">ㆍ</p>
+            			<a class="aT pl-0" href="${pageContext.request.contextPath}/member/findPw" style="position:relative;left:30px;">비밀번호 찾기</a>
             		</div>
             	<div class="col-md-1 d-none d-md-block order-md-5"></div>
             	</div>
