@@ -829,22 +829,22 @@ if ($('#visitChange').length > 0) {
 	        }, {
 	            "year": "${comLog[1].dateis}",
 	            "새 댓글": "${comLog[1].newCom}",
-	            "삭제된 댓글": "${comLog[0].delCom}",
+	            "삭제된 댓글": "${comLog[1].delCom}",
 	            "color": "#5182DE"
 	        }, {
 	            "year": "${comLog[2].dateis}",
 	            "새 댓글": "${comLog[2].newCom}",
-	            "삭제된 댓글": "${comLog[0].delCom}",
+	            "삭제된 댓글": "${comLog[2].delCom}",
 	            "color": "#8282F1"
 	        }, {
 	            "year": "${comLog[3].dateis}",
 	            "새 댓글": "${comLog[3].newCom}",
-	            "삭제된 댓글": "${comLog[0].delCom}",
+	            "삭제된 댓글": "${comLog[3].delCom}",
 	            "color": "#B369FE"
 	        }, {
 	            "year": "${comLog[4].dateis}",
 	            "새 댓글": "${comLog[4].newCom}",
-	            "삭제된 댓글": "${comLog[0].delCom}",
+	            "삭제된 댓글": "${comLog[4].delCom}",
 	            "color": "#51ADDD"
 	        }],
 	        "valueAxes": [{

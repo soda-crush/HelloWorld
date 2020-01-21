@@ -98,7 +98,7 @@
 					
 				  	<c:choose>
 				  		<c:when test="${list.size()==0}">
-				  		<div class="row"><div class="col-12 text-center" style="min-height:200px;">작성된 글이 없습니다.</div></div>
+				  		<div class="row"><div class="col-12 text-center" style="min-height:200px; line-height:200px;background-color:#ffffff90;">작성된 글이 없습니다.</div></div>
 				  		</c:when>
 				  		<c:otherwise>
 				  			<c:forEach items="${list}" var="dto">
