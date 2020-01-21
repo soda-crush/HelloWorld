@@ -2,19 +2,11 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
 	<div class=container>
-<%-- 	 	<c:choose> --%>
-<%-- 			<c:when test="${loginInfo.id ==null}"> --%>
-<!-- 			<div class="row" id="loginCon"> -->
-<!-- 	        	<div class="col-12 text-right"> -->
-<%-- 	        		<a href="${pageContext.request.contextPath}/member/login">로그인</a>  --%>
-<%-- 	        		<a href="${pageContext.request.contextPath}/member/signUp">회원가입</a></div> --%>
-<!-- 	            </div> -->
-<%-- 			</c:when> --%>
-<%-- 			<c:otherwise> --%>
 				<div class="row" id="loginCon">
 	            	<div class="col-12">
-		            	<div style="float:left">
-		            		<a href="${pageContext.request.contextPath}/">메인으로 </a>
+		            	<div style="float:left;cursor:pointer;" onClick="location.href='${pageContext.request.contextPath}/'">
+		            		<img src="/img/pavicon.png" style="height:14px;">
+		            		<a>메인으로 </a>
 		            	</div>
 		            	<div style="float:right">
 			            	<div style="float:right">
@@ -25,8 +17,6 @@
 		            	</div>
 		            </div>
 		    	</div>
-<%-- 			</c:otherwise> --%>
-<%-- 		</c:choose> --%>
 	</div>
 
 	<nav class="navbar navbar-expand-md navbar-light" style="background-color: #f7941e;margin-bottom:0px;">
