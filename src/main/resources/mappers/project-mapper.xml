@@ -5,7 +5,15 @@
 <mapper namespace="Project">
 	<select id="getList" resultType="kh.hello.dto.ProjectChartDTO">
 <!-- 		select project.*,(select count(*) from projectComment where projectSeq=project.seq) as commentCount from project order by seq desc		 -->
-		select * from (select project.*, (select count(*) from scrap where id=#{value} and category='project' and categorySeq=project.seq) as scrap from project where state = 'N') order by seq desc
+		select * from (select project.*, (select count(*) from scrap where id=#{id} and category='project' and categorySeq=project.seq) as scrap from project where state = 'N') order by
+		<choose>
+			<when test="pageOrder == 'startDate'">
+				startDate asc
+			</when>
+			<when test="pageOrder == 'seq'">
+				seq desc
+			</when>
+		</choose> 		
 	</select>
 	<select id="checkForcedCloseProject" resultType="kh.hello.dto.ProjectDTO">
 		select seq from project where startDate = #{value} and state = 'N'
@@ -61,15 +69,18 @@
 	<sql id="search">
 		<choose>
 			<when test="searchOption=='all'">
-				where title like '%'||#{keyword}||'%'
-				or contents like '%'||#{keyword}||'%'
+<!-- 				where title like '%'||#{keyword}||'%' -->
+<!-- 				or contents like '%'||#{keyword}||'%' -->
+				where lower(title) like lower('%'||#{keyword}||'%')
+				or lower(contents) like lower('%'||#{keyword}||'%')
 			</when>
 			<when test="searchOption=='location'">
 				where location1 like '%'||#{keyword}||'%'	
 				or location2 like '%'||#{keyword}||'%'
 			</when>
 			<otherwise>
-				where ${searchOption} like '%'||#{keyword}||'%'
+<!-- 				where ${searchOption} like '%'||#{keyword}||'%' -->
+				where lower(${searchOption}) like lower('%'||#{keyword}||'%')
 			</otherwise>
 		</choose>
 	</sql>
@@ -168,18 +179,22 @@
 	<sql id="searchAnd">
 		<choose>
 			<when test="searchOption=='all'">
-				and (title like '%'||#{keyword}||'%'
-				or contents like '%'||#{keyword}||'%')
+<!-- 				and (title like '%'||#{keyword}||'%' -->
+<!-- 				or contents like '%'||#{keyword}||'%') -->
+				and (lower(title) like lower('%'||#{keyword}||'%')
+				or lower(contents) like lower('%'||#{keyword}||'%'))
 			</when>
 			<when test="searchOption=='location'">
 				and (location1 like '%'||#{keyword}||'%'	
 				or location2 like '%'||#{keyword}||'%')
 			</when>
 			<when test="searchOption=='writer'">
-				and project.writer like '%'||#{keyword}||'%'
+<!-- 				and project.writer like '%'||#{keyword}||'%' -->
+				and lower(project.writer) like lower('%'||#{keyword}||'%')
 			</when>
 			<otherwise>
-				and ${searchOption} like '%'||#{keyword}||'%'
+<!-- 				and ${searchOption} like '%'||#{keyword}||'%' -->
+				and lower(${searchOption}) like lower('%'||#{keyword}||'%')
 			</otherwise>
 		</choose>
 	</sql>
