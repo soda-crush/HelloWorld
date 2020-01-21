@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="/css/project/list.css" type="text/css"/>
 	<style>
 		.card{width:200px;height:300px;margin: auto;;float :left;}
-		.myprofile{float: left;margin-top: 20px;width:200px;text-align:center;}
+		.myprofile{float: left;width:200px;text-align:center;}
 		#mycard{ float:none;display:flex;align-items:center;}
 		.commentwrite{width:100%;height:100px;padding: 0px;margin-top: 10px;float: left;}
 		.commentlist{width:100%;padding: 0px;margin-top: 10px;float: left;}
@@ -75,7 +75,7 @@
 	                    	</div>
 	                    </div>
 	                </div>
-	                <div class="col-12 col-md-8 col-lg-9 scraptwrap">
+	                <div class="col-12 col-md-8 col-lg-9 scraptwrap" style="min-height:500px;">
 	    	 				<div class="btn-group" role="group" aria-label="Basic example" style="margin-top:20px;margin-bottom:20px;">
 								<button type="button" class="btn btn-flat btn-xs btn-outline-secondary" onclick="location.href='${pageContext.request.contextPath}/Scrap/itNews.do'">IT 뉴스</button>
 								<button type="button" class="btn btn-flat btn-xs btn-outline-secondary" onclick="location.href='${pageContext.request.contextPath}/Scrap/cohow.do'">코드 지식인</button>
