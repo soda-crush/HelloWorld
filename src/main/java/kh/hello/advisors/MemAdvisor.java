@@ -132,6 +132,7 @@ public class MemAdvisor {
 				}
 			}
 		
+			
 		//경로 model에 저장
 		//	pjp.getArgs()
 	//model.addAttribute("remPath", sysMethod);
