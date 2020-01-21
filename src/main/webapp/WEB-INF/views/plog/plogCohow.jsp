@@ -26,7 +26,7 @@
 		.sendbt{height:90%;float: left;}
 		#writer{text-underline-position: auto;margin-right: 30px;}
         .cohowwrap{background-color:white;border: 1px solid rgba(0,0,0,.125);}
-		.coltheme{margin:30px;}
+		.coltheme{margin:30px;font-weight:bold;}
 		.navi{text-align: center;}
         a:hover{text-decoration:none;}
         .tableBody{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}

@@ -26,6 +26,8 @@
 		.navi{text-align: center;}
 		.line-over{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 		#plogPortfolio{background-color:#efefef;border-radius:5px 5px 0px 0px;padding:12px;}
+		.cardheight{transition:all 0.9s, color 0.3;}
+		.cardheight:hover {color:lightgray;box-shadow: 500px 0 0 0 rgba(0,0,0,0.25) inset;}
   	</style>
 </head>
 <body>
@@ -49,8 +51,8 @@
 	                    	<div class="card d-none d-md-block" id="mycard">
 		                        <img src="${ownerInfo.profileImg }" class="card-img-top" alt="..." style="width: 85%;margin:7.5%;">
 		                        <div class="card-body">
-		                            <div class="card-title line-over" style="text-align: center;font-size:20px;margin-bottom:0px;">${ownerInfo.nickName} 님</div>
-		                            <p class="card-text" style="text-align: center;font-size:18px;">POINT : <span style="font-size:15px;font-weight:bold;">${ownerInfo.point }</span></p>
+		                            <div class="card-title line-over" style="text-align: center;font-size:20px;font-weight:bold;margin-bottom:0px;">${ownerInfo.nickName} <span style="font-size:15px;">님</span></div>
+		                            <p class="card-text" style="text-align: center;font-size:12px;">POINT <span style="font-size:15px;font-weight:bold;">${ownerInfo.point }</span></p>
 		                        </div>
 	                    	</div>
 	                    	<div class="d-md-none" style="background-color:white;border-radius:5px;height:200px;border: 1px solid rgba(0,0,0,.125); padding:15px;margin-right:10px;">
@@ -66,8 +68,8 @@
 	                </div>
 	                <div class ="col-12 col-md-8 col-lg-9 wrapportfolio" style="min-height:600px;">
 	                	<c:forEach items="${list}"  var="dto">
-	                		<div id="cardheight" class="cardwrap col-6 col-xl-4" onclick="location.href='${pageContext.request.contextPath}/Portfolio/detail.do?seq=${dto.seq}'">
-		                        <div class="card" style="cursor:pointer">
+	                		<div class="cardwrap col-6 col-xl-4" onclick="location.href='${pageContext.request.contextPath}/Portfolio/detail.do?seq=${dto.seq}'">
+		                        <div class="cardheight card cd-h" style="cursor:pointer">
 		                            <img src="${dto.image1}" class="card-img-top" alt="..." style="height:20vw;width:85%;margin:7.5%;">
 		                            <div class="card-body" style="padding:5px;width:100%;height:115px;text-align:left;">
 		                                <h5 class="card-title" style="text-align:left;font-size:15px;white-space:nowrap;overflow: hidden;text-overflow:ellipsis;width:100%;height:16px;">
@@ -117,10 +119,10 @@
         		}
              }
             $(window).resize(function (){
-            	var hei = ($("#cardheight").height())+'px'
-            	var hei2 = ($("#cardheight").height())*0.4+'px'
+            	var hei = ($(".cardheight").height())+'px'
+            	var hei2 = ($(".cardheight").height())*0.4+'px'
             	$("#plusbt").css("height", hei);
-            	$("#plusbt").css("top". hei2)
+//             	$("#plusbt").css("top". hei2);
            	})
         </script>
 </body>
