@@ -58,8 +58,8 @@
 			            <hr class="sp">
 			            <div class="row">
 			                <div class="col-3 col-md-2"> 수행 기간  </div>
-			                 <div class="col-9 col-md-10"> <input name="startDateTemp" type="text" id="datepicker">
-			                    ~ <input name="endDateTemp" type="text" id="datepicker2"> </div>         
+			                 <div class="col-9 col-md-10"> <input name="startDateTemp" type="text" id="datepicker" style="width:80px;">
+			                    ~ <input name="endDateTemp" type="text" id="datepicker2" style="width:80px;"> </div>         
 			            </div>
 			            <hr class="sp">
 			            <div class="row">
@@ -96,13 +96,13 @@
 			            <h4 style="background-color: #f7941e;">구현 기능</h4>
 			            <div class="row">
 			                <div class="col-12 col-sm-3 col-xl-2">
-			                	<input type="file" id="fileUpload1" name="fileUpload1">
+			                	<input type="file" id="fileUpload1" name="fileUpload1" accept="image/*">
 			                	<img id="fileImg1"src="${pdto.image1}" style="height: 95%;width:100%;max-height: 170px;">
 			                	<input type="hidden" name ="image1" id="file1" value="${pdto.image1}">
 			                </div>
 			                <div class="col-12 col-sm-9 col-xl-10">
 			                    <div class="row">
-			                        <div class="col-3 col-sm-2  col-lg-1" id="funcname" accept="image/*"> 기능명</div>
+			                        <div class="col-3 col-sm-2  col-lg-1" id="funcname"> 기능명</div>
 			                        <div class="col-9 col-sm-10 col-lg-11" id="funcname1"><input name="function1" style="height:18px margin-bottom:" value="${pdto.function1 }" maxlength="100"> </div>
 			                        <div class="col-3 col-sm-2  col-lg-1" id="funcexpl" > 설명</div>
 			                        <div class="col-9 col-sm-10 col-lg-11"><textarea name="explanation1" style="height:150px;" maxlength="1300">${pdto.explanation1 }</textarea></div>
@@ -112,13 +112,13 @@
 			            <hr class="sp">
 			            <div class="row">
 			                <div class="col-12 col-sm-3 col-xl-2">
-			                	<input type="file" id="fileUpload2" name="fileUpload2">
+			                	<input type="file" id="fileUpload2" name="fileUpload2" accept="image/*">
 			                	<img id="fileImg2"src="${pdto.image2}" style="height: 95%;width:100%;max-height: 170px;">
 			                	<input type="hidden" name ="image2" id="file2" value="${pdto.image2}">
 			                </div>
 			                <div class="col-12 col-sm-9 col-xl-10">
 			                    <div class="row">
-			                        <div class="col-3 col-sm-2  col-lg-1" id="funcname" accept="image/*"> 기능명</div>
+			                        <div class="col-3 col-sm-2  col-lg-1" id="funcname"> 기능명</div>
 			                        <div class="col-9 col-sm-10 col-lg-11" id="funcname2"><input name="function2" style="height:18px margin-bottom:" value="${pdto.function2 }" maxlength="100"></div>
 			                        <div class="col-3 col-sm-2  col-lg-1" id="funcexpl" > 설명</div>
 			                        <div class="col-9 col-sm-10 col-lg-11"><textarea name="explanation2" style="height:150px;" maxlength="1300">${pdto.explanation2 }</textarea></div>

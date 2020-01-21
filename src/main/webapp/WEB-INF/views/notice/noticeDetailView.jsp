@@ -73,7 +73,7 @@
 						</div>
 				</div>
 				
-				<div id="pageFooter">						
+				<div id="pageFooter" class="text-right">						
 					<a class="btn btn-outline-dark" href="${pageContext.request.contextPath}/notice/noticeList" role="button">목록</a>
 				</div>          
             </div>

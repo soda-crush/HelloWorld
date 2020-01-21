@@ -89,8 +89,9 @@ textarea{
 								</div>
 							</div>
 							<hr>
-						</div>
+						</div>						
 						<form action="${pageContext.request.contextPath}/admin/memberOut" method="post" class="col-12">
+							<div class="col-12 text-danger mb-2"><small>*강퇴하는데 다소 시간이 걸립니다. 알림창을 기다려 주세요.</small></div>			
 							<div class="form-group m-0">
 		                    <div class="custom-control custom-radio pb-2">
 		                    	<input type="radio" id="radio1" name="reason" class="custom-control-input"
@@ -107,7 +108,7 @@ textarea{
 		                    	value="Hello World 자체 운영 원칙에 위배되는 활동">
 		                    	<label class="custom-control-label" for="radio3">Hello World 자체 운영 원칙에 위배되는 활동</label>
 		                   	</div>                  	                   	                   	
-		                    <div class="custom-control custom-radio pb-2">
+		                    <div class="custom-control custom-radio">
 		                    	<input type="radio" id="radio4" name="reason" class="custom-control-input" value="etc">
 		                    	<label class="custom-control-label col-12" for="radio4"></label>
 		                    	<textarea class="form-control pt-0" aria-label="With textarea" id="etcReason" placeholder="기타  사유를 입력해주세요"

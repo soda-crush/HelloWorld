@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="/css/project/list.css" type="text/css"/>
 	<style>
 		.card{width:200px;height:300px;margin: auto;;float :left;}
-		.myprofile{float: left;margin-top: 20px;width:200px;text-align:center;padding-right:0px;}
+		.myprofile{float: left;width:200px;text-align:center;padding-right:0px;}
 		#mycard{ float:none;display:flex;align-items:center;}
 		.commentwrite{width:100%;height:100px;padding: 0px;margin-top: 10px;float: left;}
 		.commentlist{width:100%;padding: 0px;margin-top: 10px;float: left;}
@@ -57,10 +57,10 @@
 	                <div class="col-12 col-md-4 col-lg-3 myprofile">
 	                    <div>
 	                    	<div class="card d-none d-md-block" id="mycard">
-		                        <img src="${ownerInfo.profileImg }" class="card-img-top" alt="..." style="width: 170px;height: 170px;margin:15px;">
+		                        <img src="${ownerInfo.profileImg }" class="card-img-top" alt="..." style="width: 85%;margin:7.5%;">
 		                        <div class="card-body">
-		                            <div class="card-title line-over" style="text-align: center;font-size:20px;">${ownerInfo.nickName} 님</div>
-		                            <p class="card-text" style="text-align: center;font-size:15px;">point : ${ownerInfo.point }</p>
+		                            <div class="card-title line-over" style="text-align: center;font-size:20px;margin-bottom:0px;">${ownerInfo.nickName} 님</div>
+		                            <p class="card-text" style="text-align: center;font-size:18px;">POINT : <span style="font-size:15px;font-weight:bold;">${ownerInfo.point }</span></p>
 		                        </div>
 	                    	</div>
 	                    	<div class="d-md-none" style="background-color:white;border-radius:5px;height:200px;border: 1px solid rgba(0,0,0,.125); padding:15px;margin-right:10px;">
@@ -69,11 +69,10 @@
 	                    		</div>
 		                        <div style="float:left;margin-top:100px;margin-left:20px;">
 		                            <div class="line-over" style="text-align: center;font-size:20px;">${ownerInfo.nickName} 님</div>
-		                            <p style="text-align: center;font-size:15px;">point : ${ownerInfo.point }</p>
+		                            <p class="card-text" style="text-align: center;font-size:18px;">POINT : <span style="font-size:15px;font-weight:bold;">${ownerInfo.point }</span></p>
 		                        </div>
 	                    	</div>
 	                    </div>
-
 	                </div>
 	                <div class="col-12 col-md-8 col-lg-9 scraptwrap">
 	    	 				<div class="btn-group" role="group" aria-label="Basic example" style="margin-top:20px;margin-bottom:20px;">
