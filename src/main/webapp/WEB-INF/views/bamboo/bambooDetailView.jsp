@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Hello World!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="${pageContext.request.contextPath }/icon/favicon.ico"/>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
@@ -17,7 +18,7 @@
 <link rel="stylesheet" href="/css/mainBase.css">
 <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.css"
 	type="text/css" />
-<link rel="stylesheet" href="/css/project/projectBase.css"
+<link rel="stylesheet" href="/css/industry/industryBase.css"
 	type="text/css" />
 	<script type="text/JavaScript"
    src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
@@ -174,13 +175,13 @@
 								<div class="row commentHeader">
 									<c:choose>
             						<c:when test="${c.writer == sessionScope.loginInfo.id}">
-									<div class="col-lg-1 d-none d-lg-block profileBox pl-1 pt-2 pr-0"><img src="${c.profileImg }" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>	
+									<div class="d-none d-md-block col-1 profileBox pl-1 pt-2"><img src="${c.profileImg }" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>	
 									</c:when>
 									<c:otherwise>
-            						<div class="col-lg-1 d-none d-lg-block profileBox pl-1 pt-2 pr-0"><img src="/img/profile0.png" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>	
+            						<div class="d-none d-md-block col-1 profileBox pl-1 pt-2"><img src="/img/profile0.png" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>	
             						</c:otherwise>
 									</c:choose>
-									<div class="col-7 pt-1">
+									<div class="col-8 col-md-7 pt-1">
 										<div class="row commentInfo">
 											<input type="hidden" name="writer" value="${c.writer}">
 											<div class="col-12 commentWriter">
@@ -221,10 +222,10 @@
             	</div>
    				
             	<div id="pCoInput" class="row">
-            		<div class="col-10">
-            			<textarea style="width:100%;height:100%;" placeholder="댓글내용을 입력해주세요" id="pCoContents" maxlength="1300"></textarea>
+            		<div class="col-9 col-lg-10" style="padding:0px;padding-left:22px;">
+            			<textarea style="width:100%;height:100%;border-radius:6px;border:1px solid #d1d1d1;" placeholder="댓글내용을 입력해주세요" id="pCoContents" maxlength="1300"></textarea>
             		</div>
-            		<div class="col-2">
+            		<div class="col-3 col-lg-2">
             			<div class="row">
 							<div class="col-12">
 								<button type="button" class="btn btn-secondary" style="margin-bottom:10px;width:95%" id="coCancel">취소</button>
@@ -254,8 +255,7 @@
 		     	<c:if test="${bPage.writer == sessionScope.loginInfo.id}">
 					
 						<button type="button" class="btn btn-info" id="modify">수정</button>
-					<a class="btn btn-danger"
-						href="/bamboo/bambooDeleteProc.do?seq=${bPage.seq }" role="button">삭제</a>
+						<button type="button" class="btn btn-danger" id=delete>삭제</button>
 				</c:if>
 					<a class="btn btn-secondary" href="/bamboo/bambooList.do"
 					role="button">목록</a>
@@ -436,7 +436,7 @@
 					var html = [];
 					html.push(
 							'<div class="row commentDiv commentBox'+resp[i].seq+' p-0 pb-2 m-2"><div class="col-12 commentInnerBox"><div class="row commentHeader">',
-							'<div class="col-lg-1 d-none d-lg-block profileBox pl-1 pt-2 pr-0">'
+							'<div class="d-none d-md-block col-1 profileBox pl-1 pt-2">'
 							);
 							
 					if(resp[i].writer==loginInfo){
@@ -456,9 +456,9 @@
 					
 						html.push(		
 							'</div>',
-							'<div class="col-7 pt-1"><div class="row commentInfo">',
+							'<div class="col-8 col-md-7 pt-1"><div class="row commentInfo">',
 							'<input type="hidden" name="writer" value='+resp[i].writer+'>',
-							'<div class="col-12 commentWriter">',
+							'<div class="col-12 commentWriter">'
 							);
 					if(resp[i].writer==loginInfo){
 					html.push(
@@ -532,10 +532,13 @@
 			return false;
 		});
 		
-		$("#reportCancelBtn").on("click",function(){
-			$("#reportReasonInput").val("");
+		$("#delete").on("click",function(){
+			var check = confirm("정말 삭제하시겠습니까?");
+			if(check){
+				location.href="/bamboo/bambooDeleteProc.do?seq=${bPage.seq }";
+			}
 		});
-           
+		
         </script>
 </body>
 </html>
