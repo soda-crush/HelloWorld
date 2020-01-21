@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="/css/project/list.css" type="text/css"/>
 	<style>
 		.card{width:200px;height:300px;margin: auto;;float :left;}
-		.myprofile{float: left;margin-top: 20px;width:200px;text-align:center;padding-right:0px;}
+		.myprofile{float: left;width:200px;text-align:center;padding-right:0px;}
 		#mycard{ float:none;display:flex;align-items:center;}
 		.commentwrite{width:100%;height:100px;padding: 0px;margin-top: 10px;float: left;}
 		.commentlist{width:100%;padding: 0px;margin-top: 10px;float: left;}
@@ -54,7 +54,7 @@
 
             <div class="container">
 	            <div class="row">
-	                <div class="col-12 col-md-4 col-lg-3 myprofile">
+	                <div class="col-12 col-md-4 col-lg-3 myprofile" style="min-height:500px;">
 	                    <div>
 	                    	<div class="card d-none d-md-block" id="mycard">
 		                        <img src="${ownerInfo.profileImg }" class="card-img-top" alt="..." style="width: 170px;height: 170px;margin:15px;">

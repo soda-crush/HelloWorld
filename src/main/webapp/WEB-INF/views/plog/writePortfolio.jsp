@@ -56,13 +56,13 @@
 			        <hr class="sp">
 		            <div class="row">
 		                <div class="col-3 col-md-2"> 수행 기간  </div>
-		                <div class="col-9 col-md-10"> <input name="startDateTemp" type="text" id="datepicker">
-		                    ~ <input name="endDateTemp" type="text" id="datepicker2"> </div>               
+		                <div class="col-9 col-md-10"> <input name="startDateTemp" type="text" id="datepicker" style="width:80px;">
+		                    ~ <input name="endDateTemp" type="text" id="datepicker2" style="width:80px;"> </div>               
 		            </div>
 			        <hr class="sp">
 		            <div class="row">
 		                <div class="col-3 col-md-2"><span class=redStar>*</span>개발 목표 </div>
-		                <div class="col-9 col-md-10"><input id="purpose" name="purpose" maxlength="300"></div>               
+		                <div class="col-9 col-md-10"><input id="purpose" name="purpose" maxlength="300" ></div>               
 		            </div>
 			        <hr class="sp">
 		            <div class="row">
@@ -101,7 +101,7 @@
 		                        <div class="col-3 col-sm-2  col-lg-1" id="funcname"> 기능명</div>
 		                        <div class="col-9 col-sm-10 col-lg-11" id="funcname1"><input  name="function1" style="height:18px margin-bottom:" maxlength="100"> </div>
 		                        <div class="col-3 col-sm-2  col-lg-1" id="funcexpl" > 설명</div>
-		                        <div class="col-9 col-sm-10 col-lg-11"><textarea name="explanation1" style="height:150px;" maxlength="1300">123</textarea>
+		                        <div class="col-9 col-sm-10 col-lg-11"><textarea name="explanation1" style="height:150px;" maxlength="1300"></textarea>
 		                        </div>
 		                    </div>
 		                </div>
@@ -118,7 +118,7 @@
 		                        <div class="col-3 col-sm-2  col-lg-1" id="funcname"> 기능명</div>
 		                        <div class="col-9 col-sm-10 col-lg-11" id="funcname2"><input name="function2" style="height:18px margin-bottom:" maxlength="100"> </div>
 		                        <div class="col-3 col-sm-2  col-lg-1" id="funcexpl" > 설명</div>
-		                        <div class="col-9 col-sm-10 col-lg-11"><textarea name="explanation2" style="height:150px;" maxlength="1300">123</textarea>
+		                        <div class="col-9 col-sm-10 col-lg-11"><textarea name="explanation2" style="height:150px;" maxlength="1300"></textarea>
 		                        </div>
 		                    </div>
 		                </div>
@@ -135,7 +135,7 @@
 		                        <div class="col-3 col-sm-2  col-lg-1" id="funcname"> 기능명</div>
 		                        <div class="col-9 col-sm-10 col-lg-11 " id="funcname3"><input name="function3" style="height:18px margin-bottom:" maxlength="100"> </div>
 		                        <div class="col-3 col-sm-2  col-lg-1" id="funcexpl" > 설명</div>
-		                        <div class="col-9 col-sm-10 col-lg-11"><textarea name="explanation3" style="height:150px;" maxlength="1300">123</textarea>
+		                        <div class="col-9 col-sm-10 col-lg-11"><textarea name="explanation3" style="height:150px;" maxlength="1300"></textarea>
 		                        </div>
 		                    </div>
 		                </div>
@@ -145,7 +145,7 @@
 		                <div class="col-3 col-md-2"> 깃 링크  </div>
 		                <div class="col-9 col-md-10"><input name="git" maxlength="130"> </div>               
 		            </div>
-		            <div class="interval"></div>
+			        <br>
 		            <div style="text-align: end;">
 		            	<button class="btn btn-primary" type="button" id="insert">작성</button>
 		            	<button class="btn btn-secondary" type="button" id="return">목록</button>

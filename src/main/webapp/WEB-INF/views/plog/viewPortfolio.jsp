@@ -54,37 +54,37 @@
 		                <div class="col-3 col-md-2"> 프로젝트명  </div>
 		                <div class="col-9 col-md-10"><div class= "line-over"> ${pdto.portfolioTitle }</div> </div>               
 		            </div>
-		            <div class="interval"></div>
+			        <hr class="sp">
 		            <div class="row">
 		                <div class="col-3 col-md-2"> 수행 기간  </div>
 		                <div class="col-9 col-md-10"> ${str} ~ ${end } </div>               
 		            </div>
-		            <div class="interval"></div>
+			        <hr class="sp">
 		            <div class="row">
 		                <div class="col-3 col-md-2"> 개발 목표 </div>
 		                <div class="col-9 col-md-10"> <div class= "line-over">${pdto.purpose } </div> </div>               
 		            </div>
-		            <div class="interval"></div>
+			        <hr class="sp">
 		            <div class="row">
 		                <div class="col-3 col-md-2 theme"> 개발 환경 </div>
 		                <div class="col-9 col-md-10"> <textarea name="environment" readonly> ${pdto.environment }</textarea></div>               
 		            </div>
-		            <div class="interval"></div>
+			        <hr class="sp">
 		            <div class="row">
 		                <div class="col-3 col-md-2 theme"> 구현 기능 </div>
 		                <div class="col-9 col-md-10"> <textarea name="allFunction" readonly>${pdto.allFunction }</textarea></div>               
 		            </div>
-		            <div class="interval"></div>
+			        <hr class="sp">
 		            <div class="row">
 		                <div class="col-3 col-md-2 theme">  DB 설계 </div>
 		                <div class="col-9 col-md-10"> <textarea name="dbUnitPlan" readonly>${pdto.dbUnitPlan }</textarea></div>               
 		            </div>
-		            <div class="interval"></div>
+			        <hr class="sp">
 		            <div class="row">
 		                <div class="col-3 col-md-2 theme"> 담당 역할 </div>
 		                <div class="col-9 col-md-10"> <textarea name="role" readonly>${pdto.role }</textarea></div>               
 		            </div>
-		            <div class="interval"></div>
+			        <hr class="sp">
 		            <div class="row">
 		                <div class="col-3 col-md-2 theme"> 참여/기여도 </div>
 		                <div class="col-9 col-md-10"> <textarea name="contribution" readonly>${pdto.contribution }</textarea></div>               
@@ -102,36 +102,45 @@
 		                    </div>
 		                </div>
 		            </div>
-		            <div class="interval"></div>
-		            <div class="row">
-		                <div class="col-12 col-sm-3 col-xl-2"><img src="${pdto.image2}" style="height: 95%;width:100%;max-height: 170px;"><input type="hidden" name ="image2"></div>
-		                <div class="col-12 col-sm-9 col-xl-10">
-		                    <div class="row">
-		                        <div class="col-3 col-sm-2  col-lg-1" id="funcname"> 기능명</div>
-		                        <div class="col-9 col-sm-10 col-lg-11" id="funcname2"><div style="height:18px margin-bottom:" class= "line-over">${pdto.function2 } </div></div>
-		                        <div class="col-3 col-sm-2  col-lg-1" id="funcexpl" > 설명</div>
-		                        <div class="col-9 col-sm-10 col-lg-11"><textarea name="explanation2" style="height:150px;" readonly>${pdto.explanation2 }</textarea>
-		                        </div>
-		                    </div>
-		                </div>
-		            </div>
-		            <div class="interval"></div>
-		            <div class="row">
-		                <div class="col-12 col-sm-3 col-xl-2"><img src="${pdto.image3}" style="height: 95%;width:100%;max-height: 170px;"> <input type="hidden" name ="image3"></div>
-		                <div class="col-12 col-sm-9 col-xl-10">
-		                    <div class="row">
-		                        <div class="col-3 col-sm-2  col-lg-1" id="funcname"> 기능명</div>
-		                        <div class="col-9 col-sm-10 col-lg-11 " id="funcname3"><div style="height:18px margin-bottom:" class= "line-over">${pdto.function3 } </div> </div>
-		                        <div class="col-3 col-sm-2  col-lg-1" id="funcexpl" > 설명</div>
-		                        <div class="col-9 col-sm-10 col-lg-11"><textarea name="explanation3" style="height:150px;" readonly>${pdto.explanation3 }</textarea>
-		                        </div>
-		                    </div>
-		                </div>
-		            </div>
-		            <div class="interval"></div>
+					<c:choose>
+			            <c:when test="${pdto.function2 != null }">
+			            	<hr class="sp">
+				            <div class="row">
+				                <div class="col-12 col-sm-3 col-xl-2"><img src="${pdto.image2}" style="height: 95%;width:100%;max-height: 170px;"><input type="hidden" name ="image2"></div>
+				                <div class="col-12 col-sm-9 col-xl-10">
+				                    <div class="row">
+				                        <div class="col-3 col-sm-2  col-lg-1" id="funcname"> 기능명</div>
+				                        <div class="col-9 col-sm-10 col-lg-11" id="funcname2"><div style="height:18px margin-bottom:" class= "line-over">${pdto.function2 } </div></div>
+				                        <div class="col-3 col-sm-2  col-lg-1" id="funcexpl" > 설명</div>
+				                        <div class="col-9 col-sm-10 col-lg-11"><textarea name="explanation2" style="height:150px;" readonly>${pdto.explanation2 }</textarea>
+				                        </div>
+				                    </div>
+				                </div>
+				            </div>	
+			           	</c:when>
+					</c:choose>
+		            
+			        <c:choose>
+			            <c:when test="${pdto.function2 != null }">
+					        <hr class="sp">
+				            <div class="row">
+				                <div class="col-12 col-sm-3 col-xl-2"><img src="${pdto.image3}" style="height: 95%;width:100%;max-height: 170px;"> <input type="hidden" name ="image3"></div>
+				                <div class="col-12 col-sm-9 col-xl-10">
+				                    <div class="row">
+				                        <div class="col-3 col-sm-2  col-lg-1" id="funcname"> 기능명</div>
+				                        <div class="col-9 col-sm-10 col-lg-11 " id="funcname3"><div style="height:18px margin-bottom:" class= "line-over">${pdto.function3 } </div> </div>
+				                        <div class="col-3 col-sm-2  col-lg-1" id="funcexpl" > 설명</div>
+				                        <div class="col-9 col-sm-10 col-lg-11"><textarea name="explanation3" style="height:150px;" readonly>${pdto.explanation3 }</textarea>
+				                        </div>
+				                    </div>
+				                </div>
+				            </div>
+		  				</c:when>
+					</c:choose>
+			        <hr class="sp">
 		             <div class="row">
 		                <div class="col-3 col-md-2"> 깃 링크  </div>
-		                <div class="col-9 col-md-10"><div>${pdto.git }</div></div>               
+		                <div class="col-9 col-md-10"><div class="line-over" id="git-link" onclick="copy()" style="color:#007bff;cursor:pointer">${pdto.git }</div></div>               
 		            </div>
 		            <div class="interval"></div>
 		            <div style="text-align: end;">
@@ -168,6 +177,16 @@
                 $("#delete").on("click",function(){
                 	location.href="${pageContext.request.contextPath}/Portfolio/delete.do?seq=${pdto.seq}";
                 })
+                function copy(){
+                	var tempElem = document.createElement('textarea');
+	  				tempElem.value = $("#git-link").html();
+	  				document.body.appendChild(tempElem);
+	  				
+	  				tempElem.select();
+	  				document.execCommand("copy");
+	  				document.body.removeChild(tempElem);
+	  				alert("클립보드에 복사되었습니다.");
+                }
 		</script>	
 </body>
 </html>
