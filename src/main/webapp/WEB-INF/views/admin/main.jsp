@@ -8,7 +8,7 @@
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <title>Hello World!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="icon" type="image/png" href="${pageContext.request.contextPath }/icon/favicon.ico"/>
+<link rel="icon" type="image/png" href="${pageContext.request.contextPath}/icon/adFavicon.ico"/>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath }/css/font-awesome/css/font-awesome.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath }/adRsc/css/themify-icons.css">
@@ -434,19 +434,19 @@ if ($('#visitChange').length > 0) {
 	        "theme": "light",
 	        "marginRight": 0,
 	        "dataProvider": [{
-	            "joinPath": "${joinPath[0].joinPath}",
+	            "joinPath": "${joinPath[0].formedPath}",
 	            "visits": count0,
 	            "color": "#8918FE"
 	        }, {
-	            "joinPath": "${joinPath[1].joinPath}",
+	            "joinPath": "${joinPath[1].formedPath}",
 	            "visits": count1,
 	            "color": "#7474F0"
 	        }, {
-	            "joinPath": "${joinPath[2].joinPath}",
+	            "joinPath": "${joinPath[2].formedPath}",
 	            "visits": count2,
 	            "color": "#C5C5FD"
 	        }, {
-	            "joinPath": "${joinPath[3].joinPath}",
+	            "joinPath": "${joinPath[3].formedPath}",
 	            "visits": count3,
 	            "color": "#FD9C21"
 	        }],
@@ -486,7 +486,6 @@ if ($('#visitChange').length > 0) {
 	if ($('#ampiechart2').length) {
 		var num1 = Number("${workRatio[0].levelCount}");
 		var num2 = Number("${workRatio[1].levelCount}");
-		var num3 = Number("${workRatio[2].levelCount}");
 		
 	    var chart = AmCharts.makeChart("ampiechart2", {
 	        "type": "pie",
@@ -494,14 +493,11 @@ if ($('#visitChange').length > 0) {
 	        "labelRadius": -65,
 	        "labelText": "[[title]]%",
 	        "dataProvider": [{
-	            "title": "알수없음",
+	            "title": "${workRatio[0].workStatus}",
 	            "value": num1
 	        }, {
-	            "title": "비재직자",
+	            "title": "${workRatio[1].workStatus}",
 	            "value": num2
-	        }, {
-	            "title": "재직자",
-	            "value": num3
 	        }],
 	        "titleField": "title",
 	        "valueField": "value",
@@ -547,7 +543,7 @@ if ($('#visitChange').length > 0) {
 	            "color": "#2599D4"
 	        }],
 	        "valueAxes": [{
-	            "maximum": 100,
+	            "maximum": Math.max(num1, num2, num3, num4, num5),
 	            "minimum": 0,
 	            "axisAlpha": 0,
 	            "dashLength": 4,

@@ -28,6 +28,9 @@
 		position:relative;
 		top:-5px;
 	}
+	#deadlineComment{
+		display:none;
+	}
 </style>
 </head>
 
@@ -57,6 +60,7 @@
 							<div class="btn-group" role="group">
 								<button type="button" class="btn btn-outline-warning btn-sm active" id="latestOrder">최신순</button>
 								<button type="button" class="btn btn-outline-warning btn-sm" id="deadlineOrder" data-toggle="tooltip" title="모집마감된 글은 제외됩니다">마감임박순</button>
+								<span class="ml-3 pt-1" style="height:15px;color:#8a8a8a;" id="deadlineComment"><strong>모집중인 프로젝트만 표시됩니다</strong></span>
 							</div>
 						</div>
 					</div>
@@ -113,7 +117,7 @@
 							    <option value="writer">작성자</option>									    
 							</select>
 							<input type="hidden" name="pageOrder" id="pageOrder">
-						    <input class="form-control mr-sm-2" type="search" placeholder="검색어를 입력하세요" aria-label="Search" name="keyword" id="keyword" style="margin-right:5px;">
+						    <input class="form-control mr-sm-2" type="search" placeholder="검색어를 입력하세요(20자 이내)" aria-label="Search" name="keyword" id="keyword" style="margin-right:5px;min-width:280px;">
 						    <button class="btn btn-dark my-2 my-sm-0 ml-1" type="submit" id="searchBtn">검색</button>
 						  </form>
 					</div>								
@@ -145,6 +149,7 @@
 			}else if(pageOrder=='startDate'){
 				$("#deadlineOrder").addClass("active");
 				$("#latestOrder").removeClass("active");
+				$("#deadlineComment").css("display","block");
 				$("#pageOrder").val("startDate");
 			}
         	$("#deadlineOrder").on("click",function(){

@@ -329,7 +329,10 @@ public class ProjectMemController {
 	
 	
 	@RequestMapping("/pLog/pLogProjectList")
-	public String pLogProjectList(){
+	public String pLogProjectList(Model m){
+		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
+		String id = sessionValue.getId();
+		m.addAttribute("visitorId", id);
 		return "/project/projectPLogList";
 	}
 	
