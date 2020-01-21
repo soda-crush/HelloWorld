@@ -42,6 +42,7 @@
             </div>
             
             <!--      몸통 시작!!!   -->
+            
             <div class=container id="projectPage">
 				<div id="pageTitle" class="mb-4">
 					<h1 id=cateTitle class=fontBold>IT News 글쓰기</h1>
