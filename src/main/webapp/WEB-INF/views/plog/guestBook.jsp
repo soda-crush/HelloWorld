@@ -17,7 +17,7 @@
 	<style>
    		*{spellcheck="false"}
         .card{width:200px;height:300px;margin:auto;float:left;}
-        .myprofile{float: left;padding-right:0px;}
+        .myprofile{margin-bottom:30px;float: left;padding-right:0px;}
         #mycard{float:none;display:flex;align-items:center;}
         .commentwrite{width:100%; height:100px;padding: 0px;margin-top: 10px;float: left;}
         .commentlist{width:100%;padding: 0px;margin-top: 10px;float: left;}
@@ -26,7 +26,7 @@
         .sendbt{height:90%;float: left;color:#fff;background-color:#343a40;font-size:20px;font-family:NanumgothicBold;}
         .commentlist>div>div{margin-right: 5px;}
         #commentForm{height:100%;}
-        .commentwrap{border-radius:5px;padding: 15px;background-color:white;border:1px solid #BDBDBD;}
+        .commentwrap{border-radius:5px;padding: 15px;background-color:white;border: 1px solid rgba(0,0,0,.125);}
         textarea{resize:none;}
     	a:hover{text-decoration:none;}
         .message{background-color:white;margin:10px;width:100%;height:100%;border:0px;}
@@ -46,12 +46,13 @@
                 </div>
             </div>         
             <div class="container">
+	            <div class="row">
 	                <div class="col-12 col-md-4 col-lg-3 myprofile">
 	                    <div>
 	                    	<div class="card d-none d-md-block" id="mycard">
-		                        <img src="${ownerInfo.profileImg }" class="card-img-top" alt="..." style="width: 85%;margin:7.5%;">
+		                        <img src="${ownerInfo.profileImg }" class="card-img-top" alt="..." style="width: 170px;height: 170px;margin:15px;">
 		                        <div class="card-body">
-		                            <div class="card-title line-over" style="text-align: center;font-size:20px;margin-bottom:0px;">${ownerInfo.nickName} 님</div>
+		                            <div class="card-title line-over" style="text-align: center;font-size:20px;">${ownerInfo.nickName} 님</div>
 		                            <p class="card-text" style="text-align: center;font-size:18px;">POINT : <span style="font-size:15px;font-weight:bold;">${ownerInfo.point }</span></p>
 		                        </div>
 	                    	</div>
@@ -66,7 +67,7 @@
 	                    	</div>
 	                    </div>
 	                </div>
-	                <div class="col-12 col-md-8 col-lg-9 commentwrap" style="min-height:600px;">
+	                <div class="col-12 col-md-8 col-lg-9 commentwrap" style="min-height:500px;">
 	
 	
 	                    <div class="commentwrite">

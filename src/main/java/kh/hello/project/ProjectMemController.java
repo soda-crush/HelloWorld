@@ -50,7 +50,9 @@ public class ProjectMemController {
 			checkOrder="startDate";
 		}
 		List<ProjectDTO> result = svc.projectListPerPage(start, end, pageOrder, searchOption, keyword);
+		int stateCount = svc.projectStateNoneCount();
 		m.addAttribute("projectList", result);
+		m.addAttribute("stateCount", stateCount);
 		String pageNavi = svc.getPageNavi(currentPage, pageOrder, searchOption, keyword);
 		m.addAttribute("pageNavi", pageNavi);
 		m.addAttribute("currentPage", currentPage);
@@ -263,8 +265,7 @@ public class ProjectMemController {
 		if(projectSeq!=null) {
 			session.setAttribute("applyPage", projectSeq);	
 		}		
-		int pageSeq = (Integer)session.getAttribute("applyPage");
-		System.out.println("세션확인 : "+pageSeq);
+		int pageSeq = (Integer)session.getAttribute("applyPage");		
 		int currentPage = 1;
 		if(page!=null) {
 			currentPage = Integer.parseInt(page);

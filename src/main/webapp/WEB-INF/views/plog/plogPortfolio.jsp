@@ -19,7 +19,7 @@
         .card{margin-top:20px;text-align:center;}
         .myprofile{margin-bottom:30px;padding-right:0px;}
         #mycard{float:none; display:flex;width:200px;height:300px;margin: auto;}
-        .wrapportfolio{background-color:white;border:1px solid #BDBDBD;}
+        .wrapportfolio{background-color:white;border: 1px solid rgba(0,0,0,.125);}
         .cardwrap{float:left;}
         .card-text{font-size:12px;}
         a:hover{text-decoration:none;}
@@ -70,7 +70,7 @@
 		                        <div class="card" style="cursor:pointer">
 		                            <img src="${dto.image1}" class="card-img-top" alt="..." style="height:20vw;width:85%;margin:7.5%;">
 		                            <div class="card-body" style="padding:5px;width:100%;height:115px;text-align:left;">
-		                                <h5 class="card-title" style="font-size:15px;white-space:nowrap;overflow: hidden;text-overflow:ellipsis;width:100%;height:16px;">
+		                                <h5 class="card-title" style="text-align:left;font-size:15px;white-space:nowrap;overflow: hidden;text-overflow:ellipsis;width:100%;height:16px;">
 		                                	<a href="${pageContext.request.contextPath}/Portfolio/detail.do?seq=${dto.seq}">${dto.portfolioTitle}</a>
 		                                </h5>
 		                                <p class="card-text" style="overflow: hidden;width:100%;height:55px;text-overflow: ellipsis;margin-buttom:5px;">${dto.purpose }</p>

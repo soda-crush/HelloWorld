@@ -76,6 +76,9 @@ public class ProjectDAO {
 	public int closeProject(int seq) {//프로젝트 마감
 		return jdbc.update("Project.closeProject", seq);
 	}
+	public int projectStateNoneCount() {//모집중개수
+		return jdbc.selectOne("Project.stateNoneCount");
+	}
 	
 	//projectImage 테이블
 	public int insertImage(ProjectImageDTO dto) {//이미지 삽입
