@@ -60,8 +60,8 @@
 		                        	<img src="${ownerInfo.profileImg }" style="width:150px;margin:10px;">
 	                    		</div>
 		                        <div style="float:left;margin-top:100px;margin-left:20px;">
-		                            <div class="line-over" style="text-align: center;font-size:20px;">${ownerInfo.nickName} 님</div>
-		                            <p class="card-text" style="text-align: center;font-size:18px;">POINT : <span style="font-size:15px;font-weight:bold;">${ownerInfo.point }</span></p>
+	                            <div class="card-title line-over" style="text-align: center;font-size:20px;font-weight:bold;margin-bottom:0px;">${ownerInfo.nickName} <span style="font-size:15px;">님</span></div>
+		                            <p class="card-text" style="text-align: center;font-size:12px;">POINT <span style="font-size:15px;font-weight:bold;">${ownerInfo.point }</span></p>
 		                        </div>
 	                    	</div>
 	                    </div>
