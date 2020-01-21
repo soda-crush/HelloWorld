@@ -22,7 +22,6 @@ public class MemAdvisor {
 	public String loginCheck(ProceedingJoinPoint pjp) {
 		LoginInfoDTO dto = (LoginInfoDTO)session.getAttribute("loginInfo");
 		
-
 		if(dto == null) {
 			String oriMethod = pjp.toShortString();
 			Pattern p = Pattern.compile("execution\\(.+Controller.(.+?)\\(..\\)\\)");

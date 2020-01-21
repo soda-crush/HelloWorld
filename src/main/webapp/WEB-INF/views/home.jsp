@@ -127,7 +127,6 @@ font-size: 11px;}
 		max-height:120px;
 		overflow:auto;
 	}
-	
 </style>
 </head>
 <body>
@@ -266,11 +265,11 @@ font-size: 11px;}
             	<c:choose>
             		<c:when test="${proList.size()!=0}">
             		<c:set var="cnt" value="1"/>
-            			<c:forEach items="${proList}" var="pro">
+            			<c:forEach items="${proList}" var="pro" varStatus="status">
             			<c:set var="sum" value="${sum+1}"/>
             				<div class="col-12 col-md-4 col-xl-3 projectCon ">
 		            			<div class="projectEle text-center cursorPointer" id="projectEle${sum}"  data-aos="fade-up">
-		            				<p class="text-secondary text-left pl-3 pt-2">#${pro.seq}</p>
+		            				<p class="text-secondary text-left pl-3 pt-2">#${status.count}</p>
 		            				<div style="max-width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;">		            				
 		            				<strong>&nbsp;${pro.title}</strong>
 		            				</div>

@@ -27,7 +27,12 @@ button{
 }
 .aT{
 	font-size: 14px;
-	color: #bdbdbd;
+	color: #858585;
+}
+.aT:hover{
+	font-size: 14.6px;
+	color: black;
+	text-decoration: none;
 }
  #aroundContent1{ 
   	height: 140px; 

@@ -59,11 +59,19 @@ public class ProjectMemController {
 	}
 	
 	@RequestMapping("/chart")
-	public String projectChart(Model m) {
+	public String projectChart(String pageOrder, Model m) {
 		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
-		String id = sessionValue.getId();				
-		List<ProjectChartDTO> result = svc.projectList(id);
+		String id = sessionValue.getId();	
+		String checkOrder = "seq";
+		if(pageOrder==null||pageOrder.contentEquals("seq")) {
+			checkOrder="seq";
+			pageOrder="seq";
+		}else if(pageOrder.contentEquals("startDate")) {
+			checkOrder="startDate";
+		}
+		List<ProjectChartDTO> result = svc.projectList(id, pageOrder);
 		m.addAttribute("projectList", result);
+		m.addAttribute("pageOrder", checkOrder);
 		m.addAttribute("ip", Configuration.ip);
 		return "/project/projectChart";
 	}
@@ -251,16 +259,21 @@ public class ProjectMemController {
 	}	
 	
 	@RequestMapping("/apply/list")
-	public String projectApplyList(String page, int projectSeq, Model m) {
+	public String projectApplyList(String page, Integer projectSeq, Model m) {
+		if(projectSeq!=null) {
+			session.setAttribute("applyPage", projectSeq);	
+		}		
+		int pageSeq = (Integer)session.getAttribute("applyPage");
+		System.out.println("세션확인 : "+pageSeq);
 		int currentPage = 1;
 		if(page!=null) {
 			currentPage = Integer.parseInt(page);
 		}
 		int start = currentPage * (Configuration.recordCountPerPage)-(Configuration.recordCountPerPage-1);
 		int end = currentPage * (Configuration.recordCountPerPage);
-		List<ProjectApplyDTO> result = svc.projectApplyList(start, end, projectSeq);
+		List<ProjectApplyDTO> result = svc.projectApplyList(start, end, pageSeq);
 		m.addAttribute("projectApplyList", result);
-		String pageNavi = svc.getApplyPageNavi(currentPage, projectSeq);
+		String pageNavi = svc.getApplyPageNavi(currentPage, pageSeq);
 		m.addAttribute("pageNavi", pageNavi);
 		m.addAttribute("currentPage", currentPage);		
 		return "/project/applyList";
