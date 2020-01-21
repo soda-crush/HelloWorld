@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="/css/project/list.css" type="text/css"/>
 	<style>
 		.card{width:200px;height:300px;margin: auto;}
-		.myprofile{margin-top: 20px;padding-right:0px;}
+		.myprofile{padding-right:0px;}
 		#mycard{ float:none;display:flex;align-items:center;}
 		.commentwrite{width:100%;height:100px;padding: 0px;margin-top: 10px;float: left;}
 		.commentlist{width:100%;padding: 0px;margin-top: 10px;float: left;}
@@ -67,7 +67,7 @@
 	                    	</div>
 	                    </div>
 	                </div>
-	                <div class="col-12 col-md-8 col-lg-9 cohowwrap">
+	                <div class="col-12 col-md-8 col-lg-9 cohowwrap" style="min-height:500px;">
 	                	<div class="tableDiv">
 	                		<div class="coltheme"> 내 질문</div>
 							<div class="row tableHead">
