@@ -79,7 +79,7 @@
 					    </div>
 					    <div class="col-6 col-md-3 pr-0 pl-0">
 					      <div class="custom-control custom-checkbox pl-0">
-					        <input type="text" class="form-control" name="keyword" placeholder="검색어를 입력하세요">
+					        <input type="text" class="form-control" name="keyword" placeholder="검색어를 입력하세요(20자 이내)" maxlength="20">
 					      </div>
 					    </div>
 					    <div class="col-2 col-md-1 pr-0 pl-0">

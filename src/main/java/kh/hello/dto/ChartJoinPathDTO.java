@@ -24,5 +24,17 @@ public class ChartJoinPathDTO {
 		this.pathCount = pathCount;
 	}
 	
-	
+	public String getFormedPath() {
+		String joinPath = this.joinPath;
+		
+		if(joinPath.equals("지인 추천")) {
+			return joinPath;
+		}else if(joinPath.equals("'Hello World!' 검색")) {
+			return joinPath;
+		}else if(joinPath.equals("'프로젝트 모집' 검색")) {
+			return joinPath;
+		}else {
+			return "기타";
+		}
+	}
 }

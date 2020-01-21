@@ -25,5 +25,17 @@ public class ChartWorkDTO {
 		this.levelCount = levelCount;
 	}
 	
+	public String getWorkStatus() {
+		String memLevel = this.memLevel;
+		
+		if(memLevel.contentEquals("2")) {
+			return "비재직자";
+		}else if(memLevel.contentEquals("3")) {
+			return "재직자";
+		}else {
+			return "알수없음";
+		}
+	}
+	
 	
 }

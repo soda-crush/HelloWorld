@@ -202,7 +202,6 @@ if ($('#visitChange').length > 0) {
 	if ($('#ampiechart2').length) {
 		var num1 = Number("${workRatio[0].levelCount}");
 		var num2 = Number("${workRatio[1].levelCount}");
-		var num3 = Number("${workRatio[2].levelCount}");
 		
 	    var chart = AmCharts.makeChart("ampiechart2", {
 	        "type": "pie",
@@ -210,14 +209,11 @@ if ($('#visitChange').length > 0) {
 	        "labelRadius": -65,
 	        "labelText": "[[title]]%",
 	        "dataProvider": [{
-	            "title": "기타",
+	            "title": "${workRatio[0].workStatus}",
 	            "value": num1
 	        }, {
-	            "title": "비재직자",
+	            "title": "${workRatio[1].workStatus}",
 	            "value": num2
-	        }, {
-	            "title": "재직자",
-	            "value": num3
 	        }],
 	        "titleField": "title",
 	        "valueField": "value",
@@ -545,22 +541,22 @@ if ($('#visitChange').length > 0) {
 	        }, {
 	            "year": "${comLog[1].dateis}",
 	            "새 댓글": "${comLog[1].newCom}",
-	            "삭제된 댓글": "${comLog[0].delCom}",
+	            "삭제된 댓글": "${comLog[1].delCom}",
 	            "color": "#5182DE"
 	        }, {
 	            "year": "${comLog[2].dateis}",
 	            "새 댓글": "${comLog[2].newCom}",
-	            "삭제된 댓글": "${comLog[0].delCom}",
+	            "삭제된 댓글": "${comLog[2].delCom}",
 	            "color": "#8282F1"
 	        }, {
 	            "year": "${comLog[3].dateis}",
 	            "새 댓글": "${comLog[3].newCom}",
-	            "삭제된 댓글": "${comLog[0].delCom}",
+	            "삭제된 댓글": "${comLog[3].delCom}",
 	            "color": "#B369FE"
 	        }, {
 	            "year": "${comLog[4].dateis}",
 	            "새 댓글": "${comLog[4].newCom}",
-	            "삭제된 댓글": "${comLog[0].delCom}",
+	            "삭제된 댓글": "${comLog[4].delCom}",
 	            "color": "#51ADDD"
 	        }],
 	        "valueAxes": [{
