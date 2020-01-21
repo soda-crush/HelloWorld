@@ -10,8 +10,11 @@
 }
 
 * {
-	font-family: "NanumgothicBold";
+	font-family: "Nanumgothic";
 	box-sizing: border-box;
+}
+.fontBold{
+		font-family: "NanumgothicBold";
 }
 .fontThin{
 	font-family: "Nanumgothic";

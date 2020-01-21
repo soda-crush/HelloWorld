@@ -66,6 +66,7 @@ public class ProjectService {
 		LocalDate today = LocalDate.now();
 		int tYear = today.getYear();
 		int tMonth = today.getMonthValue();
+		int tDate = today.getDayOfMonth();
 		for(ProjectChartDTO m : result) {
 			LocalDate sDate = m.getStartDate().toLocalDate();
 			LocalDate eDate = m.getEndDate().toLocalDate();
@@ -78,6 +79,7 @@ public class ProjectService {
 				long duration = Duration.between(sDate.atStartOfDay(), eDate.atStartOfDay()).toDays()*3;
 				m.setWidth(duration);							
 			}
+			m.setToday(tMonth+"-"+tDate);
 		}
 		return result;
 	}
