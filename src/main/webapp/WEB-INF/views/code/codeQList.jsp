@@ -112,7 +112,7 @@ a:hover {
 				</div>
 			</div>
 			
-			<div class="tableDiv" style="min-height:200px;">
+			<div class="tableDiv" style="min-height:250px;">
 					<div class="row tableHead">					    
 					    <div class="col-xl-1 d-none d-xl-block">글번호</div>
 					    <div class="col-xl-1 col-3 col-md-2">구분</div>
@@ -125,8 +125,8 @@ a:hover {
 					</div>
 						<c:choose>
 							<c:when test="${list.size()==0 }">
-								<div class="row text-center tableBodyNull" style="height:200px;">
-									<div class="col-12" style="line-height:200px;">
+								<div class="row text-center tableBodyNull" style="height:220px;">
+									<div class="col-12" style="line-height:220px;">
 									작성된 글이 없습니다.
 									</div>
 								</div>
