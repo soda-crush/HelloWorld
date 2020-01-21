@@ -24,10 +24,10 @@
 	});
 </script>
 <style>
- #cateTitle{
- color:#e6e6e6;}
  #cateCmt{
  color:#f2f2f2;}
+ #baseBackgroundColor{
+ background-color: #e8e8e890;}
 </style>
 </head>
 <body>
@@ -44,7 +44,7 @@
             <!--      몸통 시작!!!   -->
             <div class=container id="projectPage">
 				<div id="pageTitle" class="mb-4">
-					<h1 id=cateTitle>IT News 글수정</h1>
+					<h1 id=cateTitle class="fontBold">IT News 글수정</h1>
 				</div>
 				
 				<form action="${pageContext.request.contextPath}/itnews/modifyProc" method="post" id="modifyFrm" enctype="multipart/form-data">

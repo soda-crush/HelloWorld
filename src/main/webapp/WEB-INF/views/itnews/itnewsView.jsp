@@ -71,17 +71,27 @@
             <!--      몸통 시작!!!   -->
 
             <div class="container">
-            	<div class="row">
-					<div class="col-12 col-xl-3">
-						<p id=cateTitle style="display:inline;">IT News</p>
+            
+            <div class=row>
+				<div class="col-12 d-none d-md-block">
+					<div id="pageTitle">
+						<table>
+							<tr>
+								<td colspan="3" style="font-size: 60px; font-weight: 100; vertical-align: text-bottom"><h1 class="fontBold">IT News</h1></td>
+								<td></td>
+								<td style="font-size: 15px; color: gray; vertical-align: text-bottom">     IT 핫이슈를 공유하는 공간입니다.</td>
+								<td></td>
+							</tr>
+						</table>
 					</div>
-					<div class="col-12 col-xl-9 pt-xl-5">
-						<p style="display:inline;" id=cateCmt>IT 핫이슈를 공유하는 공간입니다.</p>
-					</div>
-				</div>		
-				<div class=row>
-					<div class=col-12><br></div>
-				</div>		
+				</div>
+			</div>
+			<div class=row>
+				<div class="d-md-none">
+					<div style="font-size: 60px; font-weight: 100;"><h1 class="fontBold">IT News</h1></div>
+					<div style="font-size: 15px; color: gray;">IT 핫이슈를 공유하는 공간입니다.</div>
+				</div>
+			</div>	
             </div>
             
             <div class="container eleCon">
