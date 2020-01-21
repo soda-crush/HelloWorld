@@ -7,7 +7,7 @@
 			<c:when test="${loginInfo.id ==null}">
 			 <div class="row" id="loginCon">
                 <div class="col-6">&emsp;<a class="text-decoration-none" href="${pageContext.request.contextPath}/notice/noticeList" style="display:inline;color:orange;font-family:'Nanumgothic';">package<span style="color:white;">&emsp;notice;</span></a></div>
-                <div class="col-6 text-right"><a href="${pageContext.request.contextPath}/member/login">로그인</a> 
+                <div class="col-6 text-right"><a href="${pageContext.request.contextPath}/member/login?path=${remPath}">로그인</a> 
                 | <a href="${pageContext.request.contextPath}/member/signUp">회원가입</a></div>
             </div>
 			</c:when>

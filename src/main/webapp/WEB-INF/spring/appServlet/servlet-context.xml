@@ -43,7 +43,7 @@
 		<aop:pointcut expression="execution(* kh.hello.project.*MemController.*(..))" id="essentialMemCheckMethod"/>
 		<aop:pointcut expression="execution(* kh.hello.project.MemberController.mem*(..))" id="essentialMemCheckMethod2"/>
 		<aop:pointcut expression="execution(* kh.hello.project.InquiryController.*(..))" id="essentialMemCheckMethod3"/>	
-		<aop:pointcut expression="execution(* kh.hello.project.ItnewsController.*(..))" id="pathRememberMethod1"/>
+		<aop:pointcut expression="execution(* kh.hello.project.ItnewsController.Rem*(..))" id="pathRememberMethod1"/>
 		<aop:pointcut expression="execution(* kh.hello.project.CodeController.*(..))" id="pathRememberMethod2"/>
 		<aop:pointcut expression="execution(* kh.hello.project.MemberController.loginProc(..))" id="toLoginFrmMethod"/>
 		
@@ -63,9 +63,9 @@
 		<aop:aspect id="pathRememberAsp" ref="memCheckAdv">
 			<aop:around pointcut-ref="pathRememberMethod1" method="forPathRemember"/>
 		</aop:aspect>	
-		<aop:aspect id="pathRememberAsp" ref="memCheckAdv">
-			<aop:around pointcut-ref="pathRememberMethod2" method="forPathRemember"/>
-		</aop:aspect>
+<!-- 		<aop:aspect id="pathRememberAsp" ref="memCheckAdv"> -->
+<!-- 			<aop:around pointcut-ref="pathRememberMethod2" method="forPathRemember"/> -->
+<!-- 		</aop:aspect> -->
 		<aop:aspect id="toLoginFrmAsp" ref="memCheckAdv">
 			<aop:around pointcut-ref="toLoginFrmMethod" method="toLoginFrmMethod"/>
 		</aop:aspect>

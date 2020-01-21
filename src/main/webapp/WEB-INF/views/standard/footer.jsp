@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
 		<div id=footerBackground>
-                <div id="realFooter" style="width:310px;">
+                <div id="realFooter">
                 	<p id=footerSpace><br></p>
                     <h5><a href="/" id=footerMsg style="color:#ededed;">Hello World!</a></h5>
                     <p><a href="#">회사소개</a> · <a href="#">비지니스</a> · <a href="#">제휴문의</a></p>
