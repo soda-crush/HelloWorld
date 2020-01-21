@@ -67,6 +67,7 @@ a:hover {
 .pageListFooter{margin-top:20px;}
 .searchOption{margin-right:5px;}
 #pPageNavi{margin-top:30px;}
+#baseBackgroundColor{ min-height:680px;}
 </style>
 </head>
 <body>

@@ -113,11 +113,19 @@ public class MemberController {
 		mdto.setId(((LoginInfoDTO)session.getAttribute("loginInfo")).getId());
 		try {
 			ms.modify(mdto, empCheck, empEmail, unempEmail, otherJoinPath, birthday, demotionMail);
-			return "redirect:modifyTemp";
+			session.invalidate();
+			return "redirect:modifyProc2?id="+mdto.getId();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "error";
 		}
+	}
+	
+	@RequestMapping(value = "/modifyProc2")
+	public String ModifyProc2(String id, HttpSession session) { 
+		LoginInfoDTO dto = new LoginInfoDTO(id, ms.selectMember(id).getNickName(), ms.selectMember(id).getMemLevel());
+		session.setAttribute("loginInfo", dto);
+		return "redirect:modifyTemp";
 	}
 	
 	@RequestMapping("/signUpTemp")

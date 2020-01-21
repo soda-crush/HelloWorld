@@ -63,7 +63,7 @@
 	top:2px;
 	}
 	#titleForCss{
-	font-size: 18px;
+	font-size: 16px;
 	}
 	.orangeFt{
 		font-size: 12px;
@@ -76,7 +76,9 @@
   	height: 150px; 
  } 
  #baseBackgroundColor{
- background-color: #e8e8e890;}
+ background-color: #e8e8e890;
+ min-height:680px;
+ }
  
 </style>
 
@@ -100,14 +102,26 @@
             <!--      몸통 시작!!!   -->
  			<div class="container">
  			
-				<div class="row">
-					<div class="col-12 col-xl-3">
-						<p id=cateTitle style="display:inline;">IT News</p>
+				<div class=row>
+				<div class="col-12 d-none d-md-block">
+					<div id="pageTitle">
+						<table>
+							<tr>
+								<td colspan="3" style="font-size: 60px; font-weight: 100; vertical-align: text-bottom">IT News</td>
+								<td></td>
+								<td style="font-size: 15px; color: gray; vertical-align: text-bottom">     IT 핫이슈를 공유하는 공간입니다.</td>
+								<td></td>
+							</tr>
+						</table>
 					</div>
-					<div class="col-12 col-xl-9 pt-xl-5">
-						<p style="display:inline;" id=cateCmt>IT 핫이슈를 공유하는 공간입니다.</p>
-					</div>
-				</div>				
+				</div>
+			</div>
+			<div class=row>
+				<div class="d-md-none">
+					<div style="font-size: 60px; font-weight: 100;">IT News</div>
+					<div style="font-size: 15px; color: gray;">IT 핫이슈를 공유하는 공간입니다.</div>
+				</div>
+			</div>
 
 					<div class="row tableHead">					    
 					    <div class="d-none col-md-1 d-md-block text-center" style="padding:0px;">번호</div>
@@ -127,10 +141,10 @@
 									<div class="col-md-1 d-none d-md-block order-md-1 notTitle text-center pt-3">${dto.seq}</div>
 					    			<div class="col-12 col-md-6 order-1 order-md-2 cursorPointer pl-3 pr-3" style="padding-left:0px;padding-right:0px;"  onclick="location.href='${pageContext.request.contextPath}/itnews/detail?seq=${dto.seq}&page=${page}'">
 						    		
-						    			<p style="max-width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;padding-top:10.8px;padding-left:5px;padding-right:5px;" class="font-weight-bolder" id=titleForCss>${dto.title}</p>
+						    			<div style="max-width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;padding-top:10.8px;padding-left:5px;padding-right:5px;" class="font-weight-bolder" id=titleForCss>${dto.title}</div>
 
 						    			<c:if test="${dto.commentCount>0}">
-						    			<p class=orangeFt style="display:inline;position:relative;bottom: 22px;">${dto.commentCount}</p>
+						    			<div class=orangeFt style="display:inline;position:relative;bottom:22px;">${dto.commentCount}</div>
 						    			</c:if>
 					    			</div>
 					    			<div class="col-3 col-md-2 order-2 order-md-3 notTitle text-left text-md-center pt-3 pl-3 pr-3 cursorPointer" onclick="popUp('/Portfolio/toPlog.do?owner=${dto.id}')">${dto.writer}</div>

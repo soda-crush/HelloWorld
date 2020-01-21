@@ -71,6 +71,9 @@ font-size:12.5px;
 position:relative;
 bottom : 1px;
 }
+.boardEleCon p:hover{
+text-decoration: underline;
+}
 .projectCon{
 padding-top: 3%;
 padding-bottom: 3%;
@@ -153,7 +156,7 @@ font-size: 11px;}
 			            		<c:choose>
 			            		<c:when test="${bamList.size()!=0}">
 			            			<c:forEach items="${bamList}" var="bam" varStatus="status">
-			            			<div class="cursorPointer" onclick="location.href='/bamboo/bambooDetailView.do?seq=${bam.seq}'" style="width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${status.count}&emsp; <p class="fontThin " style="display:inline;'">${bam.title}</p></div>
+			            			<div class="cursorPointer" onclick="location.href='/bamboo/bambooDetailView.do?seq=${bam.seq}'" style="width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${status.count}&emsp; <p class="fontThin" style="display:inline;'">${bam.title}</p></div>
 			            			</c:forEach>
 			            		</c:when>
 			            		</c:choose>
@@ -222,13 +225,39 @@ font-size: 11px;}
             	
             	
             	<div class= row>
-            		<div class="col-12 adverCon text-center">
-            		<br><br>
-            			<div id=adverEle>
-            				광고 자리
-            			</div>
-            		<br><br>
-            		<h3 style="color:#ededed;" class="text-left cursorPointer" onclick="location.href='/project/list'">진행중인 프로젝트 》</h3>
+            		<div class="col-12 pt-4 pb-5 pl-0 pr-0">
+            			<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+						  <ol class="carousel-indicators">
+						    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+						    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+						    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+						  </ol>
+						  <div class="carousel-inner">
+						    <div class="carousel-item active">
+						      <img src="/img/crc1.jpg" style="border-radius:5px;" class="d-block w-100" alt="...">
+						    </div>
+						    <div class="carousel-item">
+						      <img src="/img/crc2.png" style="border-radius:5px;" class="d-block w-100" alt="...">
+						    </div>
+						    <div class="carousel-item">
+						      <img src="/img/crc3.jpg" style="border-radius:5px;" class="d-block w-100" alt="...">
+						    </div>
+						  </div>
+						  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+						    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						    <span class="sr-only">Previous</span>
+						  </a>
+						  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+						    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+						    <span class="sr-only">Next</span>
+						  </a>
+						</div>
+            		</div>
+            	</div>
+            	
+            	<div class=row>
+            		<div class=col-12>
+            			<h3 style="color:#ededed;" class="text-left cursorPointer" onclick="location.href='/project/list'">모집중인 프로젝트 》</h3>
             		<hr>
             		</div>
             	</div>

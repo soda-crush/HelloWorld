@@ -51,7 +51,8 @@ input{
 						&emsp;<input type = text id = email name=email placeholder="이메일 주소" style="position:relative;left:55px;top:1.6px;">
 						<button type="button" class="btn btn-secondary" id=send  style="position:relative;left:55px;top:1.6px;">인증번호 받기</button>
 						<br>
-						<input type=text id=codeInput name = codeInput placeholder="인증코드 입력" style="position:relative;top:2px;"><br>
+						<input type=text id=codeInput name = codeInput placeholder="인증코드 입력" style="position:relative;top:2px;">
+						<div><p class=redP id=noticeCmt style="position:relative;left:65px;display:none;">* 오랜시간이 걸리니 메일 전송 경고창이 뜰때까지 기다려주세요.</p></div>
 						<button type="button" class="btn btn-success" id=findBtn style="position:relative;top:4px;">다음</button>
 						<br><br>
 					</div>
@@ -76,6 +77,7 @@ input{
                             if(result == null){
                            	 alert("이메일 형식이 아닙니다.");
                             }else{
+                             $("#noticeCmt").css("display","inline");
                            	 $.ajax({
                         			url : "${pageContext.request.contextPath}/member/idFindmailSending",
                         			data : {
