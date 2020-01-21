@@ -120,7 +120,7 @@
                                             <tbody>
                                             	<c:choose>
                                             		<c:when test="${list.size() == 0}">
-                                            			<tr><th colspan='3'><marquee direction="right">결과가 없습니다</marquee></th></tr>
+                                            			<tr><th colspan='3'><marquee direction="right">해당하는 회원이 없습니다.</marquee></th></tr>
                                             		</c:when>
                                             		<c:otherwise>
 		                                            	<c:forEach items="${list}" var="dto">
@@ -201,6 +201,7 @@
 	                                <select class="form-control form-control-sm" name="col">
 	                                    <option value="id">아이디</option>
 	                                    <option value="nickName">닉네임</option>
+	                                    <option value="email">이메일</option>
 	                                </select>
 	                                </div>
 	                                <div class="col-sm-6 my-1 pl-1 pr-1">

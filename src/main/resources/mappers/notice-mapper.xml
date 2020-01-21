@@ -16,10 +16,10 @@
 	<sql id="search">
 		<choose>
 			<when test="searchOption == 'all'">
-				where title like #{keyword} or content like #{keyword}
+				where lower(title) like lower(#{keyword}) or lower(content) like lower(#{keyword})
 			</when>
 			<otherwise>
-				where ${searchOption} like #{keyword}
+				where lower(${searchOption}) like lower(#{keyword})
 			</otherwise>
 		</choose>
 	</sql>

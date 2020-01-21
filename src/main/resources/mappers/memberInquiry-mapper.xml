@@ -33,7 +33,7 @@
 	<delete id="delImgsByBoardSeq">
 		delete from inquiryImgs where boardSeq=#{boardSeq}
 	</delete>
-		<delete id="deleteInquiry">
-		delete from inquiry where seq=#{seq} and count=0
+	<delete id="deleteInquiry">
+		delete from inquiry where seq=#{seq}
 	</delete>
 </mapper>
