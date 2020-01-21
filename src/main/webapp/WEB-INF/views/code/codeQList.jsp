@@ -15,7 +15,7 @@
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/css/mainBase.css">
-<!-- <link rel="stylesheet" href="/css/code/codeBase.css" type="text/css"/> -->
+<link rel="stylesheet" href="/css/code/codeBase.css" type="text/css"/>
 
 <script>
    $(function(){
