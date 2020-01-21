@@ -17,14 +17,14 @@
 <link rel="stylesheet" href="/css/project/list.css" type="text/css"/>
 	<style>
 		.card{width:200px;height:300px;margin: auto;;float :left;}
-		.myprofile{float: left;width:200px;text-align:center;padding-right:0px;}
+		.myprofile{margin-bottom:30px;float: left;width:200px;text-align:center;padding-right:0px;}
 		#mycard{ float:none;display:flex;align-items:center;}
 		.commentwrite{width:100%;height:100px;padding: 0px;margin-top: 10px;float: left;}
 		.commentlist{width:100%;padding: 0px;margin-top: 10px;float: left;}
 		.col{margin: 0px;padding: 0px;}
 		.content{height:90%;float: left;resize: none;}
 		.sendbt{height:90%;float: left;}
-		.scraptwrap{background-color:white;border:1px solid #BDBDBD;}
+		.scraptwrap{background-color:white;border: 1px solid rgba(0,0,0,.125);}
 		#writer{text-underline-position: auto;margin-right: 30px;}
 		#page${page}{color:blue;}
 		.coltheme{margin:30px;}
@@ -99,7 +99,7 @@
 						  				<div class="row tableBody p-0">
 						  					<div class="col-2 col-lg-1" style="color:dodgerblue;">${dto.division}</div>
 											<div style="cursor:pointer;"class="col-5 col-lg-7 " >
-							  					<div class="line-over text-decoration-none" onclick="location.href='${pageContext.request.contextPath}/code/codeDetail.do?seq=${dto.seq}'">${dto.title} 
+							  					<div style="text-align:left;" class="line-over text-decoration-none" onclick="location.href='${pageContext.request.contextPath}/code/codeDetail.do?seq=${dto.seq}'">${dto.title} 
 								  					<c:if test="${dto.replyCount>0 }">
 								  						<span class="pComment font-weight-bold">${dto.replyCount}</span>
 								  					</c:if>	

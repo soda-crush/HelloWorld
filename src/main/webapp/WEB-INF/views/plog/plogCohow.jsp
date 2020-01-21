@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="/css/project/list.css" type="text/css"/>
 	<style>
 		.card{width:200px;height:300px;margin: auto;}
-		.myprofile{padding-right:0px;}
+		.myprofile{margin-bottom:30px;padding-right:0px;}
 		#mycard{ float:none;display:flex;align-items:center;}
 		.commentwrite{width:100%;height:100px;padding: 0px;margin-top: 10px;float: left;}
 		.commentlist{width:100%;padding: 0px;margin-top: 10px;float: left;}
@@ -25,7 +25,7 @@
 		.content{height:90%;float: left;resize: none;}
 		.sendbt{height:90%;float: left;}
 		#writer{text-underline-position: auto;margin-right: 30px;}
-        .cohowwrap{background-color:white;border:1px solid #BDBDBD;}
+        .cohowwrap{background-color:white;border: 1px solid rgba(0,0,0,.125);}
 		.coltheme{margin:30px;}
 		.navi{text-align: center;}
         a:hover{text-decoration:none;}
@@ -87,7 +87,7 @@
 						  				<div class="row tableBody p-0">
 						  					<div class="col-2 col-lg-1" style="color:dodgerblue;">${dto.division}</div>
 											<div class="col-7 col-lg-5 " >
-							  					<div style="cursor:pointer;" class="line-over text-decoration-none" onclick="location.href='${pageContext.request.contextPath}/code/codeDetail.do?seq=${dto.seq}'">${dto.title} 
+							  					<div style="cursor:pointer;text-align:left;" class="line-over text-decoration-none" onclick="location.href='${pageContext.request.contextPath}/code/codeDetail.do?seq=${dto.seq}'">${dto.title} 
 								  					<c:if test="${dto.replyCount>0 }">
 								  						<span class="pComment font-weight-bold">${dto.replyCount}</span>
 								  					</c:if>	
