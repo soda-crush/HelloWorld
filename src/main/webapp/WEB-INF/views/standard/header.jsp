@@ -30,7 +30,7 @@
             </div>
         </div>
 
-        <nav class="navbar navbar-expand-md navbar-dark" style="background-color: #2f2f2f;margin-bottom:0px;border-top:1px solid #1c1c1c;border-bottom:1px solid #2e2e2e;">
+	 <nav class="navbar navbar-expand-md navbar-dark" style="background-color: #2f2f2f;margin-bottom:0px;border-top:1px solid #1c1c1c;border-bottom:1px solid #2e2e2e;">
           <a class="navbar-brand" href="#"></a>
   			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
    				 <span class="navbar-toggler-icon"></span>
@@ -39,7 +39,7 @@
 
                 <div class="navbar-nav box text-center" id="naviCon">
                     <a id="bambooNavi" class="nav-item nav-link" href="${pageContext.request.contextPath}/bamboo/bambooList.do" style="font-family:'NanumgothicBold';">대나무숲</a>
-                    <a id="codeNavi" class="nav-item nav-link" href="${pageContext.request.contextPath}/code/codeQList.do" style="font-family:'NanumgothicBold';">Code-How</a>
+                    <a id="codeNavi" class="nav-item nav-link cococo" href="${pageContext.request.contextPath}/code/codeQList.do" style="font-family:'NanumgothicBold';">Code-How</a>
                     <a id="indusNavi" class="nav-item nav-link" href="${pageContext.request.contextPath}/industry/industryStatusList.do" style="font-family:'NanumgothicBold';">업계현황</a>
                     <a id="itNavi" class="nav-item nav-link" href="${pageContext.request.contextPath}/itnews/itnewsList" style="font-family:'NanumgothicBold';">IT 뉴스</a>
                     <a id="proNavi" class="nav-item nav-link" href="${pageContext.request.contextPath}/project/list" style="font-family:'NanumgothicBold';">프로젝트</a>
@@ -47,6 +47,7 @@
                 </div>
             </div>
         </nav>
+         
         <script>
         	$("#logo").on("click",function(){
         		location.href = "${pageContext.request.contextPath}/";

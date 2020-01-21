@@ -147,7 +147,7 @@
 						    			<div class=orangeFt style="display:inline;position:relative;bottom:22px;">${dto.commentCount}</div>
 						    			</c:if>
 					    			</div>
-					    			<div class="col-3 col-md-2 order-2 order-md-3 notTitle text-left text-md-center pt-3 pl-1 pr-1 cursorPointer" onclick="popUp('/Portfolio/toPlog.do?owner=${dto.id}')">${dto.writer}</div>
+					    			<div class="col-4 col-md-2 order-2 order-md-3 notTitle text-left text-md-center pt-3 pl-3 pr-0 cursorPointer" onclick="popUp('/Portfolio/toPlog.do?owner=${dto.id}')">${dto.writer}</div>
 					    			<div class="col-3 col-md-2 order-3 order-md-4 notTitle text-left text-md-center pt-3">${dto.getDate()}</div>
 					    			<div class="col-1 col-md-1 order-4 order-md-5 notTitle text-left text-md-center pt-3">${dto.viewCount}</div>
 								</div>
@@ -157,7 +157,7 @@
 				
 				<form action="${pageContext.request.contextPath}/itnews/searchList" method="get">
 					<div class="row" style="position:relative;top:10px;">
-						<div class="col-12 col-md-10" style="position:relative;left:-15px;">
+						<div class="col-12 col-md-10" style="position:relative;left:-15px;"> 
 							<select id=cate name=cate>
 								<option value="cateAll">전체</option>
 								<option value="cateTitle">제목</option>

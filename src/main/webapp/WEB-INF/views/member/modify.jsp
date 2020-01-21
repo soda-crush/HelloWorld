@@ -38,6 +38,7 @@
 	.eleCon {
 	background-color:#f7f7f7;
 	}
+	* {font-family: "NanumgothicBold";}
 </style>
 </head>
 <body>
@@ -129,7 +130,7 @@
             <div id=empEle style="display:none;">
             	<div class=row>
 	            	<div class="col-12 col-sm-6">
-		            	<h5 style="display:inline;"><img src="/icon/doubleArrow.svg" class=arrow>회사 메일</h5><p class=redP style="display:inline">* 메일을 전송하는데 다소 시간이 걸립니다. 메일 전송 알림창이 뜰 때 까지 잠시만 기다려 주세요.</p>
+		            	<h5 style="display:inline;"><img src="/icon/doubleArrow.svg" class=arrow>회사 메일</h5><p class=redP style="display:inline">* 메일을 전송하는데 다소 시간이 걸립니다. 메일 전송 알림창이 뜰 때 까지 기다려 주세요.</p>
 		            		&emsp;<br>&emsp;<input type=text name=empEmail id=empEmail placeholder="메일 주소 입력">
 		            		<button type=button id=sendMail1>인증 메일 발송</button>
 	            	</div>
@@ -145,7 +146,7 @@
             <div id=unempEle style="display:none">
              	<div class=row>
 	            	<div class="col-12 col-sm-6">
-		            	<h5 style="display:inline"><img src="/icon/doubleArrow.svg" class=arrow>개인 메일</h5><p class=redP style="display:inline">* 메일을 전송하는데 다소 시간이 걸립니다. 메일 전송 알림창이 뜰 때 까지 잠시만 기다려 주세요.</p>
+		            	<h5 style="display:inline"><img src="/icon/doubleArrow.svg" class=arrow>개인 메일</h5><p class=redP style="display:inline">* 메일을 전송하는데 다소 시간이 걸립니다. 메일 전송 알림창이 뜰 때 까지 기다려 주세요.</p>
 		            		&emsp;<br>&emsp;<input type=text name=unempEmail id=unempEmail placeholder="메일 주소 입력">
 		            		<button type=button id=sendMail2>인증 메일 발송</button>
 	            	</div>
@@ -207,8 +208,6 @@
             <div class=row>
             	<div class=col-12>
             		<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow>생년월일</h5><p class=redP style="display:inline">*</p><br>
-<!--             		<input type="text" id="startInputDate" class="form-control form-control-sm datePicker" placeholder="생년월일" name="startInputDate"> -->
-<!--             		<input type="hidden" id="startDate" name="startDate"> -->
 						&emsp;<select id="birthdayYear" name=birthdayYear></select>
 						<select id="birthdayMonth" name=birthdayMonth></select>
 						<select id="birthdayDay" name=birthdayDay></select>
@@ -253,7 +252,8 @@
             		&emsp;<input type=radio name=joinPath value="jp2">'Hello World!' 검색<br>
             		&emsp;<input type=radio name=joinPath value="jp3">'프로젝트 모집' 검색<br>
             		&emsp;<input type=radio name=joinPath value="jp4">
-            		<input type="text" placeholder="15자 내외의 사유를 입력해주세요" id=otherJoinPath name=otherJoinPath maxlength="15" readonly><br>
+            		<input type="text" placeholder="15자 내외의 사유를 입력해주세요" id=otherJoinPath name=otherJoinPath maxlength="15" readonly>
+            		<p class=redP style="display:none" id=jp4Reason>* 기타가입사유를 꼭 입력해주세요.</p>
             	</div>
             </div>
             <div class=row>
@@ -446,6 +446,7 @@
             //가입경로 체크
            	  $("input:radio[name=joinPath]").click(function(){
 	            if($("input:radio[name=joinPath]:checked").val()=='jp4'){
+	            	$("#jp4Reason").css("display","inline");
 	            	jpTest = 0;
 	            	var Ele1 = document.getElementById('otherJoinPath') ;
 	            	Ele1.readOnly = false;
@@ -506,6 +507,25 @@
 	 	 	 	 	                    	var data = $("#empEmail").val();
 	 	 	 	 	 	                    var result = regex.exec(data);
 	 	 	 	 	 	                    
+	 	 	 	 	 	             		//실무자 : 네이버만 임시로 풀기
+	 	 	 	              				var regexNaver = /^\w+@naver.com$/g;
+	 	 	 	              				var resultNaver = regexNaver.exec(data);
+		 	 	 	 	                    if(resultNaver != null){
+		 	 	 	 	                    	
+			 	 	 	 	                    emailTest2 = 1;
+		 	 	 	 	                    	$.ajax({
+		 	 	 	 	              			url:"${pageContext.request.contextPath}/member/mailSending",
+		 	 	 	 	              			type:"post",
+		 	 	 	 	              			data:{
+		 	 	 	 	              				email : $("#empEmail").val()
+		 	 	 	 	              			}
+		 	 	 	 	              			}).done(function(data){
+		 	 	 	 	              			alert("인증 메일이 전송되었습니다. 메일을 확인해주세요.");
+	 	 	 	 	              			});
+		 	 	 	 	                    	return false;
+		 	 	 	 	                    }
+		 	 	 	 	                    //----------
+	 	 	 	 	 	                    
 	 	 	 	 	 	                    var regex2 = /^\w+@\w+.pe.kr$/g;
 	 	 	 		 	                    var result2 = regex2.exec(data);
 	 	 	 		 	                    
@@ -515,7 +535,7 @@
 	 	 	 		 	                    }
 	 	 	 		 	                    
 	 	 	 	 	 	                    if(result == null){
-	 	 	 	 	 	                    	alert("영리 단체 도메인(co.kr)이 아닙니다. 비실무자로 가입부탁드립니다.");
+	 	 	 	 	 	                    	alert("영리 단체 도메인(co.kr)이 아닙니다. 비실무자 선택후 진행해주세요.");
 	 	 	 	 	 	                    }else{
 	 	 	 	 	 	                    	emailTest2 = 1;
 	 	 	 	 	 	                    	$.ajax({
@@ -652,32 +672,6 @@
                 		});
                 	}
             	})
-            
-//             //생년월일
-//             $('.datePicker').datepicker({
-// 			    format: "yyyy-mm-dd",	//데이터 포맷 형식(yyyy : 년 mm : 월 dd : 일 )
-// 			    startDate: '-200y',	//달력에서 선택 할 수 있는 가장 빠른 날짜. 이전으로는 선택 불가능 ( d : 일 m : 달 y : 년 w : 주)
-// 			    endDate: '+0y',	//달력에서 선택 할 수 있는 가장 느린 날짜. 이후로 선택 불가 ( d : 일 m : 달 y : 년 w : 주)
-// 			    autoclose : true,	//사용자가 날짜를 클릭하면 자동 캘린더가 닫히는 옵션
-// 			    calendarWeeks : false, //캘린더 옆에 몇 주차인지 보여주는 옵션 기본값 false 보여주려면 true
-// 			    clearBtn : false, //날짜 선택한 값 초기화 해주는 버튼 보여주는 옵션 기본값 false 보여주려면 true			    
-// 			    disableTouchKeyboard : false,	//모바일에서 플러그인 작동 여부 기본값 false 가 작동 true가 작동 안함.
-// 			    immediateUpdates: false,	//사용자가 보는 화면으로 바로바로 날짜를 변경할지 여부 기본값 :false 
-// 			    multidate : false, //여러 날짜 선택할 수 있게 하는 옵션 기본값 :false 
-// 			    multidateSeparator :",", //여러 날짜를 선택했을 때 사이에 나타나는 글짜 2019-05-01,2019-06-01
-// 			    templates : {
-// 			        leftArrow: '&laquo;',
-// 			        rightArrow: '&raquo;'
-// 			    }, //다음달 이전달로 넘어가는 화살표 모양 커스텀 마이징 
-// 			    showWeekDays : true ,// 위에 요일 보여주는 옵션 기본값 : true
-// 			    todayHighlight : true ,	//오늘 날짜에 하이라이팅 기능 기본값 :false 
-// 			    toggleActive : true,	//이미 선택된 날짜 선택하면 기본값 : false인경우 그대로 유지 true인 경우 날짜 삭제
-// 			    weekStart : 0 ,//달력 시작 요일 선택하는 것 기본값은 0인 일요일 
-// 			    language : "ko"	//달력의 언어 선택, 그에 맞는 js로 교체해줘야한다.			    
-// 			}).on("changeDate", function(e) {
-//                 changeDate : true	//사용자가 클릭해서 날짜가 변경되면 호출 (개인적으로 가장 많이 사용함)
-// 				birthTest = 1;
-// 			});	
             	
             //생년월일 2
             //생년월일 select
@@ -889,8 +883,37 @@
 	    				}
 	    			})
 	              	
+	                  //가입경로 뿌리기
+	                  var joinPath = "${dto.joinPath}";
+	                  if(joinPath == "지인 추천"){
+	                	  $('input:radio[name=joinPath]:input[value=jp1]').attr("checked", true);
+	                	  jpTest = 1;
+	                  }else if(joinPath == "'Hello World!' 검색"){
+	                	  $('input:radio[name=joinPath]:input[value=jp2]').attr("checked", true);
+	                	  jpTest = 1;
+	                  }else if(joinPath == "'프로젝트 모집' 검색"){
+	                	  $('input:radio[name=joinPath]:input[value=jp3]').attr("checked", true);
+	                	  jpTest = 1;
+	                  }else{
+	                	  $('input:radio[name=joinPath]:input[value=jp4]').attr("checked", true);
+	                	  $("#otherJoinPath").val(joinPath);
+	                	  jpTest = 1;
+	                  }
+	    			
+	                  //성별 뿌리기
+	                  var gender = "${dto.gender}";
+	                  if(gender=='W'){
+	                	  $('input:radio[name=gender]:input[value=W]').attr("checked", true);
+	                	  genderTest = 1;
+	                  }else{
+	                	  $('input:radio[name=gender]:input[value=M]').attr("checked", true);
+	                	  genderTest = 1;
+	                  }
 	                  
 			}
+            
+          
+            
 
 			
 			
