@@ -77,6 +77,9 @@ public class ProjectService {
 				long distance = (sMonth-tMonth)*105 + sDay*3;
 				m.setDistance(distance);
 				long duration = Duration.between(sDate.atStartOfDay(), eDate.atStartOfDay()).toDays()*3;
+				if(distance+duration>626) {
+					duration -= (distance+duration)-626;
+				}
 				m.setWidth(duration);							
 			}
 			m.setToday(tMonth+"-"+tDate);

@@ -84,7 +84,7 @@
 						</div>
 						<hr>
 						<div id="pBody">						
-							<div id="pPageContents" style="word-break:break-all;word-break:break-word;">${pPage.contents }</div>							
+							<div id="pPageContents" style="max-width:100%;word-break:break-all;word-break:break-word;">${pPage.contents }</div>							
 							<div class="row"><div class="ml-4 col-3 col-md-2 col-xl-1 dLabel">연락처</div><div class="col-7">${pPage.phone }</div></div>
 							<div class="row"><div class="ml-4 col-3 col-md-2 col-xl-1 dLabel">메일주소</div><div class="col-7">${pPage.email }</div></div>
 						
@@ -635,7 +635,7 @@
 		}
 		//카카오톡
 		  function shareKakaotalk() {
-		      Kakao.init("7fce3c86f0e6aeeac11028850040589c"); // 사용할 앱의 JavaScript 키를 설정
+		      Kakao.init("17c512cbe4e17a204cce3c9b7d64d274"); // 사용할 앱의 JavaScript 키를 설정
 		      Kakao.Link.sendDefault({
 		         objectType : "feed",
 		         content : {
