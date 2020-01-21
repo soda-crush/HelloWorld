@@ -23,15 +23,6 @@
 	.arrow{
 		width:12px;
 	}
-/* 	#imgCon{ */
-/* 		width:100px; */
-/* 		height: 100px; */
-/*  		display: none;  */
-/* 	} */
-	.redP{
-		font-size: 11px;
-		color:red;
-	}
 	#startInputDate{
 	width:130px;
 	}
@@ -135,7 +126,7 @@
 		            	<p style="display:inline;">-메일로 전송된 코드를 입력해주세요.</p>
 		            		&emsp;<br>&emsp;<input type=text name=empCode id=empCode placeholder="인증 코드 입력">
 		            		<button type=button id = "certification1">인증</button>
-		            		<img id=empEmailCheck style="display:none;">
+		            		<img id=empEmailCheck style="display:inline;" src="/icon/x.svg">
 	            	</div>
            		 </div>
             </div>
@@ -151,7 +142,7 @@
 		            	<p style="display:inline;">-메일로 전송된 코드를 입력해주세요.</p>
 		            		&emsp;<br>&emsp;<input type=text name=unempCode id=unempCode placeholder="인증 코드 입력">
 		            		<button type=button id = "certification2">인증</button>
-		            		<img id=unempEmailCheck style="display:none;">
+		            		<img id=unempEmailCheck style="display:inline;" src="/icon/x.svg">
 	            	</div>
            		 </div>
             </div>
@@ -250,7 +241,7 @@
             		&emsp;<input type=radio name=joinPath value="jp2">'Hello World!' 검색<br>
             		&emsp;<input type=radio name=joinPath value="jp3">'프로젝트 모집' 검색<br>
             		&emsp;<input type=radio name=joinPath value="jp4">기타
-            		<input type="text" placeholder="사유를 입력해주세요" id=otherJoinPath name=otherJoinPath readonly><br>
+            		<input type="text" placeholder="15자 내외의 사유를 입력해주세요" id="otherJoinPath" name="otherJoinPath" maxlength="14" readonly><br>
             	</div>
             </div>
             <div class=row>
@@ -557,7 +548,8 @@
          	 $("input:radio[name=empCheck]").click(function(){
  	            if($("input:radio[name=empCheck]:checked").val()=='employee'){
  	            	$("#unempEmail").val("");
- 	            	$("#unempEmailCheck").css("display","none");
+					$("#empCode").val("");	
+					$("#unempCode").val("");	
  	               //실무자 체크했을때
  	            	 $("#sendMail1").on("click",function(){
  	                     var regex = /^\w+@[a-z]+(\.[a-z]+){1,2}$/g;
@@ -617,7 +609,8 @@
 
  	            }else if($("input:radio[name=empCheck]:checked").val()=='unemployee'){
  	            	$("#empEmail").val("");
- 	            	$("#empEmailCheck").css("display","none");
+					$("#empCode").val("");	
+					$("#unempCode").val("");
  	            	//비실무자 체크했을때
  	            	  $("#sendMail2").on("click",function(){
  	                     var regex = /^\w+@[a-z]+(\.[a-z]+){1,2}$/g;

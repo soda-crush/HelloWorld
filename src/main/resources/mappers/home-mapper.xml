@@ -29,7 +29,7 @@
 	</select>
 	
 	<select id="getPro" resultType="kh.hello.dto.ProjectDTO">
-		select * from project where state ='N'
+		 select * from project where state ='N' order by seq desc
 	</select>
 
 

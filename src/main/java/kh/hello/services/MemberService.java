@@ -188,7 +188,7 @@ public class MemberService {
 			String ctfCode = Utils.getRandomCode();
 			String setfrom = "sohyunKH4862@gmail.com";         
 			String tomail  = email;     // 받는 사람 이메일
-			String title   = "[Hello World!] 회원가입 메인 인증 코드입니다.";      // 제목
+			String title   = "[Hello World!] 회원가입 인증 코드입니다.";      // 제목
 			String content = "해당코드를 입력창에 입력해주세요 : " + ctfCode;    // 내용
 					  
 					    
@@ -217,7 +217,7 @@ public class MemberService {
 							String ctfCode = Utils.getRandomCode();
 						    String setfrom = "sohyunKH4862@gmail.com";         
 						    String tomail  = email;     // 받는 사람 이메일
-						    String title   = "[Hello World!]  아이디/비밀번호 찾기 메인 인증 코드입니다.";      // 제목
+						    String title   = "[Hello World!]  아이디/비밀번호 찾기 인증 코드입니다.";      // 제목
 						    String content = "해당코드를 입력창에 입력해주세요 : " + ctfCode;    // 내용
 						  
 						    
