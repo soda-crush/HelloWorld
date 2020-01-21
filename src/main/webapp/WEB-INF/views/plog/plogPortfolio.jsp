@@ -17,7 +17,7 @@
 
 	<style>
         .card{margin-top:20px;text-align:center;}
-        .myprofile{margin-top: 20px;margin-bottom: 30px;padding-right:0px;}
+        .myprofile{margin-bottom: 30px;padding-right:0px;}
         #mycard{float:none; display:flex;width:200px;height:300px;margin: auto;}
         .wrapportfolio{background-color:white;border:1px solid #BDBDBD;}
         .cardwrap{float:left;}
@@ -50,7 +50,7 @@
 		                        <img src="${ownerInfo.profileImg }" class="card-img-top" alt="..." style="width: 85%;margin:7.5%;">
 		                        <div class="card-body">
 		                            <div class="card-title line-over" style="text-align: center;font-size:20px;">${ownerInfo.nickName} 님</div>
-		                            <p class="card-text" style="text-align: center;font-size:15px;">point : ${ownerInfo.point }</p>
+		                            <p class="card-text" style="text-align: center;font-size:18px;">POINT : <span style="font-size:15px;font-weight:bold;">${ownerInfo.point }</span></p>
 		                        </div>
 	                    	</div>
 	                    	<div class="d-md-none" style="background-color:white;border-radius:5px;height:200px;border: 1px solid rgba(0,0,0,.125); padding:15px;margin-right:10px;">
@@ -64,11 +64,11 @@
 	                    	</div>
 	                    </div>
 	                </div>
-	                <div class ="col-12 col-md-8 col-lg-9 wrapportfolio">
+	                <div class ="col-12 col-md-8 col-lg-9 wrapportfolio" style="min-height:500px;">
 	                	<c:forEach items="${list}"  var="dto">
-	                		<div class="cardwrap col-6 col-xl-4" onclick="location.href='${pageContext.request.contextPath}/Portfolio/detail.do?seq=${dto.seq}'" style="curser:pointer">
-		                        <div class="card">
-		                            <img src="${dto.image1}" class="card-img-top" alt="..." style="height:20vw;width:20vs;width:85%;margin:7.5%;">
+	                		<div class="cardwrap col-6 col-xl-4" onclick="location.href='${pageContext.request.contextPath}/Portfolio/detail.do?seq=${dto.seq}'">
+		                        <div class="card" style="cursor:pointer">
+		                            <img src="${dto.image1}" class="card-img-top" alt="..." style="height:20vw;width:85%;margin:7.5%;">
 		                            <div class="card-body" style="padding: 5px;width:95%;height:115px;text-align:left;">
 		                                <h5 class="card-title" style="font-size:15px;white-space:nowrap;overflow: hidden;text-overflow:ellipsis;width:100%;height:16px;">
 		                                	<a href="${pageContext.request.contextPath}/Portfolio/detail.do?seq=${dto.seq}">${dto.portfolioTitle}</a>

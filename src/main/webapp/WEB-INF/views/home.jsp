@@ -234,13 +234,13 @@ font-size: 11px;}
 						  </ol>
 						  <div class="carousel-inner">
 						    <div class="carousel-item active">
-						      <img src="/img/crc1.jpg" style="border-radius:5px;" class="d-block w-100" alt="...">
+						      <img src="/img/crc1.jpg" class="d-block w-100" alt="...">
 						    </div>
 						    <div class="carousel-item">
-						      <img src="/img/crc2.png" style="border-radius:5px;" class="d-block w-100" alt="...">
+						      <img src="/img/crc2.png" class="d-block w-100" alt="...">
 						    </div>
 						    <div class="carousel-item">
-						      <img src="/img/crc3.jpg" style="border-radius:5px;" class="d-block w-100" alt="...">
+						      <img src="/img/crc3.jpg" class="d-block w-100" alt="...">
 						    </div>
 						  </div>
 						  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">

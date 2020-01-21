@@ -17,7 +17,7 @@
 	<style>
 		ul{background-color: lightgray;font-size: 13px;}
 		.card{width:200px;height:300px;margin: auto;float :left;}
-		.myprofile{float: left; margin-top: 20px;}
+		.myprofile{float: left;}
 		#mycard{ float:none;display:flex;align-items:center;}
         .card-text{font-size:12px;}
 		.commentwrite{width:100%;height:100px;padding: 0px;margin-top: 10px;float: left;}
@@ -94,6 +94,8 @@
 						  <iframe class="noScrolling" src="/project/pLog/applyProjectList"></iframe>
 						</div>
 	                
+	                <div class="col-12 col-sm-6 col-md-8 col-lg-9 projectwrap" style="min-height:500px;">
+
 	                </div>
 	                
 	                

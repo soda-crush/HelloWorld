@@ -17,7 +17,7 @@
 	<style>
    		*{spellcheck="false"}
         .card{width:200px;height:300px;margin:auto;float:left;}
-        .myprofile{float: left;margin-top: 20px;padding-right:0px;}
+        .myprofile{float: left;padding-right:0px;}
         #mycard{float:none;display:flex;align-items:center;}
         .commentwrite{width:100%; height:100px;padding: 0px;margin-top: 10px;float: left;}
         .commentlist{width:100%;padding: 0px;margin-top: 10px;float: left;}
@@ -26,7 +26,7 @@
         .sendbt{height:90%;float: left;color:#fff;background-color:#343a40;font-size:20px;font-family:NanumgothicBold;}
         .commentlist>div>div{margin-right: 5px;}
         #commentForm{height:100%;}
-        .commentwrap{border-radius:5px;padding: 15px;margin-top:20px;background-color:white;border:1px solid #BDBDBD;}
+        .commentwrap{border-radius:5px;padding: 15px;background-color:white;border:1px solid #BDBDBD;}
         textarea{resize:none;}
     	a:hover{text-decoration:none;}
         .message{background-color:white;margin:10px;width:100%;height:100%;border:0px;}
@@ -67,7 +67,7 @@
 	                    	</div>
 	                    </div>
 	                </div>
-	                <div class="col-12 col-md-8 col-lg-9 commentwrap">
+	                <div class="col-12 col-md-8 col-lg-9 commentwrap" style="min-height:500px;">
 	
 	
 	                    <div class="commentwrite">

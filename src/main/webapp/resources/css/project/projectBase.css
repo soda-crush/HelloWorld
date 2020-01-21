@@ -130,6 +130,7 @@ img{max-width:100%;}
     color:red;
 }
 @font-face {
+<<<<<<< HEAD
    font-family: 'NanumGothicBold';
    src: url(/font/NanumGothicBold.ttf) format('truetype');
 }
@@ -146,5 +147,20 @@ img{max-width:100%;}
 }
 #codeNavi:hover{
 	font-size:14px!important;
+=======
+	font-family: 'NanumGothicBold';
+	src: url(/font/NanumGothicBold.ttf) format('truetype');
+}
+@font-face {
+	font-family: 'NanumGothic';
+	src: url(/font/NanumGothic.ttf) format('truetype');
+}
+.fontBold{
+		font-family: "NanumgothicBold";
+}
+.fontThin{
+	font-family: "Nanumgothic";
+	font-size:13.7px;
+>>>>>>> 5c66e1683060f783d0d25b758b651c751d60c4fb
 }
 /* autocomplete tagsinput*/
