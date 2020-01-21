@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Hello World!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="${pageContext.request.contextPath }/icon/favicon.ico"/>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
@@ -32,7 +33,7 @@
  		<div id=baseBackgroundColor>
             <div class=container>
                 <div class=row>
-                    <div class="col-12" id=aroundContent1>
+                    <div class="col-12" id=aroundContent>
                     </div>
                 </div>
             </div>
@@ -44,7 +45,7 @@
 					<div id="pageTitle">
 						<table>
 							<tr>
-								<td colspan="3" style="font-size: 60px; font-weight: 100; vertical-align: text-bottom">업계현황</td>
+								<td colspan="3" style="font-size: 60px; font-weight: 100; vertical-align: text-bottom"><h1>업계현황</h1></td>
 								<td></td>
 								<td style="font-size: 15px; color: gray; vertical-align: text-bottom">     업계현황에 대한 정보를 나누는 게시판입니다.</td>
 								<td></td>
@@ -55,11 +56,17 @@
 			</div>
 			<div class=row>
 				<div class="d-md-none">
-					<div style="font-size: 60px; font-weight: 100;">업계현황</div>
+				<div id="pageTitle">
+					<div style="font-size: 60px; font-weight: 100;"><h1>업계현황</h1></div>
 					<div style="font-size: 15px; color: gray;">업계현황에 대한 정보를 나누는 게시판입니다.</div>
 				</div>
+				</div>
 			</div>
-				
+				<div class=row>
+	            	<div class=col-12>
+	            		<br>
+	            	</div>
+            	</div>
             	<div class="tableDiv">
 				  	 <div class="row tableHead">					    
 		   			 	<div class="col-xl-1 col-2 col-md-1 d-xl-block">번호</div>
@@ -110,6 +117,11 @@
 				  		</c:otherwise>
 				  	</c:choose>
             	</div>
+            	<div class=row>
+	            	<div class=col-12>
+	            		<br>
+	            	</div>
+            	</div>
             		<div class="row pageListFooter">
     				<div class="col-12 order-2 order-lg-1 col-lg-10">
 					<form class="form-inline" action="/industry/industrySearch.do" method="post">
@@ -128,6 +140,11 @@
 					<button type="button" class="btn btn-primary" id="write">글쓰기</button>				
 				</div>
 				</div>
+				<div class=row>
+	            	<div class=col-12>
+	            		<br>
+	            	</div>
+            	</div>
 				<nav aria-label="List navi">
 					<ul class="pagination justify-content-center">
 						

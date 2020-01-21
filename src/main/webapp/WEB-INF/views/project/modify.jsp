@@ -236,6 +236,9 @@
 		
 		$("#modifyBtn").on("click",function(){
 			if($("#loc1").val()==null|$("#loc2").val()==null|$("#capacity")==null|$("#startDate").val()==""|$("#endDate").val()==""|$("#languages").val()==""){
+				if($("#pInfo").find(".tt-input").val()!=""){
+					$("#pInfo").find(".tt-input").val("");
+				}
 				alert("필수 입력 항목을 확인해주세요");
 				return false;
 			}

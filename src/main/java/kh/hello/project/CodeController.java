@@ -150,7 +150,7 @@ public class CodeController {
 	public String codeSearch(String search, String value, Model m, String cpage) {
 		//페이지네비
 		int currentPage = 1;		
-		if(cpage != null) currentPage = Integer.parseInt(cpage);
+		if(cpage!= null && !cpage.equals("") && !cpage.equals("null")) currentPage = Integer.parseInt(cpage);
 		int end = currentPage * Configuration.recordCountPerPage;
 		int start = end - (Configuration.recordCountPerPage - 1);	
 		List<CodeQuestionDTO> list = sv.codeSearchByPage(start, end, value, search);

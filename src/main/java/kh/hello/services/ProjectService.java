@@ -61,8 +61,8 @@ public class ProjectService {
 	 * 프로젝트 모집
 	 */
 	
-	public List<ProjectChartDTO> projectList(String id){
-		List<ProjectChartDTO> result = dao.getProjectList(id);
+	public List<ProjectChartDTO> projectList(String id, String pageOrder){
+		List<ProjectChartDTO> result = dao.getProjectList(id, pageOrder);
 		LocalDate today = LocalDate.now();
 		int tYear = today.getYear();
 		int tMonth = today.getMonthValue();
