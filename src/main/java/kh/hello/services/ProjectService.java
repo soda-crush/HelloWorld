@@ -164,6 +164,9 @@ public class ProjectService {
 		return dao.getProjectListPerPage(start, end, pageOrder, searchOption, keyword);
 	}
 	
+	public int projectStateNoneCount() {
+		return dao.projectStateNoneCount();
+	}
 	
 	@Transactional("txManager")
 	public ProjectDTO projectDetailView(int seq) {

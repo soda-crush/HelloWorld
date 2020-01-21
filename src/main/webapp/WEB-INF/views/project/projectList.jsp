@@ -19,6 +19,16 @@
       $("#proNavi").attr('class','nav-item nav-link active');
    });
 </script>
+<style>
+	#stateCountLabel{
+		background-color:limegreen;
+		color:white;
+		line-height:30px;
+		font-size:25px;
+		position:relative;
+		top:-5px;
+	}
+</style>
 </head>
 
 <body>
@@ -35,7 +45,7 @@
             <!--      몸통 시작!!!   -->
             <div class=container id="projectPage">
 				<div id="pageTitle" class="row">
-					<div class="col-12 col-lg-5"><h1>프로젝트 모집</h1></div>
+					<div class="col-12 col-lg-5"><h1>프로젝트 모집</h1><span class="badge badge-pill ml-2" id="stateCountLabel">${stateCount }</span></div>
 					<div class="col-12 col-lg-7 pt-2">
 						<a class="btn btn-danger" href="/project/list" role="button">게시판</a>
 						<a class="btn btn-secondary" href="/project/chart" role="button">일정</a>

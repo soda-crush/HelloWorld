@@ -17,6 +17,7 @@
 <link rel="stylesheet" href="/css/project/chart.css" type="text/css"/>
 <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.css" type="text/css"/>
 <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 <script>
    $(function(){
       $("#proNavi").attr('class','nav-item nav-link active');
@@ -109,12 +110,7 @@
 						</div>
 					</div>	
 					
-<!-- 					<div class="row"> -->
-<!-- 						<div id="pageComment" class="col-12">모집중인 프로젝트만 표시됩니다</div> -->
-<!-- 					</div>				 -->
-					
-					
-					<div class="projectChartDiv">
+					<div class="projectChartDiv d-none d-xl-block">
 						<div class="row mb-3">
 							<div class="col-12">
 								<div class="btn-group" role="group">
@@ -133,7 +129,7 @@
 					  		</c:when>
 					  		<c:otherwise>					  		
 					  			<c:forEach items="${projectList }" var="p">
-									<div class="row projectList">
+									<div class="row projectList" data-aos="fade-up">
 										<div class="col-xl-5 d-none d-xl-block pTextInfo">
 											<label class="${p.state } badge badge-pill ml-0 stateLabel">${p.stateInKor }</label>
 											<i class="fa fa-share-alt kakaoSharing" data-toggle="tooltip" title="카카오톡 공유하기"></i>
@@ -165,28 +161,17 @@
 											  <c:forEach begin="0" end="5" step="1" var="m">
 											  	<li class="nav-item graphNaviItem">${month+m }월</li>
 											  </c:forEach>
-<!-- 											  <li class="nav-item graphNaviItem"></li> -->
-<!-- 											  <li class="nav-item graphNaviItem"> </li> -->
-<!-- 											  <li class="nav-item graphNaviItem"> </li> -->
-<!-- 											  <li class="nav-item graphNaviItem"> </li> -->
-<!-- 											  <li class="nav-item graphNaviItem"> </li>											   -->
-<!-- 											  <li class="nav-item graphNaviItem"> </li> -->
-<!-- 											  <li class="nav-item graphNaviItem"> </li> -->
-<!-- 											  <li class="nav-item graphNaviItem"> </li> -->
-<!-- 											  <li class="nav-item graphNaviItem"> </li> -->
-<!-- 											  <li class="nav-item graphNaviItem"> </li> -->
-<!-- 											  <li class="nav-item graphNaviItem"> </li>											  											   -->
 											</ul>
 											<div class="todayBar" style="transform: translate(${fn:split(p.today,'-')[1]*3 -330}px, -50%);"><div class="todayFlag" data-toggle="tooltip" title="${fn:split(p.today,'-')[0] }월 ${fn:split(p.today,'-')[1] }일" style="cursor:pointer;">오늘</div></div>												
 											<div class="progressBar text-decoration-none" id="pBar${p.seq }" style="transform: translate(${p.distance -330}px, -50%);width:${p.width}px;" onclick="popUp('/project/detailView?seq=${p.seq }')"></div>											
 										</div>										
 									</div>					
-								</c:forEach>
-								<div class="d-xl-none text-center">해당 서비스는 PC 전체화면에서 지원됩니다</div>
+								</c:forEach>								
 							</c:otherwise>
 						</c:choose>						
 					</div>
 	            </div>
+	            <div class="d-xl-none text-center">해당 서비스는 PC 전체화면에서 지원됩니다</div>
             </div>		
             </section>           
             <!--       몸통 끝!!!   -->
@@ -202,8 +187,10 @@
        
         
         <jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
-        
+     
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>        
 <script>
+AOS.init();
 var pageOrder = "${pageOrder}";
 if(pageOrder=='seq'){
 	$("#latestOrder").addClass("active");
