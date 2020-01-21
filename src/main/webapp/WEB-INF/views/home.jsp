@@ -127,6 +127,10 @@ font-size: 11px;}
 		max-height:120px;
 		overflow:auto;
 	}
+	.orangeFt{
+		font-size: 12.5px;
+		color:#f09800;
+	}
 </style>
 </head>
 <body>
@@ -135,7 +139,7 @@ font-size: 11px;}
  		<div id=baseBackgroundColor>
             <div class=container>
                 <div class=row>
-                    <div class="col-12" id=aroundContent1 style="height: 8px;">
+                    <div class="col-12" id=aroundContent1 style="height:23px;">  
                     </div>
                 </div>
             </div>
@@ -155,7 +159,7 @@ font-size: 11px;}
 			            		<c:choose>
 			            		<c:when test="${bamList.size()!=0}">
 			            			<c:forEach items="${bamList}" var="bam" varStatus="status">
-			            			<div class="cursorPointer" onclick="location.href='/bamboo/bambooDetailView.do?seq=${bam.seq}'" style="width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${status.count}&emsp; <p class="fontThin" style="display:inline;'">${bam.title}</p></div>
+			            			<div class="cursorPointer" onclick="location.href='/bamboo/bambooDetailView.do?seq=${bam.seq}'" style="width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;"><p class="orangeFt font-weight-bolder" style="display:inline;">${status.count}</p>&emsp; <p class="fontThin" style="display:inline;'">${bam.title}</p></div>
 			            			</c:forEach>
 			            		</c:when>
 			            		</c:choose>
@@ -174,7 +178,7 @@ font-size: 11px;}
 			            		<c:choose>
 			            		<c:when test="${codeList.size()!=0}">
 			            			<c:forEach items="${codeList}" var="code" varStatus="status">
-			            			<div class="cursorPointer" onclick="location.href='${pageContext.request.contextPath}/code/codeDetail.do?seq=${code.seq}'" style="width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${status.count}&emsp; <p class="fontThin" style="display:inline;'">${code.title}</p></div>
+			            			<div class="cursorPointer" onclick="location.href='${pageContext.request.contextPath}/code/codeDetail.do?seq=${code.seq}'" style="width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;"><p class="orangeFt font-weight-bolder" style="display:inline;">${status.count}</p>&emsp; <p class="fontThin" style="display:inline;'">${code.title}</p></div>
 			            			</c:forEach>
 			            		</c:when>
 			            		</c:choose>
@@ -193,7 +197,7 @@ font-size: 11px;}
 			            		<c:choose>
 			            		<c:when test="${indusList.size()!=0}">
 			            			<c:forEach items="${indusList}" var="indus" varStatus="status">
-			            			<div class="cursorPointer" onclick="location.href='/industry/industryStatusDetailView.do?seq=${indus.seq}'"  style="width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${status.count}&emsp; <p class="fontThin" style="display:inline;'">${indus.title}</p></div>
+			            			<div class="cursorPointer" onclick="location.href='/industry/industryStatusDetailView.do?seq=${indus.seq}'"  style="width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;"><p class="orangeFt font-weight-bolder" style="display:inline;">${status.count}</p>&emsp; <p class="fontThin" style="display:inline;'">${indus.title}</p></div>
 			            			</c:forEach>
 			            		</c:when>
 			            		</c:choose>
@@ -212,7 +216,7 @@ font-size: 11px;}
 			            		<c:choose>
 			            		<c:when test="${itList.size()!=0}">
 			            			<c:forEach items="${itList}" var="it" varStatus="status">
-			            			<div class="cursorPointer" onclick="location.href='/itnews/detail?seq=${it.seq}'"  style="width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${status.count}&emsp; <p class="fontThin" style="display:inline;'">${it.title}</p></div>
+			            			<div class="cursorPointer" onclick="location.href='/itnews/detail?seq=${it.seq}'"  style="width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;"><p class="orangeFt font-weight-bolder" style="display:inline;">${status.count}</p>&emsp; <p class="fontThin" style="display:inline;'">${it.title}</p></div>
 			            			</c:forEach>
 			            		</c:when>
 			            		</c:choose>

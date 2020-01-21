@@ -110,13 +110,17 @@
             	
             	<div class=row>
             		<div class="col-12 text-right pb-1">
-            		<c:if test="${loginInfo!=null}">
             			<a id="kakao-link-btn" href="javascript:;" onClick="shareKakaotalk();" style="text-decoration:none"> 
 						<img src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" height=38 style="margin-right:2px;"/>
 						</a>
+						<c:if test="${loginInfo!=null}">
+						<c:if test="${loginInfo.memLevel!=1}">
             			<button type="button" class="btn btn-success" id=scrap style="width:100px;">스크랩</button>
+            			</c:if>
             			<c:if test="${loginInfo.id!=result.id}">
+            			<c:if test="${loginInfo.memLevel!=1}">
             			<button type="button" class="btn btn-dark" style="width:100px;color:white;" id=reportBtn>신고</button>
+            			</c:if>
             			</c:if>
             		</c:if>
             		</div>
@@ -165,20 +169,19 @@
             		</div>
             	
             	<div class="row">
-            		<div class="col-10" style="padding:0px;padding-left:22px;">
+            		<div class="col-12 col-sm-10 pr-sm-2 pb-2 pb-sm-0" style="padding:0px;padding-left:22px;padding-right:22px;">
             			<textarea style="width:100%;height:100%;border-radius:6px;border:1px solid #d1d1d1;" placeholder="&emsp;댓글 내용을 입력해 주세요" id="coContent" maxlength="1300"></textarea>
             		</div>
-            		<div class="col-2">
+            		<div class="col-12 col-sm-2">
             			<div class="row">
-							<div class="col-12 pl-2">
+							<div class="col-6 col-sm-12 pl-4 pl-sm-2">
 								<button type="button" class="btn btn-secondary" style="margin-bottom:10px;width:95%" id="coCancel">취소</button>
-							</div>										
-						</div>
-						<div class="row">
-							<div class="col-12 pl-2">
+							</div>	
+							<div class="col-6 col-sm-12 pl-2 pl-sm-2">
 								<button type="button" class="btn btn-primary" id="coWrite" style="width:95%">작성</button>
 							</div>										
-						</div>					
+						</div>
+										
             		</div>
             	</div>
             	</c:if>

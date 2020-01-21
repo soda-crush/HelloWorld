@@ -108,61 +108,7 @@ public class MemAdvisor {
 	}
 	
 	
-	public String forPathRemember(ProceedingJoinPoint pjp) {
-			String sysMethod = "";
-		
-			String oriMethod = pjp.toShortString();
-			Pattern p = Pattern.compile("execution\\(.+Controller.(.+?)\\(..\\)\\)");
-			Matcher m = p.matcher(oriMethod);
-
-			String getSig =  pjp.getSignature().toString();
-			Pattern p2 = Pattern.compile(".+\\((.+?)(,.*){0,100}\\)");
-			Matcher m2 = p2.matcher(getSig);
-			
-			while(m.find()){
-				while(m2.find()) {
-				sysMethod = m.group(1).toString();
-				String sysFirstParam = m2.group(1).toString();
-				System.out.println("oriMethod : " + oriMethod);
-				System.out.println("getSig : " + getSig);
-				System.out.println("sysMethod : " + sysMethod);
-				System.out.println("sysFirstParam : " + sysFirstParam);
-				System.out.println("메서드 기억하자!!");
-					
-				}
-			}
-		
-			
-		//경로 model에 저장
-		//	pjp.getArgs()
-	//model.addAttribute("remPath", sysMethod);
-			
-		String result = "";
-		try {
-			Object objresult = pjp.proceed(pjp.getArgs());
-			if(objresult!=null)
-				result = objresult.toString();
-		} catch (Throwable e) {
-			e.printStackTrace();
-		}
-		
-		return result;
-	}
 	
-	public String toLoginFrmMethod(ProceedingJoinPoint pjp) {
-		
-		System.out.println("메서드 확인해서 미루자!!");
-		String result="";
-		try {
-			Object objresult = pjp.proceed(pjp.getArgs());
-			result = objresult.toString();
-		} catch (Throwable e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return result;
-	}
 	
 	
 }

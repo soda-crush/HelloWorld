@@ -26,7 +26,7 @@ public class ItnewsController {
 	private ItnewsService is;
 	
 	@RequestMapping("/itnewsList")
-	public String RemitnewsMainList(Model m, String cpage) {
+	public String itnewsMainList(Model m, String cpage) {
 				int realCpage = 1;
 				if(cpage!= null && !cpage.equals("") && !cpage.equals("null")) realCpage = Integer.parseInt(cpage);
 				
@@ -86,7 +86,7 @@ public class ItnewsController {
 	}
 	
 	@RequestMapping("/detail")
-	public String RemitnewsDetail(Model m, int seq, String page) {
+	public String itnewsDetail(Model m, int seq, String page) {
 			is.increViewCount(seq);
 			List<ItnewsCoDTO> list = is.commentList(seq);
 			ItnewsDTO result = is.itnewsDetail(seq);

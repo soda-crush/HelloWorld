@@ -26,7 +26,7 @@ public class MemberController {
 
 
 	@RequestMapping("/login")
-	public String loginFrm(Model m, String result, String noMemPath, String seq, String remPath){ //로그인 폼이동
+	public String loginFrm(Model m, String result, String noMemPath, String seq){ //로그인 폼이동
 		if(result != null) {
 			m.addAttribute("result", result);
 		}
@@ -36,15 +36,11 @@ public class MemberController {
 		if(seq != null) {
 			m.addAttribute("seq", seq);
 		}
-		if(remPath != null) {
-			m.addAttribute("remPath", remPath);
-		}
 		return "member/login";
 	}
 	
 	@RequestMapping("/loginProc")
-	public String loginProc(String id, String pw, HttpSession session, String noMemPath, String seq, String remPath){ //로그인 프로세스
-		if(remPath != null) {System.out.println(remPath);}
+	public String loginProc(String id, String pw, HttpSession session, String noMemPath, String seq){ //로그인 프로세스
 			int result;
 			try {
 				result = ms.login(id, pw);
