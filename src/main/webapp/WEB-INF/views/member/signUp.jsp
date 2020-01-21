@@ -48,7 +48,7 @@
             <div class="row">
             	<div class="col-12">
             		<h4><br></h4>
-            		<h3><img src="/icon/whiteArrow.svg">회원가입</h3>
+            		<h3><img src="/icon/whiteArrow.svg" style="position:relation;">회원가입</h3>
             		<p class=redP>&emsp;&emsp;* 은 필수표기정보입니다.</p> 
            		</div>
             </div>
@@ -59,8 +59,8 @@
             </div>
             <div class=row>
             	<div class=col-12>
-            		<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow>아이디</h5><p class=redP style="display:inline">*</p><br>
-            		&emsp;<input type=text name=id id=id placeholder="아이디 입력">
+            		<img src="/icon/arrow.svg" class="arrow"><h5 style="display:inline">아이디</h5><p class=redP style="display:inline">*</p><br>
+            		&emsp;<input type=text name=id id=id placeholder="아이디 입력"> 
             		<img id=idCheck style="display:none;">
             		<div id=idMsg></div>
             	</div>
@@ -119,7 +119,7 @@
             <div id=empEle style="display:none;">
             	<div class=row>
 	            	<div class="col-12 col-sm-6">
-		            	<h5 style="display:inline;"><img src="/icon/doubleArrow.svg" class=arrow>회사 메일</h5><p class=redP style="display:inline">* 메일을 전송하는데 다소 시간이 걸립니다. 메일 전송 알림창이 뜰 때 까지 잠시만 기다려 주세요.</p>
+		            	<h5 style="display:inline;"><img src="/icon/doubleArrow.svg" class=arrow>회사 메일</h5><p class=redP style="display:inline">* 메일을 전송하는데 다소 시간이 걸립니다. 메일 전송 알림창이 뜰 때 까지 기다려 주세요.</p>
 		            		&emsp;<br>&emsp;<input type=text name=empEmail id=empEmail placeholder="메일 주소 입력">
 		            		<button type=button id=sendMail1>인증 메일 발송</button>
 	            	</div>
@@ -135,7 +135,7 @@
             <div id=unempEle style="display:none">
              	<div class=row>
 	            	<div class="col-12 col-sm-6">
-		            	<h5 style="display:inline"><img src="/icon/doubleArrow.svg" class=arrow>개인 메일</h5><p class=redP style="display:inline">* 메일을 전송하는데 다소 시간이 걸립니다. 메일 전송 알림창이 뜰 때 까지 잠시만 기다려 주세요.</p>
+		            	<h5 style="display:inline"><img src="/icon/doubleArrow.svg" class=arrow>개인 메일</h5><p class=redP style="display:inline">* 메일을 전송하는데 다소 시간이 걸립니다. 메일 전송 알림창이 뜰 때 까지 기다려 주세요.</p>
 		            		&emsp;<br>&emsp;<input type=text name=unempEmail id=unempEmail placeholder="메일 주소 입력">
 		            		<button type=button id=sendMail2>인증 메일 발송</button>
 	            	</div>
@@ -243,7 +243,8 @@
             		&emsp;<input type=radio name=joinPath value="jp2">'Hello World!' 검색<br>
             		&emsp;<input type=radio name=joinPath value="jp3">'프로젝트 모집' 검색<br>
             		&emsp;<input type=radio name=joinPath value="jp4">기타
-            		<input type="text" placeholder="15자 내외의 사유를 입력해주세요" id="otherJoinPath" name="otherJoinPath" maxlength="14" readonly><br>
+            		<input type="text" placeholder="15자 내외의 사유를 입력해주세요" id="otherJoinPath" name="otherJoinPath" maxlength="14" readonly>
+            		<p class=redP style="display:none" id=jp4Reason>* 기타가입사유를 꼭 입력해주세요.</p>
             	</div>
             </div>
             <div class=row>
@@ -520,6 +521,7 @@
             //가입경로 체크
            	  $("input:radio[name=joinPath]").click(function(){
 	            if($("input:radio[name=joinPath]:checked").val()=='jp4'){
+	            	$("#jp4Reason").css("display","inline");
 	            	jpTest = 0;
 	            	var Ele1 = document.getElementById('otherJoinPath') ;
 	            	Ele1.readOnly = false;
@@ -579,12 +581,31 @@
 	 	 	 	                    	var data = $("#empEmail").val();
 	 	 	 	 	                    var result = regex.exec(data);
 	 	 	 	 	                    
+	 	 	 	 	                    //실무자 : 네이버만 임시로 풀기
+ 	 	 	              				var regexNaver = /^\w+@naver.com$/g;
+ 	 	 	              				var resultNaver = regexNaver.exec(data);
+	 	 	 	 	                    if(resultNaver != null){
+	 	 	 	 	                    	
+		 	 	 	 	                    emailTest2 = 1;
+	 	 	 	 	                    	$.ajax({
+	 	 	 	 	              			url:"${pageContext.request.contextPath}/member/mailSending",
+	 	 	 	 	              			type:"post",
+	 	 	 	 	              			data:{
+	 	 	 	 	              				email : $("#empEmail").val()
+	 	 	 	 	              			}
+	 	 	 	 	              			}).done(function(data){
+	 	 	 	 	              			alert("인증 메일이 전송되었습니다. 메일을 확인해주세요.");
+ 	 	 	 	              			});
+	 	 	 	 	                    	return false;
+	 	 	 	 	                    }
+	 	 	 	 	                    //----------
+	 	 	 	 	                    
 	 	 	 	 	                    var regex2 = /^\w+@\w+.pe.kr$/g;
 	 	 		 	                    var result2 = regex2.exec(data);
 	 	 		 	                    
 	 	 		 	                    if(result2 != null){
 	 	 		 	                    	alert("개인 도메인(예. pe.kr)을 상업적 목적으로 이용하실 경우 비실무자로 가입후 일대일문의를 통해 실무자 인증부탁드립니다.");
-	 	 		 	                    	return;
+	 	 		 	                    	return false;
 	 	 		 	                    }
 	 	 		 	                    
 	 	 	 	 	                    if(result == null){
@@ -597,9 +618,9 @@
 	 	 	 	 	              			data:{
 	 	 	 	 	              				email : $("#empEmail").val()
 	 	 	 	 	              			}
-	 	 	 	 	              		}).done(function(data){
+	 	 	 	 	              			}).done(function(data){
 	 	 	 	 	              			alert("인증 메일이 전송되었습니다. 메일을 확인해주세요.");
-	 	 	 	 	              		});
+	 	 	 	 	              			});
 	 	 	 	 	                    }
  	 	 	              			}
  	 	 	              		});
