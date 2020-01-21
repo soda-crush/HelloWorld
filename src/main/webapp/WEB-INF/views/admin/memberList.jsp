@@ -199,6 +199,7 @@
 	                                <select class="form-control form-control-sm" name="col">
 	                                    <option value="id">아이디</option>
 	                                    <option value="nickName">닉네임</option>
+	                                    <option value="email">이메일</option>
 	                                </select>
 	                                </div>
 	                                <div class="col-sm-6 my-1 pl-1 pr-1">
