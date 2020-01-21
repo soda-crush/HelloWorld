@@ -37,7 +37,7 @@
             imageUrl : "https://miro.medium.com/max/3840/1*U-R58ahr5dtAvtSLGK2wXg.png", // 썸네일 이미지          
             link : {
                mobileWebUrl : "http://${ip}/industry/industryStatusDetailView.do?seq="+${iPage.seq}, // 모바일 카카오톡에서 사용하는 웹 링크 URL            
-               webUrl : "http://${ip}/industry/industryStatus.do?seq="+${iPage.seq} // PC버전 카카오톡에서 사용하는 웹 링크 URL
+               webUrl : "http://${ip}/industry/industryStatusDetailView.do?seq="+${iPage.seq} // PC버전 카카오톡에서 사용하는 웹 링크 URL
             }
          },
          social : {
