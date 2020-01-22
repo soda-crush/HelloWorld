@@ -195,15 +195,16 @@
 	    	$(function(){
 	    		var element = $(".pageNavi");
 	    		var cpage = "${cpage}";
+	    		console.log(element.length);
 	    		if(element.length != 0){
 	    			if(cpage > 0 && cpage <= 5){
 		    			element[cpage-1].classList.add('active');
-		    		}else if(page % 5 == 0){
+		    		}else if(cpage % 5 == 0){
 		    			element[5].classList.add('active');
 		    		}else{
 		    			element[cpage % 5].classList.add('active');
 		    		}	
-
+	    		}
 	    	});
 	    	function popUp(id,writer){
 	    		if(writer == null){
