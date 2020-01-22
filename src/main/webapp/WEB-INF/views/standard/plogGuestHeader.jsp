@@ -29,15 +29,9 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 			<div class="navbar-nav" id="naviCon">
-				<a id="plogPortfolio" class="nav-item nav-link" style="color:black" href="${pageContext.request.contextPath}/Portfolio/toPlogmain.do">포트폴리오</a>
-<%-- 				<c:choose> --%>
-<%-- 					<c:when test="${loginInfo.id ==ownerInfo.id}"> --%>
-						<a id="plogCohow" class="nav-item nav-link" style="color:black" href="${pageContext.request.contextPath}/Plog/toPlogCohow.do">Code-How</a>
-						<a id="plogScrap" class="nav-item nav-link" style="color:black" href="${pageContext.request.contextPath}/Scrap/itNews.do">스크랩</a>
-<%-- 					</c:when> --%>
-<%-- 				</c:choose> --%>
-				<a id="plogProject" class="nav-item nav-link" style="color:black" href="${pageContext.request.contextPath}/Plog/toPlogProject.do">프로젝트</a>
-				<a id="plogGuestBook" class="nav-item nav-link" style="color:black" href="${pageContext.request.contextPath}/GuestBook/toSelectList.do">방명록</a>
+				<a id="plogPortfolio" class="nav-item nav-link" style="color:black" href="${pageContext.request.contextPath}/Portfolio/toGuestPlogmain.do">포트폴리오</a>
+				<a id="plogProject" class="nav-item nav-link" style="color:black" href="${pageContext.request.contextPath}/Plog/toGuestProject.do">프로젝트</a>
+				<a id="plogGuestBook" class="nav-item nav-link" style="color:black" href="${pageContext.request.contextPath}/GuestBook/toGuestSelectList.do">방명록</a>
 			</div>
 		</div>
 	</nav>

@@ -294,7 +294,7 @@ a:hover {
 			return false;
 		}
 		else{
-			window.open("/Portfolio/toPlog.do?owner="+id+"&other='Y'", "pLogPopUp", "width=800,height=800");
+			window.open("/Portfolio/toPlog.do?owner="+id+"&other=Y", "pLogPopUp", "width=800,height=800");
 		}
       
      }
