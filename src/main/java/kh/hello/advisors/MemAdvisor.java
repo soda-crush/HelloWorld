@@ -7,7 +7,6 @@ import javax.servlet.http.HttpSession;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 
 import kh.hello.dao.MemberDAO;
 import kh.hello.dto.LoginInfoDTO;
@@ -106,7 +105,6 @@ public class MemAdvisor {
 		}
 		return result;
 	}
-	
 	
 	
 	
