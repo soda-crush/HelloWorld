@@ -4,17 +4,16 @@ public class OwnerInfoDTO {
 	private String id;
 	private String nickName;
 	private String profileImg;
-	private int point;
-	
+	private String other;
 	public OwnerInfoDTO() {
 		super();
 	}
-	public OwnerInfoDTO(String id, String nickName, String profileImg, int point) {
+	public OwnerInfoDTO(String id, String nickName, String profileImg, String other) {
 		super();
 		this.id = id;
 		this.nickName = nickName;
 		this.profileImg = profileImg;
-		this.point = point;
+		this.other = other;
 	}
 	public String getId() {
 		return id;
@@ -34,11 +33,13 @@ public class OwnerInfoDTO {
 	public void setProfileImg(String profileImg) {
 		this.profileImg = profileImg;
 	}
-	public int getPoint() {
-		return point;
+	public String getOther() {
+		return other;
 	}
-	public void setPoint(int point) {
-		this.point = point;
+	public void setOther(String other) {
+		this.other = other;
 	}
+	
+	
 	
 }

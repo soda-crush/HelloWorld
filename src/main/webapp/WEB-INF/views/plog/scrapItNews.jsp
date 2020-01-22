@@ -61,7 +61,7 @@
 		                        <img src="${ownerInfo.profileImg }" class="card-img-top" alt="..." style="width: 85%;margin:7.5%;">
 		                        <div class="card-body">
 	                            <div class="card-title line-over" style="text-align: center;font-size:20px;font-weight:bold;margin-bottom:0px;">${ownerInfo.nickName} <span style="font-size:15px;">님</span></div>
-		                            <p class="card-text" style="text-align: center;font-size:12px;">POINT <span style="font-size:15px;font-weight:bold;">${ownerInfo.point }</span></p>
+		                            <p class="card-text" style="text-align: center;font-size:12px;">POINT <span style="font-size:15px;font-weight:bold;">${point }</span></p>
 		                        </div>
 	                    	</div>
 	                    	<div class="d-md-none" style="background-color:white;border-radius:5px;height:200px;border: 1px solid rgba(0,0,0,.125); padding:15px;margin-right:10px;">
@@ -70,7 +70,7 @@
 	                    		</div>
 		                        <div style="float:left;margin-top:100px;margin-left:20px;">
 	                            <div class="card-title line-over" style="text-align: center;font-size:20px;font-weight:bold;margin-bottom:0px;">${ownerInfo.nickName} <span style="font-size:15px;">님</span></div>
-		                            <p class="card-text" style="text-align: center;font-size:12px;">POINT <span style="font-size:15px;font-weight:bold;">${ownerInfo.point }</span></p>
+		                            <p class="card-text" style="text-align: center;font-size:12px;">POINT <span style="font-size:15px;font-weight:bold;">${point }</span></p>
 		                        </div>
 	                    	</div>
 	                    </div>
@@ -78,15 +78,15 @@
 	                <div class="col-12 col-md-8 col-lg-9 scraptwrap" style="min-height:600px;">
 	    	 				<div class="btn-group" role="group" aria-label="Basic example" style="margin-top:20px;margin-bottom:20px;">
 								<button type="button" class="btn btn-flat btn-xs btn-secondary" onclick="location.href='${pageContext.request.contextPath}/Scrap/itNews.do'">IT 뉴스</button>
-								<button type="button" class="btn btn-flat btn-xs btn-outline-secondary" onclick="location.href='${pageContext.request.contextPath}/Scrap/cohow.do'">코드 지식인</button>
+								<button type="button" class="btn btn-flat btn-xs btn-outline-secondary" onclick="location.href='${pageContext.request.contextPath}/Scrap/cohow.do'">Code-How</button>
 								<button type="button" class="btn btn-flat btn-xs btn-outline-secondary" onclick="location.href='${pageContext.request.contextPath}/Scrap/industryStatus.do'">업계 현황</button>
 								<button type="button" class="btn btn-flat btn-xs btn-outline-secondary" onclick="location.href='${pageContext.request.contextPath}/Scrap/project.do'">프로젝트</button>
 			           		</div>
 			         	<div class="tableDiv" >
 							<div class="row tableHead">
-							    <div class="col-7 col-lg-5">제목</div>
-							    <div class="col-2">작성자</div>
-							    <div class="col-3">작성일</div>
+							    <div class="col-7 col-lg-6">제목</div>
+							    <div class="col-3 col-lg-2">작성자</div>
+							    <div class="col-2">작성일</div>
 							    <div class="col-2 d-none d-lg-block">조회수</div>				    
 							</div>
 						  	<c:choose>
@@ -96,13 +96,13 @@
 						  		<c:otherwise>
 						  			<c:forEach items="${nlist}" var="dto">
 						  				<div class="row tableBody p-0">
-							    			<div style="cursor:pointer;" class="col-7 col-lg-5 line-over"><a href="${pageContext.request.contextPath}/itnews/detail?seq=${dto.seq}&page=${page}">${dto.title}</a></div>
-							    			<div class="col-2 line-over" style="text-align:left;">
-							    				<span style="cursor:pointer" onclick="popUp('${dto.id}','${dto.writer}')">
+							    			<div style="cursor:pointer;text-align:left;font-weight:bold;" class="col-7 col-lg-6 line-over pl-2"><a style="color:black;" href="${pageContext.request.contextPath}/itnews/detail?seq=${dto.seq}&page=${page}">${dto.title}</a></div>
+							    			<div class="col-3 col-lg-2 line-over pl-0 pr-0" >
+							    				<span style="cursor:pointer;font-weight:400;" onclick="popUp('${dto.id}','${dto.writer}')">
 													${dto.writer}
 												</span>
 											</div>
-							    			<div class="col-3">${dto.getDate()}</div>
+							    			<div class="col-2" style="text-align:center;">${dto.getDate()}</div>
 							    			<div class="col-2 d-none d-lg-block">${dto.viewCount}</div>	
 										</div>
 						  			</c:forEach>

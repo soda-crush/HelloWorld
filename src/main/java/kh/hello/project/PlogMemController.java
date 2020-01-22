@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import kh.hello.configuration.Configuration;
 import kh.hello.dto.CodeQuestionDTO;
+import kh.hello.dto.MemberDTO;
 import kh.hello.dto.OwnerInfoDTO;
+import kh.hello.services.MemberService;
 import kh.hello.services.PlogCohowService;
 
 @Controller
@@ -20,6 +22,9 @@ public class PlogMemController {
 
 	@Autowired
 	private PlogCohowService pcs;
+	
+	@Autowired
+	private MemberService ms;
 	
 	@Autowired
 	private HttpSession session;
@@ -43,6 +48,8 @@ public class PlogMemController {
 		List<CodeQuestionDTO> rlist = pcs.selectMyReplyListByPage(id,rstart,rend);
 		List<String> qpageNavi = pcs.getScrapPageNavi(id, qcurrentPage, "Q",rcurrentPage);
 		List<String> rpageNavi = pcs.getScrapPageNavi(id, rcurrentPage, "R",qcurrentPage);
+		MemberDTO mdto = ms.selectMember(ownerInfo.getId());
+		request.setAttribute("point", mdto.getPoint());
 		request.setAttribute("qlist", qlist);
 		request.setAttribute("qpageNavi", qpageNavi);
 		request.setAttribute("qcpage", qcurrentPage);
@@ -54,7 +61,18 @@ public class PlogMemController {
 
 	@RequestMapping("/toPlogProject.do")
 	public String toPlogProject() {
+		OwnerInfoDTO ownerInfo = (OwnerInfoDTO)session.getAttribute("ownerInfo");
+		MemberDTO mdto = ms.selectMember(ownerInfo.getId());
+		request.setAttribute("point", mdto.getPoint());
 		return "/plog/plogProject";
+	}
+	
+	@RequestMapping("/toGuestProject.do")
+	public String toGuestProject() {
+		OwnerInfoDTO ownerInfo = (OwnerInfoDTO)session.getAttribute("otherInfo");
+		MemberDTO mdto = ms.selectMember(ownerInfo.getId());
+		request.setAttribute("point", mdto.getPoint());
+		return "/plog/guestProject";
 	}
 
 }

@@ -30,7 +30,7 @@ public class GuestBookService {
 	}
 	
 	//페이지 네비
-	public List<String> getGuestBookPageNavi (String ownerID, int currentPage) {
+	public List<String> getGuestBookPageNavi (String ownerID, int currentPage,String other) {
 		int recordTotalCount = gdao.TotalCount(ownerID);
 		int pageTotalCount = 0;
 
@@ -61,19 +61,33 @@ public class GuestBookService {
 		if(endNavi == pageTotalCount) {
 			needNext = false;
 		}
-
 		List<String> pages = new ArrayList<>();
-		if(needPrev) pages.add("<div class=\"page-item\"><a class=page-link  href='/GuestBook/selectList.do?cpage=" + (startNavi - 1) + "'>< </a></div>");
+		if(other.contentEquals("Y")) {
+			if(needPrev) pages.add("<div class=\"page-item\"><a class=page-link  href='/GuestBook/toGuestSelectList.do?cpage=" + (startNavi - 1) + "'>< </a></div>");
 
-		for(int i = startNavi; i <= endNavi; i++) {
-			StringBuilder sb = new StringBuilder();
-			sb.append("<div class=\"page-item\"><a class=page-link  href='/GuestBook/selectList.do?cpage="+ i +"'>");
-			sb.append(i + " ");
-			sb.append("</a></div>");
-			pages.add(sb.toString());
+			for(int i = startNavi; i <= endNavi; i++) {
+				StringBuilder sb = new StringBuilder();
+				sb.append("<div class=\"page-item\"><a class=page-link  href='/GuestBook/toGuestSelectList.do?cpage="+ i +"'>");
+				sb.append(i + " ");
+				sb.append("</a></div>");
+				pages.add(sb.toString());
+			}
+
+			if(needNext) pages.add("<div class=\"page-item\"><a class=page-link  href='/GuestBook/toGuestSelectList.do?cpage=" + (endNavi + 1) + "'>> </a></div>");
+		}else {
+			if(needPrev) pages.add("<div class=\"page-item\"><a class=page-link  href='/GuestBook/toSelectList.do?cpage=" + (startNavi - 1) + "'>< </a></div>");
+
+			for(int i = startNavi; i <= endNavi; i++) {
+				StringBuilder sb = new StringBuilder();
+				sb.append("<div class=\"page-item\"><a class=page-link  href='/GuestBook/toSelectList.do?cpage="+ i +"'>");
+				sb.append(i + " ");
+				sb.append("</a></div>");
+				pages.add(sb.toString());
+			}
+
+			if(needNext) pages.add("<div class=\"page-item\"><a class=page-link  href='/GuestBook/toSelectList.do?cpage=" + (endNavi + 1) + "'>> </a></div>");
 		}
-
-		if(needNext) pages.add("<div class=\"page-item\"><a class=page-link  href='/GuestBook/selectList.do?cpage=" + (endNavi + 1) + "'>> </a></div>");
+		
 
 		return pages;
 	}

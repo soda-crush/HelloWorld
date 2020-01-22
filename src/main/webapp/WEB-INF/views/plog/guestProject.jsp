@@ -1,4 +1,4 @@
-	<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
 <!DOCTYPE html>
@@ -43,7 +43,7 @@
 	</style>
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/standard/plogHeader.jsp"/>
+	<jsp:include page="/WEB-INF/views/standard/plogGuestHeader.jsp"/>
 	
  		<div id="plogBaseBackgroundColor">
             <div class=container>
@@ -62,18 +62,18 @@
 	                <div class="col-12 col-md-4 d-md-block d-lg-none myprofile pb-2">
 	                    <div>
 	                    	<div class="card d-none d-md-block" id="mycard">
-		                        <img src="${ownerInfo.profileImg }" class="card-img-top" alt="..." style="width: 85%;margin:7.5%;">
+		                        <img src="${otherInfo.profileImg }" class="card-img-top" alt="..." style="width: 85%;margin:7.5%;">
 		                        <div class="card-body">
-		                            <div class="card-title line-over" style="text-align: center;font-size:20px;font-weight:bold;margin-bottom:0px;">${ownerInfo.nickName} <span style="font-size:15px;">님</span></div>
+		                            <div class="card-title line-over" style="text-align: center;font-size:20px;font-weight:bold;margin-bottom:0px;">${otherInfo.nickName} <span style="font-size:15px;">님</span></div>
 		                            <p class="card-text" style="text-align: center;font-size:12px;">POINT <span style="font-size:15px;font-weight:bold;">${point}</span></p>
 		                        </div>
 	                    	</div>
 	                    	<div class="d-md-none" style="background-color:white;border-radius:5px;height:200px;border: 1px solid rgba(0,0,0,.125); padding:15px;margin-right:10px;">
 	                    		<div style="float:left">
-		                        	<img src="${ownerInfo.profileImg }" style="width:150px;margin:10px;">
+		                        	<img src="${otherInfo.profileImg }" style="width:150px;margin:10px;">
 	                    		</div>
 		                        <div style="float:left;margin-top:100px;margin-left:20px;">
-	                            <div class="card-title line-over" style="text-align: center;font-size:20px;font-weight:bold;margin-bottom:0px;">${ownerInfo.nickName} <span style="font-size:15px;">님</span></div>
+	                            <div class="card-title line-over" style="text-align: center;font-size:20px;font-weight:bold;margin-bottom:0px;">${otherInfo.nickName} <span style="font-size:15px;">님</span></div>
 		                            <p class="card-text" style="text-align: center;font-size:12px;">POINT <span style="font-size:15px;font-weight:bold;">${point }</span></p>
 		                        </div>
 	                    	</div>
@@ -88,11 +88,6 @@
 						<div class="embed-responsive p-0" style="overflow:hidden;height:655px;" id="makeFrame">
 						  <iframe class="noScrolling" src="/project/pLog/makeProjectList"></iframe>
 						</div>
-						<hr>		
-						<div class="embed-responsive p-0" style="overflow:hidden;height:605px;" id="applyFrame">
-						  <iframe class="noScrolling" src="/project/pLog/applyProjectList"></iframe>
-						</div>	                
-	                
 	                </div>
 	          	</div>
             </div>

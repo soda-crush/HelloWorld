@@ -30,6 +30,7 @@
 		.redStar{color:red;}
 		.line-over{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 		#plogPortfolio{background-color:#efefef;border-radius:5px 5px 0px 0px;padding:12px;}
+		.page{background-color:white;border-radius:5px;padding:10px;border: 1px solid rgba(0,0,0,.125);}
         input, textarea{border:1px solid #BDBDBD;background-color:#EAEAEA}
     </style>
 </head>
@@ -48,105 +49,108 @@
 
             <form action="${pageContext.request.contextPath}/Portfolio/insert.do" method="post" id="writeForm">
 	            <div class="container">
-		            <h1> 포 트 폴 리 오</h1>
-		            <div class="row">
-		                <div class="col-3 col-md-2"><span class=redStar>*</span>프로젝트명  </div>
-		                <div class="col-9 col-md-10"><input id="portfolioTitle" name="portfolioTitle" maxlength="100"></div>               
-		            </div>
-			        <hr class="sp">
-		            <div class="row">
-		                <div class="col-3 col-md-2"> 수행 기간  </div>
-		                <div class="col-9 col-md-10"> <input name="startDateTemp" type="text" id="datepicker" style="width:80px;">
-		                    ~ <input name="endDateTemp" type="text" id="datepicker2" style="width:80px;"> </div>               
-		            </div>
-			        <hr class="sp">
-		            <div class="row">
-		                <div class="col-3 col-md-2"><span class=redStar>*</span>개발 목표 </div>
-		                <div class="col-9 col-md-10"><input id="purpose" name="purpose" maxlength="300" ></div>               
-		            </div>
-			        <hr class="sp">
-		            <div class="row">
-		                <div class="col-3 col-md-2 theme"> 개발 환경 </div>
-		                <div class="col-9 col-md-10"> <textarea name="environment" maxlength="300"></textarea></div>               
-		            </div>
-			        <hr class="sp">
-		            <div class="row">
-		                <div class="col-3 col-md-2 theme"> 구현 기능 </div>
-		                <div class="col-9 col-md-10"> <textarea name="allFunction" maxlength="1300"></textarea></div>               
-		            </div>
-			        <hr class="sp">
-		            <div class="row">
-		                <div class="col-3 col-md-2 theme">  DB 설계 </div>
-		                <div class="col-9 col-md-10"> <textarea name="dbUnitPlan" maxlength="1300"></textarea></div>               
-		            </div>
-			        <hr class="sp">
-		            <div class="row">
-		                <div class="col-3 col-md-2 theme"> 담당 역할 </div>
-		                <div class="col-9 col-md-10"> <textarea name="role" maxlength="1300"></textarea></div>               
-		            </div>
-			        <hr class="sp">
-		            <div class="row">
-		                <div class="col-3 col-md-2 theme"> 참여/기여도 </div>
-		                <div class="col-9 col-md-10"> <textarea name="contribution" maxlength="1300"></textarea></div>               
-		            </div>
-		            <h4>구현 기능</h4>
-		            <div class="row">
-		                <div class="col-12 col-sm-3 col-xl-2">
-                       		<input type="file" id="fileUpload1" name="fileUpload1" accept="image/*">
-		                	<img id="fileImg1"src="/img/noImage.png" style="height: 95%;width:100%;max-height: 170px;">
-		                	<input type="hidden" name ="image1" id="file1" value="/img/noImage.png">
-		                </div>
-		                <div class="col-12 col-sm-9 col-xl-10">
-		                    <div class="row">
-		                        <div class="col-3 col-sm-2  col-lg-1" id="funcname"> 기능명</div>
-		                        <div class="col-9 col-sm-10 col-lg-11" id="funcname1"><input  name="function1" style="height:18px margin-bottom:" maxlength="100"> </div>
-		                        <div class="col-3 col-sm-2  col-lg-1" id="funcexpl" > 설명</div>
-		                        <div class="col-9 col-sm-10 col-lg-11"><textarea name="explanation1" style="height:150px;" maxlength="1300"></textarea>
-		                        </div>
-		                    </div>
-		                </div>
-		            </div>
-			        <hr class="sp">
-		            <div class="row">
-		                <div class="col-12 col-sm-3 col-xl-2">
-                       		<input type="file" id="fileUpload2" name="fileUpload2" accept="image/*">
-		                	<img id="fileImg2"src="/img/noImage.png" style="height: 95%;width:100%;max-height: 170px;">
-		                	<input type="hidden" name ="image2" id="file2" value="/img/noImage.png">
-		                </div>
-		                <div class="col-12 col-sm-9 col-xl-10">
-		                    <div class="row">	
-		                        <div class="col-3 col-sm-2  col-lg-1" id="funcname"> 기능명</div>
-		                        <div class="col-9 col-sm-10 col-lg-11" id="funcname2"><input name="function2" style="height:18px margin-bottom:" maxlength="100"> </div>
-		                        <div class="col-3 col-sm-2  col-lg-1" id="funcexpl" > 설명</div>
-		                        <div class="col-9 col-sm-10 col-lg-11"><textarea name="explanation2" style="height:150px;" maxlength="1300"></textarea>
-		                        </div>
-		                    </div>
-		                </div>
-		            </div>
-			        <hr class="sp">
-		            <div class="row">
-		                <div class="col-12 col-sm-3 col-xl-2">
-		                	<input type="file" id="fileUpload3" name="fileUpload3" accept="image/*">
-		                	<img id="fileImg3"src="/img/noImage.png" style="height: 95%;width:100%;max-height: 170px;">
-		                	<input type="hidden" name ="image3" id="file3" value="/img/noImage.png">
-		                </div>
-		                <div class="col-12 col-sm-9 col-xl-10">
-		                    <div class="row">
-		                        <div class="col-3 col-sm-2  col-lg-1" id="funcname"> 기능명</div>
-		                        <div class="col-9 col-sm-10 col-lg-11 " id="funcname3"><input name="function3" style="height:18px margin-bottom:" maxlength="100"> </div>
-		                        <div class="col-3 col-sm-2  col-lg-1" id="funcexpl" > 설명</div>
-		                        <div class="col-9 col-sm-10 col-lg-11"><textarea name="explanation3" style="height:150px;" maxlength="1300"></textarea>
-		                        </div>
-		                    </div>
-		                </div>
-		            </div>
-			        <hr class="sp">
-		             <div class="row">
-		                <div class="col-3 col-md-2"> 깃 링크  </div>
-		                <div class="col-9 col-md-10"><input name="git" maxlength="130"> </div>               
-		            </div>
-			        <br>
-		            <div style="text-align: end;">
+	            	<div class="page">
+			            <h1> 포 트 폴 리 오</h1>
+			            <div class="row">
+			                <div class="col-3 col-md-2"><span class=redStar>*</span>프로젝트명  </div>
+			                <div class="col-9 col-md-10"><input id="portfolioTitle" name="portfolioTitle" maxlength="100"></div>               
+			            </div>
+				        <hr class="sp">
+			            <div class="row">
+			                <div class="col-3 col-md-2"> 수행 기간  </div>
+			                <div class="col-9 col-md-10"> <input name="startDateTemp" type="text" id="datepicker" style="width:80px;">
+			                    ~ <input name="endDateTemp" type="text" id="datepicker2" style="width:80px;"> </div>               
+			            </div>
+				        <hr class="sp">
+			            <div class="row">
+			                <div class="col-3 col-md-2"><span class=redStar>*</span>개발 목표 </div>
+			                <div class="col-9 col-md-10"><input id="purpose" name="purpose" maxlength="300" ></div>               
+			            </div>
+				        <hr class="sp">
+			            <div class="row">
+			                <div class="col-3 col-md-2 theme"> 개발 환경 </div>
+			                <div class="col-9 col-md-10"> <textarea name="environment" maxlength="300"></textarea></div>               
+			            </div>
+				        <hr class="sp">
+			            <div class="row">
+			                <div class="col-3 col-md-2 theme"> 구현 기능 </div>
+			                <div class="col-9 col-md-10"> <textarea name="allFunction" maxlength="1300"></textarea></div>               
+			            </div>
+				        <hr class="sp">
+			            <div class="row">
+			                <div class="col-3 col-md-2 theme">  DB 설계 </div>
+			                <div class="col-9 col-md-10"> <textarea name="dbUnitPlan" maxlength="1300"></textarea></div>               
+			            </div>
+				        <hr class="sp">
+			            <div class="row">
+			                <div class="col-3 col-md-2 theme"> 담당 역할 </div>
+			                <div class="col-9 col-md-10"> <textarea name="role" maxlength="1300"></textarea></div>               
+			            </div>
+				        <hr class="sp">
+			            <div class="row">
+			                <div class="col-3 col-md-2 theme"> 참여/기여도 </div>
+			                <div class="col-9 col-md-10"> <textarea name="contribution" maxlength="1300"></textarea></div>               
+			            </div>
+	            	</div>
+	            	<div class="page" style="margin-top:20px;">
+			            <h4>구현 기능</h4>
+			            <div class="row">
+			                <div class="col-12 col-sm-3 col-xl-2">
+	                       		<input type="file" id="fileUpload1" name="fileUpload1" accept="image/*">
+			                	<img id="fileImg1"src="/img/noImage.png" style="height: 95%;width:100%;max-height: 170px;">
+			                	<input type="hidden" name ="image1" id="file1" value="/img/noImage.png">
+			                </div>
+			                <div class="col-12 col-sm-9 col-xl-10">
+			                    <div class="row">
+			                        <div class="col-3 col-lg-2" id="funcname"><span class=redStar>*</span> 기능명</div>
+			                        <div class="col-9 col-lg-10" id="funcname1"><input id="funcn1" name="function1" style="height:18px margin-bottom:" maxlength="100"> </div>
+			                        <div class="col-3 col-lg-2" id="funcexpl" ><span class=redStar>*</span> 설명</div>
+			                        <div class="col-9 col-lg-10"><textarea id="funce1" name="explanation1" style="height:150px;" maxlength="1300"></textarea>
+			                        </div>
+			                    </div>
+			                </div>
+			            </div>
+				        <hr class="sp">
+			            <div class="row">
+			                <div class="col-12 col-sm-3 col-xl-2">
+	                       		<input type="file" id="fileUpload2" name="fileUpload2" accept="image/*">
+			                	<img id="fileImg2"src="/img/noImage.png" style="height: 95%;width:100%;max-height: 170px;">
+			                	<input type="hidden" name ="image2" id="file2" value="/img/noImage.png">
+			                </div>
+			                <div class="col-12 col-sm-9 col-xl-10">
+			                    <div class="row">	
+			                        <div class="col-3 col-lg-2" id="funcname"> 기능명</div>
+			                        <div class="col-9 col-lg-10" id="funcname2"><input name="function2" style="height:18px margin-bottom:" maxlength="100"> </div>
+			                        <div class="col-3 col-lg-2" id="funcexpl" > 설명</div>
+			                        <div class="col-9 col-lg-10"><textarea name="explanation2" style="height:150px;" maxlength="1300"></textarea>
+			                        </div>
+			                    </div>
+			                </div>
+			            </div>
+				        <hr class="sp">
+			            <div class="row">
+			                <div class="col-12 col-sm-3 col-xl-2">
+			                	<input type="file" id="fileUpload3" name="fileUpload3" accept="image/*">
+			                	<img id="fileImg3"src="/img/noImage.png" style="height: 95%;width:100%;max-height: 170px;">
+			                	<input type="hidden" name ="image3" id="file3" value="/img/noImage.png">
+			                </div>
+			                <div class="col-12 col-sm-9 col-xl-10">
+			                    <div class="row">
+			                        <div class="col-3 col-lg-2" id="funcname"> 기능명</div>
+			                        <div class="col-9 col-lg-10 " id="funcname3"><input name="function3" style="height:18px margin-bottom:" maxlength="100"> </div>
+			                        <div class="col-3 col-lg-2" id="funcexpl" > 설명</div>
+			                        <div class="col-9 col-lg-10"><textarea name="explanation3" style="height:150px;" maxlength="1300"></textarea>
+			                        </div>
+			                    </div>
+			                </div>
+			            </div>
+				        <hr class="sp">
+			             <div class="row">
+			                <div class="col-3 col-md-2"> 깃 링크  </div>
+			                <div class="col-9 col-md-10"><input name="git" maxlength="130"> </div>               
+			            </div>
+	            	</div>
+		            <div style="text-align: end;margin-top:20px;">
 		            	<button class="btn btn-primary" type="button" id="insert">작성</button>
 		            	<button class="btn btn-secondary" type="button" id="return">목록</button>
 		            </div>
@@ -269,11 +273,10 @@
 	  			    })
                 })
                 $("#insert").on("click",function(){
-                	console.log($("#portfolioTitle").val());
-                	if($("#portfolioTitle").val() && $("#purpose").val()){
+                	if($("#portfolioTitle").val() && $("#purpose").val() && $("#funcn1").val() && $("#funce1").val() ){
                 		$("#writeForm").submit();
                 	}else{
-                		alert("프로젝트명과  개발 목표는 필수 입력 사항입니다.")
+                		alert("프로젝트명과  개발 목표는 구현기능 1은 필수 입력 사항입니다.")
                 	}
                 })
 		</script>	

@@ -43,7 +43,7 @@
                     <a id="indusNavi" class="nav-item nav-link" href="${pageContext.request.contextPath}/industry/industryStatusList.do" style="font-family:'NanumgothicBold';">업계현황</a>
                     <a id="itNavi" class="nav-item nav-link" href="${pageContext.request.contextPath}/itnews/itnewsList" style="font-family:'NanumgothicBold';">IT 뉴스</a>
                     <a id="proNavi" class="nav-item nav-link" href="${pageContext.request.contextPath}/project/list" style="font-family:'NanumgothicBold';">프로젝트</a>
-                    <a id="plogNavi" class="nav-item nav-link" href="${pageContext.request.contextPath}/Portfolio/toPlog.do?owner=${loginInfo.id}" style="font-family:'NanumgothicBold';">P-log</a>
+                    <a id="plogNavi" class="nav-item nav-link" href="${pageContext.request.contextPath}/Portfolio/toPlog.do?owner=${loginInfo.id}&other='N'" style="font-family:'NanumgothicBold';">P-log</a>
                 </div>
             </div>
         </nav>
