@@ -244,6 +244,11 @@ span:nth-child(4) {
                      </c:if>
                   </div>
                </c:if>
+               
+            <br>           
+            <div class="row">
+            	<div class="col-12" id=adver style="height:100px;background-color:dodgerblue;color:white; text-align:center; line-height:100px;">광고자리</div>
+            </div>
             	
 				<!-- 답글 시작-->
 				<c:forEach items="${rResult}" var="r">
@@ -487,12 +492,7 @@ span:nth-child(4) {
 			<div style="text-align: right; margin-top:5px; margin-left:5px" class="btnDIv">
                    <a class="btn btn-dark" href="/code/codeQList.do" role="button">목록</a>
             </div>
-            <br>
-            
-            <div class="row">
-            	<div class="col-12" id=adver style="height:200px;background-color:dodgerblue;color:white; text-align:center; line-height:200px;">광고자리</div>
-            </div>
-                     
+                   
 			<div class=row>
 				<div class="col-12" id=aroundContent></div>
 			</div>
