@@ -79,7 +79,6 @@ public class MemberController {
 				e.printStackTrace();
 				return "error";
 			}
-			
 	}
 	
 	@RequestMapping("/logout")
