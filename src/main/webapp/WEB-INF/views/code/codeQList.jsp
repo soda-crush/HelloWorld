@@ -279,9 +279,9 @@ a:hover {
 		}
 	})
 	
-	$("#search").on("click",function(){
-		$("frm").submit();
-	})
+// 	$("#search").on("click",function(){
+// 		$("#frm").submit();
+// 	})
 	
 	function detailView(seq){
 		location.href="${pageContext.request.contextPath}/code/codeDetail.do?seq="+seq;
