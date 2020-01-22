@@ -20,6 +20,8 @@
 	type="text/css" />
 <link rel="stylesheet" href="/css/industry/industryBase.css"
 	type="text/css" />
+<link rel="stylesheet" href="/css/industry/list.css"
+	type="text/css" />	
 	<script type="text/JavaScript"
    src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 	
@@ -160,7 +162,9 @@
 	            	</div>
             	</div>
             	<div class="row">
-            		<div class="col-12" id=adver style="height:200px;background-color:green;color:white;">광고자리</div>
+            		<div class="col-12" id=adver style="height:200px;">
+            			<img src="/img/ad${ad}.png" class="d-block w-100" height=200px; alt="...">
+            		</div>
             	</div>
             	<div class=row>
 	            	<div class=col-12>
