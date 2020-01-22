@@ -337,7 +337,7 @@ public class ProjectMemController {
 	}
 	
 	@RequestMapping("/pLog/makeProjectList")
-	public String makeProjectList(String page, String searchOption, String keyword, Model m){
+	public String makeProjectList(String page, String searchOption, String keyword, String guestConnect, Model m){
 		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
 		String id = sessionValue.getId();						
 		int currentPage = 1;
@@ -351,6 +351,7 @@ public class ProjectMemController {
 		String pageNavi = svc.getPLogProjectPageNavi(currentPage, id, "makeProjectList", searchOption, keyword);
 		m.addAttribute("makePageNavi", pageNavi);
 		m.addAttribute("makeCurrentPage", currentPage);
+		m.addAttribute("guestConnect", guestConnect);
 		return "/project/pLogMakeProject";
 	}
 	
