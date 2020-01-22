@@ -11,7 +11,7 @@ public class BambooCoDTO {
 	private Timestamp writeDate;
 	private String profileImg;
 	private String formedWriteDate;
-	
+
 	public String getProfileImg() {
 		return profileImg;
 	}
@@ -60,21 +60,21 @@ public class BambooCoDTO {
 	public BambooCoDTO() {
 		super();
 	}
-	
+
 	public void setFormedWriteDate(String formedWriteDate) {
-		this.formedWriteDate = formedWriteDate;
+		this.formedWriteDate = getFormedWriteDate();
 	}
-	
+
 	public String getFormedWriteDate() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
-		String result = sdf.format(this.writeDate);
-		return result;
+		this.formedWriteDate = sdf.format(this.writeDate);
+		return this.formedWriteDate;
 	}
-	
+
 	public String getFormedWriteDateForAdmin() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
 		String result = sdf.format(this.writeDate);
 		return result;
 	}
-	
+
 }

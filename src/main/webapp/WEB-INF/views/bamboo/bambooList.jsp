@@ -174,25 +174,7 @@
 				return false;
 			}else{
 				location.href="/bamboo/bambooWrite.do";
-			}
-// 			$.ajax({
-// 				url : "/bamboo/memLevel.do",
-// 				type : "post",
-// 				dataType : "json",
-// 				data : {
-// 					id : "${sessionScope.loginInfo.id}"
-// 				}
-// 			}).done(function(resp){
-// 				if(resp > 1){
-// 					location.href="/bamboo/bambooWrite.do";
-// 				}else{
-// 					alert("권한이 없습니다. 관리자에게 문의하세요.")
-// 					return false;
-// 				}
-				
-// 			}).fail(function(resp){
-// 				console.log("실패");
-// 			})
+			} 			
 		})
 		</script>
 		<c:if test="${bambooList.size() != 0}">
@@ -200,12 +182,12 @@
 		$(function(){
 		var element = $(".pageNavi");
 		var page = "${page}";
-		if(page > 0 && page <= 10){
+		if(page > 0 && page <= 5){
 			element[page-1].classList.add('active');
-		}else if(page % 10 == 0){
-			element[10].classList.add('active');
+		}else if(page % 5 == 0){
+			element[5].classList.add('active');
 		}else{
-			element[page % 10].classList.add('active');
+			element[page % 5].classList.add('active');
 		}	
 		});
 	</script>
