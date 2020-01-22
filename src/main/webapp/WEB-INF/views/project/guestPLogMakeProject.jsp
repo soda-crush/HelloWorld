@@ -63,25 +63,6 @@
 				  		</c:otherwise>
 				  	</c:choose>				    
 				</div>
-				<div class="row pageListFooter">
-					<div class="col-12 order-2 order-lg-1 col-lg-10">
-						  <form class="form-inline" action="/project/pLog/makeProjectList" method="post" id="searchFrm">
-							<select class="form-control searchSelect" name="searchOption" id="searchOption" style="margin-right:5px;">
-								<option selected disabled>선택</option>
-								<option value="all">제목+내용</option>
-							    <option value="title">제목</option>
-							    <option value="contents">내용</option>
-							    <option value="location">지역</option>
-							    <option value="capacity">인원</option>								    
-							</select>
-						    <input class="form-control mr-sm-2" type="search" placeholder="검색어를 입력하세요" aria-label="Search" name="keyword" id="keyword" style="margin-right:5px;">
-						    <button class="btn btn-dark my-2 my-sm-0" type="submit" id="searchBtn">검색</button>
-						  </form>
-					</div>								
-					<div class="col-12 order-1 order-lg-2 col-lg-2 text-right">
-						<button class="btn btn-success mb-2" type="button" onclick="popUp('/project/write')">글쓰기</button>			
-					</div>
-				</div>
 				<nav aria-label="List navi" id="mPageNavi">${makePageNavi }</nav>
 			</div>
 		<script>

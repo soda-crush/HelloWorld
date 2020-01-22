@@ -336,9 +336,28 @@ public class ProjectMemController {
 		return "/project/projectPLogList";
 	}
 	
+	@RequestMapping("/pLog/makeGuestProjectList")
+	public String makeGuestProjectList(String page, String searchOption, String keyword, String guestConnect, Model m){
+		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("otherInfo");
+		String id = sessionValue.getId();						
+		int currentPage = 1;
+		if(page!=null) {
+			currentPage = Integer.parseInt(page);
+		}
+		int start = currentPage * (Configuration.pLogProjectRecordCountPerPage)-(Configuration.pLogProjectRecordCountPerPage-1);
+		int end = currentPage * (Configuration.pLogProjectRecordCountPerPage);
+		List<ProjectDTO> result = svc.makeProjectListPerPage(start, end, id, searchOption, keyword);
+		m.addAttribute("makeProjectList", result);
+		String pageNavi = svc.getPLogProjectPageNavi(currentPage, id, "makeProjectList", searchOption, keyword);
+		m.addAttribute("makePageNavi", pageNavi);
+		m.addAttribute("makeCurrentPage", currentPage);
+		m.addAttribute("guestConnect", guestConnect);
+		return "/project/guestPLogMakeProject";
+	}
+	
 	@RequestMapping("/pLog/makeProjectList")
 	public String makeProjectList(String page, String searchOption, String keyword, String guestConnect, Model m){
-		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
+		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("ownerInfo");
 		String id = sessionValue.getId();						
 		int currentPage = 1;
 		if(page!=null) {
