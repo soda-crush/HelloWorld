@@ -31,7 +31,7 @@
         a:hover{text-decoration:none;}
         .tableBody{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
         .line-over{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-        #plogCohow{background-color:#efefef;border-radius:5px 5px 0px 0px;padding:12px;}
+        #plogCohow{background-color:#efefef;border-radius:5px 5px 0px 0px;padding:13px;}
 	</style>
 </head>
 <body>
@@ -67,7 +67,7 @@
 	                    	</div>
 	                    </div>
 	                </div>
-	                <div class="col-12 col-md-8 col-lg-9 cohowwrap" style="min-height:600px;">
+	                <div class="col-12 col-md-8 col-lg-9 cohowwrap" style="min-height:700px;">
 	                	<div class="tableDiv">
 	                		<div class="coltheme"> 내 질문</div>
 							<div class="row tableHead">
@@ -182,25 +182,26 @@
 	    		var element = $(".qpageNavi");
 	    		var qcpage = "${qcpage}";
 	    		if(element.length != 0){
-	    			if(qcpage > 0 && qcpage <= 10){
+	    			if(qcpage > 0 && qcpage <= 5){
 		    			element[qcpage-1].classList.add('active');
-		    		}else if(qcpage % 10 == 0){
-		    			element[10].classList.add('active');
+		    		}else if(qcpage % 5 == 0){
+		    			element[5].classList.add('active');
 		    		}else{
-		    			element[qcpage % 10].classList.add('active');
+		    			element[qcpage % 5].classList.add('active');
 		    		}
 	    		}
 	    	});
 	    	$(function(){
 	    		var element = $(".rpageNavi");
 	    		var rcpage = "${rcpage}";
+	    		
 	    		if(element.length != 0){
-	    			if(rcpage > 0 && rcpage <= 10){
+	    			if(rcpage > 0 && rcpage <= 5){
 		    			element[rcpage-1].classList.add('active');
-		    		}else if(rcpage % 10 == 0){
-		    			element[10].classList.add('active');
+		    		}else if(rcpage % 5 == 0){
+		    			element[5].classList.add('active');
 		    		}else{
-		    			element[rcpage % 10].classList.add('active');
+		    			element[rcpage % 5].classList.add('active');
 		    		}	
 	    		}
 	    	});
@@ -210,7 +211,7 @@
 	    			return false;
 	    		}
 	    		else{
-	    			window.open("/Portfolio/toPlog.do?owner="+id, "pLogPopUp", "width=600,height=600");
+	    			window.open("/Portfolio/toPlog.do?owner="+id+"&other=Y", "pLogPopUp", "width=600,height=600");
 	    		}
 	          
 	         }

@@ -155,7 +155,7 @@ public class PortfolioMemController {
 			odto.setId(mdto.getId());	
 			odto.setNickName(mdto.getNickName());
 			odto.setProfileImg(mdto.getProfileImg());
-			if(other.contentEquals("Y")) {
+			if(other.contentEquals("Y") && !(owner.contentEquals(ldto.getId()))) {
 				session.setAttribute("otherInfo", odto);
 				return "redirect:toGuestPlogmain.do";
 			}else {
