@@ -15,6 +15,8 @@
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/css/mainBase.css">
+<link rel="stylesheet" href="/css/font-awesome/css/font-awesome.css" type="text/css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath }/adRsc/css/themify-icons.css">
 <link rel="stylesheet" href="/css/code/codeBase.css" type="text/css"/>
 
 <script>
@@ -76,6 +78,12 @@ a:hover {
 }
  #baseBackgroundColor{
  background-color: #e8e8e890;
+ }
+ h5{
+ 	height:12px;
+ }
+ #footerSpace{
+ 	height:10px;
  }
 </style>
 </head>
@@ -199,7 +207,7 @@ a:hover {
 	                                </select>
 	                                </div>
 	                                <div class="col-sm-8 my-1 pl-1 pr-1">
-									<input type="text" class="form-control form-control-sm" name="search" placeholder="검색어를 입력하세요">
+									<input type="text" class="form-control form-control-sm" name="search" maxlength=100 placeholder="검색어를 입력하세요(100자이내)">
 									</div>
 									<div class="col-sm-2 my-1 p-0 pl-1 pr-1 text-center">
 										<button class="btn btn-primary btn-xs btn-block" id="search" style="height:30px; text-align:center; line-height:0px;">검색</button>
@@ -208,9 +216,11 @@ a:hover {
 							</form>
 			</div>
 		</div>
+			<div class=container>
 				<div class=row>
 					<div class="col-12" id=aroundContent></div>
 				</div>
+			</div>
 	</div>
 	
 	<jsp:include page="/WEB-INF/views/standard/footer.jsp" />

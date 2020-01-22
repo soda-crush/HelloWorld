@@ -16,10 +16,8 @@
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/css/mainBase.css">
-<link rel="stylesheet" href="/css/font-awesome/css/font-awesome.css"
-	type="text/css" />
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/adRsc/css/themify-icons.css">
+<link rel="stylesheet" href="/css/font-awesome/css/font-awesome.css" type="text/css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath }/adRsc/css/themify-icons.css">
 <link rel="stylesheet" href="/css/code/codeBase.css" type="text/css"/>
 	
 <script>
@@ -208,13 +206,13 @@ span:nth-child(4) {
 
                	<c:if test="${qResult.id!=sessionScope.loginInfo.id}">
                	  	  <div style="float:left">
-               	  		<c:if test="${count==0 && adoptCount==0}">
+               	  		<c:if test="${count==0 && adoptCount==0 && sessionScope.loginInfo.memLevel!=1}" >
 	                        <a class="btn btn-dark"
 	                           href="/code/codeRWrite.do?seq=${qResult.seq}" role="button">답변하기</a>
 	                     </c:if>
 	                  </div>
 	                  <div style="text-align: right;">
-	                     <a id="kakao-link-btn" href="javascript:;" onClick="shareKakaotalk();" style="text-decoration:none"> 
+	                      <a id="kakao-link-btn" href="javascript:;" onClick="shareKakaotalk();" style="text-decoration:none"> 
 	                         <img src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" height=38/>
 	                      </a>
 	                     
@@ -226,7 +224,7 @@ span:nth-child(4) {
 	                     <!--    <button type="button" class="btn btn-outline-warning" id="sharing"></button> -->
 	                      
 	                     <!-- <i class="fa fa-bookmark" id="scrapDone" data-toggle="tooltip" title="스크랩"></i> -->
-	                     <c:if test="${sessionScope.loginInfo.id!=null}">
+	                     <c:if test="${sessionScope.loginInfo.id!=null && sessionScope.loginInfo.memLevel!=1}">
 		                     <button class="btn btn-success" id="scrap">스크랩</button>
 		                     <button class="btn btn-danger" id="report">신고</button>
 	                     </c:if>
@@ -392,7 +390,7 @@ span:nth-child(4) {
 										<div class="col-12">
 											<button type="button" class="btn btn-primary"
 												id="coWriteBtn${r.seq}">작성</button>
-											<button type="button" class="btn btn-secondary" id="coCancel">취소</button>
+											<button type="button" class="btn btn-secondary" id="coCancel" onclick="coCancle(${r.seq})">취소</button>
 										</div>
 									</div>
 									<div class="row">
@@ -878,7 +876,14 @@ span:nth-child(4) {
 					
 				})
 	      });       	
-		
+	
+       	function coCancle(seq){
+       		var check = confirm("정말 취소하시겠습니까?");
+			if(check){
+				$("#pCoContents"+seq).val("");
+			}
+       	}
+
 	</script>
 </body>
 </html>
