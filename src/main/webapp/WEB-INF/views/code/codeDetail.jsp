@@ -248,8 +248,8 @@ span:nth-child(4) {
             <br>           
             <div class="row">
 <!--             	<div class="col-12" id=adver style="height:100px;background-color:dodgerblue;color:white; text-align:center; line-height:100px;">광고자리</div> -->
-            	<div class="col-12" id=adver style="height:200px;">
-            		<img src="/img/ad${ad}.png" class="d-block w-100" height=200px; alt="...">
+            	<div class="col-8" id=adver style="margin:auto;">
+            		<img src="/img/ad${ad}.png" class="d-block w-100" alt="...">
             	</div>
             </div>
             	
@@ -739,7 +739,7 @@ span:nth-child(4) {
 				return false;
 			}
 			else{
-				window.open("/Portfolio/toPlog.do?owner="+id+"&other='Y'", "pLogPopUp", "width=600,height=600");
+				window.open("/Portfolio/toPlog.do?owner="+id+"&other=Y", "pLogPopUp", "width=600,height=600");
 			}
 	      
 	     }

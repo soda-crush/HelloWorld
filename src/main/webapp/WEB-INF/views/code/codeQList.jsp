@@ -237,12 +237,12 @@ a:hover {
 		$(function(){
 			var element = $(".pageNavi");
 			var page = "${page}";
-			if(page > 0 && page <= 10){
+			if(page > 0 && page <= 5){
 				element[page-1].classList.add('active');
-			}else if(page % 10 == 0){
-				element[10].classList.add('active');
+			}else if(page % 5 == 0){
+				element[5].classList.add('active');
 			}else{
-				element[page % 10].classList.add('active');
+				element[page % 5].classList.add('active');
 			}	
 		});
 	</script>
