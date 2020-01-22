@@ -63,6 +63,7 @@
 				  		</c:otherwise>
 				  	</c:choose>				    
 				</div>
+				<c:if test="${guestConnect==null }">				
 				<div class="row pageListFooter">
 					<div class="col-12 order-2 order-lg-1 col-lg-10">
 						  <form class="form-inline" action="/project/pLog/makeProjectList" method="post" id="searchFrm">
@@ -82,6 +83,7 @@
 						<button class="btn btn-success mb-2" type="button" onclick="popUp('/project/write')">글쓰기</button>			
 					</div>
 				</div>
+				</c:if>
 				<nav aria-label="List navi" id="mPageNavi">${makePageNavi }</nav>
 			</div>
 		<script>
