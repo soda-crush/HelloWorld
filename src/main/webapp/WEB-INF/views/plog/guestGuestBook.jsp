@@ -74,8 +74,8 @@
 	                    	<form action="${pageContext.request.contextPath}/GuestBook/insert.do" method="post" id="commentForm">
 	                    		<input type="hidden" name="other" value="Y">
 		                        <div class="row"></div>
-		                        <textarea maxlength="1300" class="col-10 content" placeholder="내용을 입력해주세요" name="content"></textarea>
-		                        <button class="col-2 btn btn-outline-dark sendbt" >작성</button>
+		                        <textarea maxlength="1300" class="col-10 content" placeholder="내용을 입력해주세요" name="content" id="content"></textarea>
+		                        <button class="col-2 btn btn-outline-dark sendbt" id="sendbt" type="button" >작성</button>
 	                    	</form>	
 	                    </div>
 	                    <div class="commentlist row">
@@ -216,6 +216,13 @@
 	    		}
 	          
 	         }
+	    	$("#sendbt").on("click",function(){
+	    		console.log($("#content").val())
+	    		if($("#content").val()==""){
+	    			alert("asdf");
+	    		}
+	    		$("#commentForm").submit();
+	    	})
         </script>
 </body>
 </html>
