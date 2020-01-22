@@ -35,7 +35,7 @@
         .scrapnavi>div>a:hover{font-weight:bold;color:gray;}
         .scrapnavi{background-color: lightgray;border-radius:5px;margin-top:30px;width:200px;display:inline-block;border-right:1px solid gray;}
         .line-over{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-        #plogScrap{background-color:#efefef;border-radius:5px 5px 0px 0px;padding:12px;}
+        #plogScrap{background-color:#efefef;border-radius:5px 5px 0px 0px;padding:13px;}
         .btn-group>button{font-size:15px;}
 	</style>
 </head>
@@ -75,7 +75,7 @@
 	                    	</div>
 	                    </div>
 	                </div>
-	                <div class="col-12 col-md-8 col-lg-9 scraptwrap" style="min-height:600px;">
+	                <div class="col-12 col-md-8 col-lg-9 scraptwrap" style="min-height:700px;">
 	    	 				<div class="btn-group" role="group" aria-label="Basic example" style="margin-top:20px;margin-bottom:20px;">
 								<button type="button" class="btn btn-flat btn-xs btn-outline-secondary" onclick="location.href='${pageContext.request.contextPath}/Scrap/itNews.do'">IT 뉴스</button>
 								<button type="button" class="btn btn-flat btn-xs btn-outline-secondary" onclick="location.href='${pageContext.request.contextPath}/Scrap/cohow.do'">Code-How</button>
@@ -146,13 +146,13 @@
 	    		var element = $(".pageNavi");
 	    		var cpage = "${cpage}";
 	    		if(element.length != 0){
-		    		if(cpage > 0 && cpage <= 10){
+	    			if(cpage > 0 && cpage <= 5){
 		    			element[cpage-1].classList.add('active');
-		    		}else if(page % 10 == 0){
-		    			element[10].classList.add('active');
+		    		}else if(page % 5 == 0){
+		    			element[5].classList.add('active');
 		    		}else{
-		    			element[cpage % 10].classList.add('active');
-		    		}
+		    			element[cpage % 5].classList.add('active');
+		    		}	
 	    		}
 	    	});
 	        function popUp(id,writer){
@@ -161,7 +161,7 @@
 	    			return false;
 	    		}
 	    		else{
-	    			window.open("/Portfolio/toPlog.do?owner="+id, "pLogPopUp", "width=600,height=600");
+	    			window.open("/Portfolio/toPlog.do?owner="+id+"&other=Y", "pLogPopUp", "width=600,height=600");
 	    		}
 	          
 	         }

@@ -25,7 +25,7 @@
         a:hover{text-decoration:none;}
 		.navi{text-align: center;}
 		.line-over{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-		#plogPortfolio{background-color:#efefef;border-radius:5px 5px 0px 0px;padding:12px;}
+		#plogPortfolio{background-color:#efefef;border-radius:5px 5px 0px 0px;padding:13px;}
 		.cardheight{transition:all 0.9s, color 0.3;}
 		.cardheight:hover {color:lightgray;box-shadow: 500px 0 0 0 rgba(0,0,0,0.25) inset;}
   	</style>
@@ -66,7 +66,7 @@
 	                    	</div>
 	                    </div>
 	                </div>
-	                <div class ="col-12 col-md-8 col-lg-9 wrapportfolio" style="min-height:600px;">
+	                <div class ="col-12 col-md-8 col-lg-9 wrapportfolio" style="min-height:700px;">
 	                	<c:forEach items="${list}"  var="dto">
 	                		<div class="cardwrap col-6 col-xl-4" onclick="location.href='${pageContext.request.contextPath}/Portfolio/detail.do?seq=${dto.seq}'">
 		                        <div class="cardheight card cd-h" style="cursor:pointer">
