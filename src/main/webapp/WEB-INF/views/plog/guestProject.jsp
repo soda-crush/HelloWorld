@@ -86,7 +86,7 @@
 	                
 	                	                
 						<div class="embed-responsive p-0" style="overflow:hidden;height:655px;" id="makeFrame">
-						  <iframe class="noScrolling" src="/project/pLog/makeProjectList"></iframe>
+						  <iframe class="noScrolling" src="/project/pLog/makeProjectList?guestConnect=yes"></iframe>
 						</div>
 	                </div>
 	          	</div>

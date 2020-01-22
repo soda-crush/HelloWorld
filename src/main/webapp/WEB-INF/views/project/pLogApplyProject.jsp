@@ -60,7 +60,7 @@
 											</c:if>
 										</div>
 									</div>
-									<div class="d-none col-lg-1 d-lg-block text-decoration-none" style="cursor:pointer;" onclick="pLogPopUp('/Portfolio/toPlog.do?owner=${a.leaderId}')"><small>${a.writer }</small></div>
+									<div class="d-none col-lg-1 d-lg-block text-decoration-none" style="cursor:pointer;" onclick="pLogPopUp('/Portfolio/toPlog.do?owner=${a.leaderId}&other=Y')"><small>${a.writer }</small></div>
 								</div>	
 				  			</c:forEach>
 				  		</c:otherwise>
