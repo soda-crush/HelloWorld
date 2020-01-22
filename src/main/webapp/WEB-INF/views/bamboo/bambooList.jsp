@@ -33,7 +33,7 @@
  		<div id=baseBackgroundColor>
             <div class=container>
                 <div class=row>
-                    <div class="col-12" id=aroundContent>
+                    <div class="col-12" id=aroundContent1>
                     </div>
                 </div>
             </div>
@@ -63,11 +63,7 @@
 				</div>
 				</div>
 			</div>
-           	<div class=row>
-	            	<div class=col-12>
-	            		<br>
-	            	</div>
-            	</div>
+           	
            		<div class="tableDiv">
             	   	 <div class="row tableHead">					    
 		   			 	<div class="col-xl-2 col-2 col-md-3 d-xl-block">번호</div>
@@ -126,7 +122,7 @@
 						<option value="all">전체(제목+내용)</option>
 						<option value="title">제목</option>
 					</select>
-					<input class="form-control mr-sm-2" type="text" name=search aria-label="Search" maxlength="100">
+					<input class="form-control mr-sm-2" type="text" name=search aria-label="Search" maxlength="20" placeholder="검색어를 입력하세요.(20자이내)">
 					<input class="btn btn-dark my-2 my-sm-0 ml-1" type="button" id=search value="검색">
 					</form>
 				</div>

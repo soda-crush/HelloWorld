@@ -55,6 +55,7 @@ public class BambooMemController {
 		m.addAttribute("bPage", result);
 		m.addAttribute("comments", coResult);
 		m.addAttribute("ip",ip);
+		m.addAttribute("ad",Utils.getRandomNum(0, 8));
 		return "/bamboo/bambooDetailView";
 	}
 
@@ -200,6 +201,7 @@ public class BambooMemController {
 		dto.setReporterID(sessionValue.getId());
 		dto.setReporterNick(sessionValue.getNickName());
 		dto.setReason(Utils.protectXss(dto.getReason()));
+		dto.setTitle(Utils.protectXss(dto.getTitle()));
 		int result = service.reportProject(dto);
 		if(result>0) {
 			return "success";
@@ -207,5 +209,4 @@ public class BambooMemController {
 			return "redirect:/home/error";
 		}
 	}
-	
 }

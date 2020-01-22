@@ -14,12 +14,15 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/css/mainBase.css">
 <link rel="stylesheet" type="text/css" href="/css/font-awesome/css/font-awesome.css">
-<link rel="stylesheet" href="/css/industry/industryBase.css" type="text/css"/>
 <link rel="stylesheet" href="/css/industry/list.css" type="text/css"/>
+<link rel="stylesheet" href="/css/industry/industryBase.css" type="text/css"/>
 <style>
  #baseBackgroundColor{
  min-height:680px;
  }
+ #pageTitle{margin-bottom:20px;}
+	#pageTitle h1{display:inline;margin-right:10px;font-weight:bold;}
+	#pageTitle .btn{margin-left:5px;}
 </style>
 <script>
    $(function(){
@@ -33,7 +36,7 @@
  		<div id=baseBackgroundColor>
             <div class=container>
                 <div class=row>
-                    <div class="col-12" id=aroundContent>
+                    <div class="col-12" id=aroundContent1>
                     </div>
                 </div>
             </div>
@@ -47,7 +50,7 @@
 							<tr>
 								<td colspan="3" style="font-size: 60px; font-weight: 100; vertical-align: text-bottom"><h1>업계현황</h1></td>
 								<td></td>
-								<td style="font-size: 15px; color: gray; vertical-align: text-bottom">     업계현황에 대한 정보를 나누는 게시판입니다.</td>
+								<td style="font-size: 15px; color: gray; vertical-align: text-bottom">     재직자만 사용가능한 게시판입니다.</td>
 								<td></td>
 							</tr>
 						</table>
@@ -58,15 +61,11 @@
 				<div class="d-md-none">
 				<div id="pageTitle">
 					<div style="font-size: 60px; font-weight: 100;"><h1>업계현황</h1></div>
-					<div style="font-size: 15px; color: gray;">업계현황에 대한 정보를 나누는 게시판입니다.</div>
+					<div style="font-size: 15px; color: gray;">재직자만 사용가능한 게시판입니다.</div>
 				</div>
 				</div>
 			</div>
-				<div class=row>
-	            	<div class=col-12>
-	            		<br>
-	            	</div>
-            	</div>
+				
             	<div class="tableDiv">
 				  	 <div class="row tableHead">					    
 		   			 	<div class="col-xl-1 col-2 col-md-1 d-xl-block">번호</div>
@@ -132,7 +131,7 @@
 						<option value="writer">작성자</option>
 						<option value="title">제목</option>
 					</select>
-					<input class="form-control mr-sm-2" type="text" name=search aria-label="Search" maxlength="100">
+					<input class="form-control mr-sm-2" type="text" name=search aria-label="Search" maxlength="20" placeholder="검색어를 입력하세요.(20자이내)">
 					<input class="btn btn-dark my-2 my-sm-0 ml-1" type="button" id=search value="검색">
 					</form>
 					</div>
@@ -156,10 +155,12 @@
 				</nav>
 			            
             </div>
+            <div class=container>
 				<div class=row>
                     <div class="col-12" id=aroundContent>
                     </div>
                 </div>
+               </div>
             </div>
             <!--       몸통 끝!!!   -->
             

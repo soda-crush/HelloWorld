@@ -128,7 +128,7 @@
 						<p id=cateTitle style="display:inline;">업계현황</p>
 					</div>
 					<div class="col-12 col-xl-9 pt-xl-5">
-						<p style="display:inline;" id=cateCmt>업계현황에 대한 정보를 나누는 게시판입니다.</p>
+						<p style="display:inline;" id=cateCmt>재직자만 사용가능한 게시판입니다.</p>
 					</div>
 				</div>		
 				<div class=row>
@@ -172,7 +172,9 @@
 	            	</div>
             	</div>
         	<div class="row">
-            		<div class="col-12" id=adver style="height:200px;background-color:green;color:white;">광고자리</div>
+            		<div class="col-12" id=adver style="height:200px;">
+            			<img src="/img/ad${ad}.png" class="d-block w-100" height=200px; alt="...">
+            		</div>
             	</div>
             	<div class=row>
 	            	<div class=col-12>
