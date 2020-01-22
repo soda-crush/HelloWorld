@@ -299,6 +299,7 @@ public class CodeController {
 		dto.setReporterID(sessionValue.getId());
 		dto.setReporterNick(sessionValue.getNickName());
 		dto.setReason(Utils.protectXss(dto.getReason()));
+		dto.setTitle(Utils.protectXss(dto.getTitle()));
 		int result = sv.reportCode(dto);
 		if(result>0) {
 			return "success";
