@@ -44,6 +44,7 @@
 		<aop:pointcut expression="execution(* kh.hello.project.MemberController.mem*(..))" id="essentialMemCheckMethod2"/>
 		<aop:pointcut expression="execution(* kh.hello.project.InquiryController.*(..))" id="essentialMemCheckMethod3"/>
 		
+		
 		<aop:aspect id="memCheckAsp" ref="memCheckAdv">
 			<aop:around pointcut-ref="essentialMemCheckMethod" method="loginCheck"/>
 		</aop:aspect>	
