@@ -34,7 +34,7 @@
         .listwrap{margin: 10px; padding:5px;}
     	.line-over{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
     	.interval{width:100%;background-color:lightgray;border-radius: 8px;height:1px;margin-left:15px;}
-        #plogGuestBook{background-color:#efefef;border-radius:5px 5px 0px 0px;padding:12px;}
+        #plogGuestBook{background-color:#efefef;border-radius:5px 5px 0px 0px;padding:13px;}
     </style>
 </head>
 <body>
@@ -68,7 +68,7 @@
 	                    	</div>
 	                    </div>
 	                </div>
-	                <div class="col-12 col-md-8 col-lg-9 commentwrap" style="min-height:500px;">
+	                <div class="col-12 col-md-8 col-lg-9 commentwrap" style="min-height:700px;">
 	
 	
 	                    <div class="commentwrite">
@@ -198,12 +198,12 @@
 	    		var element = $(".pageNavi");
 	    		var cpage = "${cpage}";
 	    		if(element.length != 0){
-	    			if(cpage > 0 && cpage <= 10){
+	    			if(cpage > 0 && cpage <= 5){
 		    			element[cpage-1].classList.add('active');
-		    		}else if(page % 10 == 0){
-		    			element[10].classList.add('active');
+		    		}else if(page % 5 == 0){
+		    			element[5].classList.add('active');
 		    		}else{
-		    			element[cpage % 10].classList.add('active');
+		    			element[cpage % 5].classList.add('active');
 		    		}	
 	    		}
 	    	});
@@ -213,7 +213,7 @@
 	    			return false;
 	    		}
 	    		else{
-	    			window.open("/Portfolio/toPlog.do?owner="+id, "pLogPopUp", "width=600,height=600");
+	    			window.open("/Portfolio/toPlog.do?owner="+id+"&other=Y", "pLogPopUp", "width=600,height=600");
 	    		}
 	          
 	         }

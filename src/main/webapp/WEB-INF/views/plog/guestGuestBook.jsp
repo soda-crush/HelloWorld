@@ -23,7 +23,6 @@
         .commentlist{width:100%;padding: 0px;margin-top: 10px;float: left;}
         .col{margin: 0px; padding: 0px;}
         .content{height:90%;float: left;resize: none;}
-/*         .sendbt{height:90%;float: left;color:#fff;background-color:#343a40;font-size:20px;font-family:NanumgothicBold;} */
         .sendbt{height:90%;float: left;}
         .commentlist>div>div{margin-right: 5px;}
         #commentForm{height:100%;}
@@ -34,7 +33,7 @@
         .listwrap{margin: 10px; padding:5px;}
     	.line-over{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
     	.interval{width:100%;background-color:lightgray;border-radius: 8px;height:1px;margin-left:15px;}
-        #plogGuestBook{background-color:#efefef;border-radius:5px 5px 0px 0px;padding:12px;}
+        #plogGuestBook{background-color:#efefef;border-radius:5px 5px 0px 0px;padding:13px;}
     </style>
 </head>
 <body>
@@ -75,7 +74,6 @@
 	                    	<form action="${pageContext.request.contextPath}/GuestBook/insert.do" method="post" id="commentForm">
 	                    		<input type="hidden" name="other" value="Y">
 		                        <div class="row"></div>
-<%-- 		                        <input type="hidden" name="owner" value="${sessionScope.loginInfo}">  --%>
 		                        <textarea maxlength="1300" class="col-10 content" placeholder="내용을 입력해주세요" name="content"></textarea>
 		                        <button class="col-2 btn btn-outline-dark sendbt" >작성</button>
 	                    	</form>	
@@ -198,14 +196,14 @@
 	    		var element = $(".pageNavi");
 	    		var cpage = "${cpage}";
 	    		if(element.length != 0){
-	    			if(cpage > 0 && cpage <= 10){
+	    			if(cpage > 0 && cpage <= 5){
 		    			element[cpage-1].classList.add('active');
-		    		}else if(page % 10 == 0){
-		    			element[10].classList.add('active');
+		    		}else if(page % 5 == 0){
+		    			element[5].classList.add('active');
 		    		}else{
-		    			element[cpage % 10].classList.add('active');
+		    			element[cpage % 5].classList.add('active');
 		    		}	
-	    		}
+
 	    	});
 	    	function popUp(id,writer){
 	    		if(writer == null){
@@ -213,7 +211,7 @@
 	    			return false;
 	    		}
 	    		else{
-	    			window.open("/Portfolio/toPlog.do?owner="+id, "pLogPopUp", "width=600,height=600");
+	    			window.open("/Portfolio/toPlog.do?owner="+id+"&other=Y", "pLogPopUp", "width=600,height=600");
 	    		}
 	          
 	         }
