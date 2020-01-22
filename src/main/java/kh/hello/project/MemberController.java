@@ -15,7 +15,6 @@ import com.google.gson.JsonObject;
 import kh.hello.dto.LoginInfoDTO;
 import kh.hello.dto.MemberDTO;
 import kh.hello.services.MemberService;
-import kh.hello.utils.Utils;
 
 @Controller
 @RequestMapping("/member")
@@ -40,7 +39,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/loginProc")
-	public String loginProc(String id, String pw, HttpSession session, String noMemPath, String seq){ //로그인 프로세스
+	public String loginProc(String id, String pw, HttpSession session, String noMemPath, String seq,Model m){ //로그인 프로세스
 			int result;
 			try {
 				result = ms.login(id, pw);
@@ -80,7 +79,6 @@ public class MemberController {
 				e.printStackTrace();
 				return "error";
 			}
-			
 	}
 	
 	@RequestMapping("/logout")

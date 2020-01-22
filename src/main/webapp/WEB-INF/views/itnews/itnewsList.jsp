@@ -119,14 +119,17 @@
 					<div style="font-size: 15px; color: gray;">IT 핫이슈를 공유하는 공간입니다.</div>
 				</div>
 			</div>
-
-
-					<div class="row tableHead p-0">					    
-					    <div class="d-none col-md-1 d-md-block text-center p1-0 pr-0" style="padding-top:12px;">번호</div>
-					    <div class="d-none col-md-6 d-md-block text-center" style="padding-top:12px;">제목</div>
-					    <div class="d-none col-md-2 d-md-block text-center" style="padding-top:12px;">작성자</div>
-					    <div class="d-none col-md-2 d-md-block text-center" style="padding-top:12px;">작성일</div>
-					    <div class="d-none col-md-1 d-md-block text-center p1-0 pr-0" style="padding-top:12px;">조회</div>				    
+			<div class=row>
+				<div class="d-md-none">
+					<p style="font-size:3px;"></p>
+				</div>
+			</div>
+					<div class="row p-0">					    
+					    <div class="tableHead d-none col-md-1 d-md-block text-center p1-0 pr-0" style="padding-top:12px;">번호</div>
+					    <div class="tableHead d-none col-md-6 d-md-block text-center" style="padding-top:12px;">제목</div>
+					    <div class="tableHead d-none col-md-2 d-md-block text-center" style="padding-top:12px;">작성자</div>
+					    <div class="tableHead d-none col-md-2 d-md-block text-center" style="padding-top:12px;">작성일</div>
+					    <div class="tableHead d-none col-md-1 d-md-block text-center p1-0 pr-0" style="padding-top:12px;">조회</div>				    
 					</div>
 					
 				  	<c:choose>
@@ -145,7 +148,7 @@
 						    			<div class="orangeFt font-weight-bolder" style="display:inline;position:relative;bottom:22px;">${dto.commentCount}</div>
 						    			</c:if>
 					    			</div>
-					    			<div class="col-4 col-md-2 order-2 order-md-3 notTitle text-left text-md-center pt-3 pl-3 pr-0 cursorPointer" onclick="popUp('/Portfolio/toPlog.do?owner=${dto.id}')">${dto.writer}</div>
+					    			<div class="col-4 col-md-2 order-2 order-md-3 notTitle text-left text-md-center pt-3 pl-3 pr-0 cursorPointer" onclick="popUp('/Portfolio/toPlog.do?owner=${dto.id}&other=Y')">${dto.writer}</div>
 					    			<div class="col-3 col-md-2 order-3 order-md-4 notTitle text-left text-md-center pt-3">${dto.getDate()}</div>
 					    			<div class="col-1 col-md-1 order-4 order-md-5 notTitle text-left text-md-center pt-3">${dto.viewCount}</div>
 								</div>
@@ -161,7 +164,7 @@
 								<option value="cateTitle">제목</option>
 								<option value="cateWriter">작성자</option>
 							</select>
-							<input type="text" name="search" id=search placeholder="검색어를 검색어를 입력하세요(20자 이내)" maxlength="20">
+							<input type="text" name="search" id=search placeholder="검색어를 입력하세요(20자 이내)" maxlength="20">
 							<button class="btn btn-secondary" id=searchBtn>검색</button>
 						</div>
 						<div class="col-12 col-md-2 text-right pt-1">

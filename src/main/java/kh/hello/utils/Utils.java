@@ -28,7 +28,6 @@ public class Utils {
 	}
 	
 	public static int getRandomNum(int min, int max) {
-		System.out.println(((int)(Math.random()*max)) + 1);
 		return (((int)(Math.random()*max)) + 1);
 	}
 	

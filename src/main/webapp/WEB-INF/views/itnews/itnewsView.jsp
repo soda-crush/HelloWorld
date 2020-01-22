@@ -100,7 +100,7 @@
             		<div class="col-12" style="word-break:break-all;word-break:break-word;"><h3><br>${result.title}</h3></div>
             	</div>
             	<div class=row>
-            		<div class="col-12 gft"><hr><a class="gft cursorPointer" onclick="popUp('/Portfolio/toPlog.do?owner=${result.id}')"><img src="${profileImg}" style="width:40px;position:relative;bottom:1px;">&emsp;${result.writer}</a>&emsp;&emsp;작성일 : ${result.getDate()}&emsp;&emsp;조회 : ${result.viewCount}<hr></div>
+            		<div class="col-12 gft"><hr><a class="gft cursorPointer" onclick="popUp('/Portfolio/toPlog.do?owner=${result.id}&other=Y')"><img src="${profileImg}" style="width:40px;position:relative;bottom:1px;">&emsp;${result.writer}</a>&emsp;&emsp;작성일 : ${result.getDate()}&emsp;&emsp;조회 : ${result.viewCount}<hr></div>
             	</div>
             	<div class="row">
             		<div class="col-12" id=contentCon style="word-break:break-all;word-break:break-word;">${result.content}</div>
@@ -140,7 +140,7 @@
 												<div class="d-none d-md-block col-1 profileBox pl-1 pt-2"><img src="${dto.profileImg}" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>
 												<div class="col-8 col-md-7 pt-1">
 													<div class="row commentInfo">
-														<div class="col-12 commentWriter"><a onclick="popUp('/Portfolio/toPlog.do?owner=${dto.id}')">${dto.writer }</a></div>
+														<div class="col-12 commentWriter cursorPointer"><a onclick="popUp('/Portfolio/toPlog.do?owner=${dto.id}&other=Y')">${dto.writer }</a></div>
 														<div class="col-12 commentWriteDate">${dto.formedDate}</div>
 													</div>
 												</div>				
@@ -424,7 +424,7 @@
 									'<div class="row commentDiv commentBox'+resp[i].seq+' p-0 pb-2 m-2"><div class="col-12 commentInnerBox"><div class="row commentHeader">',
 									'<div class="d-none d-md-block col-1 profileBox pl-1 pt-2"><img src="'+resp[i].profileImg+'" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>',
 									'<div class="col-8 col-md-7 pt-1"><div class="row commentInfo">',
-									'<div class="col-12 commentWriter"><a onclick="popUp(\'/Portfolio/toPlog.do?owner='+resp[i].id+'\')" >'+resp[i].writer+'</a></div>',
+									'<div class="col-12 commentWriter cursorPointer"><a onclick="popUp(\'/Portfolio/toPlog.do?owner='+resp[i].id+'&other=Y\')" >'+resp[i].writer+'</a></div>',
 									'<div class="col-12 commentWriteDate">'+resp[i].formedDate+'</div></div></div>',
 									'<div class="col-4 pt-2 text-right commentBtns">'
 									);
