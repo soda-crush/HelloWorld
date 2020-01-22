@@ -247,7 +247,10 @@ span:nth-child(4) {
                
             <br>           
             <div class="row">
-            	<div class="col-12" id=adver style="height:100px;background-color:dodgerblue;color:white; text-align:center; line-height:100px;">광고자리</div>
+<!--             	<div class="col-12" id=adver style="height:100px;background-color:dodgerblue;color:white; text-align:center; line-height:100px;">광고자리</div> -->
+            	<div class="col-12" id=adver style="height:200px;">
+            		<img src="/img/ad${ad}.png" class="d-block w-100" height=200px; alt="...">
+            	</div>
             </div>
             	
 				<!-- 답글 시작-->
@@ -453,8 +456,7 @@ span:nth-child(4) {
 					                        '<div class="col-12 commentWriteDate" style="font-size:12px; color:gray;">'+resp[i].formedWriteDate+'</div></div></div>',
 					                        '<div class="col-5 pt-2 text-right commentBtns">'
 					                        );
-					                  if(resp[i].id==loginInfo){
-					                     
+					                  if(resp[i].id==loginInfo){                     
 					                     html.push(
 					                           '<a class="btn btn-info coModifyBtn" style="color:white;" onclick="coModFunction('+resp[i].queSeq+','+resp[i].repSeq+','+resp[i].seq+',\''+resp[i].content+'\');return false;" role="button">수정</a>\n',
 					                           '<a class="btn btn-danger coDeleteBtn" style="color:white;" onclick="coDelFunction('+resp[i].queSeq+','+resp[i].repSeq+','+resp[i].seq+');return false;" role="button">삭제</a>'
@@ -465,9 +467,9 @@ span:nth-child(4) {
 					                        '</div></div>',
 					                        '<div class="row commentContent"><div class="col-12 pt-1 pl-4" style="word-break:break-all; word-break:break-word;">'+resp[i].content+'</div></div></div></div>'
 					                        );
-					                  $(".pPageComments${r.seq}").append(html.join(""));	 			                     
-						           
-						        }
+					                  
+					                  $(".pPageComments${r.seq}").append(html.join(""));	 			                      
+						          }
 						        }).fail(function(resp){
 						        	
 						        })    
@@ -478,8 +480,8 @@ span:nth-child(4) {
 						
 				</script>
 				
-				</c:forEach>
-				<!-- 	답글끝 -->
+			</c:forEach>
+	<!-- 답글끝 -->
 
 				<br>
 				<hr>
@@ -737,7 +739,7 @@ span:nth-child(4) {
 				return false;
 			}
 			else{
-				window.open("/Portfolio/toPlog.do?owner="+id, "pLogPopUp", "width=600,height=600");
+				window.open("/Portfolio/toPlog.do?owner="+id+"&other='Y'", "pLogPopUp", "width=600,height=600");
 			}
 	      
 	     }

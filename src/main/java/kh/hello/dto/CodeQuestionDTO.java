@@ -97,7 +97,7 @@ public class CodeQuestionDTO {
 	public void setProfileImg(String profileImg) {
 		this.profileImg = profileImg;
 	}
-
+	
 	//New 하루이내 표시 
 	public String getNewWriteDate() {
 	      LocalDateTime writeDate = this.getWriteDate().toLocalDateTime();
