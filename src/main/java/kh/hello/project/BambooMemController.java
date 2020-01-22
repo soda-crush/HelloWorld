@@ -41,7 +41,6 @@ public class BambooMemController {
 		List<String> pageNavi = service.getBambooListPageNavi(currentPage);
 		m.addAttribute("pageNavi", pageNavi);
 		m.addAttribute("page", currentPage);
-
 		return "/bamboo/bambooList";
 	}
 	@RequestMapping("/bambooDetailView.do")

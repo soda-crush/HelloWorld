@@ -23,12 +23,12 @@ public class IndustryStatusCoDTO {
 
 	public String getFormedWriteDate() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
-		String result = sdf.format(this.writeDate);
-		return result;
+		this.formedWriteDate = sdf.format(this.writeDate);
+		return this.formedWriteDate;
 	}
 
 	public void setFormedWriteDate(String formedWriteDate) {
-		this.formedWriteDate = formedWriteDate;
+		this.formedWriteDate = getFormedWriteDate();
 	}
 
 	public IndustryStatusCoDTO() {

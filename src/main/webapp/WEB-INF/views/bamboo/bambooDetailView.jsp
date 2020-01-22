@@ -162,8 +162,8 @@
 	            	</div>
             	</div>
             	<div class="row">
-            		<div class="col-12" id=adver style="height:200px;">
-            			<img src="/img/ad${ad}.png" class="d-block w-100" height=200px; alt="...">
+            		<div class="col-12" id=adver>
+            			<img src="/img/ad7.png" class="" alt="...">
             		</div>
             	</div>
             	<div class=row>
