@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -369,7 +370,7 @@ span:nth-child(4) {
 															<div class="col-5 pt-2 text-right commentBtns">
 																<c:if test="${c.id==sessionScope.loginInfo.id }">
 																	<a class="btn btn-info coModifyBtn" style="color:white;"
-																		onclick="coModFunction(${c.queSeq}, ${c.repSeq}, ${c.seq}, '${c.content}');return false;"
+																		onclick="coModFunction(${c.queSeq}, ${c.repSeq}, ${c.seq});return false;"
 																		role="button">수정</a>
 																	<a class="btn btn-danger coDeleteBtn" style="color:white;"
 																		onclick="coDelFunction(${c.queSeq}, ${c.repSeq}, ${c.seq});return false;"
@@ -379,6 +380,7 @@ span:nth-child(4) {
 														</div>
 														<div class="row commentContent">
 															<div class="col-12 pt-1 pl-4" style="word-break:break-all; word-break:break-word;">${c.content }</div>
+															<input type="hidden" value="${c.modComment }" id="hiddenModCo${c.seq }">
 														</div>
 													</div>
 												</div>
@@ -458,14 +460,14 @@ span:nth-child(4) {
 					                        );
 					                  if(resp[i].id==loginInfo){                     
 					                     html.push(
-					                           '<a class="btn btn-info coModifyBtn" style="color:white;" onclick="coModFunction('+resp[i].queSeq+','+resp[i].repSeq+','+resp[i].seq+',\''+resp[i].content+'\');return false;" role="button">수정</a>\n',
+					                           '<a class="btn btn-info coModifyBtn" style="color:white;" onclick="coModFunction('+resp[i].queSeq+','+resp[i].repSeq+','+resp[i].seq+');return false;" role="button">수정</a>\n',
 					                           '<a class="btn btn-danger coDeleteBtn" style="color:white;" onclick="coDelFunction('+resp[i].queSeq+','+resp[i].repSeq+','+resp[i].seq+');return false;" role="button">삭제</a>'
 					                           );
 					                  }
-					                  
 					                  html.push(
 					                        '</div></div>',
-					                        '<div class="row commentContent"><div class="col-12 pt-1 pl-4" style="word-break:break-all; word-break:break-word;">'+resp[i].content+'</div></div></div></div>'
+					                        '<div class="row commentContent"><div class="col-12 pt-1 pl-4" style="word-break:break-all; word-break:break-word;">'+resp[i].content+'</div></div></div></div>',
+					                        '<input type="hidden" value="'+resp[i].modComment+'" id="hiddenModCo'+resp[i].seq+'">'
 					                        );
 					                  
 					                  $(".pPageComments${r.seq}").append(html.join(""));	 			                      
@@ -775,7 +777,7 @@ span:nth-child(4) {
 	                  if(resp[i].id==loginInfo){
 	                     
 	                     html.push(
-	                           '<a class="btn btn-info coModifyBtn" style="color:white;" onclick="coModFunction('+resp[i].queSeq+','+resp[i].repSeq+','+resp[i].seq+',\''+resp[i].content+'\');return false;" role="button">수정</a>\n',
+	                           '<a class="btn btn-info coModifyBtn" style="color:white;" onclick="coModFunction('+resp[i].queSeq+','+resp[i].repSeq+','+resp[i].seq+');return false;" role="button">수정</a>\n',
 	                           '<a class="btn btn-danger coDeleteBtn" style="color:white;" onclick="coDelFunction('+resp[i].queSeq+','+resp[i].repSeq+','+resp[i].seq+');return false;" role="button">삭제</a>'
 	                           );
 	                  }
@@ -793,7 +795,7 @@ span:nth-child(4) {
 		}
 	
 	//답글-댓글 수정
-		function coModFunction(queSeq,repSeq,seq,content){	
+		function coModFunction(queSeq,repSeq,seq){	
 			if("${sessionScope.loginInfo.memLevel}" == 1){
 				alert("권한이 없습니다. 관리자에게 문의하세요.");
 				return false;
@@ -804,13 +806,14 @@ span:nth-child(4) {
 				alert("현재 열려있는 댓글 수정창이 있습니다.");
 				return false;
 			}
+			var checkContents = $("#hiddenModCo"+seq).val().replace(/modF'Fdom/gi,'"');
 			$(".commentBox"+repSeq+seq).find(".commentBtns").css("display","none");
 			$(".commentBox"+repSeq+seq).find(".commentContent").css("display","none");
        		$(".commentBox"+repSeq+seq).wrap('<form action="/code/codeCModifyProc.do" method="post" id="coModFrm"></form>');
 			var html = [];
 			html.push(
 					'<div class="col-12 coModBox mt-2 mb-2"><div class="row">',
-					'<div class="col-9 col-md-10 col-xl-11 pr-0"><textarea class="form-control" placeholder="댓글 내용을 입력해주세요" maxlength="1300" id="pCoModContents" style="height:80px;" name="content">'+content+'</textarea></div>',
+					'<div class="col-9 col-md-10 col-xl-11 pr-0"><textarea class="form-control" placeholder="댓글 내용을 입력해주세요" maxlength="1300" id="pCoModContents" style="height:80px;" name="content">'+checkContents+'</textarea></div>',
 					'<div class="col-3 col-md-2 col-xl-1"><input type="hidden" name="seq" value="'+seq+'"><input type="hidden" name="repSeq" value="'+repSeq+'"><input type="hidden" name="queSeq" value="'+queSeq+'">',
 					'<div class="row">',
 					'<div class="col-12 text-center p-0">',
@@ -850,7 +853,7 @@ span:nth-child(4) {
 		               $(".pPageComments"+resp[0].repSeq).html("");               
 		               //call list
 		  	               var loginInfo = "${sessionScope.loginInfo.id}";
-		  	               for(var i=0;i<resp.length;i++){
+		  	               for(var i=0;i<resp.length;i++){   	  
 		  	                  var html = [];
 		  	                  html.push(
 		  	                		'<div class="row commentDiv commentBox'+resp[i].repSeq+resp[i].seq+' p-0 pb-2 m-2" style="border:1px solid gray; border-top:none; border-left: none; border-right: none;"><div class="col-12 commentInnerBox"><div class="row commentHeader">',
@@ -863,15 +866,16 @@ span:nth-child(4) {
 		  	                  if(resp[i].id==loginInfo){
 		  	                     
 		  	                     html.push(
-		  	                           '<a class="btn btn-info coModifyBtn" style="color:white;" onclick="coModFunction('+resp[i].queSeq+','+resp[i].repSeq+','+resp[i].seq+',\''+resp[i].content+'\');return false;" role="button">수정</a>\n',
+		  	                           '<a class="btn btn-info coModifyBtn" style="color:white;" onclick="coModFunction('+resp[i].queSeq+','+resp[i].repSeq+','+resp[i].seq+');return false;" role="button">수정</a>\n',
 		  	                           '<a class="btn btn-danger coDeleteBtn" style="color:white;" onclick="coDelFunction('+resp[i].queSeq+','+resp[i].repSeq+','+resp[i].seq+');return false;" role="button">삭제</a>'
 		  	                           );
 		  	                  }
 		  	                  
 		  	                  html.push(
 		  	                        '</div></div>',
-		  	                        '<div class="row commentContent"><div class="col-12 pt-1 pl-4" style="word-break:break-all; word-break:break-word;">'+resp[i].content+'</div></div></div></div>'
-		  	                        );
+		  	                        '<div class="row commentContent"><div class="col-12 pt-1 pl-4" style="word-break:break-all; word-break:break-word;">'+resp[i].content+'</div></div></div></div>',
+		  	                        '<input type="hidden" value="'+resp[i].modComment+'" id="hiddenModCo'+resp[i].seq+'">'    
+		  	                  	);
 		  	                  $(".pPageComments"+resp[0].repSeq).append(html.join(""));   
 		  		        }
 				}).fail(function(resp){

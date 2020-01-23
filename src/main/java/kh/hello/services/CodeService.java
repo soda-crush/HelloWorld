@@ -280,6 +280,7 @@ public class CodeService {
 		for (CodeCommentsDTO c : result) {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
 			c.setFormedWriteDate(sdf.format(c.getWriteDate()));
+			c.setModComment(c.getContent());
 		}
 		return gson.toJson(result);
 	}
@@ -306,6 +307,7 @@ public class CodeService {
 		for (CodeCommentsDTO c : result) {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
 			c.setFormedWriteDate(sdf.format(c.getWriteDate()));
+			c.setModComment(c.getContent());
 		}
 		return gson.toJson(result);
 		
