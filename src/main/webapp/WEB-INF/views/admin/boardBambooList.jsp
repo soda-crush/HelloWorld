@@ -35,10 +35,13 @@
 	opacity:100%;
 }
 	.contentCard{
-		max-width: 1000px;
+		max-width: 1200px;
 	}
 	.notification-area {
 		text-align:right;
+	}
+	.table{
+		min-width: 800px;
 	}
 </style>
 </head>

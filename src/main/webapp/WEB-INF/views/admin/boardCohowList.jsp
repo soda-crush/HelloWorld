@@ -40,6 +40,9 @@
 	.notification-area {
 		text-align:right;
 	}
+	.table{
+		min-width: 800px;
+	}
 </style>
 </head>
 <body>
