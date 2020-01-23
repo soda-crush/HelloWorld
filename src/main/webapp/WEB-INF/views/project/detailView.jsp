@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,7 +27,7 @@
       
 		//카카오톡
 	  function shareKakaotalk() {
-	      Kakao.init("17c512cbe4e17a204cce3c9b7d64d274"); // 사용할 앱의 JavaScript 키를 설정
+	      Kakao.init("17c512cbe4e17a204cce3c9b7d64d274"); // 사용할 앱의 JavaScript 키를 설정		  
 	      Kakao.Link.sendDefault({
 	         objectType : "feed",
 	         content : {
@@ -192,13 +193,14 @@
 																<a class="btn btn-warning coReplyBtn" href="#" onclick="coReplyFunction(${c.seq});return false;" role="button">답글</a>
 															</c:if>													
 															<c:if test="${c.id==sessionScope.loginInfo.id }">
-																<a class="btn btn-info coModBtn" href="#" onclick="coModFunction(${c.seq},'${c.contents }');return false;" role="button">수정</a>
+																<a class="btn btn-info coModBtn" href="#" onclick="coModFunction(${c.seq});return false;" role="button">수정</a>
 																<a class="btn btn-danger coDelBtn" href="#" onclick="coDelFunction(${c.seq});return false;" role="button">삭제</a>
 															</c:if>
 														</div>								
 													</div>
 													<div class="row commentContent">
 														<div class="col-12 pt-1 pl-4" style="word-break:break-all;word-break:break-word;">${c.contents }</div>
+														<input type="hidden" value="${c.modComment }" id="hiddenModCo${c.seq }">														
 													</div>
 												</c:when>
 												<c:otherwise>
@@ -433,19 +435,20 @@
        		}           		
        	});
            	
-		function coModFunction(seq,contents){  
+		function coModFunction(seq){  
 			if($("#pCoModContents").length>0){
    				alert("현재 열려있는 댓글 수정창이 있습니다.");
    				$("#pCoModContents").focus();
    				return false;
    			}
+			var checkContents = $("#hiddenModCo"+seq).val().replace(/modF'Fdom/gi,'"');
 			$(".commentBox"+seq).find(".commentBtns").css("display","none");
 			$(".commentBox"+seq).find(".commentContent").css("display","none");
           		$(".commentBox"+seq).wrap('<form action="/project/comment/modifyProc" method="post" id="coModFrm"></form>');
 			var html = [];	
    			html.push(
    					'<div class="row coModBox mt-2 mb-2"><div class="col-12"><div class="row">',
-   					'<div class="col-9 col-md-10 col-xl-11 pr-0"><textarea class="form-control" placeholder="댓글 내용을 입력해주세요" id="pCoModContents" style="height:80px;" name="contents" maxlength="1300">'+contents+'</textarea></div>',
+   					'<div class="col-9 col-md-10 col-xl-11 pr-0"><textarea class="form-control" placeholder="댓글 내용을 입력해주세요" id="pCoModContents" style="height:80px;" name="contents" maxlength="1300">'+checkContents+'</textarea></div>',
    					'<div class="col-3 col-md-2 col-xl-1"><input type="hidden" name="seq" value="'+seq+'"><input type="hidden" name="projectSeq" value="'+$("#pageSeq").val()+'">',
    					'<div class="row">',
    					'<div class="col-12 text-center p-0">',
@@ -648,14 +651,15 @@
 					}
 					if(resp[i].id==loginInfo){
 						html.push(									
-								'<a class="btn btn-info coModBtn" href="#" onclick="coModFunction('+resp[i].seq+',\''+resp[i].contents+'\');return false;" role="button">수정</a>\n',									
+								'<a class="btn btn-info coModBtn" href="#" onclick="coModFunction('+resp[i].seq+');return false;" role="button">수정</a>\n',									
 								'<a class="btn btn-danger coDelBtn" href="#" onclick="coDelFunction('+resp[i].seq+');return false;" role="button">삭제</a>'									
 						);
 					}
 					html.push(							
 						'</div></div>',
 						'<div class="row commentContent">',
-						'<div class="col-12 pt-1 pl-4" style="word-break:break-all;word-break:break-word;">'+resp[i].contents+'</div></div>'	
+						'<div class="col-12 pt-1 pl-4" style="word-break:break-all;word-break:break-word;">'+resp[i].contents+'</div></div>',
+						'<input type="hidden" value="'+resp[i].modComment+'" id="hiddenModCo'+resp[i].seq+'">'
 					);
 				}else{
 					html.push(								

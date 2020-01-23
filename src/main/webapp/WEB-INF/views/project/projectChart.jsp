@@ -20,40 +20,7 @@
 <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 <script>
    $(function(){
-      $("#proNavi").attr('class','nav-item nav-link active');
-      
-      //카카오톡
-        function shareKakaotalk(title,seq) {
-            Kakao.init("17c512cbe4e17a204cce3c9b7d64d274"); // 사용할 앱의 JavaScript 키를 설정
-            Kakao.Link.sendDefault({
-               objectType : "feed",
-               content : {
-                  title : title, // 콘텐츠의 타이틀 
-                  description : "프로젝트 모집", // 콘텐츠 상세설명
-                  imageUrl : "https://miro.medium.com/max/3840/1*U-R58ahr5dtAvtSLGK2wXg.png", // 썸네일 이미지          
-                  link : {
-                     mobileWebUrl : "http://${ip}/project/detailView?seq="+seq, // 모바일 카카오톡에서 사용하는 웹 링크 URL		            		   
-                     webUrl : "http://${ip}/project/detailView?seq="+seq // PC버전 카카오톡에서 사용하는 웹 링크 URL
-                  }
-               },
-               social : {
-                  likeCount : 0 // LIKE 개수
-                  ,
-                  commentCount : 0 // 댓글 개수
-                  ,
-                  sharedCount : 0
-               // 공유 회수
-               },
-               buttons : [ {
-                  title : "링크 이동하기" // 버튼 제목
-                  ,
-                  link : {
-                     mobileWebUrl : "http://${ip}/project/detailView?seq="+seq,  // 모바일 카카오톡에서 사용하는 웹 링크 URL
-                     webUrl : "http://${ip}/project/detailView?seq="+seq // PC버전 카카오톡에서 사용하는 웹 링크 URL
-                  }
-               } ]
-            });
-         }        
+      $("#proNavi").attr('class','nav-item nav-link active');      
    });
 
 </script>
@@ -167,7 +134,7 @@
 									<div class="row projectList" data-aos="fade-up">
 										<div class="col-xl-5 d-none d-xl-block pTextInfo">
 											<label class="${p.state } badge badge-pill ml-0 stateLabel">${p.stateInKor }</label>
-											<i class="fa fa-share-alt kakaoSharing" data-toggle="tooltip" title="카카오톡 공유하기" onclick="shareKakaotalk('${p.kakaoTitle}',${p.seq })"></i>
+											<i class="fa fa-share-alt kakaoSharing" data-toggle="tooltip" title="카카오톡 공유하기" onclick="shareKakaotalk(${p.kakaoTitle},${p.seq })"></i>
 											<c:choose>
 												<c:when test="${p.scrap==1 }">
 													<i class="fa fa-bookmark scrapDone" id="scrap${p.seq }" data-toggle="tooltip" title="스크랩" onclick="unScrapFunc(${p.seq})"></i>									
@@ -278,6 +245,38 @@ function unScrapFunc(seq){
 }
 
 
+//카카오톡
+  function shareKakaotalk(title,seq) {
+		Kakao.init("17c512cbe4e17a204cce3c9b7d64d274"); // 사용할 앱의 JavaScript 키를 설정
+		Kakao.Link.sendDefault({
+         objectType : "feed",
+         content : {
+            title : title, // 콘텐츠의 타이틀 
+            description : "프로젝트 모집", // 콘텐츠 상세설명
+            imageUrl : "https://miro.medium.com/max/3840/1*U-R58ahr5dtAvtSLGK2wXg.png", // 썸네일 이미지          
+            link : {
+               mobileWebUrl : "http://${ip}/project/detailView?seq="+seq, // 모바일 카카오톡에서 사용하는 웹 링크 URL		            		   
+               webUrl : "http://${ip}/project/detailView?seq="+seq // PC버전 카카오톡에서 사용하는 웹 링크 URL
+            }
+         },
+         social : {
+            likeCount : 0 // LIKE 개수
+            ,
+            commentCount : 0 // 댓글 개수
+            ,
+            sharedCount : 0
+         // 공유 회수
+         },
+         buttons : [ {
+            title : "링크 이동하기" // 버튼 제목
+            ,
+            link : {
+               mobileWebUrl : "http://${ip}/project/detailView?seq="+seq,  // 모바일 카카오톡에서 사용하는 웹 링크 URL
+               webUrl : "http://${ip}/project/detailView?seq="+seq // PC버전 카카오톡에서 사용하는 웹 링크 URL
+            }
+         } ]
+      });
+   }  
 </script>
 	
 </body>
