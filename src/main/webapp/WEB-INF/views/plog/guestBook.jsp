@@ -16,15 +16,14 @@
 <link rel="stylesheet" type="text/css" href="/css/font-awesome/css/font-awesome.css">
 	<style>
    		*{spellcheck="false"}
-        .card{width:200px;height:300px;margin:auto;float:left;}
-        .myprofile{margin-bottom:30px;float: left;padding-right:0px;}
-        #mycard{float:none;display:flex;align-items:center;}
-        .commentwrite{width:100%; height:100px;padding: 0px;margin-top: 10px;float: left;}
-        .commentlist{width:100%;padding: 0px;margin-top: 10px;float: left;}
-        .col{margin: 0px; padding: 0px;}
-        .content{height:90%;float: left;resize: none;}
-/*         .sendbt{height:90%;float: left;color:#fff;background-color:#343a40;font-size:20px;font-family:NanumgothicBold;} */
-        .sendbt{height:90%;float: left;}
+		.card{width:200px;height:300px;margin: auto;;float :left;}
+		.myprofile{margin-bottom:30px;float: left;width:200px;text-align:center;}
+		#mycard{ float:none;display:flex;align-items:center;}
+		.commentwrite{width:100%;height:100px;padding: 0px;margin-top: 10px;float: left;}
+		.commentlist{width:100%;padding: 0px;margin-top: 10px;float: left;}
+		.col{margin: 0px;padding: 0px;}
+		.content{height:90%;float: left;resize: none;}
+		.sendbt{height:90%;float: left;}
         .commentlist>div>div{margin-right: 5px;}
         #commentForm{height:100%;}
         .commentwrap{border-radius:5px;padding: 15px;background-color:white;border: 1px solid rgba(0,0,0,.125);}
