@@ -18,6 +18,7 @@ import com.google.gson.Gson;
 
 import kh.hello.configuration.Configuration;
 import kh.hello.dao.IndustryStatusDAO;
+import kh.hello.dto.BambooDTO;
 import kh.hello.dto.IndustryStatusCoDTO;
 import kh.hello.dto.IndustryStatusDTO;
 import kh.hello.dto.ReportDTO;
@@ -32,7 +33,10 @@ public class IndustryStatusService {
 	@Transactional("txManager")
 	public IndustryStatusDTO industryStatusDetailView(int seq) {
 		dao.updateIndustryStatusViewCount(seq);
-		return dao.getIndustryStatusDetailView(seq);
+		IndustryStatusDTO kakao = dao.getIndustryStatusDetailView(seq);
+		String kakaoTitle = kakao.getTitle().replace("\"", "\\\"");
+		kakao.setKakaoTitle(kakaoTitle);
+		return kakao;
 	}
 
 	public int industryStatusModifyConfirm(IndustryStatusDTO dto, String path)throws Exception {
@@ -158,9 +162,11 @@ public class IndustryStatusService {
 
 	//조건별 게시판목록 검색
 	public List<IndustryStatusDTO> industrySearchListByPage(int start, int end,String value, String search) {//검색결과 10개씩
+		search = search.replaceAll("'", "''");
 		return dao.industrySearchListByPage(Integer.toString(start), Integer.toString(end),value,search);
 	}
 	public List<String> getIndustrySearchListPageNavi (int currentPage,String value, String search) {
+		search = search.replaceAll("'", "''");
 		int recordTotalCount = dao.industrySearchTotalCount(value,search);
 		int pageTotalCount = 0;
 

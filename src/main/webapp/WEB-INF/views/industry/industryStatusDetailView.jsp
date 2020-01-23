@@ -33,7 +33,7 @@
       Kakao.Link.sendDefault({
          objectType : "feed",
          content : {
-            title : "${iPage.title}", // 콘텐츠의 타이틀 
+            title : "${iPage.kakaoTitle}", // 콘텐츠의 타이틀 
             description : "업계현황", // 콘텐츠 상세설명
             imageUrl : "https://miro.medium.com/max/3840/1*U-R58ahr5dtAvtSLGK2wXg.png", // 썸네일 이미지          
             link : {
@@ -125,7 +125,7 @@
 		 <div class="container">
             	<div class="row">
 					<div class="col-12 col-xl-3">
-						<p id=cateTitle style="display:inline;">업계현황</p>
+						<p id=cateTitle style="display:inline;">HELLo</p>
 					</div>
 					<div class="col-12 col-xl-9 pt-xl-5">
 						<p style="display:inline;" id=cateCmt>재직자만 사용가능한 게시판입니다.</p>
@@ -172,8 +172,8 @@
 	            	</div>
             	</div>
         	<div class="row">
-            		<div class="col-12" id=adver>
-            			<img src="/img/ad${ad}.png" class="d-block w-100" alt="...">
+            		<div class="col-12 text-center" id=adver>
+            			<img src="/img/ad${ad}.png" alt="...">
             		</div>
             	</div>
             	<div class=row>
