@@ -64,6 +64,7 @@
 <style>
 #pInfo > div:nth-child(4) > div.col-md-7 > div > span > input.tt-input{max-width:620px;}
 #applyFrm > div.modal-body > div:nth-child(1) > div.col-7.pApplyInput > div > span > input.tt-input{max-width:250px;}
+/* .commentInnerBox:has(>div.myCommentBox){background-color:#f0f6ff;} */
 </style>
 </head>
 
@@ -173,6 +174,9 @@
 											<div class="col-1 text-right pt-1"><span>┗</span></div>
 										</c:if>
 										<div class="col-${12-c.depth } commentInnerBox pb-0">
+										<c:if test="${c.id==sessionScope.loginInfo.id }">
+											<input type="hidden" class="myCommentBox">
+										</c:if>
 											<c:choose>
 												<c:when test="${c.contents!=null }">
 													<div class="row commentHeader">
@@ -269,6 +273,7 @@
 		<jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
 		
 		<script>
+		
 		function popUp(link){
 			window.open(link, "pLogPopUp", "width=800,height=600");
 		}
@@ -622,9 +627,13 @@
 					);
 				}
 				html.push(
-					'<div class="col-'+(12-resp[i].depth)+' commentInnerBox pb-0">'		
+					'<div class="col-'+(12-resp[i].depth)+' commentInnerBox pb-0">'					
 				);
-				
+				if(resp[i].id==loginInfo){
+					html.push(
+						'<input type="hidden" class="myCommentBox">'		
+					);
+				}
 				if(resp[i].contents!=null){
 					html.push(
 							'<div class="row commentHeader">',
