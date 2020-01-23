@@ -27,11 +27,20 @@
 <!-- jquery latest version -->
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <style>
-#guest img{
-	opacity:50%;
+#guest #plogLogo{
+	display:block;
 }
-.metismenu #guest:hover img, .metismenu #guest.active img {
-	opacity:100%;
+
+#guest #plogLogoActive{
+	display:none;
+}
+
+.metismenu #guest:hover #plogLogo, .metismenu #guest.active #plogLogo {
+	display:none;
+}
+
+.metismenu #guest:hover #plogLogoActive, .metismenu #guest.active #plogLogoActive {
+	display:block
 }
 	.nameBtn{
 		border: 1px solid transparent !important;

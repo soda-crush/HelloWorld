@@ -31,11 +31,20 @@
         ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "ee6b7db5b51705a13dc2339db3edaf6d"];
     </script>
 <style>
-#guest img{
-	opacity:50%;
+#guest #plogLogo{
+	display:block;
 }
-.metismenu #guest:hover img, .metismenu #guest.active img {
-	opacity:100%;
+
+#guest #plogLogoActive{
+	display:none;
+}
+
+.metismenu #guest:hover #plogLogo, .metismenu #guest.active #plogLogo {
+	display:none;
+}
+
+.metismenu #guest:hover #plogLogoActive, .metismenu #guest.active #plogLogoActive {
+	display:block
 }
 	.notification-area {
 		text-align:right;

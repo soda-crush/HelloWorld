@@ -32,7 +32,10 @@
 							<li id="industry"><a href="${pageContext.request.contextPath }/adBoard/industryList">HELLo</a></li>
 							<li id="itnews"><a href="${pageContext.request.contextPath }/adBoard/itnewsList">IT뉴스</a></li>
 							<li id="project"><a href="${pageContext.request.contextPath }/adBoard/projectList">프로젝트</a></li>
-							<li id="guest"><a href="${pageContext.request.contextPath }/adBoard/guestBookList"><img id ="plogLogo" src="/img/logoPlog.png" style="height:20px;"></a></li>
+							<li id="guest"><a href="${pageContext.request.contextPath }/adBoard/guestBookList">
+							<img id ="plogLogo" src="/img/adlogoPlog.png" style="height:20px;">
+							<img id ="plogLogoActive" src="/img/logoPlog.png" style="height:20px;">
+							</a></li>
 						</ul>
 					</li>
 
