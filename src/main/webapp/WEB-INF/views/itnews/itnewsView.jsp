@@ -161,7 +161,7 @@
             	</div>
             	
             	<div class="row">
-            		<div class="col-12 text-center" id=adver style="height:200px;background-color:#9e9e9e;padding-top:80px;">광고자리</div>
+            		<div class="col-12 text-center" id=adver style="height:200px;padding-top:80px;"><img src="/img/${adver}"></div>
             	</div>
             	
             	

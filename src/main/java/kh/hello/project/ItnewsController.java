@@ -17,6 +17,7 @@ import kh.hello.dto.LoginInfoDTO;
 import kh.hello.dto.ReportDTO;
 import kh.hello.dto.ScrapDTO;
 import kh.hello.services.ItnewsService;
+import kh.hello.utils.Utils;
 
 @Controller
 @RequestMapping("/itnews")
@@ -95,6 +96,8 @@ public class ItnewsController {
 			}
 			String profileImg = is.getImgByWriter(result.getWriter());
 			String ip = Configuration.ip;
+			String adver = Utils.getRandomAd();
+			m.addAttribute("adver", adver);
 			m.addAttribute("profileImg", profileImg);
 			m.addAttribute("list", list);
 			m.addAttribute("result", result);
