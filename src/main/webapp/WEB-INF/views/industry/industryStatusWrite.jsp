@@ -74,7 +74,7 @@
 					<div id="pageTitle">
 						<table>
 							<tr>
-								<td colspan="3" style="font-size: 60px; font-weight: 100; vertical-align: text-bottom">업계현황</td>
+								<td colspan="3" style="font-size: 60px; font-weight: 100; vertical-align: text-bottom">HELLo</td>
 								<td></td>
 								<td style="font-size: 15px; color: gray; vertical-align: text-bottom">     재직자만 사용가능한 게시판입니다.</td>
 								<td></td>
@@ -85,7 +85,7 @@
 			</div>
 			<div class=row>
 				<div class="d-md-none">
-					<div style="font-size: 60px; font-weight: 100;">업계현황</div>
+					<div style="font-size: 60px; font-weight: 100;">HELLo</div>
 					<div style="font-size: 15px; color: gray;">재직자만 사용가능한 게시판입니다.</div>
 				</div>
 			</div>

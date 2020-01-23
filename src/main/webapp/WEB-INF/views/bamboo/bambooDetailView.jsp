@@ -59,7 +59,7 @@
       Kakao.Link.sendDefault({
          objectType : "feed",
          content : {
-            title : "${bPage.title}", // 콘텐츠의 타이틀 
+            title : "${bPage.kakaoTitle}", // 콘텐츠의 타이틀 
             description : "대나무숲", // 콘텐츠 상세설명
             imageUrl : "https://miro.medium.com/max/3840/1*U-R58ahr5dtAvtSLGK2wXg.png", // 썸네일 이미지          
             link : {
@@ -162,8 +162,8 @@
 	            	</div>
             	</div>
             	<div class="row">
-            		<div class="col-12" id=adver>
-            			<img src="/img/ad7.png" class="" alt="...">
+            		<div class="col-12 text-center" id=adver>
+            			<img src="/img/ad${ad}.png" alt="...">
             		</div>
             	</div>
             	<div class=row>

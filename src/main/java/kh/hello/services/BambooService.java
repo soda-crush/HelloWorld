@@ -32,7 +32,10 @@ public class BambooService {
 	@Transactional("txManager")
 	public BambooDTO bambooDetailView(int seq) {
 		dao.updateBambooViewCount(seq);
-		return dao.getBambooDetailView(seq);
+		BambooDTO kakao = dao.getBambooDetailView(seq);
+		String kakaoTitle = kakao.getTitle().replace("\"", "\\\"");
+		kakao.setKakaoTitle(kakaoTitle);
+		return kakao;
 	}
 
 	public int bambooModifyConfirm(BambooDTO dto, String path)throws Exception {
@@ -159,9 +162,11 @@ public class BambooService {
 
 	//조건별 게시판목록 검색
 	public List<BambooDTO> bambooSearchListByPage(int start, int end,String value, String search) {//대나무숲 10개씩
+		search = search.replaceAll("'", "''");
 		return dao.bambooSearchListByPage(Integer.toString(start), Integer.toString(end),value,search);
 	}
 	public List<String> getBambooSearchListPageNavi (int currentPage,String value, String search) {
+		search = search.replaceAll("'", "''");
 		int recordTotalCount = dao.bambooSearchTotalCount(value,search);
 		int pageTotalCount = 0;
 
