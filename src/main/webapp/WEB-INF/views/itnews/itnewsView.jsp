@@ -43,10 +43,44 @@
  #baseBackgroundColor{
  background-color: #e8e8e890;}
 </style>
+<script type="text/JavaScript"  src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script>
 	$(function(){
 		$("#itNavi").attr('class','nav-item nav-link active');
 	});
+	
+	 //카카오톡
+	  function shareKakaotalk() {
+		  Kakao.init("17c512cbe4e17a204cce3c9b7d64d274"); // 사용할 앱의 JavaScript 키를 설정
+	      Kakao.Link.sendDefault({
+	         objectType : "feed",
+	         content : {
+	            title : "${result.kakaoTitle}", // 콘텐츠의 타이틀 
+	            description : "IT 뉴스", // 콘텐츠 상세설명
+	            imageUrl : "https://miro.medium.com/max/3840/1*U-R58ahr5dtAvtSLGK2wXg.png", // 썸네일 이미지          
+	            link : {
+	               mobileWebUrl : "http://${ip}/itnews/detail?seq=${result.seq}&page=${page}", // 모바일 카카오톡에서 사용하는 웹 링크 URL            
+	               webUrl : "http://${ip}/itnews/detail?seq=${result.seq}&page=${page}" // PC버전 카카오톡에서 사용하는 웹 링크 URL
+	            }
+	         },
+	         social : {
+	            likeCount : 0 // LIKE 개수
+	            ,
+	            commentCount : 0 // 댓글 개수
+	            ,
+	            sharedCount : 0
+	         // 공유 회수
+	         },
+	         buttons : [ {
+	            title : "링크 이동하기" // 버튼 제목
+	            ,
+	            link : {
+	               mobileWebUrl : "http://${ip}/itnews/detail?seq=${result.seq}&page=${page}",  // 모바일 카카오톡에서 사용하는 웹 링크 URL
+	               webUrl : "http://${ip}/itnews/detail?seq=${result.seq}&page=${page}" // PC버전 카카오톡에서 사용하는 웹 링크 URL
+	            }
+	         } ]
+	      });
+	   }
 </script>
 </head>
 <body>
@@ -223,7 +257,6 @@
         <jsp:include page="/WEB-INF/views/itnews/jsp/reportModal.jsp"/>
 		<jsp:include page="/WEB-INF/views/itnews/jsp/reportSuccessModal.jsp"/>
         <jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
-        <script type="text/JavaScript"  src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
         <script type="text/JavaScript">
         function popUp(link){
             window.open(link, "pLogPopUp", "width=600,height=600");
@@ -442,38 +475,7 @@
 							}
 					}	
                   
-                  //카카오톡
-            		  function shareKakaotalk() {
-            			  Kakao.init("17c512cbe4e17a204cce3c9b7d64d274"); // 사용할 앱의 JavaScript 키를 설정
-            		      Kakao.Link.sendDefault({
-            		         objectType : "feed",
-            		         content : {
-            		            title : "${result.title}", // 콘텐츠의 타이틀 
-            		            description : "IT 뉴스", // 콘텐츠 상세설명
-            		            imageUrl : "https://miro.medium.com/max/3840/1*U-R58ahr5dtAvtSLGK2wXg.png", // 썸네일 이미지          
-            		            link : {
-            		               mobileWebUrl : "http://${ip}/itnews/detail?seq=${result.seq}&page=${page}", // 모바일 카카오톡에서 사용하는 웹 링크 URL            
-            		               webUrl : "http://${ip}/itnews/detail?seq=${result.seq}&page=${page}" // PC버전 카카오톡에서 사용하는 웹 링크 URL
-            		            }
-            		         },
-            		         social : {
-            		            likeCount : 0 // LIKE 개수
-            		            ,
-            		            commentCount : 0 // 댓글 개수
-            		            ,
-            		            sharedCount : 0
-            		         // 공유 회수
-            		         },
-            		         buttons : [ {
-            		            title : "링크 이동하기" // 버튼 제목
-            		            ,
-            		            link : {
-            		               mobileWebUrl : "http://${ip}/itnews/detail?seq=${result.seq}&page=${page}",  // 모바일 카카오톡에서 사용하는 웹 링크 URL
-            		               webUrl : "http://${ip}/itnews/detail?seq=${result.seq}&page=${page}" // PC버전 카카오톡에서 사용하는 웹 링크 URL
-            		            }
-            		         } ]
-            		      });
-            		   }
+                 
        	 </script>
 </body>
 </html>

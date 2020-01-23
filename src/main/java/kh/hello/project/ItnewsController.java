@@ -69,7 +69,7 @@ public class ItnewsController {
 		int end = realCpage * Configuration.recordCountPerPage;
 		int start = end - (Configuration.recordCountPerPage - 1);	
 		
-		List<ItnewsDTO> list = is.itnewsListTrimSrch(start, end, cate, search);
+		List<ItnewsDTO> list = is.itnewsListTrimSrch(start, end, cate, search.replaceAll("'", "''"));
 		m.addAttribute("list", list);
 		String pageNavi = is.getPageNaviSrch(realCpage, cate, search);
 		m.addAttribute("navi", pageNavi);
@@ -135,6 +135,7 @@ public class ItnewsController {
 		
 		dto.setWriter(((LoginInfoDTO)session.getAttribute("loginInfo")).getNickName());
 		dto.setId(((LoginInfoDTO)session.getAttribute("loginInfo")).getId());
+		dto.setKakaoTitle(dto.getTitle());
 		
 		try {
 			int boardSeq = is.writeItnews(path, dto);
