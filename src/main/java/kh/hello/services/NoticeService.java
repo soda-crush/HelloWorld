@@ -18,8 +18,10 @@ public class NoticeService {
 	private NoticeDAO ndao;
 	
 	public List<NoticeDTO> noticeListByPage(int start, int end, String searchOption, String keyword){
-		if(keyword.contains("'")) {
-			keyword.replaceAll("'", "''");
+		if(keyword != null) {
+			if(keyword.contains("'")) {
+				keyword.replaceAll("'", "''");
+			}			
 		}
 		return ndao.noticeListByPage(start, end, searchOption, keyword);
 	}
