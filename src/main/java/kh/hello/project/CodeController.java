@@ -107,7 +107,7 @@ public class CodeController {
 		m.addAttribute("repCount", repCount);
 		m.addAttribute("adoptCount", adoptCount);
 		m.addAttribute("ip", ip);
-		m.addAttribute("ad",Utils.getRandomNum(0, 8));
+		m.addAttribute("ad",Utils.getRandomAd());
 //		m.addAttribute("repSeq", repSeq);
 //		m.addAttribute("nowPoint", nowPoint);
 		
