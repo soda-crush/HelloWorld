@@ -58,7 +58,7 @@ public class IndustryStatusMemController {
 		m.addAttribute("iPage", result);
 		m.addAttribute("comments", coResult);
 		m.addAttribute("ip",ip);
-		m.addAttribute("ad",Utils.getRandomNum(0, 8));
+		m.addAttribute("ad",Utils.getRandomNum(0, Configuration.maxAd));
 		return "/industry/industryStatusDetailView";
 	}
 
