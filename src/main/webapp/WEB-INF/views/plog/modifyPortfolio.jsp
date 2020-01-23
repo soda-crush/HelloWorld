@@ -273,7 +273,7 @@
                 })
        			$("#update").on("click",function(){
                     if($("#portfolioTitle").val() && $("#purpose").val() && $("#funcn1").val() && $("#funce1").val() ){
-                   		$("#writeForm").submit();
+                   		$("#updateForm").submit();
                    	}else{
                    		alert("프로젝트명과  개발 목표는 구현기능 1은 필수 입력 사항입니다.")
                    	}

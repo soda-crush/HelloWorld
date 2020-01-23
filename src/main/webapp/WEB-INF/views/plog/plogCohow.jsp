@@ -87,7 +87,7 @@
 						  				<div class="row tableBody p-0">
 						  					<div class="col-2 col-lg-1" style="color:dodgerblue;">${dto.division}</div>
 											<div class="col-7 col-lg-5 " >
-							  					<div style="cursor:pointer;text-align:left;" class="line-over text-decoration-none" onclick="location.href='${pageContext.request.contextPath}/code/codeDetail.do?seq=${dto.seq}'">${dto.title} 
+							  					<div style="cursor:pointer;text-align:left;" class="line-over text-decoration-none pl-2" onclick="location.href='${pageContext.request.contextPath}/code/codeDetail.do?seq=${dto.seq}'">${dto.title} 
 								  					<c:if test="${dto.replyCount>0 }">
 								  						<span class="pComment font-weight-bold">${dto.replyCount}</span>
 								  					</c:if>	
@@ -135,7 +135,7 @@
 						  				<div class="row tableBody p-0">
 						  					<div class="col-2 col-lg-1" style="color:dodgerblue;">${dto.division}</div>
 											<div class="col-7 col-lg-5 " >
-							  					<div style="cursor:pointer;" class="line-over text-decoration-none" onclick="location.href='${pageContext.request.contextPath}/code/codeDetail.do?seq=${dto.seq}'">${dto.title} 
+							  					<div style="cursor:pointer;text-align:left;" class="line-over text-decoration-none pl-2" onclick="location.href='${pageContext.request.contextPath}/code/codeDetail.do?seq=${dto.seq}'">${dto.title} 
 								  					<c:if test="${dto.replyCount>0 }">
 								  						<span class="pComment font-weight-bold">${dto.replyCount}</span>
 								  					</c:if>	

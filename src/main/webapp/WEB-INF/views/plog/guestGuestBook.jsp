@@ -195,7 +195,6 @@
 	    	$(function(){
 	    		var element = $(".pageNavi");
 	    		var cpage = "${cpage}";
-	    		console.log(element.length);
 	    		if(element.length != 0){
 	    			if(cpage > 0 && cpage <= 5){
 		    			element[cpage-1].classList.add('active');
@@ -217,7 +216,6 @@
 	          
 	         }
 	    	$("#sendbt").on("click",function(){
-	    		console.log($("#content").val())
 	    		if($("#content").val()==""){
 	    			alert("asdf");
 	    		}

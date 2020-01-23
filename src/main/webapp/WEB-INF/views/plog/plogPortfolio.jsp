@@ -16,9 +16,13 @@
 <link rel="stylesheet" type="text/css" href="/css/font-awesome/css/font-awesome.css">
 
 	<style>
-		.card{width:200px;height:300px;margin: auto;float :left;}
-		.myprofile{margin-bottom:30px;float: left;width:200px;text-align:center;}
-		#mycard{ float:none;display:flex;align-items:center;}
+		.card{margin-top:20px;text-align:center;margin-bottom:20px;}
+        .myprofile{margin-bottom:30px;padding-right:0px;}
+        #mycard{float:none; display:flex;width:200px;height:300px;margin: auto;}
+		
+/* 		.card{width:200px;height:300px;margin: auto;float :left;} */
+		
+        
         .wrapportfolio{background-color:white;border: 1px solid rgba(0,0,0,.125);}
         .cardwrap{float:left;}
         .card-text{font-size:12px;}
@@ -46,9 +50,9 @@
             
             <div class="container">
 	            <div class="row">
-	                <div class="col-12 col-md-4 col-lg-3 myprofile">
+	                <div class="col-12 col-md-4 col-lg-3 myprofile" style="">
 	                    <div>
-	                    	<div class="card d-none d-md-block" id="mycard">
+	                    	<div class="card d-none d-md-block" id="mycard" style="align-items:center;">
 		                        <img src="${ownerInfo.profileImg }" class="card-img-top" alt="..." style="width: 85%;margin:7.5%;">
 		                        <div class="card-body">
 		                            <div class="card-title line-over" style="text-align: center;font-size:20px;font-weight:bold;margin-bottom:0px;">${ownerInfo.nickName} <span style="font-size:15px;">님</span></div>

@@ -79,7 +79,7 @@
 	    	 				<div class="btn-group" role="group" aria-label="Basic example" style="margin-top:20px;margin-bottom:20px;">
 								<button type="button" class="btn btn-flat btn-xs btn-outline-secondary" onclick="location.href='${pageContext.request.contextPath}/Scrap/itNews.do'">IT 뉴스</button>
 								<button type="button" class="btn btn-flat btn-xs btn-outline-secondary" onclick="location.href='${pageContext.request.contextPath}/Scrap/cohow.do'">Code-How</button>
-								<button type="button" class="btn btn-flat btn-xs btn-outline-secondary" onclick="location.href='${pageContext.request.contextPath}/Scrap/industryStatus.do'">업계 현황</button>
+								<button type="button" class="btn btn-flat btn-xs btn-outline-secondary" onclick="location.href='${pageContext.request.contextPath}/Scrap/industryStatus.do'">HELLo</button>
 								<button type="button" class="btn btn-flat btn-xs btn-secondary" onclick="location.href='${pageContext.request.contextPath}/Scrap/project.do'">프로젝트</button>
 			           		</div>
 			         	<div class="tableDiv">
@@ -99,7 +99,7 @@
 						  			<c:forEach items="${plist }" var="p">
 						  				<div class="row tableBody p-0">
 											<div class="col-2 ${p.state }" style="text-align:center;">${p.stateInKor }</div>
-												<div  style="text-align:left;cursor:pointer;" class="col-7 col-lg-4 line-over text-decoration-none" onclick="location.href='${pageContext.request.contextPath}/project/detailView?seq=${p.seq }'">${p.title } 
+												<div  style="text-align:left;cursor:pointer;" class="col-7 col-lg-4 line-over text-decoration-none pl-2" onclick="location.href='${pageContext.request.contextPath}/project/detailView?seq=${p.seq }'">${p.title } 
 							  						<c:if test="${p.commentCount>0 }">
 							  							<span class="pComment font-weight-bold">${p.commentCount }</span>
 							  						</c:if>					  					
