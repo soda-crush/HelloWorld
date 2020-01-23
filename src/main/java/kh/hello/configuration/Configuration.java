@@ -21,5 +21,5 @@ public class Configuration {
 	
 	
 	//광고 최대개수
-	public static int maxAd = 8;
+	public static int maxAd = 7;
 }
