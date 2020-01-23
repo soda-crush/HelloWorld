@@ -20,6 +20,6 @@ public class Configuration {
 	public static int commentDelPoint = -5;
 	
 	
-	//광고 최대개수
-	public static int maxAd = 7;
+	//광고 최대개수 (건들지말것)
+	public static int maxAd = 8;
 }
