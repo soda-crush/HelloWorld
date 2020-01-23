@@ -225,7 +225,7 @@
 										<c:if test="${c.writer==sessionScope.loginInfo.id }">
 											<a class="btn btn-info coModBtn"
 												href="/bamboo/comment/modifyProc.do?seq=${c.seq }&bamSeq=${c.bamSeq}"
-												onclick="coModFunction(${c.seq},'${c.content}',${c.bamSeq });return false;"
+												onclick="coModFunction(${c.seq},${c.bamSeq });return false;"
 												role="button" style="!important">수정</a>
 											<a class="btn btn-danger coDelBtn"
 												href="/bamboo/comment/deleteProc.do?seq=${c.seq }&bamSeq=${c.bamSeq}"
@@ -236,7 +236,8 @@
 								</div>
 								<div class="row commentContent">
 									<div class="col-12 pt-1 pl-4" style="word-break:break-all;
-      word-break:break-word;">${c.content }</div>
+     								 word-break:break-word;">${c.content }</div>
+      								<input type="hidden" value="${c.modComment }" id="hiddenModCo${c.seq }">
 								</div>
 							</div>
 						</div>
@@ -372,7 +373,7 @@
 			}
 		});
          	
-			function coModFunction(seq,contents,bamSeq){
+			function coModFunction(seq,bamSeq){
 				$.ajax({
 					url : "/bamboo/memLevel.do",
 					type : "post",
@@ -382,13 +383,14 @@
 					}
 				}).done(function(resp){
 					if(resp > 1){
+						var checkContents = $("#hiddenModCo"+seq).val().replace(/modF'Fdom/gi,'"');
 						$(".commentBox"+seq).find(".commentBtns").css("display","none");
 						$(".commentBox"+seq).find(".commentContent").css("display","none");
 		           		$(".commentBox"+seq).wrap('<form action="/bamboo/comment/modifyProc.do" method="post" id="coModFrm"></form>');
 						var html = [];
 		    			html.push(
 		    					'<div class="col-12 coModBox mt-2"><div class="row">',
-		    					'<div class="col-9 col-md-10 col-xl-11 pr-0"><textarea maxlength="1300" class="form-control" placeholder="댓글 내용을 입력해주세요" id="pCoModContents" style="height:80px;" name="content">'+contents+'</textarea></div>',
+		    					'<div class="col-9 col-md-10 col-xl-11 pr-0"><textarea maxlength="1300" class="form-control" placeholder="댓글 내용을 입력해주세요" id="pCoModContents" style="height:80px;" name="content">'+checkContents+'</textarea></div>',
 		    					'<div class="col-3 col-md-2 col-xl-1"><input type="hidden" name="seq" value="'+seq+'"><input type="hidden" name="bamSeq" value="'+bamSeq+'">',
 		    					'<div class="row">',
 		    					'<div class="col-12 text-center p-0">',
@@ -501,13 +503,14 @@
 					);
 					if(resp[i].writer==loginInfo){
 					html.push(
-								'<a class="btn btn-info coModBtn" href="/bamboo/comment/modifyProc.do?seq='+resp[i].seq+'&bamSeq='+resp[i].bamSeq+'" onclick="coModFunction('+resp[i].seq+',\''+resp[i].content+'\','+resp[i].bamSeq+');return false;" role="button">수정</a>\n',
+								'<a class="btn btn-info coModBtn" href="/bamboo/comment/modifyProc.do?seq='+resp[i].seq+'&bamSeq='+resp[i].bamSeq+'" onclick="coModFunction('+resp[i].seq+','+resp[i].bamSeq+');return false;" role="button">수정</a>\n',
 								'<a class="btn btn-danger coDelBtn" href="/bamboo/comment/deleteProc.do?seq='+resp[i].seq+'&bamSeq='+resp[i].bamSeq+'" onclick="coDelFunction('+resp[i].seq+');return false;" role="button">삭제</a>'
 								);
 					}
 					html.push(
 							'</div></div>',
-							'<div class="row commentContent"><div class="col-12 pt-1 pl-4" style="word-break:break-all; word-break:break-word;">'+resp[i].content+'</div></div></div></div><hr>'
+							'<div class="row commentContent"><div class="col-12 pt-1 pl-4" style="word-break:break-all; word-break:break-word;">'+resp[i].content+'</div></div></div></div><hr>',
+							'<input type="hidden" value="'+resp[i].modComment+'" id="hiddenModCo'+resp[i].seq+'">'
 							);
 					$(".pPageComments").append(html.join(""));	
            		}

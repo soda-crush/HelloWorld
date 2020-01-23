@@ -12,7 +12,17 @@ public class IndustryStatusCoDTO {
 	private String id;
 	private String profileImg;
 	private String formedWriteDate;
+	private String modComment;
 	
+	public String getModComment() {
+		this.modComment = this.content.replaceAll("\"","modF'Fdom");
+		return this.modComment;
+	}
+
+	public void setModComment(String comment) {
+		this.modComment = getModComment();
+	}
+
 	public String getProfileImg() {
 		return profileImg;
 	}

@@ -127,6 +127,7 @@ public class BambooService {
 		for(BambooCoDTO b : result) {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
 			b.setFormedWriteDate(sdf.format(b.getWriteDate()));
+			b.setModComment(b.getContent());
 		}
 		return gson.toJson(result);
 	}
@@ -139,6 +140,7 @@ public class BambooService {
 		for(BambooCoDTO b : result) {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
 			b.setFormedWriteDate(sdf.format(b.getWriteDate()));
+			b.setModComment(b.getContent());
 		}
 		return gson.toJson(result);
 	}

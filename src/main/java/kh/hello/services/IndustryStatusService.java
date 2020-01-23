@@ -18,7 +18,6 @@ import com.google.gson.Gson;
 
 import kh.hello.configuration.Configuration;
 import kh.hello.dao.IndustryStatusDAO;
-import kh.hello.dto.BambooDTO;
 import kh.hello.dto.IndustryStatusCoDTO;
 import kh.hello.dto.IndustryStatusDTO;
 import kh.hello.dto.ReportDTO;
@@ -127,6 +126,7 @@ public class IndustryStatusService {
 		for(IndustryStatusCoDTO i : result) {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
 			i.setFormedWriteDate(sdf.format(i.getWriteDate()));
+			i.setModComment(i.getContent());
 		}
 		return gson.toJson(result);
 	}
@@ -139,6 +139,7 @@ public class IndustryStatusService {
 		for(IndustryStatusCoDTO i : result) {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
 			i.setFormedWriteDate(sdf.format(i.getWriteDate()));
+			i.setModComment(i.getContent());
 		}
 		return gson.toJson(result);
 	}

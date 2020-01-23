@@ -54,7 +54,7 @@ public class BambooMemController {
 		m.addAttribute("bPage", result);
 		m.addAttribute("comments", coResult);
 		m.addAttribute("ip",ip);
-		m.addAttribute("ad",Utils.getRandomNum(0, 8));
+		m.addAttribute("ad",Utils.getRandomNum(0, Configuration.maxAd));
 		return "/bamboo/bambooDetailView";
 	}
 
