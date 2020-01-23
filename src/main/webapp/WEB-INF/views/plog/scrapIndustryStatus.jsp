@@ -79,7 +79,7 @@
 	    	 				<div class="btn-group" role="group" aria-label="Basic example" style="margin-top:20px;margin-bottom:20px;">
 								<button type="button" class="btn btn-flat btn-xs btn-outline-secondary" onclick="location.href='${pageContext.request.contextPath}/Scrap/itNews.do'">IT 뉴스</button>
 								<button type="button" class="btn btn-flat btn-xs btn-outline-secondary" onclick="location.href='${pageContext.request.contextPath}/Scrap/cohow.do'">Code-How</button>
-								<button type="button" class="btn btn-flat btn-xs btn-secondary" onclick="location.href='${pageContext.request.contextPath}/Scrap/industryStatus.do'">업계 현황</button>
+								<button type="button" class="btn btn-flat btn-xs btn-secondary" onclick="location.href='${pageContext.request.contextPath}/Scrap/industryStatus.do'">HELLo</button>
 								<button type="button" class="btn btn-flat btn-xs btn-outline-secondary" onclick="location.href='${pageContext.request.contextPath}/Scrap/project.do'">프로젝트</button>
 			           		</div>
 	                	<div class="tableDiv">
@@ -99,7 +99,7 @@
 						  			<c:forEach items="${ilist}" var="dto">
 						  				<div class="row tableBody p-0">
 							   				<div class="col-3 col-lg-2 line-over">${dto.field }/${dto.duty }</div>
-							   				<div class="col-6 col-md-4 line-over cursorPointer" style="text-align:left;" onclick="location.href='/industry/industryStatusDetailView.do?seq=${dto.seq}'">
+							   				<div class="col-6 col-md-4 line-over cursorPointer pl-2" style="text-align:left;" onclick="location.href='/industry/industryStatusDetailView.do?seq=${dto.seq}'">
 							  					<div style="max-width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;font-weight:bold;">
 							  						${dto.title }
 							  					</div>
