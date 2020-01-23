@@ -109,7 +109,7 @@
 		
 		<!--      몸통 시작!!!   -->	
 		 <div class="container">
-            	<div class="row">
+<!--             	<div class="row"> -->
 <!-- 					<div class="col-12 col-xl-3"> -->
 <!-- 						<p id=cateTitle style="display:inline;">대나무숲</p> -->
 <!-- 					</div> -->
