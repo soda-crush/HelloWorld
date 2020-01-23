@@ -115,6 +115,8 @@
 				</div>
 				<nav aria-label="List navi" id="pPageNavi">${pageNavi }</nav>
 				
+				<input type=hidden id="pageCheckOrder" value="${pageOrder}">
+				<input type=hidden id="currentCheckpage" value="${currentPage}">				
             </div>
             <!--       몸통 끝!!!   -->
             
@@ -127,37 +129,6 @@
         </div>
         
         <jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
-        
-        <script>
-        	var pageOrder = "${pageOrder}";
-			if(pageOrder=='seq'){
-				$("#latestOrder").addClass("active");
-				$("#deadlineOrder").removeClass("active");
-				$("#pageOrder").val("seq");
-			}else if(pageOrder=='startDate'){
-				$("#deadlineOrder").addClass("active");
-				$("#latestOrder").removeClass("active");
-				$("#deadlineComment").css("display","block");
-				$("#pageOrder").val("startDate");
-			}
-        	$("#deadlineOrder").on("click",function(){
-        		$("#pageOrder").val("startDate");
-        		location.href="/project/list?pageOrder="+$("#pageOrder").val();
-        	});
-        	$("#latestOrder").on("click",function(){
-        		$("#pageOrder").val("seq");
-        		location.href="/project/list?pageOrder="+$("#pageOrder").val();
-        	});
-	        $("#searchFrm").on("submit",function(){
-	        	$("#keyword").val($.trim($("#keyword").val()));
-	        	if($("#keyword").val()==""){
-	        		alert("검색어를 입력해주세요");
-	        	}
-	        });
-        	$(".pNavi${currentPage}").addClass("active");
-			function popUp(link){
-				window.open(link, "pLogPopUp", "width=800,height=600");
-			}
-        </script>
+        <script src="/js/project/list.js"></script>
 </body>
 </html>
