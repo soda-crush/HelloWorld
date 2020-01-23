@@ -19,8 +19,8 @@ public class ProjectChartDTO {
 	private String state;
 	private int scrap;
 	private Timestamp changeDate;
-	private long width;
-	private long distance;
+	private double width;
+	private double distance;
 	private String today;
 	
 	public ProjectChartDTO() {
@@ -111,16 +111,16 @@ public class ProjectChartDTO {
 	public void setChangeDate(Timestamp changeDate) {
 		this.changeDate = changeDate;
 	}
-	public long getWidth() {
+	public double getWidth() {
 		return width;
 	}
-	public void setWidth(long width) {
+	public void setWidth(double width) {
 		this.width = width;
 	}
-	public long getDistance() {
+	public double getDistance() {
 		return distance;
 	}
-	public void setDistance(long distance) {
+	public void setDistance(double distance) {
 		this.distance = distance;
 	}
 	public String getToday() {

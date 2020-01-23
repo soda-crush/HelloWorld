@@ -22,7 +22,6 @@
    $(function(){
       $("#proNavi").attr('class','nav-item nav-link active');      
    });
-
 </script>
 </head>
 <body>
@@ -41,10 +40,10 @@
                
 	            <div class=container id="projectPage">
 					<div id="pageTitle" class="row">
-						<div class="col-12 col-lg-5"><h1>프로젝트 모집</h1><span class="badge badge-pill ml-2" id="stateCountLabel">${projectList.size() }</span></div>
-						<div class="col-12 col-lg-7 pt-2">
-							<a class="btn btn-secondary" href="/project/list" role="button">게시판</a>
-							<a class="btn btn-danger" href="/project/chart" role="button">일정</a>							
+						<div class="col-12 col-lg-5 m-0 p-0"><h1>프로젝트 모집</h1><span class="badge badge-pill ml-2" id="stateCountLabel">${projectList.size() }</span></div>
+						<div class="col-12 col-lg-6 m-0 p-0 pt-2 pb-1">
+							<div style="width:200px;height:35px;display:inline-block;border-bottom:2px solid #99000030;cursor:pointer" class="text-center pt-1" onclick="location.href='/project/list'"><span style="color:black;font-weight:bold;font-size:18px;opacity:30%;">게시판</span></div>
+							<div style="margin-left:-5px;width:200px;height:35px;display:inline-block;border-bottom:2px solid crimson;cursor:pointer" class="text-center pt-1" onclick="location.href='/project/chart'"><span style="color:black;font-weight:bold;font-size:18px;">일정</span></div>
 						</div>
 					</div>	
 					
@@ -79,7 +78,7 @@
 													<i class="fa fa-bookmark-o scrapNull" id="scrap${p.seq }" data-toggle="tooltip" title="스크랩" onclick="scrapFunc(${p.seq})"></i>									
 												</c:otherwise>
 											</c:choose>
-											<span class="float-right"><i class="fa fa-calendar-check-o"></i> ${p.formedAllDate }</span>
+											<span class="float-right"><i class="fa fa-calendar-check-o"></i> <small>${p.formedAllDate }</small></span>
 											<div class="pTitleBox mt-1 mb-1" style="max-width:430px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" onclick="popUp('/project/detailView?seq=${p.seq }')">${p.title }</div>
 											<div class="pInfoBox mt-1" style="height:50px;">
 												<div>
@@ -97,11 +96,18 @@
 											<ul class="nav graphNavi">
 											<c:set var="month" value="${fn:split(p.today,'-')[0] }"></c:set>
 											  <c:forEach begin="0" end="5" step="1" var="m">
-											  	<li class="nav-item graphNaviItem">${month+m }월</li>
+											  	<c:choose>
+											  		<c:when test="${month+m >12}">
+											  			<li class="nav-item graphNaviItem">${month+m-12 }월</li>
+											  		</c:when>
+												  	<c:otherwise>
+												  		<li class="nav-item graphNaviItem">${month+m }월</li>
+												  	</c:otherwise>
+											  	</c:choose>											  	
 											  </c:forEach>
 											</ul>
-											<div class="todayBar" style="transform: translate(${fn:split(p.today,'-')[1]*3 -330}px, -50%);"><div class="todayFlag" data-toggle="tooltip" title="${fn:split(p.today,'-')[0] }월 ${fn:split(p.today,'-')[1] }일" style="cursor:pointer;">오늘</div></div>												
-											<div class="progressBar text-decoration-none" id="pBar${p.seq }" style="transform: translate(${p.distance -330}px, -50%);width:${p.width}px;" onclick="popUp('/project/detailView?seq=${p.seq }')"></div>											
+											<div class="todayBar" style="transform: translate(${fn:split(p.today,'-')[1]*3 -331}px, -50%);"><div class="todayFlag" data-toggle="tooltip" title="${fn:split(p.today,'-')[0] }월 ${fn:split(p.today,'-')[1] }일" style="cursor:pointer;">오늘</div></div>												
+											<div class="progressBar text-decoration-none" id="pBar${p.seq }" style="transform: translate(${p.distance -331}px, -50%);width:${p.width}px;" onclick="popUp('/project/detailView?seq=${p.seq }')"></div>											
 										</div>										
 									</div>					
 								</c:forEach>								

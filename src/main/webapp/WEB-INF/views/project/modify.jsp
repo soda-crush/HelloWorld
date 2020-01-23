@@ -30,9 +30,6 @@
       $("#proNavi").attr('class','nav-item nav-link active');
    });
 </script>
-<style>
-#pInfo > div:nth-child(4) > div.col-md-7 > div > span > input.tt-input{max-width:620px;}
-</style>
 </head>
 
 <body>
@@ -60,6 +57,7 @@
 								<div class="col-md-10">
 									<select class="form-control form-control-sm pSelect" onChange="loc1_change(this.value,loc2)" id="loc1" name="loc1">
 										<option selected disabled>선택</option>
+								        <option value='0'>지역무관</option>
 								        <option value='1'>서울</option>
 								        <option value='2'>부산</option>
 								        <option value='3'>대구</option>
@@ -240,14 +238,22 @@
 				if($("#pInfo").find(".tt-input").val()!=""){
 					$("#pInfo").find(".tt-input").val("");
 				}
-				alert("필수 입력 항목을 확인해주세요");
-				return false;
+				if($("#loc2").val()==null){
+					if($("#loc1").val()!=0){
+						alert("필수 입력 항목을 확인해주세요");
+						return false;		
+					}
+				}	
 			}
 			if($("#startDate").val()>$("#endDate").val()){
 				alert("시작일이 종료일보다 늦은 날짜일 수 없습니다");
 				$("#startDate").focus();
 				return false;
-			}										
+			}else if($("#startDate").val()==$("#endDate").val()){
+				alert("시작일이 종료일과 같은 날짜일 수 없습니다");
+				$("#startDate").focus();				
+				return false;
+			}												
 			$("#title").val($.trim($("#title").val())); 				
 			if($("#title").val()==""){
 				alert("제목을 입력해주세요");

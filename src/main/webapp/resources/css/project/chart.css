@@ -1,7 +1,6 @@
 @charset "UTF-8";
 	#pageTitle{margin-bottom:20px;}
-	#pageTitle h1{display:inline;margin-right:10px;font-weight:bold;}
-	#pageTitle .btn{margin-left:5px;}
+	#pageTitle h1{display:inline;margin-right:10px;font-weight:bold;}	
 	#pageComment{margin-bottom:20px;}
 	.projectList{margin-bottom:10px;}	
 	.pTextInfo label.N{background-color:limegreen;}
@@ -42,9 +41,9 @@
             background-color: crimson;
             color:white;
     		position:absolute;
-    	    width:50px;
+    	    width:40px;
             top: -20px;
-            left: -25px;
+            left: -20px;
             border-radius: 10px;            
     }
     .pTitleBox:hover{cursor:pointer;}

@@ -61,10 +61,6 @@
 	  $("#kakaoSharing").on("click",shareKakaotalk);
    });
 </script>
-<style>
-#pInfo > div:nth-child(4) > div.col-md-7 > div > span > input.tt-input{max-width:620px;}
-#applyFrm > div.modal-body > div:nth-child(1) > div.col-7.pApplyInput > div > span > input.tt-input{max-width:250px;}
-</style>
 </head>
 
 <body>
@@ -81,7 +77,7 @@
             <!--      몸통 시작!!!   -->
             <div class=container id="projectPage">
 				<div id="pageTitle">
-					<h1>프로젝트 모집</h1>
+					<h1>프로젝트 모집글 상세보기</h1>
 				</div>
 				<div class="border border-secondary rounded" id="pageBody">
 					<c:if test="${pPage==null }">
@@ -170,7 +166,7 @@
 								<c:forEach items="${comments }" var="c">
 									<div class="row commentDiv commentBox${c.seq } coLevel${c.depth } p-0 pb-1">
 										<c:if test="${c.depth==1 }">
-											<div class="col-1 text-right pt-1"><span>┗</span></div>
+											<div class="col-1 text-right pt-1"><strong>┗</strong></div>
 										</c:if>
 										<div class="col-${12-c.depth } commentInnerBox pb-0">
 										<c:if test="${c.id==sessionScope.loginInfo.id }">
@@ -332,10 +328,15 @@
 				$("#pCoReplyInput textarea").focus();
 				return false;
 			}
+			if($("#pCoModContents").length>0){
+   				alert("현재 열려있는 댓글 수정창이 있습니다.");
+   				$("#pCoModContents").focus();
+   				return false;
+   			}
 			var html = [];
 			html.push(
 					'<div id="pCoReplyInput" class="row commentDiv commentBox p-0 pb-2">',
-					'<div class="col-1 text-right pt-1"><span>┗</span></div>',
+					'<div class="col-1 text-right pt-1"><strong>┗</strong></div>',
 					'<div class="col-11 commentInnerBox pb-0">',
 					'<div class="row mt-2">',
 					'<div class="col-9 col-md-10"><textarea class="form-control ml-0" placeholder="답글 내용을 입력해주세요" id="pCoReplyContents" name="contents" maxlength="1300"></textarea></div>',
@@ -458,6 +459,11 @@
    				$("#pCoModContents").focus();
    				return false;
    			}
+			if($("#pCoReplyInput").length>0){
+				alert("현재 열려있는 답글 입력창이 있습니다.");
+				$("#pCoReplyInput textarea").focus();
+				return false;
+			}
 			var checkContents = $("#hiddenModCo"+seq).val().replace(/modF'Fdom/gi,'"');
 			$(".commentBox"+seq).find(".commentBtns").css("display","none");
 			$(".commentBox"+seq).find(".commentContent").css("display","none");
@@ -635,7 +641,7 @@
 				);
 				if(resp[i].depth==1){
 					html.push(
-						'<div class="col-1 text-right pt-1"><span>┗</span></div>'		
+						'<div class="col-1 text-right pt-1"><strong>┗</strong></div>'		
 					);
 				}
 				if(resp[i].id==loginInfo){
@@ -647,11 +653,6 @@
 							'<div class="col-'+(12-resp[i].depth)+' commentInnerBox pb-0">'					
 					);							
 				}
-// 				if(resp[i].id==loginInfo){
-// 					html.push(
-// 						'<input type="hidden" class="myCommentBox">'		
-// 					);					
-// 				}
 				if(resp[i].contents!=null){
 					html.push(
 							'<div class="row commentHeader">',

@@ -29,9 +29,6 @@
       $("#proNavi").attr('class','nav-item nav-link active');
    });
 </script>
-<style>
-#pInfo > div:nth-child(4) > div.col-md-7 > div > span > input.tt-input{max-width:620px;}
-</style>
 </head>
 
 <body>
@@ -208,16 +205,24 @@
 			}
 		});
 		
-		$("#writeBtn").on("click",function(){					
+		$("#writeBtn").on("click",function(){
 			if($("#loc1").val()==null|$("#loc2").val()==null|$("#capacity").val()==""|$("#startDate").val()==""|$("#endDate").val()==""|$("#languages").val()==""){
 				if($("#pInfo").find(".tt-input").val()!=""){
 					$("#pInfo").find(".tt-input").val("");
 				}
-				alert("필수 입력 항목을 확인해주세요");
-				return false;
+				if($("#loc2").val()==null){
+					if($("#loc1").val()!=0){
+						alert("필수 입력 항목을 확인해주세요");
+						return false;		
+					}
+				}				
 			}
 			if($("#startDate").val()>$("#endDate").val()){
 				alert("시작일이 종료일보다 늦은 날짜일 수 없습니다");
+				$("#startDate").focus();				
+				return false;
+			}else if($("#startDate").val()==$("#endDate").val()){
+				alert("시작일이 종료일과 같은 날짜일 수 없습니다");
 				$("#startDate").focus();				
 				return false;
 			}				

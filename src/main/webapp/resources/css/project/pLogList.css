@@ -44,3 +44,5 @@ body{background-color:#efefef;}
 .searchOption{margin-right:5px;}
 #aPageNavi,#mPageNavi{margin-top:30px;}
 img{max-width:100%;}
+.applyTableBody div:nth-child(9) small:hover{color:orange;}
+.capaCheck:not(.achieve0){color:limegreen;}

@@ -4,8 +4,8 @@ import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.sql.Date;
-import java.time.Duration;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -72,16 +72,26 @@ public class ProjectService {
 			LocalDate eDate = m.getEndDate().toLocalDate();
 			int sYear = sDate.getYear();
 			int sMonth = sDate.getMonthValue();
-			int sDay = sDate.getDayOfMonth();						
+			int sDay = sDate.getDayOfMonth();			
+			Period p = Period.between(sDate, eDate);
+			double duration = p.getMonths()*105 + p.getDays()*3.2;
+			if(sMonth!=eDate.getMonthValue()) {
+				duration += 2;
+			}			
 			if(tYear==sYear) {
-				long distance = (sMonth-tMonth)*105 + sDay*3;
-				m.setDistance(distance);
-				long duration = Duration.between(sDate.atStartOfDay(), eDate.atStartOfDay()).toDays()*3;
+				double distance = (sMonth-tMonth)*105 + sDay*3.2;				
 				if(distance+duration>626) {
 					duration -= (distance+duration)-626;
 				}
-				m.setWidth(duration);							
+				m.setDistance(distance);				
+			}else {
+				double distance = ((12-tMonth)+sMonth)*105 + sDay*3.2;
+				if(distance+duration>626) {
+					duration -= (distance+duration)-626;
+				}
+				m.setDistance(distance);				
 			}
+			m.setWidth(duration);	
 			m.setToday(tMonth+"-"+tDate);
 		}
 		return result;

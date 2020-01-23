@@ -31,7 +31,7 @@
             </div>
             
             <!--      몸통 시작!!!   -->
-            <div class="container d-none d-md-block" id="projectPage">
+            <div class="container" id="projectPage">
 				<div id="pageTitle">
 					<h1>프로젝트 신청 상세보기</h1>
 				</div>
@@ -74,7 +74,7 @@
 							<div class="row pl-3 mb-2">
 								<div class="col-12 dLabel">하고싶은 말</div>
 							</div>
-							<div class="row pl-3">
+							<div class="row pl-3 pr-3">
 								<div id="pPageContents" class="col-11 rounded ml-3" style="word-break:break-all;word-break:break-word;">${aPage.etc }</div>
 							</div>	
 							
@@ -117,8 +117,7 @@
 						</c:if>
 					</span>
 				</div>          
-            </div>
-            <div class="d-md-none text-center">해당 해상도에서는 지원하지 않습니다</div>
+            </div>            
             <!--       몸통 끝!!!   -->
 
 

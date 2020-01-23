@@ -57,10 +57,7 @@
 }
 .commentInfo2{
 	padding-left:10px;
-/* 	margin-top:3px; */
 }
-/* .commentWriter,.commentWriteDate,.commentChangeDate,.commentDelDate{padding-left:0px;} */
-/* .commentWriter{font-weight:bold;} */
 .commentWriteDate,.commentChangeDate,.commentDelMessage,.commentDelDate{color:darkgray;}
 .coModBtn,.coDelBtn,.coReplyBtn{
 	width: 45px;
@@ -90,3 +87,5 @@ img{max-width:100%;}
     height:45px; width:90%;
 } 
 #projectPage{margin-bottom:100px;} 
+#pInfo > div:nth-child(4) > div.col-md-7 > div > span > input.tt-input{max-width:620px;}
+#applyFrm > div.modal-body > div:nth-child(1) > div.col-7.pApplyInput > div > span > input.tt-input{max-width:250px;}
