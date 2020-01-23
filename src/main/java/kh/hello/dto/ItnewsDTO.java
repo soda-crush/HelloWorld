@@ -62,7 +62,6 @@ public class ItnewsDTO {
 		this.kakaoTitle = kakaoTitle;
 	}
 
-
 	@Override
 	public String toString() {
 		return "ItnewsDTO [seq=" + seq + ", writer=" + writer + ", title=" + title + ", content=" + content
