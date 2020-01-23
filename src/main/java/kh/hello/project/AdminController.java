@@ -76,7 +76,7 @@ public class AdminController {
 		//1-1. 방문자 통계(today, total)
 		try {
 			Map<String, Integer> count = as.getVisitorCount();
-			m.addAttribute("count", count);			
+			m.addAttribute("count", count);	
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
