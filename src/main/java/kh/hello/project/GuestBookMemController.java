@@ -105,7 +105,7 @@ public class GuestBookMemController {
 	@RequestMapping("delete.do")
 	public String guestBookdeleteProc(int seq,String cpage) {
 		gs.delete(seq);
-		return "redirect:selectList.do?cpage=" + cpage;
+		return "redirect:toS	electList.do?cpage=" + cpage;
 	}
 	
 	@RequestMapping("update.do")
