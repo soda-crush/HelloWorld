@@ -16,6 +16,7 @@ public class CodeQuestionDTO {
 	private Timestamp writeDate;
 	private int replyCount;
 	private String profileImg;
+	private String kakaoTitle;
 
 	public CodeQuestionDTO() {
 		super();
@@ -98,6 +99,14 @@ public class CodeQuestionDTO {
 		this.profileImg = profileImg;
 	}
 	
+	public String getKakaoTitle() {
+		return kakaoTitle;
+	}
+
+	public void setKakaoTitle(String kakaoTitle) {
+		this.kakaoTitle = kakaoTitle;
+	}
+
 	//New 하루이내 표시 
 	public String getNewWriteDate() {
 	      LocalDateTime writeDate = this.getWriteDate().toLocalDateTime();
