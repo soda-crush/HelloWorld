@@ -217,9 +217,10 @@
 	         }
 	    	$("#sendbt").on("click",function(){
 	    		if($("#content").val()==""){
-	    			alert("asdf");
+	    			alert("내용을 작성해주세요");
+	    		}else{
+		    		$("#commentForm").submit();
 	    		}
-	    		$("#commentForm").submit();
 	    	})
         </script>
 </body>
