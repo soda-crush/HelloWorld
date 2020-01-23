@@ -31,7 +31,7 @@
         .line-over{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
         #plogPortfolio{background-color:#efefef;border-radius:5px 5px 0px 0px;padding:13px;}
         .page{background-color:white;border-radius:5px;padding:10px;border: 1px solid rgba(0,0,0,.125);}
-        input, textarea{border:1px solid #BDBDBD;background-color:#EAEAEA}
+        input, textarea{border: 1px solid rgba(0,0,0,.125);;background-color:#EAEAEA}
     </style>
 </head>
 <body>

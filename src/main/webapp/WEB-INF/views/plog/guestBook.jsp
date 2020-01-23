@@ -94,7 +94,7 @@
 												<span style="color:gray;font-size:12px;">${dto.getDate()}</span>
 											</div>
 			                			</div>
-			                            <textarea id="list${dto.seq }" class="message" onkeydown="resize(this)" onkeyup="resize(this)" maxlength="1300" readonly >${dto.content }</textarea>
+			                            <textarea id="list${dto.seq }" class="message" onkeydown="resize(this)" onkeyup="resize(this)" maxlength="1300" readonly>${dto.content }</textarea>
 			                  		</div>
 			                        <c:choose>
 										<c:when test="${dto.writer == loginInfo.nickName}">
