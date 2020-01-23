@@ -246,7 +246,6 @@ public class CodeController {
 		LoginInfoDTO info = (LoginInfoDTO)session.getAttribute("loginInfo");
 		dto.setId(info.getId());
 		dto.setWriter(info.getNickName());
-		dto.setContent(Utils.protectXss(dto.getContent()));
 		return sv.insertComment(dto);		
 	}
 

@@ -13,6 +13,7 @@ public class CodeCommentsDTO {
 	private Timestamp writeDate;
 	private String formedWriteDate;
 	private String profileImg;
+	private String modComment;
 	
 	public CodeCommentsDTO() {
 		super();
@@ -90,6 +91,15 @@ public class CodeCommentsDTO {
 
 	public void setProfileImg(String profileImg) {
 		this.profileImg = profileImg;
+	}
+	
+	public String getModComment() {
+		this.modComment = this.content.replaceAll("\"","modF'Fdom");
+		return this.modComment;
+	}
+	
+	public void setModComment(String comment) {
+		this.modComment = getModComment();
 	}
 
 	@Override
