@@ -79,6 +79,10 @@
 	white-space: normal;
 }
 
+a:hover {
+	text-decoration: none;
+}
+
 .topQ {
 	display: block;
 	text-align: left;
@@ -150,7 +154,7 @@
 	margin: 20px;
 }
 
-span:nth-child(1) {
+span:nth-child(2) {
 	font-size: 30px;
 	font-weight: 100;
 }
