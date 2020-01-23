@@ -168,8 +168,8 @@ $('.nav.navbar-nav a').hover(
 			            		<c:choose>
 			            		<c:when test="${bamList.size()!=0}">
 			            			<c:forEach items="${bamList}" var="bam" varStatus="status">
-			            			<div class="row cursorPointer pb-1" onclick="location.href='/bamboo/bambooDetailView.do?seq=${bam.seq}'">
-			            			<div class="col-1 orangeFt font-weight-bolder p-0 text-center">${status.count}</div><div class="col-11 fontThin" style="width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${bam.title}</div>
+			            			<div class="row pb-1">
+			            			<div class="col-1 orangeFt font-weight-bolder p-0 text-center">${status.count}</div><div class="col-11 fontThin cursorPointer" style="width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" onclick="location.href='/bamboo/bambooDetailView.do?seq=${bam.seq}'">${bam.title}</div>
 			            			</div>
 			            			</c:forEach>
 			            		</c:when>
@@ -189,8 +189,8 @@ $('.nav.navbar-nav a').hover(
 			            		<c:choose>
 			            		<c:when test="${codeList.size()!=0}">
 			            			<c:forEach items="${codeList}" var="code" varStatus="status">
-			            			<div class="row cursorPointer pb-1" onclick="location.href='${pageContext.request.contextPath}/code/codeDetail.do?seq=${code.seq}'">
-			            			<div class="orangeFt font-weight-bolder col-1 p-0 text-center">${status.count}</div><div class="fontThin col-11" style="width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${code.title}</div>
+			            			<div class="row pb-1">
+			            			<div class="orangeFt font-weight-bolder col-1 p-0 text-center">${status.count}</div><div class="fontThin col-11 cursorPointer" style="width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" onclick="location.href='${pageContext.request.contextPath}/code/codeDetail.do?seq=${code.seq}'">${code.title}</div>
 			            			</div>
 			            			</c:forEach>
 			            		</c:when>
@@ -210,8 +210,8 @@ $('.nav.navbar-nav a').hover(
 			            		<c:choose>
 			            		<c:when test="${indusList.size()!=0}">
 			            			<c:forEach items="${indusList}" var="indus" varStatus="status">
-			            			<div class="row cursorPointer pb-1" onclick="location.href='/industry/industryStatusDetailView.do?seq=${indus.seq}'">
-			            			<div class="orangeFt font-weight-bolder col-1 p-0 text-center">${status.count}</div><div class="fontThin col-11" style="width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${indus.title}</div>
+			            			<div class="row pb-1">
+			            			<div class="orangeFt font-weight-bolder col-1 p-0 text-center">${status.count}</div><div class="fontThin col-11 cursorPointer" style="width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" onclick="location.href='/industry/industryStatusDetailView.do?seq=${indus.seq}'">${indus.title}</div>
 			            			</div>
 			            			</c:forEach>
 			            		</c:when>
@@ -231,8 +231,8 @@ $('.nav.navbar-nav a').hover(
 			            		<c:choose>
 			            		<c:when test="${itList.size()!=0}">
 			            			<c:forEach items="${itList}" var="it" varStatus="status">
-			            			<div class="row cursorPointer pb-1" onclick="location.href='/itnews/detail?seq=${it.seq}'">
-			            			<div class="orangeFt font-weight-bolder col-1 p-0 text-center">${status.count}</div><div class="fontThin col-11" style="width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${it.title}</div>
+			            			<div class="row pb-1">
+			            			<div class="orangeFt font-weight-bolder col-1 p-0 text-center">${status.count}</div><div class="fontThin col-11 cursorPointer" style="width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" onclick="location.href='/itnews/detail?seq=${it.seq}'">${it.title}</div>
 			            			</div>
 			            			</c:forEach>
 			            		</c:when>

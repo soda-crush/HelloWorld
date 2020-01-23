@@ -12,6 +12,7 @@ public class ItnewsCoDTO {
 	private String id;
 	private String profileImg;
 	private String formedDate;
+	private String modComment;
 	
 	
 	public String getFormedDate() {
@@ -108,8 +109,14 @@ public class ItnewsCoDTO {
 				+ formedDate + "]";
 	}
 
-
-
+	public String getModComment() {
+		this.modComment = this.content.replaceAll("\"","modF'Fdom");
+		return this.modComment;
+	}
+	
+	public void setModComment(String comment) {
+		this.modComment = getModComment();
+	}
 
 	
 }
