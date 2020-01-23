@@ -96,21 +96,23 @@
 			                			</div>
 			                            <textarea id="list${dto.seq }" class="message" onkeydown="resize(this)" onkeyup="resize(this)" maxlength="1300" readonly>${dto.content }</textarea>
 			                  		</div>
-			                        <c:choose>
-										<c:when test="${dto.writer == loginInfo.nickName}">
+<%-- 			                        <c:choose> --%>
+<%-- 										<c:when test="${dto.writerID == loginInfo.id}"> --%>
 											<div style="text-align:right">
+												
 												<c:choose>
-													<c:when test = "${dto.writerID == loginInfo.id || dto.ownerID == loginInfo.id }">
+													<c:when test = "${dto.writerID == loginInfo.id }">
 														<button id="update${dto.seq}" class="btn btn-outline-dark" onclick="update(${dto.seq})" style="visibility:hidden;">수정완료</button>
 														<button id="toModify${dto.seq }" class="btn btn-outline-dark" onclick="modify(${dto.seq})">수정</button>
 													</c:when>
 												</c:choose>
+												
 												<button class="btn btn-outline-danger" id="delete" onclick="del(${dto.seq},${cpage})">삭제</button>
 					                        </div>
-										</c:when>
-										<c:otherwise>
-										</c:otherwise>
-									</c:choose>
+<%-- 										</c:when> --%>
+<%-- 										<c:otherwise> --%>
+<%-- 										</c:otherwise> --%>
+<%-- 									</c:choose> --%>
 								</div>
 							</c:forEach>
 	                    </div>
