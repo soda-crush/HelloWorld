@@ -33,6 +33,7 @@ public class ProjectDTO {
 	private int totalApprove;
 	private String profileImg;
 	
+	
 	public ProjectDTO() {
 		super();
 	}	
@@ -207,6 +208,11 @@ public class ProjectDTO {
 	}
 	
 	
+	
+	public String getKakaoTitle() {		
+		return this.title.replaceAll("\"","\\\\\"");		 
+	}
+
 	public String getStateInKor() {
 		String state = this.state;
 		if(state.contentEquals("N")) {

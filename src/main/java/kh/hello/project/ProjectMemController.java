@@ -51,6 +51,9 @@ public class ProjectMemController {
 		}else if(pageOrder.contentEquals("startDate")) {
 			checkOrder="startDate";
 		}
+		if(keyword!=null) {
+			keyword.replaceAll("'", "''");
+		}
 		List<ProjectDTO> result = svc.projectListPerPage(start, end, pageOrder, searchOption, keyword);
 		int stateCount = svc.projectStateNoneCount();
 		m.addAttribute("projectList", result);
@@ -349,6 +352,9 @@ public class ProjectMemController {
 		}
 		int start = currentPage * (Configuration.pLogProjectRecordCountPerPage)-(Configuration.pLogProjectRecordCountPerPage-1);
 		int end = currentPage * (Configuration.pLogProjectRecordCountPerPage);
+		if(keyword!=null) {
+			keyword.replaceAll("'", "''");
+		}
 		List<ProjectDTO> result = svc.makeProjectListPerPage(start, end, id, searchOption, keyword);
 		m.addAttribute("makeProjectList", result);
 		String pageNavi = svc.getPLogProjectPageNavi(currentPage, id, "makeProjectList", searchOption, keyword);
@@ -368,6 +374,9 @@ public class ProjectMemController {
 		}
 		int start = currentPage * (Configuration.pLogProjectRecordCountPerPage)-(Configuration.pLogProjectRecordCountPerPage-1);
 		int end = currentPage * (Configuration.pLogProjectRecordCountPerPage);
+		if(keyword!=null) {
+			keyword.replaceAll("'", "''");
+		}
 		List<ProjectDTO> result = svc.makeProjectListPerPage(start, end, id, searchOption, keyword);
 		m.addAttribute("makeProjectList", result);
 		String pageNavi = svc.getPLogProjectPageNavi(currentPage, id, "makeProjectList", searchOption, keyword);
@@ -387,6 +396,9 @@ public class ProjectMemController {
 		}
 		int start = currentPage * (Configuration.pLogProjectRecordCountPerPage)-(Configuration.pLogProjectRecordCountPerPage-1);
 		int end = currentPage * (Configuration.pLogProjectRecordCountPerPage);
+		if(keyword!=null) {
+			keyword.replaceAll("'", "''");
+		}
 		List<ProjectPLogDTO> result = svc.applyProjectListPerPage(start, end, id, searchOption, keyword);
 		m.addAttribute("applyProjectList", result);
 		String pageNavi = svc.getPLogProjectPageNavi(currentPage, id, "applyProjectList", searchOption, keyword);

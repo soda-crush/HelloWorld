@@ -131,7 +131,9 @@ public class ProjectChartDTO {
 	}
 
 	
-	
+	public String getKakaoTitle() {		
+		return this.title.replaceAll("\"","\\\\\"");		 
+	}
 	
 	public String getStateInKor() {
 		String state = this.state;
