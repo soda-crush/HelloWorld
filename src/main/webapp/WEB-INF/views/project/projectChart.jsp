@@ -24,70 +24,6 @@
    });
 
 </script>
-<style>
-	#pageTitle{margin-bottom:20px;}
-	#pageTitle h1{display:inline;margin-right:10px;font-weight:bold;}
-	#pageTitle .btn{margin-left:5px;}
-	#pageComment{margin-bottom:20px;}
-	.projectList{margin-bottom:10px;}	
-	.pTextInfo label.N{background-color:limegreen;}
-	.pTextInfo label.Y{background-color:red;}
-	.pTextInfo label{color:white;}
-	.pTextInfo{padding:15px;background-color:#ffffff;border-radius:10px 0px 0px 10px;}
-	.graphNaviItem:last-of-type{border-radius:0px 10px 10px 0px;}
-	.graphNaviItem:not(:first-of-type){margin-left:2px;}
-	.pGraphBar{position:relative;}
-    .fa-share-alt,.scrapDone,.scrapNull{margin-left:15px;}
-    .pInfoBox span{font-size:15px;display:inline-block;}
-	.pInfoBox span:first-of-type{width:180px;}
-	.pInfoBox span:nth-of-type(2){width:90px;}
-    .pTitleBox{font-weight:bold;}     
-    .pTextInfo{z-index:1;}
-	.graphNaviItem{background-color:#e0e0e0;color:#59595990;text-align:center;width:103px;padding-top:130px;}
-	.progressBar{
-		height:50px;
-		background-color:#ffc107;		
-		position:absolute;
-		top:50%; 
- 		left:50%;       	 
-    }
-    .todayBar{
-    	height:70px;
-    	width:2px;
-    	background-color:crimson;
-    	position:absolute;
-    	top:50%;
-    	left:50%;
-    	z-index:5;
-    }
-    .todayFlag{
-            padding: 1px;
-            font-size: 13px;
-            font-weight: bold;            
-            text-align: center;
-            background-color: crimson;
-            color:white;
-    		position:absolute;
-    	    width:50px;
-            top: -20px;
-            left: -25px;
-            border-radius: 10px;            
-    }
-    .pTitleBox:hover{cursor:pointer;}
-    .progressBar:hover{cursor:pointer;}    
-    .scrapDone{color:crimson;}
-	.kakaoSharing,.scrapDone,.scrapNull:hover{cursor:pointer;}
-	.kakaoSharing:hover{color:#ffc107;}
-	#stateCountLabel{
-		background-color:limegreen;
-		color:white;
-		line-height:30px;
-		font-size:25px;
-		position:relative;
-		top:-5px;
-	}
-#baseBackgroundColor{min-height:603px;}
-</style>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/standard/header.jsp"/>
@@ -118,7 +54,7 @@
 								<div class="btn-group" role="group">
 									<button type="button" class="btn btn-outline-warning btn-sm active" id="latestOrder">최신순</button>
 									<button type="button" class="btn btn-outline-warning btn-sm" id="deadlineOrder">마감임박순</button>
-									<span class="ml-3 pt-1" style="height:15px;color:#8a8a8a;"><strong>모집중인 프로젝트만 표시됩니다</strong></span>
+									<span class="ml-3 pt-1" style="height:15px;color:#8a8a8a;"><small>모집중인 프로젝트만 표시됩니다</small></span>
 									<input type="hidden" name="pageOrder" id="pageOrder">
 								</div>
 							</div>

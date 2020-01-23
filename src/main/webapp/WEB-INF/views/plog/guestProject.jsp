@@ -59,7 +59,7 @@
             <div class="container">
             
 	            <div class="row">
-	                <div class="col-12 col-md-4 d-md-block d-lg-none myprofile pb-2">
+	                <div class="col-12 col-md-4 col-lg-3 myprofile pb-2">
 	                    <div>
 	                    	<div class="card d-none d-md-block" id="mycard">
 		                        <img src="${otherInfo.profileImg }" class="card-img-top" alt="..." style="width: 85%;margin:7.5%;">
@@ -82,9 +82,7 @@
 	                
 	                
 	                
-	                <div class="col-12 col-md-8 col-lg-12 projectwrap pt-2">
-	                
-	                	                
+	                <div class="col-12 col-md-8 col-lg-9 projectwrap pt-2">
 						<div class="embed-responsive p-0" style="overflow:hidden;height:655px;" id="makeFrame">
 						  <iframe class="noScrolling" src="/project/pLog/makeGuestProjectList?guestConnect=yes"></iframe>
 						</div>

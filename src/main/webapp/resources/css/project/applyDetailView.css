@@ -5,17 +5,21 @@
 #pBody,#pageFooter{padding-top:10px;}
 #pBody{margin:20px;margin-top:30px;margin-bottom:30px;}
 #pBody *{font-size:15px;font-weight:500;}
-#pBody label{width:210px;color:darkgray;font-weight:bold;margin-bottom:15px;}
 .checkBtn button:nth-child(2){margin-left:10px;}
+#openPortfolio{margin-left:5px;}
+img{max-width:100%;}
+body{background-color:#e9ecef;}
+#openProject:hover{cursor:pointer;}
+.fa-external-link{
+	position:absolute;	
+	top:5px;
+	margin-left:5px;
+	color:crimson;
+}
+#pBody .dLabel{color:darkgray;font-weight:bold;}
 #pPageContents{
-	margin-left:20px;
-	margin-right:20px;
 	background-color:#ededed;
 	border:1px solid darkgray;
-	padding:20px;
-	min-height:100px;
+	padding:10px;
+	min-height:50px;		
 }
-#openPortfolio{margin-left:5px;}
-#pBody span{margin-left:2px;}
-.fa-external-link{margin-left:5px;color:crimson;}
-img{max-width:100%;}

@@ -60,7 +60,7 @@
 							<div class="btn-group" role="group">
 								<button type="button" class="btn btn-outline-warning btn-sm active" id="latestOrder">최신순</button>
 								<button type="button" class="btn btn-outline-warning btn-sm" id="deadlineOrder" data-toggle="tooltip" title="모집마감된 글은 제외됩니다">마감임박순</button>
-								<span class="ml-3 pt-1" style="height:15px;color:#8a8a8a;" id="deadlineComment"><strong>모집중인 프로젝트만 표시됩니다</strong></span>
+								<span class="ml-3 pt-1" style="height:15px;color:#8a8a8a;" id="deadlineComment"><small>모집중인 프로젝트만 표시됩니다</small></span>
 							</div>
 						</div>
 					</div>
@@ -114,6 +114,7 @@
 							    <option value="contents">내용</option>
 							    <option value="location">지역</option>
 							    <option value="capacity">인원</option>
+							    <option value="languages">사용언어</option>
 							    <option value="writer">작성자</option>									    
 							</select>
 							<input type="hidden" name="pageOrder" id="pageOrder">

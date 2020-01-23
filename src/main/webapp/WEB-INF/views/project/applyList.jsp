@@ -13,10 +13,6 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/css/project/applyList.css" type="text/css"/>
 <link rel="stylesheet" type="text/css" href="/css/font-awesome/css/font-awesome.css">
-<style>
-body{background-color:#e9ecef;}
-#aPageNavi{margin-top:20px;}
-</style>
 </head>
 <body>
 <%-- 	<jsp:include page="/WEB-INF/views/standard/header.jsp"/> --%>
@@ -39,10 +35,10 @@ body{background-color:#e9ecef;}
 					<div class="row tableHead">					    
 					    <div class="d-none d-lg-block col-lg-1">번호</div>
 					    <div class="d-none d-lg-block col-lg-2">신청자</div>
-					    <div class="d-none d-md-block col-md-3 col-lg-4">사용가능언어</div>
-					    <div class="d-none d-md-block col-md-3 col-lg-2">재직여부</div>
+					    <div class="d-none d-md-block col-md-5 col-lg-4">사용가능언어</div>
+					    <div class="d-none d-md-block col-md-2">재직여부</div>
 					    <div class="d-none d-md-block col-md-3 col-lg-2">포트폴리오</div>
-					    <div class="d-none d-md-block col-md-3 col-lg-1">승인상태</div>
+					    <div class="d-none d-md-block col-md-2 col-lg-1">승인상태</div>
 					</div>
 					
 				  	<c:choose>
@@ -54,10 +50,10 @@ body{background-color:#e9ecef;}
 				  				<div class="row tableBody p-0 text-decoration-none applyRow${a.approve }" onclick="openApplyPage(${a.seq },'${a.approve}')">
 									<div class="d-none d-lg-block col-lg-1">${projectApplyList.size() - status.index}</div>
 									<div class="d-none d-lg-block col-lg-2"><small>${a.writer }</small></div>
-									<div class="d-none d-md-block col-md-3 col-lg-4" style="max-width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;font-weight:bold;">${a.languages }</div>
-									<div class="d-none d-md-block col-md-3 col-lg-2">${a.workInInKor }</div>									
+									<div class="d-none d-md-block col-md-5 col-lg-4 pl-1" style="max-width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;">${a.languages }</div>
+									<div class="d-none d-md-block col-md-2">${a.workInInKor }</div>									
 									<div class="d-none d-md-block col-md-3 col-lg-2">${a.portfolioInKor }</div>
-									<div class="d-none d-md-block col-md-3 col-lg-1 approve${a.approve }">${a.approveInKor }</div>									
+									<div class="d-none d-md-block col-md-2 col-lg-1 approve${a.approve }">${a.approveInKor }</div>									
 								</div>	
 				  			</c:forEach>
 				  		</c:otherwise>
