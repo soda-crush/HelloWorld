@@ -34,7 +34,7 @@
          objectType : "feed",
          content : {
             title : "${iPage.kakaoTitle}", // 콘텐츠의 타이틀 
-            description : "업계현황", // 콘텐츠 상세설명
+            description : "HELLo", // 콘텐츠 상세설명
             imageUrl : "https://miro.medium.com/max/3840/1*U-R58ahr5dtAvtSLGK2wXg.png", // 썸네일 이미지          
             link : {
                mobileWebUrl : "http://${ip}/industry/industryStatusDetailView.do?seq="+${iPage.seq}, // 모바일 카카오톡에서 사용하는 웹 링크 URL            
@@ -122,19 +122,31 @@
 		</div>
 
 		<!--      몸통 시작!!!   -->
-		 <div class="container">
-            	<div class="row">
-					<div class="col-12 col-xl-3">
-						<p id=cateTitle style="display:inline;">HELLo</p>
-					</div>
-					<div class="col-12 col-xl-9 pt-xl-5">
-						<p style="display:inline;" id=cateCmt>재직자만 사용가능한 게시판입니다.</p>
-					</div>
-				</div>		
+		 <div class="container">	
 				<div class=row>
+				<div class="col-12 d-none d-md-block">
+					<div id="pageTitle">
+						<table>
+							<tr>
+								<td colspan="3" style="font-size: 60px; font-weight: 100; vertical-align: text-bottom"><h1 class="fontBold">HELLo</h1></td>
+								<td></td>
+								<td style="font-size: 15px; color: gray; vertical-align: text-bottom">     재직자만 사용가능한 게시판입니다.</td>
+								<td></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class=row>
+				<div class="d-md-none">
+					<div style="font-size: 60px; font-weight: 100;"><h1 class="fontBold">HELLo</h1></div>
+					<div style="font-size: 15px; color: gray;">재직자만 사용가능한 게시판입니다.</div>
+				</div>
+			</div>
+			<div class=row>
 					<div class=col-12><br></div>
-				</div>		
-            </div>
+				</div>	
+          </div>
 		<div class="container eleCon">
 		
 
