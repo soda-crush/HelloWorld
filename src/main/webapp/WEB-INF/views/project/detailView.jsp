@@ -30,7 +30,7 @@
 	      Kakao.Link.sendDefault({
 	         objectType : "feed",
 	         content : {
-	            title : "${pPage.title}", // 콘텐츠의 타이틀 
+	            title : "${pPage.kakaoTitle}", // 콘텐츠의 타이틀 
 	            description : "프로젝트 모집", // 콘텐츠 상세설명
 	            imageUrl : "https://miro.medium.com/max/3840/1*U-R58ahr5dtAvtSLGK2wXg.png", // 썸네일 이미지          
 	            link : {
@@ -56,6 +56,8 @@
 	         } ]
 	      });
 	   }
+		
+	  $("#kakaoSharing").on("click",shareKakaotalk);
    });
 </script>
 <style>
@@ -666,7 +668,7 @@
 				$(".pPageComments").append(html.join(""));	
 			}
 		}
-		  $("#kakaoSharing").on("click",shareKakaotalk);
+		  
 	</script>
 </body>
 </html>
