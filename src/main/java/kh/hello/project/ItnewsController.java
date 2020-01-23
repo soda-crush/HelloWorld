@@ -112,7 +112,6 @@ public class ItnewsController {
 		dto.setId(((LoginInfoDTO)session.getAttribute("loginInfo")).getId());
 		dto.setWriter(((LoginInfoDTO)session.getAttribute("loginInfo")).getNickName());
 		is.coWrite(dto, seq);
-		System.out.println( is.coWriteAfter(seq));
 		return is.coWriteAfter(seq);
 	}
 	

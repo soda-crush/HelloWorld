@@ -465,7 +465,7 @@
 									);
 							if(resp[i].writer==loginInfo){
 								html.push(
-										'<a class="btn btn-info coModBtn" href="#" onclick="coModFunction('+resp[i].seq+'\');return false;" role="button">수정</a>\n',
+										'<a class="btn btn-info coModBtn" href="#" onclick="coModFunction('+resp[i].seq+');return false;" role="button">수정</a>\n',
 										'<a class="btn btn-danger coDelBtn" href="#" onclick="coDelFunction('+resp[i].seq+');return false;" role="button">삭제</a>'
 										);
 							}
@@ -477,7 +477,6 @@
 							$(".coContainer").append(html.join(""));	
 							}
 					}	
-                  
                  
        	 </script>
 </body>
