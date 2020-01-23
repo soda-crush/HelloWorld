@@ -137,4 +137,5 @@
 		insert into reportedBoard values(reportedBoardSeq.nextval, 'N', 'Itnews', #{boardSeq}, #{title}, #{reporterNick}, #{reporterID} , sysdate, #{reason}, null)
 	</insert>
 	
+	
 </mapper> 
