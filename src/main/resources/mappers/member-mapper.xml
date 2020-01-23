@@ -91,4 +91,10 @@
 		select memLevel from member where id = #{id}
 	</select>
 	
+	<select id="selectCtfMail" parameterType="string" resultType="integer">
+		select count(*) from signupcertification where email = #{email}
+	</select>
+	<update id="updateCtfCode" parameterType="java.util.Map">
+		update signupcertification set certificationCode=#{ctfCode} where email=#{email}
+	</update>
 </mapper>

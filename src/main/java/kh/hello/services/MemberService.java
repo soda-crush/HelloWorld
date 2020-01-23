@@ -191,7 +191,12 @@ public class MemberService {
 					  
 					    
 			//디비에 이메일이랑 인증코드 저장
-			this.insertCtfCode(email, ctfCode);
+			int ctfDupleCheck = mdao.selectCtfMail(email);
+			if(ctfDupleCheck > 0) {
+				mdao.updateCtfCode(email, ctfCode);
+			}else {
+				this.insertCtfCode(email, ctfCode);
+			}
 						 
 			MimeMessage message = mailSender.createMimeMessage();
 			MimeMessageHelper messageHelper 
@@ -219,8 +224,13 @@ public class MemberService {
 						    String content = "해당코드를 입력창에 입력해주세요 : " + ctfCode;    // 내용
 						  
 						    
-						    	//디비에 이메일이랑 인증코드 저장
-							    this.insertCtfCode(email, ctfCode);
+						  //디비에 이메일이랑 인증코드 저장
+							int ctfDupleCheck = mdao.selectCtfMail(email);
+							if(ctfDupleCheck > 0) {
+								mdao.updateCtfCode(email, ctfCode);
+							}else {
+								this.insertCtfCode(email, ctfCode);
+							}
 							 
 							    	 MimeMessage message = mailSender.createMimeMessage();
 								      MimeMessageHelper messageHelper 
