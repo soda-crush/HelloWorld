@@ -103,11 +103,16 @@ font-size: 12px;
 	color: #c2c2c2;
 	line-height: 29px;
 }
-.navbar-dark .navbar-nav .nav-link:hover{
-	color: white;
-	font-size: 17px !important;
-	line-height: 28px;
-}
+#plogLogo{opacity:73%;height: 23px;}
+ .navbar-dark .navbar-nav .nav-link:hover{ 
+ color: white; 
+ font-size: 17px !important; 
+ line-height: 28px; 
+ } 
+ .navbar-dark .navbar-nav .nav-link:hover #plogLogo{ 
+  opacity:100%!important; 
+  height: 25px;
+ } 
 .navbar {
    padding: 0px;
 }
