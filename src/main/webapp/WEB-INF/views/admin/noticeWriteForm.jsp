@@ -31,6 +31,12 @@
 <script src="/js/summernote-ko-KR.js"></script>
 
 <style>
+#guest img{
+	opacity:50%;
+}
+.metismenu #guest:hover img, .metismenu #guest.active img {
+	opacity:100%;
+}
 #home-tab:hover{
 cursor:default;
 }

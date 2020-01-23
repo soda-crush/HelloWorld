@@ -25,6 +25,12 @@
 <!-- modernizr css -->
 <script src="${pageContext.request.contextPath }/adRsc/vendor/modernizr-2.8.3.min.js"></script>
 <style>
+#guest img{
+	opacity:50%;
+}
+.metismenu #guest:hover img, .metismenu #guest.active img {
+	opacity:100%;
+}
 #home-tab:hover{
 cursor:default;
 }
@@ -62,10 +68,10 @@ cursor:default;
                 <div class="row align-items-center">
                     <div class="col-sm-6">
                         <div class="breadcrumbs-area clearfix">
-                            <h4 class="page-title pull-left">업계현황</h4>
+                            <h4 class="page-title pull-left">HELLo</h4>
                             <ul class="breadcrumbs pull-left">
                                 <li><a href="${pageContext.request.contextPath }/admin/main">Home</a></li>
-                                <li><span>업계현황</span></li>
+                                <li><span>HELLo</span></li>
                             </ul>
                         </div>
                     </div>

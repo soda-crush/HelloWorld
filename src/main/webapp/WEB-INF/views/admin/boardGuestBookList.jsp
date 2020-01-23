@@ -28,6 +28,12 @@
 <!-- jquery latest version -->
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <style>
+#guest img{
+	opacity:50%;
+}
+.metismenu #guest:hover img, .metismenu #guest.active img {
+	opacity:100%;
+}
 	.nameBtn{
 		border: 1px solid transparent !important;
 		background-color:transparent !important;

@@ -31,6 +31,12 @@
         ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "ee6b7db5b51705a13dc2339db3edaf6d"];
     </script>
 <style>
+#guest img{
+	opacity:50%;
+}
+.metismenu #guest:hover img, .metismenu #guest.active img {
+	opacity:100%;
+}
 	.notification-area {
 		text-align:right;
 	}

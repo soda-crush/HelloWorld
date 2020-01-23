@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -54,7 +55,7 @@
 				<form action="${pageContext.request.contextPath}/member1/modifyInquiry?page=${page}" method="post" id="writeFrm" enctype="multipart/form-data">
 					<div id="pageBody">					
 						<div id="pBody">
-							<div id="pTitleInput" class="mb-3"><input type="text" class="form-control" placeholder="제목을 입력해주세요" name="title" id="title" value="${dto.title}" maxlength="100"></div>
+							<div id="pTitleInput" class="mb-3"><input type="text" class="form-control" placeholder="제목을 입력해주세요" name="title" id="title" value="${fn:escapeXml(dto.title)}" maxlength="100"></div>
 							<div id="pContentsInput"><textarea class="form-control summernote" name="content" id="content">${dto.content}</textarea></div>											
 						</div>					
 					</div>

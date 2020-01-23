@@ -121,7 +121,7 @@ public class ReportDTO {
 		}else if(board.contentEquals("Cohow")){
 			return "Code-How";
 		}else if(board.contentEquals("Industry")){
-			return "업계현황";
+			return "HELLo";
 		}else if(board.contentEquals("Itnews")){
 			return "IT뉴스";
 		}else{

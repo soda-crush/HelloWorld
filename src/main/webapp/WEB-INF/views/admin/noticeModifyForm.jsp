@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,6 +32,12 @@
 <script src="/js/summernote-ko-KR.js"></script>
 
 <style>
+#guest img{
+	opacity:50%;
+}
+.metismenu #guest:hover img, .metismenu #guest.active img {
+	opacity:100%;
+}
 #home-tab:hover{
 cursor:default;
 }
@@ -106,7 +113,7 @@ text-align:right;
 	                                        <div class="col-12">
 	                                            <div class="invoice-address mb-2">
 													<input type="text" class="form-control form-control-lg" name="title" maxlength="100"
-													id="title" placeholder="제목을 입력해주세요" value="${dto.title}">
+													id="title" placeholder="제목을 입력해주세요" value="${fn:escapeXml(dto.title)}">
 	                                            </div>
 	                                            <div class="invoice-address">
 	                                            	<textarea class="form-control summernote" name="content" id="content">${dto.content}</textarea>

@@ -28,6 +28,12 @@
 <!-- jquery latest version -->
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <style>
+#guest img{
+	opacity:50%;
+}
+.metismenu #guest:hover img, .metismenu #guest.active img {
+	opacity:100%;
+}
 	.contentCard{
 		max-width: 1000px;
 	}
@@ -58,10 +64,10 @@
                 <div class="row align-items-center">
                     <div class="col-sm-6">
                         <div class="breadcrumbs-area clearfix">
-                            <h4 class="page-title pull-left">업계현황</h4>
+                            <h4 class="page-title pull-left">HELLo</h4>
                             <ul class="breadcrumbs pull-left">
                                 <li><a href="${pageContext.request.contextPath }/admin/main">Home</a></li>
-                                <li><span>업계현황</span></li>
+                                <li><span>HELLo</span></li>
                             </ul>
                         </div>
                     </div>
