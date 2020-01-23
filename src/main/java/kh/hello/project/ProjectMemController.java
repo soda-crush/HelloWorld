@@ -13,13 +13,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kh.hello.configuration.Configuration;
 import kh.hello.dto.LoginInfoDTO;
+import kh.hello.dto.OwnerInfoDTO;
 import kh.hello.dto.ProjectApplyDTO;
+import kh.hello.dto.ProjectChartDTO;
 import kh.hello.dto.ProjectCoDTO;
 import kh.hello.dto.ProjectDTO;
-import kh.hello.dto.ProjectChartDTO;
 import kh.hello.dto.ProjectPLogDTO;
 import kh.hello.dto.ReportDTO;
 import kh.hello.services.ProjectService;
+import kh.hello.utils.Utils;
 
 @Controller
 @RequestMapping("/project")
@@ -107,6 +109,7 @@ public class ProjectMemController {
 		m.addAttribute("myApply", myApply);		
 		m.addAttribute("checkApplyCount", checkApplyCount);
 		m.addAttribute("ip", Configuration.ip);
+		m.addAttribute("adImg", Utils.getRandomAd());
 		return "/project/detailView";
 	}
 	
@@ -336,9 +339,9 @@ public class ProjectMemController {
 		return "/project/projectPLogList";
 	}
 	
-	@RequestMapping("/pLog/makeProjectList")
-	public String makeProjectList(String page, String searchOption, String keyword, Model m){
-		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
+	@RequestMapping("/pLog/makeGuestProjectList")
+	public String makeGuestProjectList(String page, String searchOption, String keyword, String guestConnect, Model m){
+		OwnerInfoDTO sessionValue = (OwnerInfoDTO)session.getAttribute("otherInfo");
 		String id = sessionValue.getId();						
 		int currentPage = 1;
 		if(page!=null) {
@@ -351,12 +354,32 @@ public class ProjectMemController {
 		String pageNavi = svc.getPLogProjectPageNavi(currentPage, id, "makeProjectList", searchOption, keyword);
 		m.addAttribute("makePageNavi", pageNavi);
 		m.addAttribute("makeCurrentPage", currentPage);
+		m.addAttribute("guestConnect", guestConnect);
+		return "/project/guestPLogMakeProject";
+	}
+	
+	@RequestMapping("/pLog/makeProjectList")
+	public String makeProjectList(String page, String searchOption, String keyword, String guestConnect, Model m){
+		OwnerInfoDTO sessionValue = (OwnerInfoDTO)session.getAttribute("ownerInfo");
+		String id = sessionValue.getId();						
+		int currentPage = 1;
+		if(page!=null) {
+			currentPage = Integer.parseInt(page);
+		}
+		int start = currentPage * (Configuration.pLogProjectRecordCountPerPage)-(Configuration.pLogProjectRecordCountPerPage-1);
+		int end = currentPage * (Configuration.pLogProjectRecordCountPerPage);
+		List<ProjectDTO> result = svc.makeProjectListPerPage(start, end, id, searchOption, keyword);
+		m.addAttribute("makeProjectList", result);
+		String pageNavi = svc.getPLogProjectPageNavi(currentPage, id, "makeProjectList", searchOption, keyword);
+		m.addAttribute("makePageNavi", pageNavi);
+		m.addAttribute("makeCurrentPage", currentPage);
+		m.addAttribute("guestConnect", guestConnect);
 		return "/project/pLogMakeProject";
 	}
 	
 	@RequestMapping("/pLog/applyProjectList")
 	public String applyProjectList(String page, String searchOption, String keyword, Model m){
-		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
+		OwnerInfoDTO sessionValue = (OwnerInfoDTO)session.getAttribute("OwnerInfoDTO");
 		String id = sessionValue.getId();				
 		int currentPage = 1;
 		if(page!=null) {

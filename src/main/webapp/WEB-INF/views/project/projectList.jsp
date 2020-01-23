@@ -96,7 +96,7 @@
 									<div class="col-xl-1 col-2 col-md-1">${p.location1 }</div>
 									<div class="col-xl-1 col-lg-1 d-none d-lg-block">${p.capacity }명</div>
 									<div class="col-xl-2 col-md-4 d-none d-md-block"><small>${p.formedAllDate }</small></div>
-									<div class="col-xl-1 d-none d-xl-block text-decoration-none" onclick="popUp('/Portfolio/toPlog.do?owner=${p.id}')"><small>${p.writer }</small></div>
+									<div class="col-xl-1 d-none d-xl-block text-decoration-none" onclick="popUp('/Portfolio/toPlog.do?owner=${p.id}&other=Y')"><small>${p.writer }</small></div>
 									<div class="col-xl-1 d-none d-xl-block">${p.formedDate }</div>
 									<div class="col-xl-1 d-none d-xl-block">${p.viewCount }</div>
 								</div>	

@@ -23,6 +23,39 @@
 <script>
    $(function(){
       $("#proNavi").attr('class','nav-item nav-link active');
+      
+		//카카오톡
+	  function shareKakaotalk() {
+	      Kakao.init("17c512cbe4e17a204cce3c9b7d64d274"); // 사용할 앱의 JavaScript 키를 설정
+	      Kakao.Link.sendDefault({
+	         objectType : "feed",
+	         content : {
+	            title : "${pPage.title}", // 콘텐츠의 타이틀 
+	            description : "프로젝트 모집", // 콘텐츠 상세설명
+	            imageUrl : "https://miro.medium.com/max/3840/1*U-R58ahr5dtAvtSLGK2wXg.png", // 썸네일 이미지          
+	            link : {
+	               mobileWebUrl : "http://${ip}/project/detailView?page=${page}&seq=${pPage.seq }", // 모바일 카카오톡에서 사용하는 웹 링크 URL		            		   
+	               webUrl : "http://${ip}/project/detailView?page=${page}&seq=${pPage.seq }" // PC버전 카카오톡에서 사용하는 웹 링크 URL
+	            }
+	         },
+	         social : {
+	            likeCount : 0 // LIKE 개수
+	            ,
+	            commentCount : 0 // 댓글 개수
+	            ,
+	            sharedCount : 0
+	         // 공유 회수
+	         },
+	         buttons : [ {
+	            title : "링크 이동하기" // 버튼 제목
+	            ,
+	            link : {
+	               mobileWebUrl : "http://${ip}/project/detailView?page=${page}&seq=${pPage.seq }",  // 모바일 카카오톡에서 사용하는 웹 링크 URL
+	               webUrl : "http://${ip}/project/detailView?page=${page}&seq=${pPage.seq }" // PC버전 카카오톡에서 사용하는 웹 링크 URL
+	            }
+	         } ]
+	      });
+	   }
    });
 </script>
 <style>
@@ -70,7 +103,7 @@
 							</label>
 							<br>
 							<div class="ml-4 mr-3 mb-3 mt-2" style="font-weight:bold;font-size:20px;display:inline-block;word-break:break-all;word-break:break-word;">${pPage.title}</div><br>
-							<label class="ml-4 mb-0" onclick="popUp('/Portfolio/toPlog.do?owner=${pPage.id}')" style="cursor:pointer;">
+							<label class="ml-4 mb-0" onclick="popUp('/Portfolio/toPlog.do?owner=${pPage.id}&other=Y')" style="cursor:pointer;">
 							<img src="${pPage.profileImg }" style="width:30px;height:30px;margin-right:7px;margin-bottom:5px;"><strong style="font-size:15px;">${pPage.writer }</strong></label>
 							<label class="ml-4 mb-0">작성일 : ${pPage.formedWriteDate }</label>
 							<label class="ml-4 mb-0">조회 : ${pPage.viewCount }</label>
@@ -126,7 +159,7 @@
 							</div>
 							
 							 <div class="row align-items-center adBoxDiv">
-							    <div class="col-12">광고자리</div>
+							    <div class="col-12"><img src="/img/${adImg }"></div>
 							 </div>
 							
 							<div class="pPageComments">
@@ -143,7 +176,7 @@
 														<div class="col-lg-1 d-none d-lg-block profileBox pl-1 pt-2 pr-0"><img src="${c.profileImg }" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>
 														<div class="col-7 col-lg-6 pt-1">
 															<div class="row commentInfo pl-2">
-																<div class="col-12 commentWriter"><span style="font-weight:bold;cursor:pointer;" onclick="popUp('/Portfolio/toPlog.do?owner=${c.id}')">${c.writer }</span></div>
+																<div class="col-12 commentWriter"><span style="font-weight:bold;cursor:pointer;" onclick="popUp('/Portfolio/toPlog.do?owner=${c.id}&other=Y')">${c.writer }</span></div>
 																<div class="col-12 commentWriteDate">
 																	<span>${c.formedWriteDate }</span>
 																	<c:if test="${c.changeDate!=null }">
@@ -593,7 +626,7 @@
 							'<div class="col-lg-1 d-none d-lg-block profileBox pl-1 pt-2 pr-0"><img src="'+resp[i].profileImg+'" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>',
 							'<div class="col-7 col-lg-6 pt-1">',
 							'<div class="row commentInfo pl-2">',
-							'<div class="col-12 commentWriter"><span style="font-weight:bold;cursor:pointer;" onclick="popUp(\'/Portfolio/toPlog.do?owner='+resp[i].id+'\')">'+resp[i].writer+'</span></div>',
+							'<div class="col-12 commentWriter"><span style="font-weight:bold;cursor:pointer;" onclick="popUp(\'/Portfolio/toPlog.do?owner='+resp[i].id+'&other=Y\')">'+resp[i].writer+'</span></div>',
 							'<div class="col-12 commentWriteDate">',
 							'<span>'+resp[i].formedWriteDate+'</span>'
 					);
@@ -633,38 +666,6 @@
 				$(".pPageComments").append(html.join(""));	
 			}
 		}
-		//카카오톡
-		  function shareKakaotalk() {
-		      Kakao.init("17c512cbe4e17a204cce3c9b7d64d274"); // 사용할 앱의 JavaScript 키를 설정
-		      Kakao.Link.sendDefault({
-		         objectType : "feed",
-		         content : {
-		            title : "${pPage.title}", // 콘텐츠의 타이틀 
-		            description : "프로젝트 모집", // 콘텐츠 상세설명
-		            imageUrl : "https://miro.medium.com/max/3840/1*U-R58ahr5dtAvtSLGK2wXg.png", // 썸네일 이미지          
-		            link : {
-		               mobileWebUrl : "http://${ip}/project/detailView?page=${page}&seq=${pPage.seq }", // 모바일 카카오톡에서 사용하는 웹 링크 URL		            		   
-		               webUrl : "http://${ip}/project/detailView?page=${page}&seq=${pPage.seq }" // PC버전 카카오톡에서 사용하는 웹 링크 URL
-		            }
-		         },
-		         social : {
-		            likeCount : 0 // LIKE 개수
-		            ,
-		            commentCount : 0 // 댓글 개수
-		            ,
-		            sharedCount : 0
-		         // 공유 회수
-		         },
-		         buttons : [ {
-		            title : "링크 이동하기" // 버튼 제목
-		            ,
-		            link : {
-		               mobileWebUrl : "http://${ip}/project/detailView?page=${page}&seq=${pPage.seq }",  // 모바일 카카오톡에서 사용하는 웹 링크 URL
-		               webUrl : "http://${ip}/project/detailView?page=${page}&seq=${pPage.seq }" // PC버전 카카오톡에서 사용하는 웹 링크 URL
-		            }
-		         } ]
-		      });
-		   }
 		  $("#kakaoSharing").on("click",shareKakaotalk);
 	</script>
 </body>

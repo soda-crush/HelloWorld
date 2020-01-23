@@ -24,7 +24,7 @@
 #pCoInput button{height:45px; width:90%;}
 .pApply{font-size:13px;color:red;}
 .checkBtn button:nth-child(2){margin-left:10px;}
-.adBoxDiv{height:150px;width:100%;background-color:darkgray;text-align:center;margin:0;margin-top:20px;}
+.adBoxDiv{height:150px;width:100%;text-align:center;margin:0;margin-top:20px;}
 #pPageContents{margin:40px;}
 .label-info {
 	background-color: #ffc107;
