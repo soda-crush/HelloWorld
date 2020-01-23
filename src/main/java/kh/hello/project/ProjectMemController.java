@@ -13,10 +13,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kh.hello.configuration.Configuration;
 import kh.hello.dto.LoginInfoDTO;
+import kh.hello.dto.OwnerInfoDTO;
 import kh.hello.dto.ProjectApplyDTO;
+import kh.hello.dto.ProjectChartDTO;
 import kh.hello.dto.ProjectCoDTO;
 import kh.hello.dto.ProjectDTO;
-import kh.hello.dto.ProjectChartDTO;
 import kh.hello.dto.ProjectPLogDTO;
 import kh.hello.dto.ReportDTO;
 import kh.hello.services.ProjectService;
@@ -338,7 +339,7 @@ public class ProjectMemController {
 	
 	@RequestMapping("/pLog/makeGuestProjectList")
 	public String makeGuestProjectList(String page, String searchOption, String keyword, String guestConnect, Model m){
-		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("otherInfo");
+		OwnerInfoDTO sessionValue = (OwnerInfoDTO)session.getAttribute("otherInfo");
 		String id = sessionValue.getId();						
 		int currentPage = 1;
 		if(page!=null) {
@@ -357,7 +358,7 @@ public class ProjectMemController {
 	
 	@RequestMapping("/pLog/makeProjectList")
 	public String makeProjectList(String page, String searchOption, String keyword, String guestConnect, Model m){
-		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("ownerInfo");
+		OwnerInfoDTO sessionValue = (OwnerInfoDTO)session.getAttribute("ownerInfo");
 		String id = sessionValue.getId();						
 		int currentPage = 1;
 		if(page!=null) {
@@ -376,7 +377,7 @@ public class ProjectMemController {
 	
 	@RequestMapping("/pLog/applyProjectList")
 	public String applyProjectList(String page, String searchOption, String keyword, Model m){
-		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
+		OwnerInfoDTO sessionValue = (OwnerInfoDTO)session.getAttribute("OwnerInfoDTO");
 		String id = sessionValue.getId();				
 		int currentPage = 1;
 		if(page!=null) {
