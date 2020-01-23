@@ -18,4 +18,8 @@ public class Configuration {
 	public static int commentAddPoint = 5;
 	//댓글 작성시 삭감 포인트
 	public static int commentDelPoint = -5;
+	
+	
+	//광고 최대개수
+	public static int maxAd = 8;
 }

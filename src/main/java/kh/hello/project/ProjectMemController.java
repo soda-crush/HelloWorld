@@ -21,6 +21,7 @@ import kh.hello.dto.ProjectDTO;
 import kh.hello.dto.ProjectPLogDTO;
 import kh.hello.dto.ReportDTO;
 import kh.hello.services.ProjectService;
+import kh.hello.utils.Utils;
 
 @Controller
 @RequestMapping("/project")
@@ -108,6 +109,7 @@ public class ProjectMemController {
 		m.addAttribute("myApply", myApply);		
 		m.addAttribute("checkApplyCount", checkApplyCount);
 		m.addAttribute("ip", Configuration.ip);
+		m.addAttribute("adImg", Utils.getRandomAd());
 		return "/project/detailView";
 	}
 	
