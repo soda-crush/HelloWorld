@@ -204,12 +204,12 @@ span:nth-child(4) {
 					<span style="color: gray;">${qResult.formedDate} 조회수${qResult.viewCount}</span>
 				</div>
 				<br>
+				<br>
 
                	<c:if test="${qResult.id!=sessionScope.loginInfo.id}">
                	  	  <div style="float:left">
                	  		<c:if test="${count==0 && adoptCount==0 && sessionScope.loginInfo.memLevel!=1}" >
-	                        <a class="btn btn-dark"
-	                           href="/code/codeRWrite.do?seq=${qResult.seq}" role="button">답변하기</a>
+	                        <a class="btn btn-outline-dark" href="/code/codeRWrite.do?seq=${qResult.seq}" role="button">답변하기</a>
 	                     </c:if>
 	                  </div>
 	                  <div style="text-align: right;">
@@ -246,11 +246,12 @@ span:nth-child(4) {
                   </div>
                </c:if>
                
+            <br>
             <br>           
             <div class="row">
 <!--             	<div class="col-12" id=adver style="height:100px;background-color:dodgerblue;color:white; text-align:center; line-height:100px;">광고자리</div> -->
             	<div class="col-8" id=adver style="margin:auto;">
-            		<img src="/img/ad${ad}.png" class="d-block w-100" alt="...">
+            		<img src="/img/${ad}" class="d-block w-100" alt="...">
             	</div>
             </div>
             	
