@@ -340,8 +340,10 @@ public class ProjectService {
 			p.setFormedWriteDate(p.getWriteDate());
 			if(p.getChangeDate()!=null) {
 				p.setFormedChangeDate(p.getChangeDate());
-			}	
-			p.setModComment(p.getContents());		
+			}
+			if(p.getContents()!=null) {
+				p.setModComment(p.getContents());
+			}					
 		}
 		return gson.toJson(result);
 	}
@@ -357,7 +359,9 @@ public class ProjectService {
 			if(p.getChangeDate()!=null) {
 				p.setFormedChangeDate(p.getChangeDate());
 			}
-			p.setModComment(p.getContents());			
+			if(p.getContents()!=null) {
+				p.setModComment(p.getContents());
+			}	
 		}
 		return gson.toJson(result);
 	}
