@@ -140,11 +140,11 @@ button {
 	color: #c2c2c2;
 	line-height: 29px;
 }
-/* .navbar-dark .navbar-nav .nav-link:hover{ */
-/* 	color: white; */
-/* 	font-size: 17px !important; */
-/* 	line-height: 28px; */
-/* } */
+.navbar-dark .navbar-nav .nav-link:hover{
+	color: white;
+	font-size: 17px !important;
+	line-height: 28px;
+}
 
 .navbar {
 	padding: 0px;
