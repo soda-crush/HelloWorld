@@ -16,9 +16,9 @@
 <link rel="stylesheet" type="text/css" href="/css/font-awesome/css/font-awesome.css">
 
 	<style>
-        .card{margin-top:20px;text-align:center;margin-bottom:20px;}
-        .myprofile{margin-bottom:30px;padding-right:0px;}
-        #mycard{float:none; display:flex;width:200px;height:300px;margin: auto;}
+		.card{width:200px;height:300px;margin: auto;float :left;}
+		.myprofile{margin-bottom:30px;float: left;width:200px;text-align:center;}
+		#mycard{ float:none;display:flex;align-items:center;}
         .wrapportfolio{background-color:white;border: 1px solid rgba(0,0,0,.125);}
         .cardwrap{float:left;}
         .card-text{font-size:12px;}

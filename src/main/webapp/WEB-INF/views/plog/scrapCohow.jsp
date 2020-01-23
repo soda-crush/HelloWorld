@@ -17,22 +17,22 @@
 <link rel="stylesheet" href="/css/project/list.css" type="text/css"/>
 	<style>
 		.card{width:200px;height:300px;margin: auto;;float :left;}
-		.myprofile{margin-bottom:30px;float: left;width:200px;text-align:center;padding-right:0px;}
+		.myprofile{margin-bottom:30px;float: left;width:200px;text-align:center;}
 		#mycard{ float:none;display:flex;align-items:center;}
 		.commentwrite{width:100%;height:100px;padding: 0px;margin-top: 10px;float: left;}
 		.commentlist{width:100%;padding: 0px;margin-top: 10px;float: left;}
 		.col{margin: 0px;padding: 0px;}
 		.content{height:90%;float: left;resize: none;}
 		.sendbt{height:90%;float: left;}
-		.scraptwrap{background-color:white;border: 1px solid rgba(0,0,0,.125);}
 		#writer{text-underline-position: auto;margin-right: 30px;}
+		.scraptwrap{background-color:white;border: 1px solid rgba(0,0,0,.125);}
 		#page${page}{color:blue;}
 		.coltheme{margin:30px;}
 		.navi{text-align: center;}
         a:hover{text-decoration:none;}	
         .scrapnavi>div{height:50px;line-height:50px;}
         .scrapnavi>div>a{color:black;}
-        .scrapnavi>div>a:hover{color:gray;}
+        .scrapnavi>div>a:hover{font-weight:bold;color:gray;}
         .scrapnavi{background-color: lightgray;border-radius:5px;margin-top:30px;width:200px;display:inline-block;border-right:1px solid gray;}	
         .line-over{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
         #plogScrap{background-color:#efefef;border-radius:5px 5px 0px 0px;padding:13px;}
@@ -63,7 +63,7 @@
 		                            <p class="card-text" style="text-align: center;font-size:12px;">POINT <span style="font-size:15px;font-weight:bold;">${point }</span></p>
 		                        </div>
 	                    	</div>
-	                    	<div class="d-md-none" style="background-color:white;border-radius:5px;height:200px;border: 1px solid rgba(0,0,0,.125); padding:15px;margin-right:10px;">
+	                    	<div class="d-md-none" style="background-color:white;border-radius:5px;height:200px;border: 1px solid rgba(0,0,0,.125);margin-right:10px;">
 	                    		<div style="float:left">
 		                        	<img src="${ownerInfo.profileImg }" style="width:150px;margin:10px;">
 	                    		</div>
