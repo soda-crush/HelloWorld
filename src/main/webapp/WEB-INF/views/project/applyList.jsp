@@ -54,7 +54,7 @@ body{background-color:#e9ecef;}
 				  				<div class="row tableBody p-0 text-decoration-none applyRow${a.approve }" onclick="openApplyPage(${a.seq },'${a.approve}')">
 									<div class="d-none d-lg-block col-lg-1">${projectApplyList.size() - status.index}</div>
 									<div class="d-none d-lg-block col-lg-2"><small>${a.writer }</small></div>
-									<div class="d-none d-md-block col-md-3 col-lg-4">${a.languages }</div>
+									<div class="d-none d-md-block col-md-3 col-lg-4" style="max-width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;font-weight:bold;">${a.languages }</div>
 									<div class="d-none d-md-block col-md-3 col-lg-2">${a.workInInKor }</div>									
 									<div class="d-none d-md-block col-md-3 col-lg-2">${a.portfolioInKor }</div>
 									<div class="d-none d-md-block col-md-3 col-lg-1 approve${a.approve }">${a.approveInKor }</div>									

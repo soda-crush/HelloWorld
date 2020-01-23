@@ -47,7 +47,7 @@ body{background-color:#e9ecef;}
 							<span onclick="popUp('/project/detailView?seq=${aPage.projectSeq }')" id="openProject">[ ${aPage.title } ] <i class="fa fa-external-link"></i></span>																
 							</div>
 							<div><label class="ml-4">신청자</label><span class="ml-1">${aPage.writer }</span></div>
-							<div><label class="ml-4">사용 가능 언어</label><span class="ml-1">${aPage.languages }</span></div>
+							<div><label class="ml-4">사용 가능 언어</label><span class="ml-1" style="word-break:break-all;word-break:break-word;">${aPage.languages }</span></div>
 							<div><label class="ml-4">성별</label><span class="ml-1">${aPage.genderInKor }</span></div>
 							<div><label class="ml-4">나이</label><span class="ml-1">${aPage.formedAge }</span></div>
 							<div><label class="ml-4">재직여부</label><span class="ml-1">${aPage.workInInKor }</span></div>
