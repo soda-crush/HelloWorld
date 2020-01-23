@@ -126,4 +126,19 @@ public class MemberDAO {
 			return jdbc.update("Member.modify", dto);
 		}
 		
+	//아이디로 레벨 찾기
+		public int selectMemLevelById(String id) {
+			return jdbc.selectOne("Member.selectMemLevelById",id);
+		}
+	//이메일로 인증 이미 받았는지확인 
+		public int selectCtfMail(String email) {
+			return jdbc.selectOne("Member.selectCtfMail", email);
+		}
+	//인증코드 업뎃
+		public int updateCtfCode(String email, String ctfCode) {
+			Map<String, Object> param = new HashMap<>();
+			param.put("email", email);
+			param.put("ctfCode", ctfCode);
+			return jdbc.update("Member.updateCtfCode", param);
+		}
 }

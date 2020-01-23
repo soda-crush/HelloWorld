@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Hello World!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="${pageContext.request.contextPath }/icon/favicon.ico"/>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
@@ -18,7 +19,6 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <style>
 	    div{font-size:13px;}
-        .interval{margin-top: 10px;margin-bottom: 10px;background-color:lightgray;border-radius: 8px;height:10px;}
         textarea{border :0px;width:100%;height: 100px;resize: none;}
         input{width:100%;}
         #datepicker,#datepicker2{width:20%}
@@ -26,18 +26,21 @@
         h4{text-align: center;background-color:lightgray;padding-top: 10px;padding-bottom: 10px;}
         #funcname, #funcexpl{text-align: center;font-size:10px;line-height:20px;}
         #funcexpl{line-height: 150px;}
+		.redStar{color:red;}
         #funcname1,#funcname2,#funcname3{margin-bottom: 8px;}
         .line-over{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-        #plogPortfolio{background-color:#efefef;border-radius:5px 5px 0px 0px;padding:12px;}
+        #plogPortfolio{background-color:#efefef;border-radius:5px 5px 0px 0px;padding:13px;}
+        .page{background-color:white;border-radius:5px;padding:10px;border: 1px solid rgba(0,0,0,.125);}
+        input, textarea{border: 1px solid rgba(0,0,0,.125);;background-color:#EAEAEA}
     </style>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/standard/plogHeader.jsp"/>
 	
- 		<div id=baseBackgroundColor>
+ 		<div id="plogBaseBackgroundColor">
             <div class=container>
                 <div class=row>
-                    <div class="col-12" id=aroundContent>
+                    <div class="col-12" id=plogAroundContent>
                     </div>
                 </div>
             </div>
@@ -47,104 +50,109 @@
             <form action="${pageContext.request.contextPath}/Portfolio/update.do" method="post" id="updateForm">
             	<input type="hidden" value="${pdto.seq}" name="seq">
 	            <div class="container">
-		            <h1> 포 트 폴 리 오</h1>
-		            <div class="row">
-		                <div class="col-3 col-md-2"> 프로젝트명  </div>
-		                <div class="col-9 col-md-10"><input id="portfolioTitle" name="portfolioTitle" maxlength="100" value="${pdto.portfolioTitle }"> </div>               
+		            <div class="page">
+			            <h1> 포 트 폴 리 오</h1>
+			            <div class="row">
+			                <div class="col-3 col-md-2"><span class=redStar>*</span>프로젝트명  </div>
+			                <div class="col-9 col-md-10"><input id="portfolioTitle" name="portfolioTitle" maxlength="100" value="${pdto.portfolioTitle }"> </div>               
+			            </div>
+			            <hr class="sp">
+			            <div class="row">
+			                <div class="col-3 col-md-2"> 수행 기간  </div>
+			                 <div class="col-9 col-md-10"> <input name="startDateTemp" type="text" id="datepicker" style="width:80px;">
+			                    ~ <input name="endDateTemp" type="text" id="datepicker2" style="width:80px;"> </div>         
+			            </div>
+			            <hr class="sp">
+			            <div class="row">
+			                <div class="col-3 col-md-2"><span class=redStar>*</span>개발 목표 </div>
+			                <div class="col-9 col-md-10"> <input id="purpose" name="purpose" maxlength="300" value="${pdto.purpose }"></div>               
+			            </div>
+			            <hr class="sp">
+			            <div class="row">
+			                <div class="col-3 col-md-2 theme"> 개발 환경 </div>
+			                <div class="col-9 col-md-10"> <textarea name="environment" maxlength="1300"> ${pdto.environment }</textarea></div>               
+			            </div>
+			            <hr class="sp">
+			            <div class="row">
+			                <div class="col-3 col-md-2 theme"> 구현 기능 </div>
+			                <div class="col-9 col-md-10"> <textarea name="allFunction" maxlength="1300">${pdto.allFunction }</textarea></div>               
+			            </div>
+			            <hr class="sp">
+			            <div class="row">
+			                <div class="col-3 col-md-2 theme">  DB 설계 </div>
+			                <div class="col-9 col-md-10"> <textarea name="dbUnitPlan" maxlength="1300">${pdto.dbUnitPlan }</textarea></div>               
+			            </div>
+			            <hr class="sp">
+			            <div class="row">
+			                <div class="col-3 col-md-2 theme"> 담당 역할 </div>
+			                <div class="col-9 col-md-10"> <textarea name="role" maxlength="1300">${pdto.role }</textarea></div>               
+			            </div>
+			            <hr class="sp">
+			            <div class="row">
+			                <div class="col-3 col-md-2 theme"> 참여/기여도 </div>
+			                <div class="col-9 col-md-10"> <textarea name="contribution" maxlength="1300">${pdto.contribution }</textarea></div>               
+			            </div>
 		            </div>
-		            <div class="interval"></div>
-		            <div class="row">
-		                <div class="col-3 col-md-2"> 수행 기간  </div>
-		                 <div class="col-9 col-md-10"> <input name="startDateTemp" type="text" id="datepicker">
-		                    ~ <input name="endDateTemp" type="text" id="datepicker2"> </div>     
-		                             
+		            <div class="page" style="margin-top:20px;">
+			            <h4 style="background-color: #f7941e;">구현 기능</h4>
+			            <div class="row">
+			                <div class="col-12 col-sm-3 col-xl-2">
+			                	<input type="file" id="fileUpload1" name="fileUpload1" accept="image/*">
+			                	<img id="fileImg1"src="${pdto.image1}" style="height: 95%;width:100%;max-height: 170px;">
+			                	<input type="hidden" name ="image1" id="file1" value="${pdto.image1}">
+			                </div>
+			                <div class="col-12 col-sm-9 col-xl-10">
+			                    <div class="row">
+			                        <div class="col-3 col-lg-2" id="funcname"><span class=redStar>*</span>기능명</div>
+			                        <div class="col-9 col-lg-10" id="funcname1"><input id="funcn1"  name="function1" style="height:18px margin-bottom:" value="${pdto.function1 }" maxlength="100"> </div>
+			                        <div class="col-3 col-lg-2" id="funcexpl"><span class=redStar>*</span>설명</div>
+			                        <div class="col-9 col-lg-10"><textarea id="funce1" name="explanation1" style="height:150px;" maxlength="1300">${pdto.explanation1 }</textarea></div>
+			                    </div>
+			                </div>
+			            </div>
+			            <hr class="sp">
+			            <div class="row">
+			                <div class="col-12 col-sm-3 col-xl-2">
+			                	<input type="file" id="fileUpload2" name="fileUpload2" accept="image/*">
+			                	<img id="fileImg2"src="${pdto.image2}" style="height: 95%;width:100%;max-height: 170px;">
+			                	<input type="hidden" name ="image2" id="file2" value="${pdto.image2}">
+			                </div>
+			                <div class="col-12 col-sm-9 col-xl-10">
+			                    <div class="row">
+			                        <div class="col-3 col-lg-2" id="funcname"> 기능명</div>
+			                        <div class="col-9 col-lg-10" id="funcname2"><input name="function2" style="height:18px margin-bottom:" value="${pdto.function2 }" maxlength="100"></div>
+			                        <div class="col-3 col-lg-2" id="funcexpl" > 설명</div>
+			                        <div class="col-9 col-lg-10"><textarea name="explanation2" style="height:150px;" maxlength="1300">${pdto.explanation2 }</textarea></div>
+			                    </div>
+			                </div>
+			            </div>
+			            <hr class="sp">
+			            <div class="row">
+			                <div class="col-12 col-sm-3 col-xl-2">
+			                	<input type="file" id="fileUpload3" name="fileUpload3" accept="image/*">
+			                	<img id="fileImg3"src="${pdto.image3}" style="height: 95%;width:100%;max-height: 170px;">
+			                	<input type="hidden" name ="image3" id="file3" value="${pdto.image3}">
+			                </div>
+			                <div class="col-12 col-sm-9 col-xl-10">
+			                    <div class="row">
+			                        <div class="col-3 col-lg-2" id="funcname"> 기능명</div>
+			                        <div class="col-9 col-lg-10" id="funcname3"><input name="function3" style="height:18px margin-bottom:" value="${pdto.function3 }" maxlength="100"></div>
+			                        <div class="col-3 col-lg-2" id="funcexpl" > 설명</div>
+			                        <div class="col-9 col-lg-10"><textarea name="explanation3" style="height:150px;" maxlength="1300">${pdto.explanation3 }</textarea></div>
+			                    </div>
+			                </div>
+			            </div>
+			            <hr class="sp">
+			             <div class="row">
+			             	<div class="col-3 col-md-2"> 깃 링크  </div>
+			                <div class="col-9 col-md-10"><input type="text" name="git" value="${pdto.git }" maxlength="200"></div>               
+			            </div>
+			            <hr class="sp">
 		            </div>
-		            <div class="interval"></div>
-		            <div class="row">
-		                <div class="col-3 col-md-2"> 개발 목표 </div>
-		                <div class="col-9 col-md-10"> <input id="purpose" name="purpose" maxlength="300" value="${pdto.purpose }"></div>               
-		            </div>
-		            <div class="interval"></div>
-		            <div class="row">
-		                <div class="col-3 col-md-2 theme"> 개발 환경 </div>
-		                <div class="col-9 col-md-10"> <textarea name="environment" maxlength="1300"> ${pdto.environment }</textarea></div>               
-		            </div>
-		            <div class="interval"></div>
-		            <div class="row">
-		                <div class="col-3 col-md-2 theme"> 구현 기능 </div>
-		                <div class="col-9 col-md-10"> <textarea name="allFunction" maxlength="1300">${pdto.allFunction }</textarea></div>               
-		            </div>
-		            <div class="interval"></div>
-		            <div class="row">
-		                <div class="col-3 col-md-2 theme">  DB 설계 </div>
-		                <div class="col-9 col-md-10"> <textarea name="dbUnitPlan" maxlength="1300">${pdto.dbUnitPlan }</textarea></div>               
-		            </div>
-		            <div class="interval"></div>
-		            <div class="row">
-		                <div class="col-3 col-md-2 theme"> 담당 역할 </div>
-		                <div class="col-9 col-md-10"> <textarea name="role" maxlength="1300">${pdto.role }</textarea></div>               
-		            </div>
-		            <div class="interval"></div>
-		            <div class="row">
-		                <div class="col-3 col-md-2 theme"> 참여/기여도 </div>
-		                <div class="col-9 col-md-10"> <textarea name="contribution" maxlength="1300">${pdto.contribution }</textarea></div>               
-		            </div>
-		            <h4>구현 기능</h4>
-		            <div class="row">
-		                <div class="col-12 col-sm-3 col-xl-2">
-		                	<input type="file" id="fileUpload1" name="fileUpload1">
-		                	<img id="fileImg1"src="${pdto.image1}" style="height: 95%;width:100%;max-height: 170px;">
-		                	<input type="hidden" name ="image1" id="file1" value="${pdto.image1}">
-		                </div>
-		                <div class="col-12 col-sm-9 col-xl-10">
-		                    <div class="row">
-		                        <div class="col-3 col-sm-2  col-lg-1" id="funcname" accept="image/*"> 기능명</div>
-		                        <div class="col-9 col-sm-10 col-lg-11" id="funcname1"><input name="function1" style="height:18px margin-bottom:" value="${pdto.function1 }" maxlength="100"> </div>
-		                        <div class="col-3 col-sm-2  col-lg-1" id="funcexpl" > 설명</div>
-		                        <div class="col-9 col-sm-10 col-lg-11"><textarea name="explanation1" style="height:150px;" maxlength="1300">${pdto.explanation1 }</textarea></div>
-		                    </div>
-		                </div>
-		            </div>
-		            <div class="interval"></div>
-		            <div class="row">
-		                <div class="col-12 col-sm-3 col-xl-2">
-		                	<input type="file" id="fileUpload2" name="fileUpload2">
-		                	<img id="fileImg2"src="${pdto.image2}" style="height: 95%;width:100%;max-height: 170px;">
-		                	<input type="hidden" name ="image2" id="file2" value="${pdto.image2}">
-		                </div>
-		                <div class="col-12 col-sm-9 col-xl-10">
-		                    <div class="row">
-		                        <div class="col-3 col-sm-2  col-lg-1" id="funcname" accept="image/*"> 기능명</div>
-		                        <div class="col-9 col-sm-10 col-lg-11" id="funcname2"><input name="function2" style="height:18px margin-bottom:" value="${pdto.function2 }" maxlength="100"></div>
-		                        <div class="col-3 col-sm-2  col-lg-1" id="funcexpl" > 설명</div>
-		                        <div class="col-9 col-sm-10 col-lg-11"><textarea name="explanation2" style="height:150px;" maxlength="1300">${pdto.explanation2 }</textarea></div>
-		                    </div>
-		                </div>
-		            </div>
-		            <div class="interval"></div>
-		            <div class="row">
-		                <div class="col-12 col-sm-3 col-xl-2">
-		                	<input type="file" id="fileUpload3" name="fileUpload3" accept="image/*">
-		                	<img id="fileImg3"src="${pdto.image3}" style="height: 95%;width:100%;max-height: 170px;">
-		                	<input type="hidden" name ="image3" id="file3" value="${pdto.image3}">
-		                </div>
-		                <div class="col-12 col-sm-9 col-xl-10">
-		                    <div class="row">
-		                        <div class="col-3 col-sm-2  col-lg-1" id="funcname"> 기능명</div>
-		                        <div class="col-9 col-sm-10 col-lg-11 " id="funcname3"><input name="function3" style="height:18px margin-bottom:" value="${pdto.function3 }" maxlength="100"></div>
-		                        <div class="col-3 col-sm-2  col-lg-1" id="funcexpl" > 설명</div>
-		                        <div class="col-9 col-sm-10 col-lg-11"><textarea name="explanation3" style="height:150px;" maxlength="1300">${pdto.explanation3 }</textarea></div>
-		                    </div>
-		                </div>
-		            </div>
-		            <div class="interval"></div>
-		             <div class="row">
-		             	<div class="col-3 col-md-2"> 깃 링크  </div>
-		                <div class="col-9 col-md-10"><input type="text" name="git" value="${pdto.git }" maxlength="200"></div>               
-		            </div>
-		            <div class="interval"></div>
-		            <div style="text-align: end;"><button type="button" id="return">목록으로 돌아가기</button><button id=update type="button">수정 완료</button></div>
-		            
+			       	<div style="text-align: end;margin-top:20px;">
+			     		<button class="btn btn-info" type="button" id="update">수정 완료</button>
+						<button class="btn btn-secondary" type="button" id="return">목록</button>
+					</div>
 		        </div>
 			</form>
             <!--       몸통 끝!!!   -->
@@ -186,8 +194,6 @@
             //input을 datepicker로 선언
             $("#datepicker").datepicker();                    
             $("#datepicker2").datepicker();
-			console.log('${str}');
-			console.log('${end}');
 			
             //From의 초기값을 오늘 날짜로 설정
             $('#datepicker').datepicker('setDate', '${str}'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)
@@ -200,7 +206,6 @@
             
             $("#fileUpload1").on("change",function(){
 	  			var ext = this.value.split('.').pop().toLowerCase();
-	  			console.log(ext);
 	 			if($.inArray(ext, ['gif','png','jpg','jpeg']) == -1) {
 	  			alert('gif,png,jpg,jpeg 파일만 업로드 할수 있습니다.');
 	  				return;
@@ -215,13 +220,10 @@
 	  			        processData: false,
 	  			        cache: false
 	  			    }).done(function(resp){
-	  			    	console.log(resp);
 	  			    	$("#fileImg1").attr("src",resp);
 	  			    	$("#file1").val(resp);
-	  			    	console.log($("#file1").val);
 	  			    }).fail(function(fail){
 	  			    	console.log("실패함");
-	  			    	console.log(fail);
 	  			    })
                 })
                 $("#fileUpload2").on("change",function(){
@@ -241,18 +243,14 @@
 	  			        processData: false,
 	  			        cache: false
 	  			    }).done(function(resp){
-	  			    	console.log(resp);
 	  			    	$("#fileImg2").attr("src",resp);
 	  			    	$("#file2").val(resp);
-	  			    	console.log($("#file2").val);
 	  			    }).fail(function(fail){
 	  			    	console.log("실패함");
-	  			    	console.log(fail);
 	  			    })
                 })
                 $("#fileUpload3").on("change",function(){
 		  			var ext = this.value.split('.').pop().toLowerCase();
-		  			console.log(ext);
 		 			if($.inArray(ext, ['gif','png','jpg','jpeg']) == -1) {
 		  			alert('gif,png,jpg,jpeg 파일만 업로드 할수 있습니다.');
 		  				return;
@@ -267,23 +265,19 @@
 	  			        processData: false,
 	  			        cache: false
 	  			    }).done(function(resp){
-	  			    	console.log(resp);
 	  			    	$("#fileImg3").attr("src",resp);
 	  			    	$("#file3").val(resp);
-	  			    	console.log($("#file3").val);
 	  			    }).fail(function(fail){
 	  			    	console.log("실패함");
-	  			    	console.log(fail);
 	  			    })
                 })
        			$("#update").on("click",function(){
-                	console.log($("#portfolioTitle").val());
-                	if($("#portfolioTitle").val() && $("#purpose").val()){
-                		$("#updateForm").submit();
-                	}else{
-                		alert("프로젝트명과  개발 목표는 필수 입력 사항입니다.")
-                	}
-                })
+                    if($("#portfolioTitle").val() && $("#purpose").val() && $("#funcn1").val() && $("#funce1").val() ){
+                   		$("#updateForm").submit();
+                   	}else{
+                   		alert("프로젝트명과  개발 목표는 구현기능 1은 필수 입력 사항입니다.")
+                   	}
+           		})
 		</script>	
 </body>
 </html>

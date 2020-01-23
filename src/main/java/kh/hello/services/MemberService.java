@@ -158,8 +158,8 @@ public class MemberService {
 		}
 		
 	//탈퇴전 비번 체크
-		public String withdrawalCheck(String id, String pw) {
-			int result = mdao.withdrawalCheck(id, pw);
+		public String withdrawalCheck(String id, String pw) throws Exception{
+			int result = mdao.withdrawalCheck(id, Utils.encrypt(pw));
 			if(result > 0) {
 				int memLevel = mdao.selectMember(id).getMemLevel();
 				int result2 = -1;
@@ -186,12 +186,17 @@ public class MemberService {
 			String ctfCode = Utils.getRandomCode();
 			String setfrom = "sohyunKH4862@gmail.com";         
 			String tomail  = email;     // 받는 사람 이메일
-			String title   = "[Hello World!] 회원가입 메인 인증 코드입니다.";      // 제목
+			String title   = "[Hello World!] 회원가입 인증 코드입니다.";      // 제목
 			String content = "해당코드를 입력창에 입력해주세요 : " + ctfCode;    // 내용
 					  
 					    
 			//디비에 이메일이랑 인증코드 저장
-			this.insertCtfCode(email, ctfCode);
+			int ctfDupleCheck = mdao.selectCtfMail(email);
+			if(ctfDupleCheck > 0) {
+				mdao.updateCtfCode(email, ctfCode);
+			}else {
+				this.insertCtfCode(email, ctfCode);
+			}
 						 
 			MimeMessage message = mailSender.createMimeMessage();
 			MimeMessageHelper messageHelper 
@@ -215,12 +220,17 @@ public class MemberService {
 							String ctfCode = Utils.getRandomCode();
 						    String setfrom = "sohyunKH4862@gmail.com";         
 						    String tomail  = email;     // 받는 사람 이메일
-						    String title   = "[Hello World!]  아이디/비밀번호 찾기 메인 인증 코드입니다.";      // 제목
+						    String title   = "[Hello World!]  아이디/비밀번호 찾기 인증 코드입니다.";      // 제목
 						    String content = "해당코드를 입력창에 입력해주세요 : " + ctfCode;    // 내용
 						  
 						    
-						    	//디비에 이메일이랑 인증코드 저장
-							    this.insertCtfCode(email, ctfCode);
+						  //디비에 이메일이랑 인증코드 저장
+							int ctfDupleCheck = mdao.selectCtfMail(email);
+							if(ctfDupleCheck > 0) {
+								mdao.updateCtfCode(email, ctfCode);
+							}else {
+								this.insertCtfCode(email, ctfCode);
+							}
 							 
 							    	 MimeMessage message = mailSender.createMimeMessage();
 								      MimeMessageHelper messageHelper 

@@ -12,7 +12,17 @@ public class IndustryStatusCoDTO {
 	private String id;
 	private String profileImg;
 	private String formedWriteDate;
+	private String modComment;
 	
+	public String getModComment() {
+		this.modComment = this.content.replaceAll("\"","modF'Fdom");
+		return this.modComment;
+	}
+
+	public void setModComment(String comment) {
+		this.modComment = getModComment();
+	}
+
 	public String getProfileImg() {
 		return profileImg;
 	}
@@ -23,12 +33,12 @@ public class IndustryStatusCoDTO {
 
 	public String getFormedWriteDate() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
-		String result = sdf.format(this.writeDate);
-		return result;
+		this.formedWriteDate = sdf.format(this.writeDate);
+		return this.formedWriteDate;
 	}
 
 	public void setFormedWriteDate(String formedWriteDate) {
-		this.formedWriteDate = formedWriteDate;
+		this.formedWriteDate = getFormedWriteDate();
 	}
 
 	public IndustryStatusCoDTO() {

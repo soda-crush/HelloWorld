@@ -2,19 +2,11 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
 	<div class=container>
-<%-- 	 	<c:choose> --%>
-<%-- 			<c:when test="${loginInfo.id ==null}"> --%>
-<!-- 			<div class="row" id="loginCon"> -->
-<!-- 	        	<div class="col-12 text-right"> -->
-<%-- 	        		<a href="${pageContext.request.contextPath}/member/login">로그인</a>  --%>
-<%-- 	        		<a href="${pageContext.request.contextPath}/member/signUp">회원가입</a></div> --%>
-<!-- 	            </div> -->
-<%-- 			</c:when> --%>
-<%-- 			<c:otherwise> --%>
 				<div class="row" id="loginCon">
 	            	<div class="col-12">
-		            	<div style="float:left">
-		            		<a href="${pageContext.request.contextPath}/">메인으로 </a>
+		            	<div style="float:left;cursor:pointer;" onClick="location.href='${pageContext.request.contextPath}/'">
+		            		<img src="/img/pavicon.png" style="height:14px;">
+		            		<a>메인으로 </a>
 		            	</div>
 		            	<div style="float:right">
 			            	<div style="float:right">
@@ -25,14 +17,11 @@
 		            	</div>
 		            </div>
 		    	</div>
-<%-- 			</c:otherwise> --%>
-<%-- 		</c:choose> --%>
 	</div>
 
 	<nav class="navbar navbar-expand-md navbar-light" style="background-color: #f7941e;margin-bottom:0px;">
 		<div style="margin-left:20px;cursor:pointer;" class="navbar-brand" onClick="location.href='${pageContext.request.contextPath}/Portfolio/toPlogmain.do'">
-			<div style="display:inline;font-size:20px;">P -</div>
-			<div style="color:#3b2e72;display:inline;font-size:20px;">Log</div>
+			<img src="/img/plog.png" style="height:35px;">
 		</div>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
@@ -40,14 +29,14 @@
 		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 			<div class="navbar-nav" id="naviCon">
 				<a id="plogPortfolio" class="nav-item nav-link" style="color:black" href="${pageContext.request.contextPath}/Portfolio/toPlogmain.do">포트폴리오</a>
-				<c:choose>
-					<c:when test="${loginInfo.id ==ownerInfo.id}">
-						<a id="plogCohow" class="nav-item nav-link" style="color:black" href="${pageContext.request.contextPath}/Plog/toPlogCohow.do">CoHow</a>
+<%-- 				<c:choose> --%>
+<%-- 					<c:when test="${loginInfo.id ==ownerInfo.id}"> --%>
+						<a id="plogCohow" class="nav-item nav-link" style="color:black" href="${pageContext.request.contextPath}/Plog/toPlogCohow.do">Code-How</a>
 						<a id="plogScrap" class="nav-item nav-link" style="color:black" href="${pageContext.request.contextPath}/Scrap/itNews.do">스크랩</a>
-					</c:when>
-				</c:choose>
+<%-- 					</c:when> --%>
+<%-- 				</c:choose> --%>
 				<a id="plogProject" class="nav-item nav-link" style="color:black" href="${pageContext.request.contextPath}/Plog/toPlogProject.do">프로젝트</a>
-				<a id="plogGuestBook" class="nav-item nav-link" style="color:black" href="${pageContext.request.contextPath}/GuestBook/selectList.do">방명록</a>
+				<a id="plogGuestBook" class="nav-item nav-link" style="color:black" href="${pageContext.request.contextPath}/GuestBook/toSelectList.do">방명록</a>
 			</div>
 		</div>
 	</nav>
@@ -62,18 +51,5 @@
 			}
 		})
 	</script>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	

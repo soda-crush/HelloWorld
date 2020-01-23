@@ -31,7 +31,7 @@
 	
 	<insert id="insertMember" parameterType="kh.hello.dto.MemberDTO">
 		insert into member values (#{id}, #{pw}, #{name}, #{nickName}, #{email}, #{phone}, #{postcode}
-		, #{addr1}, #{addr2}, #{joinPath}, #{gender}, #{memLevel}, #{reportCount}, #{point}, #{ifmOpenCheck}, sysdate, null, #{profileImg}, #{birth})
+		, #{addr1}, #{addr2}, #{joinPath}, #{gender}, #{memLevel}, #{reportCount}, #{point}, #{ifmOpenCheck}, sysdate, sysdate, #{profileImg}, #{birth})
 	</insert>
 	
 	<update id="updateLastLogin">
@@ -79,12 +79,22 @@
 	<update id="withdrawalMem1" parameterType="string">
 		update member set pw=null, name=null,nickName=null,phone=null,postCode=null
 		,addr1=null,addr2=null,joinPath=null,gender=null,memLevel=null,reportCount=null,point=null
-		,ifmOpenCheck=null,joinDate=null,lastLogin=null,profileImg=null,birth=null where id=#{id} 
+		,ifmOpenCheck=null,joinDate=null,lastLogin=null,birth=null where id=#{id} 
 	</update>
 	
 	<update id="modify"  parameterType="kh.hello.dto.MemberDTO">
-		update member set pw=#{pw}, name=#{name}, email=#{email}, phone=#{phone},postcode=#{postcode},addr1=#{addr1}
+		update member set pw=#{pw}, name=#{name},nickName=#{nickName}, email=#{email}, phone=#{phone},postcode=#{postcode},addr1=#{addr1}
 		,addr2=#{addr2},joinPath=#{joinPath}, gender=#{gender}, ifmOpenCheck=#{ifmOpenCheck}, birth=#{birth} where id=#{id}
 	</update>
 	
+	<select id="selectMemLevelById" parameterType="string" resultType="integer">
+		select memLevel from member where id = #{id}
+	</select>
+	
+	<select id="selectCtfMail" parameterType="string" resultType="integer">
+		select count(*) from signupcertification where email = #{email}
+	</select>
+	<update id="updateCtfCode" parameterType="java.util.Map">
+		update signupcertification set certificationCode=#{ctfCode} where email=#{email}
+	</update>
 </mapper>

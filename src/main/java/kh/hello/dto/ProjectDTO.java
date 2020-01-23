@@ -4,6 +4,8 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProjectDTO {
 
@@ -30,6 +32,7 @@ public class ProjectDTO {
 	private int totalApply;
 	private int totalApprove;
 	private String profileImg;
+	
 	
 	public ProjectDTO() {
 		super();
@@ -205,12 +208,17 @@ public class ProjectDTO {
 	}
 	
 	
+	
+	public String getKakaoTitle() {		
+		return this.title.replaceAll("\"","\\\\\"");		 
+	}
+
 	public String getStateInKor() {
 		String state = this.state;
 		if(state.contentEquals("N")) {
 			state = "모집중";
 		}else if(state.contentEquals("Y")) {
-			state = "모집마감";
+			state = "마감";
 		}
 		return state;
 	}
@@ -272,4 +280,13 @@ public class ProjectDTO {
 		}	
 	}
 
+	public List<String> getSplitLanguage(){
+		String languages = this.languages;
+		String[] array = languages.split(",");
+		List<String> result = new ArrayList<>();
+		for(String tmp : array) {
+			result.add(tmp);
+		}
+		return result;
+	}
 }

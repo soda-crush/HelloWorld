@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Hello World!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="${pageContext.request.contextPath }/icon/favicon.ico"/>
 <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"> -->
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
@@ -18,6 +19,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
 <script src="/js/summernote-ko-KR.js"></script>
 <link rel="stylesheet" href="/css/mainBase.css">
+<link rel="stylesheet" href="/css/code/codeBase.css" type="text/css"/>
 
 <script>
    $(function(){
@@ -35,12 +37,9 @@
    width:200px;
 }
 .btn{
-   margin:20px;
+   margin:5px;
 }
-.btn-primary{
-   width:110px;
-   height:30px;
-}
+
 </style>
 <script>
 $(function(){
@@ -56,10 +55,10 @@ $(function(){
    <div id=baseBackgroundColor>
       <div class=container>
          <div class=row>
-            <div class="col-12" id=aroundContent></div>
+            <div class="col-12" id=aroundContent1></div>
          </div>
       </div>
-
+      
       <!--      몸통 시작!!!   -->
       <form action="codeRWriteProc.do" method="post" id="writeForm">
          <div class=container>
@@ -69,6 +68,9 @@ $(function(){
                   <h4>${sessionScope.loginInfo.nickName}님 답변해주세요.</h4>
                </div>
             </div>
+            
+            <br>
+            
 <!--          <input type="hidden" name="seq" value="1"> -->
             <input type="hidden" name="queSeq" value="${parent_seq}">
             <div class=row>
@@ -78,21 +80,27 @@ $(function(){
                </div>
             </div>
             
+            <br>
+            
             <div class=row>
                <div class="col-12 btn" style="text-align:right;">
-                  <button class="btn btn-primary" type="button" id="write">답변등록</button>
-                  <button class="btn btn-primary" type="button" id="cancle">취소</button>
+                  <button class="btn btn-primary cursorPointer" type="button" id="write">답변등록</button>
+                  <button class="btn btn-danger cursorPointer" type="button" id="cancle">취소</button>
                </div>
             </div>
          </div>
       </form>
+      
+      <div class=row>
+			<div class="col-12" id=aroundContent></div>
+		</div>
    </div>
    <!--       몸통 끝!!!   -->
-   <div class=container>
-      <div class=row>
-         <div class="col-12" id=aroundContent></div>
-      </div>
-   </div>
+<!--    <div class=container> -->
+<!--       <div class=row> -->
+<!--          <div class="col-12" id=aroundContent></div> -->
+<!--       </div> -->
+<!--    </div> -->
 
    <jsp:include page="/WEB-INF/views/standard/footer.jsp" />
    
@@ -102,12 +110,28 @@ $(function(){
       })
       
       $('.summernote').summernote({
+			placeholder : '내용을 입력해주세요',
 			height : 500,
-			lang: 'ko-KR'
+			lang: 'ko-KR',
+			toolbar: [
+	            ['style', ['style']],
+	            ['font', ['bold', 'underline', 'clear']],
+	            ['fontname', ['fontname']],
+	            ['fontsize', ['fontsize']],
+	            ['color', ['color']],
+	            ['para', ['ul', 'ol', 'paragraph']],
+	            ['height', ['height']],
+	            ['table', ['table']],
+	            ['insert', ['link', 'picture', 'hr']],
+	            ['view', ['fullscreen']],
+	            ['help', ['help']]
+	      ]
 		})
       
       $("#write").on("click", function(){
-		   regex = /^[(<p><br></p>)(<p>(&nbsp; ){1,}</p>)]{0,}$/g;
+// 		   regex = /^[(<p><br></p>)(<p>(&nbsp; ){1,}</p>)]{0,}$/g;
+		   var regex = /^[(<p><br></p>)(<p>(&nbsp; )+</p>)]{0,}$/g;
+		   
  		   var content = $(".summernote").val();
 		   var result = regex.exec(content);
 

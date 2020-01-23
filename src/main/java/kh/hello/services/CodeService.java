@@ -90,7 +90,28 @@ public class CodeService {
 		dao.downLevel();
 	}
 	
-	public void modify(CodeQuestionDTO dto) {
+	@Transactional("txManager")
+	public void modify(CodeQuestionDTO dto,String id) {
+		// 글쓴이 point 계산
+		int writePointStart = dao.selectPoint(id);
+		int originalPoint = dao.selectQuestionPoint(dto.getSeq()); // 수정 전 포인트
+		int adoptPoint = dto.getPoint(); // 수정 후 포인트
+		int resultPoint = 0;
+		
+		if(originalPoint<adoptPoint) {
+			int result1 = originalPoint - adoptPoint;
+			resultPoint = writePointStart + result1; 
+		}
+		else if(originalPoint>adoptPoint) {
+			int result2 = originalPoint - adoptPoint;
+			resultPoint = writePointStart + result2; 
+		}
+		else {
+			resultPoint = writePointStart + 0;
+		}
+		
+		dao.pointQResult(resultPoint, id);	
+		dao.downLevel();
 		dao.modify(dto);
 	}
 	
@@ -98,14 +119,12 @@ public class CodeService {
 		return dao.replyOneCount(queSeq, id);
 	}
 	
-	//조건별 게시판목록 검색
-	public List<CodeQuestionDTO> codeSearchByPage(int start, int end,String value, String search) {//대나무숲 10개씩
-		//System.out.println(dao.codeSearchByPage(Integer.toString(start), Integer.toString(end),value,search).toString());
+	//조건별 게시판목록 10개씩 검색
+	public List<CodeQuestionDTO> codeSearchByPage(int start, int end,String value, String search) {
 		return dao.codeSearchByPage(Integer.toString(start), Integer.toString(end),value,search);
 	}
 	public List<String> getCodeSearchListPageNavi (int currentPage,String value, String search) {
 		int recordTotalCount = dao.codeSearchTotalCount(value,search);
-		//System.out.println("서비스에서"+recordTotalCount);
 		int pageTotalCount = 0;
 
 		if(recordTotalCount% Configuration.recordCountPerPage > 0) {
@@ -137,17 +156,17 @@ public class CodeService {
 		}
 
 		List<String> pages = new ArrayList<>();
-		if(needPrev) pages.add("<li class=\"page-item\"><a class=page-link href='codeSearch.do?value="+value+"&cpage=" + (startNavi - 1) + "' >< </a></li>");
+		if(needPrev) pages.add("<a class=page-link href='codeSearch.do?search="+search+"&value="+value+"&cpage=" + (startNavi - 1) + "' >< </a>");
 
 		for(int i = startNavi; i <= endNavi; i++) {
 			StringBuilder sb = new StringBuilder();
-			sb.append("<li class=\"page-item\"><a class=page-link href='codeSearch.do?value="+value+"&cpage="+ i +"'>");
+			sb.append("<a class=page-link href='codeSearch.do?search="+search+"&value="+value+"&cpage="+ i +"'>");
 			sb.append(i + " ");
-			sb.append("</a></li>");
+			sb.append("</a>");
 			pages.add(sb.toString());
 		}
 
-		if(needNext) pages.add("<li class=\"page-item\"><a class=page-link href='codeSearch.do?value="+value+"&cpage=" + (endNavi + 1) + "'>> </a></li>");
+		if(needNext) pages.add("<a class=page-link href='codeSearch.do?search="+search+"&value="+value+"&cpage=" + (endNavi + 1) + "'>> </a>");
 
 		return pages;
 	}
@@ -261,6 +280,7 @@ public class CodeService {
 		for (CodeCommentsDTO c : result) {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
 			c.setFormedWriteDate(sdf.format(c.getWriteDate()));
+			c.setModComment(c.getContent());
 		}
 		return gson.toJson(result);
 	}
@@ -287,6 +307,7 @@ public class CodeService {
 		for (CodeCommentsDTO c : result) {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
 			c.setFormedWriteDate(sdf.format(c.getWriteDate()));
+			c.setModComment(c.getContent());
 		}
 		return gson.toJson(result);
 		

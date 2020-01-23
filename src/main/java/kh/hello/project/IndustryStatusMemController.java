@@ -54,9 +54,11 @@ public class IndustryStatusMemController {
 			return "/industry/industryStatusDetailView";
 		}
 		List<IndustryStatusCoDTO> coResult = service.commentList(seq);
-
+		String ip = Configuration.ip;
 		m.addAttribute("iPage", result);
 		m.addAttribute("comments", coResult);
+		m.addAttribute("ip",ip);
+		m.addAttribute("ad",Utils.getRandomNum(0, Configuration.maxAd));
 		return "/industry/industryStatusDetailView";
 	}
 
@@ -198,6 +200,7 @@ public class IndustryStatusMemController {
 		dto.setReporterID(sessionValue.getId());
 		dto.setReporterNick(sessionValue.getNickName());
 		dto.setReason(Utils.protectXss(dto.getReason()));
+		dto.setTitle(Utils.protectXss(dto.getTitle()));
 		int result = service.reportProject(dto);
 		if(result>0) {
 			return "success";

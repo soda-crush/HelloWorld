@@ -41,7 +41,6 @@ public class BambooMemController {
 		List<String> pageNavi = service.getBambooListPageNavi(currentPage);
 		m.addAttribute("pageNavi", pageNavi);
 		m.addAttribute("page", currentPage);
-
 		return "/bamboo/bambooList";
 	}
 	@RequestMapping("/bambooDetailView.do")
@@ -51,8 +50,11 @@ public class BambooMemController {
 			return "/bamboo/bambooDetailView";
 		}
 		List<BambooCoDTO> coResult = service.commentList(seq);
+		String ip = Configuration.ip;
 		m.addAttribute("bPage", result);
 		m.addAttribute("comments", coResult);
+		m.addAttribute("ip",ip);
+		m.addAttribute("ad",Utils.getRandomNum(0, Configuration.maxAd));
 		return "/bamboo/bambooDetailView";
 	}
 
@@ -198,6 +200,7 @@ public class BambooMemController {
 		dto.setReporterID(sessionValue.getId());
 		dto.setReporterNick(sessionValue.getNickName());
 		dto.setReason(Utils.protectXss(dto.getReason()));
+		dto.setTitle(Utils.protectXss(dto.getTitle()));
 		int result = service.reportProject(dto);
 		if(result>0) {
 			return "success";
@@ -205,5 +208,4 @@ public class BambooMemController {
 			return "redirect:/home/error";
 		}
 	}
-	
 }

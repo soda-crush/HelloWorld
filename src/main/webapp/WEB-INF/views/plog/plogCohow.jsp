@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Hello World!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="${pageContext.request.contextPath }/icon/favicon.ico"/>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
@@ -15,8 +16,8 @@
 <link rel="stylesheet" type="text/css" href="/css/font-awesome/css/font-awesome.css">
 <link rel="stylesheet" href="/css/project/list.css" type="text/css"/>
 	<style>
-		.card{width:200px;height:300px;margin: auto;}
-		.myprofile{margin-top: 20px;padding-right:0px;}
+		.card{width:200px;height:300px;margin: auto;float :left;}
+		.myprofile{margin-bottom:30px;float: left;width:200px;text-align:center;}
 		#mycard{ float:none;display:flex;align-items:center;}
 		.commentwrite{width:100%;height:100px;padding: 0px;margin-top: 10px;float: left;}
 		.commentlist{width:100%;padding: 0px;margin-top: 10px;float: left;}
@@ -24,23 +25,22 @@
 		.content{height:90%;float: left;resize: none;}
 		.sendbt{height:90%;float: left;}
 		#writer{text-underline-position: auto;margin-right: 30px;}
-		.coltheme{margin:30px;}
+		.scraptwrap{background-color:white;border: 1px solid rgba(0,0,0,.125);}
+		.coltheme{margin:30px;font-weight:bold;}
 		.navi{text-align: center;}
-		.nvlink1{height:45px;line-height:45px;font-size:14px;}
-		.nvlink2{height:45px;line-height:45px;font-size:10px;}
         a:hover{text-decoration:none;}
         .tableBody{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
         .line-over{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-        #plogCohow{background-color:#efefef;border-radius:5px 5px 0px 0px;padding:12px;}
+        #plogCohow{background-color:#efefef;border-radius:5px 5px 0px 0px;padding:13px;}
 	</style>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/standard/plogHeader.jsp"/>
 	
- 		<div id=baseBackgroundColor>
+ 		<div id="plogBaseBackgroundColor">
             <div class=container>
                 <div class=row>
-                    <div class="col-12" id=aroundContent>
+                    <div class="col-12" id=plogAroundContent>
                     </div>
                 </div>
             </div>
@@ -50,15 +50,24 @@
 	                <div class="col-12 col-md-4 col-lg-3 myprofile">
 	                    <div>
 	                    	<div class="card d-none d-md-block" id="mycard">
-		                        <img src="${ownerInfo.profileImg }" class="card-img-top" alt="..." style="width: 170px;height: 170px;margin:15px;">
+		                        <img src="${ownerInfo.profileImg }" class="card-img-top" alt="..." style="width: 85%;margin:7.5%;">
 		                        <div class="card-body">
-		                            <div class="card-title line-over" style="text-align: center;font-size:20px;">${ownerInfo.nickName} 님</div>
-		                            <p class="card-text" style="text-align: center;font-size:15px;">point : ${ownerInfo.point }</p>
+	                            <div class="card-title line-over" style="text-align: center;font-size:20px;font-weight:bold;margin-bottom:0px;">${ownerInfo.nickName} <span style="font-size:15px;">님</span></div>
+		                            <p class="card-text" style="text-align: center;font-size:12px;">POINT <span style="font-size:15px;font-weight:bold;">${point }</span></p>
+		                        </div>
+	                    	</div>
+	                    	<div class="d-md-none" style="background-color:white;border-radius:5px;height:200px;border: 1px solid rgba(0,0,0,.125); padding:15px;margin-right:10px;">
+	                    		<div style="float:left">
+		                        	<img src="${ownerInfo.profileImg }" style="width:150px;margin:10px;">
+	                    		</div>
+		                        <div style="float:left;margin-top:100px;margin-left:20px;">
+	                            <div class="card-title line-over" style="text-align: center;font-size:20px;font-weight:bold;margin-bottom:0px;">${ownerInfo.nickName} <span style="font-size:15px;">님</span></div>
+		                            <p class="card-text" style="text-align: center;font-size:12px;">POINT <span style="font-size:15px;font-weight:bold;">${point }</span></p>
 		                        </div>
 	                    	</div>
 	                    </div>
 	                </div>
-	                <div class="col-12 col-md-8 col-lg-9 scraptwrap">
+	                <div class="col-12 col-md-8 col-lg-9 cohowwrap" style="min-height:700px;">
 	                	<div class="tableDiv">
 	                		<div class="coltheme"> 내 질문</div>
 							<div class="row tableHead">
@@ -78,7 +87,7 @@
 						  				<div class="row tableBody p-0">
 						  					<div class="col-2 col-lg-1" style="color:dodgerblue;">${dto.division}</div>
 											<div class="col-7 col-lg-5 " >
-							  					<div style="cursor:pointer;" class="line-over text-decoration-none" onclick="location.href='${pageContext.request.contextPath}/code/codeDetail.do?seq=${dto.seq}'">${dto.title} 
+							  					<div style="cursor:pointer;text-align:left;" class="line-over text-decoration-none pl-2" onclick="location.href='${pageContext.request.contextPath}/code/codeDetail.do?seq=${dto.seq}'">${dto.title} 
 								  					<c:if test="${dto.replyCount>0 }">
 								  						<span class="pComment font-weight-bold">${dto.replyCount}</span>
 								  					</c:if>	
@@ -126,7 +135,7 @@
 						  				<div class="row tableBody p-0">
 						  					<div class="col-2 col-lg-1" style="color:dodgerblue;">${dto.division}</div>
 											<div class="col-7 col-lg-5 " >
-							  					<div style="cursor:pointer;" class="line-over text-decoration-none" onclick="location.href='${pageContext.request.contextPath}/code/codeDetail.do?seq=${dto.seq}'">${dto.title} 
+							  					<div style="cursor:pointer;text-align:left;" class="line-over text-decoration-none pl-2" onclick="location.href='${pageContext.request.contextPath}/code/codeDetail.do?seq=${dto.seq}'">${dto.title} 
 								  					<c:if test="${dto.replyCount>0 }">
 								  						<span class="pComment font-weight-bold">${dto.replyCount}</span>
 								  					</c:if>	
@@ -172,24 +181,29 @@
 	    	$(function(){
 	    		var element = $(".qpageNavi");
 	    		var qcpage = "${qcpage}";
-	    		if(qcpage > 0 && qcpage <= 10){
-	    			element[qcpage-1].classList.add('active');
-	    		}else if(qcpage % 10 == 0){
-	    			element[10].classList.add('active');
-	    		}else{
-	    			element[qcpage % 10].classList.add('active');
-	    		}	
+	    		if(element.length != 0){
+	    			if(qcpage > 0 && qcpage <= 5){
+		    			element[qcpage-1].classList.add('active');
+		    		}else if(qcpage % 5 == 0){
+		    			element[5].classList.add('active');
+		    		}else{
+		    			element[qcpage % 5].classList.add('active');
+		    		}
+	    		}
 	    	});
 	    	$(function(){
 	    		var element = $(".rpageNavi");
 	    		var rcpage = "${rcpage}";
-	    		if(rcpage > 0 && rcpage <= 10){
-	    			element[rcpage-1].classList.add('active');
-	    		}else if(rcpage % 10 == 0){
-	    			element[10].classList.add('active');
-	    		}else{
-	    			element[rcpage % 10].classList.add('active');
-	    		}	
+	    		
+	    		if(element.length != 0){
+	    			if(rcpage > 0 && rcpage <= 5){
+		    			element[rcpage-1].classList.add('active');
+		    		}else if(rcpage % 5 == 0){
+		    			element[5].classList.add('active');
+		    		}else{
+		    			element[rcpage % 5].classList.add('active');
+		    		}	
+	    		}
 	    	});
 	    	function popUp(id,writer){
 	    		if(writer == null){
@@ -197,7 +211,7 @@
 	    			return false;
 	    		}
 	    		else{
-	    			window.open("/Portfolio/toPlog.do?owner="+id, "pLogPopUp", "width=600,height=600");
+	    			window.open("/Portfolio/toPlog.do?owner="+id+"&other=Y", "pLogPopUp", "width=600,height=600");
 	    		}
 	          
 	         }

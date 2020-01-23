@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Hello World!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="${pageContext.request.contextPath }/icon/favicon.ico"/>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
@@ -34,9 +35,12 @@
             			<br>
             			<h1>아이디 찾기</h1>
             			<hr>
-            			아이디 : ${id} <br>
-            			<a href="${pageContext.request.contextPath}/member/login">로그인하러가기</a>&emsp;
-            			<a href="${pageContext.request.contextPath}/member/findPw">비밀번호 찾기</a>
+            			<p class="text-center">아이디 : ${id} </p>
+            			<div class="text-center">
+            			<a href="${pageContext.request.contextPath}/member/login" style="color:gray;">로그인하러가기</a>&emsp;
+            			<a href="${pageContext.request.contextPath}/member/findPw" style="color:gray;">비밀번호 찾기</a>
+            			</div>
+            			<br><br>
             		</div>
             	</div>
             </div>

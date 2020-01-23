@@ -7,12 +7,20 @@
 <meta charset="UTF-8">
 <title>Hello World!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="${pageContext.request.contextPath }/icon/favicon.ico"/>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/css/mainBase.css">
 <link rel="stylesheet" type="text/css" href="/css/font-awesome/css/font-awesome.css">
+<style>
+input{
+	height: 38px;
+	border-radius: 5px;
+	border:1px solid #a8a8a8;
+	}
+</style>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/standard/header.jsp"/>
@@ -34,12 +42,15 @@
 	            			<br>
 	            			<h1>비밀번호 찾기</h1>
 	            			<hr>
-	            			${id}님 비밀번호를 변경해주세요. <br>
+	            			<p class="text-center">${id}님 비밀번호를 변경해주세요. </p>
 	            			<input type=text name=id style="display:none;" value="${id}">
-	            			<input type="password" name=pw id=pw placeholder="비밀번호 입력"><br>
-	            			<input type="password" name=pwRe id=pwRe placeholder="비밀번호 재입력">
+	            			<div class="text-center">
+	            			<input type="password" name=pw id=pw placeholder="비밀번호 입력" style="position:relative;bottom:2px;"><br>
+	            			<input type="password" name=pwRe id=pwRe placeholder="비밀번호 재입력" >
 	            			<div id=pwMsg style="color:red;font-size:13px;"></div>
-	            			<button id=btn type=button>변경</button>
+	            			<button type="button" class="btn btn-secondary" id=btn style="position:relative;top:2px;">변경</button>
+	            			</div>
+	            			<br>
 	            		</div>
 	            	</div>
 	            </div>

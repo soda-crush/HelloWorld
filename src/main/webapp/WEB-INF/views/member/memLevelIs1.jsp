@@ -14,7 +14,7 @@
 </head>
 <body>
 		<script>
-			alert("강등회원은 이용이 불가능합니다. 일대읠 문의를 이용해주세요.");
+			alert("강등회원은 이용이 불가능합니다. 일대일 문의를 이용해주세요.");
 			location.href="${pageContext.request.contextPath}/member/toMyInquiry";
 		</script>
 </body>

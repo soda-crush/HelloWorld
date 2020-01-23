@@ -45,6 +45,7 @@ public class ProjectApplyDTO {
 		this.leaderId = leaderId;
 	}
 
+
 	public int getSeq() {
 		return seq;
 	}

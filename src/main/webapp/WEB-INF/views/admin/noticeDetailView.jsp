@@ -8,7 +8,7 @@
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <title>Hello World!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="icon" type="image/png" href="${pageContext.request.contextPath }/adRsc/images/icons/favicon.ico"/>
+<link rel="icon" type="image/png" href="${pageContext.request.contextPath }/icon/adFavicon.ico"/>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath }/css/font-awesome/css/font-awesome.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath }/adRsc/css/themify-icons.css">
@@ -25,6 +25,21 @@
 <!-- modernizr css -->
 <script src="${pageContext.request.contextPath }/adRsc/vendor/modernizr-2.8.3.min.js"></script>
 <style>
+#guest #plogLogo{
+	display:block;
+}
+
+#guest #plogLogoActive{
+	display:none;
+}
+
+.metismenu #guest:hover #plogLogo, .metismenu #guest.active #plogLogo {
+	display:none;
+}
+
+.metismenu #guest:hover #plogLogoActive, .metismenu #guest.active #plogLogoActive {
+	display:block
+}
 #home-tab:hover{
 cursor:default;
 }
@@ -130,7 +145,7 @@ cursor:default;
 		                                </div>
 		                                <div class="invoice-buttons text-right col-6">      
 		                                    <c:if test="${dto.title != null}">
-		                                    <a href="${pageContext.request.contextPath}/admin/modifyNotice?seq=${dto.seq}" class="invoice-btn">수정하기</a>
+		                                    <a href="${pageContext.request.contextPath}/admin/noticeModifyForm?seq=${dto.seq}" class="invoice-btn">수정하기</a>
 		                                    <a href="${pageContext.request.contextPath}/admin/delNotice?seq=${dto.seq}" class="invoice-btn">삭제하기</a>
 		                                    </c:if>
 		                                </div>

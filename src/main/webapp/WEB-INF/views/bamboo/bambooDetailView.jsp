@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Hello World!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="${pageContext.request.contextPath }/icon/favicon.ico"/>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
@@ -17,10 +18,10 @@
 <link rel="stylesheet" href="/css/mainBase.css">
 <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.css"
 	type="text/css" />
-<link rel="stylesheet" href="/css/project/projectBase.css"
+<link rel="stylesheet" href="/css/industry/industryBase.css"
 	type="text/css" />
-<link rel="stylesheet" href="/css/project/detailView.css"
-	type="text/css" />
+<link rel="stylesheet" href="/css/industry/list.css"
+	type="text/css" />	
 	<script type="text/JavaScript"
    src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 	
@@ -54,11 +55,11 @@
 </script>
 <script type="text/javascript">
    function shareKakaotalk() {
-      Kakao.init("7fce3c86f0e6aeeac11028850040589c"); // 사용할 앱의 JavaScript 키를 설정
+	  Kakao.init("17c512cbe4e17a204cce3c9b7d64d274"); // 사용할 앱의 JavaScript 키를 설정
       Kakao.Link.sendDefault({
          objectType : "feed",
          content : {
-            title : "${bPage.title}", // 콘텐츠의 타이틀 
+            title : "${bPage.kakaoTitle}", // 콘텐츠의 타이틀 
             description : "대나무숲", // 콘텐츠 상세설명
             imageUrl : "https://miro.medium.com/max/3840/1*U-R58ahr5dtAvtSLGK2wXg.png", // 썸네일 이미지          
             link : {
@@ -102,20 +103,40 @@
 	<div id=baseBackgroundColor>
 		<div class=container>
 			<div class=row>
-				<div class="col-12" id=aroundContent></div>
+				<div class="col-12" id=aroundContent1></div>
 			</div>
 		</div>
 		
 		<!--      몸통 시작!!!   -->	
 		 <div class="container">
-            	<div class="row">
-					<div class="col-12 col-xl-3">
-						<p id=cateTitle style="display:inline;">대나무숲</p>
+<!--             	<div class="row"> -->
+<!-- 					<div class="col-12 col-xl-3"> -->
+<!-- 						<p id=cateTitle style="display:inline;">대나무숲</p> -->
+<!-- 					</div> -->
+<!-- 					<div class="col-12 col-xl-9 pt-xl-5"> -->
+<!-- 						<p style="display:inline;" id=cateCmt>자유롭게 익명으로 글을 남기는 게시판입니다.</p> -->
+<!-- 					</div> -->
+<!-- 				</div>		 -->
+				<div class=row>
+				<div class="col-12 d-none d-md-block">
+					<div id="pageTitle">
+						<table>
+							<tr>
+								<td colspan="3" style="font-size: 60px; font-weight: 100; vertical-align: text-bottom"><h1 class="fontBold">대나무숲</h1></td>
+								<td></td>
+								<td style="font-size: 15px; color: gray; vertical-align: text-bottom">     자유롭게 익명으로 글을 남기는 게시판입니다.</td>
+								<td></td>
+							</tr>
+						</table>
 					</div>
-					<div class="col-12 col-xl-9 pt-xl-5">
-						<p style="display:inline;" id=cateCmt>자유롭게 익명으로 글을 남기는 게시판입니다.</p>
-					</div>
-				</div>		
+				</div>
+			</div>
+			<div class=row>
+				<div class="d-md-none">
+					<div style="font-size: 60px; font-weight: 100;"><h1 class="fontBold">대나무숲</h1></div>
+					<div style="font-size: 15px; color: gray;">자유롭게 익명으로 글을 남기는 게시판입니다.</div>
+				</div>
+			</div>	
 				<div class=row>
 					<div class=col-12><br></div>
 				</div>		
@@ -129,7 +150,7 @@
             	<div class=row>
             		<input type="hidden" name="seq" value="${bPage.seq}" id=bPageSeq>
             		<input type="hidden" name="writer" value="${bPage.writer}">
-            		<div class="col-12" style="font-size: 15px;color:#707070;"><hr>
+            		<div class="col-12" style="font-size: 13px;color:#707070;"><hr>
             		<c:choose>
             			<c:when test="${bPage.writer == sessionScope.loginInfo.id}">
             			<img src="${bPage.profileImg }" width=40,height=40> ${sessionScope.loginInfo.nickName}
@@ -152,7 +173,7 @@
         			<a id="kakao-link-btn" href="javascript:;" onClick="shareKakaotalk();" style="text-decoration:none"> 
 						<img src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" height=38 style="margin-right:2px;"/>
 					</a>
- 					<button type="button" class="btn btn-success text-right" id="scrap">스크랩</button>	
+<!--  					<button type="button" class="btn btn-success text-right" id="scrap">스크랩</button>	 -->
         	</div>
         	</div>
       		<div class=row>
@@ -161,7 +182,14 @@
 	            	</div>
             	</div>
             	<div class="row">
-            		<div class="col-12" id=adver style="height:200px;background-color:green;color:white;">광고자리</div>
+            		<div class="col-12 text-center" id=adver>
+            			<img src="/img/ad${ad}.png" alt="...">
+            		</div>
+            	</div>
+            	<div class=row>
+	            	<div class=col-12>
+	            		<br>
+	            	</div>
             	</div>
             	<div class="pPageComments">
             	<c:if test="${comments.size()>0 }">
@@ -171,13 +199,13 @@
 								<div class="row commentHeader">
 									<c:choose>
             						<c:when test="${c.writer == sessionScope.loginInfo.id}">
-									<div class="col-lg-1 d-none d-lg-block profileBox pl-1 pt-2 pr-0"><img src="${c.profileImg }" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>	
+									<div class="d-none d-md-block col-1 profileBox pl-1 pt-2"><img src="${c.profileImg }" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>	
 									</c:when>
 									<c:otherwise>
-            						<div class="col-lg-1 d-none d-lg-block profileBox pl-1 pt-2 pr-0"><img src="/img/profile0.png" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>	
+            						<div class="d-none d-md-block col-1 profileBox pl-1 pt-2"><img src="/img/profile0.png" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>	
             						</c:otherwise>
 									</c:choose>
-									<div class="col-7 pt-1">
+									<div class="col-8 col-md-7 pt-1">
 										<div class="row commentInfo">
 											<input type="hidden" name="writer" value="${c.writer}">
 											<div class="col-12 commentWriter">
@@ -197,8 +225,8 @@
 										<c:if test="${c.writer==sessionScope.loginInfo.id }">
 											<a class="btn btn-info coModBtn"
 												href="/bamboo/comment/modifyProc.do?seq=${c.seq }&bamSeq=${c.bamSeq}"
-												onclick="coModFunction(${c.seq},'${c.content}',${c.bamSeq });return false;"
-												role="button">수정</a>
+												onclick="coModFunction(${c.seq},${c.bamSeq });return false;"
+												role="button" style="!important">수정</a>
 											<a class="btn btn-danger coDelBtn"
 												href="/bamboo/comment/deleteProc.do?seq=${c.seq }&bamSeq=${c.bamSeq}"
 												onclick="coDelFunction(${c.seq});return false;"
@@ -208,7 +236,8 @@
 								</div>
 								<div class="row commentContent">
 									<div class="col-12 pt-1 pl-4" style="word-break:break-all;
-      word-break:break-word;">${c.content }</div>
+     								 word-break:break-word;">${c.content }</div>
+      								<input type="hidden" value="${c.modComment }" id="hiddenModCo${c.seq }">
 								</div>
 							</div>
 						</div>
@@ -216,20 +245,20 @@
 					</c:forEach>
 				</c:if>
             	</div>
-   	
+   				
             	<div id="pCoInput" class="row">
-            		<div class="col-10">
-            			<textarea style="width:100%;height:100%;" placeholder="댓글 입력" id="pCoContents" maxlength="1300"></textarea>
+            		<div class="col-9 col-lg-10" style="padding:0px;padding-left:22px;">
+            			<textarea style="width:100%;height:100%;border-radius:6px;border:1px solid #d1d1d1;" placeholder="댓글내용을 입력해주세요" id="pCoContents" maxlength="1300"></textarea>
             		</div>
-            		<div class="col-2">
+            		<div class="col-3 col-lg-2">
             			<div class="row">
 							<div class="col-12">
-								<button type="button" class="btn btn-secondary" style="margin-bottom:10px;" id="coCancel">취소</button>
+								<button type="button" class="btn btn-secondary" style="margin-bottom:10px;width:95%" id="coCancel">취소</button>
 							</div>										
 						</div>
 						<div class="row">
 							<div class="col-12">
-								<button type="button" class="btn btn-primary" id="coWriteBtn">작성</button>
+								<button type="button" class="btn btn-primary" style="width:95%" id="coWriteBtn">작성</button>
 							</div>										
 						</div>					
             		</div>
@@ -251,8 +280,7 @@
 		     	<c:if test="${bPage.writer == sessionScope.loginInfo.id}">
 					
 						<button type="button" class="btn btn-info" id="modify">수정</button>
-					<a class="btn btn-danger"
-						href="/bamboo/bambooDeleteProc.do?seq=${bPage.seq }" role="button">삭제</a>
+						<button type="button" class="btn btn-danger" id=delete>삭제</button>
 				</c:if>
 					<a class="btn btn-secondary" href="/bamboo/bambooList.do"
 					role="button">목록</a>
@@ -345,7 +373,7 @@
 			}
 		});
          	
-			function coModFunction(seq,contents,bamSeq){
+			function coModFunction(seq,bamSeq){
 				$.ajax({
 					url : "/bamboo/memLevel.do",
 					type : "post",
@@ -355,20 +383,21 @@
 					}
 				}).done(function(resp){
 					if(resp > 1){
+						var checkContents = $("#hiddenModCo"+seq).val().replace(/modF'Fdom/gi,'"');
 						$(".commentBox"+seq).find(".commentBtns").css("display","none");
 						$(".commentBox"+seq).find(".commentContent").css("display","none");
 		           		$(".commentBox"+seq).wrap('<form action="/bamboo/comment/modifyProc.do" method="post" id="coModFrm"></form>');
 						var html = [];
 		    			html.push(
 		    					'<div class="col-12 coModBox mt-2"><div class="row">',
-		    					'<div class="col-9 col-md-10 col-xl-11 pr-0"><textarea maxlength="1300" class="form-control" placeholder="댓글 내용을 입력해주세요" id="pCoModContents" style="height:80px;" name="content">'+contents+'</textarea></div>',
+		    					'<div class="col-9 col-md-10 col-xl-11 pr-0"><textarea maxlength="1300" class="form-control" placeholder="댓글 내용을 입력해주세요" id="pCoModContents" style="height:80px;" name="content">'+checkContents+'</textarea></div>',
 		    					'<div class="col-3 col-md-2 col-xl-1"><input type="hidden" name="seq" value="'+seq+'"><input type="hidden" name="bamSeq" value="'+bamSeq+'">',
 		    					'<div class="row">',
 		    					'<div class="col-12 text-center p-0">',
-		    					'<button type="button" class="btn btn-secondary" style="margin-bottom:5px;width:80%;" id="coMoCancel">취소</button>',
+		    					'<button type="button" class="btn btn-secondary" style="margin-bottom:10px;width:95%;" id="coMoCancel">취소</button>',
 		    					'</div></div>',
 		    					'<div class="row"><div class="col-12 text-center p-0">',
-		    					'<button type="button" class="btn btn-warning" style="width:80%;" id="coMoBtn">수정</button>',
+		    					'<button type="button" class="btn btn-warning" style="width:95%;" id="coMoBtn">수정</button>',
 		    					'</div></div></div></div></div>');
 		    			$(".commentBox"+seq).append(html.join(""));
 					}else{
@@ -433,7 +462,7 @@
 					var html = [];
 					html.push(
 							'<div class="row commentDiv commentBox'+resp[i].seq+' p-0 pb-2 m-2"><div class="col-12 commentInnerBox"><div class="row commentHeader">',
-							'<div class="col-lg-1 d-none d-lg-block profileBox pl-1 pt-2 pr-0">'
+							'<div class="d-none d-md-block col-1 profileBox pl-1 pt-2">'
 							);
 							
 					if(resp[i].writer==loginInfo){
@@ -453,9 +482,9 @@
 					
 						html.push(		
 							'</div>',
-							'<div class="col-7 pt-1"><div class="row commentInfo">',
+							'<div class="col-8 col-md-7 pt-1"><div class="row commentInfo">',
 							'<input type="hidden" name="writer" value='+resp[i].writer+'>',
-							'<div class="col-12 commentWriter">',
+							'<div class="col-12 commentWriter">'
 							);
 					if(resp[i].writer==loginInfo){
 					html.push(
@@ -474,13 +503,14 @@
 					);
 					if(resp[i].writer==loginInfo){
 					html.push(
-								'<a class="btn btn-info coModBtn" href="/bamboo/comment/modifyProc.do?seq='+resp[i].seq+'&bamSeq='+resp[i].bamSeq+'" onclick="coModFunction('+resp[i].seq+',\''+resp[i].content+'\','+resp[i].bamSeq+');return false;" role="button">수정</a>\n',
+								'<a class="btn btn-info coModBtn" href="/bamboo/comment/modifyProc.do?seq='+resp[i].seq+'&bamSeq='+resp[i].bamSeq+'" onclick="coModFunction('+resp[i].seq+','+resp[i].bamSeq+');return false;" role="button">수정</a>\n',
 								'<a class="btn btn-danger coDelBtn" href="/bamboo/comment/deleteProc.do?seq='+resp[i].seq+'&bamSeq='+resp[i].bamSeq+'" onclick="coDelFunction('+resp[i].seq+');return false;" role="button">삭제</a>'
 								);
 					}
 					html.push(
 							'</div></div>',
-							'<div class="row commentContent"><div class="col-12 pt-1 pl-4" style="word-break:break-all; word-break:break-word;">'+resp[i].content+'</div></div></div></div><hr>'
+							'<div class="row commentContent"><div class="col-12 pt-1 pl-4" style="word-break:break-all; word-break:break-word;">'+resp[i].content+'</div></div></div></div><hr>',
+							'<input type="hidden" value="'+resp[i].modComment+'" id="hiddenModCo'+resp[i].seq+'">'
 							);
 					$(".pPageComments").append(html.join(""));	
            		}
@@ -529,10 +559,13 @@
 			return false;
 		});
 		
-		$("#reportCancelBtn").on("click",function(){
-			$("#reportReasonInput").val("");
+		$("#delete").on("click",function(){
+			var check = confirm("정말 삭제하시겠습니까?");
+			if(check){
+				location.href="/bamboo/bambooDeleteProc.do?seq=${bPage.seq }";
+			}
 		});
-           
+		
         </script>
 </body>
 </html>

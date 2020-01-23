@@ -1,5 +1,5 @@
 @charset "UTF-8";
-#pageTitle{margin-bottom:40px;}
+#pageTitle{margin-bottom:20px;}
 #pageTitle h1{display:inline;margin-right:10px;font-weight:bold;}
 #pageTitle .btn{margin-left:5px;}
 .tableDiv{border-radius:5px;}
@@ -17,6 +17,7 @@
 .tableBody div:nth-child(2){font-weight:bold;}
 .tableBody div:nth-child(3){text-align:left;cursor:pointer;}   
 .tableBody div:nth-child(7){cursor:pointer;}
+.tableBody div:nth-child(7):hover{color:orange;}
 .tableBody .N{color:limegreen;}
 .tableBody .Y{color:red;}
 .pComment{margin-left:3px;font-size:13px;color:orange;}    
@@ -35,3 +36,5 @@
 .pageListFooter{margin-top:20px;}
 .searchOption{margin-right:5px;}
 #pPageNavi{margin-top:30px;}
+img{max-width:100%;}
+#baseBackgroundColor{min-height:603px;}

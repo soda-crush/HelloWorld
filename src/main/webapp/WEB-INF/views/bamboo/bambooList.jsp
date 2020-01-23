@@ -7,17 +7,20 @@
 <meta charset="UTF-8">
 <title>Hello World!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="${pageContext.request.contextPath }/icon/favicon.ico"/>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/css/mainBase.css">
 <link rel="stylesheet" type="text/css" href="/css/font-awesome/css/font-awesome.css">
-<link rel="stylesheet" href="/css/project/list.css" type="text/css"/>
+<link rel="stylesheet" href="/css/industry/list.css" type="text/css"/>
+<link rel="stylesheet" href="/css/industry/industryBase.css" type="text/css"/>
 <style>
 	#pageTitle{margin-bottom:20px;}
 	#pageTitle h1{display:inline;margin-right:10px;font-weight:bold;}
 	#pageTitle .btn{margin-left:5px;}
+ 	#baseBackgroundColor{min-height:680px;}
 </style>
 <script>
    $(function(){
@@ -30,7 +33,7 @@
  		<div id=baseBackgroundColor>
             <div class=container>
                 <div class=row>
-                    <div class="col-12" id=aroundContent>
+                    <div class="col-12" id=aroundContent1>
                     </div>
                 </div>
             </div>
@@ -43,7 +46,7 @@
 					<div id="pageTitle">
 						<table>
 							<tr>
-								<td colspan="3" style="font-size: 60px; font-weight: 100; vertical-align: text-bottom">대나무숲</td>
+								<td colspan="3" style="font-size: 60px; font-weight: 100; vertical-align: text-bottom"><h1>대나무숲</h1></td>
 								<td></td>
 								<td style="font-size: 15px; color: gray; vertical-align: text-bottom">     자유롭게 익명으로 글을 남기는 게시판입니다.</td>
 								<td></td>
@@ -54,11 +57,13 @@
 			</div>
 			<div class=row>
 				<div class="d-md-none">
-					<div style="font-size: 60px; font-weight: 100;">대나무숲</div>
+				<div id="pageTitle">
+					<div style="font-size: 60px; font-weight: 100;"><h1>대나무숲</h1></div>
 					<div style="font-size: 15px; color: gray;">자유롭게 익명으로 글을 남기는 게시판입니다.</div>
 				</div>
+				</div>
 			</div>
-           
+           	
            		<div class="tableDiv">
             	   	 <div class="row tableHead">					    
 		   			 	<div class="col-xl-2 col-2 col-md-3 d-xl-block">번호</div>
@@ -69,7 +74,7 @@
 				  	 </div>
           	    	 <c:choose>
 				  		<c:when test="${bambooList.size()==0 }">
-				  			<div class="row tableBodyNull"><div class="col-12">작성된 글이 없습니다.</div></div>
+				  			<div class="row tableBodyNull" style="height:200px;"><div class="col-12" style="line-height:200px;">작성된 글이 없습니다.</div></div>
 				  		</c:when>
 				  		<c:otherwise>
 				  			<c:forEach items="${bambooList }" var="b">
@@ -90,7 +95,7 @@
 				  					<div class="col-xl-2 col-3 col-md-3 notTitle text-center">
 				  					<c:choose>
             							<c:when test="${b.writer == sessionScope.loginInfo.id}">
-            								${sessionScope.loginInfo.nickName}
+            								<small>${sessionScope.loginInfo.nickName}</small>
             							</c:when>
             							<c:otherwise>
             								익명
@@ -105,29 +110,43 @@
 				  		</c:otherwise>
 				  	</c:choose>
           	    </div>
+          	    <div class=row>
+	            	<div class=col-12>
+	            		<br>
+	            	</div>
+            	</div>
     			<div class="row pageListFooter">
-    			<div class="col-6">
+    			<div class="col-12 order-2 order-lg-1 col-lg-10">
 					<form class="form-inline" action="/bamboo/bambooSearch.do" method="post">
 					<select name=value class="form-control searchSelect" id="searchOption" style="margin-right:5px;">
 						<option value="all">전체(제목+내용)</option>
 						<option value="title">제목</option>
 					</select>
-					<input class="form-control mr-sm-2" type="text" name=search aria-label="Search" maxlength="100">
-					<input class="btn btn-dark my-2 my-sm-0" type="button" id=search value="검색">
+					<input class="form-control mr-sm-2" type="text" name=search aria-label="Search" maxlength="20" placeholder="검색어를 입력하세요.(20자이내)">
+					<input class="btn btn-dark my-2 my-sm-0 ml-1" type="button" id=search value="검색">
 					</form>
 				</div>
 				
-				<div class="col-6 text-right">
+				<div class="col-12 order-1 order-lg-2 col-lg-2 text-right">
 					<button type="button" class="btn btn-primary" id="write">글쓰기</button>					
 				</div>
 				</div>
+				<div class=row>
+	            	<div class=col-12>
+	            		<br>
+	            		<br>
+	            	</div>
+            	</div>
     			<nav aria-label="List navi">
-					<ul class="pagination justify-content-center">				
+					<ul class="pagination justify-content-center">	
+								
 						<c:forEach items="${pageNavi}" var="navi">									
 							<li id="page-navi" class="page-item pageNavi">${navi}</li>
-						</c:forEach>		
+						</c:forEach>
+							
 					</ul>
 				</nav>
+				
             </div>
             <!--       몸통 끝!!!   -->
             
@@ -155,36 +174,22 @@
 				return false;
 			}else{
 				location.href="/bamboo/bambooWrite.do";
-			}
-// 			$.ajax({
-// 				url : "/bamboo/memLevel.do",
-// 				type : "post",
-// 				dataType : "json",
-// 				data : {
-// 					id : "${sessionScope.loginInfo.id}"
-// 				}
-// 			}).done(function(resp){
-// 				if(resp > 1){
-// 					location.href="/bamboo/bambooWrite.do";
-// 				}else{
-// 					alert("권한이 없습니다. 관리자에게 문의하세요.")
-// 					return false;
-// 				}
-				
-// 			}).fail(function(resp){
-// 				console.log("실패");
-// 			})
+			} 			
 		})
+		</script>
+		<c:if test="${bambooList.size() != 0}">
+		<script>
 		$(function(){
 		var element = $(".pageNavi");
 		var page = "${page}";
-		if(page > 0 && page <= 10){
+		if(page > 0 && page <= 5){
 			element[page-1].classList.add('active');
-		}else if(page % 10 == 0){
-			element[10].classList.add('active');
+		}else if(page % 5 == 0){
+			element[5].classList.add('active');
 		}else{
-			element[page % 10].classList.add('active');
+			element[page % 5].classList.add('active');
 		}	
 		});
 	</script>
+	</c:if>
 </html>

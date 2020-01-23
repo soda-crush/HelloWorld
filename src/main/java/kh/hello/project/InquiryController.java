@@ -17,7 +17,7 @@ import kh.hello.services.MemberInquiryService;
 
 @Controller
 @RequestMapping("/member1")
-public class InquiryMemController {
+public class InquiryController {
 	
 	@Autowired
 	private MemberInquiryService ms;
@@ -103,7 +103,6 @@ public class InquiryMemController {
 	public String modifyInquiry(String page, InquiryDTO dto) {
 		String path = session.getServletContext().getRealPath("attached");
 		
-		//나중에 지우기	
 		LoginInfoDTO loginInfo = (LoginInfoDTO)session.getAttribute("loginInfo");
 				
 		String nickName = loginInfo.getNickName();

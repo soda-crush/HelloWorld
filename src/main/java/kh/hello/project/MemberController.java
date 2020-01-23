@@ -39,11 +39,10 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/loginProc")
-	public String loginProc(String id, String pw, HttpSession session, String noMemPath, String seq){ //로그인 프로세스
+	public String loginProc(String id, String pw, HttpSession session, String noMemPath, String seq,Model m){ //로그인 프로세스
 			int result;
 			try {
 				result = ms.login(id, pw);
-				
 				if(result > 0) {
 					LoginInfoDTO dto = new LoginInfoDTO(id, ms.selectMember(id).getNickName(), ms.selectMember(id).getMemLevel());
 					session.setAttribute("loginInfo", dto);
@@ -57,7 +56,7 @@ public class MemberController {
 							return "redirect:../industry/industryStatusList.do";
 						}else if(noMemPath.contentEquals("toPlog")){
 							//수정 필요
-							return "redirect:../Portfolio/toPlog.do?owner="+((LoginInfoDTO)session.getAttribute("loginInfo")).getId();
+							return "redirect:../Portfolio/toPlog.do?owner="+((LoginInfoDTO)session.getAttribute("loginInfo")).getId()+"&other=\"Y\"";
 						}else {
 							return "redirect:/";
 						}
@@ -79,7 +78,6 @@ public class MemberController {
 				e.printStackTrace();
 				return "error";
 			}
-			
 	}
 	
 	@RequestMapping("/logout")
@@ -108,14 +106,23 @@ public class MemberController {
 	
 	@RequestMapping(value = "/modifyProc")
 	public String memModifyProc(MemberDTO mdto, String empCheck, String empEmail, String unempEmail 
-			,String otherJoinPath, Timestamp birthday, String demotionMail) { 
+			,String otherJoinPath, Timestamp birthday, String demotionMail, HttpSession session) { 
+		mdto.setId(((LoginInfoDTO)session.getAttribute("loginInfo")).getId());
 		try {
 			ms.modify(mdto, empCheck, empEmail, unempEmail, otherJoinPath, birthday, demotionMail);
-			return "redirect:modifyTemp";
+			session.invalidate();
+			return "redirect:modifyProc2?id="+mdto.getId();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "error";
 		}
+	}
+	
+	@RequestMapping(value = "/modifyProc2")
+	public String ModifyProc2(String id, HttpSession session) { 
+		LoginInfoDTO dto = new LoginInfoDTO(id, ms.selectMember(id).getNickName(), ms.selectMember(id).getMemLevel());
+		session.setAttribute("loginInfo", dto);
+		return "redirect:modifyTemp";
 	}
 	
 	@RequestMapping("/signUpTemp")
@@ -269,7 +276,12 @@ public class MemberController {
 	 @RequestMapping(value = "/withdrawalCheck",produces="text/html;charset=utf8")
 	 @ResponseBody
 	 public String memWithdrawalCheck(String pw, HttpSession session) {
-		 return ms.withdrawalCheck(((LoginInfoDTO)session.getAttribute("loginInfo")).getId(), pw);
+		 try {
+			return ms.withdrawalCheck(((LoginInfoDTO)session.getAttribute("loginInfo")).getId(), pw);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "error";
+		}
 	 }
 	 
 	 @RequestMapping("/modifyCheck")
@@ -332,5 +344,25 @@ public class MemberController {
 		 return "error";
 	 }
 	 
+	 @RequestMapping("/reboot")
+	 public String getReboot(HttpSession session) {
+		 String sysId = ((LoginInfoDTO)session.getAttribute("loginInfo")).getId();
+		 session.invalidate();
+		 return "redirect:reboot2?id="+sysId;
+	 }
 	 
+	 @RequestMapping("/reboot2")
+	 public String getReboot2(HttpSession session, String id) {
+		 MemberDTO mdto = ms.selectMember(id);
+		 LoginInfoDTO dto = new LoginInfoDTO(id, mdto.getNickName(), mdto.getMemLevel());
+		 session.setAttribute("loginInfo", dto);
+		 ms.updateLastLogin(id);
+		 return "member/rebootFrm";
+	 }
+	 
+	 @RequestMapping("/compulsionWithdrawal")
+	 public String compulsionWithdrawal(HttpSession session) {
+		 session.invalidate();
+		 return "member/compulsionWithdrawalTmp";
+	 }
 }

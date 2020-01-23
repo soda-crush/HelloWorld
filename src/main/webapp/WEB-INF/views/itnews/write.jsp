@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Hello World!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="${pageContext.request.contextPath }/icon/favicon.ico"/>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
@@ -16,11 +17,18 @@
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
+<script src="/js/summernote-ko-KR.js"></script>
 <script>
 	$(function(){
 		$("#itNavi").attr('class','nav-item nav-link active');
 	});
 </script>
+<style>
+ #cateCmt{
+ color:#f2f2f2;}
+ #baseBackgroundColor{
+ background-color: #e8e8e890;}
+</style>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/standard/header.jsp"/>
@@ -34,9 +42,10 @@
             </div>
             
             <!--      몸통 시작!!!   -->
+            
             <div class=container id="projectPage">
 				<div id="pageTitle" class="mb-4">
-					<h1>IT News 글쓰기</h1>
+					<h1 id=cateTitle class=fontBold>IT News 글쓰기</h1>
 				</div>
 				
 				<form action="${pageContext.request.contextPath}/itnews/writeProc" method="post" id="writeFrm" enctype="multipart/form-data">
@@ -71,10 +80,22 @@ $('.summernote').summernote({
     placeholder: '내용을 입력해주세요',	        
     minHeight: 600,
     maxHeight: 600,   
+    lang:'ko-KR',
+    toolbar: [
+        ['style', ['style']],
+        ['font', ['bold', 'underline', 'clear']],
+        ['fontname', ['fontname']],
+        ['color', ['color']],
+        ['para', ['ul', 'ol', 'paragraph']],
+        ['table', ['table']],
+        ['insert', ['link', 'picture', 'hr']],
+        ['view', ['fullscreen']],
+        ['help', ['help']]
+      ]
 });     
 
 $("#writeBtn").on("click", function(){
-	regex = /^[(<p><br></p>)(<p>(&nbsp; ){1,}</p>)]{0,}$/g;
+	regex = /^[(<p><br></p>)(<p>(&nbsp; )+</p>)]{0,}$/g;
 	var content = $(".summernote").val();
 	var result = regex.exec(content);
 	

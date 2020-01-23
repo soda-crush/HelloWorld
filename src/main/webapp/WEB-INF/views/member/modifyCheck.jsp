@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Hello World!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="${pageContext.request.contextPath }/icon/favicon.ico"/>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
@@ -14,12 +15,18 @@
 <link rel="stylesheet" href="/css/mainBase.css">
 <link rel="stylesheet" type="text/css" href="/css/font-awesome/css/font-awesome.css">
 <style>
+#baseBackgroundColor{
+	min-height:650px;
+}
 #pw{
 	height: 38px;
 	border-radius: 6%;
 	border:1px solid #a8a8a8;
 	position:relative;
 	top:2px;
+	}
+	.eleCon {
+	background-color:#f7f7f7;
 	}
 </style>
 </head>
@@ -44,11 +51,12 @@
 						<br>
 						<h1>내 정보 수정</h1>
 						<hr>
-						<p>비밀번호를 입력해주세요.</p><br>
+						
 					</div>
 					<div class="col-12 text-center">
 					<h3><br></h3>
-						<input type="text" id=pw name=pw placeholder="비밀번호">&ensp;<button type="button" class="btn btn-secondary" id="do" style="display:inline;">확인</button>
+						<p>계속하려면 먼저 본인임을 인증하세요.</p>
+						<input type="password" id=pw name=pw placeholder="비밀번호 입력">&ensp;<button type="button" class="btn btn-secondary" id="do" style="display:inline;">확인</button>
 						<h3><br><br><br><br></h3>
 					</div>
 				</div>

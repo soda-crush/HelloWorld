@@ -1,12 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Hello World!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="${pageContext.request.contextPath }/icon/favicon.ico"/>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
@@ -15,6 +17,7 @@
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/css/mainBase.css">
+<link rel="stylesheet" href="/css/industry/industryBase.css" type="text/css"/>
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css"
 	rel="stylesheet">
@@ -51,15 +54,15 @@ $(function() {
 		</div>
 
 		<!--      몸통 시작!!!   -->
-		<div class=container id="projectPage" style="background-color:white">
+		<div class=container id="projectPage">
 		<div class=row>
 				<div class="col-12 d-none d-md-block">
 					<div id="pageTitle">
 						<table>
 							<tr>
-								<td colspan="3" style="font-size: 60px; font-weight: 100; vertical-align: text-bottom">업계현황</td>
+								<td colspan="3" style="font-size: 60px; font-weight: 100; vertical-align: text-bottom">HELL<span style="opacity:0.5">o</span></td>
 								<td></td>
-								<td style="font-size: 15px; color: gray; vertical-align: text-bottom">     업계현황에 대한 정보를 나누는 게시판입니다.</td>
+								<td style="font-size: 15px; color: gray; vertical-align: text-bottom">     재직자만 사용가능한 게시판입니다.</td>
 								<td></td>
 							</tr>
 						</table>
@@ -68,8 +71,8 @@ $(function() {
 			</div>
 			<div class=row>
 				<div class="d-md-none">
-					<div style="font-size: 60px; font-weight: 100;">업계현황</div>
-					<div style="font-size: 15px; color: gray;">업계현황에 대한 정보를 나누는 게시판입니다.</div>
+					<div style="font-size: 60px; font-weight: 100;">HELL<span style="opacity:0.5">o</span></div>
+					<div style="font-size: 15px; color: gray;">재직자만 사용가능한 게시판입니다.</div>
 				</div>
 			</div>
 		<c:if test="${iPage.seq !=null }">
@@ -107,14 +110,17 @@ $(function() {
 				</div>
 			</div>
 				<div class=row>
-				<div class="col-1 title">
-					<h4>제목</h4>
-				</div>
+				
 					<input type="hidden" name="writer" value="${iPage.writer}">
-				<div class="col-11 title" >
-					<input type="text" id=title name=title style="width: 100%" value="${iPage.title}" maxlength="100">
+				<div class="col-12 title" >
+					<input type="text" id=title name=title style="width: 100%" value="${fn:escapeXml(iPage.title)}" maxlength="100" placeholder="제목을 입력해주세요.">
 				</div>
 			</div>
+			<div class=row>
+	            <div class=col-12>
+	            	<br>
+	            </div>
+            </div>
 			<div class=row>
 					<div class="col-12 content">
 			
@@ -123,26 +129,38 @@ $(function() {
 				</div> 
 			<div class=row>
 				<div class="col-12 btn" style="text-align: right;">
-					<button class="btn btn-primary" type="button" id="write">작성하기</button>
-					<button class="btn btn-primary" type="button" id="return">돌아가기</button>
+					<button class="btn btn-primary" type="button" id="write">수정</button>
+					<button class="btn btn-secondary" type="button" id="return">취소</button>
 				</div>
 			</div>
 			</form>
 		</c:if>
+		</div>
 		<script>
 		$("#return").on('click',function() {
 			location.href = "industryStatusDetailView.do?seq=${iPage.seq}";
 						})
 		 $('.summernote').summernote({
 			 lang: 'ko-KR',
-			 height : 500
+			 height : 500,
+			 toolbar: [
+		            ['style', ['style']],
+		            ['font', ['bold', 'underline', 'clear']],
+		            ['fontname', ['fontname']],
+		            ['fontsize', ['fontsize']],
+		            ['color', ['color']],
+		            ['para', ['ul', 'ol', 'paragraph']],
+		            ['height', ['height']],
+		            ['table', ['table']],
+		            ['insert', ['link', 'picture', 'hr']],
+		            ['view', ['fullscreen']],
+		            ['help', ['help']]
+		      ]
      	});
 		$("#write").on("click", function() {
-			regex = /^[(<p><br></p>)(<p>(&nbsp; ){1,}</p>)]{0,}$/g;
+			regex = /^[(<p><br></p>)(<p>(&nbsp; )+</p>)]{0,}$/g;
 			   var content = $(".summernote").val();
-			   console.log(content);
 			   var result = regex.exec(content);
-			   console.log(result);
 			   $("#title").val($.trim($("#title").val())); 
 			   if(($("#title").val()=="")&&(result!=null)){
 			      alert("제목과 내용을 입력해주세요.");
@@ -168,7 +186,7 @@ $(function() {
 				<div class="col-12" id=aroundContent></div>
 			</div>
 		</div>
-	</div>
+	
 	</div>
 	<jsp:include page="/WEB-INF/views/standard/footer.jsp" />
 </body>

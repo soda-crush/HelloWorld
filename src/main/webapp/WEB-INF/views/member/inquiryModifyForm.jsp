@@ -1,12 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%> 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Hello World!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="${pageContext.request.contextPath }/icon/favicon.ico"/>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
@@ -19,12 +21,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
 <script src="/js/summernote-ko-KR.js"></script>
 <style>
-	#titleLink:hover{
-		cursor:pointer;
-		color:gray;
-	}
-	#titleLink strong{
+	#titleLink{
 		font-size:25px;
+		text-decoration:none;
+		color:black;
 	}
 </style>
 </head>
@@ -42,12 +42,8 @@
             <!--      몸통 시작!!!   -->
             <div class=container id="projectPage">
 				<div id="pageTitle" class="row ml-1 mb-4">
-					<div class="col-12" id="titleLink">
-							<div class="row">
-							<div class="col-auto vertical-align:text-top p-0"><i class="fa fa-quote-left"></i></div>
-							<div class="col-auto vertical-align:text-top p-0"><strong>일대일문의</strong></div>
-							<div class="col-auto vertical-align:text-top p-0"><i class="fa fa-quote-right"></i></div>
-							</div>
+					<div class="col-12">
+						<a href="${pageContext.request.contextPath}/member1/myInquiry?page=${page}" id="titleLink"><strong>일대일문의</strong></a>
 					</div>
 					<script>
 						$("#titleLink").on("click", function(){
@@ -59,7 +55,7 @@
 				<form action="${pageContext.request.contextPath}/member1/modifyInquiry?page=${page}" method="post" id="writeFrm" enctype="multipart/form-data">
 					<div id="pageBody">					
 						<div id="pBody">
-							<div id="pTitleInput" class="mb-3"><input type="text" class="form-control" placeholder="제목을 입력해주세요" name="title" id="title" value="${dto.title}" maxlength="100"></div>
+							<div id="pTitleInput" class="mb-3"><input type="text" class="form-control" placeholder="제목을 입력해주세요" name="title" id="title" value="${fn:escapeXml(dto.title)}" maxlength="100"></div>
 							<div id="pContentsInput"><textarea class="form-control summernote" name="content" id="content">${dto.content}</textarea></div>											
 						</div>					
 					</div>
@@ -77,7 +73,7 @@
             
             <div class=container>
                 <div class=row>
-                    <div class="col-12" id=aroundContent>
+                    <div class="col-12" id="aroundContent">
                     </div>
                 </div>
             </div>
@@ -89,11 +85,24 @@ $('.summernote').summernote({
     placeholder: '내용을 입력해주세요',	        
     minHeight: 300,
     maxHeight: 300, 
-    lang: 'ko-KR'
+    lang: 'ko-KR',
+    toolbar: [
+        ['style', ['style']],
+        ['font', ['bold', 'underline', 'clear']],
+        ['fontname', ['fontname']],
+        ['fontsize', ['fontsize']],
+        ['color', ['color']],
+        ['para', ['ul', 'ol', 'paragraph']],
+        ['height', ['height']],
+        ['table', ['table']],
+        ['insert', ['link', 'picture', 'hr']],
+        ['view', ['fullscreen']],
+        ['help', ['help']]
+  ]
 });     
 
 $("#writeBtn").on("click", function(){
-	var regex = /^[(<p><br></p>)(<p>(&nbsp; ){1,}</p>)]{0,}$/g;
+	var regex = /^[(<p><br></p>)(<p>(&nbsp; )+</p>)]{0,}$/g;
 	var content = $(".summernote").val();
 	var result = regex.exec(content);
 	   

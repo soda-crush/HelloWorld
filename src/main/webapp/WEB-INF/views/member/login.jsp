@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Hello World!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="${pageContext.request.contextPath }/icon/favicon.ico"/>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
@@ -26,8 +27,21 @@ button{
 }
 .aT{
 	font-size: 14px;
-	color: gray;
+	color: #858585;
 }
+.aT:hover{
+	font-size: 14.6px;
+	color: black;
+	text-decoration: none;
+}
+ #aroundContent1{ 
+  	height: 140px; 
+ } 
+ h4{
+ color:black;}
+  #baseBackgroundColor{
+ background-color: #e8e8e890;
+ }
 </style>
 </head>
 <body>
@@ -43,30 +57,30 @@ button{
  		<div id=baseBackgroundColor>
             <div class=container>
                 <div class=row>
-                    <div class="col-12" id=aroundContent>
+                    <div class="col-12" id=aroundContent1>
                     </div>
                 </div>
             </div>
             
             <!--      몸통 시작!!!   -->
             <form action="${pageContext.request.contextPath}/member/loginProc" method="post">
-            <div class=container>
+            <div class=container style="min-height: 350px;">
             	<div class="row">
             	<div class="col-md-1 d-none d-md-block order-md-1"></div>
-            		<div class="col-12 col-md-5 order-1 order-md-2">
-	            		<img src="/icon/blackArrow.svg"><h4 style="display:inline">로그인</h4>
+            		<div class="col-12 col-md-5 order-1 order-md-2 pl-5">
+	            		<img src="/icon/blackArrow.svg"><h4 style="display:inline;position:relative;top:3.5px;left:10px;" class=fontBold>로그인</h4>
 	            		<div class="row">
 	            			<div class="col-8">
 	            				<br>
 	            				<input type="text" name="id" id="id" class="input1" placeholder="아이디 입력"><br>
 	            				<input type="password" name="pw" id="pw" class="input1" placeholder="비밀번호 입력"><br>
-	            				아이디를 기억합니다. <input type="checkbox" id="remID">
+	            				<p style="color:black;display:inline;">아이디를 기억합니다.</p> <input type="checkbox" id="remID">
 	            				<input type="text" name="noMemPath" value="${noMemPath}" style="display:none">
 	            				<input type="text" name="seq" value="${seq}" style="display:none">
 	            			</div>
 	            			<div class="col-2">
 	            			<br>
-	            			<button id=login>로그인</button>
+	            			<button id=login class=fontBold>로그인</button>
 	            			</div>
 	            			<div class="col-2">
 	            			<br>
@@ -74,15 +88,15 @@ button{
 	            		</div>
             		</div>
             		<div class="col-md-1 d-none d-md-block order-md-3"></div>
-            		<div class="col-12 col-md-4 order-2 order-md-4">
-            			&emsp;<img src="/icon/whiteArrow.svg"><h4 style="display:inline">처음이신가요?</h4>
+            		<div class="col-12 col-md-4 order-2 order-md-4 pt-5 pt-md-0 pl-5">
+            			<img src="/icon/whiteArrow.svg"><h4 style="display:inline;position:relative;top:3.5px;left:10px;" class=fontBold>처음이신가요?</h4>
             			<br>
-            			&emsp;&emsp;<a class=aT href="${pageContext.request.contextPath}/member/signUp">회원가입</a>
-            			<h1><br></h1>
-            			&emsp;<img src="/icon/whiteArrow.svg"><h4 style="display:inline">기억이 나지 않으신가요?</h4>
+            			<a class="aT" href="${pageContext.request.contextPath}/member/signUp" style="position:relative;left:35px;">회원가입</a>
+            			<h3><br></h3>
+            			<img src="/icon/whiteArrow.svg"><h4 style="display:inline;position:relative;top:3.5px;left:10px;" class=fontBold>기억이 나지 않으신가요?</h4>
             			<br>
-            			&emsp;&emsp;<a class=aT href="${pageContext.request.contextPath}/member/findId">아이디</a>ㆍ
-            			&emsp;&emsp;<a class=aT href="${pageContext.request.contextPath}/member/findPw">비밀번호 찾기</a>
+            			<a class="aT" href="${pageContext.request.contextPath}/member/findId" style="position:relative;left:35px;">아이디</a><p style="display:inline;position:relative;left:35px;">ㆍ</p>
+            			<a class="aT pl-0" href="${pageContext.request.contextPath}/member/findPw" style="position:relative;left:30px;">비밀번호 찾기</a>
             		</div>
             	<div class="col-md-1 d-none d-md-block order-md-5"></div>
             	</div>
@@ -127,21 +141,8 @@ button{
 	                    }  
 	                }
 	            })
-        		//체크하는 순간 인풋 내용을 쿠키에 저장
-	            $("#remID").on("change",function(){
-	                var exDate = new Date();
-	                if($("#remID").prop("checked")){
-	                    exDate.setDate(exDate.getDate() + 30);
-	
-	                    var id = $("#id").val();
-	                    document.cookie = 
-	                        "id = " + id + ";expires=" + exDate.toString();
-	                }else{
-	                    exDate.setDate(exDate.getDate() -1);
-	                    document.cookie = "id =;expires=" + exDate.toString();
-	                    //키값이 중요하니까 value는 비워도됨
-	                }
-	            })
+	                 
+	            
         	
         	//로그인 전 유효성 검사(빈칸인지 아닌지만)
         		$("#login").on("click",function(){
@@ -158,6 +159,20 @@ button{
         				alert("비밀번호를 입력하세요.");
         				return false;
         			}else{
+        				  var exDate = new Date();
+        				 if($("#remID").prop("checked")){
+        					 
+        					 //로그인하는 순간 체크 되어있으면 아이디 쿠키에 저장
+        					 exDate.setDate(exDate.getDate() + 30);
+        						
+      	                    var id = $("#id").val();
+      	                    document.cookie = 
+      	                        "id = " + id + ";expires=" + exDate.toString();
+        				 }else{
+        					 exDate.setDate(exDate.getDate() -1);
+     	                    document.cookie = "id =;expires=" + exDate.toString();
+        				 }
+        				
         				location.href="member/loginProc";
         			}
         		})

@@ -14,8 +14,8 @@
 </head>
 <body>
 	<script>
-		alert("회원가입에 성공하셨습니다. 로그인 후 이용해주세요.");
-		location.href="${pageContext.request.contextPath}/";
+		alert("회원가입에 성공하셨습니다. 바로 로그인 페이지로 이동합니다.");
+		location.href="${pageContext.request.contextPath}/member/login";
 	</script>
 </body>
 </html>

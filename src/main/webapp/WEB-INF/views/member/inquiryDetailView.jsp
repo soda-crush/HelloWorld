@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Hello World!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="${pageContext.request.contextPath }/icon/favicon.ico"/>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
@@ -17,12 +18,11 @@
 <style>
 
 #pPageContents img{max-width:100%;}
-	#titleLink:hover{
-		cursor:pointer;
-		color:gray;
-	}
-	#titleLink strong{
+	#titleLink{
 		font-size:25px;
+		text-decoration:none;
+		color:black;
+	}font-size:25px;
 	}
 	.wordWrap{
 		word-break:break-all;
@@ -30,6 +30,9 @@
 	}
 	.titleWrap{
 		font-size:25px;
+	}
+	#baseBackgroundColor{
+		min-height:680px;
 	}
 </style>
 </head>
@@ -49,12 +52,8 @@
             
             <div class=container id="projectPage">
 				<div id="pageTitle" class="row ml-1 mb-4">
-					<div class="col-12" id="titleLink">
-							<div class="row">
-							<div class="col-auto vertical-align:text-top p-0"><i class="fa fa-quote-left"></i></div>
-							<div class="col-auto vertical-align:text-top p-0"><strong>일대일문의</strong></div>
-							<div class="col-auto vertical-align:text-top p-0"><i class="fa fa-quote-right"></i></div>
-							</div>
+					<div class="col-12">
+						<a href="${pageContext.request.contextPath}/member1/myInquiry?page=${page}" id="titleLink"><strong>일대일문의</strong></a>
 					</div>
 					<script>
 						$("#titleLink").on("click", function(){
@@ -97,15 +96,13 @@
 				</div>
 				
 				<div id="pageFooter">
-					<span class="float-right">
-						<c:if test="${list.size() == 0}">
-                                <div class="btn-group" role="group" aria-label="Basic example">
-                                    <button type="button" class="btn btn-outline-primary" id="modify">수정</button>
-                                    <button type="button" class="btn btn-outline-primary" id="delete">삭제</button>
-                                </div>
-						</c:if>
+						<div class="btn-group float-right" role="group" aria-label="Basic example">
+							<c:if test="${list.size() == 0}">                               
+                            	<button type="button" class="btn btn-outline-primary" id="modify">수정</button>
+							</c:if>
+                            <button type="button" class="btn btn-outline-primary" id="delete">삭제</button>
+                       	</div>							
 						<a class="btn btn-outline-dark" href="${pageContext.request.contextPath}/member1/myInquiry?page=${page}" role="button">목록</a>
-					</span>
 				</div>          
             </div>
             

@@ -125,22 +125,43 @@ public class PortfolioMemController {
 		}
 		OwnerInfoDTO ownerInfo = (OwnerInfoDTO)session.getAttribute("ownerInfo");
 		List<PortfolioDTO> list = ps.selectList(ownerInfo.getId());
+		MemberDTO mdto = ms.selectMember(ownerInfo.getId());
+		request.setAttribute("point", mdto.getPoint());
 		request.setAttribute("list", list);
 		return "/plog/plogPortfolio";
 	}
 	
+	@RequestMapping("/toGuestPlogmain.do")
+	public String toGuestPlogmain() {
+		try {
+			request.setCharacterEncoding("UTF-8");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		OwnerInfoDTO ownerInfo = (OwnerInfoDTO)session.getAttribute("otherInfo");
+		List<PortfolioDTO> list = ps.selectList(ownerInfo.getId());
+		MemberDTO mdto = ms.selectMember(ownerInfo.getId());
+		request.setAttribute("point", mdto.getPoint());
+		request.setAttribute("list", list);
+		return "/plog/guestPortfolio";
+	}
+	
 	@RequestMapping("/toPlog.do")
-	public String toPlog(String owner) {
+	public String toPlog(String owner, String other) {
 		MemberDTO mdto = ms.selectMember(owner);
 		LoginInfoDTO ldto = (LoginInfoDTO)session.getAttribute("loginInfo");
 		if(mdto.getIfmOpenCheck().equals("Y") || ldto.getId().equals(owner)) {
 			OwnerInfoDTO odto = new OwnerInfoDTO();
 			odto.setId(mdto.getId());	
-			odto.setNickName(mdto.getNickName());	
-			odto.setPoint(mdto.getPoint());
+			odto.setNickName(mdto.getNickName());
 			odto.setProfileImg(mdto.getProfileImg());
-			session.setAttribute("ownerInfo", odto);
-			return "redirect:toPlogmain.do";
+			if(other.contentEquals("Y") && !(owner.contentEquals(ldto.getId()))) {
+				session.setAttribute("otherInfo", odto);
+				return "redirect:toGuestPlogmain.do";
+			}else {
+				session.setAttribute("ownerInfo", odto);
+				return "redirect:toPlogmain.do";
+			}
 		}else {
 			return "/plog/notOpenPage";
 		}

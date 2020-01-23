@@ -5,26 +5,27 @@
 <mapper namespace="Home">
 	
 	<select id="getBam" resultType="kh.hello.dto.BambooDTO">
-		select * from(select bamboo.*,row_number() over(order by seq desc) rown from bamboo   
-		where writeDate > (sysDate-7)
-		order by viewCount desc) where rown between 1 and 5
+		select * from(select bamboo.*,row_number() over(order by viewCount desc, seq desc)
+		rown from bamboo where writedate > (sysdate-7)) where rown between 1 and 10
 	</select>
 	
 	<select id="getCode" resultType="kh.hello.dto.CodeQuestionDTO">
-		select * from(select codeQuestion.*,row_number() over(order by seq desc) rown from codeQuestion  
-		where writeDate > (sysDate-7)
-		order by viewCount desc) where rown between 1 and 5
+		select * from(select codeQuestion.*,row_number() over(order by viewCount desc, seq desc)
+		rown from codeQuestion where writedate > (sysdate-7)) where rown between 1 and 10
 	</select>
 	
 	<select id="getIndus" resultType="kh.hello.dto.IndustryStatusDTO">
-		select * from(select industryStatus.*,row_number() over(order by seq desc) rown from industryStatus   
-		where writeDate > (sysDate-7)
-		order by viewCount desc) where rown between 1 and 5
+		select * from(select industryStatus.*,row_number() over(order by viewCount desc, seq desc)
+		rown from industryStatus where writedate > (sysdate-7)) where rown between 1 and 10
+	</select>
+	
+	<select id="getIt" resultType="kh.hello.dto.ItnewsDTO">
+		select * from(select itnews.*,row_number() over(order by viewCount desc, seq desc)
+		rown from itnews where writedate > (sysdate-7)) where rown between 1 and 10
 	</select>
 	
 	<select id="getPro" resultType="kh.hello.dto.ProjectDTO">
-		select * from project where state ='N'
+		 select * from project where state ='N' order by seq desc
 	</select>
-
 
 </mapper>

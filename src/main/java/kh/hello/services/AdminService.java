@@ -12,7 +12,6 @@ import java.util.regex.Pattern;
 
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeUtility;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -54,16 +53,16 @@ public class AdminService {
 	@Autowired
 	private JavaMailSender informMail;
 	
-	public int validLogin(String adminId, String password) {
-		return adao.validLogin(adminId, password);
+	public int validLogin(String adminId, String password) throws Exception{
+		return adao.validLogin(adminId, Utils.encrypt(password));
 	}
 	
 	public String getAdminEmail(String adminId) {
 		return adao.getAdminEmail(adminId);
 	}
 	
-	public int modifyInfo(String adminId, String password, String email) {
-		return adao.modifyInfo(adminId, password, email);
+	public int modifyInfo(String adminId, String password, String email) throws Exception{
+		return adao.modifyInfo(adminId, Utils.encrypt(password), email);
 	}
 	
 	public List<InquiryDTO> selectInquiryByPage(int start, int end){			
@@ -576,6 +575,44 @@ public class AdminService {
 	
 	public NoticeDTO noticeDetailView(int seq) {
 		return adao.noticeDetailView(seq);
+	} 
+	
+	public int modifyNotice(NoticeDTO dto, String path) throws Exception{
+		//1. boardSeq 받아오기
+		int boardSeq = dto.getSeq();
+		//2-1. 이미지 저장하고 주소 변환
+		String content = imgUpload(path, boardSeq, dto.getContent());
+		dto.setContent(content);
+		//2-2. 제목 protectXss
+		dto.setTitle(Utils.protectXss(dto.getTitle()));
+		//3. 글 업로드
+		adao.modifyNotice(dto);
+		//4. 디테일뷰로 이동하기 위해 boardSeq 리턴	
+		return boardSeq;		
+	}
+	
+	public void imgDelete(String path, int boardSeq) {
+		List<String> imgs = adao.getImgsByBoardSeq(boardSeq);
+		for(String tmp:imgs) {
+			File file = new File(path+"/"+tmp);
+			if(file.exists()) {
+				file.delete();
+			}
+		}		
+	}
+	
+	@Transactional("txManager")
+	public int deleteNotice(String path, int seq) {
+		//글 삭제하기
+		//이미지 파일은 transaction관리 안되서 글 먼저 지움
+		int result = adao.deleteNotice(seq);
+		if(result > 0) {
+			//이미지 파일 삭제하기
+			imgDelete(path, seq);
+			//이미지 기록 DB에서 삭제하기
+			adao.delImgsByBoardSeq(seq);
+		}
+		return result;
 	}
 }
 

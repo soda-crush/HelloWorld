@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Hello World!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="${pageContext.request.contextPath }/icon/favicon.ico"/>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
@@ -15,6 +16,7 @@
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/css/mainBase.css">
+<link rel="stylesheet" href="/css/industry/industryBase.css" type="text/css"/>
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css"
 	rel="stylesheet">
@@ -61,20 +63,20 @@
 	<div id=baseBackgroundColor>
 		<div class=container>
 			<div class=row>
-				<div class="col-12" id=aroundContent></div>
+				<div class="col-12" id=aroundContent1></div>
 			</div>
 		</div>
 
 		<!--      몸통 시작!!!   -->
-		<div class=container id="projectPage" style="background-color: white">
+		<div class=container id="projectPage">
 			<div class=row>
 				<div class="col-12 d-none d-md-block">
 					<div id="pageTitle">
 						<table>
 							<tr>
-								<td colspan="3" style="font-size: 60px; font-weight: 100; vertical-align: text-bottom">업계현황</td>
+								<td colspan="3" style="font-size: 60px; font-weight: 100; vertical-align: text-bottom">HELL<span style="opacity:0.5">o</span></td>
 								<td></td>
-								<td style="font-size: 15px; color: gray; vertical-align: text-bottom">     업계현황에 대한 정보를 나누는 게시판입니다.</td>
+								<td style="font-size: 15px; color: gray; vertical-align: text-bottom">     재직자만 사용가능한 게시판입니다.</td>
 								<td></td>
 							</tr>
 						</table>
@@ -83,8 +85,8 @@
 			</div>
 			<div class=row>
 				<div class="d-md-none">
-					<div style="font-size: 60px; font-weight: 100;">업계현황</div>
-					<div style="font-size: 15px; color: gray;">업계현황에 대한 정보를 나누는 게시판입니다.</div>
+					<div style="font-size: 60px; font-weight: 100;">HELL<span style="opacity:0.5">o</span></div>
+					<div style="font-size: 15px; color: gray;">재직자만 사용가능한 게시판입니다.</div>
 				</div>
 			</div>
 
@@ -127,6 +129,11 @@
 				</div>
 			</div>	
 			<div class=row>
+	            <div class=col-12>
+	            	<br>
+	            </div>
+            </div>
+			<div class=row>
 				<div class="col-12 content">
 				
 				<textarea style="display: none" name=content id=content class="summernote"></textarea>
@@ -134,21 +141,35 @@
 			</div>	
 			<div class=row>
 				<div class="col-12 btn" style="text-align: right;">
-					<button class="btn btn-primary" type="button" id="write">작성하기</button>
-					<button class="btn btn-primary" type="button" id="return">돌아가기</button>
+					<button class="btn btn-primary" type="button" id="write">글쓰기</button>
+					<button class="btn btn-secondary" type="button" id="return">취소</button>
 				</div>
 			</div>
 		</form>
+	</div>
 			<script>
 			$("#return").on('click',function() {
 			location.href = "industryStatusList.do";
 							})
 		 	$('.summernote').summernote({
 		 		lang: 'ko-KR',
-     			height : 500			
+     			height : 500,
+     			toolbar: [
+     	            ['style', ['style']],
+     	            ['font', ['bold', 'underline', 'clear']],
+     	            ['fontname', ['fontname']],
+     	            ['fontsize', ['fontsize']],
+     	            ['color', ['color']],
+     	            ['para', ['ul', 'ol', 'paragraph']],
+     	            ['height', ['height']],
+     	            ['table', ['table']],
+     	            ['insert', ['link', 'picture', 'hr']],
+     	            ['view', ['fullscreen']],
+     	            ['help', ['help']]
+     	      ]
 		 	});
 			$("#write").on("click", function() {
-				regex = /^[(<p><br></p>)(<p>(&nbsp; ){1,}</p>)]{0,}$/g;
+				regex = /^[(<p><br></p>)(<p>(&nbsp; )+</p>)]{0,}$/g;
 				   var content = $(".summernote").val();
 				   var result = regex.exec(content);
 				   $("#title").val($.trim($("#title").val())); 
@@ -176,7 +197,6 @@
 					<div class="col-12" id=aroundContent></div>
 				</div>
 			</div>
-		</div>
 	</div>
 	<jsp:include page="/WEB-INF/views/standard/footer.jsp" />
 </body>

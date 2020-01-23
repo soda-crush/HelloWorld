@@ -1,12 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Hello World!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="${pageContext.request.contextPath }/icon/favicon.ico"/>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
@@ -15,10 +17,9 @@
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/css/mainBase.css">
-<link rel="stylesheet" href="/css/font-awesome/css/font-awesome.css"
-	type="text/css" />
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/adRsc/css/themify-icons.css">
+<link rel="stylesheet" href="/css/font-awesome/css/font-awesome.css" type="text/css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath }/adRsc/css/themify-icons.css">
+<link rel="stylesheet" href="/css/code/codeBase.css" type="text/css"/>
 	
 <script>
    $(function(){
@@ -31,11 +32,11 @@
 	src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script type="text/javascript">
 	function shareKakaotalk() {
-		Kakao.init("7fce3c86f0e6aeeac11028850040589c"); // 사용할 앱의 JavaScript 키를 설정
+		Kakao.init("17c512cbe4e17a204cce3c9b7d64d274"); // 사용할 앱의 JavaScript 키를 설정
 		Kakao.Link.sendDefault({
 			objectType : "feed",
 			content : {
-				title : "${qResult.title}", // 콘텐츠의 타이틀
+				title : "${qResult.kakaoTitle}", // 콘텐츠의 타이틀
 				description : "Code-How", // 콘텐츠 상세설명
 				imageUrl : "https://miro.medium.com/max/3840/1*U-R58ahr5dtAvtSLGK2wXg.png", // 썸네일 이미지 			
 				link : {
@@ -76,6 +77,10 @@
 	text-overflow: ellipsis;
 	/* 여러 줄 자르기 추가 스타일 */
 	white-space: normal;
+}
+
+a:hover {
+	text-decoration: none;
 }
 
 .topQ {
@@ -149,7 +154,7 @@
 	margin: 20px;
 }
 
-span:nth-child(1) {
+span:nth-child(2) {
 	font-size: 30px;
 	font-weight: 100;
 }
@@ -178,18 +183,18 @@ span:nth-child(4) {
 	<div id=baseBackgroundColor style="text-align: left;">
 		<div class=container>
 			<div class=row>
-				<div class="col-12" id=aroundContent></div>
+				<div class="col-12" id=aroundContent1></div>
 			</div>
 		</div>
 
 		<!--      몸통 시작!!!   -->
-		<div class="container eleCon" id="projectPage" style="background-color: white;">
+		<div class="container eleCon" id="projectPage" style="background-color: white; min-height:380px;">
 			<!-- 			<div id="pageTitle"> -->
 			<div class="topQ" style="margin-top:20px;">
 				<input type="hidden" name="seq" value="${qResult.seq}" id="qSeq">
-				<span><img src="/icon/q.png" width=50,height=50></span> <span class="badge badge-pill badge-danger">${qResult.point}</span>
+				<span><img src="/icon/q.png" width=50,height=50></span> <span class="badge badge-pill badge-danger" style="font-size:15px;">${qResult.point}</span>
 				<span class="badge badge-pill badge-success"
-					style="margin: 10; padding: 10; width: 80px; font-size:15px;">${qResult.division}</span>
+					style="width: 80px; font-size:15px;">${qResult.division}</span>
 					<!-- 영어 길게치면 영역넘어감 style설정해줘야함 -->
 				<span style="word-break:break-all; word-break:break-word; font-size:25px;">${qResult.title}</span>
 			</div>
@@ -203,33 +208,39 @@ span:nth-child(4) {
 					<span style="color: gray;">${qResult.formedDate} 조회수${qResult.viewCount}</span>
 				</div>
 				<br>
+				<br>
 
-               <c:if test="${qResult.id!=sessionScope.loginInfo.id}">
-                  <div style="text-align: right;" class="btnDIv">
-                     <a id="kakao-link-btn" href="javascript:;" onClick="shareKakaotalk();" style="text-decoration:none"> 
-                         <img src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" height=45/>
-                      </a>
-                     <c:if test="${count==0 && adoptCount==0}">
-                        <a class="btn btn-dark"
-                           href="/code/codeRWrite.do?seq=${qResult.seq}" role="button">답변</a>
-                     </c:if>
-<!--                      <a id="kakao-link-btn" href="javascript:;" -->
-<!--                         onClick="shareKakaotalk();">  -->
-<!--                         <img src="/icon/kakaoTalk.png" height=40> -->
-<!--                      </a> -->
-                     <!--    <button class="btn btn-warning" id="sharing">공유</button> -->
-                     <!--    <button type="button" class="btn btn-outline-warning" id="sharing"></button> -->
-                      
-                     <!-- <i class="fa fa-bookmark" id="scrapDone" data-toggle="tooltip" title="스크랩"></i> -->
-                     <c:if test="${sessionScope.loginInfo.id!=null}">
-	                     <button class="btn btn-success" id="scrap">스크랩</button>
-	                     <button class="btn btn-danger" id="report">신고</button>
-                     </c:if>
-                  </div>
-               </c:if>
+               	<c:if test="${qResult.id!=sessionScope.loginInfo.id}">
+               	  	  <div style="float:left">
+               	  		<c:if test="${count==0 && adoptCount==0 && sessionScope.loginInfo.memLevel!=1}" >
+	                        <a class="btn btn-outline-dark" href="/code/codeRWrite.do?seq=${qResult.seq}" role="button">답변하기</a>
+	                     </c:if>
+	                  </div>
+	                  <div style="text-align: right;">
+	                      <a id="kakao-link-btn" href="javascript:;" onClick="shareKakaotalk();" style="text-decoration:none"> 
+	                         <img src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" height=38/>
+	                      </a>
+	                     
+	<!--                      <a id="kakao-link-btn" href="javascript:;" -->
+	<!--                         onClick="shareKakaotalk();">  -->
+	<!--                         <img src="/icon/kakaoTalk.png" height=40> -->
+	<!--                      </a> -->
+	                     <!--    <button class="btn btn-warning" id="sharing">공유</button> -->
+	                     <!--    <button type="button" class="btn btn-outline-warning" id="sharing"></button> -->
+	                      
+	                     <!-- <i class="fa fa-bookmark" id="scrapDone" data-toggle="tooltip" title="스크랩"></i> -->
+	                     <c:if test="${sessionScope.loginInfo.id!=null && sessionScope.loginInfo.memLevel!=1}">
+		                     <button class="btn btn-success" id="scrap">스크랩</button>
+		                     <button class="btn btn-danger" id="report">신고</button>
+	                     </c:if>
+	                  </div>
+               	</c:if>
                
                <c:if test="${qResult.id==sessionScope.loginInfo.id}">
                   <div style="text-align: right;">
+                  	  <a id="kakao-link-btn" href="javascript:;" onClick="shareKakaotalk();" style="text-decoration:none"> 
+                         <img src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" height=38/>
+                      </a>
                   		<button class="btn btn-success" id="scrap">스크랩</button>
                      <!-- 답변이 있으면 삭제,수정이 안됨. -->
                      <c:if test="${repCount==0}">                     	
@@ -238,17 +249,22 @@ span:nth-child(4) {
                      </c:if>
                   </div>
                </c:if>
+               
+            <br>
+            <br>           
+            <div class="row">
+<!--             	<div class="col-12" id=adver style="height:100px;background-color:dodgerblue;color:white; text-align:center; line-height:100px;">광고자리</div> -->
+            	<div class="col-8" id=adver style="margin:auto;">
+            		<img src="/img/${ad}" class="d-block w-100" alt="...">
+            	</div>
+            </div>
             	
 				<!-- 답글 시작-->
 				<c:forEach items="${rResult}" var="r">
 					<div class="topQ">
 						<hr>
-						
-
-						
-		    
 						<div class="row">
-							<div class="col-xl-1 col-md-2">
+							<div class="col-xl-1 col-md-2" style="padding-top:0px; position: relative; top: 10px;">
 								<img src="${r.profileImg}" width=90,height=200>							 
 								<div class="d-md-none" style="float:right">
 									<c:if test="${r.adopt=='Y'}">
@@ -258,18 +274,30 @@ span:nth-child(4) {
 								</div>
 							</div>
 
-							<div class="col-xl-9 col-md-8">
-								<div class="row">
-									<div class="col-12 pt-0" style="font-size: 30px; font-weight: 100; padding-top:0px;">
-										<c:if test="${r.memLevel == 3}">
-											<span style="font-size: 18px; font-weight: 50; color: gray;">실무자</span>
-										</c:if>
+							<div class="col-xl-9 col-md-8" style="position: relative; right: 10px;">
+							<c:choose>
+								<c:when test="${r.memLevel == 3}">
+									<div class="row">
+										<div class="col-12 pt-0" style="font-size: 30px; font-weight: 100; padding-top:0px;">							
+											<c:if test="${r.memLevel == 3}">
+												<span style="font-size: 18px; font-weight: 50; color: gray;">실무자</span>
+											</c:if>
+										</div>
+										<div class="col-12" style="padding-top:0px; position: relative; bottom: 10px;">
+											<span style="cursor:pointer" onclick="popUp('${r.id}','${r.writer}')">${r.writer}</span>
+											<span style="font-size: 15px; font-weight: 50; color: gray;">님의 답변입니다.</span>
+										</div>									
 									</div>
-									<div class="col-12" style="padding-top:0px;">
-										<span style="cursor:pointer" onclick="popUp('${r.id}','${r.writer}')">${r.writer}</span>
-										<span style="font-size: 15px; font-weight: 50; color: gray;">님의 답변입니다.</span>
-									</div>									
-								</div>
+								</c:when>
+								<c:otherwise>
+									<div class="row">										
+										<div class="col-12" style="padding-top:0px; position: relative; top: 20px;">
+											<span style="cursor:pointer" onclick="popUp('${r.id}','${r.writer}')">${r.writer}</span>
+											<span style="font-size: 15px; font-weight: 50; color: gray;">님의 답변입니다.</span>
+										</div>									
+									</div>
+								</c:otherwise>
+							</c:choose>
 										
 								<%-- 						<c:if test="${r.adopt=='Y'}"> --%>
 								<!-- 							<i data-brackets-id="1484" class="fa fa-check-circle-o"  style="font-size:100px;"><h3 style="color:red;">질문자채택</h3></i> -->
@@ -347,7 +375,7 @@ span:nth-child(4) {
 															<div class="col-5 pt-2 text-right commentBtns">
 																<c:if test="${c.id==sessionScope.loginInfo.id }">
 																	<a class="btn btn-info coModifyBtn" style="color:white;"
-																		onclick="coModFunction(${c.queSeq}, ${c.repSeq}, ${c.seq}, '${c.content}');return false;"
+																		onclick="coModFunction(${c.queSeq}, ${c.repSeq}, ${c.seq});return false;"
 																		role="button">수정</a>
 																	<a class="btn btn-danger coDeleteBtn" style="color:white;"
 																		onclick="coDelFunction(${c.queSeq}, ${c.repSeq}, ${c.seq});return false;"
@@ -357,6 +385,7 @@ span:nth-child(4) {
 														</div>
 														<div class="row commentContent">
 															<div class="col-12 pt-1 pl-4" style="word-break:break-all; word-break:break-word;">${c.content }</div>
+															<input type="hidden" value="${c.modComment }" id="hiddenModCo${c.seq }">
 														</div>
 													</div>
 												</div>
@@ -376,7 +405,7 @@ span:nth-child(4) {
 										<div class="col-12">
 											<button type="button" class="btn btn-primary"
 												id="coWriteBtn${r.seq}">작성</button>
-											<button type="button" class="btn btn-secondary" id="coCancel">취소</button>
+											<button type="button" class="btn btn-secondary" id="coCancel" onclick="coCancle(${r.seq})">취소</button>
 										</div>
 									</div>
 									<div class="row">
@@ -434,21 +463,20 @@ span:nth-child(4) {
 					                        '<div class="col-12 commentWriteDate" style="font-size:12px; color:gray;">'+resp[i].formedWriteDate+'</div></div></div>',
 					                        '<div class="col-5 pt-2 text-right commentBtns">'
 					                        );
-					                  if(resp[i].id==loginInfo){
-					                     
+					                  if(resp[i].id==loginInfo){                     
 					                     html.push(
-					                           '<a class="btn btn-info coModifyBtn" style="color:white;" onclick="coModFunction('+resp[i].queSeq+','+resp[i].repSeq+','+resp[i].seq+',\''+resp[i].content+'\');return false;" role="button">수정</a>\n',
+					                           '<a class="btn btn-info coModifyBtn" style="color:white;" onclick="coModFunction('+resp[i].queSeq+','+resp[i].repSeq+','+resp[i].seq+');return false;" role="button">수정</a>\n',
 					                           '<a class="btn btn-danger coDeleteBtn" style="color:white;" onclick="coDelFunction('+resp[i].queSeq+','+resp[i].repSeq+','+resp[i].seq+');return false;" role="button">삭제</a>'
 					                           );
 					                  }
-					                  
 					                  html.push(
 					                        '</div></div>',
-					                        '<div class="row commentContent"><div class="col-12 pt-1 pl-4" style="word-break:break-all; word-break:break-word;">'+resp[i].content+'</div></div></div></div>'
+					                        '<div class="row commentContent"><div class="col-12 pt-1 pl-4" style="word-break:break-all; word-break:break-word;">'+resp[i].content+'</div></div></div></div>',
+					                        '<input type="hidden" value="'+resp[i].modComment+'" id="hiddenModCo'+resp[i].seq+'">'
 					                        );
-					                  $(".pPageComments${r.seq}").append(html.join(""));	 			                     
-						           
-						        }
+					                  
+					                  $(".pPageComments${r.seq}").append(html.join(""));	 			                      
+						          }
 						        }).fail(function(resp){
 						        	
 						        })    
@@ -459,8 +487,8 @@ span:nth-child(4) {
 						
 				</script>
 				
-				</c:forEach>
-				<!-- 	답글끝 -->
+			</c:forEach>
+	<!-- 답글끝 -->
 
 				<br>
 				<hr>
@@ -473,6 +501,7 @@ span:nth-child(4) {
 			<div style="text-align: right; margin-top:5px; margin-left:5px" class="btnDIv">
                    <a class="btn btn-dark" href="/code/codeQList.do" role="button">목록</a>
             </div>
+                   
 			<div class=row>
 				<div class="col-12" id=aroundContent></div>
 			</div>
@@ -717,7 +746,7 @@ span:nth-child(4) {
 				return false;
 			}
 			else{
-				window.open("/Portfolio/toPlog.do?owner="+id, "pLogPopUp", "width=600,height=600");
+				window.open("/Portfolio/toPlog.do?owner="+id+"&other=Y", "pLogPopUp", "width=600,height=600");
 			}
 	      
 	     }
@@ -753,7 +782,7 @@ span:nth-child(4) {
 	                  if(resp[i].id==loginInfo){
 	                     
 	                     html.push(
-	                           '<a class="btn btn-info coModifyBtn" style="color:white;" onclick="coModFunction('+resp[i].queSeq+','+resp[i].repSeq+','+resp[i].seq+',\''+resp[i].content+'\');return false;" role="button">수정</a>\n',
+	                           '<a class="btn btn-info coModifyBtn" style="color:white;" onclick="coModFunction('+resp[i].queSeq+','+resp[i].repSeq+','+resp[i].seq+');return false;" role="button">수정</a>\n',
 	                           '<a class="btn btn-danger coDeleteBtn" style="color:white;" onclick="coDelFunction('+resp[i].queSeq+','+resp[i].repSeq+','+resp[i].seq+');return false;" role="button">삭제</a>'
 	                           );
 	                  }
@@ -771,7 +800,7 @@ span:nth-child(4) {
 		}
 	
 	//답글-댓글 수정
-		function coModFunction(queSeq,repSeq,seq,content){	
+		function coModFunction(queSeq,repSeq,seq){	
 			if("${sessionScope.loginInfo.memLevel}" == 1){
 				alert("권한이 없습니다. 관리자에게 문의하세요.");
 				return false;
@@ -782,13 +811,14 @@ span:nth-child(4) {
 				alert("현재 열려있는 댓글 수정창이 있습니다.");
 				return false;
 			}
+			var checkContents = $("#hiddenModCo"+seq).val().replace(/modF'Fdom/gi,'"');
 			$(".commentBox"+repSeq+seq).find(".commentBtns").css("display","none");
 			$(".commentBox"+repSeq+seq).find(".commentContent").css("display","none");
        		$(".commentBox"+repSeq+seq).wrap('<form action="/code/codeCModifyProc.do" method="post" id="coModFrm"></form>');
 			var html = [];
 			html.push(
 					'<div class="col-12 coModBox mt-2 mb-2"><div class="row">',
-					'<div class="col-9 col-md-10 col-xl-11 pr-0"><textarea class="form-control" placeholder="댓글 내용을 입력해주세요" maxlength="1300" id="pCoModContents" style="height:80px;" name="content">'+content+'</textarea></div>',
+					'<div class="col-9 col-md-10 col-xl-11 pr-0"><textarea class="form-control" placeholder="댓글 내용을 입력해주세요" maxlength="1300" id="pCoModContents" style="height:80px;" name="content">'+checkContents+'</textarea></div>',
 					'<div class="col-3 col-md-2 col-xl-1"><input type="hidden" name="seq" value="'+seq+'"><input type="hidden" name="repSeq" value="'+repSeq+'"><input type="hidden" name="queSeq" value="'+queSeq+'">',
 					'<div class="row">',
 					'<div class="col-12 text-center p-0">',
@@ -828,7 +858,7 @@ span:nth-child(4) {
 		               $(".pPageComments"+resp[0].repSeq).html("");               
 		               //call list
 		  	               var loginInfo = "${sessionScope.loginInfo.id}";
-		  	               for(var i=0;i<resp.length;i++){
+		  	               for(var i=0;i<resp.length;i++){   	  
 		  	                  var html = [];
 		  	                  html.push(
 		  	                		'<div class="row commentDiv commentBox'+resp[i].repSeq+resp[i].seq+' p-0 pb-2 m-2" style="border:1px solid gray; border-top:none; border-left: none; border-right: none;"><div class="col-12 commentInnerBox"><div class="row commentHeader">',
@@ -841,22 +871,30 @@ span:nth-child(4) {
 		  	                  if(resp[i].id==loginInfo){
 		  	                     
 		  	                     html.push(
-		  	                           '<a class="btn btn-info coModifyBtn" style="color:white;" onclick="coModFunction('+resp[i].queSeq+','+resp[i].repSeq+','+resp[i].seq+',\''+resp[i].content+'\');return false;" role="button">수정</a>\n',
+		  	                           '<a class="btn btn-info coModifyBtn" style="color:white;" onclick="coModFunction('+resp[i].queSeq+','+resp[i].repSeq+','+resp[i].seq+');return false;" role="button">수정</a>\n',
 		  	                           '<a class="btn btn-danger coDeleteBtn" style="color:white;" onclick="coDelFunction('+resp[i].queSeq+','+resp[i].repSeq+','+resp[i].seq+');return false;" role="button">삭제</a>'
 		  	                           );
 		  	                  }
 		  	                  
 		  	                  html.push(
 		  	                        '</div></div>',
-		  	                        '<div class="row commentContent"><div class="col-12 pt-1 pl-4" style="word-break:break-all; word-break:break-word;">'+resp[i].content+'</div></div></div></div>'
-		  	                        );
+		  	                        '<div class="row commentContent"><div class="col-12 pt-1 pl-4" style="word-break:break-all; word-break:break-word;">'+resp[i].content+'</div></div></div></div>',
+		  	                        '<input type="hidden" value="'+resp[i].modComment+'" id="hiddenModCo'+resp[i].seq+'">'    
+		  	                  	);
 		  	                  $(".pPageComments"+resp[0].repSeq).append(html.join(""));   
 		  		        }
 				}).fail(function(resp){
 					
 				})
 	      });       	
-		
+	
+       	function coCancle(seq){
+       		var check = confirm("정말 취소하시겠습니까?");
+			if(check){
+				$("#pCoContents"+seq).val("");
+			}
+       	}
+
 	</script>
 </body>
 </html>

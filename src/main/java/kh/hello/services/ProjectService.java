@@ -3,6 +3,9 @@ package kh.hello.services;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.sql.Date;
+import java.time.Duration;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -23,6 +26,7 @@ import kh.hello.dto.ProjectApplyDTO;
 import kh.hello.dto.ProjectCoDTO;
 import kh.hello.dto.ProjectDTO;
 import kh.hello.dto.ProjectImageDTO;
+import kh.hello.dto.ProjectChartDTO;
 import kh.hello.dto.ProjectPLogDTO;
 import kh.hello.dto.ReportDTO;
 import kh.hello.utils.Utils;
@@ -34,14 +38,55 @@ public class ProjectService {
 	private ProjectDAO dao;
 	
 	
+//	프로젝트 강제 모집완료
+	
+	@Transactional("txManager")
+	public void letProjectClose() {
+		LocalDate today = LocalDate.now();
+		Date date = Date.valueOf(today);
+		List<ProjectDTO> list = dao.checkForcedCloseProject(date);
+		int result = dao.letProjectClose(date);		
+		if(list.size()>0) {
+			for(ProjectDTO p : list) {
+				dao.closeProjectApply(p.getSeq());
+			}
+		}
+		System.out.println("모집완료 변경된 프로젝트 : "+result+"개");
+		System.out.println("거절된 프로젝트신청 : "+list.size()+"개");
+	}
+	
+	
+	
 	/*
 	 * 프로젝트 모집
 	 */
 	
-	public List<ProjectDTO> projectList(){
-		return dao.getProjectList();
+	public List<ProjectChartDTO> projectList(String id, String pageOrder){
+		List<ProjectChartDTO> result = dao.getProjectList(id, pageOrder);
+		LocalDate today = LocalDate.now();
+		int tYear = today.getYear();
+		int tMonth = today.getMonthValue();
+		int tDate = today.getDayOfMonth();
+		for(ProjectChartDTO m : result) {
+			LocalDate sDate = m.getStartDate().toLocalDate();
+			LocalDate eDate = m.getEndDate().toLocalDate();
+			int sYear = sDate.getYear();
+			int sMonth = sDate.getMonthValue();
+			int sDay = sDate.getDayOfMonth();						
+			if(tYear==sYear) {
+				long distance = (sMonth-tMonth)*105 + sDay*3;
+				m.setDistance(distance);
+				long duration = Duration.between(sDate.atStartOfDay(), eDate.atStartOfDay()).toDays()*3;
+				if(distance+duration>626) {
+					duration -= (distance+duration)-626;
+				}
+				m.setWidth(duration);							
+			}
+			m.setToday(tMonth+"-"+tDate);
+		}
+		return result;
 	}
-		
+			
 	public String getPageNavi(int currentPage, String pageOrder, String searchOption, String keyword) {
 		int recordTotalCount = dao.getArticleCount(pageOrder, searchOption, keyword);
 		int pageTotalCount = 0;		
@@ -122,6 +167,9 @@ public class ProjectService {
 		return dao.getProjectListPerPage(start, end, pageOrder, searchOption, keyword);
 	}
 	
+	public int projectStateNoneCount() {
+		return dao.projectStateNoneCount();
+	}
 	
 	@Transactional("txManager")
 	public ProjectDTO projectDetailView(int seq) {
@@ -245,6 +293,7 @@ public class ProjectService {
 		dao.deleteImagesByProjectSeq(seq);
 		dao.updatePoint(option, id);
 		dao.checkPoint(id);
+		dao.allApplyDeny(seq);
 		return dao.deleteProject(seq);
 	}
 	
@@ -291,7 +340,10 @@ public class ProjectService {
 			p.setFormedWriteDate(p.getWriteDate());
 			if(p.getChangeDate()!=null) {
 				p.setFormedChangeDate(p.getChangeDate());
-			}	
+			}
+			if(p.getContents()!=null) {
+				p.setModComment(p.getContents());
+			}					
 		}
 		return gson.toJson(result);
 	}
@@ -306,7 +358,10 @@ public class ProjectService {
 			p.setFormedWriteDate(p.getWriteDate());
 			if(p.getChangeDate()!=null) {
 				p.setFormedChangeDate(p.getChangeDate());
-			}			
+			}
+			if(p.getContents()!=null) {
+				p.setModComment(p.getContents());
+			}	
 		}
 		return gson.toJson(result);
 	}
@@ -324,6 +379,9 @@ public class ProjectService {
 			if(p.getChangeDate()!=null) {
 				p.setFormedChangeDate(p.getChangeDate());
 			}	
+			if(p.getContents()!=null) {
+				p.setModComment(p.getContents());
+			}
 		}
 		return gson.toJson(result);
 	}
@@ -413,10 +471,13 @@ public class ProjectService {
 		return dao.getProjectApplyDetailView(seq);
 	}
 	
-	public ProjectApplyDTO getApplyCheck(int projectSeq) {
-		return dao.getApplyCheck(projectSeq);
+	public ProjectApplyDTO checkMyApply(int projectSeq, String id) {
+		return dao.checkMyApply(projectSeq, id);
 	}
 	
+	public int checkApplyCount(int projectSeq) {
+		return dao.checkApplyCount(projectSeq);
+	}
 	public int projectApplyDeleteConfirm(int seq) {
 		return dao.deleteProjectApply(seq);
 	}

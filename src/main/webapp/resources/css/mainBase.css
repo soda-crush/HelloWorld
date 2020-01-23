@@ -10,8 +10,11 @@
 }
 
 * {
-	font-family: "NanumgothicBold";
+	font-family: "Nanumgothic";
 	box-sizing: border-box;
+}
+.fontBold{
+		font-family: "NanumgothicBold";
 }
 .fontThin{
 	font-family: "Nanumgothic";
@@ -32,8 +35,13 @@
 
 #baseBackgroundColor {
 	position: relative;
+	background-color: #595959;
+	border-bottom: 1px solid #2e2e2e;
+}
+#plogBaseBackgroundColor {
+	position: relative;
 	background-color: #efefef;
-	border-bottom: 2px solid gray;
+	border-bottom: 1px solid #2e2e2e;
 }
 
 #naviCon {
@@ -49,21 +57,26 @@
 #logo {
 	width: 80%;
 }
-
-#aroundContent {
-	height: 80px;
-}
-
+ #aroundContent1{ 
+  	height: 100px; 
+ } 
+  #aroundContent{ 
+  	height: 150px; 
+ } 
+  #plogAroundContent{ 
+  	height: 20px; 
+ } 
 #realFooter {
 	text-align: left;
 	position: relative;
-	left: 18.3%;
-	width: 30%;
+	left: 50%;
+	transform:translateX(-50%);
+	width:310px;
 }
 
 #realFooter p, #realFooter a {
 	color: darkgray;
-	font-size: 11px; //
+	font-size: 11px;
 	line-height: 0.31em;
 }
 
@@ -93,6 +106,13 @@ button {
 	border-radius: 5px;
 }
 
+.eleCon2 {
+	background-color: #e3e3e3;
+	border: 1px solid #bfbfbf;
+	border-radius: 5px;
+}
+
+
 #footerSpace {
 	font-size: 11px;
 }
@@ -120,11 +140,23 @@ button {
 	color: #c2c2c2;
 	line-height: 29px;
 }
-.navbar-dark .navbar-nav .nav-link:hover{
-	color: white;
-	font-size: 17px !important;
-	line-height: 28px;
-}
+/* .navbar-dark .navbar-nav .nav-link:hover{ */
+/* 	color: white; */
+/* 	font-size: 17px !important; */
+/* 	line-height: 28px; */
+/* } */
+
+	#plogLogo{opacity:73%;height: 23px;}
+ 	.navbar-dark .navbar-nav .nav-link:hover{ 
+ 	color: white; 
+ 	font-size: 17px !important; 
+ 	line-height: 28px; 
+ 	} 
+ 	.navbar-dark .navbar-nav .nav-link:hover #plogLogo{ 
+  	opacity:100%!important; 
+  	height: 25px;
+ 	} 
+
 .navbar {
 	padding: 0px;
 }
@@ -134,4 +166,21 @@ button {
 	border:1px solid #a8a8a8;
 	position:relative;
 	top:2px;
+	}
+img{
+	max-width: 100%;
+}
+#headerBackground{
+	width:100%;
+	background-color: #2f2f2f;
+	z-index: -10;
+}
+#footerBackground{
+	width:100%;
+	background-color: #2f2f2f;
+	z-index: -10;
+}
+.redP{
+		font-size: 11px;
+		color:red;
 	}

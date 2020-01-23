@@ -11,16 +11,22 @@ public class BambooCoDTO {
 	private Timestamp writeDate;
 	private String profileImg;
 	private String formedWriteDate;
-	
+	private String modComment;
+
+	public String getModComment() {
+		this.modComment = this.content.replaceAll("\"","modF'Fdom");
+		return this.modComment;
+	}
+	public void setModComment(String comment) {
+		this.modComment = getModComment();
+	}
 	public String getProfileImg() {
 		return profileImg;
 	}
 	public void setProfileImg(String profileImg) {
 		this.profileImg = profileImg;
 	}
-	public void setFormedWriteDate(String formedWriteDate) {
-		this.formedWriteDate = formedWriteDate;
-	}
+
 	public int getSeq() {
 		return seq;
 	}
@@ -62,18 +68,21 @@ public class BambooCoDTO {
 	public BambooCoDTO() {
 		super();
 	}
-	
+
+	public void setFormedWriteDate(String formedWriteDate) {
+		this.formedWriteDate = getFormedWriteDate();
+	}
+
 	public String getFormedWriteDate() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
-		String result = sdf.format(this.writeDate);
-		return result;
+		this.formedWriteDate = sdf.format(this.writeDate);
+		return this.formedWriteDate;
 	}
-	
+
 	public String getFormedWriteDateForAdmin() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
 		String result = sdf.format(this.writeDate);
 		return result;
 	}
-	
-	
+
 }

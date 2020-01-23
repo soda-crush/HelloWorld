@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Hello World!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="${pageContext.request.contextPath }/icon/favicon.ico"/>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
@@ -22,18 +23,11 @@
 	.arrow{
 		width:12px;
 	}
-/* 	#imgCon{ */
-/* 		width:100px; */
-/* 		height: 100px; */
-/*  		display: none;  */
-/* 	} */
-	.redP{
-		font-size: 11px;
-		color:red;
-	}
 	#startInputDate{
 	width:130px;
 	}
+	* {font-family: "NanumgothicBold";}
+	
 </style>
 </head>
 <body>
@@ -54,7 +48,7 @@
             <div class="row">
             	<div class="col-12">
             		<h4><br></h4>
-            		<h3><img src="/icon/whiteArrow.svg">회원가입</h3>
+            		<h3><img src="/icon/whiteArrow.svg" style="position:relative;bottom:3px;right:4px;">회원가입</h3>
             		<p class=redP>&emsp;&emsp;* 은 필수표기정보입니다.</p> 
            		</div>
             </div>
@@ -65,8 +59,8 @@
             </div>
             <div class=row>
             	<div class=col-12>
-            		<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow>아이디</h5><p class=redP style="display:inline">*</p><br>
-            		&emsp;<input type=text name=id id=id placeholder="아이디 입력">
+            		<img src="/icon/arrow.svg" class="arrow" style="position:relative;bottom:3px;right:3px;"><h5 style="display:inline;">아이디</h5><p class=redP style="display:inline">*</p><br>
+            		&emsp;<input type=text name=id id=id placeholder="아이디 입력"> 
             		<img id=idCheck style="display:none;">
             		<div id=idMsg></div>
             	</div>
@@ -78,7 +72,7 @@
             </div>
             <div class=row>
             	<div class=col-12>
-            		<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow>이름</h5><p class=redP style="display:inline">*</p><br>
+            		<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow style="position:relative;bottom:3px;right:3px;">이름</h5><p class=redP style="display:inline">*</p><br>
             		&emsp;<input type=text name=name id=name placeholder="이름 입력">
             		<img id=nameCheck style="display:none;">
             		<div id=nameMsg></div>
@@ -91,12 +85,13 @@
             </div>
              <div class=row>
             	<div class="col-12 col-sm-6">
-            	<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow>비밀번호</h5><p class=redP style="display:inline">*</p><br>
+            	<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow style="position:relative;bottom:3px;right:3px;">비밀번호</h5><p class=redP style="display:inline">*</p><br>
             		&emsp;<input type=password name=pw id=pw placeholder="비밀번호 입력">
             		<div id=pwMsg></div>
             	</div>
+            	<div class="col-12 d-sm-none"></div>
             	<div class="col-12 col-sm-6">
-            	<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow>비밀번호 확인</h5><p class=redP style="display:inline">*</p><br>
+            	<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow style="position:relative;bottom:3px;right:3px;">비밀번호 확인</h5><p class=redP style="display:inline">*</p><br>
             		&emsp;<input type=password name=pwRe id=pwRe placeholder="비밀번호 재입력">
             		<img id=pwCheck style="display:none;">
             	</div>
@@ -108,7 +103,7 @@
             </div>
              <div class=row>
             	<div class=col-12>
-            	<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow>이메일</h5><p class=redP style="display:inline">*</p><br><br>
+            	<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow style="position:relative;bottom:3px;right:3px;">이메일</h5><p class=redP style="display:inline">*</p><br><br>
             		<input type=radio name=empCheck value=unemployee class=emp><p style="display:inline;font-size:17px;">비실무자</p>
             	</div>
             	<div class=col-12>
@@ -125,32 +120,32 @@
             <div id=empEle style="display:none;">
             	<div class=row>
 	            	<div class="col-12 col-sm-6">
-		            	<h5 style="display:inline;"><img src="/icon/doubleArrow.svg" class=arrow>회사 메일</h5><p class=redP style="display:inline">* 오랜시간이 걸리니 메일 전송 경고창이 뜰때까지 기다려주세요.</p>
+		            	<h5 style="display:inline;"><img src="/icon/doubleArrow.svg" class=arrow style="position:relative;bottom:3px;right:3px;">회사 메일</h5><div class="d-sm-none"></div><p class="redP" style="display:inline">* 메일을 전송하는데 다소 시간이 걸립니다. 메일 전송 알림창이 뜰 때 까지 기다려 주세요.</p>
 		            		&emsp;<br>&emsp;<input type=text name=empEmail id=empEmail placeholder="메일 주소 입력">
-		            		<img id=empEmailCheck style="display:none;">
 		            		<button type=button id=sendMail1>인증 메일 발송</button>
 	            	</div>
 	            	<div class="col-12 col-sm-6">
-		            	<h5 style="display:inline;"><img src="/icon/doubleArrow.svg" class=arrow>인증 코드</h5><p class=redP style="display:inline">*</p>
-		            	<p style="display:inline;">-메일로 전송된 코드를 입력해주세요.</p>
+		            	<h5 style="display:inline;"><img src="/icon/doubleArrow.svg" class=arrow style="position:relative;bottom:3px;right:3px;">인증 코드</h5><p class=redP style="display:inline">*</p>
+		            	<div class="d-sm-none"></div><p style="display:inline;" class="pl-2 pl-sm-0">-메일로 전송된 코드를 입력해주세요.</p>
 		            		&emsp;<br>&emsp;<input type=text name=empCode id=empCode placeholder="인증 코드 입력">
 		            		<button type=button id = "certification1">인증</button>
+		            		<img id=empEmailCheck style="display:inline;" src="/icon/x.svg">
 	            	</div>
            		 </div>
             </div>
             <div id=unempEle style="display:none">
              	<div class=row>
 	            	<div class="col-12 col-sm-6">
-		            	<h5 style="display:inline"><img src="/icon/doubleArrow.svg" class=arrow>개인 메일</h5><p class=redP style="display:inline">* 오랜시간이 걸리니 메일 전송 경고창이 뜰때까지 기다려주세요.</p>
+		            	<h5 style="display:inline"><img src="/icon/doubleArrow.svg" class=arrow style="position:relative;bottom:3px;right:3px;">개인 메일</h5><div class="d-sm-none"></div><p class=redP style="display:inline">* 메일을 전송하는데 다소 시간이 걸립니다. 메일 전송 알림창이 뜰 때 까지 기다려 주세요.</p>
 		            		&emsp;<br>&emsp;<input type=text name=unempEmail id=unempEmail placeholder="메일 주소 입력">
-		            		<img id=unempEmailCheck style="display:none;">
 		            		<button type=button id=sendMail2>인증 메일 발송</button>
 	            	</div>
 	            	<div class="col-12 col-sm-6">
-		            	<h5 style="display:inline;"><img src="/icon/doubleArrow.svg" class=arrow>인증 코드</h5><p class=redP style="display:inline">*</p>
-		            	<p style="display:inline;">-메일로 전송된 코드를 입력해주세요.</p>
+		            	<h5 style="display:inline;"><img src="/icon/doubleArrow.svg" class=arrow  style="position:relative;bottom:3px;right:3px;">인증 코드</h5><p class=redP style="display:inline">*</p>
+		            	<div class="d-sm-none"></div><p style="display:inline;" class="pl-2 pl-sm-0">-메일로 전송된 코드를 입력해주세요.</p>
 		            		&emsp;<br>&emsp;<input type=text name=unempCode id=unempCode placeholder="인증 코드 입력">
 		            		<button type=button id = "certification2">인증</button>
+		            		<img id=unempEmailCheck style="display:inline;" src="/icon/x.svg">
 	            	</div>
            		 </div>
             </div>
@@ -161,7 +156,7 @@
             </div>
              <div class=row>
             	<div class=col-12>
-            		<h5><img src="/icon/doubleArrow.svg" class=arrow>개인정보 공개여부</h5>
+            		<h5><img src="/icon/doubleArrow.svg" class=arrow style="position:relative;bottom:3px;right:3px;">개인정보 공개여부</h5>
             		&emsp;Programming Log(포트폴리오, 프로젝트 참여현황, 방명록)를 타인이 열람하는 것에 동의합니다.<br>
             		&emsp;비동의 하실경우 Programmming Log에서 프로필 정보만 공개됩니다.<br>
             		&emsp;동의합니다.<input type="checkbox" name="ifmOpenCheck" id="ifmOpenCheck" value="Y">
@@ -189,7 +184,7 @@
             </div>
             <div class=row>
             	<div class=col-12>
-            		<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow>닉네임</h5><p class=redP style="display:inline">*</p><br>
+            		<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow style="position:relative;bottom:3px;right:3px;">닉네임</h5><p class=redP style="display:inline">*</p><br>
             		&emsp;<input type=text name=nickName id=nickName placeholder="닉네임 입력">
             		<img id=nickCheck style="display:none;">
             		<div id=nickMsg></div>
@@ -202,13 +197,14 @@
             </div>
             <div class=row>
             	<div class=col-12>
-            		<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow>생년월일</h5><p class=redP style="display:inline">*</p><br>
+            		<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow style="position:relative;bottom:3px;right:3px;">생년월일</h5><p class=redP style="display:inline">*</p><br>
 <!--             		<input type="text" id="startInputDate" class="form-control form-control-sm datePicker" placeholder="생년월일" name="startInputDate"> -->
 <!--             		<input type="hidden" id="startDate" name="startDate"> -->
 						&emsp;<select id="birthdayYear" name=birthdayYear></select>
 						<select id="birthdayMonth" name=birthdayMonth></select>
 						<select id="birthdayDay" name=birthdayDay></select>
 						<input name="birthday" id="birthday" style="display:none"> 
+						<img id=birthCheck src="/icon/x.svg">
             		</div>
             </div>
               <div class=row>
@@ -218,11 +214,11 @@
             </div>
             <div class=row>
             	<div class=col-12>
-            		<h5><img src="/icon/arrow.svg" class=arrow>주소</h5>
-            		&emsp;<input type="text" id="postcode" name="postcode" placeholder="우편번호" readonly>
+            		<h5><img src="/icon/arrow.svg" class=arrow style="position:relative;bottom:3px;right:3px;">주소</h5>
+            		&emsp;<input type="text" id="postcode" name="postcode" placeholder="우편번호" onclick="sample4_execDaumPostcode()" readonly>
             		<input type="button" onclick="sample4_execDaumPostcode()" value="찾기"><br>
-            		&emsp;<input type="text" id="addr1" name=addr1 placeholder="도로명주소" readonly>
-            		<input type=text name=addr2 id=addr2 placeholder="상세주소">
+            		&emsp;<input type="text" id="addr1" name=addr1 placeholder="도로명주소" onclick="sample4_execDaumPostcode()" readonly>
+            		<input type=text name=addr2 id=addr2 placeholder="상세주소" maxlength="15">
             	</div>
             </div>  <div class=row>
             	<div class=col-12>
@@ -231,7 +227,7 @@
             </div>
             <div class=row>
             	<div class=col-12>
-            		<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow>휴대전화</h5><p class=redP style="display:inline">*</p><br>
+            		<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow style="position:relative;bottom:3px;right:3px;">휴대전화</h5><p class=redP style="display:inline">*</p><br>
             		&emsp;<input type=text name=phone id=phone placeholder="-을 빼고 숫자만 입력">
             		<img id=phoneCheck style="display:none;">
             		<div id=phoneMsg></div>
@@ -244,12 +240,13 @@
             </div>
             <div class=row>
             	<div class=col-12>
-            		<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow>가입 경로</h5><p class=redP style="display:inline">*</p><br>
+            		<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow style="position:relative;bottom:3px;right:3px;">가입 경로</h5><p class=redP style="display:inline">*</p><br>
             		&emsp;<input type=radio name=joinPath value="jp1">지인 추천<br>
             		&emsp;<input type=radio name=joinPath value="jp2">'Hello World!' 검색<br>
             		&emsp;<input type=radio name=joinPath value="jp3">'프로젝트 모집' 검색<br>
             		&emsp;<input type=radio name=joinPath value="jp4">기타
-            		<input type="text" placeholder="사유를 입력해주세요" id=otherJoinPath name=otherJoinPath readonly><br>
+            		<input type="text" placeholder="15자 이내의 사유를 입력해주세요" id="otherJoinPath" name="otherJoinPath" maxlength="14" readonly>
+            		<p class=redP style="display:none" id=jp4Reason>* 기타가입사유를 꼭 입력해주세요.</p>
             	</div>
             </div>
             <div class=row>
@@ -259,7 +256,7 @@
             </div>
             <div class=row>
             	<div class=col-12>
-            		<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow>성별</h5><p class=redP style="display:inline">*</p><br>
+            		<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow style="position:relative;bottom:3px;right:3px;">성별</h5><p class=redP style="display:inline">*</p><br>
             		&emsp;<input type=radio name="gender" value="W">여성<br>
             		&emsp;<input type=radio name="gender" value="M">남성
             	</div>
@@ -378,7 +375,7 @@
         
                //비밀번호 
                 $("#pw").on("focusout",function(){
-                	var regex = /[0-8a-zA-Z]{4,12}/;
+                	var regex = /^[0-8a-zA-Z]{4,12}$/;
                 	var data = $("#pw").val();
                 	var result = regex.exec(data);
                 	
@@ -407,7 +404,7 @@
                 }) 
                 
                 $("#pwRe").on("focusout",function(){
-                	var regex = /[0-8a-zA-Z]{4,12}/;
+                	var regex = /^[0-8a-zA-Z]{4,12}$/;
                     var data = $("#pwRe").val();
                     var result = regex.exec(data);
                     
@@ -438,12 +435,12 @@
         
             //닉네임 중복검사
            		  $("#nickName").on("focusout",function(){
-                   var regex = /^[a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ가-힣]{2,10}$/gm;
+                   var regex = /^[a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ가-힣]{2,7}$/g;
                    var data =$("#nickName").val();
                    var result = regex.exec(data);
 
                     if(result == null){
-                        $("#nickMsg").html("&emsp;닉네임은 한글,영문자,숫자를 조합하여 2-10자로 입력해 주세요.");
+                        $("#nickMsg").html("&emsp;닉네임은 한글,영문자,숫자를 조합하여 2-7자로 입력해 주세요.");
                     	nickTest = 0;
                     }else{
                     	$("#nickMsg").html("");
@@ -492,7 +489,7 @@
                 
             //휴대폰 번호 중복,유효성 검사
             	$("#phone").on("focusout",function(){
-                   var regex = /^\d{10,11}$/gm;
+                   var regex = /^01\d\d{3,4}\d{4}$/g;
                    var data =$("#phone").val();
                    var result = regex.exec(data);
 
@@ -526,6 +523,7 @@
             //가입경로 체크
            	  $("input:radio[name=joinPath]").click(function(){
 	            if($("input:radio[name=joinPath]:checked").val()=='jp4'){
+	            	$("#jp4Reason").css("display","inline");
 	            	jpTest = 0;
 	            	var Ele1 = document.getElementById('otherJoinPath') ;
 	            	Ele1.readOnly = false;
@@ -556,10 +554,11 @@
          	 $("input:radio[name=empCheck]").click(function(){
  	            if($("input:radio[name=empCheck]:checked").val()=='employee'){
  	            	$("#unempEmail").val("");
- 	            	$("#unempEmailCheck").css("display","none");
+					$("#empCode").val("");	
+					$("#unempCode").val("");	
  	               //실무자 체크했을때
  	            	 $("#sendMail1").on("click",function(){
- 	                     var regex = /^\w+@[a-z]+(\.[a-z]+){1,2}$/gm;
+ 	                     var regex = /^\w+@[a-z]+(\.[a-z]+){1,2}$/g;
  	                     var data = $("#empEmail").val();
  	                     var result = regex.exec(data);
 
@@ -580,16 +579,35 @@
  	 	 	              			if(resp == "true"){
  	 	 	              				alert("이미 등록된 이메일입니다.");
  	 	 	              			}else{
-	 	 	 	              			var regex = /^\w+@\w+.co.kr$/gm;
+	 	 	 	              			var regex = /^\w+@\w+.co.kr$/g;
 	 	 	 	                    	var data = $("#empEmail").val();
 	 	 	 	 	                    var result = regex.exec(data);
 	 	 	 	 	                    
-	 	 	 	 	                    var regex2 = /^\w+@\w+.pe.kr$/gm;
+	 	 	 	 	                    //실무자 : 네이버만 임시로 풀기
+ 	 	 	              				var regexNaver = /^\w+@naver.com$/g;
+ 	 	 	              				var resultNaver = regexNaver.exec(data);
+	 	 	 	 	                    if(resultNaver != null){
+	 	 	 	 	                    	
+		 	 	 	 	                    emailTest2 = 1;
+	 	 	 	 	                    	$.ajax({
+	 	 	 	 	              			url:"${pageContext.request.contextPath}/member/mailSending",
+	 	 	 	 	              			type:"post",
+	 	 	 	 	              			data:{
+	 	 	 	 	              				email : $("#empEmail").val()
+	 	 	 	 	              			}
+	 	 	 	 	              			}).done(function(data){
+	 	 	 	 	              			alert("인증 메일이 전송되었습니다. 메일을 확인해주세요.");
+ 	 	 	 	              			});
+	 	 	 	 	                    	return false;
+	 	 	 	 	                    }
+	 	 	 	 	                    //----------
+	 	 	 	 	                    
+	 	 	 	 	                    var regex2 = /^\w+@\w+.pe.kr$/g;
 	 	 		 	                    var result2 = regex2.exec(data);
 	 	 		 	                    
 	 	 		 	                    if(result2 != null){
 	 	 		 	                    	alert("개인 도메인(예. pe.kr)을 상업적 목적으로 이용하실 경우 비실무자로 가입후 일대일문의를 통해 실무자 인증부탁드립니다.");
-	 	 		 	                    	return;
+	 	 		 	                    	return false;
 	 	 		 	                    }
 	 	 		 	                    
 	 	 	 	 	                    if(result == null){
@@ -602,9 +620,9 @@
 	 	 	 	 	              			data:{
 	 	 	 	 	              				email : $("#empEmail").val()
 	 	 	 	 	              			}
-	 	 	 	 	              		}).done(function(data){
+	 	 	 	 	              			}).done(function(data){
 	 	 	 	 	              			alert("인증 메일이 전송되었습니다. 메일을 확인해주세요.");
-	 	 	 	 	              		});
+	 	 	 	 	              			});
 	 	 	 	 	                    }
  	 	 	              			}
  	 	 	              		});
@@ -616,10 +634,11 @@
 
  	            }else if($("input:radio[name=empCheck]:checked").val()=='unemployee'){
  	            	$("#empEmail").val("");
- 	            	$("#empEmailCheck").css("display","none");
+					$("#empCode").val("");	
+					$("#unempCode").val("");
  	            	//비실무자 체크했을때
  	            	  $("#sendMail2").on("click",function(){
- 	                     var regex = /^\w+@[a-z]+(\.[a-z]+){1,2}$/gm;
+ 	                     var regex = /^\w+@[a-z]+(\.[a-z]+){1,2}$/g;
  	                     var data = $("#unempEmail").val();
  	                     var result = regex.exec(data);
 
@@ -640,7 +659,7 @@
  	 	 	              			if(data == "true"){
  	 	 	              				alert("이미 등록된 이메일입니다.");
  	 	 	              			}else{
- 	 	 	              			var regex = /^\w+@\w+.co.kr$/gm;
+ 	 	 	              			var regex = /^\w+@\w+.co.kr$/g;
  	 	 	                    	var data = $("#unempEmail").val();
  	 	 	 	                    var result = regex.exec(data);
  	 	 	 	                    if(result == null){
@@ -683,9 +702,13 @@
             		}).done(function(data){
             			if(data == "true"){
             				alert("인증에 성공하셨습니다. 계속 진행하여 주십시오.");
+            				$("#empEmailCheck").css("display","inline");
+							$("#empEmailCheck").attr("src","/icon/check.svg");
                 			emailTest = 1;
             			}else{
             				alert("인증에 실패하였습니다. 코드를 다시 확인해주시기 바랍니다.");
+            				$("#empEmailCheck").css("display","inline");
+							$("#empEmailCheck").attr("src","/icon/x.svg");
             				emailTest = 0;
             			}
             		});
@@ -708,9 +731,13 @@
                 		}).done(function(data){
                 			if(data == "true"){
                 				alert("인증에 성공하셨습니다. 계속 진행하여 주십시오.");
+                				$("#unempEmailCheck").css("display","inline");
+    							$("#unempEmailCheck").attr("src","/icon/check.svg");
                     			emailTest = 1;
                 			}else{
                 				alert("인증에 실패하였습니다. 코드를 다시 확인해주시기 바랍니다.");
+                				$("#unempEmailCheck").css("display","inline");
+    							$("#unempEmailCheck").attr("src","/icon/x.svg");
                 				emailTest = 0;
                 			}
                 		});
@@ -754,7 +781,7 @@
 
 				var str = "";
 				// 년도 설정
-				for (var i=year-1; i>=1900; i--) {
+				for (var i=year-1; i>=1930; i--) {
 					str += "<option value='" + i + "' selected='selected'>" + i + "</option>";
 				}
 				str += "<option value='N' selected='selected'>년</option>";	
@@ -790,6 +817,10 @@
 				}else{
 					birthYearTest = 0;
 				}
+				
+				if((birthMonthTest==1)&&(birthDayTest==1)){
+					$("#birthCheck").attr("src","/icon/check.svg");
+				}
 			})
 			$("#birthdayMonth").on("change",function(){
 				if($("#birthdayMonth").val() != "N"){
@@ -797,12 +828,20 @@
 				}else{
 					birthMonthTest = 0;
 				}
+				
+				if((birthYearTest==1)&&(birthDayTest==1)){
+					$("#birthCheck").attr("src","/icon/check.svg");
+				}
 			})
 			$("#birthdayDay").on("change",function(){
 				if($("#birthdayDay").val() != "N"){
 					birthDayTest = 1;
 				}else{
 					birthDayTest = 0;
+				}
+				
+				if((birthMonthTest==1)&&(birthYearTest==1)){
+					$("#birthCheck").attr("src","/icon/check.svg");
 				}
 			})
 

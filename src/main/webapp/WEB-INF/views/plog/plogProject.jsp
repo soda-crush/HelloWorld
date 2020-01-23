@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Hello World!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="${pageContext.request.contextPath }/icon/favicon.ico"/>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
@@ -16,7 +17,7 @@
 	<style>
 		ul{background-color: lightgray;font-size: 13px;}
 		.card{width:200px;height:300px;margin: auto;float :left;}
-		.myprofile{float: left; margin-top: 20px;}
+		.myprofile{float: left;}
 		#mycard{ float:none;display:flex;align-items:center;}
         .card-text{font-size:12px;}
 		.commentwrite{width:100%;height:100px;padding: 0px;margin-top: 10px;float: left;}
@@ -25,20 +26,29 @@
 		.content{height:90%;float: left;resize: none;}
 		.sendbt{height:90%;float: left;}
 		#writer{text-underline-position: auto;margin-right: 30px;}
-		.nvlink1{height:45px;line-height:45px;font-size:14px;}
-		.nvlink2{height:45px;line-height:45px;font-size:10px;}
+/*         .projectwrap{background-color:white;border:1px solid #BDBDBD;} */
         a:hover{text-decoration:none;}
         .line-over{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-        #plogProject{background-color:#efefef;border-radius:5px 5px 0px 0px;padding:12px;}
+        #plogProject{background-color:#efefef;border-radius:5px 5px 0px 0px;padding:13px;}
+        
+        
+        iframe.noScrolling{
+		  width: 100%;
+		  height: 100%;
+		  overflow: hidden;
+		}
+		#applyFrame{
+			margin-top:50px;
+		}
 	</style>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/standard/plogHeader.jsp"/>
 	
- 		<div id=baseBackgroundColor>
+ 		<div id="plogBaseBackgroundColor">
             <div class=container>
                 <div class=row>
-                    <div class="col-12" id=aroundContent>
+                    <div class="col-12" id=plogAroundContent>
                     </div>
                 </div>
             </div>
@@ -49,18 +59,40 @@
             <div class="container">
             
 	            <div class="row">
-	                <div class="col-12 col-md-4 col-lg-3 myprofile">
+	                <div class="col-12 col-md-4 d-md-block d-lg-none myprofile pb-2">
 	                    <div>
 	                    	<div class="card d-none d-md-block" id="mycard">
-		                        <img src="${ownerInfo.profileImg }" class="card-img-top" alt="..." style="width: 170px;height: 170px;margin:15px;">
+		                        <img src="${ownerInfo.profileImg }" class="card-img-top" alt="..." style="width: 85%;margin:7.5%;">
 		                        <div class="card-body">
-		                            <div class="card-title line-over" style="text-align: center;font-size:20px;">${ownerInfo.nickName} 님</div>
-		                            <p class="card-text" style="text-align: center;font-size:15px;">point : ${ownerInfo.point }</p>
+		                            <div class="card-title line-over" style="text-align: center;font-size:20px;font-weight:bold;margin-bottom:0px;">${ownerInfo.nickName} <span style="font-size:15px;">님</span></div>
+		                            <p class="card-text" style="text-align: center;font-size:12px;">POINT <span style="font-size:15px;font-weight:bold;">${point}</span></p>
+		                        </div>
+	                    	</div>
+	                    	<div class="d-md-none" style="background-color:white;border-radius:5px;height:200px;border: 1px solid rgba(0,0,0,.125); padding:15px;margin-right:10px;">
+	                    		<div style="float:left">
+		                        	<img src="${ownerInfo.profileImg }" style="width:150px;margin:10px;">
+	                    		</div>
+		                        <div style="float:left;margin-top:100px;margin-left:20px;">
+	                            <div class="card-title line-over" style="text-align: center;font-size:20px;font-weight:bold;margin-bottom:0px;">${ownerInfo.nickName} <span style="font-size:15px;">님</span></div>
+		                            <p class="card-text" style="text-align: center;font-size:12px;">POINT <span style="font-size:15px;font-weight:bold;">${point }</span></p>
 		                        </div>
 	                    	</div>
 	                    </div>
 	                </div>
-	                <div class="col-12 col-sm-6 col-md-8 col-lg-9 projectwrap">
+	                
+	                
+	                
+	                <div class="col-12 col-md-8 col-lg-12 projectwrap pt-2">
+	                
+	                	                
+						<div class="embed-responsive p-0" style="overflow:hidden;height:655px;" id="makeFrame">
+						  <iframe class="noScrolling" src="/project/pLog/makeProjectList"></iframe>
+						</div>
+						<hr>		
+						<div class="embed-responsive p-0" style="overflow:hidden;height:605px;" id="applyFrame">
+						  <iframe class="noScrolling" src="/project/pLog/applyProjectList"></iframe>
+						</div>	                
+	                
 	                </div>
 	          	</div>
             </div>
@@ -78,27 +110,6 @@
         <jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
         
         <script>
-	    	$(function(){
-	    		var element = $(".pageNavi");
-	    		var page = "${page}";
-	    		if(page > 0 && page <= 10){
-	    			element[page-1].classList.add('active');
-	    		}else if(page % 10 == 0){
-	    			element[10].classList.add('active');
-	    		}else{
-	    			element[page % 10].classList.add('active');
-	    		}	
-	    	});
-	    	function popUp(id,writer){
-	    		if(writer == null){
-	    			alert("탈퇴한 회원입니다.");
-	    			return false;
-	    		}
-	    		else{
-	    			window.open("/Portfolio/toPlog.do?owner="+id, "pLogPopUp", "width=600,height=600");
-	    		}
-	          
-	         }
         </script>
 </body>
 </html>

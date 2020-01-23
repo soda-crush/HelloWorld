@@ -3,6 +3,8 @@ package kh.hello.utils;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 
+import kh.hello.configuration.Configuration;
+
 public class Utils {
 	
 	//Itnews,Code-How로그인시 마지막 경로의 메서드 저장 변수
@@ -28,9 +30,14 @@ public class Utils {
 	}
 	
 	public static int getRandomNum(int min, int max) {
-		System.out.println(((int)(Math.random()*max)) + 1);
-		return (((int)(Math.random()*max)) + 1);
+		return (((int)(Math.random()*max-min+1)) + min);
 	}
+	
+	public static String getRandomAd(){
+		int random = (int)(Math.random()*(Configuration.maxAd))+1;
+		return "ad"+random+".png";
+	}
+	
 	
 	public static String protectXss(String input) {
 		input = input.replaceAll("&", "&amp;");

@@ -27,3 +27,4 @@
 }
 .bootstrap-tagsinput .tag{color: white;}
 .bootstrap-tagsinput .tag [data-role="remove"]:after{color: red;font-weight: bold;padding: 0px;}
+img{max-width:100%;}

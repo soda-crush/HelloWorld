@@ -29,10 +29,13 @@
 						<ul class="collapse">
 							<li id="bamboo"><a href="${pageContext.request.contextPath }/adBoard/bambooList">대나무숲</a></li>
 							<li id="cohow"><a href="${pageContext.request.contextPath }/adBoard/cohowList">Code-How</a></li>
-							<li id="industry"><a href="${pageContext.request.contextPath }/adBoard/industryList">업계현황</a></li>
+							<li id="industry"><a href="${pageContext.request.contextPath }/adBoard/industryList">HELLo</a></li>
 							<li id="itnews"><a href="${pageContext.request.contextPath }/adBoard/itnewsList">IT뉴스</a></li>
 							<li id="project"><a href="${pageContext.request.contextPath }/adBoard/projectList">프로젝트</a></li>
-							<li id="guest"><a href="${pageContext.request.contextPath }/adBoard/guestBookList">P-log 방명록</a></li>
+							<li id="guest"><a href="${pageContext.request.contextPath }/adBoard/guestBookList">
+							<img id ="plogLogo" src="/img/adlogoPlog.png" style="height:20px;">
+							<img id ="plogLogoActive" src="/img/logoPlog.png" style="height:20px;">
+							</a></li>
 						</ul>
 					</li>
 

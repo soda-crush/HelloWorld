@@ -8,7 +8,7 @@
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <title>Hello World!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="icon" type="image/png" href="${pageContext.request.contextPath }/adRsc/images/icons/favicon.ico"/>
+<link rel="icon" type="image/png" href="${pageContext.request.contextPath}/icon/adFavicon.ico"/>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath }/css/font-awesome/css/font-awesome.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath }/adRsc/css/themify-icons.css">
@@ -31,6 +31,21 @@
         ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "ee6b7db5b51705a13dc2339db3edaf6d"];
     </script>
 <style>
+#guest #plogLogo{
+	display:block;
+}
+
+#guest #plogLogoActive{
+	display:none;
+}
+
+.metismenu #guest:hover #plogLogo, .metismenu #guest.active #plogLogo {
+	display:none;
+}
+
+.metismenu #guest:hover #plogLogoActive, .metismenu #guest.active #plogLogoActive {
+	display:block
+}
 	.notification-area {
 		text-align:right;
 	}
@@ -434,19 +449,19 @@ if ($('#visitChange').length > 0) {
 	        "theme": "light",
 	        "marginRight": 0,
 	        "dataProvider": [{
-	            "joinPath": "${joinPath[0].joinPath}",
+	            "joinPath": "${joinPath[0].formedPath}",
 	            "visits": count0,
 	            "color": "#8918FE"
 	        }, {
-	            "joinPath": "${joinPath[1].joinPath}",
+	            "joinPath": "${joinPath[1].formedPath}",
 	            "visits": count1,
 	            "color": "#7474F0"
 	        }, {
-	            "joinPath": "${joinPath[2].joinPath}",
+	            "joinPath": "${joinPath[2].formedPath}",
 	            "visits": count2,
 	            "color": "#C5C5FD"
 	        }, {
-	            "joinPath": "${joinPath[3].joinPath}",
+	            "joinPath": "${joinPath[3].formedPath}",
 	            "visits": count3,
 	            "color": "#FD9C21"
 	        }],
@@ -486,7 +501,6 @@ if ($('#visitChange').length > 0) {
 	if ($('#ampiechart2').length) {
 		var num1 = Number("${workRatio[0].levelCount}");
 		var num2 = Number("${workRatio[1].levelCount}");
-		var num3 = Number("${workRatio[2].levelCount}");
 		
 	    var chart = AmCharts.makeChart("ampiechart2", {
 	        "type": "pie",
@@ -494,14 +508,11 @@ if ($('#visitChange').length > 0) {
 	        "labelRadius": -65,
 	        "labelText": "[[title]]%",
 	        "dataProvider": [{
-	            "title": "알수없음",
+	            "title": "${workRatio[0].workStatus}",
 	            "value": num1
 	        }, {
-	            "title": "비재직자",
+	            "title": "${workRatio[1].workStatus}",
 	            "value": num2
-	        }, {
-	            "title": "재직자",
-	            "value": num3
 	        }],
 	        "titleField": "title",
 	        "valueField": "value",
@@ -547,7 +558,7 @@ if ($('#visitChange').length > 0) {
 	            "color": "#2599D4"
 	        }],
 	        "valueAxes": [{
-	            "maximum": 100,
+	            "maximum": Math.max(num1, num2, num3, num4, num5),
 	            "minimum": 0,
 	            "axisAlpha": 0,
 	            "dashLength": 4,
@@ -829,22 +840,22 @@ if ($('#visitChange').length > 0) {
 	        }, {
 	            "year": "${comLog[1].dateis}",
 	            "새 댓글": "${comLog[1].newCom}",
-	            "삭제된 댓글": "${comLog[0].delCom}",
+	            "삭제된 댓글": "${comLog[1].delCom}",
 	            "color": "#5182DE"
 	        }, {
 	            "year": "${comLog[2].dateis}",
 	            "새 댓글": "${comLog[2].newCom}",
-	            "삭제된 댓글": "${comLog[0].delCom}",
+	            "삭제된 댓글": "${comLog[2].delCom}",
 	            "color": "#8282F1"
 	        }, {
 	            "year": "${comLog[3].dateis}",
 	            "새 댓글": "${comLog[3].newCom}",
-	            "삭제된 댓글": "${comLog[0].delCom}",
+	            "삭제된 댓글": "${comLog[3].delCom}",
 	            "color": "#B369FE"
 	        }, {
 	            "year": "${comLog[4].dateis}",
 	            "새 댓글": "${comLog[4].newCom}",
-	            "삭제된 댓글": "${comLog[0].delCom}",
+	            "삭제된 댓글": "${comLog[4].delCom}",
 	            "color": "#51ADDD"
 	        }],
 	        "valueAxes": [{

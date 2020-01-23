@@ -9,7 +9,7 @@
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <title>Hello World!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="icon" type="image/png" href="${pageContext.request.contextPath }/adRsc/images/icons/favicon.ico"/>
+<link rel="icon" type="image/png" href="${pageContext.request.contextPath }/icon/adFavicon.ico"/>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath }/css/font-awesome/css/font-awesome.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath }/adRsc/css/themify-icons.css">
@@ -28,11 +28,29 @@
 <!-- jquery latest version -->
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <style>
+#guest #plogLogo{
+	display:block;
+}
+
+#guest #plogLogoActive{
+	display:none;
+}
+
+.metismenu #guest:hover #plogLogo, .metismenu #guest.active #plogLogo {
+	display:none;
+}
+
+.metismenu #guest:hover #plogLogoActive, .metismenu #guest.active #plogLogoActive {
+	display:block
+}
 	.contentCard{
-		max-width: 1000px;
+		max-width: 1200px;
 	}
 	.notification-area {
 		text-align:right;
+	}
+	.table{
+		min-width: 800px;
 	}
 </style>
 </head>
@@ -190,15 +208,15 @@
     <script src="${pageContext.request.contextPath }/adRsc/js/scripts.js"></script>
 	<c:if test="${list.size() != 0}">	
 	<script>
-			var element = $(".pageNavi");
-			var page = "${page}";
-			if(page > 0 && page <= 10){
-				element[page-1].classList.add('active');
-			}else if(page % 10 == 0){
-				element[10].classList.add('active');
-			}else{
-				element[page % 10].classList.add('active');
-			}			
+	var element = $(".pageNavi");
+	var page = "${page}";
+	if(page > 0 && page <= 5){
+		element[page-1].classList.add('active');
+	}else if(page % 5 == 0){
+		element[5].classList.add('active');
+	}else{
+		element[page % 5].classList.add('active');
+	}			
 	</script>
 	</c:if>    
     <script>		

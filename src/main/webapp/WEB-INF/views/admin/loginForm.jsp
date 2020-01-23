@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Hello World!</title>
-<link rel="icon" type="image/png" href="adRsc/images/icons/favicon.ico"/>
+<link rel="icon" type="image/png" href="${pageContext.request.contextPath }/icon/adFavicon.ico"/>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="css/font-awesome/css/font-awesome.css">
 <link rel="stylesheet" type="text/css" href="adRsc/vendor/animate/animate.css">
@@ -97,6 +97,18 @@
 		    		$("#ckb1").prop("checked", true);
 		    	}	    	
 		    }
+		    
+		    $("#frm").on("submit", function(){
+		    	var exDate = new Date();
+		    	var rem = $("#ckb1").prop("checked");
+		    	if(rem){
+		    		exDate.setDate(exDate.getDate() + 30);
+		    		var id = $("#name").val();
+		    		document.cookie = "adminId="+id+";expires="+exDate.toString();	
+		    	}else{
+		    		document.cookie = "adminId=;expires="+exDate.toString();
+		    	}
+		    })
 		    
 	})
 	

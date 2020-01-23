@@ -63,13 +63,14 @@ public class CodeController {
 		LoginInfoDTO info = (LoginInfoDTO)session.getAttribute("loginInfo");
 		dto.setId(info.getId());
 		dto.setWriter(info.getNickName());
-		dto.setTitle(Utils.protectXss(dto.getTitle()));
+		dto.setTitle(Utils.protectXss(dto.getTitle()));	
 		String path = session.getServletContext().getRealPath("attached");
 		int result = 0;
 		try {
 			result = sv.writeCode(path, dto,dto.getId());		
 			if(result > 0) {
-				return "redirect:codeQList.do";
+				int seq = dto.getSeq();
+				return "redirect:/code/codeDetail.do?seq="+seq;
 			}else {
 				return "redirect:../error";
 			}
@@ -85,6 +86,8 @@ public class CodeController {
 		if(qResult==null) {	
 			return "/code/codeDetail";
 		}
+		String kakaoTitle = qResult.getTitle().replace("\"", "\\\"");
+		qResult.setKakaoTitle(kakaoTitle);
 		List<CodeReplyDTO> rResult = sv.detailReply(seq); //queSeq
 		List<CodeCommentsDTO> cResult = sv.commentList(seq); //queSeq  
 		int repCount = sv.replyCount(seq); //답글 수 
@@ -104,6 +107,7 @@ public class CodeController {
 		m.addAttribute("repCount", repCount);
 		m.addAttribute("adoptCount", adoptCount);
 		m.addAttribute("ip", ip);
+		m.addAttribute("ad",Utils.getRandomAd());
 //		m.addAttribute("repSeq", repSeq);
 //		m.addAttribute("nowPoint", nowPoint);
 		
@@ -128,18 +132,23 @@ public class CodeController {
 
 	@RequestMapping("/modify.do")
 	public String modifyForm(int seq, Model m) {
-		CodeQuestionDTO result;
-		result = sv.detailQuestion(seq);
-		int parent_seq = seq;
+		CodeQuestionDTO result = sv.detailQuestion(seq);
+		int parent_seq = seq;		
+		String kakaoTitle = result.getTitle().replace("\"", "\\\"");
+		String title = kakaoTitle.replace("\\\"", "\"");
+		result.setTitle(title);	
 		m.addAttribute("parent_seq",parent_seq);
 		m.addAttribute("result", result);
 		return "/code/codeQModify";
 	}
 
 	@RequestMapping("/modifyProc.do")
-	public String modifyProcCode(CodeQuestionDTO dto) {
+	public String modifyProcCode(CodeQuestionDTO dto,String id) {
+		LoginInfoDTO info = (LoginInfoDTO)session.getAttribute("loginInfo");
 		dto.setTitle(Utils.protectXss(dto.getTitle()));
-		sv.modify(dto);
+		String kakaoTitle = dto.getTitle().replaceAll("\"", "\\\"");
+		dto.setKakaoTitle(kakaoTitle);
+		sv.modify(dto,info.getId());
 		int seq = dto.getSeq();
 		return "redirect:/code/codeDetail.do?seq="+seq;
 	}
@@ -148,8 +157,9 @@ public class CodeController {
 	@RequestMapping("/codeSearch.do")
 	public String codeSearch(String search, String value, Model m, String cpage) {
 		//페이지네비
-		int currentPage = 1;		
-		if(cpage != null) currentPage = Integer.parseInt(cpage);
+		int currentPage = 1;
+		search = search.replace("'", "''");
+		if(cpage!= null && !cpage.equals("") && !cpage.equals("null")) currentPage = Integer.parseInt(cpage);
 		int end = currentPage * Configuration.recordCountPerPage;
 		int start = end - (Configuration.recordCountPerPage - 1);	
 		List<CodeQuestionDTO> list = sv.codeSearchByPage(start, end, value, search);
@@ -236,7 +246,6 @@ public class CodeController {
 		LoginInfoDTO info = (LoginInfoDTO)session.getAttribute("loginInfo");
 		dto.setId(info.getId());
 		dto.setWriter(info.getNickName());
-		dto.setContent(Utils.protectXss(dto.getContent()));
 		return sv.insertComment(dto);		
 	}
 
@@ -298,6 +307,7 @@ public class CodeController {
 		dto.setReporterID(sessionValue.getId());
 		dto.setReporterNick(sessionValue.getNickName());
 		dto.setReason(Utils.protectXss(dto.getReason()));
+		dto.setTitle(Utils.protectXss(dto.getTitle()));
 		int result = sv.reportCode(dto);
 		if(result>0) {
 			return "success";

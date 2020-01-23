@@ -12,6 +12,7 @@ public class ItnewsDTO {
 	private int viewCount;
 	private String id;
 	private int commentCount;
+	private String kakaoTitle;
 	
 	public String getDate(){
 	      long exDate = System.currentTimeMillis();
@@ -28,6 +29,14 @@ public class ItnewsDTO {
 	      }
 	   }
 	
+	public String getKakaoTitle() {
+		return kakaoTitle;
+	}
+
+	public void setKakaoTitle(String kakaoTitle) {
+		this.kakaoTitle = kakaoTitle.replaceAll("\"", "\\\"");
+	}
+
 	public String getFormedWriteDateForAdmin() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
 		String result = sdf.format(this.writeDate);
@@ -40,7 +49,7 @@ public class ItnewsDTO {
 	}
 
 	public ItnewsDTO(int seq, String writer, String title, String content, Timestamp writeDate, int viewCount,
-			String id, int commentCount) {
+			String id, int commentCount, String kakaoTitle) {
 		super();
 		this.seq = seq;
 		this.writer = writer;
@@ -50,13 +59,14 @@ public class ItnewsDTO {
 		this.viewCount = viewCount;
 		this.id = id;
 		this.commentCount = commentCount;
+		this.kakaoTitle = kakaoTitle;
 	}
 
 	@Override
 	public String toString() {
 		return "ItnewsDTO [seq=" + seq + ", writer=" + writer + ", title=" + title + ", content=" + content
 				+ ", writeDate=" + writeDate + ", viewCount=" + viewCount + ", id=" + id + ", commentCount="
-				+ commentCount + "]";
+				+ commentCount + ", kakaoTitle=" + kakaoTitle + "]";
 	}
 
 	public int getSeq() {

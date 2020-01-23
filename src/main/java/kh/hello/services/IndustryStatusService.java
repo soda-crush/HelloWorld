@@ -32,7 +32,10 @@ public class IndustryStatusService {
 	@Transactional("txManager")
 	public IndustryStatusDTO industryStatusDetailView(int seq) {
 		dao.updateIndustryStatusViewCount(seq);
-		return dao.getIndustryStatusDetailView(seq);
+		IndustryStatusDTO kakao = dao.getIndustryStatusDetailView(seq);
+		String kakaoTitle = kakao.getTitle().replace("\"", "\\\"");
+		kakao.setKakaoTitle(kakaoTitle);
+		return kakao;
 	}
 
 	public int industryStatusModifyConfirm(IndustryStatusDTO dto, String path)throws Exception {
@@ -123,6 +126,7 @@ public class IndustryStatusService {
 		for(IndustryStatusCoDTO i : result) {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
 			i.setFormedWriteDate(sdf.format(i.getWriteDate()));
+			i.setModComment(i.getContent());
 		}
 		return gson.toJson(result);
 	}
@@ -135,6 +139,7 @@ public class IndustryStatusService {
 		for(IndustryStatusCoDTO i : result) {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
 			i.setFormedWriteDate(sdf.format(i.getWriteDate()));
+			i.setModComment(i.getContent());
 		}
 		return gson.toJson(result);
 	}
@@ -158,9 +163,11 @@ public class IndustryStatusService {
 
 	//조건별 게시판목록 검색
 	public List<IndustryStatusDTO> industrySearchListByPage(int start, int end,String value, String search) {//검색결과 10개씩
+		search = search.replaceAll("'", "''");
 		return dao.industrySearchListByPage(Integer.toString(start), Integer.toString(end),value,search);
 	}
 	public List<String> getIndustrySearchListPageNavi (int currentPage,String value, String search) {
+		search = search.replaceAll("'", "''");
 		int recordTotalCount = dao.industrySearchTotalCount(value,search);
 		int pageTotalCount = 0;
 

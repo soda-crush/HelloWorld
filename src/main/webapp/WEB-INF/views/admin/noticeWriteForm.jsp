@@ -8,7 +8,7 @@
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <title>Hello World!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="icon" type="image/png" href="${pageContext.request.contextPath }/adRsc/images/icons/favicon.ico"/>
+<link rel="icon" type="image/png" href="${pageContext.request.contextPath }/icon/adFavicon.ico"/>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath }/css/font-awesome/css/font-awesome.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath }/adRsc/css/themify-icons.css">
@@ -31,15 +31,33 @@
 <script src="/js/summernote-ko-KR.js"></script>
 
 <style>
+#guest #plogLogo{
+	display:block;
+}
+
+#guest #plogLogoActive{
+	display:none;
+}
+
+.metismenu #guest:hover #plogLogo, .metismenu #guest.active #plogLogo {
+	display:none;
+}
+
+.metismenu #guest:hover #plogLogoActive, .metismenu #guest.active #plogLogoActive {
+	display:block
+}
 #home-tab:hover{
 cursor:default;
 }
 .notification-area {
 text-align:right;
 }
-	.contentCard{
-		max-width: 1000px;
-	}
+.contentCard{
+	max-width: 1000px;
+}
+.note-toolbar {
+	z-index:1;
+}
 </style>
 
 </head>
@@ -64,10 +82,10 @@ text-align:right;
                 <div class="row align-items-center">
                     <div class="col-sm-6">
                         <div class="breadcrumbs-area clearfix">
-                            <h4 class="page-title pull-left">일대일문의</h4>
+                            <h4 class="page-title pull-left">공지사항</h4>
                             <ul class="breadcrumbs pull-left">
                                 <li><a href="${pageContext.request.contextPath }/admin/main">Home</a></li>
-                                <li><span>일대일문의</span></li>
+                                <li><span>공지사항</span></li>
                             </ul>
                         </div>
                     </div>
@@ -90,7 +108,7 @@ text-align:right;
                     <div class="col-lg-12 mt-5 contentCard">
                         <div class="card">
                             <div class="card-body">
-	                            <form action="${pageContext.request.contextPath}/admin/writeNotice" method="post">
+	                            <form action="${pageContext.request.contextPath}/admin/writeNotice?page=${page}" method="post" enctype="multipart/form-data">
 	                                <div class="invoice-area">
 	                                    <div class="invoice-head">
 	                                        <div class="row">
@@ -146,11 +164,24 @@ text-align:right;
         placeholder: '내용을 입력해주세요',	        
         minHeight: 300,
         maxHeight: 300,   
-        lang: 'ko-KR'
+        lang: 'ko-KR',
+        toolbar: [
+            ['style', ['style']],
+            ['font', ['bold', 'underline', 'clear']],
+            ['fontname', ['fontname']],
+            ['fontsize', ['fontsize']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['height', ['height']],
+            ['table', ['table']],
+            ['insert', ['link', 'picture', 'hr']],
+            ['view', ['fullscreen']],
+            ['help', ['help']]
+      ]
     });  
     
     $("#writeBtn").on("click", function(){
-    	var regex = /^[(<p><br></p>)(<p>(&nbsp; ){1,}</p>)]{0,}$/g;
+    	var regex = /^[(<p><br></p>)(<p>(&nbsp; )+</p>)]{0,}$/g;
     	var content = $(".summernote").val();
     	var result = regex.exec(content);
     	   

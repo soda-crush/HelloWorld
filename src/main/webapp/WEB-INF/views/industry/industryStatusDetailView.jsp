@@ -1,12 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Hello World!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="${pageContext.request.contextPath }/icon/favicon.ico"/>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
@@ -19,8 +21,6 @@
 	type="text/css" />
 <link rel="stylesheet" href="/css/project/projectBase.css"
 	type="text/css" />
-<link rel="stylesheet" href="/css/project/detailView.css"
-	type="text/css" />
 	<script type="text/JavaScript"
    src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script>
@@ -30,16 +30,16 @@
 </script>
 <script type="text/javascript">
    function shareKakaotalk() {
-      Kakao.init("7fce3c86f0e6aeeac11028850040589c"); // 사용할 앱의 JavaScript 키를 설정
+	   Kakao.init("17c512cbe4e17a204cce3c9b7d64d274"); // 사용할 앱의 JavaScript 키를 설정
       Kakao.Link.sendDefault({
          objectType : "feed",
          content : {
-            title : "${iPage.title}", // 콘텐츠의 타이틀 
-            description : "업계현황", // 콘텐츠 상세설명
+            title : "${iPage.kakaoTitle}", // 콘텐츠의 타이틀 
+            description : "HELLo", // 콘텐츠 상세설명
             imageUrl : "https://miro.medium.com/max/3840/1*U-R58ahr5dtAvtSLGK2wXg.png", // 썸네일 이미지          
             link : {
                mobileWebUrl : "http://${ip}/industry/industryStatusDetailView.do?seq="+${iPage.seq}, // 모바일 카카오톡에서 사용하는 웹 링크 URL            
-               webUrl : "http://${ip}/industry/industryStatus.do?seq="+${iPage.seq} // PC버전 카카오톡에서 사용하는 웹 링크 URL
+               webUrl : "http://${ip}/industry/industryStatusDetailView.do?seq="+${iPage.seq} // PC버전 카카오톡에서 사용하는 웹 링크 URL
             }
          },
          social : {
@@ -118,24 +118,36 @@
 	<div id=baseBackgroundColor>
 		<div class=container>
 			<div class=row>
-				<div class="col-12" id=aroundContent></div>
+				<div class="col-12" id=aroundContent1></div>
 			</div>
 		</div>
 
 		<!--      몸통 시작!!!   -->
-		 <div class="container">
-            	<div class="row">
-					<div class="col-12 col-xl-3">
-						<p id=cateTitle style="display:inline;">업계현황</p>
-					</div>
-					<div class="col-12 col-xl-9 pt-xl-5">
-						<p style="display:inline;" id=cateCmt>업계현황에 대한 정보를 나누는 게시판입니다.</p>
-					</div>
-				</div>		
+		 <div class="container">	
 				<div class=row>
+				<div class="col-12 d-none d-md-block">
+					<div id="pageTitle">
+						<table>
+							<tr>
+								<td colspan="3" style="font-size: 60px; font-weight: 100; vertical-align: text-bottom"><h1 class="fontBold">HELL<span style="opacity:0.5">o</span></h1></td>
+								<td></td>
+								<td style="font-size: 15px; color: gray; vertical-align: text-bottom">     재직자만 사용가능한 게시판입니다.</td>
+								<td></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class=row>
+				<div class="d-md-none">
+					<div style="font-size: 60px; font-weight: 100;"><h1 class="fontBold">HELL<span style="opacity:0.5">o</span></h1></div>
+					<div style="font-size: 15px; color: gray;">재직자만 사용가능한 게시판입니다.</div>
+				</div>
+			</div>
+			<div class=row>
 					<div class=col-12><br></div>
-				</div>		
-            </div>
+				</div>	
+          </div>
 		<div class="container eleCon">
 		
 
@@ -148,10 +160,10 @@
             		<div class="col-12" style="font-size: 15px;color:#707070;"><br>${iPage.field } / ${iPage.duty }</div>
             	</div>
             	<div class="row">
-            		<input type="hidden" name="seq" value="${iPage.seq}">
+            		<input type="hidden" name="seq" value="${iPage.seq}" id="iPageSeq">
             		<input type="hidden" name="id" value="${iPage.id}">
             		
-            		<div class="col-12" style="font-size: 15px;color:#707070;"><hr><img src="${iPage.profileImg }" width=40,height=40><span style="cursor:pointer" onclick="popUpPlog('${iPage.id}','${iPage.writer}')"> ${iPage.writer}</span>&emsp;작성일 : ${iPage.formedWriteDate}&emsp;조회수 : ${iPage.viewCount}<hr></div>
+            		<div class="col-12" style="font-size: 13px;color:#707070;"><hr><img src="${iPage.profileImg }" width=40,height=40><span style="cursor:pointer" onclick="popUpPlog('${iPage.id}','${iPage.writer}')"> ${iPage.writer}</span>&emsp;작성일 : ${iPage.formedWriteDate}&emsp;조회수 : ${iPage.viewCount}<hr></div>
             	</div>
             	<div class="row">
             		<div class="col-12" id=contentCon style="word-break:break-all;
@@ -173,7 +185,14 @@
 	            	</div>
             	</div>
         	<div class="row">
-            		<div class="col-12" id=adver style="height:200px;background-color:green;color:white;">광고자리</div>
+            		<div class="col-12 text-center" id=adver>
+            			<img src="/img/ad${ad}.png" alt="...">
+            		</div>
+            	</div>
+            	<div class=row>
+	            	<div class=col-12>
+	            		<br>
+	            	</div>
             	</div>
         <div class="pPageComments">
 					<c:if test="${comments.size()>0 }">
@@ -181,8 +200,8 @@
 							<div class="row commentDiv commentBox${c.seq } p-0 pb-2 m-2">
 								<div class="col-12 commentInnerBox">
 									<div class="row commentHeader">
-										<div class="col-lg-1 d-none d-lg-block profileBox pl-1 pt-2 pr-0"><img src="${c.profileImg }" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>
-										<div class="col-7 pt-1">
+										<div class="d-none d-md-block col-1 profileBox pl-1 pt-2"><img src="${c.profileImg }" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>
+										<div class="col-8 col-md-7 pt-1">
 											<div class="row commentInfo">
 												<div class="col-12 commentWriter">${c.writer }</div>
 												<div class="col-12 commentWriteDate">${c.formedWriteDate }</div>
@@ -192,7 +211,7 @@
 											<c:if test="${c.id==sessionScope.loginInfo.id }">
 												<a class="btn btn-info coModBtn"
 													href="/bamboo/comment/modifyProc.do?seq=${c.seq }&bamSeq=${c.indSeq}"
-													onclick="coModFunction(${c.seq},'${c.content}',${c.indSeq });return false;"
+													onclick="coModFunction(${c.seq},${c.indSeq });return false;"
 													role="button">수정</a>
 												<a class="btn btn-danger coDelBtn"
 													href="/bamboo/comment/deleteProc.do?seq=${c.seq }&bamSeq=${c.indSeq}"
@@ -204,6 +223,7 @@
 									<div class="row commentContent">
 										<div class="col-12 pt-1 pl-4" style="word-break:break-all;
       word-break:break-word;">${c.content }</div>
+      <input type="hidden" value="${c.modComment }" id="hiddenModCo${c.seq }">
 									</div>
 								</div>
 							</div>
@@ -213,18 +233,18 @@
 				</div>
 				
 				<div id="pCoInput" class="row">
-            		<div class="col-10">
-            			<textarea style="width:100%;height:100%;" placeholder="댓글 입력" id="pCoContents" maxlength="1300"></textarea>
+            		<div class="col-9 col-lg-10" style="padding:0px;padding-left:22px;">
+            			<textarea style="width:100%;height:100%;border:1px solid #d1d1d1;" placeholder="댓글내용을 입력해주세요" id="pCoContents" maxlength="1300"></textarea>
             		</div>
-            		<div class="col-2">
+            		<div class="col-3 col-lg-2">
             			<div class="row">
 							<div class="col-12">
-								<button type="button" class="btn btn-secondary" style="margin-bottom:10px;" id="coCancel">취소</button>
+								<button type="button" class="btn btn-secondary" style="margin-bottom:10px;width:95%" id="coCancel">취소</button>
 							</div>										
 						</div>
 						<div class="row">
 							<div class="col-12">
-								<button type="button" class="btn btn-primary" id="coWriteBtn">작성</button>
+								<button type="button" class="btn btn-primary" style="width:95%" id="coWriteBtn">작성</button>
 							</div>										
 						</div>					
             		</div>
@@ -246,10 +266,7 @@
 					<a class="btn btn-info"
 							href="/industry/industryStatusModify.do?seq=${iPage.seq }"
 							role="button">수정</a>
-					
-						<a class="btn btn-danger"
-							href="/industry/industryStatusDeleteProc.do?seq=${iPage.seq}"
-							role="button">삭제</a>
+					<button type="button" class="btn btn-danger" id=delete>삭제</button>
 				</c:if>
 				<a class="btn btn-secondary" href="/industry/industryStatusList.do"
 						role="button">목록</a>
@@ -351,7 +368,7 @@
 				$("#pCoContents").val("");
 			}
 		});
-			function coModFunction(seq,contents,indSeq){
+			function coModFunction(seq,indSeq){
 				$.ajax({
 					url : "/industry/memLevel.do",
 					type : "post",
@@ -361,20 +378,21 @@
 					}
 				}).done(function(resp){
 					if(resp > 1){
+				var checkContents = $("#hiddenModCo"+seq).val().replace(/modF'Fdom/gi,'"');
 				$(".commentBox"+seq).find(".commentBtns").css("display","none");
 				$(".commentBox"+seq).find(".commentContent").css("display","none");
            		$(".commentBox"+seq).wrap('<form action="/industry/comment/modifyProc.do" method="post" id="coModFrm"></form>');
 				var html = [];
     			html.push(
     					'<div class="col-12 coModBox mt-2"><div class="row">',
-    					'<div class="col-9 col-md-10 col-xl-11 pr-0"><textarea maxlength="1300" class="form-control" placeholder="댓글 내용을 입력해주세요" id="pCoModContents" style="height:80px;" name="content">'+contents+'</textarea></div>',
+    					'<div class="col-9 col-md-10 col-xl-11 pr-0"><textarea maxlength="1300" class="form-control" placeholder="댓글 내용을 입력해주세요" id="pCoModContents" style="height:80px;" name="content">'+checkContents+'</textarea></div>',
     					'<div class="col-3 col-md-2 col-xl-1"><input type="hidden" name="seq" value="'+seq+'"><input type="hidden" name="indSeq" value="'+indSeq+'">',
     					'<div class="row">',
     					'<div class="col-12 text-center p-0">',
-    					'<button type="button" class="btn btn-secondary" style="margin-bottom:5px;width:80%;" id="coMoCancel">취소</button>',
+    					'<button type="button" class="btn btn-secondary" style="margin-bottom:10px;width:95%;" id="coMoCancel">취소</button>',
     					'</div></div>',
     					'<div class="row"><div class="col-12 text-center p-0">',
-    					'<button type="button" class="btn btn-warning" style="width:80%;" id="coMoBtn">수정</button>',
+    					'<button type="button" class="btn btn-warning" style="width:95%;" id="coMoBtn">수정</button>',
     					'</div></div></div></div></div>');
     			$(".commentBox"+seq).append(html.join(""));
 					}else{
@@ -440,21 +458,22 @@
 					var html = [];
 					html.push(
 							'<div class="row commentDiv commentBox'+resp[i].seq+' p-0 pb-2 m-2"><div class="col-12 commentInnerBox"><div class="row commentHeader">',
-							'<img src="'+resp[i].profileImg+'"class="rounded mx-auto d-block" style="width:40px;height:40px;">',
-							'<div class="col-7 pt-1"><div class="row commentInfo">',
+							'<div class="d-none d-md-block col-1 profileBox pl-1 pt-2"><img src="'+resp[i].profileImg+'"class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>',
+							'<div class="col-8 col-md-7 pt-1"><div class="row commentInfo">',
 							'<div class="col-12 commentWriter">'+resp[i].writer+'</div>',
 							'<div class="col-12 commentWriteDate">'+resp[i].formedWriteDate+'</div></div></div>',
 							'<div class="col-4 pt-2 text-right commentBtns">'
 							);
 					if(resp[i].id==loginInfo){
 					html.push(
-								'<a class="btn btn-info coModBtn" href="/industry/comment/modifyProc.do?seq='+resp[i].seq+'&indSeq='+resp[i].indSeq+'" onclick="coModFunction('+resp[i].seq+',\''+resp[i].content+'\','+resp[i].indSeq+');return false;" role="button">수정</a>\n',
+								'<a class="btn btn-info coModBtn" href="/industry/comment/modifyProc.do?seq='+resp[i].seq+'&indSeq='+resp[i].indSeq+'" onclick="coModFunction('+resp[i].seq+','+resp[i].indSeq+');return false;" role="button">수정</a>\n',
 								'<a class="btn btn-danger coDelBtn" href="/industry/comment/deleteProc.do?seq='+resp[i].seq+'&indSeq='+resp[i].indSeq+'" onclick="coDelFunction('+resp[i].seq+');return false;" role="button">삭제</a>'
 								);
 					}
 					html.push(
 							'</div></div>',
-							'<div class="row commentContent"><div class="col-12 pt-1 pl-4" style="word-break:break-all;word-break:break-word;">'+resp[i].content+'</div></div></div></div><hr>'
+							'<div class="row commentContent"><div class="col-12 pt-1 pl-4" style="word-break:break-all;word-break:break-word;">'+resp[i].content+'</div></div></div></div><hr>',
+							'<input type="hidden" value="'+resp[i].modComment+'" id="hiddenModCo'+resp[i].seq+'">'
 							);
 					$(".pPageComments").append(html.join(""));	
            		}
@@ -466,7 +485,7 @@
         			return false;
         		}
         		else{
-        			window.open("/Portfolio/toPlog.do?owner="+id, "pLogPopUp", "width=600,height=600");
+        			window.open("/Portfolio/toPlog.do?owner="+id+"&other=Y", "pLogPopUp", "width=600,height=600");
         		}
               
              }
@@ -521,6 +540,12 @@
     		
     		$("#reportCancelBtn").on("click",function(){
     			$("#reportReasonInput").val("");
+    		});
+    		$("#delete").on("click",function(){
+    			var check = confirm("정말 삭제하시겠습니까?");
+    			if(check){
+    				location.href="/industry/industryStatusDeleteProc.do?seq=${iPage.seq}";
+    			}
     		});
         </script>
 </body>

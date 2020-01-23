@@ -9,18 +9,18 @@
 		from visit group by substr(to_char(visit), 1, 9) order by 1 desc) vr) where rown between 1 and 12 order by rown desc
 	</select>
 	<select id="getGenderRatio" resultType="kh.hello.dto.ChartGenderDTO">
-		select gender, count(gender) genderCount from member group by gender order by 1
+		select gender, count(gender) genderCount from member where gender is not null group by gender order by 1
 	</select>
 	<select id="getJoinPath" resultType="kh.hello.dto.ChartJoinPathDTO">
-		select joinPath, count(joinPath) pathCount from member group by joinPath
+		select joinPath, count(joinPath) pathCount from member where joinPath is not null group by joinPath order by 2
 	</select>
 	<select id="getWorkRatio" resultType="kh.hello.dto.ChartWorkDTO">
-		select memLevel, count(memLevel) levelCount from member group by memLevel order by memLevel
+		select memLevel, count(memLevel) levelCount from member where memLevel ='2' or memLevel='3' group by memLevel order by memLevel
 	</select>
 	<select id="getGenerationRatio" resultType="kh.hello.dto.ChartGenerationDTO">
 		select (substr((to_char(sysdate, 'YYYY') - to_char(birth, 'YYYY') + 1),1,1))||'0대' generation, 
 		count(substr((to_char(sysdate, 'YYYY') - to_char(birth, 'YYYY') + 1),1,1)) gCount 
-		from member group by substr((to_char(sysdate, 'YYYY') - to_char(birth, 'YYYY') + 1),1,1) order by 1
+		from member where birth is not null group by substr((to_char(sysdate, 'YYYY') - to_char(birth, 'YYYY') + 1),1,1) order by 1
 	</select>
 	<select id="getTop5List" resultType="kh.hello.dto.MemberDTO">
 		select * from (select id, nickName, memLevel, point, lastLogin, profileImg, row_number() over(order by point desc, lastLogin desc) rown 

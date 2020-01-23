@@ -16,6 +16,7 @@ public class ProjectCoDTO {
 	private String profileImg;
 	private String formedWriteDate;
 	private String formedChangeDate;
+	private String modComment;
 	
 	public ProjectCoDTO() {
 		super();
@@ -94,6 +95,17 @@ public class ProjectCoDTO {
 	public void setProfileImg(String profileImg) {
 		this.profileImg = profileImg;
 	}
+	
+	
+	public String getModComment() {
+		this.modComment = this.contents.replaceAll("\"","modF'Fdom");
+		return this.modComment;
+	}
+	
+	public void setModComment(String comment) {
+		this.modComment = getModComment();
+	}
+	
 	
 	public String getFormedWriteDate() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");

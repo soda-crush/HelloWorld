@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Hello World!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="${pageContext.request.contextPath }/icon/favicon.ico"/>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
@@ -28,6 +29,9 @@
       $("#proNavi").attr('class','nav-item nav-link active');
    });
 </script>
+<style>
+#pInfo > div:nth-child(4) > div.col-md-7 > div > span > input.tt-input{max-width:620px;}
+</style>
 </head>
 
 <body>
@@ -55,6 +59,7 @@
 								<div class="col-md-10">
 									<select class="form-control form-control-sm pSelect" onChange="loc1_change(this.value,loc2)" id="loc1" name="loc1">
 										<option selected disabled>선택</option>
+										<option value='0'>지역무관</option>
 								        <option value='1'>서울</option>
 								        <option value='2'>부산</option>
 								        <option value='3'>대구</option>
@@ -86,7 +91,7 @@
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-md-2"><label class="pItem">기간</label><label class="star">*</label></div>
+								<div class="col-md-2"><label class="pItem">프로젝트 기간</label><label class="star">*</label></div>
 								<div class="col-md-10">
 	        						<input type="text" class="form-control form-control-sm datePicker" placeholder="시작일" name="startDate" id="startDate" readonly>
 	        						<span> ~ </span>
@@ -95,8 +100,8 @@
 							</div>							
 							<div class="row">
 								<div class="col-md-2"><label class="pItem">사용언어</label><label class="star">*</label></div>
-								<div class="col-md-7">
-									<input type="text" class="form-control" id="languages" name="languages">
+								<div class="col-md-7" style="word-break:break-all;word-break:break-word;">
+									<input type="text" class="form-control" id="languages" name="languages" style="word-break:break-all;word-break:break-word;">
 								</div>
 							</div>
 							<div class="row">
@@ -140,12 +145,23 @@
         <jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
         
 		<script src="/js/project/location.js"></script>
-		<script>
+		<script>		
 		$('.summernote').summernote({
 			lang: 'ko-KR',
 	        placeholder: '내용을 입력해주세요',	        
 	        minHeight: 400,
-	        maxHeight: 400	        
+	        maxHeight: 400,
+	        toolbar: [
+	            ['style', ['style']],
+	            ['font', ['bold', 'underline', 'clear']],
+	            ['fontname', ['fontname']],
+	            ['color', ['color']],
+	            ['para', ['ul', 'ol', 'paragraph']],
+	            ['table', ['table']],
+	            ['insert', ['link', 'picture', 'hr']],
+	            ['view', ['fullscreen']],
+	            ['help', ['help']]
+	          ]
 	    });
 		
 		$('.datePicker').datepicker({
@@ -192,14 +208,17 @@
 			}
 		});
 		
-		$("#writeBtn").on("click",function(){				
-			if($("#loc1").val()==null|$("#loc2").val()==null|$("#capacity")==null|$("#startDate").val()==""|$("#endDate").val()==""|$("#languages").val()==""){
+		$("#writeBtn").on("click",function(){					
+			if($("#loc1").val()==null|$("#loc2").val()==null|$("#capacity").val()==""|$("#startDate").val()==""|$("#endDate").val()==""|$("#languages").val()==""){
+				if($("#pInfo").find(".tt-input").val()!=""){
+					$("#pInfo").find(".tt-input").val("");
+				}
 				alert("필수 입력 항목을 확인해주세요");
 				return false;
 			}
 			if($("#startDate").val()>$("#endDate").val()){
 				alert("시작일이 종료일보다 늦은 날짜일 수 없습니다");
-				$("#startDate").focus();
+				$("#startDate").focus();				
 				return false;
 			}				
 			$("#title").val($.trim($("#title").val())); 				
@@ -207,7 +226,7 @@
 				alert("제목을 입력해주세요");
 				return false;
 			}
-			regex = /^[(<p><br></p>)(<p>(&nbsp; ){1,}</p>)]{0,}$/g;
+			regex = /^[(<p><br></p>)(<p>(&nbsp; )+</p>)]{0,}$/;
 		   	var content = $(".summernote").val();
 		   	var result = regex.exec(content);
 		   	if(result!=null){
@@ -215,9 +234,44 @@
 		   		$(".note-editable").html("<p><br></p>");
 		   		$(".note-placeholder").show();
 		   		return false;
-		   	}		   	
-			$("#phone").val($("#phone1").val()+"-"+$("#phone2").val()+"-"+$("#phone3").val());
-			if($("#phone").val()=="--"){$("#phone").val("");}	
+		   	}
+			if($("#phone1").val()!=""||$("#phone2").val()!=""||$("#phone3").val()!=""){
+				var regex1 = /^(\d){3}$/;
+	            var data1 = $("#phone1").val();
+	            var result1 = regex1.exec(data1);
+				if(result1 == null){
+					alert("숫자를 입력해주세요");
+					$("#phone1").focus();
+					return false;
+				}            	
+				var regex2 = /^(\d){3,4}$/;
+	            var data2 = $("#phone2").val();
+	            var result2 = regex2.exec(data2);
+				if(result2 == null){
+					alert("숫자를 입력해주세요");
+					$("#phone2").focus();
+					return false;
+				}
+				var data3 = $("#phone3").val();
+				var result3 = regex2.exec(data3);
+				if(result3 == null){
+					alert("숫자를 입력해주세요");
+					$("#phone3").focus();
+					return false;
+				}
+			}	
+		   	$("#phone").val($("#phone1").val()+"-"+$("#phone2").val()+"-"+$("#phone3").val());
+			if($("#phone").val()=="--"){$("#phone").val("");}
+			if($("#email").val()!=""){
+				var regex = /^\w+@[a-z]+(\.[a-z]+){1,2}$/;
+	            var data = $("#email").val();
+	            var result = regex.exec(data);
+	            if(result == null){			
+					alert("올바른 이메일 형식이 아닙니다");				
+					$("#email").focus();
+					return false;
+	            }					
+			}
 			var loc1 = $("#loc1").find("option[value='"+$("#loc1").val()+"']").text();
 			var loc2 = $("#loc2").find("option[value='"+$("#loc2").val()+"']").text();
 			$("input[name=location1]").val(loc1);

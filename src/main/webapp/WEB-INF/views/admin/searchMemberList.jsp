@@ -8,7 +8,7 @@
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <title>Hello World!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="icon" type="image/png" href="${pageContext.request.contextPath }/adRsc/images/icons/favicon.ico"/>
+<link rel="icon" type="image/png" href="${pageContext.request.contextPath }/icon/adFavicon.ico"/>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath }/css/font-awesome/css/font-awesome.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath }/adRsc/css/themify-icons.css">
@@ -27,6 +27,21 @@
 <!-- jquery latest version -->
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <style>
+#guest #plogLogo{
+	display:block;
+}
+
+#guest #plogLogoActive{
+	display:none;
+}
+
+.metismenu #guest:hover #plogLogo, .metismenu #guest.active #plogLogo {
+	display:none;
+}
+
+.metismenu #guest:hover #plogLogoActive, .metismenu #guest.active #plogLogoActive {
+	display:block
+}
 	.nameBtn{
 		border: 1px solid transparent !important;
 		background-color:transparent !important;
@@ -126,7 +141,7 @@
                                             <tbody>
                                             	<c:choose>
                                             		<c:when test="${list.size() == 0}">
-                                            			<tr><th colspan='3'><marquee direction="right">결과가 없습니다</marquee></th></tr>
+                                            			<tr><th colspan='3'><marquee direction="right">해당하는 회원이 없습니다.</marquee></th></tr>
                                             		</c:when>    
                                             		<c:otherwise>
 		                                            	<c:forEach items="${list }" var="dto">
@@ -217,11 +232,12 @@
 	                                <select class="form-control form-control-sm" name="col">
 	                                    <option value="id">아이디</option>
 	                                    <option value="nickName">닉네임</option>
+	                                    <option value="email">이메일</option>
 	                                </select>
 	                                </div>
 	                                <div class="col-sm-6 my-1 pl-1 pr-1">
 									<input type="text" class="form-control form-control-sm" id="searchWord" name="searchWord"
-									placeholder="검색어를 입력하세요" maxlength="12">
+									placeholder="검색어를 입력하세요" maxlength="50">
 									</div>
 									<div class="col-sm-2 my-1 p-0 pl-1 pr-1 text-center">
 									<button type="button" class="btn btn-primary btn-xs btn-block" id="searchBtn">검색</button>
@@ -253,15 +269,15 @@
     <script src="${pageContext.request.contextPath }/adRsc/js/scripts.js"></script>
 	<c:if test="${list.size() != 0}">	
 	<script>
-			var element = $(".pageNavi");
-			var page = "${page}";
-			if(page > 0 && page <= 10){
-				element[page-1].classList.add('active');
-			}else if(page % 10 == 0){
-				element[10].classList.add('active');
-			}else{
-				element[page % 10].classList.add('active');
-			}			
+	var element = $(".pageNavi");
+	var page = "${page}";
+	if(page > 0 && page <= 5){
+		element[page-1].classList.add('active');
+	}else if(page % 5 == 0){
+		element[5].classList.add('active');
+	}else{
+		element[page % 5].classList.add('active');
+	}				
 	</script>
 	</c:if>    
 	<script>	 
