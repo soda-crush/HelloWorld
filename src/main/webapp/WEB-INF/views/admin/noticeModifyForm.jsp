@@ -32,11 +32,20 @@
 <script src="/js/summernote-ko-KR.js"></script>
 
 <style>
-#guest img{
-	opacity:50%;
+#guest #plogLogo{
+	display:block;
 }
-.metismenu #guest:hover img, .metismenu #guest.active img {
-	opacity:100%;
+
+#guest #plogLogoActive{
+	display:none;
+}
+
+.metismenu #guest:hover #plogLogo, .metismenu #guest.active #plogLogo {
+	display:none;
+}
+
+.metismenu #guest:hover #plogLogoActive, .metismenu #guest.active #plogLogoActive {
+	display:block
 }
 #home-tab:hover{
 cursor:default;
