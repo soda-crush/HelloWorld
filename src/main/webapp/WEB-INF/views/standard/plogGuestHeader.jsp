@@ -20,7 +20,7 @@
 	</div>
 
 	<nav class="navbar navbar-expand-md navbar-light" style="background-color: #f7941e;margin-bottom:0px;">
-		<div style="margin-left:20px;cursor:pointer;" class="navbar-brand" onClick="location.href='${pageContext.request.contextPath}/Portfolio/toPlogmain.do'">
+		<div style="margin-left:20px;cursor:pointer;" class="navbar-brand" onClick="location.href='${pageContext.request.contextPath}/Portfolio/toGuestPlogmain.do'">
 			<img src="/img/plog.png" style="height:35px;">
 		</div>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">

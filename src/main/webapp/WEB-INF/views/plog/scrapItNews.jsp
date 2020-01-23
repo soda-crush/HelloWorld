@@ -96,7 +96,7 @@
 						  		<c:otherwise>
 						  			<c:forEach items="${nlist}" var="dto">
 						  				<div class="row tableBody p-0">
-							    			<div style="cursor:pointer;text-align:left;font-weight:bold;" class="col-7 col-lg-6 line-over pl-2"><a style="color:black;" href="${pageContext.request.contextPath}/itnews/detail?seq=${dto.seq}&page=${page}">${dto.title}</a></div>
+							    			<div style="cursor:pointer;text-align:left;font-weight:bold;" class="col-7 col-lg-6 line-over pl-4"><a style="color:black;" href="${pageContext.request.contextPath}/itnews/detail?seq=${dto.seq}&page=${page}">${dto.title}</a></div>
 							    			<div class="col-3 col-lg-2 line-over pl-0 pr-0" >
 							    				<span style="cursor:pointer;font-weight:400;" onclick="popUp('${dto.id}','${dto.writer}')">
 													${dto.writer}
