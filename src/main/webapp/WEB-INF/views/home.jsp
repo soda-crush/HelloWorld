@@ -139,6 +139,7 @@ font-size: 11px;}
 /* 	opacity:100%!important; */
 	}
 </style>
+
 <script>
 $('.nav.navbar-nav a').hover(
         function () {
