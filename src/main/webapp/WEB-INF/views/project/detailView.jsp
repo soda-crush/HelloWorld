@@ -23,6 +23,39 @@
 <script>
    $(function(){
       $("#proNavi").attr('class','nav-item nav-link active');
+      
+		//카카오톡
+	  function shareKakaotalk() {
+	      Kakao.init("17c512cbe4e17a204cce3c9b7d64d274"); // 사용할 앱의 JavaScript 키를 설정
+	      Kakao.Link.sendDefault({
+	         objectType : "feed",
+	         content : {
+	            title : "${pPage.title}", // 콘텐츠의 타이틀 
+	            description : "프로젝트 모집", // 콘텐츠 상세설명
+	            imageUrl : "https://miro.medium.com/max/3840/1*U-R58ahr5dtAvtSLGK2wXg.png", // 썸네일 이미지          
+	            link : {
+	               mobileWebUrl : "http://${ip}/project/detailView?page=${page}&seq=${pPage.seq }", // 모바일 카카오톡에서 사용하는 웹 링크 URL		            		   
+	               webUrl : "http://${ip}/project/detailView?page=${page}&seq=${pPage.seq }" // PC버전 카카오톡에서 사용하는 웹 링크 URL
+	            }
+	         },
+	         social : {
+	            likeCount : 0 // LIKE 개수
+	            ,
+	            commentCount : 0 // 댓글 개수
+	            ,
+	            sharedCount : 0
+	         // 공유 회수
+	         },
+	         buttons : [ {
+	            title : "링크 이동하기" // 버튼 제목
+	            ,
+	            link : {
+	               mobileWebUrl : "http://${ip}/project/detailView?page=${page}&seq=${pPage.seq }",  // 모바일 카카오톡에서 사용하는 웹 링크 URL
+	               webUrl : "http://${ip}/project/detailView?page=${page}&seq=${pPage.seq }" // PC버전 카카오톡에서 사용하는 웹 링크 URL
+	            }
+	         } ]
+	      });
+	   }
    });
 </script>
 <style>
@@ -126,7 +159,7 @@
 							</div>
 							
 							 <div class="row align-items-center adBoxDiv">
-							    <div class="col-12">광고자리</div>
+							    <div class="col-12"><img src="/img/${adImg }"></div>
 							 </div>
 							
 							<div class="pPageComments">
@@ -633,38 +666,6 @@
 				$(".pPageComments").append(html.join(""));	
 			}
 		}
-		//카카오톡
-		  function shareKakaotalk() {
-		      Kakao.init("17c512cbe4e17a204cce3c9b7d64d274"); // 사용할 앱의 JavaScript 키를 설정
-		      Kakao.Link.sendDefault({
-		         objectType : "feed",
-		         content : {
-		            title : "${pPage.title}", // 콘텐츠의 타이틀 
-		            description : "프로젝트 모집", // 콘텐츠 상세설명
-		            imageUrl : "https://miro.medium.com/max/3840/1*U-R58ahr5dtAvtSLGK2wXg.png", // 썸네일 이미지          
-		            link : {
-		               mobileWebUrl : "http://${ip}/project/detailView?page=${page}&seq=${pPage.seq }", // 모바일 카카오톡에서 사용하는 웹 링크 URL		            		   
-		               webUrl : "http://${ip}/project/detailView?page=${page}&seq=${pPage.seq }" // PC버전 카카오톡에서 사용하는 웹 링크 URL
-		            }
-		         },
-		         social : {
-		            likeCount : 0 // LIKE 개수
-		            ,
-		            commentCount : 0 // 댓글 개수
-		            ,
-		            sharedCount : 0
-		         // 공유 회수
-		         },
-		         buttons : [ {
-		            title : "링크 이동하기" // 버튼 제목
-		            ,
-		            link : {
-		               mobileWebUrl : "http://${ip}/project/detailView?page=${page}&seq=${pPage.seq }",  // 모바일 카카오톡에서 사용하는 웹 링크 URL
-		               webUrl : "http://${ip}/project/detailView?page=${page}&seq=${pPage.seq }" // PC버전 카카오톡에서 사용하는 웹 링크 URL
-		            }
-		         } ]
-		      });
-		   }
 		  $("#kakaoSharing").on("click",shareKakaotalk);
 	</script>
 </body>
