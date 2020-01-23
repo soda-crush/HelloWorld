@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -104,7 +105,7 @@ $(function(){
 						질 문
 					</div>
 					<div class="col-xl-11 col-9 title">
-						<input type="text" name="title" style="width:100%" maxlength="100" id="title" value="${result.title}">
+						<input type="text" name="title" style="width:100%" maxlength="100" id="title" value="${fn:escapeXml(result.title)}">
 					</div>
 				</div>
 				
