@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -77,7 +79,7 @@ $(function() {
 				<input type="hidden" name="writer" value="${bPage.writer}">
              <input type="hidden" name="seq" value="${bPage.seq}"> 
 				<div class="col-12 title" >
-					<input type="text" id=title name=title style="width: 100%" value="${bPage.title}" maxlength="100" placeholder="제목을 입력해주세요.">
+					<input type="text" id=title name=title style="width: 100%" value="${fn:escapeXml(bPage.title)}" maxlength="100" placeholder="제목을 입력해주세요.">
 				</div>
 			</div>
 			<div class=row>

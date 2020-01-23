@@ -131,7 +131,23 @@ font-size: 11px;}
 		font-size: 12.5px;
 		color:#f09800;
 	}
+	.navbar-dark .navbar-nav .nav-link.active ,
+	.navbar-dark .navbar-nav .nav-link:hover{
+	color: white;
+	font-size: 17px !important;
+	line-height: 28px;
+/* 	opacity:100%!important; */
+	}
 </style>
+
+<script>
+$('.nav.navbar-nav a').hover(
+        function () {
+        	console.log("hover");
+            $('#plogLogo').css({"opacity": 100});
+        }
+);
+</script>
 </head>
 <body>
 		<jsp:include page="/WEB-INF/views/standard/header.jsp"/>

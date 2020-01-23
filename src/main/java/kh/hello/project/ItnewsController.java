@@ -17,6 +17,7 @@ import kh.hello.dto.LoginInfoDTO;
 import kh.hello.dto.ReportDTO;
 import kh.hello.dto.ScrapDTO;
 import kh.hello.services.ItnewsService;
+import kh.hello.utils.Utils;
 
 @Controller
 @RequestMapping("/itnews")
@@ -69,7 +70,7 @@ public class ItnewsController {
 		int end = realCpage * Configuration.recordCountPerPage;
 		int start = end - (Configuration.recordCountPerPage - 1);	
 		
-		List<ItnewsDTO> list = is.itnewsListTrimSrch(start, end, cate, search);
+		List<ItnewsDTO> list = is.itnewsListTrimSrch(start, end, cate, search.replaceAll("'", "''"));
 		m.addAttribute("list", list);
 		String pageNavi = is.getPageNaviSrch(realCpage, cate, search);
 		m.addAttribute("navi", pageNavi);
@@ -95,6 +96,8 @@ public class ItnewsController {
 			}
 			String profileImg = is.getImgByWriter(result.getWriter());
 			String ip = Configuration.ip;
+			String adver = Utils.getRandomAd();
+			m.addAttribute("adver", adver);
 			m.addAttribute("profileImg", profileImg);
 			m.addAttribute("list", list);
 			m.addAttribute("result", result);
@@ -135,6 +138,7 @@ public class ItnewsController {
 		
 		dto.setWriter(((LoginInfoDTO)session.getAttribute("loginInfo")).getNickName());
 		dto.setId(((LoginInfoDTO)session.getAttribute("loginInfo")).getId());
+		dto.setKakaoTitle(dto.getTitle());
 		
 		try {
 			int boardSeq = is.writeItnews(path, dto);

@@ -35,7 +35,7 @@
 		Kakao.Link.sendDefault({
 			objectType : "feed",
 			content : {
-				title : "${qResult.title}", // 콘텐츠의 타이틀
+				title : "${qResult.kakaoTitle}", // 콘텐츠의 타이틀
 				description : "Code-How", // 콘텐츠 상세설명
 				imageUrl : "https://miro.medium.com/max/3840/1*U-R58ahr5dtAvtSLGK2wXg.png", // 썸네일 이미지 			
 				link : {

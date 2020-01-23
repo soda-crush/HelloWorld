@@ -16,8 +16,17 @@ public class IndustryStatusDTO {
 	private String id;
 	private int commentCount;
 	private String profileImg;
+	private String kakaoTitle;
 	
 	
+	public String getKakaoTitle() {
+		return kakaoTitle;
+	}
+
+	public void setKakaoTitle(String kakaoTitle) {
+		this.kakaoTitle = kakaoTitle;
+	}
+
 	public String getProfileImg() {
 		return profileImg;
 	}
