@@ -379,7 +379,7 @@ public class ProjectMemController {
 	
 	@RequestMapping("/pLog/applyProjectList")
 	public String applyProjectList(String page, String searchOption, String keyword, Model m){
-		OwnerInfoDTO sessionValue = (OwnerInfoDTO)session.getAttribute("OwnerInfoDTO");
+		OwnerInfoDTO sessionValue = (OwnerInfoDTO)session.getAttribute("ownerInfo");
 		String id = sessionValue.getId();				
 		int currentPage = 1;
 		if(page!=null) {

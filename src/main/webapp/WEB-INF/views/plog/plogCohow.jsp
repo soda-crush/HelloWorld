@@ -16,8 +16,8 @@
 <link rel="stylesheet" type="text/css" href="/css/font-awesome/css/font-awesome.css">
 <link rel="stylesheet" href="/css/project/list.css" type="text/css"/>
 	<style>
-		.card{width:200px;height:300px;margin: auto;}
-		.myprofile{margin-bottom:30px;padding-right:0px;}
+		.card{width:200px;height:300px;margin: auto;float :left;}
+		.myprofile{margin-bottom:30px;float: left;width:200px;text-align:center;}
 		#mycard{ float:none;display:flex;align-items:center;}
 		.commentwrite{width:100%;height:100px;padding: 0px;margin-top: 10px;float: left;}
 		.commentlist{width:100%;padding: 0px;margin-top: 10px;float: left;}
@@ -25,7 +25,7 @@
 		.content{height:90%;float: left;resize: none;}
 		.sendbt{height:90%;float: left;}
 		#writer{text-underline-position: auto;margin-right: 30px;}
-        .cohowwrap{background-color:white;border: 1px solid rgba(0,0,0,.125);}
+		.scraptwrap{background-color:white;border: 1px solid rgba(0,0,0,.125);}
 		.coltheme{margin:30px;font-weight:bold;}
 		.navi{text-align: center;}
         a:hover{text-decoration:none;}
