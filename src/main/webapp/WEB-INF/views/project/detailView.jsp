@@ -667,8 +667,8 @@
 					html.push(							
 						'</div></div>',
 						'<div class="row commentContent">',
-						'<div class="col-12 pt-1 pl-4" style="word-break:break-all;word-break:break-word;">'+resp[i].contents+'</div></div>',
-						'<input type="hidden" value="'+resp[i].modComment+'" id="hiddenModCo'+resp[i].seq+'">'
+						'<div class="col-12 pt-1 pl-4" style="word-break:break-all;word-break:break-word;">'+resp[i].contents+'</div>',
+						'<input type="hidden" value="'+resp[i].modComment+'" id="hiddenModCo'+resp[i].seq+'"></div>'
 					);
 				}else{
 					html.push(								
