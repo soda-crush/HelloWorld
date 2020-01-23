@@ -43,7 +43,6 @@ public class MemberController {
 			int result;
 			try {
 				result = ms.login(id, pw);
-				
 				if(result > 0) {
 					LoginInfoDTO dto = new LoginInfoDTO(id, ms.selectMember(id).getNickName(), ms.selectMember(id).getMemLevel());
 					session.setAttribute("loginInfo", dto);
@@ -57,7 +56,7 @@ public class MemberController {
 							return "redirect:../industry/industryStatusList.do";
 						}else if(noMemPath.contentEquals("toPlog")){
 							//수정 필요
-							return "redirect:../Portfolio/toPlog.do?owner="+((LoginInfoDTO)session.getAttribute("loginInfo")).getId();
+							return "redirect:../Portfolio/toPlog.do?owner="+((LoginInfoDTO)session.getAttribute("loginInfo")).getId()+"&other=\"Y\"";
 						}else {
 							return "redirect:/";
 						}
