@@ -48,7 +48,7 @@
             <div class="row">
             	<div class="col-12">
             		<h4><br></h4>
-            		<h3><img src="/icon/whiteArrow.svg" style="position:relation;">회원가입</h3>
+            		<h3><img src="/icon/whiteArrow.svg" style="position:relative;bottom:3px;right:4px;">회원가입</h3>
             		<p class=redP>&emsp;&emsp;* 은 필수표기정보입니다.</p> 
            		</div>
             </div>
@@ -59,7 +59,7 @@
             </div>
             <div class=row>
             	<div class=col-12>
-            		<img src="/icon/arrow.svg" class="arrow"><h5 style="display:inline">아이디</h5><p class=redP style="display:inline">*</p><br>
+            		<img src="/icon/arrow.svg" class="arrow" style="position:relative;bottom:3px;right:3px;"><h5 style="display:inline;">아이디</h5><p class=redP style="display:inline">*</p><br>
             		&emsp;<input type=text name=id id=id placeholder="아이디 입력"> 
             		<img id=idCheck style="display:none;">
             		<div id=idMsg></div>
@@ -72,7 +72,7 @@
             </div>
             <div class=row>
             	<div class=col-12>
-            		<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow>이름</h5><p class=redP style="display:inline">*</p><br>
+            		<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow style="position:relative;bottom:3px;right:3px;">이름</h5><p class=redP style="display:inline">*</p><br>
             		&emsp;<input type=text name=name id=name placeholder="이름 입력">
             		<img id=nameCheck style="display:none;">
             		<div id=nameMsg></div>
@@ -85,12 +85,13 @@
             </div>
              <div class=row>
             	<div class="col-12 col-sm-6">
-            	<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow>비밀번호</h5><p class=redP style="display:inline">*</p><br>
+            	<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow style="position:relative;bottom:3px;right:3px;">비밀번호</h5><p class=redP style="display:inline">*</p><br>
             		&emsp;<input type=password name=pw id=pw placeholder="비밀번호 입력">
             		<div id=pwMsg></div>
             	</div>
+            	<div class="col-12 d-sm-none"></div>
             	<div class="col-12 col-sm-6">
-            	<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow>비밀번호 확인</h5><p class=redP style="display:inline">*</p><br>
+            	<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow style="position:relative;bottom:3px;right:3px;">비밀번호 확인</h5><p class=redP style="display:inline">*</p><br>
             		&emsp;<input type=password name=pwRe id=pwRe placeholder="비밀번호 재입력">
             		<img id=pwCheck style="display:none;">
             	</div>
@@ -102,7 +103,7 @@
             </div>
              <div class=row>
             	<div class=col-12>
-            	<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow>이메일</h5><p class=redP style="display:inline">*</p><br><br>
+            	<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow style="position:relative;bottom:3px;right:3px;">이메일</h5><p class=redP style="display:inline">*</p><br><br>
             		<input type=radio name=empCheck value=unemployee class=emp><p style="display:inline;font-size:17px;">비실무자</p>
             	</div>
             	<div class=col-12>
@@ -119,13 +120,13 @@
             <div id=empEle style="display:none;">
             	<div class=row>
 	            	<div class="col-12 col-sm-6">
-		            	<h5 style="display:inline;"><img src="/icon/doubleArrow.svg" class=arrow>회사 메일</h5><p class=redP style="display:inline">* 메일을 전송하는데 다소 시간이 걸립니다. 메일 전송 알림창이 뜰 때 까지 기다려 주세요.</p>
+		            	<h5 style="display:inline;"><img src="/icon/doubleArrow.svg" class=arrow style="position:relative;bottom:3px;right:3px;">회사 메일</h5><div class="d-sm-none"></div><p class="redP" style="display:inline">* 메일을 전송하는데 다소 시간이 걸립니다. 메일 전송 알림창이 뜰 때 까지 기다려 주세요.</p>
 		            		&emsp;<br>&emsp;<input type=text name=empEmail id=empEmail placeholder="메일 주소 입력">
 		            		<button type=button id=sendMail1>인증 메일 발송</button>
 	            	</div>
 	            	<div class="col-12 col-sm-6">
-		            	<h5 style="display:inline;"><img src="/icon/doubleArrow.svg" class=arrow>인증 코드</h5><p class=redP style="display:inline">*</p>
-		            	<p style="display:inline;">-메일로 전송된 코드를 입력해주세요.</p>
+		            	<h5 style="display:inline;"><img src="/icon/doubleArrow.svg" class=arrow style="position:relative;bottom:3px;right:3px;">인증 코드</h5><p class=redP style="display:inline">*</p>
+		            	<div class="d-sm-none"></div><p style="display:inline;" class="pl-2 pl-sm-0">-메일로 전송된 코드를 입력해주세요.</p>
 		            		&emsp;<br>&emsp;<input type=text name=empCode id=empCode placeholder="인증 코드 입력">
 		            		<button type=button id = "certification1">인증</button>
 		            		<img id=empEmailCheck style="display:inline;" src="/icon/x.svg">
@@ -135,13 +136,13 @@
             <div id=unempEle style="display:none">
              	<div class=row>
 	            	<div class="col-12 col-sm-6">
-		            	<h5 style="display:inline"><img src="/icon/doubleArrow.svg" class=arrow>개인 메일</h5><p class=redP style="display:inline">* 메일을 전송하는데 다소 시간이 걸립니다. 메일 전송 알림창이 뜰 때 까지 기다려 주세요.</p>
+		            	<h5 style="display:inline"><img src="/icon/doubleArrow.svg" class=arrow style="position:relative;bottom:3px;right:3px;">개인 메일</h5><div class="d-sm-none"></div><p class=redP style="display:inline">* 메일을 전송하는데 다소 시간이 걸립니다. 메일 전송 알림창이 뜰 때 까지 기다려 주세요.</p>
 		            		&emsp;<br>&emsp;<input type=text name=unempEmail id=unempEmail placeholder="메일 주소 입력">
 		            		<button type=button id=sendMail2>인증 메일 발송</button>
 	            	</div>
 	            	<div class="col-12 col-sm-6">
-		            	<h5 style="display:inline;"><img src="/icon/doubleArrow.svg" class=arrow>인증 코드</h5><p class=redP style="display:inline">*</p>
-		            	<p style="display:inline;">-메일로 전송된 코드를 입력해주세요.</p>
+		            	<h5 style="display:inline;"><img src="/icon/doubleArrow.svg" class=arrow  style="position:relative;bottom:3px;right:3px;">인증 코드</h5><p class=redP style="display:inline">*</p>
+		            	<div class="d-sm-none"></div><p style="display:inline;" class="pl-2 pl-sm-0">-메일로 전송된 코드를 입력해주세요.</p>
 		            		&emsp;<br>&emsp;<input type=text name=unempCode id=unempCode placeholder="인증 코드 입력">
 		            		<button type=button id = "certification2">인증</button>
 		            		<img id=unempEmailCheck style="display:inline;" src="/icon/x.svg">
@@ -155,7 +156,7 @@
             </div>
              <div class=row>
             	<div class=col-12>
-            		<h5><img src="/icon/doubleArrow.svg" class=arrow>개인정보 공개여부</h5>
+            		<h5><img src="/icon/doubleArrow.svg" class=arrow style="position:relative;bottom:3px;right:3px;">개인정보 공개여부</h5>
             		&emsp;Programming Log(포트폴리오, 프로젝트 참여현황, 방명록)를 타인이 열람하는 것에 동의합니다.<br>
             		&emsp;비동의 하실경우 Programmming Log에서 프로필 정보만 공개됩니다.<br>
             		&emsp;동의합니다.<input type="checkbox" name="ifmOpenCheck" id="ifmOpenCheck" value="Y">
@@ -183,7 +184,7 @@
             </div>
             <div class=row>
             	<div class=col-12>
-            		<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow>닉네임</h5><p class=redP style="display:inline">*</p><br>
+            		<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow style="position:relative;bottom:3px;right:3px;">닉네임</h5><p class=redP style="display:inline">*</p><br>
             		&emsp;<input type=text name=nickName id=nickName placeholder="닉네임 입력">
             		<img id=nickCheck style="display:none;">
             		<div id=nickMsg></div>
@@ -196,13 +197,14 @@
             </div>
             <div class=row>
             	<div class=col-12>
-            		<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow>생년월일</h5><p class=redP style="display:inline">*</p><br>
+            		<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow style="position:relative;bottom:3px;right:3px;">생년월일</h5><p class=redP style="display:inline">*</p><br>
 <!--             		<input type="text" id="startInputDate" class="form-control form-control-sm datePicker" placeholder="생년월일" name="startInputDate"> -->
 <!--             		<input type="hidden" id="startDate" name="startDate"> -->
 						&emsp;<select id="birthdayYear" name=birthdayYear></select>
 						<select id="birthdayMonth" name=birthdayMonth></select>
 						<select id="birthdayDay" name=birthdayDay></select>
 						<input name="birthday" id="birthday" style="display:none"> 
+						<img id=birthCheck src="/icon/x.svg">
             		</div>
             </div>
               <div class=row>
@@ -212,7 +214,7 @@
             </div>
             <div class=row>
             	<div class=col-12>
-            		<h5><img src="/icon/arrow.svg" class=arrow>주소</h5>
+            		<h5><img src="/icon/arrow.svg" class=arrow style="position:relative;bottom:3px;right:3px;">주소</h5>
             		&emsp;<input type="text" id="postcode" name="postcode" placeholder="우편번호" onclick="sample4_execDaumPostcode()" readonly>
             		<input type="button" onclick="sample4_execDaumPostcode()" value="찾기"><br>
             		&emsp;<input type="text" id="addr1" name=addr1 placeholder="도로명주소" onclick="sample4_execDaumPostcode()" readonly>
@@ -225,7 +227,7 @@
             </div>
             <div class=row>
             	<div class=col-12>
-            		<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow>휴대전화</h5><p class=redP style="display:inline">*</p><br>
+            		<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow style="position:relative;bottom:3px;right:3px;">휴대전화</h5><p class=redP style="display:inline">*</p><br>
             		&emsp;<input type=text name=phone id=phone placeholder="-을 빼고 숫자만 입력">
             		<img id=phoneCheck style="display:none;">
             		<div id=phoneMsg></div>
@@ -238,7 +240,7 @@
             </div>
             <div class=row>
             	<div class=col-12>
-            		<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow>가입 경로</h5><p class=redP style="display:inline">*</p><br>
+            		<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow style="position:relative;bottom:3px;right:3px;">가입 경로</h5><p class=redP style="display:inline">*</p><br>
             		&emsp;<input type=radio name=joinPath value="jp1">지인 추천<br>
             		&emsp;<input type=radio name=joinPath value="jp2">'Hello World!' 검색<br>
             		&emsp;<input type=radio name=joinPath value="jp3">'프로젝트 모집' 검색<br>
@@ -254,7 +256,7 @@
             </div>
             <div class=row>
             	<div class=col-12>
-            		<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow>성별</h5><p class=redP style="display:inline">*</p><br>
+            		<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow style="position:relative;bottom:3px;right:3px;">성별</h5><p class=redP style="display:inline">*</p><br>
             		&emsp;<input type=radio name="gender" value="W">여성<br>
             		&emsp;<input type=radio name="gender" value="M">남성
             	</div>
@@ -779,7 +781,7 @@
 
 				var str = "";
 				// 년도 설정
-				for (var i=year-1; i>=1900; i--) {
+				for (var i=year-1; i>=1930; i--) {
 					str += "<option value='" + i + "' selected='selected'>" + i + "</option>";
 				}
 				str += "<option value='N' selected='selected'>년</option>";	
@@ -815,6 +817,10 @@
 				}else{
 					birthYearTest = 0;
 				}
+				
+				if((birthMonthTest==1)&&(birthDayTest==1)){
+					$("#birthCheck").attr("src","/icon/check.svg");
+				}
 			})
 			$("#birthdayMonth").on("change",function(){
 				if($("#birthdayMonth").val() != "N"){
@@ -822,12 +828,20 @@
 				}else{
 					birthMonthTest = 0;
 				}
+				
+				if((birthYearTest==1)&&(birthDayTest==1)){
+					$("#birthCheck").attr("src","/icon/check.svg");
+				}
 			})
 			$("#birthdayDay").on("change",function(){
 				if($("#birthdayDay").val() != "N"){
 					birthDayTest = 1;
 				}else{
 					birthDayTest = 0;
+				}
+				
+				if((birthMonthTest==1)&&(birthYearTest==1)){
+					$("#birthCheck").attr("src","/icon/check.svg");
 				}
 			})
 
