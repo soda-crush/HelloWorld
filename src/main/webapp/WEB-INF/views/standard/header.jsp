@@ -40,7 +40,7 @@
                 <div class="navbar-nav box text-center" id="naviCon">
                     <a id="bambooNavi" class="nav-item nav-link" href="${pageContext.request.contextPath}/bamboo/bambooList.do" style="font-family:'NanumgothicBold';">대나무숲</a>
                     <a id="codeNavi" class="nav-item nav-link cococo" href="${pageContext.request.contextPath}/code/codeQList.do" style="font-family:'NanumgothicBold';">Code-How</a>
-                    <a id="indusNavi" class="nav-item nav-link" href="${pageContext.request.contextPath}/industry/industryStatusList.do" style="font-family:'NanumgothicBold';">HELL<div style="display:inline;opacity:55%;">o</div></a>
+                    <a id="indusNavi" class="nav-item nav-link" href="${pageContext.request.contextPath}/industry/industryStatusList.do" style="font-family:'NanumgothicBold';">HELL<span style="display:inline;opacity:55%;">o</span></a>
                     <a id="itNavi" class="nav-item nav-link" href="${pageContext.request.contextPath}/itnews/itnewsList" style="font-family:'NanumgothicBold';">IT 뉴스</a>
                     <a id="proNavi" class="nav-item nav-link" href="${pageContext.request.contextPath}/project/list" style="font-family:'NanumgothicBold';">프로젝트</a>
                     <a id="plogNavi" class="nav-item nav-link" href="${pageContext.request.contextPath}/Portfolio/toPlog.do?owner=${loginInfo.id}&other='N'" style="font-family:'NanumgothicBold';"><img id =plogLogo src="/img/logoPlog.png" class="pr-md-4 pr-0"></a>

@@ -180,13 +180,14 @@
 												</div>				
 												<div class="col-4 pt-2 text-right commentBtns">
 													<c:if test="${dto.writer==sessionScope.loginInfo.nickName&&loginInfo.memLevel!=1}">
-														<a class="btn btn-info coModBtn" href="#" onclick="coModFunction(${dto.seq},'${dto.content}');return false;" role="button">수정</a>
+														<a class="btn btn-info coModBtn" href="#" onclick="coModFunction(${dto.seq});return false;" role="button">수정</a>
 														<a class="btn btn-danger coDelBtn" href="#" onclick="coDelFunction(${dto.seq});return false;" role="button">삭제</a>
 													</c:if>
 												</div>								
 											</div>											
 											<div class="row commentContent">
 												<div class="col-12 pt-1 pl-4" style="word-break:break-all;word-break:break-word;">${dto.content}</div>
+												<input type="hidden" value="${dto.modComment }" id="hiddenModCo${dto.seq }">
 											</div>
 										</div>
 									</div>								
@@ -398,14 +399,15 @@
 		           	}
             		
             		//댓글 수정
-            		function coModFunction(seq,contents){     
+            		function coModFunction(seq){     
+            			var checkContents = $("#hiddenModCo"+seq).val().replace(/modF'Fdom/gi,'"');
 						$(".commentBox"+seq).find(".commentBtns").css("display","none");
 						$(".commentBox"+seq).find(".commentContent").css("display","none");
 		           		$(".commentBox"+seq).wrap('<form action="/project/comment/modifyProc" method="post" id="coModFrm"></form>');
 						var html = [];
 		    			html.push(
 		    					'<div class="col-12 coModBox mt-2"><div class="row">',
-		    					'<div class="col-9 col-md-10 col-xl-11 pr-0"><textarea class="form-control" placeholder="댓글 내용을 입력해주세요" id="pCoModContents" style="height:80px;" name="content" maxlength="1300">'+contents+'</textarea></div>',
+		    					'<div class="col-9 col-md-10 col-xl-11 pr-0"><textarea class="form-control" placeholder="댓글 내용을 입력해주세요" id="pCoModContents" style="height:80px;" name="content" maxlength="1300">'+checkContents+'</textarea></div>',
 		    					'<div class="col-3 col-md-2 col-xl-1"><input type="hidden" name="seq" value="'+seq+'"><input type="hidden" name="projectSeq" value="${pPage.seq }">',
 		    					'<div class="row">',
 		    					'<div class="col-12 text-center p-0">',
@@ -463,13 +465,14 @@
 									);
 							if(resp[i].writer==loginInfo){
 								html.push(
-										'<a class="btn btn-info coModBtn" href="#" onclick="coModFunction('+resp[i].seq+',\''+resp[i].content+'\');return false;" role="button">수정</a>\n',
+										'<a class="btn btn-info coModBtn" href="#" onclick="coModFunction('+resp[i].seq+'\');return false;" role="button">수정</a>\n',
 										'<a class="btn btn-danger coDelBtn" href="#" onclick="coDelFunction('+resp[i].seq+');return false;" role="button">삭제</a>'
 										);
 							}
 							html.push(
 									'</div></div>',
-									'<div class="row commentContent"><div class="col-12 pt-1 pl-4">'+resp[i].content+'</div></div></div></div>'
+									'<div class="row commentContent"><div class="col-12 pt-1 pl-4">'+resp[i].content+'</div></div></div></div>',
+									'<input type="hidden" value="'+resp[i].modComment+'" id="hiddenModCo'+resp[i].seq+'">'
 									);
 							$(".coContainer").append(html.join(""));	
 							}

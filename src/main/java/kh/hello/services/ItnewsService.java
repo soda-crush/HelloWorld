@@ -253,6 +253,7 @@ public class ItnewsService {
 		for(ItnewsCoDTO i : list) {
 			i.setFormedDate(i.getWriteDate());
 			System.out.println(i);
+			i.setModComment(i.getContent());
 		}
 		Gson gson = new Gson();
 		return gson.toJson(list);
