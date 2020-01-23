@@ -14,22 +14,19 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/css/project/projectBase.css" type="text/css"/>
 <link rel="stylesheet" href="/css/project/pLogList.css" type="text/css"/>
-<style>
-	.capaCheck:not(.achieve0){color:limegreen;}
-</style>
 </head>
 
 <body>
 			<div style="width:96%;">
 				<div id="pageTitle" class="row">
-					<div class="col-12"><h4>내가 <span style="color:#1D1294;">모집</span>한 프로젝트</h4></div>					
+					<div class="col-12"><h4><span style="color:#1D1294;">모집</span>한 프로젝트</h4></div>					
 				</div>
 				<div class="tableDiv">
 					<div class="row tableHead">					    
-					    <div class="col-2 col-md-1 col-lg-1 pl-2">상태</div>
-					    <div class="col-2 col-md-1">인원</div>
-					    <div class="col-4 col-lg-3">프로젝트 기간</div>
-					    <div class="col-4 col-md-3 col-lg-4">제목</div>					    
+					    <div class="col-2 col-sm-2 col-md-1 col-lg-1 pl-2">상태</div>
+					    <div class="col-2 col-sm-2 col-md-1">인원</div>
+					    <div class="d-none col-sm-4 d-sm-block col-lg-3">프로젝트 기간</div>
+					    <div class="col-8 col-sm-4 col-md-3 col-lg-4">제목</div>					    
 					    <div class="d-none col-md-2 d-md-block">작성일</div>	
 					    <div class="d-none col-md-1 d-md-block col-lg-1">조회</div>				    					    
 					</div>
@@ -41,10 +38,10 @@
 				  		<c:otherwise>
 				  			<c:forEach items="${makeProjectList }" var="m">
 				  				<div class="row makeTableBody tableBody p-0">
-									<div class="col-2 col-md-1 col-lg-1 pl-2 state${m.state }">${m.stateInKor }</div>
-									<div class="col-2 col-md-1"><strong>${m.capacity }</strong> <small class="text-secondary">명</small></div>
-									<div class="col-4 col-lg-3"><small>${m.formedAllDate }</small></div>
-									<div class="col-4 col-md-3 col-lg-4 text-decoration-none" onclick="popUp('/project/detailView?seq=${m.seq }')">
+									<div class="col-2 col-sm-2 col-md-1 col-lg-1 pl-2 state${m.state }">${m.stateInKor }</div>
+									<div class="col-2 col-sm-2 col-md-1"><strong>${m.capacity }</strong> <small class="text-secondary">명</small></div>
+									<div class="d-none col-sm-4 d-sm-block col-lg-3"><small>${m.formedAllDate }</small></div>
+									<div class="col-8 col-sm-4 col-md-3 col-lg-4 text-decoration-none" onclick="popUp('/project/detailView?seq=${m.seq }')">
 										<div class="row">
 											<div style="max-width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;">${m.title }</div> 
 											<c:if test="${m.commentCount>0 }">

@@ -51,13 +51,17 @@
 	background-color:#fff;
 	border-radius:10px;	
 }
-.commentInfo{
-	font-size:13px;
+.commentInfo1{
 	padding-left:10px;
 	margin-top:3px;
 }
-.commentWriter,.commentWriteDate{padding-left:0px;}
-.commentWriteDate{color: darkgray;}
+.commentInfo2{
+	padding-left:10px;
+/* 	margin-top:3px; */
+}
+/* .commentWriter,.commentWriteDate,.commentChangeDate,.commentDelDate{padding-left:0px;} */
+/* .commentWriter{font-weight:bold;} */
+.commentWriteDate,.commentChangeDate,.commentDelMessage,.commentDelDate{color:darkgray;}
 .coModBtn,.coDelBtn,.coReplyBtn{
 	width: 45px;
 	height: 25px;
@@ -76,8 +80,6 @@ img{max-width:100%;}
 #scrapDone{color:crimson;}
 #kakaoSharing,#scrapDone,#scrapNull:hover{cursor:pointer;}
 #kakaoSharing:hover{color:#ffc107;}
-.commentWriteDate{font-size:10px;}
-.commentWriter{font-weight:bold;}
 #pCoReplyContents{
     margin-top:10px;
 	margin-bottom:15px;

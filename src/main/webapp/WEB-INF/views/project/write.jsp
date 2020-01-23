@@ -59,6 +59,7 @@
 								<div class="col-md-10">
 									<select class="form-control form-control-sm pSelect" onChange="loc1_change(this.value,loc2)" id="loc1" name="loc1">
 										<option selected disabled>선택</option>
+										<option value='0'>지역무관</option>
 								        <option value='1'>서울</option>
 								        <option value='2'>부산</option>
 								        <option value='3'>대구</option>

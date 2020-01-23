@@ -64,7 +64,6 @@
 <style>
 #pInfo > div:nth-child(4) > div.col-md-7 > div > span > input.tt-input{max-width:620px;}
 #applyFrm > div.modal-body > div:nth-child(1) > div.col-7.pApplyInput > div > span > input.tt-input{max-width:250px;}
-.myCommentBox{background-color:#f0f6ff;}
 </style>
 </head>
 
@@ -125,7 +124,7 @@
 							<div class="row"><div class="ml-4 col-3 col-md-2 col-xl-1 dLabel">연락처</div><div class="col-7">${pPage.phone }</div></div>
 							<div class="row"><div class="ml-4 col-3 col-md-2 col-xl-1 dLabel">메일주소</div><div class="col-7">${pPage.email }</div></div>
 						
-							<div class="text-center checkBtn">
+							<div class="text-center checkBtn mt-3">
 								<c:choose>
 									<c:when test="${pPage.id == sessionScope.loginInfo.id}">										
 											<c:choose>
@@ -174,32 +173,36 @@
 											<div class="col-1 text-right pt-1"><span>┗</span></div>
 										</c:if>
 										<div class="col-${12-c.depth } commentInnerBox pb-0">
-<%-- 										<c:if test="${c.id==sessionScope.loginInfo.id }"> --%>
-<!-- 											<input type="hidden" class="myCommentBox"> -->
-<%-- 										</c:if> --%>
+										<c:if test="${c.id==sessionScope.loginInfo.id }">
+											<input type="hidden" class="myCommentBox">
+										</c:if>
 											<c:choose>
 												<c:when test="${c.contents!=null }">
 													<div class="row commentHeader">
-														<div class="col-lg-1 d-none d-lg-block profileBox pl-1 pt-2 pr-0"><img src="${c.profileImg }" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>
-														<div class="col-7 col-lg-6 pt-1">
-															<div class="row commentInfo pl-2">
-																<div class="col-12 commentWriter"><span style="font-weight:bold;cursor:pointer;" onclick="popUp('/Portfolio/toPlog.do?owner=${c.id}&other=Y')">${c.writer }</span></div>
-																<div class="col-12 commentWriteDate">
-																	<span>${c.formedWriteDate }</span>
-																	<c:if test="${c.changeDate!=null }">
-																		<span style="margin-left: 10px;">(수정일 : ${c.formedChangeDate })</span>
+														<div class="col-md-1 d-none d-md-block profileBox pl-1 pt-2 pr-0"><img src="${c.profileImg }" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>
+														<div class="col-12 col-md-11 pt-1">
+															<div class="row commentInfo1 pl-2" style="height:22px;">
+																<div class="col-6 commentWriter p-0">
+																	<span style="font-weight:bold;cursor:pointer;" onclick="popUp('/Portfolio/toPlog.do?owner=${c.id}&other=Y')">${c.writer }</span>
+																</div>
+																<div class="col-6 text-right commentBtns">
+																	<c:if test="${c.depth==0 }">
+																		<a style="height:90%;width:40px;font-size:14px;" class="btn btn-warning coReplyBtn align-middle" href="#" onclick="coReplyFunction(${c.seq});return false;" role="button">답글</a>
+																	</c:if>													
+																	<c:if test="${c.id==sessionScope.loginInfo.id }">
+																		<a style="height:90%;width:40px;font-size:14px;" class="btn btn-info coModBtn" href="#" onclick="coModFunction(${c.seq});return false;" role="button">수정</a>
+																		<a style="height:90%;width:40px;font-size:14px;" class="btn btn-danger coDelBtn" href="#" onclick="coDelFunction(${c.seq});return false;" role="button">삭제</a>
+																	</c:if>
+																</div>				
+															</div>
+															<div class="row commentInfo2 pl-2 mt-0">
+																<div class="col-12 p-0">
+																	<span class="commentWriteDate pr-2" style="font-size:13px;">${c.formedWriteDate }</span>
+																	<c:if test="${c.changeDate!=null }">																			
+																		<span class="commentChangeDate" style="font-size:13px;">(수정일 : ${c.formedChangeDate })</span>
 																	</c:if>
 																</div>
 															</div>
-														</div>				
-														<div class="col-5 pt-2 text-right commentBtns">
-															<c:if test="${c.depth==0 }">
-																<a class="btn btn-warning coReplyBtn" href="#" onclick="coReplyFunction(${c.seq});return false;" role="button">답글</a>
-															</c:if>													
-															<c:if test="${c.id==sessionScope.loginInfo.id }">
-																<a class="btn btn-info coModBtn" href="#" onclick="coModFunction(${c.seq});return false;" role="button">수정</a>
-																<a class="btn btn-danger coDelBtn" href="#" onclick="coDelFunction(${c.seq});return false;" role="button">삭제</a>
-															</c:if>
 														</div>								
 													</div>
 													<div class="row commentContent">
@@ -208,7 +211,12 @@
 													</div>
 												</c:when>
 												<c:otherwise>
-													<span class="row align-middle m-2 mt-2">삭제된 댓글입니다.<span class="delCoDate" style="margin-left: 10px;color:darkgray;">(삭제일 : ${c.formedChangeDate })</span></span>
+													<div class="row mt-2 mb-2">
+														<div class="col-12">
+															<span class="commentDelMessage pr-2" style="font-size:13px;">삭제된 댓글입니다.</span>
+															<span class="commentDelDate" style="font-size:13px;">(삭제일 : ${c.formedChangeDate })</span>
+														</div>
+													</div>
 												</c:otherwise>											
 											</c:choose>
 										</div>
@@ -273,7 +281,7 @@
 		<jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
 		
 		<script>
-		$(".myCommentBox").closest(".commentInnerBox").css("background-color","#f0f6ff");
+		$(".myCommentBox").closest(".commentInnerBox").css("background-color","#e8f1ff");
 		function popUp(link){
 			window.open(link, "pLogPopUp", "width=800,height=600");
 		}
@@ -330,8 +338,8 @@
 					'<div class="col-1 text-right pt-1"><span>┗</span></div>',
 					'<div class="col-11 commentInnerBox pb-0">',
 					'<div class="row mt-2">',
-					'<div class="col-9 col-lg-10"><textarea class="form-control" placeholder="답글 내용을 입력해주세요" id="pCoReplyContents" name="contents" maxlength="1300"></textarea></div>',
-					'<div class="col-3 col-lg-2">',
+					'<div class="col-9 col-md-10"><textarea class="form-control ml-0" placeholder="답글 내용을 입력해주세요" id="pCoReplyContents" name="contents" maxlength="1300"></textarea></div>',
+					'<div class="col-3 col-md-2 p-0">',
 					'<div class="row">',
 					'<div class="col-12">',
 					'<button type="button" class="btn btn-secondary" style="margin-bottom:10px;margin-top:10px;" id="coReplyCancel">취소</button>',
@@ -348,7 +356,11 @@
 					'</div>'
 			);
 			if($('.commentBox'+seq).nextAll('.coLevel0:first').length==0){
-				$('.commentBox'+seq).after(html.join(""));
+				if($('.commentBox'+seq).next('.coLevel1').length>0){
+					$('.commentBox'+seq).nextAll('.coLevel1:last').after(html.join(""));
+				}else{
+					$('.commentBox'+seq).after(html.join(""));	
+				}				
 			}else{
 				$('.commentBox'+seq).nextAll('.coLevel0:first').before(html.join(""));	
 			}
@@ -626,53 +638,62 @@
 						'<div class="col-1 text-right pt-1"><span>┗</span></div>'		
 					);
 				}
-				html.push(
-					'<div class="col-'+(12-resp[i].depth)+' commentInnerBox pb-0">'					
-				);
 				if(resp[i].id==loginInfo){
 					html.push(
-						'<input type="hidden" class="myCommentBox">'		
-					);
+							'<div class="col-'+(12-resp[i].depth)+' commentInnerBox pb-0" style="background-color:#e8f1ff;">'					
+					);						
+				}else{
+					html.push(
+							'<div class="col-'+(12-resp[i].depth)+' commentInnerBox pb-0">'					
+					);							
 				}
+// 				if(resp[i].id==loginInfo){
+// 					html.push(
+// 						'<input type="hidden" class="myCommentBox">'		
+// 					);					
+// 				}
 				if(resp[i].contents!=null){
 					html.push(
 							'<div class="row commentHeader">',
-							'<div class="col-lg-1 d-none d-lg-block profileBox pl-1 pt-2 pr-0"><img src="'+resp[i].profileImg+'" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>',
-							'<div class="col-7 col-lg-6 pt-1">',
-							'<div class="row commentInfo pl-2">',
-							'<div class="col-12 commentWriter"><span style="font-weight:bold;cursor:pointer;" onclick="popUp(\'/Portfolio/toPlog.do?owner='+resp[i].id+'&other=Y\')">'+resp[i].writer+'</span></div>',
-							'<div class="col-12 commentWriteDate">',
-							'<span>'+resp[i].formedWriteDate+'</span>'
-					);
-					if(resp[i].changeDate!=null){
-						html.push(
-								'<span style="margin-left: 10px;">(수정일 : '+resp[i].formedChangeDate+')</span>'
-						);
-					}
-					html.push(
-							'</div></div></div>',
-							'<div class="col-5 pt-2 text-right commentBtns">'
+							'<div class="col-md-1 d-none d-md-block profileBox pl-1 pt-2 pr-0"><img src="'+resp[i].profileImg+'" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>',
+							'<div class="col-12 col-md-11 pt-1">',
+							'<div class="row commentInfo1 pl-2" style="height:22px;">',
+							'<div class="col-6 commentWriter p-0">',
+							'<span style="font-weight:bold;cursor:pointer;" onclick="popUp(\'/Portfolio/toPlog.do?owner='+resp[i].id+'&other=Y\')">'+resp[i].writer+'</span></div>',
+							'<div class="col-6 text-right commentBtns">'
 					);
 					if(resp[i].depth==0){
 						html.push(
-								'<a class="btn btn-warning coReplyBtn" href="#" onclick="coReplyFunction('+resp[i].seq+');return false;" role="button">답글</a>\n'
+							'<a style="height:90%;width:40px;font-size:14px;" class="btn btn-warning coReplyBtn align-middle" href="#" onclick="coReplyFunction('+resp[i].seq+');return false;" role="button">답글</a>\n'		
 						);
 					}
 					if(resp[i].id==loginInfo){
-						html.push(									
-								'<a class="btn btn-info coModBtn" href="#" onclick="coModFunction('+resp[i].seq+');return false;" role="button">수정</a>\n',									
-								'<a class="btn btn-danger coDelBtn" href="#" onclick="coDelFunction('+resp[i].seq+');return false;" role="button">삭제</a>'									
+						html.push(
+							'<a style="height:90%;width:40px;font-size:14px;" class="btn btn-info coModBtn" href="#" onclick="coModFunction('+resp[i].seq+');return false;" role="button">수정</a>\n',
+							'<a style="height:90%;width:40px;font-size:14px;" class="btn btn-danger coDelBtn" href="#" onclick="coDelFunction('+resp[i].seq+');return false;" role="button">삭제</a>'
 						);
 					}
-					html.push(							
+					html.push(
 						'</div></div>',
-						'<div class="row commentContent">',
-						'<div class="col-12 pt-1 pl-4" style="word-break:break-all;word-break:break-word;">'+resp[i].contents+'</div>',
-						'<input type="hidden" value="'+resp[i].modComment+'" id="hiddenModCo'+resp[i].seq+'"></div>'
+						'<div class="row commentInfo2 pl-2 mt-0"><div class="col-12 p-0"><span class="commentWriteDate pr-2" style="font-size:13px;">'+resp[i].formedWriteDate+'</span>\n'
 					);
-				}else{
-					html.push(								
-							'<span class="row align-middle m-2 mt-2">삭제된 댓글입니다.<span class="delCoDate" style="margin-left: 10px;color:darkgray;">(삭제일 : '+resp[i].formedChangeDate+')</span></span>'
+					if(resp[i].changeDate!=null){
+						html.push(
+								'<span class="commentChangeDate" style="font-size:13px;">(수정일 : '+resp[i].formedChangeDate+')</span>'
+						);
+					}
+					html.push(
+							'</div></div></div></div>',
+							'<div class="row commentContent">',
+							'<div class="col-12 pt-1 pl-4" style="word-break:break-all;word-break:break-word;">'+resp[i].contents+'</div>',
+							'<input type="hidden" value="'+resp[i].modComment+'" id="hiddenModCo'+resp[i].seq+'"></div>'
+					);
+				}else {
+					html.push(
+							'<div class="row mt-2 mb-2"><div class="col-12">',
+							'<span class="commentDelMessage pr-2" style="font-size:13px;">삭제된 댓글입니다.</span>\n',
+							'<span class="commentDelDate" style="font-size:13px;">(삭제일 : '+resp[i].formedChangeDate+')</span>',
+							'</div></div>'
 					);
 				}
 				html.push(
