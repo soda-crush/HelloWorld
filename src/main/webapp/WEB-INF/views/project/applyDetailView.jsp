@@ -31,7 +31,7 @@
             </div>
             
             <!--      몸통 시작!!!   -->
-            <div class="container d-none d-md-block" id="projectPage">
+            <div class="container" id="projectPage">
 				<div id="pageTitle">
 					<h1>프로젝트 신청 상세보기</h1>
 				</div>
@@ -74,7 +74,7 @@
 							<div class="row pl-3 mb-2">
 								<div class="col-12 dLabel">하고싶은 말</div>
 							</div>
-							<div class="row pl-3">
+							<div class="row pl-3 pr-3">
 								<div id="pPageContents" class="col-11 rounded ml-3" style="word-break:break-all;word-break:break-word;">${aPage.etc }</div>
 							</div>	
 							
@@ -106,7 +106,8 @@
 								</c:choose>
 													
 							</div>
-						</div>						
+						</div>	
+						<input type=hidden id="applySeq" value="${aPage.seq}">					
 					</c:if>
 				</div>
 				
@@ -117,8 +118,7 @@
 						</c:if>
 					</span>
 				</div>          
-            </div>
-            <div class="d-md-none text-center">해당 해상도에서는 지원하지 않습니다</div>
+            </div>            
             <!--       몸통 끝!!!   -->
 
 
@@ -132,66 +132,66 @@
         
 		<jsp:include page="/WEB-INF/views/project/jsp/approveModal.jsp"/>    
 		<jsp:include page="/WEB-INF/views/project/jsp/denialModal.jsp"/>
-        
+        <script src="/js/project/applyDetail.js"></script>
         <script>
-			function popUp(link){
-				window.open(link, "applyPopUp", "width=1000,height=750");
-			}
-			function pLogPopUp(link){
-				window.open(link, "pLogPopUp", "width=800,height=600");
-			}			
-	        $("#applyCancelBtn").on("click",function(){
-	        	var check = confirm("신청을 취소하시겠습니까?");
-	        	if(check){
-	        		$.ajax({
-	        			type:"post",
-	        			url:"/project/apply/deleteProc",
-	        			data:{seq:"${aPage.seq}"}
-	        		}).done(function(resp){
-	        			alert("신청이 취소되었습니다.");
-						window.opener.document.location.href = window.opener.document.URL;  
-						window.close();
-	        		}).fail(function(resp){
+// 			function popUp(link){
+// 				window.open(link, "applyPopUp", "width=1000,height=750");
+// 			}
+// 			function pLogPopUp(link){
+// 				window.open(link, "pLogPopUp", "width=800,height=600");
+// 			}			
+// 	        $("#applyCancelBtn").on("click",function(){
+// 	        	var check = confirm("신청을 취소하시겠습니까?");
+// 	        	if(check){
+// 	        		$.ajax({
+// 	        			type:"post",
+// 	        			url:"/project/apply/deleteProc",
+// 	        			data:{seq:"${aPage.seq}"}
+// 	        		}).done(function(resp){
+// 	        			alert("신청이 취소되었습니다.");
+// 						window.opener.document.location.href = window.opener.document.URL;  
+// 						window.close();
+// 	        		}).fail(function(resp){
 	        			
-	        		});
-	        	}
-	        });
+// 	        		});
+// 	        	}
+// 	        });
 	        
-        	$("#approveBtn").on("click",function(){
-        		var check = confirm("승인 하시겠습니까?");
-        		if(check){
-        			$.ajax({
-        				type:"post",
-        				url:"/project/apply/approveApply",
-        				data:{seq:"${aPage.seq}"}
-        			}).done(function(resp){
-        				$("#pApproveModal").modal('show');
-        				$("#approveProcBtns").remove();
-        				$(".checkBtn").append('<span style="font-weight:bold;">신청 <span style="color:limegreen;font-weight:bold;">승인</span>되었습니다.</span>');
-        				window.opener.document.location.href = window.opener.document.URL;
-        			}).fail(function(resp){
-    					alert("신청 실패!");
-        			});
-        		}        		
-        	});
+//         	$("#approveBtn").on("click",function(){
+//         		var check = confirm("승인 하시겠습니까?");
+//         		if(check){
+//         			$.ajax({
+//         				type:"post",
+//         				url:"/project/apply/approveApply",
+//         				data:{seq:"${aPage.seq}"}
+//         			}).done(function(resp){
+//         				$("#pApproveModal").modal('show');
+//         				$("#approveProcBtns").remove();
+//         				$(".checkBtn").append('<span style="font-weight:bold;">신청 <span style="color:limegreen;font-weight:bold;">승인</span>되었습니다.</span>');
+//         				window.opener.document.location.href = window.opener.document.URL;
+//         			}).fail(function(resp){
+//     					alert("신청 실패!");
+//         			});
+//         		}        		
+//         	});
         	
-        	$("#denialBtn").on("click",function(){
-        		var check = confirm("승인 거절 하시겠습니까?");
-        		if(check){
-        			$.ajax({
-        				type:"post",
-        				url:"/project/apply/denyApply",
-        				data:{seq:"${aPage.seq}"}
-        			}).done(function(resp){
-        				$("#pDenialModal").modal('show');
-    					$("#approveProcBtns").remove();
-        				$(".checkBtn").append('<span style="font-weight:bold;">신청 <span style="color:red;font-weight:bold;">거절</span>되었습니다.</span>');
-        				window.opener.document.location.href = window.opener.document.URL;
-        			}).fail(function(resp){
-    					alert("신청 실패!");
-        			});
-        		}        		
-        	});
+//         	$("#denialBtn").on("click",function(){
+//         		var check = confirm("승인 거절 하시겠습니까?");
+//         		if(check){
+//         			$.ajax({
+//         				type:"post",
+//         				url:"/project/apply/denyApply",
+//         				data:{seq:"${aPage.seq}"}
+//         			}).done(function(resp){
+//         				$("#pDenialModal").modal('show');
+//     					$("#approveProcBtns").remove();
+//         				$(".checkBtn").append('<span style="font-weight:bold;">신청 <span style="color:red;font-weight:bold;">거절</span>되었습니다.</span>');
+//         				window.opener.document.location.href = window.opener.document.URL;
+//         			}).fail(function(resp){
+//     					alert("신청 실패!");
+//         			});
+//         		}        		
+//         	});
         
         </script>
 </body>

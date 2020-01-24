@@ -55,6 +55,7 @@
 		 
 		 function loc1_change(num,loc2sel){
 			 if(num == '') return;
+			 if(num == 0) return;
 			 var val = loc2Num[num];
 			 var name = loc2Name[num];
 			 for(i=loc2sel.length-1; i>=0; i--){

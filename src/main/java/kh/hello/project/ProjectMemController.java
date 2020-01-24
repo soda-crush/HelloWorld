@@ -112,7 +112,7 @@ public class ProjectMemController {
 		m.addAttribute("myApply", myApply);		
 		m.addAttribute("checkApplyCount", checkApplyCount);
 		m.addAttribute("ip", Configuration.ip);
-		m.addAttribute("adImg", Utils.getRandomAd());
+		m.addAttribute("adImg", Utils.getRandomAd());		
 		return "/project/detailView";
 	}
 	

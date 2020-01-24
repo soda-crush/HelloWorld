@@ -4,10 +4,12 @@ import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.sql.Date;
-import java.time.Duration;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -17,16 +19,14 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Base64Utils;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 
 import kh.hello.configuration.Configuration;
 import kh.hello.dao.ProjectDAO;
 import kh.hello.dto.ProjectApplyDTO;
+import kh.hello.dto.ProjectChartDTO;
 import kh.hello.dto.ProjectCoDTO;
 import kh.hello.dto.ProjectDTO;
 import kh.hello.dto.ProjectImageDTO;
-import kh.hello.dto.ProjectChartDTO;
 import kh.hello.dto.ProjectPLogDTO;
 import kh.hello.dto.ReportDTO;
 import kh.hello.utils.Utils;
@@ -72,16 +72,26 @@ public class ProjectService {
 			LocalDate eDate = m.getEndDate().toLocalDate();
 			int sYear = sDate.getYear();
 			int sMonth = sDate.getMonthValue();
-			int sDay = sDate.getDayOfMonth();						
+			int sDay = sDate.getDayOfMonth();			
+			Period p = Period.between(sDate, eDate);
+			double duration = p.getMonths()*105 + p.getDays()*3.2;
+			if(sMonth!=eDate.getMonthValue()) {
+				duration += 2;
+			}			
 			if(tYear==sYear) {
-				long distance = (sMonth-tMonth)*105 + sDay*3;
-				m.setDistance(distance);
-				long duration = Duration.between(sDate.atStartOfDay(), eDate.atStartOfDay()).toDays()*3;
+				double distance = (sMonth-tMonth)*105 + sDay*3.2;				
 				if(distance+duration>626) {
 					duration -= (distance+duration)-626;
 				}
-				m.setWidth(duration);							
+				m.setDistance(distance);				
+			}else {
+				double distance = ((12-tMonth)+sMonth)*105 + sDay*3.2;
+				if(distance+duration>626) {
+					duration -= (distance+duration)-626;
+				}
+				m.setDistance(distance);				
 			}
+			m.setWidth(duration);	
 			m.setToday(tMonth+"-"+tDate);
 		}
 		return result;
@@ -180,14 +190,15 @@ public class ProjectService {
 	public String projectWrite() {
 		//String[] v = {"markup","css","sass","javascript","java","python","groovy","scala","php","bash","coffeescript","go","haskell","c","cpp","sql","ruby","aspnet","csharp","swift","objectivec"};
 		String[] v = {"HTML/Markup","CSS","Sass","JavaScript","Java","Python","Groovy","Scala","PHP","Bash","CoffeeScript","Go","Haskell","C","C++","SQL","Ruby","ASP.NET","C#","Swift","Objective-C"};
-		JsonArray array = new JsonArray();
+		Gson gson = new Gson();		
+		List<Map<String,String>> list = new ArrayList<>();
 		for(int i=0;i<v.length;i++) {
-			JsonObject obj = new JsonObject();
-			obj.addProperty("value", v[i]);
-			obj.addProperty("text", v[i]);
-			array.add(obj);
+			Map<String,String> map = new HashMap<>();
+			map.put("value", v[i]);
+			map.put("text", v[i]);
+			list.add(map);
 		}
-		return array.toString();		
+		return gson.toJson(list);		
 	}
 	
 	@Transactional("txManager")

@@ -14,9 +14,6 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/css/project/projectBase.css" type="text/css"/>
 <link rel="stylesheet" href="/css/project/pLogList.css" type="text/css"/>
-<style>
-	.capaCheck:not(.achieve0){color:limegreen;}
-</style>
 </head>
 
 <body>
@@ -72,9 +69,10 @@
 							    <option value="title">제목</option>
 							    <option value="contents">내용</option>
 							    <option value="location">지역</option>
-							    <option value="capacity">인원</option>								    
+							    <option value="capacity">인원</option>						
+							    <option value="languages">사용언어</option>		    
 							</select>
-						    <input class="form-control mr-sm-2" type="search" placeholder="검색어를 입력하세요" aria-label="Search" name="keyword" id="keyword" style="margin-right:5px;">
+						    <input class="form-control mr-sm-2" type="search" placeholder="검색어를 입력하세요(20자 이내)" aria-label="Search" name="keyword" id="keyword" style="margin-right:5px;min-width:285px;">
 						    <button class="btn btn-dark my-2 my-sm-0" type="submit" id="searchBtn">검색</button>
 						  </form>
 					</div>								
