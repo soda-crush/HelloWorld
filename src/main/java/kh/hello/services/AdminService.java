@@ -4,9 +4,7 @@ import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -28,6 +26,7 @@ import kh.hello.dto.BoardLogDTO;
 import kh.hello.dto.ChartGenderDTO;
 import kh.hello.dto.ChartGenerationDTO;
 import kh.hello.dto.ChartJoinPathDTO;
+import kh.hello.dto.ChartMainDTO;
 import kh.hello.dto.ChartVisitChangeDTO;
 import kh.hello.dto.ChartWorkDTO;
 import kh.hello.dto.CommentLogDTO;
@@ -437,10 +436,10 @@ public class AdminService {
 		return pages;
 	}
 	
-	public Map<String, Integer> getVisitorCount() throws Exception{		
-		Map<String, Integer> result = new HashMap<>();
-		result.put("today", ctdao.getVisitTodayCount());
-		result.put("total", ctdao.getVisitTotalCount());
+	public ChartMainDTO getVisitorCount() {		
+		ChartMainDTO result = new ChartMainDTO();
+		result.setToday(ctdao.getVisitTodayCount());
+		result.setTotal(ctdao.getVisitTotalCount());
 		return result;
 	}
 	

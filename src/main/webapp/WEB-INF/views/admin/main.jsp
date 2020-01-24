@@ -109,8 +109,8 @@
                                     <div class="seo-fact sbg1 mb-5">
                                         <div class="p-4 d-flex justify-content-between align-items-center">
                                             <div class="seofct-icon"><i class="ti-thumb-up"></i> TODAY</div>
-                                            <h2>${count.today}</h2>                                        </div>
-                                        
+                                            <h2>${count.today}</h2>                                        
+                                        </div>
                                     </div>   
                                     
                                    	<div class="seo-fact sbg2">
@@ -449,19 +449,19 @@ if ($('#visitChange').length > 0) {
 	        "theme": "light",
 	        "marginRight": 0,
 	        "dataProvider": [{
-	            "joinPath": "${joinPath[0].formedPath}",
+	            "joinPath": "${joinPath[0].joinPath}",
 	            "visits": count0,
 	            "color": "#8918FE"
 	        }, {
-	            "joinPath": "${joinPath[1].formedPath}",
+	            "joinPath": "${joinPath[1].joinPath}",
 	            "visits": count1,
 	            "color": "#7474F0"
 	        }, {
-	            "joinPath": "${joinPath[2].formedPath}",
+	            "joinPath": "${joinPath[2].joinPath}",
 	            "visits": count2,
 	            "color": "#C5C5FD"
 	        }, {
-	            "joinPath": "${joinPath[3].formedPath}",
+	            "joinPath": "${joinPath[3].joinPath}",
 	            "visits": count3,
 	            "color": "#FD9C21"
 	        }],
