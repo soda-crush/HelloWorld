@@ -59,12 +59,6 @@
 				<nav aria-label="List navi" id="mPageNavi">${makePageNavi }</nav>
 			</div>
 		<script>
-	        $("#searchFrm").on("submit",function(){
-	        	$("#keyword").val($.trim($("#keyword").val()));
-	        	if($("#keyword").val()==""){
-	        		alert("검색어를 입력해주세요");	        		
-	        	}
-	        });		
 			function popUp(link){
 				window.open(link, "makeListPopUp", "width=1000,height=840");
 			}

@@ -7,7 +7,6 @@
 		select count(seq) from project where state='N'
 	</select>
 	<select id="getList" resultType="kh.hello.dto.ProjectChartDTO">
-<!-- 		select project.*,(select count(*) from projectComment where projectSeq=project.seq) as commentCount from project order by seq desc		 -->
 		select * from (select project.*, (select count(*) from scrap where id=#{id} and category='project' and categorySeq=project.seq) as scrap from project where state = 'N') order by
 		<choose>
 			<when test="pageOrder == 'startDate'">
@@ -18,11 +17,11 @@
 			</when>
 		</choose> 		
 	</select>
-	<select id="checkForcedCloseProject" resultType="kh.hello.dto.ProjectDTO">
+	<select id="checkForcedCloseProject" resultType="integer">
 		select seq from project where startDate = #{value} and state = 'N'
 	</select>
 	<update id="letProjectClose">
-		update project set state = 'Y' where startDate = #{value} and state = 'N'
+		update project set state = 'Y' where seq = #{value}
 	</update>
 	
 	<select id="getArticleCount" resultType="integer">
@@ -72,34 +71,30 @@
 	<sql id="search">
 		<choose>
 			<when test="searchOption=='all'">
-<!-- 				where title like '%'||#{keyword}||'%' -->
-<!-- 				or contents like '%'||#{keyword}||'%' -->
 				where lower(title) like lower('%'||#{keyword}||'%')
-				or lower(contents) like lower('%'||#{keyword}||'%')
+				or lower(nonTagContents) like lower('%'||#{keyword}||'%')
 			</when>
 			<when test="searchOption=='location'">
 				where location1 like '%'||#{keyword}||'%'	
 				or location2 like '%'||#{keyword}||'%'
 			</when>
 			<otherwise>
-<!-- 				where ${searchOption} like '%'||#{keyword}||'%' -->
 				where lower(${searchOption}) like lower('%'||#{keyword}||'%')
 			</otherwise>
 		</choose>
 	</sql>
 	
 	<select id="getProjectDetailView" resultType="kh.hello.dto.ProjectDTO">
-<!-- 		select project.*,(select count(*) from projectApply where projectSeq=project.seq and approve in('W')) as applyCount from project where seq=#{value} -->
 		select * from (select project.*, profileImg, (select count(*) from projectApply where projectSeq=project.seq and approve in('W')) as applyCount from project inner join member on project.seq=#{value} and project.id = member.id)
 	</select>	
 	<select id="latestSeq" resultType="integer">
 		select max(seq) from project where id=#{value}
 	</select>	
 	<insert id="insertProject" parameterType="kh.hello.dto.ProjectDTO">
-		insert into project values(projectSeq.nextval,#{title},#{contents},#{location1},#{location2},#{capacity},#{startDate},#{endDate},#{languages},#{phone},#{email},#{writer},#{id},sysdate,null,'N',0)
+		insert into project values(projectSeq.nextval,#{title},#{contents},#{location1},#{location2},#{capacity},#{startDate},#{endDate},#{languages},#{phone},#{email},#{writer},#{id},sysdate,null,'N',0,#{nonTagContents})
 	</insert>	
 	<update id="updateProject" parameterType="kh.hello.dto.ProjectDTO">
-		update project set title=#{title}, contents=#{contents}, location1=#{location1}, location2=#{location2}, capacity=#{capacity}, startDate=#{startDate}, endDate=#{endDate}, languages=#{languages}, phone=#{phone}, email=#{email}, writer=#{writer}, changeDate=sysdate where seq=#{seq}
+		update project set title=#{title}, contents=#{contents}, location1=#{location1}, location2=#{location2}, capacity=#{capacity}, startDate=#{startDate}, endDate=#{endDate}, languages=#{languages}, phone=#{phone}, email=#{email}, writer=#{writer}, changeDate=sysdate, nonTagContents=#{nonTagContents} where seq=#{seq}
 	</update>	
 	<select id="getImages" parameterType="integer" resultType="kh.hello.dto.ProjectImageDTO">
 		select * from projectImage where projectSeq=#{value}
@@ -148,7 +143,7 @@
 	</select>	
 	<select id="getPLogMakeListByPage" resultType="kh.hello.dto.ProjectDTO">
 		select * from (select
-		project.seq, state, nvl(totalApply,0) as totalApply, nvl(totalApprove,0) as totalApprove, capacity, startDate, endDate, title, contents, project.writeDate, viewCount, nvl(commentCount,0) as commentCount, row_number() over (order by project.seq desc) as num from project
+		project.seq, state, nvl(totalApply,0) as totalApply, nvl(totalApprove,0) as totalApprove, capacity, startDate, endDate, title, nonTagContents, project.writeDate, viewCount, nvl(commentCount,0) as commentCount, row_number() over (order by project.seq desc) as num from project
 		left outer join (select projectSeq, count(*) as totalApply, count(decode(approve,'O',1)) totalApprove from projectApply group by projectSeq) pa on pa.projectSeq = project.seq
 		left outer join (select projectSeq, count(*) as commentCount from projectComment
 		where contents is not null group by projectSeq) pc
@@ -167,7 +162,7 @@
 	</select>	
 	<select id="getPLogApplyListByPage" resultType="kh.hello.dto.ProjectPLogDTO">		
 		select * from (select
-		projectApply.seq, projectApply.projectSeq, state, title, contents, project.writer, projectApply.leaderId, location1, location2, startDate, endDate, capacity, approve, projectApply.writeDate, nvl(commentCount,0) as commentCount, row_number() over (order by projectApply.seq desc) as num from project
+		projectApply.seq, projectApply.projectSeq, state, title, nonTagContents, project.writer, projectApply.leaderId, location1, location2, startDate, endDate, capacity, approve, projectApply.writeDate, nvl(commentCount,0) as commentCount, row_number() over (order by projectApply.seq desc) as num from project
 		inner join projectApply on project.seq = projectApply.projectSeq
 		left outer join (select projectSeq, count(*) as commentCount from projectComment
 		where contents is not null group by projectSeq) pc
@@ -182,21 +177,17 @@
 	<sql id="searchAnd">
 		<choose>
 			<when test="searchOption=='all'">
-<!-- 				and (title like '%'||#{keyword}||'%' -->
-<!-- 				or contents like '%'||#{keyword}||'%') -->
 				and (lower(title) like lower('%'||#{keyword}||'%')
-				or lower(contents) like lower('%'||#{keyword}||'%'))
+				or lower(nonTagContents) like lower('%'||#{keyword}||'%'))
 			</when>
 			<when test="searchOption=='location'">
 				and (location1 like '%'||#{keyword}||'%'	
 				or location2 like '%'||#{keyword}||'%')
 			</when>
 			<when test="searchOption=='writer'">
-<!-- 				and project.writer like '%'||#{keyword}||'%' -->
 				and lower(project.writer) like lower('%'||#{keyword}||'%')
 			</when>
 			<otherwise>
-<!-- 				and ${searchOption} like '%'||#{keyword}||'%' -->
 				and lower(${searchOption}) like lower('%'||#{keyword}||'%')
 			</otherwise>
 		</choose>

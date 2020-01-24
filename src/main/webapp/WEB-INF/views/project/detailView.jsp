@@ -242,7 +242,8 @@
 								<input type="hidden" id="applyCount" value="${pPage.applyCount}">								
 								<input type="hidden" id="writerId" value="${pPage.id }">
 								<input type="hidden" id="checkApplyCount" value="${checkApplyCount}">
-								<input type="hidden" id="tagData" value='${data}'>								
+								<input type="hidden" id="tagData" value='${data}'>
+								<input type="hidden" id="pageState" value="${pPage.state }">																
 							</div>
 						</div>
 					</c:if>
