@@ -25,6 +25,7 @@ public class ProjectDTO {
 	private Timestamp writeDate;
 	private String state;
 	private int viewCount;
+	private String nonTagContents;
 	private int commentCount;
 	private int applyCount;
 	private int scrap;
@@ -37,37 +38,8 @@ public class ProjectDTO {
 	public ProjectDTO() {
 		super();
 	}	
-	public ProjectDTO(int seq, String title, String contents, String location1, String location2, int capacity,
-			Date startDate, Date endDate, String languages, String phone, String email, String writer, String id,
-			Timestamp writeDate, String state, int viewCount, int commentCount, int applyCount, int scrap,
-			Timestamp changeDate, int totalApply, int totalApprove, String profileImg) {
-		super();
-		this.seq = seq;
-		this.title = title;
-		this.contents = contents;
-		this.location1 = location1;
-		this.location2 = location2;
-		this.capacity = capacity;
-		this.startDate = startDate;
-		this.endDate = endDate;
-		this.languages = languages;
-		this.phone = phone;
-		this.email = email;
-		this.writer = writer;
-		this.id = id;
-		this.writeDate = writeDate;
-		this.state = state;
-		this.viewCount = viewCount;
-		this.commentCount = commentCount;
-		this.applyCount = applyCount;
-		this.scrap = scrap;
-		this.changeDate = changeDate;
-		this.totalApply = totalApply;
-		this.totalApprove = totalApprove;
-		this.profileImg = profileImg;
-	}
 
-
+	
 	public int getSeq() {
 		return seq;
 	}
@@ -163,6 +135,12 @@ public class ProjectDTO {
 	}
 	public void setViewCount(int viewCount) {
 		this.viewCount = viewCount;
+	}
+	public String getNonTagContents() {
+		return nonTagContents;
+	}
+	public void setNonTagContents(String nonTagContents) {
+		this.nonTagContents = nonTagContents;
 	}
 	public int getCommentCount() {
 		return commentCount;

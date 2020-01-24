@@ -14,6 +14,6 @@ public class ProjectScheduler {
 	
 	@Scheduled(cron = "0 0 0 * * ?")
 	public void closeProject() {
-		svc.letProjectClose();
+		svc.letProjectClose();		
 	}
 }

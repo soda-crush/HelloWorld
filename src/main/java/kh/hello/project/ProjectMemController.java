@@ -124,11 +124,10 @@ public class ProjectMemController {
 	}
 	
 	@RequestMapping("/writeProc")
-	public String writeProc(ProjectDTO dto, String sDate, String eDate) {
+	public String writeProc(ProjectDTO dto) {
 		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
 		dto.setWriter(sessionValue.getNickName());
-		dto.setId(sessionValue.getId());
-		
+		dto.setId(sessionValue.getId());		
 		String path = session.getServletContext().getRealPath("attached/project");
 		int seq = 0;
 		try {

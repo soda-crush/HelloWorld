@@ -152,10 +152,14 @@
 		var applyCount = $("#applyCount").val();
 		$("#pModBtn").on("click",function(){
 			var check = $("#checkApplyCount").val();
+			var check2 = $("#pageState").val();
 			if(check>0){
 				alert("신청 대기중 또는 신청 승인된 회원이 있는 모집글은\n수정이 불가합니다");
 				return false;
-			}else{
+			}else if(check2=='Y'){
+				alert("모집마감된 모집글은 수정이 불가합니다");
+				return false;
+			}else {
 				location.href="/project/modify?seq="+$("#pageSeq").val();
 			}
 		});

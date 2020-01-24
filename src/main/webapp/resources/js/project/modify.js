@@ -132,5 +132,9 @@
 			var loc1 = $("#loc1").find("option[value='"+$("#loc1").val()+"']").text();
 			var loc2 = $("#loc2").find("option[value='"+$("#loc2").val()+"']").text();
 			$("input[name=location1]").val(loc1);
-			$("input[name=location2]").val(loc2);	
+			$("input[name=location2]").val(loc2);
+			
+			var oriCon = $("#contents").val();
+			var nonTagCon = oriCon.replace(/(<([^>]+)>)/ig,"");
+			$("#nonTagContents").val(nonTagCon);
 		});	

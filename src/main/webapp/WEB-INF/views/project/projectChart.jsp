@@ -40,7 +40,7 @@
                
 	            <div class=container id="projectPage">
 					<div id="pageTitle" class="row">
-						<div class="col-12 col-lg-5 m-0 p-0"><h1>프로젝트 모집</h1><span class="badge badge-pill ml-2" id="stateCountLabel">${projectList.size() }</span></div>
+						<div class="col-12 col-lg-5 m-0 p-0"><h1 onclick="location.href='/project/chart'" style="cursor:pointer">프로젝트 모집</h1><span class="badge badge-pill ml-2" id="stateCountLabel">${projectList.size() }</span></div>
 						<div class="col-12 col-lg-6 m-0 p-0 pt-2 pb-1">
 							<div style="width:200px;height:35px;display:inline-block;border-bottom:2px solid #99000030;cursor:pointer" class="text-center pt-1" onclick="location.href='/project/list'"><span style="color:black;font-weight:bold;font-size:18px;opacity:30%;">게시판</span></div>
 							<div style="margin-left:-5px;width:200px;height:35px;display:inline-block;border-bottom:2px solid crimson;cursor:pointer" class="text-center pt-1" onclick="location.href='/project/chart'"><span style="color:black;font-weight:bold;font-size:18px;">일정</span></div>
