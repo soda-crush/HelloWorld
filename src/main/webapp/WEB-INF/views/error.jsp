@@ -14,6 +14,10 @@
 <link rel="stylesheet" type="text/css" href="/css/font-awesome/css/font-awesome.css">
 </head>
 <body>
+<script>
+	alert("에러발생.관리자에게 문의하세요. (에러코드 : A12940)");
+	location.href="${pageContext.request.contextPath}/";
+</script>
 	<jsp:include page="/WEB-INF/views/standard/header.jsp"/>
 	
  		<div id=baseBackgroundColor>
