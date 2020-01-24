@@ -16,7 +16,7 @@
 <link rel="stylesheet" type="text/css" href="/css/font-awesome/css/font-awesome.css">
 <style>
 	div{
-/*      	border: 1px solid green;        */ 
+/*       	border: 1px solid green;           */
 	}
 	#cateCmt{
 	color:gray;
@@ -104,7 +104,7 @@
 					<div id="pageTitle">
 						<table>
 							<tr>
-								<td colspan="3" style="font-size: 60px; font-weight: 100; vertical-align: text-bottom"><h1 class="fontBold">IT News</h1></td>
+								<td colspan="3" style="font-size: 60px; font-weight: 100; vertical-align: text-bottom"><h1 class="fontBold" onclick='location.href="${pageContext.request.contextPath}/itnews/itnewsList"'>IT News</h1></td>
 								<td></td>
 								<td style="font-size: 15px; color: gray; vertical-align: text-bottom">     IT 핫이슈를 공유하는 공간입니다.</td>
 								<td></td>
@@ -141,12 +141,13 @@
 				  				<div class="row p-0 tableBody" >
 									<div class="col-md-1 d-none d-md-block order-md-1 notTitle text-center pt-3">${dto.seq}</div>
 					    			<div class="col-12 col-md-6 order-1 order-md-2 cursorPointer pl-3 pr-3" style="padding-left:0px;padding-right:0px;"  onclick="location.href='${pageContext.request.contextPath}/itnews/detail?seq=${dto.seq}&page=${page}'">
-						    		
+						    		<div class=row>
 						    			<div style="max-width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;padding-top:10.8px;padding-left:5px;padding-right:5px;" class="fontBold" id=titleForCss>${dto.title}</div>
 
 						    			<c:if test="${dto.commentCount>0}">
-						    			<div class="orangeFt font-weight-bolder" style="display:inline;position:relative;bottom:22px;">${dto.commentCount}</div>
+						    			<div style="display:inline;"><p class="orangeFt font-weight-bolder" style="position:relative;top:14px;">${dto.commentCount}</p></div>
 						    			</c:if>
+					    			</div>
 					    			</div>
 					    			<div class="col-4 col-md-2 order-2 order-md-3 notTitle text-left text-md-center pt-3 pl-3 pr-0 cursorPointer" onclick="popUp('/Portfolio/toPlog.do?owner=${dto.id}&other=Y')">${dto.writer}</div>
 					    			<div class="col-3 col-md-2 order-3 order-md-4 notTitle text-left text-md-center pt-3">${dto.getDate()}</div>

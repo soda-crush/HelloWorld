@@ -111,7 +111,7 @@
 					<div id="pageTitle">
 						<table>
 							<tr>
-								<td colspan="3" style="font-size: 60px; font-weight: 100; vertical-align: text-bottom"><h1 class="fontBold">IT News</h1></td>
+								<td colspan="3" style="font-size: 60px; font-weight: 100; vertical-align: text-bottom"><h1 class="fontBold" onclick='location.href="${pageContext.request.contextPath}/itnews/itnewsList"'>IT News</h1></td>
 								<td></td>
 								<td style="font-size: 15px; color: gray; vertical-align: text-bottom">     IT 핫이슈를 공유하는 공간입니다.</td>
 								<td></td>
