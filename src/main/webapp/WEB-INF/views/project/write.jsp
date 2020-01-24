@@ -45,7 +45,7 @@
             <!--      몸통 시작!!!   -->
             <div class=container id="projectPage">
 				<div id="pageTitle">
-					<h1>프로젝트 모집 글 작성</h1>
+					<h1>프로젝트 모집하기</h1>
 				</div>
 				
 				<form action="/project/writeProc" method="post" id="writeFrm">
@@ -97,7 +97,7 @@
 							</div>							
 							<div class="row">
 								<div class="col-md-2"><label class="pItem">사용언어</label><label class="star">*</label></div>
-								<div class="col-md-7" style="word-break:break-all;word-break:break-word;">
+								<div class="col-md-7" style="max-width:415px;word-break:break-all;word-break:break-word;">
 									<input type="text" class="form-control" id="languages" name="languages" style="word-break:break-all;word-break:break-word;">
 								</div>
 							</div>
@@ -112,12 +112,13 @@
 							</div>
 							<div class="row">
 								<div class="col-md-2"><label class="pItem">메일주소</label></div>							
-								<div class="col-md-7"><input type="email" class="form-control form-control-sm" id="email" name="email"></div>
+								<div class="col-md-7"><input type="email" class="form-control form-control-sm" id="email" name="email" style="width:385px;"></div>
 							</div>
 						</div>
 						<div id="pBody">
 							<div id="pTitleInput"><input type="text" class="form-control" placeholder="제목을 입력해주세요" name="title" id="title" maxlength="100"></div>
-							<div id="pContentsInput"><textarea class="form-control summernote" name="contents" id="contents"></textarea></div>											
+							<div id="pContentsInput"><textarea class="form-control summernote" name="contents" id="contents"></textarea></div>
+							<input type="hidden" id="nonTagContents" name="nonTagContents">											
 						</div>					
 					</div>
 					<div id="pageFooter">
@@ -163,7 +164,7 @@
 		            ['view', ['fullscreen']],
 		            ['help', ['help']]
 		          ]
-		    });		
+		    });				
 		</script>
 </body>
 </html>

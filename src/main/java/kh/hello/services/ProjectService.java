@@ -44,15 +44,13 @@ public class ProjectService {
 	public void letProjectClose() {
 		LocalDate today = LocalDate.now();
 		Date date = Date.valueOf(today);
-		List<ProjectDTO> list = dao.checkForcedCloseProject(date);
-		int result = dao.letProjectClose(date);		
+		List<Integer> list = dao.checkForcedCloseProject(date);
 		if(list.size()>0) {
-			for(ProjectDTO p : list) {
-				dao.closeProjectApply(p.getSeq());
-			}
-		}
-		System.out.println("모집완료 변경된 프로젝트 : "+result+"개");
-		System.out.println("거절된 프로젝트신청 : "+list.size()+"개");
+			for(Integer i : list) {
+				dao.letProjectClose(i);
+				dao.closeProjectApply(i);
+			}	
+		}					
 	}
 	
 	
@@ -98,6 +96,9 @@ public class ProjectService {
 	}
 			
 	public String getPageNavi(int currentPage, String pageOrder, String searchOption, String keyword) {
+		if(keyword!=null) {
+			keyword=Utils.protectXss(keyword);
+		}
 		int recordTotalCount = dao.getArticleCount(pageOrder, searchOption, keyword);
 		int pageTotalCount = 0;		
 		if(recordTotalCount % Configuration.recordCountPerPage>0) {
@@ -174,6 +175,9 @@ public class ProjectService {
 	}
 	
 	public List<ProjectDTO> projectListPerPage(int start, int end, String pageOrder, String searchOption, String keyword){
+		if(keyword!=null) {
+			keyword=Utils.protectXss(keyword);
+		}
 		return dao.getProjectListPerPage(start, end, pageOrder, searchOption, keyword);
 	}
 	
@@ -508,7 +512,9 @@ public class ProjectService {
 	
 	
 	public String getPLogProjectPageNavi(int currentPage, String id, String listType, String searchOption, String keyword) {
-		
+		if(keyword!=null) {
+			keyword=Utils.protectXss(keyword);
+		}
 		int recordTotalCount = 0;
 		if(listType.contentEquals("makeProjectList")) {
 			recordTotalCount = dao.getMakeArticleCount(id, searchOption, keyword);
@@ -564,10 +570,16 @@ public class ProjectService {
 	}
 	
 	public List<ProjectDTO> makeProjectListPerPage(int start, int end, String id, String searchOption, String keyword){
+		if(keyword!=null) {
+			keyword=Utils.protectXss(keyword);
+		}
 		return dao.getMakeProjectListPerPage(start, end, id, searchOption, keyword);
 	}
 	
 	public List<ProjectPLogDTO> applyProjectListPerPage(int start, int end, String id, String searchOption, String keyword){
+		if(keyword!=null) {
+			keyword=Utils.protectXss(keyword);
+		}
 		return dao.getApplyProjectListPerPage(start, end, id, searchOption, keyword);
 	}
 	

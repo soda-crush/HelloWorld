@@ -67,16 +67,15 @@
 					<div class="col-12">
 						  <form class="form-inline" action="/project/pLog/applyProjectList" method="post" id="searchFrm">
 							<select class="form-control searchSelect" name="searchOption" id="searchOption" style="margin-right:5px;">
-								<option selected disabled>선택</option>
-								<option value="all">제목+내용</option>
+								<option value="all" selected>제목+내용</option>
 							    <option value="title">제목</option>
-							    <option value="contents">내용</option>
+							    <option value="nonTagContents">내용</option>
 							    <option value="location">지역</option>
 							    <option value="capacity">인원</option>
 							    <option value="languages">사용언어</option>
 							    <option value="writer">작성자</option>								    
 							</select>
-						    <input class="form-control mr-sm-2" type="search" placeholder="검색어를 입력하세요(20자 이내)" aria-label="Search" name="keyword" id="keyword" style="margin-right:5px;min-width:285px;">
+						    <input class="form-control mr-sm-2" type="search" placeholder="검색어를 입력하세요(20자 이내)" aria-label="Search" name="keyword" id="keyword" style="margin-right:5px;min-width:285px;" maxlength="20">
 						    <button class="btn btn-dark my-2 my-sm-0" type="submit" id="searchBtn">검색</button>
 						  </form>
 					</div>													
@@ -87,7 +86,8 @@
 	        $("#searchFrm").on("submit",function(){
 	        	$("#keyword").val($.trim($("#keyword").val()));
 	        	if($("#keyword").val()==""){
-	        		alert("검색어를 입력해주세요");	        		
+	        		alert("검색어를 입력해주세요");	
+	        		return false;
 	        	}
 	        });		
 			function popUp(link){

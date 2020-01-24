@@ -28,4 +28,5 @@
 .bootstrap-tagsinput .tag{color: white;}
 .bootstrap-tagsinput .tag [data-role="remove"]:after{color: red;font-weight: bold;padding: 0px;}
 img{max-width:100%;}
-#pInfo > div:nth-child(4) > div.col-md-7 > div > span > input.tt-input{max-width:620px;}
+/* #pInfo > div:nth-child(4) > div.col-md-7 > div > span > input.tt-input{max-width:620px;} */
+#pInfo > div:nth-child(4) > div.col-md-7 > div > span > input.tt-input{max-width:380px;}
