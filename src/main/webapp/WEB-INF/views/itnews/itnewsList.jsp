@@ -113,7 +113,6 @@
 					</div>
 				</div>
 			</div>
-			
 			<div class=row>
 				<div class="d-md-none">
 					<div style="font-size: 60px; font-weight: 100;"><h1 class="fontBold">IT News</h1></div>
