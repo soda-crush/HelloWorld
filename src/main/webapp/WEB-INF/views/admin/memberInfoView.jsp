@@ -45,55 +45,65 @@
             <div class="main-content-inner">
                 <!-- MAIN CONTENT GOES HERE -->
                         <div class="card">
-                            <div class="card-body">
-                                <div class="media mb-5">
-                                    <img class="img-fluid mr-4 profileImg" src="${dto.profileImg}" alt="image">
-                                    <div class="media-body">
-                                        <h4 class="mb-3">${dto.nickName}(${dto.id })</h4>				
-									</div>
-                                </div>
-                                
-                                <div class="single-table">
-                                    <div class="table-responsive">
-                                        <table class="table text-center">
-                                            <thead class="text-uppercase bg-light">
-                                                <tr>
-                                                    <th scope="col">가입일</th>
-                                                    <th scope="col">최종방문일</th>
-                                                    <th scope="col">성별/나이</th>
-                                                    <th scope="col">활동점수</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <th scope="row">${dto.formedJoinDate}</th>
-                                                    <td>${dto.formedLastLogin}</td>
-                                                    <td>${dto.formedGender}/${dto.age}</td>
-                                                    <td>${dto.point}</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-								<hr>
-								<form action="${contextPath.request.contextPath}/admin/memberModify?id=${dto.id}" method="post">
-									<div class="form-group">
-										<label for="exampleInputEmail1">이메일 주소</label>
-										<input type="email" class="form-control" id="email" placeholder="Enter email" value="${dto.email}" name="email">
-										<label class="col-12 pt-1" id="emailResult"></label>
-									</div>
-									<div class="form-group">
-										<label for="exampleInputPassword1">휴대전화</label>
-										<input type="text" class="form-control" id="phone" placeholder="- 를 빼고 숫자만 입력해주세요" value="${dto.phone}" name="phone">
-										<label class="col-12 pt-1" id="phoneResult"></label>
-									</div>
-									<div class="text-center">
-									<button type="submit" class="btn btn-primary mt-4 pr-4 pl-4" id="modifyBtn">수정하기</button>
-									<button type="button" class="btn btn-secondary mt-4 pr-4 pl-4" id="cancelBtn">취소</button>
-									</div>
-								</form>
-
-							</div>
+                        	<c:choose>
+                        		<c:when test="${dto.phone == null}">
+                        			<script>
+                        				alert("탈퇴한 회원입니다.");
+                        				window.close();
+                        			</script>
+                        		</c:when>
+                        		<c:otherwise>
+		                            <div class="card-body">
+		                                <div class="media mb-5">
+		                                    <img class="img-fluid mr-4 profileImg" src="${dto.profileImg}" alt="image">
+		                                    <div class="media-body">
+		                                        <h4 class="mb-3">${dto.nickName}(${dto.id })</h4>	
+		                                        <button type="button" class="btn btn-flat btn-outline-primary btn-xs pt-1 pb-1" id="plogModify">Plog 공개 여부 변경하기</button>			
+											</div>
+		                                </div>
+		                                
+		                                <div class="single-table">
+		                                    <div class="table-responsive">
+		                                        <table class="table text-center">
+		                                            <thead class="text-uppercase bg-light">
+		                                                <tr>
+		                                                    <th scope="col">가입일</th>
+		                                                    <th scope="col">최종방문일</th>
+		                                                    <th scope="col">성별/나이</th>
+		                                                    <th scope="col">활동점수</th>
+		                                                </tr>
+		                                            </thead>
+		                                            <tbody>
+		                                                <tr>
+		                                                    <th scope="row">${dto.formedJoinDate}</th>
+		                                                    <td>${dto.formedLastLogin}</td>
+		                                                    <td>${dto.formedGender}/${dto.age}</td>
+		                                                    <td>${dto.point}</td>
+		                                                </tr>
+		                                            </tbody>
+		                                        </table>
+		                                    </div>
+		                                </div>
+										<hr>
+										<form action="${contextPath.request.contextPath}/admin/memberModify?id=${dto.id}" method="post">
+											<div class="form-group">
+												<label for="exampleInputEmail1">이메일 주소</label>
+												<input type="email" class="form-control" id="email" placeholder="Enter email" value="${dto.email}" name="email">
+												<label class="col-12 pt-1" id="emailResult"></label>
+											</div>
+											<div class="form-group">
+												<label for="exampleInputPassword1">휴대전화</label>
+												<input type="text" class="form-control" id="phone" placeholder="- 를 빼고 숫자만 입력해주세요" value="${dto.phone}" name="phone">
+												<label class="col-12 pt-1" id="phoneResult"></label>
+											</div>
+											<div class="text-center">
+											<button type="submit" class="btn btn-primary mt-4 pr-4 pl-4" id="modifyBtn">수정하기</button>
+											<button type="button" class="btn btn-secondary mt-4 pr-4 pl-4" id="cancelBtn">취소</button>
+											</div>
+										</form>
+									</div>                        		
+                        		</c:otherwise>
+                        	</c:choose>                       
                         </div>
 		</div>
         </div>
@@ -164,6 +174,21 @@
         		return false;
         	}    		
     	}
+    })
+    
+    $("#plogModify").on("click", function(){
+		var result = confirm("Plog 공개설정을 변경할까요?");
+			if(result){
+   				$.ajax({
+   					url : "${pageContext.request.contextPath}/admin/ifmOpenModify",
+   					type : "post",
+   					data : {
+   						id : "${dto.id}",
+   					}
+   				}).done(function(resp){
+					alert(resp);
+   				});
+			}	    	
     })
     </script>
 </body>

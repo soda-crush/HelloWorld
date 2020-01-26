@@ -613,6 +613,26 @@ public class AdminService {
 		}
 		return result;
 	}
+	
+	public String ifmOpenModify(String id) {
+		//1.  ifmOpenCheck  null값인지 체크(탈퇴여부)
+		String check = adao.validOpen(id);
+		//2.  ifmOpenCheck  변경
+		if(check != null) {
+			int result = adao.ifmOpenModify(id, check);
+			if(result > 0) {
+				if(check.equals("Y")) {
+					return "비공개 상태로 변경되었습니다.";
+				}else {
+					return "공개 상태로 변경되었습니다.";
+				}	
+			}else {
+				return "문제가 발생했습니다. 새로고침 후 다시 시도해주세요.";
+			}
+		}else {
+			return "변경할 수 없습니다. 탈퇴한 회원입니다.";
+		}		
+	}
 }
 
 
