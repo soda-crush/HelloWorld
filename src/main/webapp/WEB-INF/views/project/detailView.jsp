@@ -166,7 +166,7 @@
 								<c:forEach items="${comments }" var="c">
 									<div class="row commentDiv commentBox${c.seq } coLevel${c.depth } p-0 pb-1">
 										<c:if test="${c.depth==1 }">
-											<div class="col-1 text-right pt-1"><strong>┗</strong></div>
+											<div class="col-1 text-right pl-0 pt-1"><strong>┗</strong></div>
 										</c:if>
 										<div class="col-${12-c.depth } commentInnerBox pb-0">
 										<c:if test="${c.id==sessionScope.loginInfo.id }">

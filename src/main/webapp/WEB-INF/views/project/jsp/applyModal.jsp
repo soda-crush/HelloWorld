@@ -20,7 +20,7 @@
 					<div class="row">
 						<div class="col-4 pr-0"><label class="aItem">성별</label><label class="star">*</label></div>
 						<div class="col-7 genderRadio pApplyInput p-0">
-							<div class="form-check form-check-inline pApplyInput">
+							<div class="form-check form-check-inline">
 							  <input class="form-check-input" type="radio" name="gender" id="male" value="M">
 							  <label class="form-check-label" for="male">남</label>
 							</div>
@@ -68,10 +68,10 @@
 					<div class="row">
 						<div class="col-12"><label class="aItem">하고 싶은 말</label></div>
 						<div class="col-12 pApplyInput" id="aContentsInput">
-							<textarea class="form-control form-control-sm" placeholder="내용을 입력해주세요" name="etc" id="etc" style="height:100px;"></textarea>
-							<input type=hidden name="projectSeq" value="${pPage.seq }">
-							<input type=hidden name="leaderId" value="${pPage.id }">
+							<textarea class="form-control form-control-sm" placeholder="내용을 입력해주세요" name="etc" id="etc" style="height:100px;"></textarea>							
 						</div>
+						<input type=hidden name="projectSeq">
+						<input type=hidden name="leaderId">
 					</div>						
 			      		       
 			      </div>
