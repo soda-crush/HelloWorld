@@ -127,7 +127,8 @@ text-align:right;
 	                                            	<textarea class="form-control summernote" name="content" id="content"></textarea>
 	                                            </div>
 	                                        </div>
-	                                    </div>                                   
+	                                    </div>  
+	                                    <input type="hidden" id="nonTag" name="nonTagContent"></input>                                
 	                                </div> 
 	                                <div class="btn-area mt-2 text-center">
 	                                	<button type="submit" class="btn btn-primary mr-2" id="writeBtn">글쓰기</button>
@@ -196,6 +197,9 @@ text-align:right;
     	}else if($("#title").val()==""){
     	    alert("제목을 입력해 주세요.");
     	    return false;
+    	}else{
+    		var nonTagCon = content.replace(/(<([^>]+)>)/gi, "");
+    		$("#nonTag").val(nonTagCon);
     	}		
     })    
     

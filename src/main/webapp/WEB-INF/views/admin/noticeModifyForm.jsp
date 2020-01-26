@@ -131,6 +131,7 @@ text-align:right;
 	                                    </div>                                   
 	                                </div> 
 	                                <input type="hidden" value="${dto.seq}" name="seq">
+	                                <input type="hidden" id="nonTag" name="nonTagContent"></input> 
 	                                <div class="btn-area mt-2 text-center">
 	                                	<button type="submit" class="btn btn-primary mr-2" id="modifyBtn">수정</button>
 	                                	<button type="button" class="btn btn-secondary ml-2" id="back">취소</button>
@@ -198,6 +199,9 @@ text-align:right;
     	}else if($("#title").val()==""){
     	    alert("제목을 입력해 주세요.");
     	    return false;
+    	}else{
+    		var nonTagCon = content.replace(/(<([^>]+)>)/gi, "");
+    		$("#nonTag").val(nonTagCon);
     	}		
     })    
     

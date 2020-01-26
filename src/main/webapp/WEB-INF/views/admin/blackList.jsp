@@ -63,6 +63,10 @@
 	.notification-area {
 		text-align:right;
 	}
+	.page-title a{
+		text-decoration:none;
+		color:#313b3d;
+	}
 </style>
 </head>
 <body>
@@ -86,7 +90,9 @@
                 <div class="row align-items-center">
                     <div class="col-sm-6">
                         <div class="breadcrumbs-area clearfix">
-                            <h4 class="page-title pull-left">회원관리</h4>
+                            <h4 class="page-title pull-left">
+                            	<a href="${pageContext.request.contextPath }/admin/blackList">회원관리</a>
+                            </h4>
                             <ul class="breadcrumbs pull-left">
                                 <li><a href="${pageContext.request.contextPath }/admin/main">Home</a></li>
                                 <li><span>불량 회원 관리</span></li>

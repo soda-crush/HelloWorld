@@ -10,7 +10,8 @@
 		select count(*) from visit
 	</select>
 	<select id="getVisitTodayCount" resultType="integer">
-		select count(*) from visit where substr(to_char(visit), 1) = to_date(sysdate, 'yy/MM/dd')
+<!-- 		select count(*) from visit where substr(to_char(visit), 1) = to_date(sysdate, 'yy/MM/dd') -->
+		select count(*) from visit where substr(to_char(visit), 1) = substr(to_char((select max(visit) from visit)),1)
 	</select>
 	<insert id="newBoard">
 		insert into newBoardLog values(sysdate)

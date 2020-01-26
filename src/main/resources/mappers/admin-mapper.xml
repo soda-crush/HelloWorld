@@ -117,13 +117,13 @@
   	select noticeSeq.nextval from dual
   </select> 
   <insert id="writeNotice">
-  	insert into notice values(#{seq}, #{title}, #{content}, sysdate, 0)
+  	insert into notice values(#{seq}, #{title}, #{content}, sysdate, 0, #{nonTagContent})
   </insert>
   <select id="noticeDetailView" resultType="kh.hello.dto.NoticeDTO">
   	select * from notice where seq=#{seq}
   </select>
   <update id="modifyNotice">
-  	update notice set title=#{title}, content=#{content}, writeDate=sysdate where seq=#{seq}
+  	update notice set title=#{title}, content=#{content}, writeDate=sysdate, nonTagContent=#{nonTagContent} where seq=#{seq}
   </update>
   <delete id="deleteNotice">
   	delete from notice where seq=#{seq}
