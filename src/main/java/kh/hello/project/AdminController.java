@@ -490,7 +490,6 @@ public class AdminController {
 	@RequestMapping(value="/ifmOpenModify", produces="text/html;charset=utf8")
 	@ResponseBody
 	public String ifmOpenModify(String id) {
-		System.out.println("ajax");
 		String result = as.ifmOpenModify(id);
 		return result;		
 	}
