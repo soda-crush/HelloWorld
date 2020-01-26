@@ -12,7 +12,7 @@ public class ChartScheduler {
 	@Autowired
 	private CountDAO cdao;
 	
-	@Scheduled(cron = "0 15 10 * * ?")
+	@Scheduled(cron = "0 0 0 * * ?")
 	public void protectNoDay() {
 		cdao.plusVisitCount();
 		cdao.newBoard();
