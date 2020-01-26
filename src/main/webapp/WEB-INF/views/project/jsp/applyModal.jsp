@@ -3,7 +3,7 @@
 
         <!-- Modal -->
 		<div class="modal fade" id="pApplyModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="pApplyModalLabel" aria-hidden="true">
-		  <div class="modal-dialog" role="document" style="width:400px;">
+		  <div class="modal-dialog" role="document">
 		    <div class="modal-content">
 		      <div class="modal-header">
 		        <h5 class="modal-title" id="pApplyModalLabel">프로젝트 신청</h5>
@@ -14,12 +14,12 @@
 		      <form action="/project/apply/writeProc" method="post" id="applyFrm">
 			      <div class="modal-body">		      
 			      	<div class="row">
-						<div class="col-4 pr-0"><label class="aItem">사용 가능 언어</label><label class="star">*</label></div>
-						<div class="col-6 pApplyInput pl-2" style="max-width:240px;"><input type="text" class="form-control form-control-sm" id="languages" name="languages"></div>
+						<div class="col-4 pr-0"><label class="aItem">가능 언어</label><label class="star">*</label></div>
+						<div class="col-7 pApplyInput p-0" style="max-width:240px;"><input type="text" class="form-control form-control-sm" id="languages" name="languages"></div>
 					</div>
 					<div class="row">
 						<div class="col-4 pr-0"><label class="aItem">성별</label><label class="star">*</label></div>
-						<div class="col-7 genderRadio pApplyInput pl-2">
+						<div class="col-7 genderRadio pApplyInput p-0">
 							<div class="form-check form-check-inline pApplyInput">
 							  <input class="form-check-input" type="radio" name="gender" id="male" value="M">
 							  <label class="form-check-label" for="male">남</label>
@@ -37,7 +37,7 @@
 					</div>
 					<div class="row">
 						<div class="col-4 pr-0"><label class="aItem">나이</label><label class="star">*</label></div>
-						<div class="col-4 pApplyInput pl-2">
+						<div class="col-4 pApplyInput p-0">
 							<select class="form-control form-control-sm pSelect" name="age" id="age">
 								<option selected>선택</option>
 							    <option value="1">10대</option>
@@ -50,7 +50,7 @@
 					</div>							
 					<div class="row">
 						<div class="col-4 pr-0"><label class="aItem">재직여부</label><label class="star">*</label></div>
-						<div class="col-7 workInRadio pApplyInput pl-2">
+						<div class="col-7 workInRadio pApplyInput p-0">
 							<div class="form-check form-check-inline">
 							  <input class="form-check-input" type="radio" name="workIn" id="Y" value="Y">
 							  <label class="form-check-label" for="Y">재직</label>
@@ -63,7 +63,7 @@
 					</div>
 					<div class="row">
 						<div class="col-4 pr-0"><label class="aItem">메일주소</label></div>							
-						<div class="col-7 pApplyInput pl-2 pr-0"><input type="email" class="form-control form-control-sm" id="email" name="email" style="max-width:220px;"></div>
+						<div class="col-7 pApplyInput p-0"><input type="email" class="form-control form-control-sm" id="email" name="email" style="min-width:219px;max-width:240px;"></div>
 					</div>
 					<div class="row">
 						<div class="col-12"><label class="aItem">하고 싶은 말</label></div>

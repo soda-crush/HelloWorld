@@ -22,14 +22,14 @@
 				</div>
 				<div class="tableDiv">
 					<div class="row tableHead">		
-						<div class="col-3 col-md-1 col-lg-1">승인</div>
-						<div class="col-2 col-md-1 col-lg-1">신청서</div>
+						<div class="col-3 col-md-2 col-lg-1">승인</div>
+						<div class="col-2 col-md-1">신청서</div>
 						<div class="d-none col-md-2 d-md-block col-lg-1">신청일</div>		
-					    <div class="col-3 col-md-1 col-lg-1">상태</div>								    					    
+					    <div class="col-2 col-md-1">상태</div>								    					    
 					    <div class="d-none col-lg-1 d-lg-block">인원</div>						    
-					  	<div class="d-none col-md-3 d-md-block col-lg-2">지역</div>
+					  	<div class="d-none col-md-2 d-md-block col-lg-1">지역</div>
 					    <div class="d-none col-lg-2 d-lg-block">프로젝트 기간</div>
-					    <div class="col-4 col-md-4 col-lg-2">제목</div>
+					    <div class="col-5 col-md-4 col-lg-3">제목</div>
 					    <div class="d-none col-lg-1 d-lg-block">작성자</div>
 
 				    				    
@@ -42,14 +42,14 @@
 				  		<c:otherwise>
 				  			<c:forEach items="${applyProjectList }" var="a">
 				  				<div class="row applyTableBody tableBody p-0">
-				  					<div class="col-3 col-md-1 col-lg-1 approve${a.approve }">${a.approveInKor }</div>
-				  					<div class="col-2 col-md-1 col-lg-1"><button type="button" class="btn btn-outline-danger btn-sm mb-1" onclick="popUp('/project/apply/detailView?seq=${a.seq }')">신청글</button></div>									
+				  					<div class="col-3 col-md-2 col-lg-1 approve${a.approve }">${a.approveInKor }</div>
+				  					<div class="col-2 col-md-1"><button type="button" class="btn btn-outline-dark btn-sm mb-1" style="width:60px;font-size:13px;" onclick="popUp('/project/apply/detailView?seq=${a.seq }')">신청글</button></div>									
 									<div class="d-none col-md-2 d-md-block col-lg-1">${a.formedWriteDate }</div>	
-									<div class="col-3 col-md-1 col-lg-1 state${a.state }"><strong>${a.stateInKor }</strong></div>										
+									<div class="col-2 col-md-1 state${a.state }"><strong>${a.stateInKor }</strong></div>										
 									<div class="d-none col-lg-1 d-lg-block">${a.capacity }명</div>
-									<div class="d-none col-md-3 d-md-block col-lg-2"><small>${a.location1 } ${a.location2 }</small></div>
+									<div class="d-none col-md-2 d-md-block col-lg-1"><small>${a.location1 } ${a.location2 }</small></div>
 									<div class="d-none col-lg-2 d-lg-block"><small>${a.formedAllDate }</small></div>																											
-									<div class="col-4 col-md-4 col-lg-2 text-decoration-none" onclick="popUp('/project/detailView?seq=${a.projectSeq}')">
+									<div class="col-5 col-md-4 col-lg-3 text-decoration-none" onclick="popUp('/project/detailView?seq=${a.projectSeq}')">
 										<div class="row pl-1">
 											<div style="max-width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;">${a.title }</div> 
 											<c:if test="${a.commentCount>0 }">

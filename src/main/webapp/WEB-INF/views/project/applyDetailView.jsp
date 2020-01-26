@@ -16,7 +16,6 @@
 <script src="https://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
 <link rel="stylesheet" href="https://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.css">
 <link rel="stylesheet" href="https://bootstrap-tagsinput.github.io/bootstrap-tagsinput/examples/assets/app.css">
-<!-- <link rel="stylesheet" href="/css/project/projectBase.css" type="text/css"/> -->
 <link rel="stylesheet" href="/css/project/applyDetailView.css" type="text/css"/>
 <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.css" type="text/css"/>
 </head>
@@ -33,7 +32,7 @@
             <!--      몸통 시작!!!   -->
             <div class="container" id="projectPage">
 				<div id="pageTitle">
-					<h1>프로젝트 신청 상세보기</h1>
+					<h2>프로젝트 신청 상세</h2>
 				</div>
 				<div class="border border-secondary rounded" id="pageBody">
 					<c:if test="${aPage.seq !=null }">

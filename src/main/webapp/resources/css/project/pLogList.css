@@ -23,7 +23,8 @@ body{background-color:#efefef;}
 
 .tableBody .stateN{color:limegreen;}
 .tableBody .stateY{color:red;}
-.tableBody .approveO{color:#0058ff;}
+/* .tableBody .approveO{color:#0058ff;} */
+.tableBody .approveO{color:deepskyblue;}
 .tableBody .approveX{color:red;}
 .tableBody .approveW{color:#ffd800;}
 

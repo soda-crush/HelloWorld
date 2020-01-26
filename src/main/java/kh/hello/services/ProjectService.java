@@ -59,8 +59,11 @@ public class ProjectService {
 	 * 프로젝트 모집
 	 */
 	
-	public List<ProjectChartDTO> projectList(String id, String pageOrder){
-		List<ProjectChartDTO> result = dao.getProjectList(id, pageOrder);
+	public List<ProjectChartDTO> projectList(String id, String pageOrder, String searchOption, String keyword){
+		if(keyword!=null) {
+			keyword=Utils.protectXss(keyword);
+		}
+		List<ProjectChartDTO> result = dao.getProjectList(id, pageOrder, searchOption, keyword);
 		LocalDate today = LocalDate.now();
 		int tYear = today.getYear();
 		int tMonth = today.getMonthValue();
@@ -520,6 +523,8 @@ public class ProjectService {
 			recordTotalCount = dao.getMakeArticleCount(id, searchOption, keyword);
 		}else if(listType.contentEquals("applyProjectList")) {
 			recordTotalCount = dao.getApplyArticleCount(id, searchOption, keyword);
+		}else if(listType.contentEquals("makeGuestProjectList")) {
+			recordTotalCount = dao.getMakeArticleCount(id, null, null);
 		}
 		
 		

@@ -28,15 +28,15 @@
             <!--      몸통 시작!!!   -->
             <div class="container" id="projectApplyPage">
             	<div id="pageTitle" class="row">
-					<div class="col-12"><h1>프로젝트 신청 내역</h1></div>					
+					<div class="col-12"><h2>프로젝트 신청 목록</h2></div>					
 				</div>	           
            
            		<div class="tableDiv">
 					<div class="row tableHead">					    
-					    <div class="col-1">번호</div>
-					    <div class="col-2">신청자</div>
+					    <div class="col-2 col-md-1">번호</div>
+					    <div class="col-3 col-md-2">신청자</div>
 					    <div class="col-5 col-md-4 col-lg-5">사용가능언어</div>
-					    <div class="col-2 col-md-2 col-lg-1">재직여부</div>
+					    <div class="d-none d-md-block col-md-2 col-lg-1">재직여부</div>
 					    <div class="d-none d-md-block col-md-2">포트폴리오</div>
 					    <div class="col-2 col-md-1">승인</div>
 					</div>
@@ -48,10 +48,10 @@
 				  		<c:otherwise>				  			
 				  			<c:forEach items="${projectApplyList }" var="a" varStatus="status">					  							  			
 				  				<div class="row tableBody p-0 text-decoration-none applyRow${a.approve }" onclick="openApplyPage(${a.seq },'${a.approve}')">
-									<div class="col-1">${projectApplyList.size() - status.index}</div>
-									<div class="col-2"><small>${a.writer }</small></div>
-									<div class="col-5 col-md-4 col-lg-5 pl-2" style="max-width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;">${a.languages }</div>
-									<div class="col-2 col-md-2 col-lg-1">${a.workInInKor }</div>									
+									<div class="col-2 col-md-1">${projectApplyList.size() - status.index}</div>
+									<div class="col-3 col-md-2"><small>${a.writer }</small></div>
+									<div class="col-5 col-md-4 col-lg-5 pl-2 " style="max-width:87%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;">${a.languages }</div>
+									<div class="d-none d-md-block col-md-2 col-lg-1">${a.workInInKor }</div>									
 									<div class="d-none d-md-block col-md-2">${a.portfolioInKor }</div>
 									<div class="col-2 col-md-1 approve${a.approve }">${a.approveInKor }</div>									
 								</div>	

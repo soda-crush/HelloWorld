@@ -13,7 +13,7 @@
     .fa-share-alt,.scrapDone,.scrapNull{margin-left:15px;}
     .pInfoBox span{font-size:15px;display:inline-block;}
 	.pInfoBox span:first-of-type{width:180px;}
-	.pInfoBox span:nth-of-type(2){width:90px;}
+	.pInfoBox span:nth-of-type(2){width:135px;}
     .pTitleBox{font-weight:bold;}     
     .pTextInfo{z-index:1;}
 	.graphNaviItem{background-color:#e0e0e0;color:#59595990;text-align:center;width:103px;padding-top:130px;}

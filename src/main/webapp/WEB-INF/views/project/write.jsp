@@ -45,7 +45,7 @@
             <!--      몸통 시작!!!   -->
             <div class=container id="projectPage">
 				<div id="pageTitle">
-					<h1>프로젝트 모집하기</h1>
+					<h2>프로젝트 모집하기</h2>
 				</div>
 				
 				<form action="/project/writeProc" method="post" id="writeFrm">

@@ -386,7 +386,7 @@
 							'<div class="row commentInfo1 pl-2" style="height:22px;">',
 							'<div class="col-6 commentWriter p-0">',
 							'<span style="font-weight:bold;cursor:pointer;" onclick="popUp(\'/Portfolio/toPlog.do?owner='+resp[i].id+'&other=Y\')">'+resp[i].writer+'</span></div>',
-							'<div class="col-6 text-right commentBtns">'
+							'<div class="col-6 text-right commentBtns pl-0">'
 					);
 					if(resp[i].depth==0){
 						html.push(

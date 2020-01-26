@@ -46,7 +46,7 @@
             <!--      몸통 시작!!!   -->
             <div class=container id="projectPage">
 				<div id="pageTitle">
-					<h1>프로젝트 모집 수정</h1>
+					<h2>프로젝트 모집 수정</h2>
 				</div>
 				
 				<form action="/project/modifyProc" method="post" id="modifyFrm">
