@@ -86,10 +86,10 @@
 					<div class="projectContainer">
 						<c:choose>
 							<c:when test="${not empty searchChoice && projectList.size()==0}">
-								<div class="row"><div class="col-12 text-center">검색 결과가 없습니다.</div></div>
+								<div class="row"><div class="col-12 text-center mt-2">검색 결과가 없습니다.</div></div>
 							</c:when>
 							<c:when test="${empty searchChoice && projectList.size()==0 }">
-					  			<div class="row"><div class="col-12 text-center">모집중인 프로젝트가 없습니다.</div></div>
+					  			<div class="row"><div class="col-12 text-center mt-2">모집중인 프로젝트가 없습니다.</div></div>
 					  		</c:when>
 					  		<c:otherwise>					  		
 					  			<c:forEach items="${projectList }" var="p">
