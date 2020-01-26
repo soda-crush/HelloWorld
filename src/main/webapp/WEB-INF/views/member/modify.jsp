@@ -112,11 +112,11 @@
             </div>
              <div class=row id=empContainer>
             	<div class=col-12>
-            		<input type=radio name=empCheck value=unemployee class=emp><h5 style="display:inline">비실무자</h5>
+            		<input type=radio name=empCheck value=unemployee class=emp><h5 style="display:inline">일반</h5>
             	</div>
             	<div class=col-12>
             		<br>
-            		<input type=radio name=empCheck value=employee class=emp><h5 style="display:inline">실무자</h5>
+            		<input type=radio name=empCheck value=employee class=emp><h5 style="display:inline">재직자</h5>
             		<input type=radio name=empCheck value=demotion class=emp style="display:none">
             		<input type=text name=demotionMail id=demotionMail  style="display:none">
             		<hr>
@@ -311,6 +311,8 @@
         var jpTest = 0;
         var genderTest = 0;
         var emailTest2 = 0;
+        var emailTestEmp = 0;
+        var emailTestUnemp = 0;
         
         //프로필 이미지 등록
         
@@ -325,9 +327,13 @@
         //실무자 비실무자 체크
 	        $("input:radio[name=empCheck]").click(function(){
 	            if($("input:radio[name=empCheck]:checked").val()=='employee'){
+	            	emailTestEmp = 0;
+	            	emailTestUnemp = 0;
 	                $("#empEle").css("display","block");
 	                $("#unempEle").css("display","none");
 	            }else if($("input:radio[name=empCheck]:checked").val()=='unemployee'){
+	            	emailTestEmp = 0;
+	            	emailTestUnemp = 0;
 	            	$("#unempEle").css("display","block");
 		            $("#empEle").css("display","none");
 	            }
@@ -476,6 +482,14 @@
             emailTest = 1;
  	               //실무자 체크했을때
  	            	 $("#sendMail1").on("click",function(){
+ 	            		 if(emailTestEmp == 2){
+ 	            			 alert("이미 메일을 전송하였습니다. 메일 재전송을 원하시면 회원가입 절차를 다시 진행해주십시오.");
+ 	            			 return false;
+ 	            		 }else if(emailTestEmp == 1){
+ 	            			alert("메일 전송 절차가 진행중입니다. 알림창이 뜰때까지 기다려 주십시오.");
+ 	            			 return false;
+ 	            		 }
+ 	            		 
  	                     var regex = /^\w+@[a-z]+(\.[a-z]+){1,2}$/g;
  	                     var data = $("#empEmail").val();
  	                     var result = regex.exec(data);
@@ -488,6 +502,7 @@
 	                    	 if(result == null){
 	 							//이메일 형식 아닌경우
 	 							alert("올바른 이메일 형식이 아닙니다. 확인부탁드립니다.");
+								return false;
 	  	                     }else{
 	  	                    	//이메일 형식 맞는 경우
 	  	                    	
@@ -510,7 +525,7 @@
 	 	 	 	              				var regexNaver = /^\w+@naver.com$/g;
 	 	 	 	              				var resultNaver = regexNaver.exec(data);
 		 	 	 	 	                    if(resultNaver != null){
-		 	 	 	 	                    	
+		 	 	 	 	                    	emailTestEmp = 1;
 			 	 	 	 	                    emailTest2 = 1;
 		 	 	 	 	                    	$.ajax({
 		 	 	 	 	              			url:"${pageContext.request.contextPath}/member/mailSending",
@@ -520,6 +535,7 @@
 		 	 	 	 	              			}
 		 	 	 	 	              			}).done(function(data){
 		 	 	 	 	              			alert("인증 메일이 전송되었습니다. 메일을 확인해주세요.");
+		 	 	 	 	              			emailTestEmp = 2;
 	 	 	 	 	              			});
 		 	 	 	 	                    	return false;
 		 	 	 	 	                    }
@@ -529,13 +545,14 @@
 	 	 	 		 	                    var result2 = regex2.exec(data);
 	 	 	 		 	                    
 	 	 	 		 	                    if(result2 != null){
-	 	 	 		 	                    	alert("개인 도메인(예. pe.kr)을 상업적 목적으로 이용하실 경우 비실무자로 가입후 일대일문의를 통해 실무자 인증부탁드립니다.");
+	 	 	 		 	                    	alert("개인 도메인(예. pe.kr)을 상업적 목적으로 이용하실 경우 일반회원으로 가입후 일대일문의를 통해 재직자 인증부탁드립니다.");
 	 	 	 		 	                    	return;
 	 	 	 		 	                    }
 	 	 	 		 	                    
 	 	 	 	 	 	                    if(result == null){
-	 	 	 	 	 	                    	alert("영리 단체 도메인(co.kr)이 아닙니다. 비실무자 선택후 진행해주세요.");
+	 	 	 	 	 	                    	alert("영리 단체 도메인(co.kr)이 아닙니다. 일반회원 선택후 진행해주세요.");
 	 	 	 	 	 	                    }else{
+	 	 	 	 	 	                   		emailTestEmp = 1;
 	 	 	 	 	 	                    	emailTest2 = 1;
 	 	 	 	 	 	                    	$.ajax({
 	 	 	 	 	 	              			url:"${pageContext.request.contextPath}/member/mailSending",
@@ -545,6 +562,7 @@
 	 	 	 	 	 	              			}
 	 	 	 	 	 	              		}).done(function(data){
 	 	 	 	 	 	              			alert("인증 메일이 전송되었습니다. 메일을 확인해주세요.");
+	 	 	 	 	 	              			emailTestEmp = 2;
 	 	 	 	 	 	              		});
 	 	 	 	 	 	                    }
 	  	 	 	              			}
@@ -566,9 +584,18 @@
  	                    	 alert("동일한 이메일은 재인증을 안하셔도 괜찮습니다.");
  	                    	 emailTest = 1;
  	                     }else{
+ 	                    	 if(emailTestUnemp == 2){
+ 	 	            			 alert("이미 메일을 전송하였습니다. 메일 재전송을 원하시면 회원가입 절차를 다시 진행해주십시오.");
+ 	 	            			 return false;
+ 	 	            		 }else if(emailTestUnemp == 1){
+ 	 	            			alert("메일 전송 절차가 진행중입니다. 알림창이 뜰때까지 기다려 주십시오.");
+ 	 	            			 return false;
+ 	 	            		 } 
+ 	                    	 
  	                    	if(result == null){
  								//이메일 형식 아닌경우
  								alert("올바른 이메일 형식이 아닙니다. 확인부탁드립니다.");
+ 								return false;
  	 	                     }else{
  	 	                    	//이메일 형식 맞는 경우
  	 	                    	
@@ -587,6 +614,7 @@
  	 	 	 	                    	var data = $("#unempEmail").val();
  	 	 	 	 	                    var result = regex.exec(data);
  	 	 	 	 	                    if(result == null){
+ 	 	 	 	 	                   		emailTestUnemp = 1;
  	 	 	 	 	                    	emailTest2 = 1;
  	 	 	 	 	                    	$.ajax({
  	 	 	 	 	 	              			url:"${pageContext.request.contextPath}/member/mailSending",
@@ -595,10 +623,11 @@
  	 	 	 	 	 	              				email : $("#unempEmail").val()
  	 	 	 	 	 	              			}
  	 	 	 	 	 	              		}).done(function(data){
- 	 	 	 	 	 	              			alert("인증 메일이 전송되었습니다. 메일을 확인해주세요.\n개인 도메인(예시. pe.kr)을 상업적 목적으로 이용하실 경우 비실무자로 가입후 일대일문의를 통해 실무자 인증부탁드립니다.");
+ 	 	 	 	 	 	              			alert("인증 메일이 전송되었습니다. 메일을 확인해주세요.\n개인 도메인(예시. pe.kr)을 상업적 목적으로 이용하실 경우 일반회원으로 가입후 일대일문의를 통해 재직자 인증부탁드립니다.");
+ 	 	 	 	 	 	              			emailTestUnemp = 2;
  	 	 	 	 	 	              		});
  	 	 	 	 	                    }else{
- 	 	 	 	 	                    	alert("영리단체 도메인(co.kr)은 실무자로 가입부탁드립니다.");
+ 	 	 	 	 	                    	alert("영리단체 도메인(co.kr)은 재직자로 가입부탁드립니다.");
  	 	 	 	 	                    }
  	 	 	 	              			}
  	 	 	 	              		});	
@@ -645,7 +674,7 @@
             	})
             	
             //이메일 인증코드 확인 - 비실무자
-            	$("#certification2").on("click",function(){
+            	$("#certification2").on("click",function(){ㄴ
             		if(emailTest2 == 0){
                 		alert("인증 메일 발송부터 진행하여 주십시오.");
                 	}else{

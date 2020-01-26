@@ -13,6 +13,7 @@ public class ItnewsDTO {
 	private String id;
 	private int commentCount;
 	private String kakaoTitle;
+	private String nonTagContent;
 	
 	public String getDate(){
 	      long exDate = System.currentTimeMillis();
@@ -49,7 +50,7 @@ public class ItnewsDTO {
 	}
 
 	public ItnewsDTO(int seq, String writer, String title, String content, Timestamp writeDate, int viewCount,
-			String id, int commentCount, String kakaoTitle) {
+			String id, int commentCount, String kakaoTitle, String nonTagContent) {
 		super();
 		this.seq = seq;
 		this.writer = writer;
@@ -60,13 +61,23 @@ public class ItnewsDTO {
 		this.id = id;
 		this.commentCount = commentCount;
 		this.kakaoTitle = kakaoTitle;
+		this.nonTagContent = nonTagContent;
+	}
+
+
+	public String getNonTagContent() {
+		return nonTagContent;
+	}
+
+	public void setNonTagContent(String nonTagContent) {
+		this.nonTagContent = nonTagContent;
 	}
 
 	@Override
 	public String toString() {
 		return "ItnewsDTO [seq=" + seq + ", writer=" + writer + ", title=" + title + ", content=" + content
 				+ ", writeDate=" + writeDate + ", viewCount=" + viewCount + ", id=" + id + ", commentCount="
-				+ commentCount + ", kakaoTitle=" + kakaoTitle + "]";
+				+ commentCount + ", kakaoTitle=" + kakaoTitle + ", nonTagContent=" + nonTagContent + "]";
 	}
 
 	public int getSeq() {
