@@ -40,23 +40,25 @@
                
 	            <div class=container id="projectPage">
 					<div id="pageTitle" class="row">
-						<div class="col-12 col-lg-5 m-0 p-0"><h1 onclick="location.href='/project/chart'" style="cursor:pointer">프로젝트 모집</h1><span class="badge badge-pill ml-2" id="stateCountLabel">${projectList.size() }</span></div>
-						<div class="col-12 col-lg-6 m-0 p-0 pt-2 pb-1">
-							<div style="width:200px;height:35px;display:inline-block;border-bottom:2px solid #99000030;cursor:pointer" class="text-center pt-1" onclick="location.href='/project/list'"><span style="color:black;font-weight:bold;font-size:18px;opacity:30%;">게시판</span></div>
-							<div style="margin-left:-5px;width:200px;height:35px;display:inline-block;border-bottom:2px solid crimson;cursor:pointer" class="text-center pt-1" onclick="location.href='/project/chart'"><span style="color:black;font-weight:bold;font-size:18px;">일정</span></div>
+						<div class="col-12 col-md-6 col-lg-5 m-0 p-0"><h1 onclick="location.href='/project/chart'" style="cursor:pointer">프로젝트 모집</h1><span class="badge badge-pill ml-2" id="stateCountLabel">${projectList.size() }</span></div>
+						<div class="col-12 col-md-6 col-lg-7 m-0 p-0 pt-2 pb-1 text-right">
+							<div style="width:180px;height:35px;display:inline-block;border-bottom:2px solid #99000030;cursor:pointer" class="text-center pt-1" onclick="location.href='/project/list'"><span style="color:black;font-weight:bold;font-size:18px;opacity:30%;">게시판</span></div>
+							<div style="margin-left:-5px;width:180px;height:35px;display:inline-block;border-bottom:2px solid crimson;cursor:pointer" class="text-center pt-1" onclick="location.href='/project/chart'"><span style="color:black;font-weight:bold;font-size:18px;">일정</span></div>
 						</div>
 					</div>	
 					
 					<div class="projectChartDiv d-none d-xl-block">
 						<div class="row mb-3">
-							<div class="col-12">
-								<div class="btn-group" role="group">
-									<button type="button" class="btn btn-outline-warning btn-sm active" id="latestOrder">최신순</button>
-									<button type="button" class="btn btn-outline-warning btn-sm" id="deadlineOrder">마감임박순</button>
-									<span class="ml-3 pt-1" style="height:15px;color:#8a8a8a;"><small>모집중인 프로젝트만 표시됩니다</small></span>
-									<input type="hidden" name="pageOrder" id="pageOrder">
-								</div>
+							<div class="col-5 col-md-3 col-lg-2 p-0">
+								<div class="btn-group btn-group-sm" role="group" aria-label="projectOrderBtns">
+									<button type="button" class="btn btn-outline-warning btn-sm active" id="latestOrder" style="font-size:14px;">최신순</button>
+									<button type="button" class="btn btn-outline-warning btn-sm" id="deadlineOrder" style="font-size:14px;">마감임박순</button>								
+								</div>							
 							</div>
+							<div class="col-7 p-0">
+								<div class="pt-1" style="color:#8a8a8a;"><small>모집중인 프로젝트만 표시됩니다</small></div>
+								<input type="hidden" name="pageOrder" id="pageOrder">
+							</div>	
 						</div>
 											
 					<div class="projectContainer">

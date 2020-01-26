@@ -77,7 +77,7 @@
             <!--      몸통 시작!!!   -->
             <div class=container id="projectPage">
 				<div id="pageTitle">
-					<h1>프로젝트 모집글 상세보기</h1>
+					<h2>프로젝트 모집 상세</h2>
 				</div>
 				<div class="border border-secondary rounded" id="pageBody">
 					<c:if test="${pPage==null }">
@@ -130,11 +130,11 @@
 									  						<span class="pApply font-weight-bold">${pPage.applyCount }</span>
 									  					</c:if>
 													</button>										
-													<button type="button" class="btn btn-success" id="pCloseBtn">모집마감처리</button>
+													<button type="button" class="btn btn-success m-0" id="pCloseBtn">모집마감처리</button>
 												</c:when>
 												<c:otherwise>
 													<p style="font-weight:bold;"><span style="color:red;font-weight:bold;">모집마감</span>되었습니다.</p>
-													<button type="button" class="btn btn-warning" id="applyCheckBtn">전체신청내역</button>
+													<button type="button" class="btn btn-warning m-0" id="applyCheckBtn">전체신청내역</button>
 												</c:otherwise>
 											</c:choose>										
 									</c:when>
@@ -181,7 +181,7 @@
 																<div class="col-6 commentWriter p-0">
 																	<span style="font-weight:bold;cursor:pointer;" onclick="popUp('/Portfolio/toPlog.do?owner=${c.id}&other=Y')">${c.writer }</span>
 																</div>
-																<div class="col-6 text-right commentBtns">
+																<div class="col-6 text-right commentBtns pl-0">
 																	<c:if test="${c.depth==0 }">
 																		<a style="height:90%;width:40px;font-size:14px;" class="btn btn-warning coReplyBtn align-middle" href="#" onclick="coReplyFunction(${c.seq});return false;" role="button">답글</a>
 																	</c:if>													
@@ -226,12 +226,12 @@
 								<div class="col-3 col-lg-2">
 									<div class="row">
 										<div class="col-12">
-											<button type="button" class="btn btn-secondary" style="margin-bottom:10px;" id="coCancel">취소</button>
+											<button type="button" class="btn btn-secondary p-0" style="margin-bottom:10px;" id="coCancel">취소</button>
 										</div>										
 									</div>
 									<div class="row">
 										<div class="col-12">
-											<button type="button" class="btn btn-primary" id="coWriteBtn">작성</button>
+											<button type="button" class="btn btn-primary p-0" id="coWriteBtn">작성</button>
 										</div>										
 									</div>								
 		        				</div>

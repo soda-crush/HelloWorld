@@ -520,6 +520,8 @@ public class ProjectService {
 			recordTotalCount = dao.getMakeArticleCount(id, searchOption, keyword);
 		}else if(listType.contentEquals("applyProjectList")) {
 			recordTotalCount = dao.getApplyArticleCount(id, searchOption, keyword);
+		}else if(listType.contentEquals("makeGuestProjectList")) {
+			recordTotalCount = dao.getMakeArticleCount(id, null, null);
 		}
 		
 		
