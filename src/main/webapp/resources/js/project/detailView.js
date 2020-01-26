@@ -57,7 +57,7 @@
 			var html = [];
 			html.push(
 					'<div id="pCoReplyInput" class="row commentDiv commentBox p-0 pb-2">',
-					'<div class="col-1 text-right pt-1"><strong>┗</strong></div>',
+					'<div class="col-1 text-right pl-0 pt-1"><strong>┗</strong></div>',
 					'<div class="col-11 commentInnerBox pb-0">',
 					'<div class="row mt-2">',
 					'<div class="col-9 col-md-10"><textarea class="form-control ml-0" placeholder="답글 내용을 입력해주세요" id="pCoReplyContents" name="contents" maxlength="1300"></textarea></div>',
@@ -362,7 +362,7 @@
 				);
 				if(resp[i].depth==1){
 					html.push(
-						'<div class="col-1 text-right pt-1"><strong>┗</strong></div>'		
+						'<div class="col-1 text-right pl-0 pt-1"><strong>┗</strong></div>'		
 					);
 				}
 				if(resp[i].id==loginInfo){
