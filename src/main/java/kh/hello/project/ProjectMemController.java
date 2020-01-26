@@ -80,6 +80,9 @@ public class ProjectMemController {
 		}else if(pageOrder.contentEquals("startDate")) {
 			checkOrder="startDate";
 		}
+		if(keyword!=null) {
+			keyword.replaceAll("'", "''");
+		}
 		List<ProjectChartDTO> result = svc.projectList(id, pageOrder, searchOption, keyword);
 		if(searchOption!=null) {
 			m.addAttribute("searchChoice", searchOption);
@@ -382,6 +385,10 @@ public class ProjectMemController {
 			keyword.replaceAll("'", "''");
 		}
 		List<ProjectDTO> result = svc.makeProjectListPerPage(start, end, id, searchOption, keyword);
+		if(searchOption!=null) {
+			m.addAttribute("searchChoice", searchOption);
+			m.addAttribute("keywordChoice", keyword);			
+		}
 		m.addAttribute("makeProjectList", result);
 		String pageNavi = svc.getPLogProjectPageNavi(currentPage, id, "makeProjectList", searchOption, keyword);
 		m.addAttribute("makePageNavi", pageNavi);
@@ -404,6 +411,10 @@ public class ProjectMemController {
 			keyword.replaceAll("'", "''");
 		}
 		List<ProjectPLogDTO> result = svc.applyProjectListPerPage(start, end, id, searchOption, keyword);
+		if(searchOption!=null) {
+			m.addAttribute("searchChoice", searchOption);
+			m.addAttribute("keywordChoice", keyword);			
+		}
 		m.addAttribute("applyProjectList", result);
 		String pageNavi = svc.getPLogProjectPageNavi(currentPage, id, "applyProjectList", searchOption, keyword);
 		m.addAttribute("applyPageNavi", pageNavi);

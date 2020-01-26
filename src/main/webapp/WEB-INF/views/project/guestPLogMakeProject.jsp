@@ -19,7 +19,7 @@
 <body>
 			<div style="width:96%;">
 				<div id="pageTitle" class="row">
-					<div class="col-12"><h4>${otherInfo.nickName}님이 <span style="color:#1D1294;">모집</span>한 프로젝트</h4></div>					
+					<div class="col-12" onclick="location.href='/project/pLog/makeGuestProjectList?guestConnect=yes'" style="cursor:pointer"><h4>${otherInfo.nickName}님이 <span style="color:#1D1294;">모집</span>한 프로젝트</h4></div>					
 				</div>
 				<div class="tableDiv">
 					<div class="row tableHead">					    
