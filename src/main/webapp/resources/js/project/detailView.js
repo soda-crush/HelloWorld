@@ -328,28 +328,24 @@
 					return false;
 	            }					
 			}
+			$("input[name='projectSeq']").val($("#pageSeq").val());
+			$("input[name='leaderId']").val($("#writerId").val());
 			$.ajax({
 				type:"post",
 				url:"/project/apply/writeProc",
 				data:$("#applyFrm").serialize()
 			}).done(function(resp){
-				$('#pApplyConfirmModal').modal('show');
-				$(".pApplyInput").children('input').val("");
-				$(".pApplyInput").children('select').val("");
-				$("#etc").val("");
-				$(".bootstrap-tagsinput").children('.label-info').remove();					
+				$('#pApplyConfirmModal').modal('show');				
 				$('#pApplyModal').modal('hide');
 			}).fail(function(resp){
+				console.log(resp);
 				alert("신청 실패!");
 			});
 			return false;				
 		});
-		$("#applyCancelBtn").on("click",function(){
-			$(".pApplyInput").children('input').val("");
-			$(".pApplyInput").children('select').val("");
-			$("#etc").val("");
-			$("input.tt-input").val("");
-			$(".bootstrap-tagsinput").children('.label-info').remove();				
+		$('#pApplyModal').on('hidden.bs.modal', function (e) {
+			$(this).find('form').trigger('reset');	
+			$('.bootstrap-tagsinput .tag [data-role="remove"]').click();			
 		});
 		
 		$("#applyConfirmCheckBtn").on("click",function(){			

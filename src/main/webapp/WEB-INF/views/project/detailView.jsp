@@ -279,5 +279,7 @@
 		<jsp:include page="/WEB-INF/views/project/jsp/reportSuccessModal.jsp"/>
 		<jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
 		<script src="/js/project/detailView.js"></script>
+		<script>
+		</script>
 </body>
 </html>
