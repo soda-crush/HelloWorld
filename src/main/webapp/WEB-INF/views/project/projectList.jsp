@@ -62,13 +62,16 @@
 					    <div class="col-xl-2 col-md-3 d-none d-md-block col-lg-2">프로젝트 기간</div>
 					    <div class="col-xl-1 d-none d-xl-block">작성자</div>
 					    <div class="col-lg-1 d-none d-lg-block">작성일</div>
-					    <div class="col-lg-1 d-none d-lg-block">조회</div>					    
+					    <div class="col-xl-1 d-none d-xl-block">조회</div>					    
 					</div>
 					
 				  	<c:choose>
-				  		<c:when test="${projectList.size()==0 }">
-				  		<div class="row text-center tableBodyNull"><div class="col-12">작성된 글이 없습니다.</div></div>
-				  		</c:when>
+						<c:when test="${not empty searchChoice && projectList.size()==0}">
+							<div class="row text-center tableBodyNull"><div class="col-12">검색 결과가 없습니다.</div></div>
+						</c:when>
+						<c:when test="${empty searchChoice && projectList.size()==0 }">
+				  			<div class="row text-center tableBodyNull"><div class="col-12">작성된 글이 없습니다.</div></div>
+				  		</c:when>				  	
 				  		<c:otherwise>
 				  			<c:forEach items="${projectList }" var="p">
 				  				<div class="row tableBody p-0">
@@ -87,7 +90,7 @@
 									<div class="col-xl-2 col-md-3 d-none d-md-block col-lg-2"><small>${p.formedAllDate }</small></div>
 									<div class="col-xl-1 d-none d-xl-block text-decoration-none" onclick="popUp('/Portfolio/toPlog.do?owner=${p.id}&other=Y')"><small>${p.writer }</small></div>
 									<div class="col-lg-1 d-none d-lg-block">${p.formedDate }</div>
-									<div class="col-lg-1 d-none d-lg-block">${p.viewCount }</div>
+									<div class="col-xl-1 d-none d-xl-block">${p.viewCount }</div>
 								</div>	
 				  			</c:forEach>
 				  		</c:otherwise>
@@ -106,6 +109,8 @@
 							    <option value="writer">작성자</option>									    
 							</select>
 							<input type="hidden" name="pageOrder" id="pageOrder">
+							<input type="hidden" id="searchChoice" value="${searchChoice }">
+							<input type="hidden" id="keywordChoice" value="${keywordChoice }">
 						    <input class="form-control mr-sm-2" type="search" placeholder="검색어를 입력하세요(20자 이내)" aria-label="Search" name="keyword" id="keyword" style="margin-right:5px;min-width:285px;" maxlength="20">
 						    <button class="btn btn-dark my-2 my-sm-0 ml-1" type="submit" id="searchBtn">검색</button>
 						  </form>

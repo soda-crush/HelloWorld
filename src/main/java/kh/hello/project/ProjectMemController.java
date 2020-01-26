@@ -56,6 +56,10 @@ public class ProjectMemController {
 		}
 		List<ProjectDTO> result = svc.projectListPerPage(start, end, pageOrder, searchOption, keyword);
 		int stateCount = svc.projectStateNoneCount();
+		if(searchOption!=null) {
+			m.addAttribute("searchChoice", searchOption);
+			m.addAttribute("keywordChoice", keyword);			
+		}
 		m.addAttribute("projectList", result);
 		m.addAttribute("stateCount", stateCount);
 		String pageNavi = svc.getPageNavi(currentPage, pageOrder, searchOption, keyword);
@@ -66,7 +70,7 @@ public class ProjectMemController {
 	}
 	
 	@RequestMapping("/chart")
-	public String projectChart(String pageOrder, Model m) {
+	public String projectChart(String pageOrder, String searchOption, String keyword, Model m) {
 		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
 		String id = sessionValue.getId();	
 		String checkOrder = "seq";
@@ -76,13 +80,17 @@ public class ProjectMemController {
 		}else if(pageOrder.contentEquals("startDate")) {
 			checkOrder="startDate";
 		}
-		List<ProjectChartDTO> result = svc.projectList(id, pageOrder);
+		List<ProjectChartDTO> result = svc.projectList(id, pageOrder, searchOption, keyword);
+		if(searchOption!=null) {
+			m.addAttribute("searchChoice", searchOption);
+			m.addAttribute("keywordChoice", keyword);			
+		}
 		m.addAttribute("projectList", result);
 		m.addAttribute("pageOrder", checkOrder);
 		m.addAttribute("ip", Configuration.ip);
 		return "/project/projectChart";
 	}
-	
+		
 //	@RequestMapping("/map")
 //	public String projectMap(Model m) {
 //		List<ProjectDTO> result = svc.projectList();

@@ -6,17 +6,27 @@
 	<select id="stateNoneCount" resultType="integer">
 		select count(seq) from project where state='N'
 	</select>
+
 	<select id="getList" resultType="kh.hello.dto.ProjectChartDTO">
-		select * from (select project.*, (select count(*) from scrap where id=#{id} and category='project' and categorySeq=project.seq) as scrap from project where state = 'N') order by
+	select * from
+	(select seq, title, location1, location2, capacity, startDate, endDate, languages, writer, id, state, nonTagContents, nvl(scrap,0) from project p
+	left outer join (select categorySeq, count(*) as scrap from scrap where id=#{id} and category='project' group by categorySeq) s on s.categorySeq=p.seq where state = 'N')	
+		<if test="searchOption!=null">
+			<include refid="search"></include>
+		</if>
+		order by
 		<choose>
-			<when test="pageOrder == 'startDate'">
-				startDate asc
-			</when>
 			<when test="pageOrder == 'seq'">
 				seq desc
 			</when>
-		</choose> 		
+			<when test="pageOrder == 'startDate'">
+				startDate asc
+			</when>
+		</choose> 	
 	</select>
+	
+	
+	
 	<select id="checkForcedCloseProject" resultType="integer">
 		select seq from project where startDate = #{value} and state = 'N'
 	</select>

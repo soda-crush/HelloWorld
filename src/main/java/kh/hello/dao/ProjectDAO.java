@@ -32,10 +32,12 @@ public class ProjectDAO {
 	public List<Integer> checkForcedCloseProject(Date today){
 		return jdbc.selectList("Project.checkForcedCloseProject", today);
 	}
-	public List<ProjectChartDTO> getProjectList(String id, String pageOrder){//프로젝트 모집글 전체리스트
+	public List<ProjectChartDTO> getProjectList(String id, String pageOrder, String searchOption, String keyword){//프로젝트 모집글 전체리스트
 		Map<String, String> param = new HashMap<>();
 		param.put("id", id);
 		param.put("pageOrder", pageOrder);
+		param.put("searchOption", searchOption);
+		param.put("keyword", keyword);		
 		return jdbc.selectList("Project.getList", param);
 	}
 	

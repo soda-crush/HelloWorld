@@ -16,6 +16,17 @@ $("#latestOrder").on("click",function(){
 	$("#pageOrder").val("seq");
 	location.href="/project/chart?pageOrder="+$("#pageOrder").val();
 });
+$("#searchFrm").on("submit",function(){
+	$("#keyword").val($.trim($("#keyword").val()));
+	if($("#keyword").val()==""){
+		alert("검색어를 입력해주세요");
+		return false;
+	}
+});
+$("#searchOption option").filter(function(){
+	return this.value == $("#searchChoice").val();
+}).attr('selected',true);
+$("#keyword").val($("#keywordChoice").val());
 function popUp(link){
 	window.open(link, "pLogPopUp", "width=1000,height=750");
 }

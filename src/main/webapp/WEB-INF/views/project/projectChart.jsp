@@ -55,16 +55,41 @@
 									<button type="button" class="btn btn-outline-warning btn-sm" id="deadlineOrder" style="font-size:14px;">마감임박순</button>								
 								</div>							
 							</div>
-							<div class="col-7 p-0">
-								<div class="pt-1" style="color:#8a8a8a;"><small>모집중인 프로젝트만 표시됩니다</small></div>
-								<input type="hidden" name="pageOrder" id="pageOrder">
+							<div class="col-7 col-md-9 col-lg-10 p-0">
+								<div class="pt-1" style="color:#8a8a8a;display:inline-block;"><small>모집중인 프로젝트만 표시됩니다</small></div>
+<!-- 								<input type="hidden" name="pageOrder" id="pageOrder"> -->
+								
+								
+								<div class="float-right" style="display:inline-block;">
+									  <form class="form-inline" action="/project/chart" method="post" id="searchFrm">
+										<select class="form-control searchSelect" name="searchOption" id="searchOption" style="margin-right:5px;">
+											<option value="all" selected>제목+내용</option>
+										    <option value="title">제목</option>
+										    <option value="nonTagContents">내용</option>
+										    <option value="location">지역</option>
+										    <option value="capacity">인원</option>
+										    <option value="languages">사용언어</option>
+										    <option value="writer">작성자</option>									    
+										</select>
+										<input type="hidden" name="pageOrder" id="pageOrder">
+										<input type="hidden" id="searchChoice" value="${searchChoice }">
+										<input type="hidden" id="keywordChoice" value="${keywordChoice }">										
+									    <input class="form-control mr-sm-2" type="search" placeholder="검색어를 입력하세요(20자 이내)" aria-label="Search" name="keyword" id="keyword" style="margin-right:5px;min-width:285px;" maxlength="20">
+									    <button class="btn btn-dark my-2 my-sm-0 ml-1" type="submit" id="searchBtn">검색</button>
+									  </form>
+								</div>
+							
+							
 							</div>	
 						</div>
 											
 					<div class="projectContainer">
 						<c:choose>
-							<c:when test="${projectList.size()==0 }">
-					  			<div class="row"><div class="col-12">모집중인 프로젝트가 없습니다.</div></div>
+							<c:when test="${not empty searchChoice && projectList.size()==0}">
+								<div class="row"><div class="col-12 text-center">검색 결과가 없습니다.</div></div>
+							</c:when>
+							<c:when test="${empty searchChoice && projectList.size()==0 }">
+					  			<div class="row"><div class="col-12 text-center">모집중인 프로젝트가 없습니다.</div></div>
 					  		</c:when>
 					  		<c:otherwise>					  		
 					  			<c:forEach items="${projectList }" var="p">
@@ -85,7 +110,8 @@
 											<div class="pInfoBox mt-1" style="height:50px;">
 												<div>
 													<span><i class="fa fa-map-marker"></i> ${p.location1 } ${p.location2 }</span>
-													<span><i class="fa fa-user"></i> ${p.capacity }명</span>
+													<span><i class="fa fa-group"></i> ${p.capacity }명</span>
+													<span><i class="fa fa-user"></i> ${p.writer }</span>
 												</div>
 												<div>
 													<div style="max-width:430px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block"><i class="fa fa-check"></i> ${p.languages }</div>
@@ -112,10 +138,10 @@
 											<div class="progressBar text-decoration-none" id="pBar${p.seq }" style="transform: translate(${p.distance -331}px, -50%);width:${p.width}px;" onclick="popUp('/project/detailView?seq=${p.seq }')"></div>											
 										</div>										
 									</div>					
-								</c:forEach>	
-								<input type="hidden" id="pageCheckOrder" value="${pageOrder}">								
-							</c:otherwise>
-						</c:choose>						
+								</c:forEach>																	
+							</c:otherwise>							
+						</c:choose>			
+						<input type="hidden" id="pageCheckOrder" value="${pageOrder}">			
 					</div>
 	            </div>
 	            <div class="d-xl-none text-center">해당 서비스는 PC 전체화면에서 지원됩니다</div>
