@@ -1,3 +1,5 @@
+		var realTitle = $("#oriTitle").val().replace(/modF'Fdom/gi,'"');
+		$("#title").val(realTitle);
 		$("#loc1 option").filter(function() {
 		    return this.text == $("#oriLoc1").val(); 
 		}).attr('selected', true);

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>  
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -118,7 +118,7 @@
 							</div>
 						</div>
 						<div id="pBody">
-							<div id="pTitleInput"><input type="text" class="form-control" placeholder="제목을 입력해주세요" name="title" id="title" value="${fn:escapeXml(pPage.title)}" maxlength="100"></div>
+							<div id="pTitleInput"><input type="text" class="form-control" placeholder="제목을 입력해주세요" name="title" id="title" maxlength="100"></div>
 							<div id="pContentsInput"><textarea class="form-control summernote" name="contents" id="contents">${pPage.contents }</textarea></div>		
 							<input type=hidden name=seq value="${pPage.seq }">
 							<input type="hidden" id="nonTagContents" name="nonTagContents">									
@@ -139,7 +139,8 @@
 					<input type="hidden" id="oriCapa" value="${pPage.capacity}">
 					<input type="hidden" id="oriPhone" value="${pPage.phone}">		
 					<input type="hidden" id="langData" value='${data }'>				
-					<input type="hidden" id="oriLangs" value="${pPage.languages }">		
+					<input type="hidden" id="oriLangs" value="${pPage.languages }">	
+					<input type="hidden" id="oriTitle" value="${pPage.modTitle }">	
 				</div>        
             </div>
             <!--       몸통 끝!!!   -->

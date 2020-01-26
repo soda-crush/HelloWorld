@@ -47,6 +47,14 @@ public class Utils {
 		return input;		
 	}
 	
+	
+	public static String decodingXss(String text) {
+		text = text.replaceAll("&amp;", "&");
+		text = text.replaceAll("&lt;", "<");
+		text = text.replaceAll("&gt;", ">");
+		return text;
+	}
+	
 	public static String encrypt (String pw) throws Exception{
 		MessageDigest digest = MessageDigest.getInstance("SHA-256");
 		digest.reset();
