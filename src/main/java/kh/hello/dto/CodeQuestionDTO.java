@@ -17,7 +17,9 @@ public class CodeQuestionDTO {
 	private int replyCount;
 	private String profileImg;
 	private String kakaoTitle;
-
+	private String modTitle;
+	private String nonTagContents;
+	
 	public CodeQuestionDTO() {
 		super();
 	}
@@ -105,6 +107,23 @@ public class CodeQuestionDTO {
 
 	public void setKakaoTitle(String kakaoTitle) {
 		this.kakaoTitle = kakaoTitle;
+	}
+
+	public String getModTitle() {
+	    this.modTitle = this.title.replaceAll("\"","modF'Fdom");
+	    return this.modTitle;
+	}
+	   
+	public void setModTitle(String title) {
+	    this.modTitle = getModTitle();
+	}
+	
+	public String getNonTagContents() {
+		return nonTagContents;
+	}
+
+	public void setNonTagContents(String nonTagContents) {
+		this.nonTagContents = nonTagContents;
 	}
 
 	//New 하루이내 표시 
