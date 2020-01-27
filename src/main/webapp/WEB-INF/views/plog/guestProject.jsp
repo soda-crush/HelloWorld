@@ -25,7 +25,6 @@
 		.col{margin: 0px;padding: 0px;}
 		.content{height:90%;float: left;resize: none;}
 		.sendbt{height:90%;float: left;}
-		#writer{text-underline-position: auto;margin-right: 30px;}
         a:hover{text-decoration:none;}
         .line-over{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
         #plogProject{background-color:#efefef;border-radius:5px 5px 0px 0px;padding:13px;}        
@@ -63,13 +62,13 @@
 		                            <p class="card-text" style="text-align: center;font-size:12px;">POINT <span style="font-size:15px;font-weight:bold;">${point}</span></p>
 		                        </div>
 	                    	</div>
-	                    	<div class="d-md-none" style="background-color:white;border-radius:5px;height:200px;border: 1px solid rgba(0,0,0,.125); padding:15px;margin-right:10px;">
+	                    	<div class="d-md-none" style="background-color:white;border-radius:5px;height:200px;border: 1px solid rgba(0,0,0,.125); padding:5px;margin-right:10px;">
 	                    		<div style="float:left">
-		                        	<img src="${otherInfo.profileImg }" style="width:150px;margin:10px;">
+		                        	<img src="${ownerInfo.profileImg }" style="width:150px;margin:10px;">
 	                    		</div>
 		                        <div style="float:left;margin-top:100px;margin-left:20px;">
-	                            <div class="card-title line-over" style="text-align: center;font-size:20px;font-weight:bold;margin-bottom:0px;">${otherInfo.nickName} <span style="font-size:15px;">님</span></div>
-		                            <p class="card-text" style="text-align: center;font-size:12px;">POINT <span style="font-size:15px;font-weight:bold;">${point }</span></p>
+	                            <div class="card-title line-over" style="text-align: center;font-size:17px;font-weight:bold;margin-bottom:0px;">${ownerInfo.nickName} <span style="font-size:12px;">님</span></div>
+		                            <p class="card-text" style="text-align: center;font-size:10px;">POINT <span style="font-size:13px;font-weight:bold;">${point }</span></p>
 		                        </div>
 	                    	</div>
 	                    </div>
