@@ -17,8 +17,24 @@ public class IndustryStatusDTO {
 	private int commentCount;
 	private String profileImg;
 	private String kakaoTitle;
-	
-	
+	private String nonTagContents;
+	private String modTitle;
+
+	public String getModTitle() {
+		this.modTitle = this.title.replaceAll("\"","modF'Fdom");
+		return this.modTitle;
+	}
+	public void setModComment(String title) {
+		this.modTitle = getModTitle();
+	}
+	public String getNonTagContents() {
+		return nonTagContents;
+	}
+
+	public void setNonTagContents(String nonTagContents) {
+		this.nonTagContents = nonTagContents;
+	}
+
 	public String getKakaoTitle() {
 		return kakaoTitle;
 	}

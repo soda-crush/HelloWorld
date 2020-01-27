@@ -14,7 +14,22 @@ public class BambooDTO {
 	private int commentCount;
 	private String profileImg;
 	private String kakaoTitle;
-	
+	private String nonTagContents;
+	private String modTitle;
+
+	public String getModTitle() {
+		this.modTitle = this.title.replaceAll("\"","modF'Fdom");
+		return this.modTitle;
+	}
+	public void setModComment(String title) {
+		this.modTitle = getModTitle();
+	}
+	public String getNonTagContents() {
+		return nonTagContents;
+	}
+	public void setNonTagContents(String nonTagContents) {
+		this.nonTagContents = nonTagContents;
+	}
 	public String getKakaoTitle() {
 		return kakaoTitle;
 	}
@@ -75,7 +90,7 @@ public class BambooDTO {
 	public BambooDTO() {
 		super();
 	}
-	
+
 	public int getCommentCount() {
 		return commentCount;
 	}
@@ -85,7 +100,7 @@ public class BambooDTO {
 	public String getNewWriteDate() {
 		LocalDateTime writeDate = this.getWriteDate().toLocalDateTime();
 		int writeDay = writeDate.getDayOfMonth();
-		
+
 		LocalDateTime ldtDay = LocalDateTime.now();
 		int nowDay = ldtDay.getDayOfMonth();
 		if((nowDay-writeDay)<1) {
@@ -95,13 +110,13 @@ public class BambooDTO {
 		}
 	}
 	public String getFormedWriteDate() {
-//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
-//		String result = sdf.format(this.writeDate);
-//		return result;
+		//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+		//		String result = sdf.format(this.writeDate);
+		//		return result;
 		SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm");
 		SimpleDateFormat sdfDay = new SimpleDateFormat("MM-dd");
 		SimpleDateFormat sdfYear = new SimpleDateFormat("yyyy-MM-dd");
-		
+
 		LocalDateTime writeDate = this.getWriteDate().toLocalDateTime();
 		int writeYear = writeDate.getYear();
 		int writeMonth = writeDate.getMonthValue();
@@ -115,7 +130,7 @@ public class BambooDTO {
 		int nowDay = now.getDayOfMonth();
 		int nowHour = now.getHour();
 		int nowMin = now.getMinute();
-		
+
 		if(nowYear==writeYear) {
 			if(nowMonth==writeMonth) {
 				if(nowDay==writeDay) {
@@ -138,7 +153,7 @@ public class BambooDTO {
 			return sdfYear.format(this.getWriteDate());
 		}
 	}
-	
+
 	public String getFormedWriteDateForAdmin() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
 		String result = sdf.format(this.writeDate);
@@ -149,5 +164,5 @@ public class BambooDTO {
 		return "BambooDTO [seq=" + seq + ", writer=" + writer + ", title=" + title + ", content=" + content
 				+ ", writeDate=" + writeDate + ", viewCount=" + viewCount + ", commentCount=" + commentCount + "]";
 	}
-	
+
 }

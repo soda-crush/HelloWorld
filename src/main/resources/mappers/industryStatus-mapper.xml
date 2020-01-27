@@ -13,11 +13,11 @@
 	</select>
 	
 	<insert id="insertIndustryStatus" parameterType="kh.hello.dto.IndustryStatusDTO">
-		insert into industryStatus values(industryStatusSeq.nextval,#{field},#{duty},#{writer},#{title},#{content},sysdate,0,#{id})
+		insert into industryStatus values(industryStatusSeq.nextval,#{field},#{duty},#{writer},#{title},#{content},sysdate,0,#{id},#{nonTagContents})
 	</insert>
 	
 	<update id="updateIndustryStatus" parameterType="kh.hello.dto.IndustryStatusDTO">
-		update industryStatus set field=#{field}, duty=#{duty}, title=#{title}, content=#{content}  where seq=#{seq}
+		update industryStatus set field=#{field}, duty=#{duty}, title=#{title}, content=#{content}, nonTagContents=#{nonTagContents} where seq=#{seq}
 	</update>
 	
 	<update id="updateIndustryStatusViewCount">
@@ -41,7 +41,7 @@
 		 select count(seq) from industryStatus
 		 <choose>
 		 <when test="value == 'all'">								
-			 where (lower(title) like lower('%${search}%')) or (lower(content) like lower('%${search}%'))
+			 where (lower(title) like lower('%${search}%')) or (lower(nonTagContents) like lower('%${search}%'))
 		</when>
 		<when test="value == 'field'">								
 			 where (lower(field) like lower('%${search}%'))
@@ -62,7 +62,7 @@
 		select * 
 		<choose>
 		 <when test="value == 'all'">								
-			 from (select industryStatus.*, row_number() over (order by seq desc) as rown, (select count(*) from industryComments where indSeq=industryStatus.seq) as commentCount from industryStatus where (lower(title) like lower('%${search}%')) or (lower(content) like lower('%${search}%'))) where rown between #{start} and #{end}
+			 from (select industryStatus.*, row_number() over (order by seq desc) as rown, (select count(*) from industryComments where indSeq=industryStatus.seq) as commentCount from industryStatus where (lower(title) like lower('%${search}%')) or (lower(nonTagContents) like lower('%${search}%'))) where rown between #{start} and #{end}
 			 
 		</when>
 		<when test="value == 'field'">
