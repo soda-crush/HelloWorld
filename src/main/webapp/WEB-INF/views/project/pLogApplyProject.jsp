@@ -55,7 +55,7 @@
 									<div class="d-none col-lg-2 d-lg-block"><small>${a.formedAllDate }</small></div>																											
 									<div class="col-7 col-md-4 col-lg-3 text-decoration-none" onclick="detailPopUp('/project/detailView?seq=${a.projectSeq}')">
 										<div class="row pl-1">
-											<div style="max-width:75%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;">${a.title }</div>
+											<div class="titleWrap${a.imageCount }">${a.title }</div>
 											<c:if test="${a.imageCount>0 }">
 												<i class="fa fa-photo ml-1 mr-1" style="font-size:13px;margin-top:20px;color:#757575;"></i>
 											</c:if> 												 
