@@ -80,7 +80,7 @@
 									<div class="col-xl-1 col-3 col-md-2 col-lg-1 ${p.state }">${p.stateInKor }</div>
 				  					<div class="col-xl-3 col-6 col-md-5 text-decoration-none" onclick="location.href='/project/detailView?page=${currentPage}&seq=${p.seq }'">
 											<div class="row">
-											<div style="max-width:81%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;font-weight:bold;">${p.title }</div>
+											<div class="titleWrap${p.imageCount }">${p.title }</div>
 											<c:if test="${p.imageCount>0 }">
 												<i class="fa fa-photo ml-1 mr-1" style="font-size:13px;margin-top:20px;color:#757575;"></i>
 											</c:if> 
