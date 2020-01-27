@@ -109,6 +109,9 @@
 							<label class="ml-4 mb-0" onclick="popUp('/Portfolio/toPlog.do?owner=${pPage.id}&other=Y')" style="cursor:pointer;">
 							<img src="${pPage.profileImg }" style="width:30px;height:30px;margin-right:7px;margin-bottom:5px;"><strong style="font-size:15px;">${pPage.writer }</strong></label>
 							<label class="ml-4 mb-0">작성일 : ${pPage.formedWriteDate }</label>
+								<c:if test="${not empty pPage.changeDate }">
+									<label class="mb-0" style="color:darkgray;">(수정일 : ${pPage.formedChangeDate })</label>
+								</c:if>
 							<label class="ml-4 mb-0">조회 : ${pPage.viewCount }</label>
 						</div>
 						<hr>
@@ -140,7 +143,8 @@
 													<p style="font-weight:bold;"><span style="color:red;font-weight:bold;">모집마감</span>되었습니다.</p>
 													<button type="button" class="btn btn-warning m-0" id="applyCheckBtn">전체신청내역</button>
 												</c:otherwise>
-											</c:choose>										
+											</c:choose>	
+											<form id="frmPopup" method="post"><input type="hidden" name="projectSeq" value="${pPage.seq }"></form>									
 									</c:when>
 									<c:when test="${myApply==null }">
 										<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#pApplyModal" id="getApplyBtn">신청하기</button>

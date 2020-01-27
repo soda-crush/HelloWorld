@@ -139,8 +139,13 @@
 			}).fail(function(resp){
 			});
 		});
-		$("#applyCheckBtn").on("click",function(){
-			window.open("/project/apply/list?projectSeq="+$("#pageSeq").val(), "applyListPopUp", "width=1000,height=750,scrollbars=no, resizable=no, toolbars=no, menubar=no");
+		$("#applyCheckBtn").on("click",function(){			
+			var target = 'makeListPopUp';
+			window.open('', target, "width=1000, height=750");
+			var frmPopup = document.getElementById("frmPopup");
+			frmPopup.action = '/project/apply/list';
+			frmPopup.target = target;
+			frmPopup.submit();
 		});
 		
 		$("#pCloseBtn").on("click",function(){

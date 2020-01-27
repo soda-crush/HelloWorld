@@ -161,11 +161,12 @@
 	</select>	
 	<select id="getPLogMakeListByPage" resultType="kh.hello.dto.ProjectDTO">
 		select * from (select
-		project.seq, state, nvl(totalApply,0) as totalApply, nvl(totalApprove,0) as totalApprove, capacity, startDate, endDate, title, nonTagContents, project.writeDate, viewCount, nvl(commentCount,0) as commentCount, row_number() over (order by project.seq desc) as num from project
+		project.seq, state, nvl(totalApply,0) as totalApply, nvl(totalApprove,0) as totalApprove, capacity, startDate, endDate, title, nonTagContents, project.writeDate, viewCount, nvl(commentCount,0) as commentCount, 
+        row_number() over (order by project.seq desc) as num, nvl(imageCount,0) as imageCount from project
 		left outer join (select projectSeq, count(*) as totalApply, count(decode(approve,'O',1)) totalApprove from projectApply group by projectSeq) pa on pa.projectSeq = project.seq
-		left outer join (select projectSeq, count(*) as commentCount from projectComment
-		where contents is not null group by projectSeq) pc
-		on project.seq = pc.projectSeq where project.id = #{id}
+		left outer join (select projectSeq, count(*) as commentCount from projectComment where contents is not null group by projectSeq) pc on project.seq = pc.projectSeq
+        left outer join (select projectSeq, count(*) as imageCount from projectImage group by projectSeq) pi on project.seq = pi.projectSeq
+       	where project.id = #{id}
 		<if test="searchOption!=null">
 			<include refid="searchAnd"></include>
 		</if>
@@ -179,15 +180,16 @@
 		</if>
 	</select>	
 	<select id="getPLogApplyListByPage" resultType="kh.hello.dto.ProjectPLogDTO">		
-		select * from (select
-		projectApply.seq, projectApply.projectSeq, state, title, nonTagContents, project.writer, projectApply.leaderId, location1, location2, startDate, endDate, capacity, approve, projectApply.writeDate, nvl(commentCount,0) as commentCount, row_number() over (order by projectApply.seq desc) as num from project
+		select * from (select 
+		projectApply.seq, projectApply.projectSeq, state, title, nonTagContents, project.writer, projectApply.leaderId, location1, location2, startDate, endDate, capacity, approve, projectApply.writeDate, nvl(commentCount,0) as commentCount, 
+        row_number() over (order by projectApply.seq desc) as num, nvl(imageCount,0) as imageCount from project
 		inner join projectApply on project.seq = projectApply.projectSeq
-		left outer join (select projectSeq, count(*) as commentCount from projectComment
-		where contents is not null group by projectSeq) pc
-		on project.seq = pc.projectSeq where projectApply.id = #{id}
-		<if test="searchOption!=null">
+		left outer join (select projectSeq, count(*) as commentCount from projectComment where contents is not null group by projectSeq) pc on project.seq = pc.projectSeq
+        left outer join (select projectSeq, count(*) as imageCount from projectImage group by projectSeq) pi on project.seq = pi.projectSeq
+        where projectApply.id = #{id}
+       	<if test="searchOption!=null">
 			<include refid="searchAnd"></include>
-		</if>		
+		</if>	
 		)
 		where num between #{start} and #{end}
 	</select>
