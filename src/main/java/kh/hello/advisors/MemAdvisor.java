@@ -37,16 +37,22 @@ public class MemAdvisor {
 				String sysFirstParam = m2.group(1).toString();
 				
 				if(sysFirstParam.contentEquals("String")) {
-					return "redirect:../member/noMem1?result="+sysMethod;
+					if(sysMethod.contentEquals("projectMainList")||sysMethod.contentEquals("bamboolistView\"")||
+							sysMethod.contentEquals("IndustryStatusListView")||sysMethod.contentEquals("toPlog")) {
+						return "redirect:../member/noMem1?result="+sysMethod;
+					}
 				}else if(sysFirstParam.contentEquals("int")){
-					Object[] paramArr = pjp.getArgs();
-					int seq = Integer.parseInt(paramArr[0].toString());
-					return "redirect:../member/noMem2?result="+sysMethod+"&seq="+seq;
+					if(sysMethod.contentEquals("projectDetailView")||sysMethod.contentEquals("bambooDetailView")||
+							sysMethod.contentEquals("industryStatusDetailView")){
+						Object[] paramArr = pjp.getArgs();
+						int seq = Integer.parseInt(paramArr[0].toString());
+						return "redirect:../member/noMem2?result="+sysMethod+"&seq="+seq;
+					}
 				}
 					
 				}
 			}
-			return "redirect:../member/noMem";
+			return "redirect:/member/noMem";
 		}else {
 			
 			//로그인중강제탈퇴체크
