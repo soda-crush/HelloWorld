@@ -142,6 +142,8 @@ public class ProjectMemController {
 		dto.setId(sessionValue.getId());		
 		String path = session.getServletContext().getRealPath("attached/project");
 		int seq = 0;
+		
+		System.out.println(dto.toString());
 		try {
 			seq = svc.projectWriteConfirm(dto, path);
 		} catch (Exception e) {

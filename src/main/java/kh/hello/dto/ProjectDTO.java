@@ -40,7 +40,6 @@ public class ProjectDTO {
 		super();
 	}	
 
-	
 	public int getSeq() {
 		return seq;
 	}
@@ -287,4 +286,20 @@ public class ProjectDTO {
 		}
 		return result;
 	}
+
+
+	@Override
+	public String toString() {
+		return "ProjectDTO [seq=" + seq + ", title=" + title + ", contents=" + contents + ", location1=" + location1
+				+ ", location2=" + location2 + ", capacity=" + capacity + ", startDate=" + startDate + ", endDate="
+				+ endDate + ", languages=" + languages + ", phone=" + phone + ", email=" + email + ", writer=" + writer
+				+ ", id=" + id + ", writeDate=" + writeDate + ", state=" + state + ", viewCount=" + viewCount
+				+ ", nonTagContents=" + nonTagContents + ", commentCount=" + commentCount + ", imageCount=" + imageCount
+				+ ", applyCount=" + applyCount + ", scrap=" + scrap + ", changeDate=" + changeDate + ", totalApply="
+				+ totalApply + ", totalApprove=" + totalApprove + ", profileImg=" + profileImg + ", modTitle="
+				+ modTitle + "]";
+	}
+	
+	
+	
 }
