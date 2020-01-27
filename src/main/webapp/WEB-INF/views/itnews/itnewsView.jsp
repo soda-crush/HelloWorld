@@ -39,7 +39,6 @@
 		color:#c2c2c2;
 		font-size: 14px;
 	}
-	
  #baseBackgroundColor{
  background-color: #e8e8e890;}
  #ogog:hover {
