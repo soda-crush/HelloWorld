@@ -76,7 +76,6 @@
  background-color: #e8e8e890;
  min-height:680px;
  }
- 
 </style>
 
 <script>
@@ -115,7 +114,7 @@
 			</div>
 			<div class=row>
 				<div class="d-md-none">
-					<div style="font-size: 60px; font-weight: 100;"><h1 class="fontBold">IT News</h1></div>
+					<div style="font-size: 60px; font-weight: 100;"><h1 class="fontBold" onclick='location.href="${pageContext.request.contextPath}/itnews/itnewsList"'>IT News</h1></div>
 					<div style="font-size: 15px; color: gray;">IT 핫이슈를 공유하는 공간입니다.</div>
 				</div>
 			</div>
@@ -149,7 +148,7 @@
 						    			</c:if>
 					    			</div>
 					    			</div>
-					    			<div class="col-4 col-md-2 order-2 order-md-3 notTitle text-left text-md-center pt-3 pl-3 pr-0 cursorPointer" onclick="popUp('/Portfolio/toPlog.do?owner=${dto.id}&other=Y')">${dto.writer}</div>
+					    			<div class="hvOrange col-4 col-md-2 order-2 order-md-3 notTitle text-left text-md-center pt-3 pl-3 pr-0 cursorPointer" onclick="popUp('/Portfolio/toPlog.do?owner=${dto.id}&other=Y')">${dto.writer}</div>
 					    			<div class="col-3 col-md-2 order-3 order-md-4 notTitle text-left text-md-center pt-3">${dto.getDate()}</div>
 					    			<div class="col-1 col-md-1 order-4 order-md-5 notTitle text-left text-md-center pt-3">${dto.viewCount}</div>
 								</div>

@@ -39,9 +39,11 @@
 		color:#c2c2c2;
 		font-size: 14px;
 	}
-	
  #baseBackgroundColor{
  background-color: #e8e8e890;}
+ #ogog:hover {
+ color:orange;
+ }
 </style>
 <script type="text/JavaScript"  src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script>
@@ -111,7 +113,7 @@
 					<div id="pageTitle">
 						<table>
 							<tr>
-								<td colspan="3" style="font-size: 60px; font-weight: 100; vertical-align: text-bottom"><h1 class="fontBold cursorPointer" id=goList> IT News</h1></td>
+								<td colspan="3" style="font-size: 60px; font-weight: 100; vertical-align: text-bottom"><h1 class="fontBold cursorPointer goList"> IT News</h1></td>
 								<td></td>
 								<td style="font-size: 15px; color: gray; vertical-align: text-bottom">     IT 핫이슈를 공유하는 공간입니다.</td>
 								<td></td>
@@ -122,7 +124,7 @@
 			</div>
 			<div class=row>
 				<div class="d-md-none">
-					<div style="font-size: 60px; font-weight: 100;"><h1 class="fontBold">IT News</h1></div>
+					<div style="font-size: 60px; font-weight: 100;"><h1 class="fontBold goList">IT News</h1></div>
 					<div style="font-size: 15px; color: gray;">IT 핫이슈를 공유하는 공간입니다.</div>
 				</div>
 			</div>	
@@ -134,7 +136,7 @@
             		<div class="col-12" style="word-break:break-all;word-break:break-word;"><h3><br>${result.title}</h3></div>
             	</div>
             	<div class=row>
-            		<div class="col-12 gft"><hr><a class="gft cursorPointer" onclick="popUp('/Portfolio/toPlog.do?owner=${result.id}&other=Y')"><img src="${profileImg}" style="width:40px;position:relative;bottom:1px;">&emsp;${result.writer}</a>&emsp;&emsp;작성일 : ${result.getDate()}&emsp;&emsp;조회 : ${result.viewCount}<hr></div>
+            		<div class="col-12 gft"><hr><a id = ogog class="fontBold gft cursorPointer" onclick="popUp('/Portfolio/toPlog.do?owner=${result.id}&other=Y')"><img src="${profileImg}" style="width:40px;position:relative;bottom:1px;">&emsp;${result.writer}</a>&emsp;&emsp;작성일 : ${result.getDate()}&emsp;&emsp;조회 : ${result.viewCount}<hr></div>
             	</div>
             	<div class="row">
             		<div class="col-12" id=contentCon style="word-break:break-all;word-break:break-word;">${result.content}</div>
@@ -174,7 +176,7 @@
 												<div class="d-none d-md-block col-1 profileBox pl-1 pt-2"><img src="${dto.profileImg}" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>
 												<div class="col-8 col-md-7 pt-1">
 													<div class="row commentInfo">
-														<div class="col-12 commentWriter cursorPointer"><a onclick="popUp('/Portfolio/toPlog.do?owner=${dto.id}&other=Y')">${dto.writer }</a></div>
+														<div class="col-12 commentWriter cursorPointer hvOrange "><a onclick="popUp('/Portfolio/toPlog.do?owner=${dto.id}&other=Y')">${dto.writer }</a></div>
 														<div class="col-12 commentWriteDate">${dto.formedDate}</div>
 													</div>
 												</div>				
@@ -459,7 +461,7 @@
 									'<div class="row commentDiv commentBox'+resp[i].seq+' p-0 pb-2 m-2"><div class="col-12 commentInnerBox"><div class="row commentHeader">',
 									'<div class="d-none d-md-block col-1 profileBox pl-1 pt-2"><img src="'+resp[i].profileImg+'" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>',
 									'<div class="col-8 col-md-7 pt-1"><div class="row commentInfo">',
-									'<div class="col-12 commentWriter cursorPointer"><a onclick="popUp(\'/Portfolio/toPlog.do?owner='+resp[i].id+'&other=Y\')" >'+resp[i].writer+'</a></div>',
+									'<div class="col-12 commentWriter cursorPointer hvOrange "><a onclick="popUp(\'/Portfolio/toPlog.do?owner='+resp[i].id+'&other=Y\')" >'+resp[i].writer+'</a></div>',
 									'<div class="col-12 commentWriteDate">'+resp[i].formedDate+'</div></div></div>',
 									'<div class="col-4 pt-2 text-right commentBtns">'
 									);
@@ -479,7 +481,7 @@
 					}	
                  
                   //리스트로 이동
-                  $("#goList").on("click",function(){
+                  $(".goList").on("click",function(){
                 	  location.href="${pageContext.request.contextPath}/itnews/itnewsList";
                   })
        	 </script>

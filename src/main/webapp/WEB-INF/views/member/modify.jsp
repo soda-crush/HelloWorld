@@ -136,7 +136,7 @@
 	            	</div>
 	            	<div class="col-12 col-sm-6">
 		            	<h5 style="display:inline;"><img src="/icon/doubleArrow.svg" class=arrow style="position:relative;bottom:3px;right:3px;">인증 코드</h5><p class=redP style="display:inline">*</p>
-		            	<div class="d-sm-none"></div><p style="display:inline;" class="pl-2 pl-sm-0">-메일로 전송된 코드를 입력해주세요.</p>
+		            	<div class="d-sm-none"></div><p style="display:inline;" class="pl-2 pl-sm-0">-메일로 전송된 코드를 공백없이 입력해주세요.</p>
 		            		&emsp;<br>&emsp;<input type=text name=empCode id=empCode placeholder="인증 코드 입력">
 		            		<button type=button id = "certification1">인증</button>
 		            		<img id=empEmailCheck style="display:none;">
@@ -152,7 +152,7 @@
 	            	</div>
 	            	<div class="col-12 col-sm-6">
 		            	<h5 style="display:inline;"><img src="/icon/doubleArrow.svg" class=arrow style="position:relative;bottom:3px;right:3px;">인증 코드</h5><p class=redP style="display:inline">*</p>
-		            	<div class="d-sm-none"></div><p style="display:inline;" class="pl-2 pl-sm-0">-메일로 전송된 코드를 입력해주세요.</p>
+		            	<div class="d-sm-none"></div><p style="display:inline;" class="pl-2 pl-sm-0">-메일로 전송된 코드를 공백없이 입력해주세요.</p>
 		            		&emsp;<br>&emsp;<input type=text name=unempCode id=unempCode placeholder="인증 코드 입력">
 		            		<button type=button id = "certification2">인증</button>
 		            		<img id=unempEmailCheck style="display:none;">
