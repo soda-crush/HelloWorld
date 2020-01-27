@@ -14,6 +14,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/css/project/projectBase.css" type="text/css"/>
 <link rel="stylesheet" href="/css/project/pLogList.css" type="text/css"/>
+<link rel="stylesheet" href="/css/font-awesome/css/font-awesome.css" type="text/css"/>
 </head>
 
 <body>
@@ -23,12 +24,12 @@
 				</div>
 				<div class="tableDiv">
 					<div class="row tableHead">					    
-					    <div class="col-3 col-md-2 col-lg-1">상태</div>
-					    <div class="col-3 col-md-1">신청내역</div>
+					    <div class="d-none col-md-2 d-md-block col-lg-1">상태</div>
+					    <div class="col-4 col-md-1">신청내역</div>
 					    <div class="d-none col-md-1 d-md-block col-lg-1">총신청</div>
 						<div class="col-2 col-md-1">승인</div>
 					    <div class="d-none col-md-3 d-md-block col-lg-2">프로젝트 기간</div>
-					    <div class="col-4 col-md-4 col-lg-4">제목</div>					    
+					    <div class="col-6 col-md-4 col-lg-4">제목</div>					    
 					    <div class="d-none d-lg-block col-lg-1">작성일</div>	
 					    <div class="d-none d-lg-block col-lg-1">조회</div>				    					    
 					</div>
@@ -43,14 +44,17 @@
 				  		<c:otherwise>
 				  			<c:forEach items="${makeProjectList }" var="m">
 				  				<div class="row makeTableBody tableBody p-0">
-									<div class="col-3 col-md-2 col-lg-1 state${m.state }">${m.stateInKor }</div>
-									<div class="col-3 col-md-1"><button type="button" class="btn btn-outline-warning btn-sm mb-1" style="width:72px;font-size:13px;" onclick="popUp('frmPopup${m.seq }',${m.seq })">신청목록</button></div>
+									<div class="d-none col-md-2 d-md-block col-lg-1 state${m.state }">${m.stateInKor }</div>
+									<div class="col-4 col-md-1"><button type="button" class="btn btn-outline-warning btn-sm mb-1" style="width:72px;font-size:13px;" onclick="popUp('frmPopup${m.seq }',${m.seq })">신청목록</button></div>
 									<div class="d-none col-md-1 d-md-block col-lg-1">${m.totalApply } <small class="text-secondary">명</small></div>									
 									<div class="col-2 col-md-1"><strong class="capaCheck achieve<fmt:parseNumber integerOnly= "true" value= "${m.totalApprove/m.capacity }" />">${m.totalApprove }/${m.capacity }</strong> <small class="text-secondary">명</small></div>
 									<div class="d-none col-md-3 d-md-block col-lg-2"><small>${m.formedAllDate }</small></div>
-									<div class="col-4 col-md-4 col-lg-4 text-decoration-none" onclick="popUp('/project/detailView?seq=${m.seq }')">
+									<div class="col-6 col-md-4 col-lg-4 text-decoration-none" onclick="detailPopUp('/project/detailView?seq=${m.seq }')">
 										<div class="row">
-											<div style="max-width:87%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;">${m.title }</div> 
+											<div style="max-width:75%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;">${m.title }</div> 
+											<c:if test="${m.imageCount>0 }">
+												<i class="fa fa-photo ml-1 mr-1" style="font-size:13px;margin-top:20px;color:#757575;"></i>
+											</c:if> 											
 											<c:if test="${m.commentCount>0 }">
 												<div class="pComment font-weight-bold ml-1" style="display:inline-block;">${m.commentCount }</div>
 											</c:if>
@@ -97,9 +101,12 @@
 	        	return this.value == "${searchChoice}";
 	        }).attr('selected',true);
 	        $("#keyword").val("${keywordChoice}");
+	        function detailPopUp(link){
+	        	window.open(link, "detailViewPopUp", "width=1000,height=840");	
+	        }
 			function popUp(popUpName,seq){
 				var target = 'makeListPopUp';
-				window.open('', target, "width=1000,height=840");
+				window.open('', target, "width=1000,height=750");
 				var frmPopup = document.getElementById(popUpName);
 				frmPopup.action = '/project/apply/list';
 				frmPopup.target = target;			

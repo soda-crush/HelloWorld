@@ -135,7 +135,7 @@
 											  </c:forEach>
 											</ul>
 											<div class="todayBar" style="transform: translate(${fn:split(p.today,'-')[1]*3 -331}px, -50%);"><div class="todayFlag" data-toggle="tooltip" title="${fn:split(p.today,'-')[0] }월 ${fn:split(p.today,'-')[1] }일" style="cursor:pointer;">오늘</div></div>												
-											<div class="progressBar text-decoration-none" id="pBar${p.seq }" style="transform: translate(${p.distance -331}px, -50%);width:${p.width}px;" onclick="popUp('/project/detailView?seq=${p.seq }')"></div>											
+											<div class="progressBar text-decoration-none" id="pBar${p.seq }" style="transform: translate(${p.distance -331}px, -50%);width:${p.width}px;" onclick="popUp('/project/detailView?seq=${p.seq }')" data-toggle="tooltip" title="${p.formedAllDate }"></div>											
 										</div>										
 									</div>					
 								</c:forEach>																	

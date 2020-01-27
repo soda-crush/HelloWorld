@@ -222,9 +222,14 @@ public class ProjectDTO {
 	}
 	
 	public String getFormedWriteDate() {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
-		return sdf.format(this.writeDate);		
-	}	
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+		return sdf.format(this.writeDate);						
+	}
+	public String getFormedChangeDate() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+		return sdf.format(this.changeDate);						
+	}
+	
 	public String getFormedCalStartDate() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		return sdf.format(this.startDate);

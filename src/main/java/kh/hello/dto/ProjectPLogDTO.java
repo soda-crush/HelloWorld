@@ -19,33 +19,12 @@ public class ProjectPLogDTO {
 	private int capacity;	
 	private String approve;
 	private int commentCount;
+	private int imageCount;
 	private Timestamp writeDate;
 	
 	public ProjectPLogDTO() {
 		super();
 	}
-	public ProjectPLogDTO(int seq, int projectSeq, String state, String title, String contents, String writer,
-			String leaderId, String location1, String location2, Timestamp startDate, Timestamp endDate, int capacity,
-			String approve, int commentCount, Timestamp writeDate) {
-		super();
-		this.seq = seq;
-		this.projectSeq = projectSeq;
-		this.state = state;
-		this.title = title;
-		this.contents = contents;
-		this.writer = writer;
-		this.leaderId = leaderId;
-		this.location1 = location1;
-		this.location2 = location2;
-		this.startDate = startDate;
-		this.endDate = endDate;
-		this.capacity = capacity;
-		this.approve = approve;
-		this.commentCount = commentCount;
-		this.writeDate = writeDate;
-	}
-
-
 
 	public int getSeq() {
 		return seq;
@@ -130,6 +109,12 @@ public class ProjectPLogDTO {
 	}
 	public void setCommentCount(int commentCount) {
 		this.commentCount = commentCount;
+	}
+	public int getImageCount() {
+		return imageCount;
+	}
+	public void setImageCount(int imageCount) {
+		this.imageCount = imageCount;
 	}
 	public Timestamp getWriteDate() {
 		return writeDate;
