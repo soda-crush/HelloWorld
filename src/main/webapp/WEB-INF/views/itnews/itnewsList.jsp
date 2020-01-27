@@ -104,7 +104,7 @@
 					<div id="pageTitle">
 						<table>
 							<tr>
-								<td colspan="3" style="font-size: 60px; font-weight: 100; vertical-align: text-bottom"><h1 class="fontBold cursorPointer" onclick='location.href="${pageContext.request.contextPath}/itnews/itnewsList"'>IT News</h1></td>
+								<td colspan="3" style="font-size: 60px; font-weight: 100; vertical-align: text-bottom"><h1 class="fontBold cursorPointerr" onclick='location.href="${pageContext.request.contextPath}/itnews/itnewsList"'>IT News</h1></td>
 								<td></td>
 								<td style="font-size: 15px; color: gray; vertical-align: text-bottom">     IT 핫이슈를 공유하는 공간입니다.</td>
 								<td></td>
@@ -164,6 +164,7 @@
 								<option value="cateAll">전체</option>
 								<option value="cateTitle">제목</option>
 								<option value="cateWriter">작성자</option>
+								<option value="cateContent">내용</option>
 							</select>
 							<input type="text" name="search" id=search placeholder="검색어를 입력하세요(20자 이내)" maxlength="20">
 							<button class="btn btn-secondary" id=searchBtn>검색</button>

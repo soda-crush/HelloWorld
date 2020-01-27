@@ -25,7 +25,7 @@
 	</select>
 	
 	<insert id="writeItnews" parameterType="kh.hello.dto.ItnewsDTO">
-		insert into itnews values(#{seq}, #{writer}, #{title}, #{content},  sysdate, 0, #{id})
+		insert into itnews values(#{seq}, #{writer}, #{title}, #{content},  sysdate, 0, #{id}, #{nonTagContent})
 	</insert>
 	
 	<delete id="remove" parameterType="integer">
@@ -45,7 +45,7 @@
 	</delete>
 	
 	<update id="updateItnews"  parameterType="kh.hello.dto.ItnewsCoDTO">
-		update itnews set content=#{content}, title=#{title} where seq=#{seq}
+		update itnews set content=#{content}, title=#{title}, nonTagContent=#{nonTagContent} where seq=#{seq}
 	</update>
 	
 	<delete id="coAllRemove" parameterType="integer">
@@ -84,13 +84,16 @@
 		select * 
 		<choose>
 		 <when test="cate == 'cateAll'">								
-			 from (select itnews.*, row_number() over (order by seq desc) as rown from itnews where (lower(title) like lower('%${search}%')) or (lower(writer) like lower('%${search}%'))) where rown between #{start} and #{end} 
+			 from (select itnews.*, row_number() over (order by seq desc) as rown from itnews where (lower(title) like lower('%${search}%')) or (lower(writer) like lower('%${search}%')) or (lower(nonTagContent) like lower('%${search}%'))) where rown between #{start} and #{end} 
 		</when>
 		<when test="cate == 'cateTitle'">								
 			 from (select itnews.*, row_number() over (order by seq desc) as rown from itnews where (lower(title) like lower('%${search}%'))) where rown between #{start} and #{end}
 		</when>
 		<when test="cate == 'cateWriter'">								
 			 from (select itnews.*, row_number() over (order by seq desc) as rown from itnews where (lower(writer) like lower('%${search}%'))) where rown between #{start} and #{end}
+		</when>
+		<when test="cate == 'cateContent'">								
+			 from (select itnews.*, row_number() over (order by seq desc) as rown from itnews where (lower(nonTagContent) like lower('%${search}%'))) where rown between #{start} and #{end}
 		</when>
 		</choose>
 	</select>
