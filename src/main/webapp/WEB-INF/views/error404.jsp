@@ -5,6 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Hello World!</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="${pageContext.request.contextPath }/icon/favicon.ico"/>
 <style>
 @import url("https://fonts.googleapis.com/css?family=Bevan");
 
