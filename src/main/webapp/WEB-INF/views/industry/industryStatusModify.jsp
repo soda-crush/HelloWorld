@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,12 +27,17 @@
 $(function() {
 	$('#writeForm').on('submit', function() {
 		$('#content').val($('.note-editable').html());
+		var oriCon = $("#content").val();
+		var nonTagCon = oriCon.replace(/(<([^>]+)>)/ig,"");
+		$("#nonTagContents").val(nonTagCon);
 	})
 })
 </script>
 <script>
    $(function(){
       $("#indusNavi").attr('class','nav-item nav-link active');
+      var modTitle = $("#modTitle").val().replace(/modF'Fdom/gi,'"');
+      $("#title").val(modTitle);
    });
 </script>
 <style>
@@ -60,7 +64,7 @@ $(function() {
 					<div id="pageTitle">
 						<table>
 							<tr>
-								<td colspan="3" style="font-size: 60px; font-weight: 100; vertical-align: text-bottom">HELL<span style="opacity:0.5">o</span></td>
+								<td colspan="3" style="font-size: 60px; font-weight: 100; vertical-align: text-bottom"><h1 class="titleClick cursorPointer">HELL<span style="opacity:0.5">o</span></h1></td>
 								<td></td>
 								<td style="font-size: 15px; color: gray; vertical-align: text-bottom">     재직자만 사용가능한 게시판입니다.</td>
 								<td></td>
@@ -71,7 +75,7 @@ $(function() {
 			</div>
 			<div class=row>
 				<div class="d-md-none">
-					<div style="font-size: 60px; font-weight: 100;">HELL<span style="opacity:0.5">o</span></div>
+					<div style="font-size: 60px; font-weight: 100;"><h1 class="titleClick cursorPointer">HELL<span style="opacity:0.5">o</span></h1></div>
 					<div style="font-size: 15px; color: gray;">재직자만 사용가능한 게시판입니다.</div>
 				</div>
 			</div>
@@ -113,7 +117,8 @@ $(function() {
 				
 					<input type="hidden" name="writer" value="${iPage.writer}">
 				<div class="col-12 title" >
-					<input type="text" id=title name=title style="width: 100%" value="${fn:escapeXml(iPage.title)}" maxlength="100" placeholder="제목을 입력해주세요.">
+					<input type="text" id=title name=title style="width: 100%" value="${iPage.title}" maxlength="100" placeholder="제목을 입력해주세요.">
+					<input type="hidden" value="${iPage.modTitle }" id="modTitle">
 				</div>
 			</div>
 			<div class=row>
@@ -125,6 +130,7 @@ $(function() {
 					<div class="col-12 content">
 			
 			<textarea style="display: none" name=content id=content class="summernote">${iPage.content}</textarea>
+			<input type="hidden" id="nonTagContents" name="nonTagContents">
 					</div>
 				</div> 
 			<div class=row>
@@ -143,6 +149,7 @@ $(function() {
 		 $('.summernote').summernote({
 			 lang: 'ko-KR',
 			 height : 500,
+			 codeviewFilter: true,
 			 toolbar: [
 		            ['style', ['style']],
 		            ['font', ['bold', 'underline', 'clear']],
@@ -177,6 +184,9 @@ $(function() {
 						$("#writeForm").submit();
 					}
 				}
+		})
+		$(".titleClick").on("click",function(){
+			location.href="/industry/industryStatusList.do";
 		})
 		</script>
 		<!--       몸통 끝!!!   -->

@@ -34,6 +34,7 @@
     	.line-over{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
     	.interval{width:100%;background-color:lightgray;border-radius: 8px;height:1px;margin-left:15px;}
         #plogGuestBook{background-color:#efefef;border-radius:5px 5px 0px 0px;padding:13px;}
+        #writer:hover{color:orange;}
     </style>
 </head>
 <body>
@@ -56,13 +57,13 @@
 		                            <p class="card-text" style="text-align: center;font-size:12px;">POINT <span style="font-size:15px;font-weight:bold;">${point }</span></p>
 		                        </div>
 	                    	</div>
-	                    	<div class="d-md-none" style="background-color:white;border-radius:5px;height:200px;border: 1px solid rgba(0,0,0,.125); padding:15px;margin-right:10px;">
+	                    	<div class="d-md-none" style="background-color:white;border-radius:5px;height:200px;border: 1px solid rgba(0,0,0,.125); padding:5px;margin-right:10px;">
 	                    		<div style="float:left">
-		                        	<img src="${otherInfo.profileImg }" style="width:150px;margin:10px;">
+		                        	<img src="${ownerInfo.profileImg }" style="width:150px;margin:10px;">
 	                    		</div>
 		                        <div style="float:left;margin-top:100px;margin-left:20px;">
-	                            <div class="card-title line-over" style="text-align: center;font-size:20px;font-weight:bold;margin-bottom:0px;">${otherInfo.nickName} <span style="font-size:15px;">님</span></div>
-		                            <p class="card-text" style="text-align: center;font-size:12px;">POINT <span style="font-size:15px;font-weight:bold;">${point }</span></p>
+	                            <div class="card-title line-over" style="text-align: center;font-size:17px;font-weight:bold;margin-bottom:0px;">${ownerInfo.nickName} <span style="font-size:12px;">님</span></div>
+		                            <p class="card-text" style="text-align: center;font-size:10px;">POINT <span style="font-size:13px;font-weight:bold;">${point }</span></p>
 		                        </div>
 	                    	</div>
 	                    </div>
@@ -87,7 +88,7 @@
 			                				<img src="${dto.writerImg }" style="width:50px;">
 			                			</div>
 			                			<div style="float:left;margin-left:10px;">
-				                            <div>
+				                            <div id="writer">
 				                            	<span style="cursor:pointer;font-size:20px;font-weight:bold;" onclick="popUp('${dto.writerID}','${dto.writer}')">
 													${dto.writer}
 												</span>

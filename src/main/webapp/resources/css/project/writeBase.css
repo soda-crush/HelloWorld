@@ -1,6 +1,6 @@
 @charset "UTF-8";
 #pageTitle{margin-bottom:40px;}
-#pageTitle h1{display:inline;margin-right:10px;font-weight:bold;}
+#pageTitle h2{display:inline;font-weight:bold;}
 #pageFooter{padding-top:10px;}
 #pBody{margin-top:20px;}
 #pInfo *,#pBody *{font-size:15px;}

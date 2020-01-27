@@ -40,29 +40,56 @@
                
 	            <div class=container id="projectPage">
 					<div id="pageTitle" class="row">
-						<div class="col-12 col-lg-5 m-0 p-0"><h1 onclick="location.href='/project/chart'" style="cursor:pointer">프로젝트 모집</h1><span class="badge badge-pill ml-2" id="stateCountLabel">${projectList.size() }</span></div>
-						<div class="col-12 col-lg-6 m-0 p-0 pt-2 pb-1">
-							<div style="width:200px;height:35px;display:inline-block;border-bottom:2px solid #99000030;cursor:pointer" class="text-center pt-1" onclick="location.href='/project/list'"><span style="color:black;font-weight:bold;font-size:18px;opacity:30%;">게시판</span></div>
-							<div style="margin-left:-5px;width:200px;height:35px;display:inline-block;border-bottom:2px solid crimson;cursor:pointer" class="text-center pt-1" onclick="location.href='/project/chart'"><span style="color:black;font-weight:bold;font-size:18px;">일정</span></div>
+						<div class="col-12 col-md-6 col-lg-5 m-0 p-0"><h1 onclick="location.href='/project/chart'" style="cursor:pointer">프로젝트 모집</h1><span class="badge badge-pill ml-2" id="stateCountLabel">${projectList.size() }</span></div>
+						<div class="col-12 col-md-6 col-lg-7 m-0 p-0 pt-2 pb-1 text-right">
+							<div style="width:180px;height:35px;display:inline-block;border-bottom:2px solid #99000030;cursor:pointer" class="text-center pt-1" onclick="location.href='/project/list'"><span style="color:black;font-weight:bold;font-size:18px;opacity:30%;">게시판</span></div>
+							<div style="margin-left:-5px;width:180px;height:35px;display:inline-block;border-bottom:2px solid crimson;cursor:pointer" class="text-center pt-1" onclick="location.href='/project/chart'"><span style="color:black;font-weight:bold;font-size:18px;">일정</span></div>
 						</div>
 					</div>	
 					
 					<div class="projectChartDiv d-none d-xl-block">
 						<div class="row mb-3">
-							<div class="col-12">
-								<div class="btn-group" role="group">
-									<button type="button" class="btn btn-outline-warning btn-sm active" id="latestOrder">최신순</button>
-									<button type="button" class="btn btn-outline-warning btn-sm" id="deadlineOrder">마감임박순</button>
-									<span class="ml-3 pt-1" style="height:15px;color:#8a8a8a;"><small>모집중인 프로젝트만 표시됩니다</small></span>
-									<input type="hidden" name="pageOrder" id="pageOrder">
-								</div>
+							<div class="col-5 col-md-3 col-lg-2 p-0">
+								<div class="btn-group btn-group-sm" role="group" aria-label="projectOrderBtns">
+									<button type="button" class="btn btn-outline-warning btn-sm active" id="latestOrder" style="font-size:14px;">최신순</button>
+									<button type="button" class="btn btn-outline-warning btn-sm" id="deadlineOrder" style="font-size:14px;">마감임박순</button>								
+								</div>							
 							</div>
+							<div class="col-7 col-md-9 col-lg-10 p-0">
+								<div class="pt-1" style="color:#8a8a8a;display:inline-block;"><small>모집중인 프로젝트만 표시됩니다</small></div>
+<!-- 								<input type="hidden" name="pageOrder" id="pageOrder"> -->
+								
+								
+								<div class="float-right" style="display:inline-block;">
+									  <form class="form-inline" action="/project/chart" method="post" id="searchFrm">
+										<select class="form-control searchSelect" name="searchOption" id="searchOption" style="margin-right:5px;">
+											<option value="all" selected>제목+내용</option>
+										    <option value="title">제목</option>
+										    <option value="nonTagContents">내용</option>
+										    <option value="location">지역</option>
+										    <option value="capacity">인원</option>
+										    <option value="languages">사용언어</option>
+										    <option value="writer">작성자</option>									    
+										</select>
+										<input type="hidden" name="pageOrder" id="pageOrder">
+										<input type="hidden" id="searchChoice" value="${searchChoice }">
+										<input type="hidden" id="keywordChoice" value="${keywordChoice }">										
+									    <input class="form-control mr-sm-2" type="search" placeholder="검색어를 입력하세요(20자 이내)" aria-label="Search" name="keyword" id="keyword" style="margin-right:5px;min-width:285px;" maxlength="20">
+									    <button class="btn btn-dark my-2 my-sm-0 ml-1" type="submit" id="searchBtn">검색</button>
+									  </form>
+								</div>
+							
+							
+							</div>	
 						</div>
 											
 					<div class="projectContainer">
 						<c:choose>
-							<c:when test="${projectList.size()==0 }">
-					  			<div class="row"><div class="col-12">모집중인 프로젝트가 없습니다.</div></div>
+							<c:when test="${not empty searchChoice && projectList.size()==0}">
+								<div class="row"><div class="col-12 text-center mt-2">검색 결과가 없습니다.</div></div>
+							</c:when>
+							<c:when test="${empty searchChoice && projectList.size()==0 }">
+					  			<div class="row"><div class="col-12 text-center mt-2">모집중인 프로젝트가 없습니다.</div></div>
 					  		</c:when>
 					  		<c:otherwise>					  		
 					  			<c:forEach items="${projectList }" var="p">
@@ -83,7 +110,8 @@
 											<div class="pInfoBox mt-1" style="height:50px;">
 												<div>
 													<span><i class="fa fa-map-marker"></i> ${p.location1 } ${p.location2 }</span>
-													<span><i class="fa fa-user"></i> ${p.capacity }명</span>
+													<span><i class="fa fa-group"></i> ${p.capacity }명</span>
+													<span><i class="fa fa-user"></i> ${p.writer }</span>
 												</div>
 												<div>
 													<div style="max-width:430px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block"><i class="fa fa-check"></i> ${p.languages }</div>
@@ -106,14 +134,14 @@
 											  	</c:choose>											  	
 											  </c:forEach>
 											</ul>
-											<div class="todayBar" style="transform: translate(${fn:split(p.today,'-')[1]*3 -331}px, -50%);"><div class="todayFlag" data-toggle="tooltip" title="${fn:split(p.today,'-')[0] }월 ${fn:split(p.today,'-')[1] }일" style="cursor:pointer;">오늘</div></div>												
-											<div class="progressBar text-decoration-none" id="pBar${p.seq }" style="transform: translate(${p.distance -331}px, -50%);width:${p.width}px;" onclick="popUp('/project/detailView?seq=${p.seq }')"></div>											
+											<div class="todayBar" style="transform: translate(${fn:split(p.today,'-')[1]*3.2 -331}px, -50%);"><div class="todayFlag" data-toggle="tooltip" title="${fn:split(p.today,'-')[0] }월 ${fn:split(p.today,'-')[1] }일" style="cursor:pointer;">오늘</div></div>												
+											<div class="progressBar text-decoration-none" id="pBar${p.seq }" style="transform: translate(${p.distance -331}px, -50%);width:${p.width}px;" onclick="popUp('/project/detailView?seq=${p.seq }')" data-toggle="tooltip" title="${p.formedAllDate }"></div>											
 										</div>										
 									</div>					
-								</c:forEach>	
-								<input type="hidden" id="pageCheckOrder" value="${pageOrder}">								
-							</c:otherwise>
-						</c:choose>						
+								</c:forEach>																	
+							</c:otherwise>							
+						</c:choose>			
+						<input type="hidden" id="pageCheckOrder" value="${pageOrder}">			
 					</div>
 	            </div>
 	            <div class="d-xl-none text-center">해당 서비스는 PC 전체화면에서 지원됩니다</div>

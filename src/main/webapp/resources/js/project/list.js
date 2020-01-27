@@ -24,6 +24,10 @@
 	        		return false;
 	        	}
 	        });
+	        $("#searchOption option").filter(function(){
+	        	return this.value == $("#searchChoice").val();
+	        }).attr('selected',true);
+	        $("#keyword").val($("#keywordChoice").val());
         	$(".pNavi"+$("#currentCheckpage").val()).addClass("active");
 			function popUp(link){
 				window.open(link, "pLogPopUp", "width=800,height=600");

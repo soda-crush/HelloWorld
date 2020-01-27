@@ -77,7 +77,7 @@
             <!--      몸통 시작!!!   -->
             <div class=container id="projectPage">
 				<div id="pageTitle">
-					<h1>프로젝트 모집글 상세보기</h1>
+					<h2>프로젝트 모집 상세</h2>
 				</div>
 				<div class="border border-secondary rounded" id="pageBody">
 					<c:if test="${pPage==null }">
@@ -101,10 +101,17 @@
 							</c:choose>
 							</label>
 							<br>
-							<div class="ml-4 mr-3 mb-3 mt-2" style="font-weight:bold;font-size:20px;display:inline-block;word-break:break-all;word-break:break-word;">${pPage.title}</div><br>
+							<div class="ml-4 mr-3 mb-3 mt-2" style="font-weight:bold;font-size:20px;display:inline-block;word-break:break-all;word-break:break-word;">${pPage.title}
+								<c:if test="${pPage.imageCount>0 }">
+									<i class="fa fa-photo ml-1" style="font-size:13px;color:#757575;"></i>
+								</c:if>
+							</div><br>
 							<label class="ml-4 mb-0" onclick="popUp('/Portfolio/toPlog.do?owner=${pPage.id}&other=Y')" style="cursor:pointer;">
 							<img src="${pPage.profileImg }" style="width:30px;height:30px;margin-right:7px;margin-bottom:5px;"><strong style="font-size:15px;">${pPage.writer }</strong></label>
 							<label class="ml-4 mb-0">작성일 : ${pPage.formedWriteDate }</label>
+								<c:if test="${not empty pPage.changeDate }">
+									<label class="mb-0" style="color:darkgray;">(수정일 : ${pPage.formedChangeDate })</label>
+								</c:if>
 							<label class="ml-4 mb-0">조회 : ${pPage.viewCount }</label>
 						</div>
 						<hr>
@@ -130,13 +137,14 @@
 									  						<span class="pApply font-weight-bold">${pPage.applyCount }</span>
 									  					</c:if>
 													</button>										
-													<button type="button" class="btn btn-success" id="pCloseBtn">모집마감처리</button>
+													<button type="button" class="btn btn-success m-0" id="pCloseBtn">모집마감처리</button>
 												</c:when>
 												<c:otherwise>
 													<p style="font-weight:bold;"><span style="color:red;font-weight:bold;">모집마감</span>되었습니다.</p>
-													<button type="button" class="btn btn-warning" id="applyCheckBtn">전체신청내역</button>
+													<button type="button" class="btn btn-warning m-0" id="applyCheckBtn">전체신청내역</button>
 												</c:otherwise>
-											</c:choose>										
+											</c:choose>	
+											<form id="frmPopup" method="post"><input type="hidden" name="projectSeq" value="${pPage.seq }"></form>									
 									</c:when>
 									<c:when test="${myApply==null }">
 										<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#pApplyModal" id="getApplyBtn">신청하기</button>
@@ -162,11 +170,12 @@
 							 </div>
 							
 							<div class="pPageComments">
+							<div class="row commentCountView ml-4 mb-3">댓글<strong style="color:orange;margin-left:5px;">${pPage.commentCount }</strong>개</div>
 							<c:if test="${comments.size()>0 }">
 								<c:forEach items="${comments }" var="c">
 									<div class="row commentDiv commentBox${c.seq } coLevel${c.depth } p-0 pb-1">
 										<c:if test="${c.depth==1 }">
-											<div class="col-1 text-right pt-1"><strong>┗</strong></div>
+											<div class="col-1 text-right pl-0 pt-1"><strong>┗</strong></div>
 										</c:if>
 										<div class="col-${12-c.depth } commentInnerBox pb-0">
 										<c:if test="${c.id==sessionScope.loginInfo.id }">
@@ -175,13 +184,13 @@
 											<c:choose>
 												<c:when test="${c.contents!=null }">
 													<div class="row commentHeader">
-														<div class="col-md-1 d-none d-md-block profileBox pl-1 pt-2 pr-0"><img src="${c.profileImg }" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>
+														<div class="col-md-1 d-none d-md-block profileBox pl-1 pt-2 pr-0" style="cursor:pointer;" onclick="popUp('/Portfolio/toPlog.do?owner=${c.id}&other=Y')"><img src="${c.profileImg }" class="mx-auto d-block" style="width:40px;height:40px;"></div>
 														<div class="col-12 col-md-11 pt-1">
 															<div class="row commentInfo1 pl-2" style="height:22px;">
 																<div class="col-6 commentWriter p-0">
 																	<span style="font-weight:bold;cursor:pointer;" onclick="popUp('/Portfolio/toPlog.do?owner=${c.id}&other=Y')">${c.writer }</span>
 																</div>
-																<div class="col-6 text-right commentBtns">
+																<div class="col-6 text-right commentBtns pl-0">
 																	<c:if test="${c.depth==0 }">
 																		<a style="height:90%;width:40px;font-size:14px;" class="btn btn-warning coReplyBtn align-middle" href="#" onclick="coReplyFunction(${c.seq});return false;" role="button">답글</a>
 																	</c:if>													
@@ -226,12 +235,12 @@
 								<div class="col-3 col-lg-2">
 									<div class="row">
 										<div class="col-12">
-											<button type="button" class="btn btn-secondary" style="margin-bottom:10px;" id="coCancel">취소</button>
+											<button type="button" class="btn btn-secondary p-0" style="margin-bottom:10px;" id="coCancel">취소</button>
 										</div>										
 									</div>
 									<div class="row">
 										<div class="col-12">
-											<button type="button" class="btn btn-primary" id="coWriteBtn">작성</button>
+											<button type="button" class="btn btn-primary p-0" id="coWriteBtn">작성</button>
 										</div>										
 									</div>								
 		        				</div>

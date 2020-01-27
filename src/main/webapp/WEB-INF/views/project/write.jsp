@@ -45,10 +45,10 @@
             <!--      몸통 시작!!!   -->
             <div class=container id="projectPage">
 				<div id="pageTitle">
-					<h1>프로젝트 모집하기</h1>
+					<h2>프로젝트 모집하기</h2>
 				</div>
 				
-				<form action="/project/writeProc" method="post" id="writeFrm">
+				<form action="/project/writeProc" method="post" id="writeFrm" enctype="multipart/form-data">
 					<div id="pageBody">					
 						<div id="pInfo">
 							<div class="row">
@@ -153,17 +153,7 @@
 		        placeholder: '내용을 입력해주세요',	        
 		        minHeight: 400,
 		        maxHeight: 400,
-		        toolbar: [
-		            ['style', ['style']],
-		            ['font', ['bold', 'underline', 'clear']],
-		            ['fontname', ['fontname']],
-		            ['color', ['color']],
-		            ['para', ['ul', 'ol', 'paragraph']],
-		            ['table', ['table']],
-		            ['insert', ['link', 'picture', 'hr']],
-		            ['view', ['fullscreen']],
-		            ['help', ['help']]
-		          ]
+		        codeviewFilter: true
 		    });				
 		</script>
 </body>

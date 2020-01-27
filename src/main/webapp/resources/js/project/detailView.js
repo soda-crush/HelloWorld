@@ -57,7 +57,7 @@
 			var html = [];
 			html.push(
 					'<div id="pCoReplyInput" class="row commentDiv commentBox p-0 pb-2">',
-					'<div class="col-1 text-right pt-1"><strong>┗</strong></div>',
+					'<div class="col-1 text-right pl-0 pt-1"><strong>┗</strong></div>',
 					'<div class="col-11 commentInnerBox pb-0">',
 					'<div class="row mt-2">',
 					'<div class="col-9 col-md-10"><textarea class="form-control ml-0" placeholder="답글 내용을 입력해주세요" id="pCoReplyContents" name="contents" maxlength="1300"></textarea></div>',
@@ -139,8 +139,13 @@
 			}).fail(function(resp){
 			});
 		});
-		$("#applyCheckBtn").on("click",function(){
-			window.open("/project/apply/list?projectSeq="+$("#pageSeq").val(), "applyListPopUp", "width=1000,height=750,scrollbars=no, resizable=no, toolbars=no, menubar=no");
+		$("#applyCheckBtn").on("click",function(){			
+			var target = 'makeListPopUp';
+			window.open('', target, "width=1000, height=750");
+			var frmPopup = document.getElementById("frmPopup");
+			frmPopup.action = '/project/apply/list';
+			frmPopup.target = target;
+			frmPopup.submit();
 		});
 		
 		$("#pCloseBtn").on("click",function(){
@@ -328,28 +333,24 @@
 					return false;
 	            }					
 			}
+			$("input[name='projectSeq']").val($("#pageSeq").val());
+			$("input[name='leaderId']").val($("#writerId").val());
 			$.ajax({
 				type:"post",
 				url:"/project/apply/writeProc",
 				data:$("#applyFrm").serialize()
 			}).done(function(resp){
-				$('#pApplyConfirmModal').modal('show');
-				$(".pApplyInput").children('input').val("");
-				$(".pApplyInput").children('select').val("");
-				$("#etc").val("");
-				$(".bootstrap-tagsinput").children('.label-info').remove();					
+				$('#pApplyConfirmModal').modal('show');				
 				$('#pApplyModal').modal('hide');
 			}).fail(function(resp){
+				console.log(resp);
 				alert("신청 실패!");
 			});
 			return false;				
 		});
-		$("#applyCancelBtn").on("click",function(){
-			$(".pApplyInput").children('input').val("");
-			$(".pApplyInput").children('select').val("");
-			$("#etc").val("");
-			$("input.tt-input").val("");
-			$(".bootstrap-tagsinput").children('.label-info').remove();				
+		$('#pApplyModal').on('hidden.bs.modal', function (e) {
+			$(this).find('form').trigger('reset');	
+			$('.bootstrap-tagsinput .tag [data-role="remove"]').click();			
 		});
 		
 		$("#applyConfirmCheckBtn").on("click",function(){			
@@ -359,14 +360,18 @@
 
 		function commentRecall(resp){
 			var loginInfo = $("#sessionId").val();
+			var count = 0;				
 			for(var i=0;i<resp.length;i++){
+				if(resp[i].hasOwnProperty('contents')){
+					count++;
+				}
 				var html = [];
-				html.push(							
+				html.push(												
 						'<div class="row commentDiv commentBox'+resp[i].seq+' coLevel'+resp[i].depth+' p-0 pb-1">'
 				);
 				if(resp[i].depth==1){
 					html.push(
-						'<div class="col-1 text-right pt-1"><strong>┗</strong></div>'		
+						'<div class="col-1 text-right pl-0 pt-1"><strong>┗</strong></div>'		
 					);
 				}
 				if(resp[i].id==loginInfo){
@@ -381,12 +386,12 @@
 				if(resp[i].contents!=null){
 					html.push(
 							'<div class="row commentHeader">',
-							'<div class="col-md-1 d-none d-md-block profileBox pl-1 pt-2 pr-0"><img src="'+resp[i].profileImg+'" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>',
+							'<div class="col-md-1 d-none d-md-block profileBox pl-1 pt-2 pr-0" style="cursor:pointer;" onclick="popUp(\'/Portfolio/toPlog.do?owner='+resp[i].id+'&other=Y\')"><img src="'+resp[i].profileImg+'" class="mx-auto d-block" style="width:40px;height:40px;"></div>',
 							'<div class="col-12 col-md-11 pt-1">',
 							'<div class="row commentInfo1 pl-2" style="height:22px;">',
 							'<div class="col-6 commentWriter p-0">',
 							'<span style="font-weight:bold;cursor:pointer;" onclick="popUp(\'/Portfolio/toPlog.do?owner='+resp[i].id+'&other=Y\')">'+resp[i].writer+'</span></div>',
-							'<div class="col-6 text-right commentBtns">'
+							'<div class="col-6 text-right commentBtns pl-0">'
 					);
 					if(resp[i].depth==0){
 						html.push(
@@ -425,6 +430,7 @@
 				html.push(
 						'</div></div>'		
 				);
-				$(".pPageComments").append(html.join(""));	
+				$(".pPageComments").append(html.join(""));				
 			}
+			$(".pPageComments").prepend('<div class="row commentCountView ml-4 mb-3">댓글<strong style="color:orange;margin-left:5px;">'+count+'</strong>개</div>');
 		}

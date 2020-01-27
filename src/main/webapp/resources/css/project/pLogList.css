@@ -23,7 +23,8 @@ body{background-color:#efefef;}
 
 .tableBody .stateN{color:limegreen;}
 .tableBody .stateY{color:red;}
-.tableBody .approveO{color:#0058ff;}
+/* .tableBody .approveO{color:#0058ff;} */
+.tableBody .approveO{color:deepskyblue;}
 .tableBody .approveX{color:red;}
 .tableBody .approveW{color:#ffd800;}
 
@@ -46,3 +47,9 @@ body{background-color:#efefef;}
 img{max-width:100%;}
 .applyTableBody div:nth-child(9) small:hover{color:orange;}
 .capaCheck:not(.achieve0){color:limegreen;}
+.titleWrap0{
+	max-width:85%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;
+}
+.titleWrap1{
+	max-width:75%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;
+}

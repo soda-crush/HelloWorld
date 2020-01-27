@@ -13,11 +13,11 @@
 	</select>
 	
 	<insert id="insertBamboo" parameterType="kh.hello.dto.BambooDTO">
-		insert into bamboo values(#{seq},#{writer},#{title},#{content},sysdate,0)
+		insert into bamboo values(#{seq},#{writer},#{title},#{content},sysdate,0,#{nonTagContents})
 	</insert>
 	
 	<update id="updateBamboo" parameterType="kh.hello.dto.BambooDTO">
-		update bamboo set title=#{title}, content=#{content} where seq=#{seq}
+		update bamboo set title=#{title}, content=#{content}, nonTagContents=#{nonTagContents} where seq=#{seq}
 	</update>
 	
 	<update id="updateBambooViewCount">
@@ -41,7 +41,7 @@
 		 select count(seq) from bamboo
 		 <choose>
 		 <when test="value == 'all'">								
-			 where (lower(title) like lower('%${search}%')) or (content like lower('%${search}%'))
+			 where (lower(title) like lower('%${search}%')) or (lower(nonTagContents) like lower('%${search}%'))
 		</when>
 		<when test="value == 'title'">								
 			 where (lower(title) like lower('%${search}%'))
@@ -49,24 +49,11 @@
 		</choose>
 	</select>
 	
-<!-- 	<select id="bambooSearchByPage" resultType="kh.hello.dto.BambooDTO" parameterType="java.util.Map"> -->
-<!-- 		select *  -->
-<!-- 		<choose> -->
-<!-- 		 <when test="value == 'all'">								 -->
-<!-- 			 from (select bamboo.*, row_number() over (order by seq desc) as rown from bamboo where (title like '%${search}%') or (content like '%${search}%')) where rown between #{start} and #{end} -->
-			 
-<!-- 		</when> -->
-<!-- 		<when test="value == 'title'">								 -->
-<!-- 			 from (select bamboo.*, row_number() over (order by seq desc) as rown from bamboo where (title like '%${search}%')) where rown between #{start} and #{end} -->
-<!-- 		</when> -->
-<!-- 		</choose> -->
-<!-- 	</select> -->
-	
 	<select id="bambooSearchByPage" resultType="kh.hello.dto.BambooDTO" parameterType="java.util.Map">
 		select * 
 		<choose>
 		 <when test="value == 'all'">								
-			 from (select bamboo.*, row_number() over (order by seq desc) as rown, (select count(*) from bambooComments where bamSeq=bamboo.seq) as commentCount from bamboo where (lower(title) like lower('%${search}%')) or (lower(content) like lower('%${search}%'))) where rown between #{start} and #{end}
+			 from (select bamboo.*, row_number() over (order by seq desc) as rown, (select count(*) from bambooComments where bamSeq=bamboo.seq) as commentCount from bamboo where (lower(title) like lower('%${search}%')) or (lower(nonTagContents) like lower('%${search}%'))) where rown between #{start} and #{end}
 			 
 		</when>
 		<when test="value == 'title'">								

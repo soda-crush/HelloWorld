@@ -486,6 +486,13 @@ public class AdminController {
 			return "redirect:adminError";
 		}
 	}
+	
+	@RequestMapping(value="/ifmOpenModify", produces="text/html;charset=utf8")
+	@ResponseBody
+	public String ifmOpenModify(String id) {
+		String result = as.ifmOpenModify(id);
+		return result;		
+	}
 }
 
 

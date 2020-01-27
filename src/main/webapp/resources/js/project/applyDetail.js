@@ -1,3 +1,8 @@
+        	function openApplyList(){
+        		var frmPage = document.getElementById("pageChange");
+        		frmPage.action = '/project/apply/list';
+        		frmPage.submit();
+        	}
 			function popUp(link){
 				window.open(link, "applyPopUp", "width=1000,height=750");
 			}

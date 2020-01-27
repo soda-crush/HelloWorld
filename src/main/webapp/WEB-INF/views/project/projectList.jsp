@@ -14,6 +14,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/css/project/projectBase.css" type="text/css"/>
 <link rel="stylesheet" href="/css/project/list.css" type="text/css"/>
+<link rel="stylesheet" href="/css/font-awesome/css/font-awesome.css" type="text/css"/>
 <script>
    $(function(){
       $("#proNavi").attr('class','nav-item nav-link active');
@@ -35,56 +36,64 @@
             <!--      몸통 시작!!!   -->
             <div class=container id="projectPage">
 				<div id="pageTitle" class="row">
-					<div class="col-12 col-lg-5 m-0 p-0"><h1 onclick="location.href='/project/list'" style="cursor:pointer">프로젝트 모집</h1><span class="badge badge-pill ml-2" id="stateCountLabel">${stateCount }</span></div>
-						<div class="col-12 col-lg-6 m-0 p-0 pt-2 pb-1">
-							<div style="width:200px;height:35px;display:inline-block;border-bottom:2px solid crimson;cursor:pointer" class="text-center pt-1" onclick="location.href='/project/list'"><span style="color:black;font-weight:bold;font-size:18px;">게시판</span></div>
-							<div style="margin-left:-5px;width:200px;height:35px;display:inline-block;border-bottom:2px solid #99000030;cursor:pointer" class="text-center pt-1" onclick="location.href='/project/chart'"><span style="color:black;font-weight:bold;font-size:18px;opacity:30%;">일정</span></div>
-						</div>
+					<div class="col-12 col-md-6 col-lg-5 m-0 p-0"><h1 onclick="location.href='/project/list'" style="cursor:pointer">프로젝트 모집</h1><span class="badge badge-pill ml-2" id="stateCountLabel">${stateCount }</span></div>
+					<div class="col-12 col-md-6 col-lg-7 m-0 p-0 pt-2 pb-1 text-right">
+						<div style="width:180px; height:35px;display:inline-block;border-bottom:2px solid crimson;cursor:pointer" class="text-center pt-1" onclick="location.href='/project/list'"><span style="color:black;font-weight:bold;font-size:18px;">게시판</span></div>
+						<div style="margin-left:-5px;width:180px; height:35px;display:inline-block;border-bottom:2px solid #99000030;cursor:pointer" class="text-center pt-1" onclick="location.href='/project/chart'"><span style="color:black;font-weight:bold;font-size:18px;opacity:30%;">일정</span></div>
+					</div>
 				</div>
 				<div class="tableDiv">
 					<div class="row mb-3">
-						<div class="col-12">
-							<div class="btn-group" role="group">
-								<button type="button" class="btn btn-outline-warning btn-sm active" id="latestOrder">최신순</button>
-								<button type="button" class="btn btn-outline-warning btn-sm" id="deadlineOrder" data-toggle="tooltip" title="모집마감된 글은 제외됩니다">마감임박순</button>
-								<span class="ml-3 pt-1" style="height:15px;color:#8a8a8a;" id="deadlineComment"><small>모집중인 프로젝트만 표시됩니다</small></span>
-							</div>
+						<div class="col-5 col-md-3 col-lg-2 p-0">
+							<div class="btn-group btn-group-sm" role="group" aria-label="projectOrderBtns">
+								<button type="button" class="btn btn-outline-warning btn-sm active" id="latestOrder" style="font-size:14px;">최신순</button>
+								<button type="button" class="btn btn-outline-warning btn-sm" id="deadlineOrder" data-toggle="tooltip" title="모집마감된 글은 제외됩니다" style="font-size:14px;">마감임박순</button>								
+							</div>							
 						</div>
+						<div class="col-7 p-0">
+							<div class="pt-1" style="color:#8a8a8a;" id="deadlineComment"><small>모집중인 프로젝트만 표시됩니다</small></div>
+						</div>						
 					</div>
 					<div class="row tableHead">					    
 					    <div class="col-xl-1 d-none d-xl-block">번호</div>
 					    <div class="col-xl-1 col-3 col-md-2 col-lg-1">상태</div>
-					    <div class="col-xl-3 col-7 col-md-5">제목</div>
-					    <div class="col-xl-1 col-2 col-md-1">지역</div>
+					    <div class="col-xl-3 col-6 col-md-5">제목</div>
+					    <div class="col-xl-1 col-3 col-md-2">지역</div>
 					    <div class="col-xl-1 col-lg-1 d-none d-lg-block">인원</div>
-					    <div class="col-xl-2 col-md-4 d-none d-md-block">프로젝트 기간</div>
+					    <div class="col-xl-2 col-md-3 d-none d-md-block col-lg-2">프로젝트 기간</div>
 					    <div class="col-xl-1 d-none d-xl-block">작성자</div>
-					    <div class="col-xl-1 d-none d-xl-block">작성일</div>
+					    <div class="col-lg-1 d-none d-lg-block">작성일</div>
 					    <div class="col-xl-1 d-none d-xl-block">조회</div>					    
 					</div>
 					
 				  	<c:choose>
-				  		<c:when test="${projectList.size()==0 }">
-				  		<div class="row text-center tableBodyNull"><div class="col-12">작성된 글이 없습니다.</div></div>
-				  		</c:when>
+						<c:when test="${not empty searchChoice && projectList.size()==0}">
+							<div class="row text-center tableBodyNull"><div class="col-12">검색 결과가 없습니다.</div></div>
+						</c:when>
+						<c:when test="${empty searchChoice && projectList.size()==0 }">
+				  			<div class="row text-center tableBodyNull"><div class="col-12">작성된 글이 없습니다.</div></div>
+				  		</c:when>				  	
 				  		<c:otherwise>
 				  			<c:forEach items="${projectList }" var="p">
 				  				<div class="row tableBody p-0">
 									<div class="col-xl-1 d-none d-xl-block">${p.seq }</div>
 									<div class="col-xl-1 col-3 col-md-2 col-lg-1 ${p.state }">${p.stateInKor }</div>
-				  					<div class="col-xl-3 col-7 col-md-5 text-decoration-none" onclick="location.href='/project/detailView?page=${currentPage}&seq=${p.seq }'">
+				  					<div class="col-xl-3 col-6 col-md-5 text-decoration-none" onclick="location.href='/project/detailView?page=${currentPage}&seq=${p.seq }'">
 											<div class="row">
-											<div style="max-width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;font-weight:bold;">${p.title }</div> 
+											<div class="titleWrap${p.imageCount }">${p.title }</div>
+											<c:if test="${p.imageCount>0 }">
+												<i class="fa fa-photo ml-1 mr-1" style="font-size:13px;margin-top:20px;color:#757575;"></i>
+											</c:if> 
 					  						<c:if test="${p.commentCount>0 }">
 					  							<div class="pComment font-weight-bold ml-1" style="display:inline-block;margin-top:1px;">${p.commentCount }</div>
 					  						</c:if>
 					  						</div>					  					
 									</div>
-									<div class="col-xl-1 col-2 col-md-1">${p.location1 }</div>
+									<div class="col-xl-1 col-3 col-md-2">${p.location1 }</div>
 									<div class="col-xl-1 col-lg-1 d-none d-lg-block">${p.capacity }명</div>
-									<div class="col-xl-2 col-md-4 d-none d-md-block"><small>${p.formedAllDate }</small></div>
+									<div class="col-xl-2 col-md-3 d-none d-md-block col-lg-2"><small>${p.formedAllDate }</small></div>
 									<div class="col-xl-1 d-none d-xl-block text-decoration-none" onclick="popUp('/Portfolio/toPlog.do?owner=${p.id}&other=Y')"><small>${p.writer }</small></div>
-									<div class="col-xl-1 d-none d-xl-block">${p.formedDate }</div>
+									<div class="col-lg-1 d-none d-lg-block">${p.formedDate }</div>
 									<div class="col-xl-1 d-none d-xl-block">${p.viewCount }</div>
 								</div>	
 				  			</c:forEach>
@@ -104,6 +113,8 @@
 							    <option value="writer">작성자</option>									    
 							</select>
 							<input type="hidden" name="pageOrder" id="pageOrder">
+							<input type="hidden" id="searchChoice" value="${searchChoice }">
+							<input type="hidden" id="keywordChoice" value="${keywordChoice }">
 						    <input class="form-control mr-sm-2" type="search" placeholder="검색어를 입력하세요(20자 이내)" aria-label="Search" name="keyword" id="keyword" style="margin-right:5px;min-width:285px;" maxlength="20">
 						    <button class="btn btn-dark my-2 my-sm-0 ml-1" type="submit" id="searchBtn">검색</button>
 						  </form>

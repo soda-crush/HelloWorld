@@ -27,19 +27,19 @@ public class ProjectDTO {
 	private int viewCount;
 	private String nonTagContents;
 	private int commentCount;
+	private int imageCount;
 	private int applyCount;
 	private int scrap;
 	private Timestamp changeDate;
 	private int totalApply;
 	private int totalApprove;
 	private String profileImg;
-	
+	private String modTitle;
 	
 	public ProjectDTO() {
 		super();
 	}	
 
-	
 	public int getSeq() {
 		return seq;
 	}
@@ -148,6 +148,12 @@ public class ProjectDTO {
 	public void setCommentCount(int commentCount) {
 		this.commentCount = commentCount;
 	}
+	public int getImageCount() {
+		return imageCount;
+	}
+	public void setImageCount(int imageCount) {
+		this.imageCount = imageCount;
+	}
 	public int getApplyCount() {
 		return applyCount;
 	}
@@ -186,6 +192,14 @@ public class ProjectDTO {
 	}
 	
 	
+	public String getModTitle() {
+		this.modTitle = this.title.replaceAll("\"","modF'Fdom");
+		return this.modTitle;
+	}
+	
+	public void setModComment(String title) {
+		this.modTitle = getModTitle();
+	}
 	
 	public String getKakaoTitle() {		
 		return this.title.replaceAll("\"","\\\\\"");		 
@@ -207,9 +221,14 @@ public class ProjectDTO {
 	}
 	
 	public String getFormedWriteDate() {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
-		return sdf.format(this.writeDate);		
-	}	
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+		return sdf.format(this.writeDate);						
+	}
+	public String getFormedChangeDate() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+		return sdf.format(this.changeDate);						
+	}
+	
 	public String getFormedCalStartDate() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		return sdf.format(this.startDate);
@@ -267,4 +286,20 @@ public class ProjectDTO {
 		}
 		return result;
 	}
+
+
+	@Override
+	public String toString() {
+		return "ProjectDTO [seq=" + seq + ", title=" + title + ", contents=" + contents + ", location1=" + location1
+				+ ", location2=" + location2 + ", capacity=" + capacity + ", startDate=" + startDate + ", endDate="
+				+ endDate + ", languages=" + languages + ", phone=" + phone + ", email=" + email + ", writer=" + writer
+				+ ", id=" + id + ", writeDate=" + writeDate + ", state=" + state + ", viewCount=" + viewCount
+				+ ", nonTagContents=" + nonTagContents + ", commentCount=" + commentCount + ", imageCount=" + imageCount
+				+ ", applyCount=" + applyCount + ", scrap=" + scrap + ", changeDate=" + changeDate + ", totalApply="
+				+ totalApply + ", totalApprove=" + totalApprove + ", profileImg=" + profileImg + ", modTitle="
+				+ modTitle + "]";
+	}
+	
+	
+	
 }

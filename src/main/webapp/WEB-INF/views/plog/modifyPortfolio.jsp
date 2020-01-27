@@ -54,7 +54,7 @@
 			            <h1> 포 트 폴 리 오</h1>
 			            <div class="row">
 			                <div class="col-3 col-md-2"><span class=redStar>*</span>프로젝트명  </div>
-			                <div class="col-9 col-md-10"><input id="portfolioTitle" name="portfolioTitle" maxlength="100" value="${pdto.portfolioTitle }"> </div>               
+			                <div class="col-9 col-md-10"><input id="portfolioTitle" name="portfolioTitle" maxlength="100"> </div>               
 			            </div>
 			            <hr class="sp">
 			            <div class="row">
@@ -65,7 +65,7 @@
 			            <hr class="sp">
 			            <div class="row">
 			                <div class="col-3 col-md-2"><span class=redStar>*</span>개발 목표 </div>
-			                <div class="col-9 col-md-10"> <input id="purpose" name="purpose" maxlength="300" value="${pdto.purpose }"></div>               
+			                <div class="col-9 col-md-10"> <input id="purpose" name="purpose" maxlength="300"></div>               
 			            </div>
 			            <hr class="sp">
 			            <div class="row">
@@ -104,7 +104,7 @@
 			                <div class="col-12 col-sm-9 col-xl-10">
 			                    <div class="row">
 			                        <div class="col-3 col-lg-2" id="funcname"><span class=redStar>*</span>기능명</div>
-			                        <div class="col-9 col-lg-10" id="funcname1"><input id="funcn1"  name="function1" style="height:18px margin-bottom:" value="${pdto.function1 }" maxlength="100"> </div>
+			                        <div class="col-9 col-lg-10" id="funcname1"><input id="function1"  name="function1" style="height:18px margin-bottom:" maxlength="100"> </div>
 			                        <div class="col-3 col-lg-2" id="funcexpl"><span class=redStar>*</span>설명</div>
 			                        <div class="col-9 col-lg-10"><textarea id="funce1" name="explanation1" style="height:150px;" maxlength="1300">${pdto.explanation1 }</textarea></div>
 			                    </div>
@@ -120,7 +120,7 @@
 			                <div class="col-12 col-sm-9 col-xl-10">
 			                    <div class="row">
 			                        <div class="col-3 col-lg-2" id="funcname"> 기능명</div>
-			                        <div class="col-9 col-lg-10" id="funcname2"><input name="function2" style="height:18px margin-bottom:" value="${pdto.function2 }" maxlength="100"></div>
+			                        <div class="col-9 col-lg-10" id="funcname2"><input id="function2" name="function2" style="height:18px margin-bottom:" maxlength="100"></div>
 			                        <div class="col-3 col-lg-2" id="funcexpl" > 설명</div>
 			                        <div class="col-9 col-lg-10"><textarea name="explanation2" style="height:150px;" maxlength="1300">${pdto.explanation2 }</textarea></div>
 			                    </div>
@@ -136,7 +136,7 @@
 			                <div class="col-12 col-sm-9 col-xl-10">
 			                    <div class="row">
 			                        <div class="col-3 col-lg-2" id="funcname"> 기능명</div>
-			                        <div class="col-9 col-lg-10" id="funcname3"><input name="function3" style="height:18px margin-bottom:" value="${pdto.function3 }" maxlength="100"></div>
+			                        <div class="col-9 col-lg-10" id="funcname3"><input id="function3" name="function3" style="height:18px margin-bottom:" value="${pdto.function3 }" maxlength="100"></div>
 			                        <div class="col-3 col-lg-2" id="funcexpl" > 설명</div>
 			                        <div class="col-9 col-lg-10"><textarea name="explanation3" style="height:150px;" maxlength="1300">${pdto.explanation3 }</textarea></div>
 			                    </div>
@@ -145,7 +145,7 @@
 			            <hr class="sp">
 			             <div class="row">
 			             	<div class="col-3 col-md-2"> 깃 링크  </div>
-			                <div class="col-9 col-md-10"><input type="text" name="git" value="${pdto.git }" maxlength="200"></div>               
+			                <div class="col-9 col-md-10"><input id="git" type="text" name="git" maxlength="200"></div>               
 			            </div>
 			            <hr class="sp">
 		            </div>
@@ -155,6 +155,12 @@
 					</div>
 		        </div>
 			</form>
+			<input type="hidden" id="oriPortfolioTitle" value="${pdto.modPortfolioTitle }">	
+			<input type="hidden" id="oriPurpose" value="${pdto.modPurpose }">	
+			<input type="hidden" id="oriFunction1" value="${pdto.modFunction1 }">	
+			<input type="hidden" id="oriFunction2" value="${pdto.modFunction2 }">	
+			<input type="hidden" id="oriFunction3" value="${pdto.modFunction3 }">
+			<input type="hidden" id="oriGit" value="${pdto.modGit }">		
             <!--       몸통 끝!!!   -->
             
             <div class=container>
@@ -170,6 +176,18 @@
         
         
         <script>
+		var realPortfolioTitle = $("#oriPortfolioTitle").val().replace(/modF'Fdom/gi,'"');
+		$("#portfolioTitle").val(realPortfolioTitle);
+		var realPurpose = $("#oriPurpose").val().replace(/modF'Fdom/gi,'"');
+		$("#purpose").val(realPurpose);
+		var realFunction1 = $("#oriFunction1").val().replace(/modF'Fdom/gi,'"');
+		$("#function1").val(realFunction1);
+		var realFunction2 = $("#oriFunction2").val().replace(/modF'Fdom/gi,'"');
+		$("#function2").val(realFunction2);
+		var realFunction3 = $("#oriFunction3").val().replace(/modF'Fdom/gi,'"');
+		$("#function3").val(realFunction3);
+		var realGIt = $("#oriGit").val().replace(/modF'Fdom/gi,'"');
+		$("#git").val(realGIt);
         $(function() {
             //모든 datepicker에 대한 공통 옵션 설정
             $.datepicker.setDefaults({
@@ -272,7 +290,7 @@
 	  			    })
                 })
        			$("#update").on("click",function(){
-                    if($("#portfolioTitle").val() && $("#purpose").val() && $("#funcn1").val() && $("#funce1").val() ){
+                    if($("#portfolioTitle").val() && $("#purpose").val() && $("#function1").val() && $("#funce1").val() ){
                    		$("#updateForm").submit();
                    	}else{
                    		alert("프로젝트명과  개발 목표는 구현기능 1은 필수 입력 사항입니다.")

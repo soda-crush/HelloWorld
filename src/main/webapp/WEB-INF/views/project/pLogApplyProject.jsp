@@ -13,52 +13,60 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/css/project/projectBase.css" type="text/css"/>
 <link rel="stylesheet" href="/css/project/pLogList.css" type="text/css"/>
+<link rel="stylesheet" href="/css/font-awesome/css/font-awesome.css" type="text/css"/>
 </head>
 
 <body>
 			<div style="width:96%;">
 				<div id="pageTitle" class="row">
-					<div class="col-12"><h4>내가 <span style="color:crimson;">신청</span>한 프로젝트</h4></div>					
+					<div class="col-12" onclick="location.href='/project/pLog/applyProjectList'" style="cursor:pointer"><h4>내가 <span style="color:crimson;">신청</span>한 프로젝트</h4></div>					
 				</div>
 				<div class="tableDiv">
 					<div class="row tableHead">		
-						<div class="col-3 col-md-1 col-lg-1">승인</div>
-						<div class="col-2 col-md-1 col-lg-1">신청서</div>
+						<div class="col-3 col-md-2 col-lg-1">승인</div>
+						<div class="col-2 col-md-1">신청서</div>
 						<div class="d-none col-md-2 d-md-block col-lg-1">신청일</div>		
-					    <div class="col-3 col-md-1 col-lg-1">상태</div>								    					    
+					    <div class="d-none col-md-1 d-md-block">상태</div>								    					    
 					    <div class="d-none col-lg-1 d-lg-block">인원</div>						    
-					  	<div class="d-none col-md-3 d-md-block col-lg-2">지역</div>
+					  	<div class="d-none col-md-2 d-md-block col-lg-1">지역</div>
 					    <div class="d-none col-lg-2 d-lg-block">프로젝트 기간</div>
-					    <div class="col-4 col-md-4 col-lg-2">제목</div>
+					    <div class="col-7 col-md-4 col-lg-3">제목</div>
 					    <div class="d-none col-lg-1 d-lg-block">작성자</div>
 
 				    				    
 					</div>
 					
 				  	<c:choose>
-				  		<c:when test="${applyProjectList.size()==0 }">
+						<c:when test="${not empty searchChoice && applyProjectList.size()==0}">
+							<div class="row text-center tableBodyNull"><div class="col-12">검색 결과가 없습니다.</div></div>
+						</c:when>	  					  	
+				  		<c:when test="${empty searchChoice && applyProjectList.size()==0 }">
 				  		<div class="row text-center tableBodyNull"><div class="col-12">지원한 프로젝트가 없습니다.</div></div>
 				  		</c:when>
 				  		<c:otherwise>
 				  			<c:forEach items="${applyProjectList }" var="a">
 				  				<div class="row applyTableBody tableBody p-0">
-				  					<div class="col-3 col-md-1 col-lg-1 approve${a.approve }">${a.approveInKor }</div>
-				  					<div class="col-2 col-md-1 col-lg-1"><button type="button" class="btn btn-outline-danger btn-sm mb-1" onclick="popUp('/project/apply/detailView?seq=${a.seq }')">신청글</button></div>									
+				  					<div class="col-3 col-md-2 col-lg-1 approve${a.approve }">${a.approveInKor }</div>
+				  					<div class="col-2 col-md-1"><button type="button" class="btn btn-outline-dark btn-sm mb-1" style="width:60px;font-size:13px;" onclick="openApplyPage('frmPopup${a.seq }',${a.seq })">신청글</button></div>									
 									<div class="d-none col-md-2 d-md-block col-lg-1">${a.formedWriteDate }</div>	
-									<div class="col-3 col-md-1 col-lg-1 state${a.state }"><strong>${a.stateInKor }</strong></div>										
+									<div class="d-none col-md-1 d-md-block state${a.state }"><strong>${a.stateInKor }</strong></div>										
 									<div class="d-none col-lg-1 d-lg-block">${a.capacity }명</div>
-									<div class="d-none col-md-3 d-md-block col-lg-2"><small>${a.location1 } ${a.location2 }</small></div>
+									<div class="d-none col-md-2 d-md-block col-lg-1"><small>${a.location1 } ${a.location2 }</small></div>
 									<div class="d-none col-lg-2 d-lg-block"><small>${a.formedAllDate }</small></div>																											
-									<div class="col-4 col-md-4 col-lg-2 text-decoration-none" onclick="popUp('/project/detailView?seq=${a.projectSeq}')">
+									<div class="col-7 col-md-4 col-lg-3 text-decoration-none" onclick="detailPopUp('/project/detailView?seq=${a.projectSeq}')">
 										<div class="row pl-1">
-											<div style="max-width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;">${a.title }</div> 
+											<div class="titleWrap${a.imageCount }">${a.title }</div>
+											<c:if test="${a.imageCount>0 }">
+												<i class="fa fa-photo ml-1 mr-1" style="font-size:13px;margin-top:20px;color:#757575;"></i>
+											</c:if> 												 
 											<c:if test="${a.commentCount>0 }">
 												<div class="pComment font-weight-bold ml-1" style="display:inline-block;">${a.commentCount }</div>
 											</c:if>
 										</div>
 									</div>
 									<div class="d-none col-lg-1 d-lg-block text-decoration-none" style="cursor:pointer;" onclick="pLogPopUp('/Portfolio/toPlog.do?owner=${a.leaderId}&other=Y')"><small>${a.writer }</small></div>
-								</div>	
+								</div>
+								<form id="frmPopup${a.seq }" method="post"><input type="hidden" name="seq" value="${a.seq }"></form>	
 				  			</c:forEach>
 				  		</c:otherwise>
 				  	</c:choose>				    
@@ -89,11 +97,23 @@
 	        		alert("검색어를 입력해주세요");	
 	        		return false;
 	        	}
-	        });		
-			function popUp(link){
-				var applyWindow = window.open(link, "applyPopUp", "width=1000,height=750");
-			}
-			function pLogPopUp(link){
+	        });
+	        $("#searchOption option").filter(function(){
+	        	return this.value == "${searchChoice}";
+	        }).attr('selected',true);
+	        $("#keyword").val("${keywordChoice}");
+        	function openApplyPage(frmName,seq){      
+        		var target = 'applyPopUp';
+        		window.open('', target, "width=1000,height=750");
+        		var frmDetail = document.getElementById(frmName);
+				frmDetail.action = '/project/apply/detailView';
+				frmDetail.target = target;
+				frmDetail.submit();
+        	}			
+	        function detailPopUp(link){
+	        	window.open(link, "applyListPopUp", "width=1000,height=840");	
+	        }
+        	function pLogPopUp(link){
 				window.open(link, "pLogPopUp", "width=800,height=600");
 			}
         	$(".pNavi${applyCurrentPage}").addClass("active");        	
