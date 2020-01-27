@@ -49,7 +49,7 @@
 					<h2>프로젝트 모집 수정</h2>
 				</div>
 				
-				<form action="/project/modifyProc" method="post" id="modifyFrm">
+				<form action="/project/modifyProc" method="post" id="modifyFrm" enctype="multipart/form-data">
 					<div id="pageBody">					
 						<div id="pInfo">
 							<div class="row">

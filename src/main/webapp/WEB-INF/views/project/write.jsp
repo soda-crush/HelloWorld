@@ -48,7 +48,7 @@
 					<h2>프로젝트 모집하기</h2>
 				</div>
 				
-				<form action="/project/writeProc" method="post" id="writeFrm">
+				<form action="/project/writeProc" method="post" id="writeFrm" enctype="multipart/form-data">
 					<div id="pageBody">					
 						<div id="pInfo">
 							<div class="row">
