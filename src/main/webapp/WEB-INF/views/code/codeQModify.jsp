@@ -105,7 +105,8 @@ $(function(){
 						질 문
 					</div>
 					<div class="col-xl-11 col-9 title">
-						<input type="text" name="title" style="width:100%" maxlength="100" id="title" value="${fn:escapeXml(result.title)}">
+<%-- 						<input type="text" name="title" style="width:100%" maxlength="100" id="title" value="${fn:escapeXml(result.title)}"> --%>
+					<input type="text" name="title" style="width:100%" maxlength="100" id="title" value="${result.title}">
 					</div>
 				</div>
 				
@@ -114,7 +115,7 @@ $(function(){
 				<div class=row>
 					<div class="col-12 content">
 						<textarea name="content" id="content" style="display:none" class="summernote">${result.content}</textarea>
-<%-- 						<div id="summernote">${result.content}</div> --%>
+						<input type="hidden" id="nonTagContents" name="nonTagContents">	
 					</div>
 				</div>
 				
@@ -148,6 +149,7 @@ $(function(){
 			placeholder : '내용을 입력해주세요',
 			height : 500,
 			lang: 'ko-KR',
+			codeviewFilter: true,
 			toolbar: [
 	            ['style', ['style']],
 	            ['font', ['bold', 'underline', 'clear']],
@@ -168,6 +170,11 @@ $(function(){
 		})
 		
 		$("#modify").on("click", function(){
+		   var oriCon = $("#content").val();
+		   var nonTagCon = oriCon.replace(/(<([^>]+)>)/ig,"");
+		   $("#nonTagContents").val(nonTagCon);
+		   var checkTitle = $("#title").val().replace(/modF'Fdom/gi,'"');
+		   $("#title").val(checkTitle);
 // 		   regex = /^[(<p><br></p>)(<p>(&nbsp; ){1,}</p>)]{0,}$/g;
 		   var regex = /^[(<p><br></p>)(<p>(&nbsp; )+</p>)]{0,}$/g;
 		   

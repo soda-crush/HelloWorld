@@ -18,7 +18,7 @@
 <body>
 			<div style="width:96%;">
 				<div id="pageTitle" class="row">
-					<div class="col-12"><h4>내가 <span style="color:crimson;">신청</span>한 프로젝트</h4></div>					
+					<div class="col-12" onclick="location.href='/project/pLog/applyProjectList'" style="cursor:pointer"><h4>내가 <span style="color:crimson;">신청</span>한 프로젝트</h4></div>					
 				</div>
 				<div class="tableDiv">
 					<div class="row tableHead">		
@@ -36,7 +36,10 @@
 					</div>
 					
 				  	<c:choose>
-				  		<c:when test="${applyProjectList.size()==0 }">
+						<c:when test="${not empty searchChoice && applyProjectList.size()==0}">
+							<div class="row text-center tableBodyNull"><div class="col-12">검색 결과가 없습니다.</div></div>
+						</c:when>	  					  	
+				  		<c:when test="${empty searchChoice && applyProjectList.size()==0 }">
 				  		<div class="row text-center tableBodyNull"><div class="col-12">지원한 프로젝트가 없습니다.</div></div>
 				  		</c:when>
 				  		<c:otherwise>
@@ -89,7 +92,11 @@
 	        		alert("검색어를 입력해주세요");	
 	        		return false;
 	        	}
-	        });		
+	        });
+	        $("#searchOption option").filter(function(){
+	        	return this.value == "${searchChoice}";
+	        }).attr('selected',true);
+	        $("#keyword").val("${keywordChoice}");
 			function popUp(link){
 				var applyWindow = window.open(link, "applyPopUp", "width=1000,height=750");
 			}

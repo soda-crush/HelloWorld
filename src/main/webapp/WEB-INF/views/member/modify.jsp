@@ -674,7 +674,7 @@
             	})
             	
             //이메일 인증코드 확인 - 비실무자
-            	$("#certification2").on("click",function(){ㄴ
+            	$("#certification2").on("click",function(){
             		if(emailTest2 == 0){
                 		alert("인증 메일 발송부터 진행하여 주십시오.");
                 	}else{
