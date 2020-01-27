@@ -20,9 +20,23 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
 <link rel="stylesheet" href="/css/mainBase.css">
 <link rel="stylesheet" href="/css/code/codeBase.css" type="text/css"/>
+
+<script>
+$(function() {
+	$('#writeForm').on('submit', function() {
+		$('#content').val($('.note-editable').html());
+		var oriCon = $("#content").val();
+		var nonTagCon = oriCon.replace(/(<([^>]+)>)/ig,"");
+		$("#nonTagContents").val(nonTagCon);
+	})
+})
+</script>
+
 <script>
    $(function(){
       $("#codeNavi").attr('class','nav-item nav-link active');
+      var modTitle = $("#modTitle").val().replace(/modF'Fdom/gi,'"');
+      $("#title").val(modTitle);
    });
 </script>
 
@@ -40,13 +54,6 @@
 }
 
 </style>
-<script>
-$(function(){
-	$("#writeForm").on("submit",function(){
-		$("#content").val($(".note-editable").html());
-	})
-})
-</script>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/standard/header.jsp" />
@@ -107,6 +114,7 @@ $(function(){
 					<div class="col-xl-11 col-9 title">
 <%-- 						<input type="text" name="title" style="width:100%" maxlength="100" id="title" value="${fn:escapeXml(result.title)}"> --%>
 					<input type="text" name="title" style="width:100%" maxlength="100" id="title" value="${result.title}">
+					<input type="hidden" value="${result.modTitle}" id="modTitle">
 					</div>
 				</div>
 				
@@ -136,12 +144,6 @@ $(function(){
 	</div>
 	<!--       몸통 끝!!!   -->
 
-<!-- 	<div class=container> -->
-<!-- 		<div class=row> -->
-<!-- 			<div class="col-12" id=aroundContent></div> -->
-<!-- 		</div> -->
-<!-- 	</div> -->
-	
 	<jsp:include page="/WEB-INF/views/standard/footer.jsp" />
 	
 	<script>
@@ -169,15 +171,8 @@ $(function(){
 			location.href="${pageContext.request.contextPath}/code/codeDetail.do?seq=${parent_seq}";
 		})
 		
-		$("#modify").on("click", function(){
-		   var oriCon = $("#content").val();
-		   var nonTagCon = oriCon.replace(/(<([^>]+)>)/ig,"");
-		   $("#nonTagContents").val(nonTagCon);
-		   var checkTitle = $("#title").val().replace(/modF'Fdom/gi,'"');
-		   $("#title").val(checkTitle);
-// 		   regex = /^[(<p><br></p>)(<p>(&nbsp; ){1,}</p>)]{0,}$/g;
-		   var regex = /^[(<p><br></p>)(<p>(&nbsp; )+</p>)]{0,}$/g;
-		   
+		$("#modify").on("click", function(){		   	   
+		   var regex = /^[(<p><br></p>)(<p>(&nbsp; )+</p>)]{0,}$/g;		   
  		   var content = $(".summernote").val();
 		   var result = regex.exec(content);
 
