@@ -230,8 +230,8 @@ public class MemberService {
 							}else {
 								this.insertCtfCode(email, ctfCode);
 							}
-							 
-							    	 MimeMessage message = mailSender.createMimeMessage();
+									
+									MimeMessage message = mailSender.createMimeMessage();
 								      MimeMessageHelper messageHelper 
 								                        = new MimeMessageHelper(message, true, "UTF-8");
 								      

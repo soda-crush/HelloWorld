@@ -808,7 +808,7 @@
 
 				var str = "";
 				// 년도 설정
-				for (var i=year-1; i>=1930; i--) {
+				for (var i=year-90; i<=year-1; i++) {
 					str += "<option value='" + i + "' selected='selected'>" + i + "</option>";
 				}
 				str += "<option value='N' selected='selected'>년</option>";	
