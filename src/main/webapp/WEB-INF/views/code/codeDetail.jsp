@@ -349,8 +349,7 @@ span:nth-child(4) {
 						<br>
 						
 						<div style="text-align: left;">
-							<button class="btn btn-dark" id="commentBtn"
-								onclick="hideCo(${r.seq})">댓글</button>
+								<button class="btn btn-dark" id="commentBtn${r.seq}">댓글</button>
 						</div>
 						
 						<br>
@@ -483,8 +482,18 @@ span:nth-child(4) {
 			    		}        
 				})			
 	       				
-				
-						
+							//댓글 숨기기
+						 	   flag${r.seq} = true;
+							   $("#commentBtn${r.seq}").on("click",function(){
+								   var b = $(".dSeq${r.seq}");
+									if(flag${r.seq} == true){
+										b.show();﻿
+							            flag${r.seq} = false;
+							        }else{
+							        	b.hide();
+							            flag${r.seq} = true;
+							        }; 
+							   })	
 				</script>
 				
 			</c:forEach>
@@ -513,6 +522,19 @@ span:nth-child(4) {
 	<jsp:include page="/WEB-INF/views/code/reportSuccessModal.jsp"/>
 	<jsp:include page="/WEB-INF/views/standard/footer.jsp" />
 	<script>
+	
+	//댓글 숨기기
+// 	   flag = true;
+// 	   $("#commentBtn"+seq).on("click",function(){
+// 		   var b = $(".dSeq"+seq);
+// 			if(flag == true){
+// 				b.show();﻿
+// 	            flag = false;
+// 	        }else{
+// 	        	b.hide();
+// 	            flag = true;
+// 	        }; 
+// 	   })			
 	
 	//작성 글 신고하기
 	$("#report").on("click",function(){
@@ -707,21 +729,7 @@ span:nth-child(4) {
 				location.href="${pageContext.request.contextPath}/code/delete.do?seq=${qResult.seq}&point=${qResult.point}";
 			}
 		})
-
-		//댓글 숨기기
-		flag = true;
-		function hideCo(seq){
-			var b = $(".dSeq"+seq);
-			if(flag == true){
-				b.show();﻿
-	            flag = false;
-	        }else{
-	        	b.hide();
-	            flag = true;
-	        };
-    	}
-		
-		
+	
 		function modifyRe(seq,queSeq){
 			if("${sessionScope.loginInfo.memLevel}" == 1){
 				alert("권한이 없습니다. 관리자에게 문의하세요.");
