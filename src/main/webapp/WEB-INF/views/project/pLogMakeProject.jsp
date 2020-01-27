@@ -19,7 +19,7 @@
 <body>
 			<div style="width:96%;">
 				<div id="pageTitle" class="row">
-					<div class="col-12"><h4>내가 <span style="color:#1D1294;">모집</span>한 프로젝트</h4></div>					
+					<div class="col-12" onclick="location.href='/project/pLog/makeProjectList'" style="cursor:pointer"><h4>내가 <span style="color:#1D1294;">모집</span>한 프로젝트</h4></div>					
 				</div>
 				<div class="tableDiv">
 					<div class="row tableHead">					    
@@ -34,8 +34,11 @@
 					</div>
 					
 				  	<c:choose>
-				  		<c:when test="${makeProjectList.size()==0 }">
-				  		<div class="row text-center tableBodyNull"><div class="col-12">모집한 프로젝트가 없습니다.</div></div>
+						<c:when test="${not empty searchChoice && makeProjectList.size()==0}">
+							<div class="row text-center tableBodyNull"><div class="col-12">검색 결과가 없습니다.</div></div>
+						</c:when>
+				  		<c:when test="${empty searchChoice && makeProjectList.size()==0 }">
+				  			<div class="row text-center tableBodyNull"><div class="col-12">모집한 프로젝트가 없습니다.</div></div>
 				  		</c:when>
 				  		<c:otherwise>
 				  			<c:forEach items="${makeProjectList }" var="m">
@@ -88,7 +91,11 @@
 	        		alert("검색어를 입력해주세요");	  
 	        		return false;
 	        	}
-	        });		
+	        });
+	        $("#searchOption option").filter(function(){
+	        	return this.value == "${searchChoice}";
+	        }).attr('selected',true);
+	        $("#keyword").val("${keywordChoice}");
 			function popUp(link){
 				window.open(link, "makeListPopUp", "width=1000,height=840");
 			}

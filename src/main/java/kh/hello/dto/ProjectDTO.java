@@ -33,7 +33,7 @@ public class ProjectDTO {
 	private int totalApply;
 	private int totalApprove;
 	private String profileImg;
-	
+	private String modTitle;
 	
 	public ProjectDTO() {
 		super();
@@ -186,6 +186,14 @@ public class ProjectDTO {
 	}
 	
 	
+	public String getModTitle() {
+		this.modTitle = this.title.replaceAll("\"","modF'Fdom");
+		return this.modTitle;
+	}
+	
+	public void setModComment(String title) {
+		this.modTitle = getModTitle();
+	}
 	
 	public String getKakaoTitle() {		
 		return this.title.replaceAll("\"","\\\\\"");		 

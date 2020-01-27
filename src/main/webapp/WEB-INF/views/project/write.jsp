@@ -153,17 +153,7 @@
 		        placeholder: '내용을 입력해주세요',	        
 		        minHeight: 400,
 		        maxHeight: 400,
-		        toolbar: [
-		            ['style', ['style']],
-		            ['font', ['bold', 'underline', 'clear']],
-		            ['fontname', ['fontname']],
-		            ['color', ['color']],
-		            ['para', ['ul', 'ol', 'paragraph']],
-		            ['table', ['table']],
-		            ['insert', ['link', 'picture', 'hr']],
-		            ['view', ['fullscreen']],
-		            ['help', ['help']]
-		          ]
+		        codeviewFilter: true
 		    });				
 		</script>
 </body>
