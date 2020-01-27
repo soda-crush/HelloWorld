@@ -114,7 +114,7 @@
 			</div>
 			<div class=row>
 				<div class="d-md-none">
-					<div style="font-size: 60px; font-weight: 100;"><h1 class="fontBold">IT News</h1></div>
+					<div style="font-size: 60px; font-weight: 100;"><h1 class="fontBold" onclick='location.href="${pageContext.request.contextPath}/itnews/itnewsList"'>IT News</h1></div>
 					<div style="font-size: 15px; color: gray;">IT 핫이슈를 공유하는 공간입니다.</div>
 				</div>
 			</div>

@@ -113,7 +113,7 @@
 					<div id="pageTitle">
 						<table>
 							<tr>
-								<td colspan="3" style="font-size: 60px; font-weight: 100; vertical-align: text-bottom"><h1 class="fontBold cursorPointer" id=goList> IT News</h1></td>
+								<td colspan="3" style="font-size: 60px; font-weight: 100; vertical-align: text-bottom"><h1 class="fontBold cursorPointer goList"> IT News</h1></td>
 								<td></td>
 								<td style="font-size: 15px; color: gray; vertical-align: text-bottom">     IT 핫이슈를 공유하는 공간입니다.</td>
 								<td></td>
@@ -124,7 +124,7 @@
 			</div>
 			<div class=row>
 				<div class="d-md-none">
-					<div style="font-size: 60px; font-weight: 100;"><h1 class="fontBold">IT News</h1></div>
+					<div style="font-size: 60px; font-weight: 100;"><h1 class="fontBold goList">IT News</h1></div>
 					<div style="font-size: 15px; color: gray;">IT 핫이슈를 공유하는 공간입니다.</div>
 				</div>
 			</div>	
@@ -481,7 +481,7 @@
 					}	
                  
                   //리스트로 이동
-                  $("#goList").on("click",function(){
+                  $(".goList").on("click",function(){
                 	  location.href="${pageContext.request.contextPath}/itnews/itnewsList";
                   })
        	 </script>
