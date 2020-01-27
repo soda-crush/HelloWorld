@@ -47,20 +47,22 @@
 				  		</c:when>
 				  		<c:otherwise>				  			
 				  			<c:forEach items="${projectApplyList }" var="a" varStatus="status">					  							  			
-				  				<div class="row tableBody p-0 text-decoration-none applyRow${a.approve }" onclick="openApplyPage(${a.seq },'${a.approve}')">
+				  				<div class="row tableBody p-0 text-decoration-none applyRow${a.approve }" onclick="openApplyPage('frmChange${a.seq }', ${a.seq },'${a.approve}')">
 									<div class="col-2 col-md-1">${projectApplyList.size() - status.index}</div>
 									<div class="col-3 col-md-2"><small>${a.writer }</small></div>
 									<div class="col-5 col-md-4 col-lg-5 pl-2 " style="max-width:87%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;">${a.languages }</div>
 									<div class="d-none d-md-block col-md-2 col-lg-1">${a.workInInKor }</div>									
 									<div class="d-none d-md-block col-md-2">${a.portfolioInKor }</div>
 									<div class="col-2 col-md-1 approve${a.approve }">${a.approveInKor }</div>									
-								</div>	
+								</div>
+								<form id="frmChange${a.seq }" method="post"><input type="hidden" name="seq" value="${a.seq }"></form>	
 				  			</c:forEach>
 				  		</c:otherwise>
 				  	</c:choose>				    
 				</div>				
 			</div>
 			<nav aria-label="List navi" id="aPageNavi" class="d-none d-md-block">${pageNavi }</nav>
+			<form id="pageChange" method="post"><input type="hidden" name="projectSeq" value="${a.projectSeq }"><input type="hidden" name="page"></form>
             <!--       몸통 끝!!!   -->
             <div class=container>
                 <div class=row>
@@ -74,11 +76,19 @@
         
         <script>
         	$(".pNavi${currentPage}").addClass("active");	
-        	function openApplyPage(seq,approve){
+        	function openApplyPage(frmName,seq,approve){
         		if(approve=='X'){
         			return false;
         		}
-        		location.href='/project/apply/detailView?seq='+seq;
+				var frmDetail = document.getElementById(frmName);
+				frmDetail.action = '/project/apply/detailView';				
+				frmDetail.submit();
+        	}
+        	function openApplyList(page){
+        		var frmPage = document.getElementById("pageChange");
+        		frmPage.action = '/project/apply/list';
+        		frmPage.elements["page"].value = page;
+        		frmPage.submit();
         	}
         </script>
 </body>

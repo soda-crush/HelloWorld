@@ -99,7 +99,7 @@ public class ProjectDAO {
 	//projectComment 테이블
 	public List<ProjectCoDTO> getCoList(int projectSeq){//프로젝트 모집댓글 전체리스트(해당글에 대한)
 		return jdbc.selectList("ProjectCo.getList", projectSeq);
-	}
+	}	
 	public int insertProjectCo(ProjectCoDTO dto) {//프로젝트 모집댓글 작성
 		return jdbc.insert("ProjectCo.insertProjectCo", dto);
 	}	

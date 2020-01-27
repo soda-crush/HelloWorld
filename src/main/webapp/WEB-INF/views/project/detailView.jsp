@@ -101,7 +101,11 @@
 							</c:choose>
 							</label>
 							<br>
-							<div class="ml-4 mr-3 mb-3 mt-2" style="font-weight:bold;font-size:20px;display:inline-block;word-break:break-all;word-break:break-word;">${pPage.title}</div><br>
+							<div class="ml-4 mr-3 mb-3 mt-2" style="font-weight:bold;font-size:20px;display:inline-block;word-break:break-all;word-break:break-word;">${pPage.title}
+								<c:if test="${pPage.imageCount>0 }">
+									<i class="fa fa-photo ml-1" style="font-size:13px;color:#757575;"></i>
+								</c:if>
+							</div><br>
 							<label class="ml-4 mb-0" onclick="popUp('/Portfolio/toPlog.do?owner=${pPage.id}&other=Y')" style="cursor:pointer;">
 							<img src="${pPage.profileImg }" style="width:30px;height:30px;margin-right:7px;margin-bottom:5px;"><strong style="font-size:15px;">${pPage.writer }</strong></label>
 							<label class="ml-4 mb-0">작성일 : ${pPage.formedWriteDate }</label>
@@ -162,6 +166,7 @@
 							 </div>
 							
 							<div class="pPageComments">
+							<div class="row commentCountView ml-4 mb-3">댓글<strong style="color:orange;margin-left:5px;">${pPage.commentCount }</strong>개</div>
 							<c:if test="${comments.size()>0 }">
 								<c:forEach items="${comments }" var="c">
 									<div class="row commentDiv commentBox${c.seq } coLevel${c.depth } p-0 pb-1">
@@ -175,7 +180,7 @@
 											<c:choose>
 												<c:when test="${c.contents!=null }">
 													<div class="row commentHeader">
-														<div class="col-md-1 d-none d-md-block profileBox pl-1 pt-2 pr-0"><img src="${c.profileImg }" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>
+														<div class="col-md-1 d-none d-md-block profileBox pl-1 pt-2 pr-0" style="cursor:pointer;" onclick="popUp('/Portfolio/toPlog.do?owner=${c.id}&other=Y')"><img src="${c.profileImg }" class="mx-auto d-block" style="width:40px;height:40px;"></div>
 														<div class="col-12 col-md-11 pt-1">
 															<div class="row commentInfo1 pl-2" style="height:22px;">
 																<div class="col-6 commentWriter p-0">

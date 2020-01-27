@@ -27,6 +27,7 @@ public class ProjectDTO {
 	private int viewCount;
 	private String nonTagContents;
 	private int commentCount;
+	private int imageCount;
 	private int applyCount;
 	private int scrap;
 	private Timestamp changeDate;
@@ -147,6 +148,12 @@ public class ProjectDTO {
 	}
 	public void setCommentCount(int commentCount) {
 		this.commentCount = commentCount;
+	}
+	public int getImageCount() {
+		return imageCount;
+	}
+	public void setImageCount(int imageCount) {
+		this.imageCount = imageCount;
 	}
 	public int getApplyCount() {
 		return applyCount;

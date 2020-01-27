@@ -362,7 +362,7 @@ public class ProjectService {
 			if(p.getContents()!=null) {
 				p.setModComment(p.getContents());
 			}					
-		}
+		}				
 		return gson.toJson(result);
 	}
 	
@@ -465,18 +465,18 @@ public class ProjectService {
 		StringBuilder sb = new StringBuilder();
 		sb.append("<ul class='pagination justify-content-center'>");
 		if(needPrev) {
-			sb.append("<li class='page-item'>");		
-			sb.append("<a class='page-link' href='/project/apply/list?page="+(startNavi-1)+"' aria-label='Previous'>");	
-			sb.append("<span aria-hidden='true'>&laquo;</span></a></li>");			
+			sb.append("<li class='page-item' style='cursor:pointer;'>");			
+			sb.append("<span class='page-link' onclick='openApplyList("+(startNavi-1)+")' aria-label='Previous'>");
+			sb.append("<span aria-hidden='true'>&laquo;</span></span></li>");			
 		}
-		for(int i=startNavi;i<=endNavi;i++) {
-			sb.append("<li class='page-item pNavi"+i+"'><a class='page-link' href='/project/apply/list?page="+i+"'>"+i+"</a></li>");			
+		for(int i=startNavi;i<=endNavi;i++) {			
+			sb.append("<li class='page-item pNavi"+i+"' style='cursor:pointer;'><span class='page-link' onclick='openApplyList("+i+")'>"+i+"</span></li>");
 		}			
 		
 		if(needNext) {
-			sb.append("<li class='page-item'>");
-			sb.append("<a class='page-link' href='/project/apply/list?page="+(endNavi+1)+"' aria-label='Next'>");	
-			sb.append("<span aria-hidden='true'>&raquo;</span></a></li>");			
+			sb.append("<li class='page-item' style='cursor:pointer;'>");
+			sb.append("<span class='page-link' onclick='openApplyList("+(endNavi+1)+")' aria-label='Next'>");	
+			sb.append("<span aria-hidden='true'>&raquo;</span></span></li>");			
 		}
 		sb.append("</ul>");
 		return sb.toString();

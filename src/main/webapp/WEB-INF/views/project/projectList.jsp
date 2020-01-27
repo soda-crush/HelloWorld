@@ -14,6 +14,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/css/project/projectBase.css" type="text/css"/>
 <link rel="stylesheet" href="/css/project/list.css" type="text/css"/>
+<link rel="stylesheet" href="/css/font-awesome/css/font-awesome.css" type="text/css"/>
 <script>
    $(function(){
       $("#proNavi").attr('class','nav-item nav-link active');
@@ -79,7 +80,10 @@
 									<div class="col-xl-1 col-3 col-md-2 col-lg-1 ${p.state }">${p.stateInKor }</div>
 				  					<div class="col-xl-3 col-6 col-md-5 text-decoration-none" onclick="location.href='/project/detailView?page=${currentPage}&seq=${p.seq }'">
 											<div class="row">
-											<div style="max-width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;font-weight:bold;">${p.title }</div> 
+											<div style="max-width:81%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;font-weight:bold;">${p.title }</div>
+											<c:if test="${p.imageCount>0 }">
+												<i class="fa fa-photo ml-1 mr-1" style="font-size:13px;margin-top:20px;color:#757575;"></i>
+											</c:if> 
 					  						<c:if test="${p.commentCount>0 }">
 					  							<div class="pComment font-weight-bold ml-1" style="display:inline-block;margin-top:1px;">${p.commentCount }</div>
 					  						</c:if>

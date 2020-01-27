@@ -46,7 +46,7 @@
 				  			<c:forEach items="${applyProjectList }" var="a">
 				  				<div class="row applyTableBody tableBody p-0">
 				  					<div class="col-3 col-md-2 col-lg-1 approve${a.approve }">${a.approveInKor }</div>
-				  					<div class="col-2 col-md-1"><button type="button" class="btn btn-outline-dark btn-sm mb-1" style="width:60px;font-size:13px;" onclick="popUp('/project/apply/detailView?seq=${a.seq }')">신청글</button></div>									
+				  					<div class="col-2 col-md-1"><button type="button" class="btn btn-outline-dark btn-sm mb-1" style="width:60px;font-size:13px;" onclick="openApplyPage('frmPopup${a.seq }',${a.seq })">신청글</button></div>									
 									<div class="d-none col-md-2 d-md-block col-lg-1">${a.formedWriteDate }</div>	
 									<div class="col-2 col-md-1 state${a.state }"><strong>${a.stateInKor }</strong></div>										
 									<div class="d-none col-lg-1 d-lg-block">${a.capacity }명</div>
@@ -61,7 +61,8 @@
 										</div>
 									</div>
 									<div class="d-none col-lg-1 d-lg-block text-decoration-none" style="cursor:pointer;" onclick="pLogPopUp('/Portfolio/toPlog.do?owner=${a.leaderId}&other=Y')"><small>${a.writer }</small></div>
-								</div>	
+								</div>
+								<form id="frmPopup${a.seq }" method="post"><input type="hidden" name="seq" value="${a.seq }"></form>	
 				  			</c:forEach>
 				  		</c:otherwise>
 				  	</c:choose>				    
@@ -97,10 +98,15 @@
 	        	return this.value == "${searchChoice}";
 	        }).attr('selected',true);
 	        $("#keyword").val("${keywordChoice}");
-			function popUp(link){
-				var applyWindow = window.open(link, "applyPopUp", "width=1000,height=750");
-			}
-			function pLogPopUp(link){
+        	function openApplyPage(frmName,seq){      
+        		var target = 'applyPopUp';
+        		window.open('', target, "width=1000,height=750");
+        		var frmDetail = document.getElementById(frmName);
+				frmDetail.action = '/project/apply/detailView';
+				frmDetail.target = target;
+				frmDetail.submit();
+        	}			
+        	function pLogPopUp(link){
 				window.open(link, "pLogPopUp", "width=800,height=600");
 			}
         	$(".pNavi${applyCurrentPage}").addClass("active");        	
