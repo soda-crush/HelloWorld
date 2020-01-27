@@ -99,6 +99,7 @@
 											<c:when test="${aPage.id == sessionScope.loginInfo.id }">												
 												<p style="font-weight:bold;">신청 후 <span style="color:orange;font-weight:bold;">승인 대기중</span>입니다.</p>
 												<button type="button" class="btn btn-warning" id="applyCancelBtn">신청취소</button>
+												
 											</c:when>
 										</c:choose>
 									</c:when>															
@@ -113,7 +114,8 @@
 				<div id="pageFooter">
 					<span class="float-right">
 						<c:if test="${aPage.leaderId == sessionScope.loginInfo.id }">
-							<a class="btn btn-secondary" href="/project/apply/list?projectSeq=${aPage.projectSeq}" role="button">목록</a>
+							<button class="btn btn-secondary" onclick="openApplyList()">목록</button>
+							<form id="pageChange" method="post"><input type="hidden" name="projectSeq" value="${aPage.projectSeq }"></form>
 						</c:if>
 					</span>
 				</div>          
@@ -132,66 +134,5 @@
 		<jsp:include page="/WEB-INF/views/project/jsp/approveModal.jsp"/>    
 		<jsp:include page="/WEB-INF/views/project/jsp/denialModal.jsp"/>
         <script src="/js/project/applyDetail.js"></script>
-        <script>
-// 			function popUp(link){
-// 				window.open(link, "applyPopUp", "width=1000,height=750");
-// 			}
-// 			function pLogPopUp(link){
-// 				window.open(link, "pLogPopUp", "width=800,height=600");
-// 			}			
-// 	        $("#applyCancelBtn").on("click",function(){
-// 	        	var check = confirm("신청을 취소하시겠습니까?");
-// 	        	if(check){
-// 	        		$.ajax({
-// 	        			type:"post",
-// 	        			url:"/project/apply/deleteProc",
-// 	        			data:{seq:"${aPage.seq}"}
-// 	        		}).done(function(resp){
-// 	        			alert("신청이 취소되었습니다.");
-// 						window.opener.document.location.href = window.opener.document.URL;  
-// 						window.close();
-// 	        		}).fail(function(resp){
-	        			
-// 	        		});
-// 	        	}
-// 	        });
-	        
-//         	$("#approveBtn").on("click",function(){
-//         		var check = confirm("승인 하시겠습니까?");
-//         		if(check){
-//         			$.ajax({
-//         				type:"post",
-//         				url:"/project/apply/approveApply",
-//         				data:{seq:"${aPage.seq}"}
-//         			}).done(function(resp){
-//         				$("#pApproveModal").modal('show');
-//         				$("#approveProcBtns").remove();
-//         				$(".checkBtn").append('<span style="font-weight:bold;">신청 <span style="color:limegreen;font-weight:bold;">승인</span>되었습니다.</span>');
-//         				window.opener.document.location.href = window.opener.document.URL;
-//         			}).fail(function(resp){
-//     					alert("신청 실패!");
-//         			});
-//         		}        		
-//         	});
-        	
-//         	$("#denialBtn").on("click",function(){
-//         		var check = confirm("승인 거절 하시겠습니까?");
-//         		if(check){
-//         			$.ajax({
-//         				type:"post",
-//         				url:"/project/apply/denyApply",
-//         				data:{seq:"${aPage.seq}"}
-//         			}).done(function(resp){
-//         				$("#pDenialModal").modal('show');
-//     					$("#approveProcBtns").remove();
-//         				$(".checkBtn").append('<span style="font-weight:bold;">신청 <span style="color:red;font-weight:bold;">거절</span>되었습니다.</span>');
-//         				window.opener.document.location.href = window.opener.document.URL;
-//         			}).fail(function(resp){
-//     					alert("신청 실패!");
-//         			});
-//         		}        		
-//         	});
-        
-        </script>
 </body>
 </html>

@@ -44,7 +44,7 @@
 				  			<c:forEach items="${makeProjectList }" var="m">
 				  				<div class="row makeTableBody tableBody p-0">
 									<div class="col-3 col-md-2 col-lg-1 state${m.state }">${m.stateInKor }</div>
-									<div class="col-3 col-md-1"><button type="button" class="btn btn-outline-warning btn-sm mb-1" style="width:72px;font-size:13px;" onclick="popUp('/project/apply/list?projectSeq=${m.seq }')">신청목록</button></div>
+									<div class="col-3 col-md-1"><button type="button" class="btn btn-outline-warning btn-sm mb-1" style="width:72px;font-size:13px;" onclick="popUp('frmPopup${m.seq }',${m.seq })">신청목록</button></div>
 									<div class="d-none col-md-1 d-md-block col-lg-1">${m.totalApply } <small class="text-secondary">명</small></div>									
 									<div class="col-2 col-md-1"><strong class="capaCheck achieve<fmt:parseNumber integerOnly= "true" value= "${m.totalApprove/m.capacity }" />">${m.totalApprove }/${m.capacity }</strong> <small class="text-secondary">명</small></div>
 									<div class="d-none col-md-3 d-md-block col-lg-2"><small>${m.formedAllDate }</small></div>
@@ -59,6 +59,7 @@
 									<div class="d-none d-lg-block col-lg-1">${m.formedDate }</div>
 									<div class="d-none d-lg-block col-lg-1">${m.viewCount }</div>
 								</div>	
+								<form id="frmPopup${m.seq }" method="post"><input type="hidden" name="projectSeq" value="${m.seq }"></form>
 				  			</c:forEach>
 				  		</c:otherwise>
 				  	</c:choose>				    
@@ -96,8 +97,13 @@
 	        	return this.value == "${searchChoice}";
 	        }).attr('selected',true);
 	        $("#keyword").val("${keywordChoice}");
-			function popUp(link){
-				window.open(link, "makeListPopUp", "width=1000,height=840");
+			function popUp(popUpName,seq){
+				var target = 'makeListPopUp';
+				window.open('', target, "width=1000,height=840");
+				var frmPopup = document.getElementById(popUpName);
+				frmPopup.action = '/project/apply/list';
+				frmPopup.target = target;			
+				frmPopup.submit();
 			}
         	$(".pNavi${makeCurrentPage}").addClass("active");
         </script>

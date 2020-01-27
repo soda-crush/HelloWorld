@@ -88,3 +88,5 @@ img{max-width:100%;}
 } 
 #projectPage{margin-bottom:100px;} 
 #applyFrm > div.modal-body > div:nth-child(1) > div.col-7.pApplyInput.p-0 > div > span > input.tt-input{max-width:205px;}
+#pHeader > label:nth-child(6):hover{color:orange;}
+.commentWriter:hover{color:orange;}

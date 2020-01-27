@@ -355,9 +355,13 @@
 
 		function commentRecall(resp){
 			var loginInfo = $("#sessionId").val();
+			var count = 0;				
 			for(var i=0;i<resp.length;i++){
+				if(resp[i].hasOwnProperty('contents')){
+					count++;
+				}
 				var html = [];
-				html.push(							
+				html.push(												
 						'<div class="row commentDiv commentBox'+resp[i].seq+' coLevel'+resp[i].depth+' p-0 pb-1">'
 				);
 				if(resp[i].depth==1){
@@ -377,7 +381,7 @@
 				if(resp[i].contents!=null){
 					html.push(
 							'<div class="row commentHeader">',
-							'<div class="col-md-1 d-none d-md-block profileBox pl-1 pt-2 pr-0"><img src="'+resp[i].profileImg+'" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>',
+							'<div class="col-md-1 d-none d-md-block profileBox pl-1 pt-2 pr-0" style="cursor:pointer;" onclick="popUp(\'/Portfolio/toPlog.do?owner='+resp[i].id+'&other=Y\')"><img src="'+resp[i].profileImg+'" class="mx-auto d-block" style="width:40px;height:40px;"></div>',
 							'<div class="col-12 col-md-11 pt-1">',
 							'<div class="row commentInfo1 pl-2" style="height:22px;">',
 							'<div class="col-6 commentWriter p-0">',
@@ -421,6 +425,7 @@
 				html.push(
 						'</div></div>'		
 				);
-				$(".pPageComments").append(html.join(""));	
+				$(".pPageComments").append(html.join(""));				
 			}
+			$(".pPageComments").prepend('<div class="row commentCountView ml-4 mb-3">댓글<strong style="color:orange;margin-left:5px;">'+count+'</strong>개</div>');
 		}

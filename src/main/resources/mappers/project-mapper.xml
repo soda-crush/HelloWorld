@@ -52,7 +52,9 @@
 	</select>
 
 	<select id="getListByPage" resultType="kh.hello.dto.ProjectDTO">
-		select * from (select project.*,(select count(*) from projectComment where projectSeq=project.seq and contents is not null) as commentCount, row_number() over (order by 
+		select * from 
+		(select seq, title, location1, location2, capacity, startDate, endDate, languages, writer, id, writeDate, state, viewCount, nonTagContents, nvl(commentCount,0) as commentCount, nvl(imageCount,0) as imageCount, 
+		row_number() over (order by 		
 		<choose>
 			<when test="pageOrder == 'seq'">
 				seq desc
@@ -60,8 +62,10 @@
 			<when test="pageOrder == 'startDate'">
 				startDate asc
 			</when>
-		</choose>
-		) as num from project
+		</choose>				
+		) as num from project p
+		left outer join (select projectSeq, count(*) as commentCount from projectComment where contents is not null group by projectSeq) pc on pc.projectSeq=p.seq
+		left outer join (select projectSeq, count(*) as imageCount from projectImage group by projectSeq) pi on pi.projectSeq=p.seq
 		<choose>
 			<when test="pageOrder == 'startDate'">
 				where state = 'N'
@@ -75,7 +79,7 @@
 				</if>
 			</otherwise>
 		</choose>		
-		) where num between #{start} and #{end}		
+		) where num between #{start} and #{end}	
 	</select>
 	
 	<sql id="search">
@@ -95,7 +99,11 @@
 	</sql>
 	
 	<select id="getProjectDetailView" resultType="kh.hello.dto.ProjectDTO">
-		select * from (select project.*, profileImg, (select count(*) from projectApply where projectSeq=project.seq and approve in('W')) as applyCount from project inner join member on project.seq=#{value} and project.id = member.id)
+		select * from 
+		(select project.*, profileImg, 
+		(select count(*) from projectApply where projectSeq=project.seq and approve in('W')) as applyCount,
+		(select count(*) from projectImage where projectSeq=project.seq) as imageCount,
+		(select count(*) from projectComment where contents is not null and projectSeq=project.seq) as commentCount from project inner join member on project.seq=#{value} and project.id = member.id)
 	</select>	
 	<select id="latestSeq" resultType="integer">
 		select max(seq) from project where id=#{value}

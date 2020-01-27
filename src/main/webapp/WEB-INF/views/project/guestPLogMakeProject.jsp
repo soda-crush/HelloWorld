@@ -60,7 +60,7 @@
 			</div>
 		<script>
 			function popUp(link){
-				window.open(link, "makeListPopUp", "width=1000,height=840");
+				window.open(link, "projectPopUp", "width=1000,height=840");
 			}
         	$(".pNavi${makeCurrentPage}").addClass("active");
         </script>

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kh.hello.configuration.Configuration;
@@ -102,7 +103,7 @@ public class ProjectMemController {
 //	}
 	
 	@RequestMapping("/detailView")
-	public String projectDetailView(String page, int seq, Model m, HttpServletRequest request) {
+	public String projectDetailView(int seq, String page, Model m, HttpServletRequest request) {
 		int listPage = 1;
 		if(page!=null) {
 			listPage = Integer.parseInt(page);
@@ -232,7 +233,7 @@ public class ProjectMemController {
 		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
 		dto.setWriter(sessionValue.getNickName());
 		dto.setId(sessionValue.getId());
-		return svc.commentWriteConfirm(dto);		
+		return svc.commentWriteConfirm(dto);
 	}
 	
 	@ResponseBody
@@ -276,7 +277,7 @@ public class ProjectMemController {
 		return svc.projectApplyWriteProc(dto);
 	}	
 	
-	@RequestMapping("/apply/list")
+	@RequestMapping(method=RequestMethod.POST, value="/apply/list")
 	public String projectApplyList(String page, Integer projectSeq, Model m) {
 		if(projectSeq!=null) {
 			session.setAttribute("applyPage", projectSeq);	
@@ -296,7 +297,7 @@ public class ProjectMemController {
 		return "/project/applyList";
 	}
 	
-	@RequestMapping("/apply/detailView")
+	@RequestMapping(method=RequestMethod.POST, value="/apply/detailView")
 	public String projectApplyDetailView(int seq, Model m) {
 		ProjectApplyDTO result = svc.projectApplyDetailView(seq);
 		m.addAttribute("aPage", result);
