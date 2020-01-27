@@ -35,6 +35,8 @@ public class MemAdvisor {
 				while(m2.find()) {
 				String sysMethod = m.group(1).toString();
 				String sysFirstParam = m2.group(1).toString();
+//				System.out.println("sysMethod : " + sysMethod);
+//				System.out.println("sysFirstParam : " + sysFirstParam);
 				
 				if(sysFirstParam.contentEquals("String")) {
 					if(sysMethod.contentEquals("projectMainList")||sysMethod.contentEquals("bamboolistView\"")||
