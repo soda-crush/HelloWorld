@@ -192,17 +192,17 @@ public class CodeController {
 		}
 	}
 
-	@ResponseBody
-	@RequestMapping(value="/memLevel.do",produces="text/html;charset=utf8")
-	public String getMemLevel(String id) {
-		try {
-			return Integer.toString(sv.getMemLevel(id));
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-			return "redirect:/error";
-		}
-	}
+//	@ResponseBody
+//	@RequestMapping(value="/memLevel.do",produces="text/html;charset=utf8")
+//	public String getMemLevel(String id) {
+//		try {
+//			return Integer.toString(sv.getMemLevel(id));
+//		}
+//		catch(Exception e) {
+//			e.printStackTrace();
+//			return "fail";
+//		}
+//	}
 
 	@ResponseBody
 	@RequestMapping(value="/pointCheck.do",produces="text/html;charset=utf8")
@@ -212,7 +212,7 @@ public class CodeController {
 		}
 		catch(Exception e) {
 			e.printStackTrace();
-			return "redirect:/error";
+			return "fail";
 		}
 	}
 
@@ -309,7 +309,7 @@ public class CodeController {
 		}
 		catch(Exception e) {
 			e.printStackTrace();
-			return "redirect:/error";
+			return "fail";
 		}
 	}
 
@@ -322,7 +322,7 @@ public class CodeController {
 		}
 		catch(Exception e) {
 			e.printStackTrace();
-			return "redirect:/error";
+			return "fail";
 		}
 	}
 
@@ -351,7 +351,7 @@ public class CodeController {
 		}
 		catch(Exception e) {
 			e.printStackTrace();
-			return "redirect:/error";
+			return "fail";
 		}
 	}
 
@@ -390,7 +390,7 @@ public class CodeController {
 		}
 		catch(Exception e) {
 			e.printStackTrace();
-			return "redirect:/error";
+			return "fail";
 		}
 	}
 
@@ -432,7 +432,7 @@ public class CodeController {
 		}
 		catch(Exception e) {
 			e.printStackTrace();
-			return "redirect:/error";
+			return "fail";
 		}
 	}
 

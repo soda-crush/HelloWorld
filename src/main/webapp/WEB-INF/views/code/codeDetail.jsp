@@ -477,8 +477,8 @@ span:nth-child(4) {
 					                  $(".pPageComments${r.seq}").append(html.join(""));	 			                      
 						          }
 						        }).fail(function(resp){
-						        	
-						        })    
+									alert("문제가 발생했습니다. 다시 시도해주세요.");
+								}) 
 			    		}        
 				})			
 	       				
@@ -553,8 +553,7 @@ span:nth-child(4) {
 						$('#reportModal').modal('show');						
 					}
 				}).fail(function(resp){
-					console.log("실패");
-					console.log(resp);
+					alert("문제가 발생했습니다. 다시 시도해주세요.");
 				});
 				return false;
 			}
@@ -575,7 +574,7 @@ span:nth-child(4) {
 				$('#reportModal').modal('hide');
 				$("#rSuccessModal").modal('show');				
 			}).fail(function(resp){
-				console.log(resp);
+				alert("문제가 발생했습니다. 다시 시도해주세요.");
 			});
 			return false;
 		});
@@ -602,7 +601,7 @@ span:nth-child(4) {
 						$('#reportRModal').modal('show');						
 					}
 				}).fail(function(resp){
-					console.log(resp);
+					alert("문제가 발생했습니다. 다시 시도해주세요.");
 				});
 				return false;
 			}
@@ -648,7 +647,7 @@ span:nth-child(4) {
 					$('#reportRModal').modal('hide');
 					$("#rSuccessModal").modal('show');				
 				}).fail(function(resp){
-					console.log(resp);
+					alert("문제가 발생했습니다. 다시 시도해주세요.");
 				});
 				return false;
 			});
@@ -683,6 +682,8 @@ span:nth-child(4) {
 				}else{//실패
 					alert("오류발생. 일대일문의에 문의해주세요.");
 				}
+			}).fail(function(resp){
+				alert("문제가 발생했습니다. 다시 시도해주세요.");
 			});
 		}
 	})
@@ -802,7 +803,7 @@ span:nth-child(4) {
 	                  $(".pPageComments"+repSeq).append(html.join(""));   
 		        }
 		        }).fail(function(resp){
-
+		        	alert("문제가 발생했습니다. 다시 시도해주세요.");
 		        })
             }
 		}
@@ -892,7 +893,7 @@ span:nth-child(4) {
 		  	                  $(".pPageComments"+resp[0].repSeq).append(html.join(""));   
 		  		        }
 				}).fail(function(resp){
-					
+					alert("문제가 발생했습니다. 다시 시도해주세요.");
 				})
 	      });       	
 	
