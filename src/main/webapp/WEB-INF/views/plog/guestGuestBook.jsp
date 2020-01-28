@@ -159,7 +159,7 @@
             			resize(resizeList[i]);
             		}
         		}).fail(function(){
-        			alert("실패하였습니다.");
+        			alert("문제가 발생했습니다. 다시 시도해주세요.");
         		})
         		
         	}
