@@ -45,7 +45,7 @@
 	</delete>
 	
 	<update id="updateItnews"  parameterType="kh.hello.dto.ItnewsCoDTO">
-		update itnews set content=#{content}, title=#{title}, nonTagContent=#{nonTagContent} where seq=#{seq}
+		update itnews set content=#{content}, title=#{title}, nonTagContents=#{nonTagContent} where seq=#{seq}
 	</update>
 	
 	<delete id="coAllRemove" parameterType="integer">
