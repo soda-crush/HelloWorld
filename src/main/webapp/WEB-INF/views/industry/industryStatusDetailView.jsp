@@ -293,7 +293,7 @@
     		if(result){
     			//이미 했는지 검사
     			$.ajax({
-    				url:"${pageContext.request.contextPath}/industry/scrap.d",
+    				url:"${pageContext.request.contextPath}/industry/scrap.do",
     				type:"post",
     				data:{
     					category : "industryStatus",

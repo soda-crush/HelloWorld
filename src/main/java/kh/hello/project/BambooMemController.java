@@ -82,7 +82,7 @@ public class BambooMemController {
 		try {
 			return Integer.toString(service.getMemLevel(id));
 		}catch(Exception e) {
-			return "redirect:/error";
+			return "fail";
 		}
 	}
 
@@ -166,7 +166,7 @@ public class BambooMemController {
 			return service.commentWriteConfirm(dto,dto.getWriter());
 		}catch(Exception e) {
 			e.printStackTrace();
-			return "redirect:/error";
+			return "fail";
 		}
 	}
 
@@ -178,7 +178,7 @@ public class BambooMemController {
 			return service.commentModifyConfirm(dto);
 		}catch(Exception e) {
 			e.printStackTrace();
-			return "redirect:/error";
+			return "fail";
 		}
 	}
 
@@ -191,7 +191,7 @@ public class BambooMemController {
 			return service.commentDeleteConfirm(dto,dto.getWriter());
 		}catch(Exception e) {
 			e.printStackTrace();
-			return "redirect:/error";
+			return "fail";
 		}
 	}
 
@@ -235,7 +235,7 @@ public class BambooMemController {
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
-			return "redirect:/error";
+			return "fail";
 		}
 	}
 
@@ -256,7 +256,7 @@ public class BambooMemController {
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
-			return "redirect:/error";
+			return "fail";
 		}
 	}
 }

@@ -90,7 +90,7 @@ public class IndustryStatusMemController {
 			return Integer.toString(service.getMemLevel(dto.getId()));
 		}catch(Exception e) {
 			e.printStackTrace();
-			return "redirect:/error";
+			return "fail";
 		}
 	}
 
@@ -173,7 +173,7 @@ public class IndustryStatusMemController {
 			return service.commentWriteConfirm(dto);
 		}catch(Exception e) {
 			e.printStackTrace();
-			return "redirect:/error";
+			return "fail";
 		}
 	}
 
@@ -185,7 +185,7 @@ public class IndustryStatusMemController {
 			return service.commentModifyConfirm(dto);
 		}catch(Exception e) {
 			e.printStackTrace();
-			return "redirect:/error";
+			return "fail";
 		}
 	}
 	@ResponseBody
@@ -197,7 +197,7 @@ public class IndustryStatusMemController {
 			return service.commentDeleteConfirm(dto);
 		}catch(Exception e) {
 			e.printStackTrace();
-			return "redirect:/error";
+			return "fail";
 		}
 	}
 
@@ -234,7 +234,7 @@ public class IndustryStatusMemController {
 			return service.scrap(dto);
 		}catch(Exception e) {
 			e.printStackTrace();
-			return "redirect:/error";
+			return "fail";
 		}
 	}
 
@@ -254,7 +254,7 @@ public class IndustryStatusMemController {
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
-			return "redirect:/error";
+			return "fail";
 		}
 	}
 
@@ -275,7 +275,7 @@ public class IndustryStatusMemController {
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
-			return "redirect:/error";
+			return "fail";
 		}
 	}
 }
