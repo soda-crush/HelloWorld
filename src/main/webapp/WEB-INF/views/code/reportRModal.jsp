@@ -20,6 +20,7 @@
 									<textarea class="form-control form-control-sm" maxlength="300" placeholder="신고사유를 작성해주세요" name="reason" id="reportReasonInputR" style="height:100px;"></textarea>
 									<input type=hidden name="boardSeq" value="${qResult.seq}">							
 									<input type=hidden name="title" id="titleR">
+									<input type=hidden name="replySeq" id="replySeq">
 							</div>
 						</div>						
 				      		       

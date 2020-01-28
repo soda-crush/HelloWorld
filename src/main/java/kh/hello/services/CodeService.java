@@ -506,8 +506,8 @@ public class CodeService {
 	}
 	
 	//답글 신고
-	public int reportDuplCheckR(String id, int seq) {
-		return dao.reportDuplCheckR(id, seq);
+	public int reportDuplCheckR(String id, int seq, int replySeq) {
+		return dao.reportDuplCheckR(id, seq, replySeq);
 	}
 	public int reportCodeR(ReportDTO dto) {
 		return dao.insertReportR(dto);					
