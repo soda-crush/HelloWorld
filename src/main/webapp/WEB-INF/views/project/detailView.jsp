@@ -106,13 +106,15 @@
 									<i class="fa fa-photo ml-1" style="font-size:13px;color:#757575;"></i>
 								</c:if>
 							</div><br>
-							<label class="ml-4 mb-0" onclick="popUp('/Portfolio/toPlog.do?owner=${pPage.id}&other=Y')" style="cursor:pointer;">
-							<img src="${pPage.profileImg }" style="width:30px;height:30px;margin-right:7px;margin-bottom:5px;"><strong style="font-size:15px;">${pPage.writer }</strong></label>
-							<label class="ml-4 mb-0">작성일 : ${pPage.formedWriteDate }</label>
-								<c:if test="${not empty pPage.changeDate }">
-									<label class="mb-0" style="color:darkgray;">(수정일 : ${pPage.formedChangeDate })</label>
-								</c:if>
-							<label class="ml-4 mb-0">조회 : ${pPage.viewCount }</label>
+							<div class="ml-4 mr-3 mb-3 mt-2">
+								<label class="mb-0 writerPLog" onclick="popUp('/Portfolio/toPlog.do?owner=${pPage.id}&other=Y')" style="cursor:pointer;">
+								<img src="${pPage.profileImg }" style="width:30px;height:30px;margin-right:7px;margin-bottom:5px;"><strong style="font-size:15px;">${pPage.writer }</strong></label>
+								<label class="ml-4 mb-0">작성일 : ${pPage.formedWriteDate }</label>
+									<c:if test="${not empty pPage.changeDate }">
+										<label class="mb-0" style="color:darkgray;">(수정일 : ${pPage.formedChangeDate })</label>
+									</c:if>
+								<label class="ml-4 mb-0">조회 : ${pPage.viewCount }</label>
+							</div>
 						</div>
 						<hr>
 						<div id="pInfo">

@@ -16,6 +16,7 @@
 						$('#reportModal').modal('show');						
 					}
 				}).fail(function(resp){
+					alert("문제가 발생했습니다. 다시 시도해주세요.");
 				});
 				return false;
 			}
@@ -36,6 +37,7 @@
 				$('#reportModal').modal('hide');
 				$("#rSuccessModal").modal('show');				
 			}).fail(function(resp){
+				alert("문제가 발생했습니다. 다시 시도해주세요.");
 			});
 			return false;
 		});
@@ -111,6 +113,7 @@
 				$(".pPageComments").html("");
 				commentRecall(resp);
 			}).fail(function(resp){
+				alert("문제가 발생했습니다. 다시 시도해주세요.");
 			});
 		});
 		$(document).on("click","#scrapNull",function(){
@@ -124,6 +127,7 @@
 				alert("스크랩되었습니다.");
 				$("#scrapNull").replaceWith('<i class="fa fa-bookmark" id="scrapDone" data-toggle="tooltip" title="스크랩"></i>');
 			}).fail(function(resp){
+				alert("문제가 발생했습니다. 다시 시도해주세요.");
 			});
 		});
 		$(document).on("click","#scrapDone",function(){
@@ -137,6 +141,7 @@
 				alert("스크랩이 취소되었습니다.");
 				$("#scrapDone").replaceWith('<i class="fa fa-bookmark-o" id="scrapNull" data-toggle="tooltip" title="스크랩"></i>');
 			}).fail(function(resp){
+				alert("문제가 발생했습니다. 다시 시도해주세요.");
 			});
 		});
 		$("#applyCheckBtn").on("click",function(){			
@@ -240,6 +245,7 @@
 				$(".pPageComments").html("");
 				commentRecall(resp);
 			}).fail(function(resp){
+				alert("문제가 발생했습니다. 다시 시도해주세요.");
 			});
 		});
            	
@@ -259,6 +265,7 @@
     				$(".pPageComments").html("");
     				commentRecall(resp);
         		}).fail(function(resp){
+        			alert("문제가 발생했습니다. 다시 시도해주세요.");
        			});
            	}
 		}
@@ -287,6 +294,7 @@
 				$(".pPageComments").html("");					
 				commentRecall(resp);
 			}).fail(function(resp){
+				alert("문제가 발생했습니다. 다시 시도해주세요.");
 			});
 		});
 					
@@ -343,8 +351,7 @@
 				$('#pApplyConfirmModal').modal('show');				
 				$('#pApplyModal').modal('hide');
 			}).fail(function(resp){
-				console.log(resp);
-				alert("신청 실패!");
+				alert("문제가 발생했습니다. 다시 시도해주세요.");
 			});
 			return false;				
 		});
