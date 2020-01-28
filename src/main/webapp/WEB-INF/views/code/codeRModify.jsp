@@ -59,7 +59,7 @@ $(function(){
 		</div>
 		
 		<!--      몸통 시작!!!   -->
-		<form action="modifyRProc.do" method="post" id="writeForm">
+		<form action="modifyRProc.do" method="post" id="writeForm" enctype="multipart/form-data">
 		<input type="hidden" name="seq" value="${dto.seq}">
 		<input type="hidden" name="writer" value="${dto.writer}">
 		<input type="hidden" name="queSeq" value="${parent_seq}">
