@@ -61,7 +61,7 @@
   	update member set memLevel='2' where id=#{id}
   </update>
   <update id="memberOut">
-  	update member set pw=null, name=null,nickName=null,phone=null,postCode=null
+  	update member set pw=null, name=null,phone=null,postCode=null
 		,addr1=null,addr2=null,joinPath=null,gender=null,memLevel=null,reportCount=null,point=null
 		,ifmOpenCheck=null,joinDate=null,lastLogin=null,birth=null where id=#{id} 
   </update>
