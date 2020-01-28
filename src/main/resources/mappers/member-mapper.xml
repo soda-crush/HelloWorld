@@ -73,13 +73,13 @@
 	<update id="withdrawal" parameterType="string">
 		update member set pw=null, name=null,email=null,phone=null,postCode=null
 		,addr1=null,addr2=null,joinPath=null,gender=null,reportCount=null,point=null
-		,ifmOpenCheck=null,joinDate=null,lastLogin=null,birth=null where id=#{id} 
+		,joinDate=null,lastLogin=null,birth=null where id=#{id} 
 	</update>
 	
 	<update id="withdrawalMem1" parameterType="string">
 		update member set pw=null, name=null,phone=null,postCode=null
 		,addr1=null,addr2=null,joinPath=null,gender=null,reportCount=null,point=null
-		,ifmOpenCheck=null,joinDate=null,lastLogin=null,birth=null where id=#{id} 
+		,joinDate=null,lastLogin=null,birth=null where id=#{id} 
 	</update>
 	
 	<update id="modify"  parameterType="kh.hello.dto.MemberDTO">

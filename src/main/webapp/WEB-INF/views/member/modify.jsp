@@ -113,7 +113,7 @@
              <div class=row id=empContainer>
             	<div class=col-12>
             		<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow style="position:relative;bottom:3px;right:3px;">이메일</h5>
-            		<p class=redP style="display:inline">*<c:if test="${dto.memLevel==3}">재직자에서 일반으로 변경을 원하시면 일대일 문의를 이용해 주세요.</c:if></p><br><br>
+            		<p class=redP style="display:inline">*재직자->일반 / 일반->재직자 의 변경은 일대일문의를 이용해주세요.</p><br><br>
             		<input type=radio name=empCheck value=unemployee class=emp><h5 style="display:inline">일반</h5>
             	</div>
             	<div class=col-12>
@@ -770,12 +770,14 @@
 		            	$("#unempEle").css("display","block");
 			            $("#empEle").css("display","none");
 			            $("#unempEmail").val("${dto.email}");
+			          //멤버 레벨수정 안되게
+			            $("input[name='empCheck']").attr('disabled',true);
 		            }else if(${dto.memLevel==3}){//실무자
 		            	$('input:radio[name=empCheck]:input[value=employee]').attr("checked", true);
 		            	$("#empEle").css("display","block");
 			            $("#unempEle").css("display","none");
 			            $("#empEmail").val("${dto.email}");
-			          	//멤버 레벨 3이면 이메일 2로 수정 안되게
+			          	//멤버 레벨수정 안되게
 			            $("input[name='empCheck']").attr('disabled',true);
 		            }else{//강등
 		            	$('input:radio[name=empCheck]:input[value=demotion]').attr("checked", true);
@@ -974,13 +976,21 @@
             	$("#send").on("click",function(){
             		if(${dto.memLevel!=1}){
             			if((pwTest*birthYearTest*birthMonthTest*birthDayTest*nickTest*phoneTest*jpTest*genderTest*nameTest*emailTest) != 1){
-            				console.log("pwTest*birthYearTest*birthMonthTest*birthDayTest*nickTest*phoneTest*jpTest*genderTest*nameTest");
-                			console.log(pwTest + " : " + birthYearTest + " : " + birthMonthTest + " : " + birthDayTest + " : " + nickTest + " : " + phoneTest + " : " + jpTest + " : " + genderTest + " : " + nameTest);
+            				//console.log("pwTest*birthYearTest*birthMonthTest*birthDayTest*nickTest*phoneTest*jpTest*genderTest*nameTest");
+                			//console.log(pwTest + " : " + birthYearTest + " : " + birthMonthTest + " : " + birthDayTest + " : " + nickTest + " : " + phoneTest + " : " + jpTest + " : " + genderTest + " : " + nameTest);
             				alert("조건에 만족하지 않는 문항이 있습니다. 확인부탁드립니다.");
             				return false;
                          }else{
                         	var result = confirm("이대로 수정하시겠습니까?");
                         	if(result){
+                        		//empCheck 다시해주기
+                        		if(($("#empEmail").val() == null)||($("#empEmail").val() == "")){
+                        			$("input[name='empCheck']").attr('disabled',false);
+                        			$('input:radio[name=empCheck]:input[value=unemployee]').attr("checked", true);
+                        		}else{
+                        			$("input[name='empCheck']").attr('disabled',false);
+                        			$('input:radio[name=empCheck]:input[value=employee]').attr("checked", true);
+                        		}
                         		//날짜 다시 2009-03-20 10:20:30.0
                         		var date = $("#birthdayYear").val()+"-"+ $("#birthdayMonth").val()+"-"+ $("#birthdayDay").val()+" 00:00:00.0";
                         		$("#birthday").val(date);
@@ -996,14 +1006,14 @@
                         	}
                         }
             		}else{
-            			console.log("pwTest*birthYearTest*birthMonthTest*birthDayTest*nickTest*phoneTest*jpTest*genderTest*nameTest&emailTest");
-            			console.log(pwTest + " : " + birthYearTest + " : " + birthMonthTest + " : " + birthDayTest + " : " + nickTest + " : " + phoneTest + " : " + jpTest + " : " + genderTest + " : " + nameTest + " : "+emailTest);
+            			//console.log("pwTest*birthYearTest*birthMonthTest*birthDayTest*nickTest*phoneTest*jpTest*genderTest*nameTest&emailTest");
+            			//console.log(pwTest + " : " + birthYearTest + " : " + birthMonthTest + " : " + birthDayTest + " : " + nickTest + " : " + phoneTest + " : " + jpTest + " : " + genderTest + " : " + nameTest + " : "+emailTest);
             			if((pwTest*birthYearTest*birthMonthTest*birthDayTest*nickTest*phoneTest*jpTest*genderTest*nameTest) != 1){
                          	alert("조건에 만족하지 않는 문항이 있습니다. 확인부탁드립니다.");
                          	return false;
                          }else{
-                        	 console.log("pwTest*birthYearTest*birthMonthTest*birthDayTest*nickTest*phoneTest*jpTest*genderTest*nameTest&emailTest");
-             				 console.log(pwTest + " : " + birthYearTest + " : " + birthMonthTest + " : " + birthDayTest + " : " + nickTest + " : " + phoneTest + " : " + jpTest + " : " + genderTest + " : " + nameTest + " : "+emailTest);
+                        	// console.log("pwTest*birthYearTest*birthMonthTest*birthDayTest*nickTest*phoneTest*jpTest*genderTest*nameTest&emailTest");
+             				// console.log(pwTest + " : " + birthYearTest + " : " + birthMonthTest + " : " + birthDayTest + " : " + nickTest + " : " + phoneTest + " : " + jpTest + " : " + genderTest + " : " + nameTest + " : "+emailTest);
                         	var result = confirm("이대로수정하시겠습니까?");
                         	if(result){
                         		//empCheck 다시해주기
