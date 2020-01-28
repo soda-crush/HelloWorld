@@ -103,7 +103,6 @@ public class PortfolioMemController {
 	public String writeProcInsert(PortfolioDTO pdto,String startDateTemp,String endDateTemp) {
 		try {
 			request.setCharacterEncoding("UTF-8");
-
 		    String startDate = startDateTemp + " 00:00:00.0";
 		    String endDate = endDateTemp + " 00:00:00.0";
 			pdto.setStartDate(Timestamp.valueOf(startDate));
@@ -112,6 +111,7 @@ public class PortfolioMemController {
 			ps.insertWrite(pdto);
 		} catch (Exception e) {
 			e.printStackTrace();
+			return "redirect:/error";
 		}
 		return "redirect:toPlogmain.do";
 	}
@@ -120,50 +120,57 @@ public class PortfolioMemController {
 	public String toPlogmain() {
 		try {
 			request.setCharacterEncoding("UTF-8");
+			OwnerInfoDTO ownerInfo = (OwnerInfoDTO)session.getAttribute("ownerInfo");
+			List<PortfolioDTO> list = ps.selectList(ownerInfo.getId());
+			MemberDTO mdto = ms.selectMember(ownerInfo.getId());
+			request.setAttribute("point", mdto.getPoint());
+			request.setAttribute("list", list);
+			return "/plog/plogPortfolio";
 		} catch (Exception e) {
 			e.printStackTrace();
+			return "redirect:/error";
 		}
-		OwnerInfoDTO ownerInfo = (OwnerInfoDTO)session.getAttribute("ownerInfo");
-		List<PortfolioDTO> list = ps.selectList(ownerInfo.getId());
-		MemberDTO mdto = ms.selectMember(ownerInfo.getId());
-		request.setAttribute("point", mdto.getPoint());
-		request.setAttribute("list", list);
-		return "/plog/plogPortfolio";
 	}
 	
 	@RequestMapping("/toGuestPlogmain.do")
 	public String toGuestPlogmain() {
 		try {
 			request.setCharacterEncoding("UTF-8");
+			OwnerInfoDTO ownerInfo = (OwnerInfoDTO)session.getAttribute("otherInfo");
+			List<PortfolioDTO> list = ps.selectList(ownerInfo.getId());
+			MemberDTO mdto = ms.selectMember(ownerInfo.getId());
+			request.setAttribute("point", mdto.getPoint());
+			request.setAttribute("list", list);
+			return "/plog/guestPortfolio";
 		} catch (Exception e) {
 			e.printStackTrace();
+			return "redirect:/error";
 		}
-		OwnerInfoDTO ownerInfo = (OwnerInfoDTO)session.getAttribute("otherInfo");
-		List<PortfolioDTO> list = ps.selectList(ownerInfo.getId());
-		MemberDTO mdto = ms.selectMember(ownerInfo.getId());
-		request.setAttribute("point", mdto.getPoint());
-		request.setAttribute("list", list);
-		return "/plog/guestPortfolio";
 	}
 	
 	@RequestMapping("/toPlog.do")
 	public String toPlog(String owner, String other) {
-		MemberDTO mdto = ms.selectMember(owner);
-		LoginInfoDTO ldto = (LoginInfoDTO)session.getAttribute("loginInfo");
-		if(mdto.getIfmOpenCheck().equals("Y") || ldto.getId().equals(owner)) {
-			OwnerInfoDTO odto = new OwnerInfoDTO();
-			odto.setId(mdto.getId());	
-			odto.setNickName(mdto.getNickName());
-			odto.setProfileImg(mdto.getProfileImg());
-			if(other.contentEquals("Y") && !(owner.contentEquals(ldto.getId()))) {
-				session.setAttribute("otherInfo", odto);
-				return "redirect:toGuestPlogmain.do";
+		try {
+			MemberDTO mdto = ms.selectMember(owner);
+			LoginInfoDTO ldto = (LoginInfoDTO)session.getAttribute("loginInfo");
+			if(mdto.getIfmOpenCheck().equals("Y") || ldto.getId().equals(owner)) {
+				OwnerInfoDTO odto = new OwnerInfoDTO();
+				odto.setId(mdto.getId());	
+				odto.setNickName(mdto.getNickName());
+				odto.setProfileImg(mdto.getProfileImg());
+				if(other.contentEquals("Y") && !(owner.contentEquals(ldto.getId()))) {
+					session.setAttribute("otherInfo", odto);
+					return "redirect:toGuestPlogmain.do";
+				}else {
+					session.setAttribute("ownerInfo", odto);
+					return "redirect:toPlogmain.do";
+				}
 			}else {
-				session.setAttribute("ownerInfo", odto);
-				return "redirect:toPlogmain.do";
+				return "/plog/notOpenPage";
 			}
-		}else {
-			return "/plog/notOpenPage";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "redirect:/error";
 		}
 	}
 	
@@ -171,31 +178,37 @@ public class PortfolioMemController {
 	public String viewDetail(int seq) {
 		try {
 			request.setCharacterEncoding("UTF-8");
+			PortfolioDTO pdto = ps.selectBySeq(seq);
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			String str = sdf.format(pdto.getStartDate());
+			String end = sdf.format(pdto.getEndDate());
+			
+			request.setAttribute("str", str);
+			request.setAttribute("end", end);
+			request.setAttribute("pdto", pdto);
+			return "/plog/viewPortfolio";
 		} catch (Exception e) {
 			e.printStackTrace();
+			return "redirect:/error";
 		}
-		PortfolioDTO pdto = ps.selectBySeq(seq);
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		String str = sdf.format(pdto.getStartDate());
-		String end = sdf.format(pdto.getEndDate());
-		
-		request.setAttribute("str", str);
-		request.setAttribute("end", end);
-		request.setAttribute("pdto", pdto);
-		return "/plog/viewPortfolio";
 	}
 	
 	@RequestMapping("/toModify.do")
 	public String toUpdate(int seq) {
-		PortfolioDTO pdto = ps.selectBySeq(seq);
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		String str = sdf.format(pdto.getStartDate());
-		String end = sdf.format(pdto.getEndDate());
-		request.setAttribute("str", str);
-		request.setAttribute("end", end);
-		request.setAttribute("pdto", pdto);
-		
-		return "/plog/modifyPortfolio";
+		try {
+			PortfolioDTO pdto = ps.selectBySeq(seq);
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			String str = sdf.format(pdto.getStartDate());
+			String end = sdf.format(pdto.getEndDate());
+			request.setAttribute("str", str);
+			request.setAttribute("end", end);
+			request.setAttribute("pdto", pdto);
+			
+			return "/plog/modifyPortfolio";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "redirect:/error";
+		}
 	}
 	
 	@RequestMapping("/update.do")
@@ -208,15 +221,21 @@ public class PortfolioMemController {
 			pdto.setEndDate(Timestamp.valueOf(endDate));
 			pdto.setWriter(session.getAttribute("loginInfo").toString());
 			ps.update(pdto);
+			return "redirect:toPlogmain.do";
 		} catch (Exception e) {
 			e.printStackTrace();
+			return "redirect:/error";
 		}
-		return "redirect:toPlogmain.do";
 	}
 	
 	@RequestMapping("/delete.do")
 	public String deleteProc(int seq) {
-		ps.delete(seq);
-		return "redirect:toPlogmain.do";
+		try {
+			ps.delete(seq);
+			return "redirect:toPlogmain.do";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "redirect:/error";
+		}
 	}
 }

@@ -36,76 +36,96 @@ public class GuestBookMemController {
 	
 	@RequestMapping("/insert.do")
 	public String writeProcinsert(GuestBookDTO gdto, String other) {
-		
-		LoginInfoDTO loginInfo = (LoginInfoDTO)session.getAttribute("loginInfo");
-		gdto.setWriterID(loginInfo.getId());
-		gdto.setWriter(loginInfo.getNickName());
-		gdto.setWriterImg(ms.selectMember(loginInfo.getId()).getProfileImg());
-		if(other.contentEquals("Y")) {
-			OwnerInfoDTO ownerInfo = (OwnerInfoDTO)session.getAttribute("otherInfo");
-			gdto.setOwnerID(ownerInfo.getId());
-			gdto.setOwner(ownerInfo.getNickName());
-			gs.insert(gdto);
-			return "redirect:toGuestSelectList.do";
-		}else {
-			OwnerInfoDTO ownerInfo = (OwnerInfoDTO)session.getAttribute("ownerInfo");
-			gdto.setOwnerID(ownerInfo.getId());
-			gdto.setOwner(ownerInfo.getNickName());
-			gs.insert(gdto);
-			return "redirect:toSelectList.do";
+		try {
+			LoginInfoDTO loginInfo = (LoginInfoDTO)session.getAttribute("loginInfo");
+			gdto.setWriterID(loginInfo.getId());
+			gdto.setWriter(loginInfo.getNickName());
+			gdto.setWriterImg(ms.selectMember(loginInfo.getId()).getProfileImg());
+			if(other.contentEquals("Y")) {
+				OwnerInfoDTO ownerInfo = (OwnerInfoDTO)session.getAttribute("otherInfo");
+				gdto.setOwnerID(ownerInfo.getId());
+				gdto.setOwner(ownerInfo.getNickName());
+				gs.insert(gdto);
+				return "redirect:toGuestSelectList.do";
+			}else {
+				OwnerInfoDTO ownerInfo = (OwnerInfoDTO)session.getAttribute("ownerInfo");
+				gdto.setOwnerID(ownerInfo.getId());
+				gdto.setOwner(ownerInfo.getNickName());
+				gs.insert(gdto);
+				return "redirect:toSelectList.do";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "redirect:/error";
 		}
+		
 	}
 	
 	@RequestMapping("/toSelectList.do")
 	public String selectList(String cpage) {
-		OwnerInfoDTO ownerInfo = (OwnerInfoDTO)session.getAttribute("ownerInfo");
-		String ownerID = ownerInfo.getId();
-		int currentPage = 1;
-		if(cpage==null) {
-			cpage="1";
-		}else {
-			currentPage = Integer.parseInt(cpage);
+		try {
+			OwnerInfoDTO ownerInfo = (OwnerInfoDTO)session.getAttribute("ownerInfo");
+			String ownerID = ownerInfo.getId();
+			int currentPage = 1;
+			if(cpage==null) {
+				cpage="1";
+			}else {
+				currentPage = Integer.parseInt(cpage);
+			}
+			int end = currentPage * Configuration.pLogProjectRecordCountPerPage;
+			int start = end - (Configuration.pLogProjectRecordCountPerPage - 1);
+			List<GuestBookDTO> list = gs.selectListByPage(ownerID,start,end);
+			List<String> pageNavi = gs.getGuestBookPageNavi(ownerID, currentPage,"N");
+			MemberDTO mdto = ms.selectMember(ownerInfo.getId());
+			request.setAttribute("point", mdto.getPoint());
+			request.setAttribute("cpage", currentPage);
+			request.setAttribute("list", list);
+			request.setAttribute("pageNavi", pageNavi);
+			return "plog/guestBook";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "redirect:/error";
 		}
-		int end = currentPage * Configuration.pLogProjectRecordCountPerPage;
-		int start = end - (Configuration.pLogProjectRecordCountPerPage - 1);
-		List<GuestBookDTO> list = gs.selectListByPage(ownerID,start,end);
-		List<String> pageNavi = gs.getGuestBookPageNavi(ownerID, currentPage,"N");
-		MemberDTO mdto = ms.selectMember(ownerInfo.getId());
-		request.setAttribute("point", mdto.getPoint());
-		request.setAttribute("cpage", currentPage);
-		request.setAttribute("list", list);
-		request.setAttribute("pageNavi", pageNavi);
-		return "plog/guestBook";
 	}
 	
 	@RequestMapping("/toGuestSelectList.do")
 	public String guestSelectList(String cpage) {
-		OwnerInfoDTO ownerInfo = (OwnerInfoDTO)session.getAttribute("otherInfo");
-		String ownerID = ownerInfo.getId();
-		int currentPage = 1;
-		if(cpage==null) {
-			cpage="1";
-		}else {
-			currentPage = Integer.parseInt(cpage);
+		try {
+			OwnerInfoDTO ownerInfo = (OwnerInfoDTO)session.getAttribute("otherInfo");
+			String ownerID = ownerInfo.getId();
+			int currentPage = 1;
+			if(cpage==null) {
+				cpage="1";
+			}else {
+				currentPage = Integer.parseInt(cpage);
+			}
+			int end = currentPage * Configuration.pLogProjectRecordCountPerPage;
+			int start = end - (Configuration.pLogProjectRecordCountPerPage - 1);
+			List<GuestBookDTO> list = gs.selectListByPage(ownerID,start,end);
+			List<String> pageNavi = gs.getGuestBookPageNavi(ownerID, currentPage,"Y");
+			MemberDTO mdto = ms.selectMember(ownerInfo.getId());
+			request.setAttribute("point", mdto.getPoint());
+			request.setAttribute("cpage", currentPage);
+			request.setAttribute("list", list);
+			request.setAttribute("pageNavi", pageNavi);
+			return "plog/guestGuestBook";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "redirect:/error";
 		}
-		int end = currentPage * Configuration.pLogProjectRecordCountPerPage;
-		int start = end - (Configuration.pLogProjectRecordCountPerPage - 1);
-		List<GuestBookDTO> list = gs.selectListByPage(ownerID,start,end);
-		List<String> pageNavi = gs.getGuestBookPageNavi(ownerID, currentPage,"Y");
-		MemberDTO mdto = ms.selectMember(ownerInfo.getId());
-		request.setAttribute("point", mdto.getPoint());
-		request.setAttribute("cpage", currentPage);
-		request.setAttribute("list", list);
-		request.setAttribute("pageNavi", pageNavi);
-		return "plog/guestGuestBook";
 	}
 	
 	
 	
 	@RequestMapping("delete.do")
 	public String guestBookdeleteProc(int seq,String cpage) {
-		gs.delete(seq);
-		return "redirect:toSelectList.do?cpage=" + cpage;
+		try {
+			gs.delete(seq);
+			return "redirect:toSelectList.do?cpage=" + cpage;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "redirect:/error";
+		}
 	}
 	
 	@RequestMapping("update.do")
