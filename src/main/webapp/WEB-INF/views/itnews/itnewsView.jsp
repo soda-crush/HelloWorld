@@ -176,7 +176,7 @@
 												<div class="d-none d-md-block col-1 profileBox pl-1 pt-2"><img src="${dto.profileImg}" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>
 												<div class="col-8 col-md-7 pt-1">
 													<div class="row commentInfo">
-														<div class="col-12 commentWriter cursorPointer hvOrange "><a onclick="popUp('/Portfolio/toPlog.do?owner=${dto.id}&other=Y')">${dto.writer }</a></div>
+														<div class="col-12 commentWriter cursorPointer"><a class= hvOrange onclick="popUp('/Portfolio/toPlog.do?owner=${dto.id}&other=Y')">${dto.writer }</a></div>
 														<div class="col-12 commentWriteDate">${dto.formedDate}</div>
 													</div>
 												</div>				
@@ -189,7 +189,7 @@
 											</div>											
 											<div class="row commentContent">
 												<div class="col-12 pt-1 pl-4" style="word-break:break-all;word-break:break-word;">${dto.content}</div>
-												<input type="hidden" value="${dto.modComment }" id="hiddenModCo${dto.seq }">
+												<input type="hidden" value="${dto.modComment}" id="hiddenModCo${dto.seq}">
 											</div>
 										</div>
 									</div>								
@@ -331,7 +331,7 @@
         						}else if(resp == "already"){//이미스크랩
         							alert("이미 스크랩된 글입니다. P-log의 내 스크랩에서 확인해주세요.");
         						}else{//실패
-        							alert("오류발생. 일대일문의에 문의해주세요");
+        							alert("문제가 발생했습니다. 다시 시도해 주세요.");
         						}
         					});
         				}
@@ -368,6 +368,10 @@
             				dataType:"json",
             				type:"post"
             			}).done(function(resp){
+            				if(resp == "error"){
+            					alert("문제가 발생했습니다. 다시 시도해 주세요.");
+            					return false;
+            				}
             				$("#coContent").val("");
             				$(".coContainer").html("");
             				commentRecall(resp);
@@ -391,6 +395,10 @@
 			           					itSeq : "${result.seq}"
 			           				}
 			           			}).done(function(resp){
+			           				if(resp == "error"){
+		            					alert("문제가 발생했습니다. 다시 시도해 주세요.");
+		            					return false;
+		            				}
 			    					$(".coContainer").html("");
 			    					commentRecall(resp);
 			           			}).fail(function(resp){
@@ -402,6 +410,7 @@
             		
             		//댓글 수정
             		function coModFunction(seq){     
+            			console.log( $("#hiddenModCo"+seq).val());
             			var checkContents = $("#hiddenModCo"+seq).val().replace(/modF'Fdom/gi,'"');
 						$(".commentBox"+seq).find(".commentBtns").css("display","none");
 						$(".commentBox"+seq).find(".commentContent").css("display","none");
@@ -461,7 +470,7 @@
 									'<div class="row commentDiv commentBox'+resp[i].seq+' p-0 pb-2 m-2"><div class="col-12 commentInnerBox"><div class="row commentHeader">',
 									'<div class="d-none d-md-block col-1 profileBox pl-1 pt-2"><img src="'+resp[i].profileImg+'" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>',
 									'<div class="col-8 col-md-7 pt-1"><div class="row commentInfo">',
-									'<div class="col-12 commentWriter cursorPointer hvOrange "><a onclick="popUp(\'/Portfolio/toPlog.do?owner='+resp[i].id+'&other=Y\')" >'+resp[i].writer+'</a></div>',
+									'<div class="col-12 commentWriter cursorPointer"><a class= hvOrange onclick="popUp(\'/Portfolio/toPlog.do?owner='+resp[i].id+'&other=Y\')" >'+resp[i].writer+'</a></div>',
 									'<div class="col-12 commentWriteDate">'+resp[i].formedDate+'</div></div></div>',
 									'<div class="col-4 pt-2 text-right commentBtns">'
 									);

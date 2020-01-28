@@ -42,16 +42,21 @@ public class ItnewsController {
 				int end = realCpage * Configuration.recordCountPerPage;
 				int start = end - (Configuration.recordCountPerPage - 1);	
 				
-				List<ItnewsDTO> list = is.itnewsListTrim(start, end);
-				m.addAttribute("list", list);
+				try {
+					List<ItnewsDTO> list = is.itnewsListTrim(start, end);
+					m.addAttribute("list", list);
+						
+					String pageNavi = is.getPageNavi(realCpage);
+					m.addAttribute("navi", pageNavi);
 					
-				String pageNavi = is.getPageNavi(realCpage);
-				m.addAttribute("navi", pageNavi);
-				
-				
-				m.addAttribute("page", realCpage);
-				
-				return "itnews/itnewsList";
+					
+					m.addAttribute("page", realCpage);
+					
+					return "itnews/itnewsList";
+				}catch(Exception e){
+					e.printStackTrace();
+					return "error";
+				}
 	}
 	
 	@RequestMapping("/searchList")
@@ -70,14 +75,20 @@ public class ItnewsController {
 		int end = realCpage * Configuration.recordCountPerPage;
 		int start = end - (Configuration.recordCountPerPage - 1);	
 		
-		List<ItnewsDTO> list = is.itnewsListTrimSrch(start, end, cate, search.replaceAll("'", "''"));
-		m.addAttribute("list", list);
-		String pageNavi = is.getPageNaviSrch(realCpage, cate, search);
-		m.addAttribute("navi", pageNavi);
-		
-		m.addAttribute("page", realCpage);
-		
-		return "itnews/itnewsList";
+		try {
+			List<ItnewsDTO> list = is.itnewsListTrimSrch(start, end, cate, search.replaceAll("'", "''"));
+			m.addAttribute("list", list);
+			String pageNavi = is.getPageNaviSrch(realCpage, cate, search);
+			m.addAttribute("navi", pageNavi);
+			
+			m.addAttribute("page", realCpage);
+			
+			return "itnews/itnewsList";
+		}catch(Exception e){
+			e.printStackTrace();
+			return "error";
+		}
+	
 	}
 	
 	@RequestMapping("/write")
@@ -88,6 +99,7 @@ public class ItnewsController {
 	
 	@RequestMapping("/detail")
 	public String itnewsDetail(Model m, int seq, String page) {
+		try {
 			is.increViewCount(seq);
 			List<ItnewsCoDTO> list = is.commentList(seq);
 			ItnewsDTO result = is.itnewsDetail(seq);
@@ -104,29 +116,43 @@ public class ItnewsController {
 			m.addAttribute("page", page);
 			m.addAttribute("ip", ip);
 			return "/itnews/itnewsView";
+		}catch(Exception e){
+			e.printStackTrace();
+			return "error";
+		}
 	}
 	
 	@RequestMapping(value="/coWrite",produces="text/html;charset=utf8")
 	@ResponseBody
 	public String coWriteProc(ItnewsCoDTO dto, HttpSession session, String seq) {
-		dto.setId(((LoginInfoDTO)session.getAttribute("loginInfo")).getId());
-		dto.setWriter(((LoginInfoDTO)session.getAttribute("loginInfo")).getNickName());
-		is.coWrite(dto, seq);
-		return is.coWriteAfter(seq);
+		try {
+			dto.setId(((LoginInfoDTO)session.getAttribute("loginInfo")).getId());
+			dto.setWriter(((LoginInfoDTO)session.getAttribute("loginInfo")).getNickName());
+			is.coWrite(dto, seq);
+			return is.coWriteAfter(seq);
+		}catch(Exception e){
+			e.printStackTrace();
+			return "error";
+		}
 	}
 	
 	@RequestMapping(value="/coRemove",produces="text/html;charset=utf8")
 	@ResponseBody
-	public String coDelProc(String itSeq, String seq) {
-		is.removeItnewsCo(itSeq, seq);
-		return is.coWriteAfter(itSeq);
+	public String coDelProc(String itSeq, String seq) { 
+		try {
+			is.removeItnewsCo(itSeq, seq);
+			return is.coWriteAfter(itSeq);
+		}catch(Exception e){
+			e.printStackTrace();
+			return "error";
+		}
 	}
 	
 	@RequestMapping(value="/coModify",produces="text/html;charset=utf8")
 	@ResponseBody
-	public String coMdfProc(ItnewsCoDTO dto) {
-		is.modifyItnewsCo(dto);
-		return is.coWriteAfter(is.getItSeqBySeq(dto.getSeq()));
+	public String coMdfProc(ItnewsCoDTO dto) { 
+			is.modifyItnewsCo(dto);
+			return is.coWriteAfter(is.getItSeqBySeq(dto.getSeq()));
 	}
 	
 	@RequestMapping("/writeProc")
@@ -163,22 +189,37 @@ public class ItnewsController {
 	
 	@RequestMapping("/remove")
 	public String deleteProc(int seq, String page) {
-		is.removeItnews(seq);
-		return "redirect:itnewsList?cpage="+page;
+		try {
+			is.removeItnews(seq);
+			return "redirect:itnewsList?cpage="+page;
+		}catch(Exception e){
+			e.printStackTrace();
+			return "error";
+		}
 	}
 	
 	@RequestMapping("/modify")
 	public String modifyForm(Model m, String page, String seq) {
-		m.addAttribute("dto", is.itnewsDetail(Integer.parseInt(seq)));
-		m.addAttribute("page", page);
-		return "itnews/modify";
+		try {
+			m.addAttribute("dto", is.itnewsDetail(Integer.parseInt(seq)));
+			m.addAttribute("page", page);
+			return "itnews/modify";
+		}catch(Exception e){
+			e.printStackTrace();
+			return "error";
+		}
 	}
 	
 	@RequestMapping("/scrap")
 	@ResponseBody
-	public String scrap(ScrapDTO dto, HttpSession session) {
-		dto.setId(((LoginInfoDTO)session.getAttribute("loginInfo")).getId());
-		return is.scrap(dto);
+	public String scrap(ScrapDTO dto, HttpSession session) {   
+		try {
+			dto.setId(((LoginInfoDTO)session.getAttribute("loginInfo")).getId());
+			return is.scrap(dto);
+		}catch(Exception e){
+			e.printStackTrace();
+			return "error";
+		}
 	}
 	
 	//신고

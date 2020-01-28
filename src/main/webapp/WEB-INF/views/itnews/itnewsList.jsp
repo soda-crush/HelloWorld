@@ -15,9 +15,6 @@
 <link rel="stylesheet" href="/css/mainBase.css">
 <link rel="stylesheet" type="text/css" href="/css/font-awesome/css/font-awesome.css">
 <style>
-	div{
-/*      	border: 1px solid green;        */ 
-	}
 	#cateCmt{
 	color:gray;
 	font-size: 15px;
