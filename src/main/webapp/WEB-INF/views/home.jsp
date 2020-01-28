@@ -204,7 +204,7 @@ $('.nav.navbar-nav a').hover(
 	            		<div class="boardEle">
 			            	<div class="boardEleTop bdt3 cursorPointer" onclick="location.href='/industry/industryStatusList.do'">
 			            		<p class="fs1 pl-3 pt-3" style="line-height:35%;">주간 조회수 TOP10</p>
-		            			<p class="mainTitle pl-3 pb-2" style="line-height:35%;">업계현황</p>
+		            			<p class="mainTitle pl-3 pb-2" style="line-height:35%;">HELLo</p>
 			            	</div>
 			            	<div class="boardEleCon">
 			            		<c:choose>
