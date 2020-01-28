@@ -759,6 +759,7 @@
  	 	 	              		}).done(function(data){
  	 	 	              			if(data == "true"){
  	 	 	              				alert("이미 등록된 이메일입니다.");
+ 	 	 	              				return false;
  	 	 	              			}else{
  	 	 	              			var regex = /^\w+@\w+.co.kr$/g;
  	 	 	                    	var data = $("#unempEmail").val();
@@ -778,6 +779,7 @@
  	 	 	 	 	              		});
  	 	 	 	                    }else{
  	 	 	 	                    	alert("영리단체 도메인(co.kr)은 재직자로 가입부탁드립니다.");
+ 	 	 	 	                    	return false;
  	 	 	 	                    }
  	 	 	              			}
  	 	 	              		});	
@@ -794,6 +796,7 @@
             	if(emailTest2 == 0){
             		alert("인증 메일 발송부터 진행하여 주십시오.");
             		emailTest = 0;
+            		return false;
             	}else{
             		$.ajax({
             			url:"${pageContext.request.contextPath}/member/ctfCodeProc",
@@ -808,11 +811,17 @@
             				$("#empEmailCheck").css("display","inline");
 							$("#empEmailCheck").attr("src","/icon/check.svg");
                 			emailTest = 1;
+                			var empEleReal1 = document.getElementById('empEmail');
+                			var empEleReal2 = document.getElementById('empCode');
+                			empEleReal1.readOnly = true;
+                			empEleReal2.readOnly = true;
+                			$("input[name='empCheck']").attr('disabled',true);
             			}else{
             				alert("인증에 실패하였습니다. 코드를 다시 확인해주시기 바랍니다.");
             				$("#empEmailCheck").css("display","inline");
 							$("#empEmailCheck").attr("src","/icon/x.svg");
             				emailTest = 0;
+            				return false;
             			}
             		});
             	}
@@ -823,6 +832,7 @@
             		if(emailTest2 == 0){
                 		alert("인증 메일 발송부터 진행하여 주십시오.");
                 		emailTest = 0;
+                		return false;
                 	}else{
                 		$.ajax({
                 			url:"${pageContext.request.contextPath}/member/ctfCodeProc",
@@ -837,11 +847,17 @@
                 				$("#unempEmailCheck").css("display","inline");
     							$("#unempEmailCheck").attr("src","/icon/check.svg");
                     			emailTest = 1;
+                    			var empEleReal1 = document.getElementById('unempEmail');
+                    			var empEleReal2 = document.getElementById('unempCode');
+                    			empEleReal1.readOnly = true;
+                    			empEleReal2.readOnly = true;
+                    			$("input[name='empCheck']").attr('disabled',true);
                 			}else{
                 				alert("인증에 실패하였습니다. 코드를 다시 확인해주시기 바랍니다.");
                 				$("#unempEmailCheck").css("display","inline");
     							$("#unempEmailCheck").attr("src","/icon/x.svg");
                 				emailTest = 0;
+                				return false;
                 			}
                 		});
                 	}
@@ -962,10 +978,19 @@
             	$("#send").on("click",function(){
                 
              		if((idTest*pwTest*birthYearTest*birthMonthTest*birthDayTest*nickTest*phoneTest*jpTest*genderTest*nameTest*emailTest*finalTest) != 1){
-                     	alert("조건에 만족하지 않는 문항이 있습니다. 확인부탁드립니다.")
+                     	alert("조건에 만족하지 않는 문항이 있습니다. 확인부탁드립니다.");
+                     	return false;
                      	 }else{
                     	var result = confirm("이대로 회원가입하시겠습니까?");
                     	if(result){
+                    		//empCheck 다시해주기
+                    		if(($("#empEmail").val() == null)||($("#empEmail").val() == "")){
+                    			$("input[name='empCheck']").attr('disabled',false);
+                    			$('input:radio[name=empCheck]:input[value=unemployee]').attr("checked", true);
+                    		}else{
+                    			$("input[name='empCheck']").attr('disabled',false);
+                    			$('input:radio[name=empCheck]:input[value=employee]').attr("checked", true);
+                    		}
                     		//날짜 다시 2009-03-20 10:20:30.0
                     		var date = $("#birthdayYear").val()+"-"+ $("#birthdayMonth").val()+"-"+ $("#birthdayDay").val()+" 00:00:00.0";
                     		$("#birthday").val(date);
