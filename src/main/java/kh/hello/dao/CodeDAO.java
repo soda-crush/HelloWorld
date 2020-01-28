@@ -257,10 +257,11 @@ public class CodeDAO {
 		}
 		
 	//답글
-		public int reportDuplCheckR(String id, int seq) {
+		public int reportDuplCheckR(String id, int seq, int replySeq) {
 			Map<String, Object> param = new HashMap<>();
 			param.put("id", id);
 			param.put("seq", seq);
+			param.put("replySeq", replySeq);
 			return jdbc.selectOne("CodeR.reportDuplCheckR", param);
 		}
 		public int insertReportR(ReportDTO dto) {

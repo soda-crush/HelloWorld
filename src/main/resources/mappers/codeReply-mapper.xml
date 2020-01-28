@@ -93,10 +93,10 @@
 	
 	<!-- 신고 -->
 	<select id="reportDuplCheckR" resultType="integer" parameterType="java.util.Map">
-		select count(*) from reportedBoard where reporterID=#{id} and boardName='Cohow' and boardSeq=#{seq}
+		select count(*) from reportedBoard where reporterID=#{id} and boardName='CohowR' and boardSeq=#{seq} and replySeq=#{replySeq}
 	</select>
 	<insert id="insertReportR" parameterType="kh.hello.dto.ReportDTO">
-		insert into reportedBoard values(reportedBoardSeq.nextval, 'N', 'Cohow', #{boardSeq}, #{title}, #{reporterNick}, #{reporterID} , sysdate, #{reason}, null)
+		insert into reportedBoard values(reportedBoardSeq.nextval, 'N', 'CohowR', #{boardSeq}, #{replySeq}, #{title}, #{reporterNick}, #{reporterID} , sysdate, #{reason}, null)
 	</insert>
 	
 <!-- 	<select id="selectParentSeq" resultType="Integer" parameterType="Integer"> -->

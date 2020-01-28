@@ -419,11 +419,11 @@ public class CodeController {
 	//답글 신고하기
 	@ResponseBody
 	@RequestMapping("/reportDuplCheckR.do")
-	public String reportDuplCheckR(int seq) {
+	public String reportDuplCheckR(int seq, int replySeq) {
 		try {
 			LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
 			String id = sessionValue.getId();
-			int result = sv.reportDuplCheckR(id, seq);
+			int result = sv.reportDuplCheckR(id, seq, replySeq);
 			if(result>0) {
 				return "dupl";
 			}else {
