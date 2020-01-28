@@ -19,8 +19,6 @@
 <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.css"
 	type="text/css" />
 <link rel="stylesheet" href="/css/industry/industryBase.css"
-	type="text/css" />
-<link rel="stylesheet" href="/css/industry/list.css"
 	type="text/css" />	
 	<script type="text/JavaScript"
    src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
@@ -46,6 +44,11 @@
 		color:#c2c2c2;
 		font-size: 14px;
 	}
+	.table {
+	background-color: white;
+	padding: 0;
+	text-align: center;
+}
 </style>
 
 <script>
