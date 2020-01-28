@@ -19,7 +19,7 @@ public class PortfolioService {
 	private MemberDAO mdao;
 	
 	public void insertWrite(PortfolioDTO pdto) {
-		mdao.getPoint(pdto.getWriter(), 30);
+		mdao.getPoint(pdto.getWriter(), 10);
 		pdao.insertWrite(pdto);
 	}
 	
@@ -37,7 +37,7 @@ public class PortfolioService {
 	
 	public void delete(int seq) {
 		PortfolioDTO dto = pdao.selectBySeq(seq);
-		mdao.minusPoint(dto.getWriter(), 40);
+		mdao.minusPoint(dto.getWriter(), 15);
 		pdao.delete(seq);
 	}
 
