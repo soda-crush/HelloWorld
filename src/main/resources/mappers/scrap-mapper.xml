@@ -9,7 +9,7 @@
 	</select>
 	
 	<select id="selectCodeQuestion"  parameterType="java.util.Map" resultType="kh.hello.dto.CodeQuestionDTO">
-		select categoryseq as seq, division,CodeQuestion.id, title, writer, writeDate, viewCount,rown from (select scrap.*, row_number() over (order by seq desc) as rown from scrap where category='codeQuestion' and id=#{id}) cscrap inner join CodeQuestion on cscrap.categoryseq = CodeQuestion.seq where  rown between #{start} and #{end}
+		select categoryseq as seq, division,CodeQuestion.id, title, point, writer, writeDate, viewCount,rown from (select scrap.*, row_number() over (order by seq desc) as rown from scrap where category='codeQuestion' and id=#{id}) cscrap inner join CodeQuestion on cscrap.categoryseq = CodeQuestion.seq where  rown between #{start} and #{end}
 	</select>
 	
 	<select id="selectProject"  parameterType="java.util.Map" resultType="kh.hello.dto.ProjectDTO">
@@ -20,11 +20,9 @@
 		select categoryseq as seq,itNews.id, title,writer, writeDate, viewCount, rown from (select scrap.*, row_number() over (order by seq desc) as rown from scrap where category='itNews' and id=#{id}) cscrap inner join itNews on cscrap.categoryseq = itNews.seq where  rown between #{start} and #{end}
 	</select>
 	
-	
 	<select id="ScrapTotalCount" parameterType="java.util.Map" resultType="integer">
 		select count(*) from (select * from scrap where category=#{colum} and id=#{id}) cscrap inner join ${colum} on cscrap.categoryseq = ${colum}.seq
 	</select>
-	
 </mapper>
 
 
