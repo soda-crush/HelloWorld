@@ -168,7 +168,7 @@ span:nth-child(4) {
 	text-align: left;
 }
 
-#writerR{
+.writerR{
 	cursor:pointer; 
 	font-size: 30px; 
 	font-weight: 100;
@@ -308,7 +308,7 @@ span:nth-child(4) {
 											</c:if>
 										</div>
 										<div class="col-12" style="padding-top:0px; position: relative; bottom: 10px;">
-											<span class="hvOrange" id="writerR" onclick="popUp('${r.id}','${r.writer}')">${r.writer}</span>
+											<span class="hvOrange writerR" onclick="popUp('${r.id}','${r.writer}')">${r.writer}</span>
 											<span style="font-size: 15px; font-weight: 50; color: gray;">님의 답변입니다.</span>
 										</div>							
 									</div>
@@ -316,7 +316,7 @@ span:nth-child(4) {
 								<c:otherwise>
 									<div class="row">										
 										<div class="col-12" style="padding-top:0px; position: relative; top: 10px;">
-											<span class="hvOrange" id="writerR" onclick="popUp('${r.id}','${r.writer}')">${r.writer}</span>
+											<span class="hvOrange writerR" onclick="popUp('${r.id}','${r.writer}')">${r.writer}</span>
 											<span style="font-size: 15px; font-weight: 50; color: gray;">님의 답변입니다.</span>
 										</div>									
 									</div>
