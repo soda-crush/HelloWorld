@@ -43,7 +43,7 @@
 									<div class="d-none col-sm-3 d-sm-block col-lg-3"><small>${m.formedAllDate }</small></div>
 									<div class="col-7 col-sm-6 col-md-3 col-lg-4 pl-2 text-decoration-none" onclick="popUp('/project/detailView?seq=${m.seq }')">
 										<div class="row">
-											<div style="max-width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;">${m.title }</div> 
+											<div style="max-width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;cursor:pointer;">${m.title }</div> 
 											<c:if test="${m.commentCount>0 }">
 												<div class="pComment font-weight-bold ml-1" style="display:inline-block;">${m.commentCount }</div>
 											</c:if>
