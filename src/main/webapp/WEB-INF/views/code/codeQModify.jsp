@@ -66,7 +66,7 @@ $(function() {
 		</div>
 
 		<!--      몸통 시작!!!   -->
-		<form action="modifyProc.do" method="post" id="writeForm">
+		<form action="modifyProc.do" method="post" id="writeForm" enctype="multipart/form-data">
 		<input type="hidden" name="seq" value="${result.seq}">
 		<input type="hidden" name="writer" value="${result.writer}">
 			<div class=container>

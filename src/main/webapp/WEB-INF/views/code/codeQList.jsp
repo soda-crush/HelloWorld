@@ -29,9 +29,10 @@
 #pageTitle {
 	margin-bottom: 20px;
 }
-a:hover {
-	text-decoration: none;
-}
+ a:link { color: black; text-decoration: none;}
+ a:visited { color: black; text-decoration: none;}
+ a:hover { color: black; text-decoration: none;}
+
 #pageTitle h1 {
 	display: inline;
 	margin-right: 10px;
@@ -104,7 +105,7 @@ a:hover {
 					<div id="pageTitle">
 						<table>
 							<tr>
-								<td colspan="3" style="font-size: 60px; font-weight: 100; vertical-align: text-bottom"><h1>Code-How</h1></td>
+								<td colspan="3" style="font-size: 60px; font-weight: 100; vertical-align: text-bottom"><h1><a style="cursor:pointer" href="${pageContext.request.contextPath}/code/codeQList.do">Code-How</a></h1></td>
 								<td></td>
 								<td style="font-size: 15px; color: gray; vertical-align: text-bottom">코드 관련해서 질문하고 답변하는 게시판입니다.</td>
 								<td></td>
@@ -115,7 +116,7 @@ a:hover {
 			</div>
 			<div class=row>
 				<div id="pageTitle" class="d-md-none">
-					<div style="font-size: 60px; font-weight: 100;"><h1>Code-How</h1></div>
+					<div style="font-size: 60px; font-weight: 100;"><h1><a style="cursor:pointer" href="${pageContext.request.contextPath}/code/codeQList.do">Code-How</a></h1></div>
 					<div style="font-size: 15px; color: gray;">코드 관련해서 질문하고 답변하는 게시판입니다.</div>
 				</div>
 			</div>
@@ -154,7 +155,7 @@ a:hover {
 											</div>
 										</div>										
 <!-- 										 <span class="badge badge-pill badge-info">실무자</span></td> -->		
-										<div class="col-xl-1 d-none d-xl-block">									
+										<div class="col-xl-1 d-none d-xl-block hvOrange">									
 											<span style="cursor:pointer" onclick="popUp('${dto.id}','${dto.writer}')">
 												${dto.writer}
 											</span>
