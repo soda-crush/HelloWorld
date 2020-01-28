@@ -66,7 +66,7 @@
 		</div>
 		
 		<!--      몸통 시작!!!   -->
-		<form action="codeQWriteProc.do" method="post" id="writeForm">
+		<form action="codeQWriteProc.do" method="post" id="writeForm" enctype="multipart/form-data">
 			<div class=container>
 				<div class=row>
 					<div class="col-xl-1 col-3 title">
