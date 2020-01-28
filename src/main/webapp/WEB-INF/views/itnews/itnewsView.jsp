@@ -331,7 +331,7 @@
         						}else if(resp == "already"){//이미스크랩
         							alert("이미 스크랩된 글입니다. P-log의 내 스크랩에서 확인해주세요.");
         						}else{//실패
-        							alert("문제가 발생했습니다. 다시 시도해 주세요.");
+        							alert("문제가 발생했습니다. 다시 시도해주세요.");
         						}
         					});
         				}
@@ -369,7 +369,7 @@
             				type:"post"
             			}).done(function(resp){
             				if(resp == "error"){
-            					alert("문제가 발생했습니다. 다시 시도해 주세요.");
+            					alert("문제가 발생했습니다. 다시 시도해주세요.");
             					return false;
             				}
             				$("#coContent").val("");
@@ -396,7 +396,7 @@
 			           				}
 			           			}).done(function(resp){
 			           				if(resp == "error"){
-		            					alert("문제가 발생했습니다. 다시 시도해 주세요.");
+		            					alert("문제가 발생했습니다. 다시 시도해주세요.");
 		            					return false;
 		            				}
 			    					$(".coContainer").html("");

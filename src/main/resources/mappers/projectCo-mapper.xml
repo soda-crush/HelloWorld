@@ -22,5 +22,4 @@
 	<delete id="deleteProjectAllCo">
 		delete from projectComment where projectSeq=#{value}
 	</delete>
-	
 </mapper>
