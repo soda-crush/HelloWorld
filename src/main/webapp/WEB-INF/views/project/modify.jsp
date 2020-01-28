@@ -104,7 +104,7 @@
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-md-2"><label class="pItem">연락처</label></div>
+								<div class="col-md-2"><label class="pItem">휴대전화</label></div>
 								<div class="col-md-7">
 									<input type="text" class="form-control form-control-sm phone p-1" maxlength="3" id="phone1"> -
 									<input type="text" class="form-control form-control-sm phone p-1" maxlength="4" id="phone2"> -

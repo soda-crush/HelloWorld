@@ -14,7 +14,6 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/css/project/projectBase.css" type="text/css"/>
 <link rel="stylesheet" href="/css/project/list.css" type="text/css"/>
-<link rel="stylesheet" href="/css/font-awesome/css/font-awesome.css" type="text/css"/>
 <script>
    $(function(){
       $("#proNavi").attr('class','nav-item nav-link active');
@@ -44,14 +43,14 @@
 				</div>
 				<div class="tableDiv">
 					<div class="row mb-3">
-						<div class="col-5 col-md-3 col-lg-2 p-0">
+						<div class="col-7 col-sm-5 col-md-4 col-lg-3 p-0">
 							<div class="btn-group btn-group-sm" role="group" aria-label="projectOrderBtns">
 								<button type="button" class="btn btn-outline-warning btn-sm active" id="latestOrder" style="font-size:14px;">최신순</button>
-								<button type="button" class="btn btn-outline-warning btn-sm" id="deadlineOrder" data-toggle="tooltip" title="모집마감된 글은 제외됩니다" style="font-size:14px;">마감임박순</button>								
+								<button type="button" class="btn btn-outline-warning btn-sm" id="deadlineOrder" data-toggle="tooltip" title="모집마감된 글은 제외됩니다" style="font-size:14px;">프로젝트 시작일순</button>								
 							</div>							
 						</div>
-						<div class="col-7 p-0">
-							<div class="pt-1" style="color:#8a8a8a;" id="deadlineComment"><small>모집중인 프로젝트만 표시됩니다</small></div>
+						<div class="col-5 p-0">
+							<div class="pt-1" style="color:#8a8a8a;" id="deadlineComment"><small>프로젝트 시작일이 가장 가까운 순부터 표시됩니다(모집중 글만 조회)</small></div>
 						</div>						
 					</div>
 					<div class="row tableHead">					    
@@ -80,11 +79,8 @@
 									<div class="col-xl-1 col-3 col-md-2 col-lg-1 ${p.state }">${p.stateInKor }</div>
 				  					<div class="col-xl-3 col-6 col-md-5 text-decoration-none" onclick="location.href='/project/detailView?page=${currentPage}&seq=${p.seq }'">
 											<div class="row">
-											<div class="titleWrap${p.imageCount }">${p.title }</div>
-											<c:if test="${p.imageCount>0 }">
-												<i class="fa fa-photo ml-1 mr-1" style="font-size:13px;margin-top:20px;color:#757575;"></i>
-											</c:if> 
-					  						<c:if test="${p.commentCount>0 }">
+											<div class="titleWrap">${p.title }</div>
+											<c:if test="${p.commentCount>0 }">
 					  							<div class="pComment font-weight-bold ml-1" style="display:inline-block;margin-top:1px;">${p.commentCount }</div>
 					  						</c:if>
 					  						</div>					  					

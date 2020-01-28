@@ -51,10 +51,7 @@
 									<div class="d-none col-md-3 d-md-block col-lg-2"><small>${m.formedAllDate }</small></div>
 									<div class="col-6 col-md-4 col-lg-4 text-decoration-none" onclick="detailPopUp('/project/detailView?seq=${m.seq }')">
 										<div class="row">
-											<div class="titleWrap${m.imageCount }">${m.title }</div> 
-											<c:if test="${m.imageCount>0 }">
-												<i class="fa fa-photo ml-1 mr-1" style="font-size:13px;margin-top:20px;color:#757575;"></i>
-											</c:if> 											
+											<div class="titleWrap">${m.title }</div> 
 											<c:if test="${m.commentCount>0 }">
 												<div class="pComment font-weight-bold ml-1" style="display:inline-block;">${m.commentCount }</div>
 											</c:if>
