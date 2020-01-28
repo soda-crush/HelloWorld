@@ -95,7 +95,6 @@ public class BambooMemController {
 		int result = 0;
 		try {
 			result = service.writeBamboo(path, dto);
-			result = 0;
 			if(result > 0) {
 				return "redirect:/bamboo/bambooList.do";
 			}else {
