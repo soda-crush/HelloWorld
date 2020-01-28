@@ -181,22 +181,17 @@ public class ProjectMemController {
 	
 	@RequestMapping("/modifyProc")
 	public String projectModifyConfirm(ProjectDTO dto) {
-//		try {
+		try {
 			LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
 			dto.setWriter(sessionValue.getNickName());
 			String path = session.getServletContext().getRealPath("attached/project");
 			String headName = "/attached/project/";
-			try {
-				svc.projectModifyConfirm(dto, path, headName);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			svc.projectModifyConfirm(dto, path, headName);
 			int seq = dto.getSeq();
 			return "redirect:/project/detailView?seq="+seq;	
-//		}catch(Exception e) {
-//			return "redirect:/error";
-//		}
+		}catch(Exception e) {
+			return "redirect:/error";
+		}
 	}
 	
 	@RequestMapping("/deleteProc")
