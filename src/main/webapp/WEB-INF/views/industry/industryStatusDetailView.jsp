@@ -19,7 +19,7 @@
 <link rel="stylesheet" href="/css/mainBase.css">
 <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.css"
 	type="text/css" />
-<link rel="stylesheet" href="/css/project/projectBase.css"
+<link rel="stylesheet" href="/css/industry/industryBase.css"
 	type="text/css" />
 	<script type="text/JavaScript"
    src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
@@ -203,7 +203,7 @@ Kakao.init("17c512cbe4e17a204cce3c9b7d64d274"); // 사용할 앱의 JavaScript �
 										<div class="d-none d-md-block col-1 profileBox pl-1 pt-2"><img src="${c.profileImg }" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>
 										<div class="col-8 col-md-7 pt-1">
 											<div class="row commentInfo">
-												<div class="col-12 commentWriter">${c.writer }</div>
+												<div class="col-12 commentWriter"><span class="hvOrange" style="cursor:pointer" onclick="popUpPlog('${c.id}','${c.writer}')">${c.writer }</span></div>
 												<div class="col-12 commentWriteDate">${c.formedWriteDate }</div>
 											</div>
 										</div>
@@ -460,7 +460,7 @@ Kakao.init("17c512cbe4e17a204cce3c9b7d64d274"); // 사용할 앱의 JavaScript �
 							'<div class="row commentDiv commentBox'+resp[i].seq+' p-0 pb-2 m-2"><div class="col-12 commentInnerBox"><div class="row commentHeader">',
 							'<div class="d-none d-md-block col-1 profileBox pl-1 pt-2"><img src="'+resp[i].profileImg+'"class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>',
 							'<div class="col-8 col-md-7 pt-1"><div class="row commentInfo">',
-							'<div class="col-12 commentWriter">'+resp[i].writer+'</div>',
+							'<div class="col-12 commentWriter"><span class="hvOrange" style="cursor:pointer" onclick="popUpPlog(\''+resp[i].id+'\',\''+resp[i].writer+'\')">'+resp[i].writer+'</span></div>',
 							'<div class="col-12 commentWriteDate">'+resp[i].formedWriteDate+'</div></div></div>',
 							'<div class="col-4 pt-2 text-right commentBtns">'
 							);
