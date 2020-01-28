@@ -204,7 +204,7 @@ span:nth-child(4) {
 				<br>
 				<div class="botD">
 					<img src="${qResult.profileImg}" width=50,height=50> 
-					<span style="cursor:pointer" onclick="popUp('${qResult.id}','${qResult.writer}')">${qResult.writer}</span>				
+					<span class="hvOrange" style="cursor:pointer" onclick="popUp('${qResult.id}','${qResult.writer}')">${qResult.writer}</span>				
 					<span style="color: gray;">${qResult.formedDate} 조회수${qResult.viewCount}</span>
 				</div>
 				<br>
@@ -284,7 +284,7 @@ span:nth-child(4) {
 											</c:if>
 										</div>
 										<div class="col-12" style="padding-top:0px; position: relative; bottom: 10px;">
-											<span style="cursor:pointer" onclick="popUp('${r.id}','${r.writer}')">${r.writer}</span>
+											<span class="hvOrange" style="cursor:pointer" onclick="popUp('${r.id}','${r.writer}')">${r.writer}</span>
 											<span style="font-size: 15px; font-weight: 50; color: gray;">님의 답변입니다.</span>
 										</div>									
 									</div>
@@ -292,7 +292,7 @@ span:nth-child(4) {
 								<c:otherwise>
 									<div class="row">										
 										<div class="col-12" style="padding-top:0px; position: relative; top: 20px;">
-											<span style="cursor:pointer" onclick="popUp('${r.id}','${r.writer}')">${r.writer}</span>
+											<span class="hvOrange" style="cursor:pointer" onclick="popUp('${r.id}','${r.writer}')">${r.writer}</span>
 											<span style="font-size: 15px; font-weight: 50; color: gray;">님의 답변입니다.</span>
 										</div>									
 									</div>
@@ -477,8 +477,8 @@ span:nth-child(4) {
 					                  $(".pPageComments${r.seq}").append(html.join(""));	 			                      
 						          }
 						        }).fail(function(resp){
-						        	
-						        })    
+									alert("문제가 발생했습니다. 다시 시도해주세요.");
+								}) 
 			    		}        
 				})			
 	       				
@@ -553,8 +553,7 @@ span:nth-child(4) {
 						$('#reportModal').modal('show');						
 					}
 				}).fail(function(resp){
-					console.log("실패");
-					console.log(resp);
+					alert("문제가 발생했습니다. 다시 시도해주세요.");
 				});
 				return false;
 			}
@@ -575,7 +574,7 @@ span:nth-child(4) {
 				$('#reportModal').modal('hide');
 				$("#rSuccessModal").modal('show');				
 			}).fail(function(resp){
-				console.log(resp);
+				alert("문제가 발생했습니다. 다시 시도해주세요.");
 			});
 			return false;
 		});
@@ -602,7 +601,7 @@ span:nth-child(4) {
 						$('#reportRModal').modal('show');						
 					}
 				}).fail(function(resp){
-					console.log(resp);
+					alert("문제가 발생했습니다. 다시 시도해주세요.");
 				});
 				return false;
 			}
@@ -648,7 +647,7 @@ span:nth-child(4) {
 					$('#reportRModal').modal('hide');
 					$("#rSuccessModal").modal('show');				
 				}).fail(function(resp){
-					console.log(resp);
+					alert("문제가 발생했습니다. 다시 시도해주세요.");
 				});
 				return false;
 			});
@@ -683,6 +682,8 @@ span:nth-child(4) {
 				}else{//실패
 					alert("오류발생. 일대일문의에 문의해주세요.");
 				}
+			}).fail(function(resp){
+				alert("문제가 발생했습니다. 다시 시도해주세요.");
 			});
 		}
 	})
@@ -802,7 +803,7 @@ span:nth-child(4) {
 	                  $(".pPageComments"+repSeq).append(html.join(""));   
 		        }
 		        }).fail(function(resp){
-
+		        	alert("문제가 발생했습니다. 다시 시도해주세요.");
 		        })
             }
 		}
@@ -892,7 +893,7 @@ span:nth-child(4) {
 		  	                  $(".pPageComments"+resp[0].repSeq).append(html.join(""));   
 		  		        }
 				}).fail(function(resp){
-					
+					alert("문제가 발생했습니다. 다시 시도해주세요.");
 				})
 	      });       	
 	

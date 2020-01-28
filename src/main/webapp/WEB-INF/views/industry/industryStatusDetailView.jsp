@@ -163,7 +163,7 @@
             		<input type="hidden" name="seq" value="${iPage.seq}" id="iPageSeq">
             		<input type="hidden" name="id" value="${iPage.id}">
             		
-            		<div class="col-12" style="font-size: 13px;color:#707070;"><hr><img src="${iPage.profileImg }" width=40,height=40><span style="cursor:pointer" onclick="popUpPlog('${iPage.id}','${iPage.writer}')"> ${iPage.writer}</span>&emsp;작성일 : ${iPage.formedWriteDate}&emsp;조회수 : ${iPage.viewCount}<hr></div>
+            		<div class="col-12" style="font-size: 13px;color:#707070;"><hr><img src="${iPage.profileImg }" width=40,height=40><span class="hvOrange" style="cursor:pointer" onclick="popUpPlog('${iPage.id}','${iPage.writer}')"> ${iPage.writer}</span>&emsp;작성일 : ${iPage.formedWriteDate}&emsp;조회수 : ${iPage.viewCount}<hr></div>
             	</div>
             	<div class="row">
             		<div class="col-12" id=contentCon style="word-break:break-all;
@@ -308,7 +308,7 @@
     					alert("오류발생. 일대일문의에 문의해주세요.");
     				}
     			}).fail(function(resp){
-    				console.log("실패");
+    				alert("문제가 발생했습니다. 다시 시도해주세요.");
     			})
     		}
     		})
@@ -352,14 +352,14 @@
  						$(".pPageComments").html("");
 						commentRecall(resp);
 					}).fail(function(resp){
-						console.log("실패");
+						alert("문제가 발생했습니다. 다시 시도해주세요.");
 					})
 				}else{
 					alert("권한이 없습니다. 관리자에게 문의해주세요.")
 					return false;
 				}	
 			}).fail(function(resp){
-				console.log("실패");
+				alert("문제가 발생했습니다. 다시 시도해주세요.");
 			})
         });
     	$("#coCancel").on("click",function(){
@@ -400,7 +400,7 @@
 						return false;
 					}	
 				}).fail(function(resp){
-					console.log("실패");
+					alert("문제가 발생했습니다. 다시 시도해주세요.");
 				})
            	}
            	
@@ -430,7 +430,7 @@
 					$(".pPageComments").html("");
 					commentRecall(resp);
 				}).fail(function(resp){
-					
+					alert("문제가 발생했습니다. 다시 시도해주세요.");
 				})
            	});
            	function coDelFunction(seq){
@@ -448,7 +448,7 @@
     					$(".pPageComments").html("");
     					commentRecall(resp);
            			}).fail(function(resp){
-    				
+           				alert("문제가 발생했습니다. 다시 시도해주세요.");
            			})
            		}
            	}
@@ -509,8 +509,7 @@
     						$('#reportModal').modal('show');						
     					}
     				}).fail(function(resp){
-    					console.log("실패");
-    					console.log(resp);
+    					alert("문제가 발생했습니다. 다시 시도해주세요.");
     				});
     				return false;
     			}
@@ -533,7 +532,7 @@
     				$('#reportModal').modal('hide');
     				$("#rSuccessModal").modal('show');				
     			}).fail(function(resp){
-    				console.log(resp);
+    				alert("문제가 발생했습니다. 다시 시도해주세요.");
     			});
     			return false;
     		});

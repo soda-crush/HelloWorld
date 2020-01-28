@@ -203,30 +203,35 @@ text-align:right;
     				},
     				dataType: "json"   				
     			}).done(function(rs){
-    				var target = $("#writeBox");
-    				
-    				var dateA = $("<a class='nav-link active' id='home-tab' data-toggle='tab' href='#' role='tab' aria-controls='home' aria-selected='true'></a>");
-    				dateA.append(rs.writeDate);
-    				var dateLi = $("<li class='nav-item'></li>");
-    				dateLi.append(dateA);
-    				var dateUl = $("<ul class='nav nav-tabs' id='myTab' role='tablist'></ul>");
-    				dateUl.append(dateLi);
-    				var delIcon = $("<li class='text-center mt-2 pl-2'><a href='${pageContext.request.contextPath }/admin/deleteInquiryReply?seq="+ rs.seq +"&boardSeq=${dto.seq}&page=${page}'><i data-brackets-id='23054' class='fa fa-trash'></i></a></li>");
-    				dateUl.append(delIcon);
-    				
-    				var replyP = $("<p></p>");
-    				replyP.append(rs.reply);
-    				var replyDiv = $("<div class='tab-pane fade show active' id='home' role='tabpanel' aria-labelledby='home-tab'></div>");
-    				replyDiv.append(replyP);
-    				var replyContent = $("<div class='tab-content mt-3' id='myTabContent'></div>");
-    				replyContent.append(replyDiv);
-    				
-    				var finalDiv = $("<div class='card-body'></div>");
-    				finalDiv.append(dateUl);
-    				finalDiv.append(replyContent);
-    				
-    				target.before(finalDiv);
-    				document.getElementById("writeBox").scrollIntoView();
+    				if(rs != null){
+        				var target = $("#writeBox");
+        				
+        				var dateA = $("<a class='nav-link active' id='home-tab' data-toggle='tab' href='#' role='tab' aria-controls='home' aria-selected='true'></a>");
+        				dateA.append(rs.writeDate);
+        				var dateLi = $("<li class='nav-item'></li>");
+        				dateLi.append(dateA);
+        				var dateUl = $("<ul class='nav nav-tabs' id='myTab' role='tablist'></ul>");
+        				dateUl.append(dateLi);
+        				var delIcon = $("<li class='text-center mt-2 pl-2'><a href='${pageContext.request.contextPath }/admin/deleteInquiryReply?seq="+ rs.seq +"&boardSeq=${dto.seq}&page=${page}'><i data-brackets-id='23054' class='fa fa-trash'></i></a></li>");
+        				dateUl.append(delIcon);
+        				
+        				var replyP = $("<p></p>");
+        				replyP.append(rs.reply);
+        				var replyDiv = $("<div class='tab-pane fade show active' id='home' role='tabpanel' aria-labelledby='home-tab'></div>");
+        				replyDiv.append(replyP);
+        				var replyContent = $("<div class='tab-content mt-3' id='myTabContent'></div>");
+        				replyContent.append(replyDiv);
+        				
+        				var finalDiv = $("<div class='card-body'></div>");
+        				finalDiv.append(dateUl);
+        				finalDiv.append(replyContent);
+        				
+        				target.before(finalDiv);
+        				document.getElementById("writeBox").scrollIntoView();    					
+    				}else{
+    					alert("문제가 발생했습니다. 다시 시도해주세요");
+    				}
+
     			});
     		}
     	})

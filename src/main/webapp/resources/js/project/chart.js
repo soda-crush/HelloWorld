@@ -41,6 +41,7 @@ function scrapFunc(seq){
 		alert("스크랩되었습니다.");
 		$("#scrap"+seq).replaceWith('<i class="fa fa-bookmark scrapDone" id="scrap'+seq+'" data-toggle="tooltip" title="스크랩" onclick="unScrapFunc('+seq+')"></i>');
 	}).fail(function(resp){
+		alert("문제가 발생했습니다. 다시 시도해주세요.");
 	});
 }
 
@@ -55,5 +56,6 @@ function unScrapFunc(seq){
 		alert("스크랩이 취소되었습니다.");
 		$("#scrap"+seq).replaceWith('<i class="fa fa-bookmark-o scrapNull" id="scrap'+seq+'" data-toggle="tooltip" title="스크랩" onclick="scrapFunc('+seq+')"></i>');
 	}).fail(function(resp){
+		alert("문제가 발생했습니다. 다시 시도해주세요.");
 	});
 }

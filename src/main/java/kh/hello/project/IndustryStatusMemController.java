@@ -30,48 +30,68 @@ public class IndustryStatusMemController {
 	//대나무숲 게시판
 	@RequestMapping("/industryStatusList.do")
 	public String IndustryStatusListView (String page, Model m) {//업계현황 게시판목록
-		//페이지네비
-		int currentPage = 1;		
+		try {
+			//페이지네비
+			int currentPage = 1;		
 
-		if(page != null) currentPage = Integer.parseInt(page);
+			if(page != null) currentPage = Integer.parseInt(page);
 
-		int end = currentPage * Configuration.recordCountPerPage;
-		int start = end - (Configuration.recordCountPerPage - 1);	
+			int end = currentPage * Configuration.recordCountPerPage;
+			int start = end - (Configuration.recordCountPerPage - 1);	
 
-		List<IndustryStatusDTO> list = service.industryListByPage(start, end);
-		m.addAttribute("industryStatusList", list);
+			List<IndustryStatusDTO> list = service.industryListByPage(start, end);
+			m.addAttribute("industryStatusList", list);
 
-		List<String> pageNavi = service.getIndustryListPageNavi(currentPage);
-		m.addAttribute("pageNavi", pageNavi);
-		m.addAttribute("page", currentPage);
+			List<String> pageNavi = service.getIndustryListPageNavi(currentPage);
+			m.addAttribute("pageNavi", pageNavi);
+			m.addAttribute("page", currentPage);
 
-		return "/industry/industryStatusList";
+			return "/industry/industryStatusList";
+		}catch(Exception e) {
+			e.printStackTrace();
+			return "redirect:/error";
+		}
 	}
 	@RequestMapping("/industryStatusDetailView.do")
 	public String industryStatusDetailView (int seq, Model m) {//업계현황 글보기
-		IndustryStatusDTO result = service.industryStatusDetailView(seq);
-		if(result == null) {
+		try {
+			IndustryStatusDTO result = service.industryStatusDetailView(seq);
+			if(result == null) {
+				return "/industry/industryStatusDetailView";
+			}
+			List<IndustryStatusCoDTO> coResult = service.commentList(seq);
+			String ip = Configuration.ip;
+			m.addAttribute("iPage", result);
+			m.addAttribute("comments", coResult);
+			m.addAttribute("ip",ip);
+			m.addAttribute("ad",Utils.getRandomNum(0, Configuration.maxAd));
 			return "/industry/industryStatusDetailView";
+		}catch(Exception e) {
+			e.printStackTrace();
+			return "redirect:/error";
 		}
-		List<IndustryStatusCoDTO> coResult = service.commentList(seq);
-		String ip = Configuration.ip;
-		m.addAttribute("iPage", result);
-		m.addAttribute("comments", coResult);
-		m.addAttribute("ip",ip);
-		m.addAttribute("ad",Utils.getRandomNum(0, Configuration.maxAd));
-		return "/industry/industryStatusDetailView";
 	}
 
 	@RequestMapping("/industryStatusWrite.do")
 	public String writeFormIndustryStatus() {
-		return "/industry/industryStatusWrite";
+		try {
+			return "/industry/industryStatusWrite";
+		}catch(Exception e) {
+			e.printStackTrace();
+			return "redirect:/error";
+		}
 	}
 
 	//글쓰기 누를 때 실무자 유무 검사
 	@ResponseBody
 	@RequestMapping(value="/memLevel.do",produces="text/html;charset=utf8")
 	public String getMemLevel(IndustryStatusDTO dto) {	
-		return Integer.toString(service.getMemLevel(dto.getId()));
+		try {
+			return Integer.toString(service.getMemLevel(dto.getId()));
+		}catch(Exception e) {
+			e.printStackTrace();
+			return "fail";
+		}
 	}
 
 	@RequestMapping("/industryStatusWriteProc.do")
@@ -87,19 +107,24 @@ public class IndustryStatusMemController {
 			if(result > 0) {
 				return "redirect:/industry/industryStatusList.do";
 			}else {
-				return "redirect:../error";
+				return "redirect:/error";
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
-			return "redirect:../error";
+			return "redirect:/error";
 		}
 	}
 
 	@RequestMapping("/industryStatusModify.do")
 	public String modifyFormIndustryStatus(int seq, Model m) {
-		IndustryStatusDTO result = service.industryStatusDetailView(seq);
-		m.addAttribute("iPage", result);
-		return "/industry/industryStatusModify";
+		try {
+			IndustryStatusDTO result = service.industryStatusDetailView(seq);
+			m.addAttribute("iPage", result);
+			return "/industry/industryStatusModify";
+		}catch(Exception e) {
+			e.printStackTrace();
+			return "redirect:/error";
+		}
 	}
 
 	@RequestMapping("/industryStatusModifyProc.do")
@@ -113,11 +138,11 @@ public class IndustryStatusMemController {
 				int seq = dto.getSeq();
 				return "redirect:/industry/industryStatusDetailView.do?seq="+seq;
 			}else {
-				return "redirect:../error";
+				return "redirect:/error";
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
-			return "redirect:../error";
+			return "redirect:/error";
 		}
 	}
 
@@ -130,11 +155,11 @@ public class IndustryStatusMemController {
 			if(result > 0) {
 				return "redirect:/industry/industryStatusList.do";
 			}else {
-				return "redirect:../error";
+				return "redirect:/error";
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
-			return "redirect:../error";
+			return "redirect:/error";
 		}
 	}
 
@@ -143,49 +168,74 @@ public class IndustryStatusMemController {
 	@ResponseBody
 	@RequestMapping(value="/comment/writeProc.do",produces="text/html;charset=utf8")
 	public String coWriteProc(IndustryStatusCoDTO dto) {
-		dto.setContent(Utils.protectXss(dto.getContent()));
-		return service.commentWriteConfirm(dto);		
+		try {
+			dto.setContent(Utils.protectXss(dto.getContent()));
+			return service.commentWriteConfirm(dto);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return "fail";
+		}
 	}
 
 	@ResponseBody
 	@RequestMapping(value="/comment/modifyProc.do",produces="text/html;charset=utf8")
 	public String coMdfProc(IndustryStatusCoDTO dto) {
-		dto.setContent(Utils.protectXss(dto.getContent()));
-		return service.commentModifyConfirm(dto);
+		try {
+			dto.setContent(Utils.protectXss(dto.getContent()));
+			return service.commentModifyConfirm(dto);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return "fail";
+		}
 	}
 	@ResponseBody
 	@RequestMapping(value="/comment/deleteProc.do",produces="text/html;charset=utf8")
 	public String coDelProc(IndustryStatusCoDTO dto) {
-		LoginInfoDTO loginInfo = (LoginInfoDTO)session.getAttribute("loginInfo");
-		dto.setId(loginInfo.getId());
-		return service.commentDeleteConfirm(dto);
+		try {
+			LoginInfoDTO loginInfo = (LoginInfoDTO)session.getAttribute("loginInfo");
+			dto.setId(loginInfo.getId());
+			return service.commentDeleteConfirm(dto);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return "fail";
+		}
 	}
 
 	//게시판 목록 검색
 	@RequestMapping("/industrySearch.do")
 	public String industrySearch(String search, String value, Model m, String page) {
-		//검색결과 페이지 네비
-		int currentPage = 1;		
+		try {
+			//검색결과 페이지 네비
+			int currentPage = 1;		
 
-		if(page!= null && !page.equals("") && !page.equals("null")) currentPage = Integer.parseInt(page);
-		int end = currentPage * Configuration.recordCountPerPage;
-		int start = end - (Configuration.recordCountPerPage - 1);	
-		List<IndustryStatusDTO> list = service.industrySearchListByPage(start, end, value, search);
-		m.addAttribute("industryStatusList", list);
+			if(page!= null && !page.equals("") && !page.equals("null")) currentPage = Integer.parseInt(page);
+			int end = currentPage * Configuration.recordCountPerPage;
+			int start = end - (Configuration.recordCountPerPage - 1);	
+			List<IndustryStatusDTO> list = service.industrySearchListByPage(start, end, value, search);
+			m.addAttribute("industryStatusList", list);
 
-		List<String> pageNavi = service.getIndustrySearchListPageNavi(currentPage, value, search);
-		m.addAttribute("pageNavi", pageNavi);
-		m.addAttribute("page", currentPage);
+			List<String> pageNavi = service.getIndustrySearchListPageNavi(currentPage, value, search);
+			m.addAttribute("pageNavi", pageNavi);
+			m.addAttribute("page", currentPage);
 
-		return "/industry/industryStatusList";
+			return "/industry/industryStatusList";
+		}catch(Exception e) {
+			e.printStackTrace();
+			return "redirect:/error";
+		}
 	}
 
 	//스크랩
 	@RequestMapping("/scrap.do")
 	@ResponseBody
 	public String scrap(ScrapDTO dto, HttpSession session) {
-		dto.setId(((LoginInfoDTO)session.getAttribute("loginInfo")).getId());
-		return service.scrap(dto);
+		try {
+			dto.setId(((LoginInfoDTO)session.getAttribute("loginInfo")).getId());
+			return service.scrap(dto);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return "fail";
+		}
 	}
 
 	//	게시글신고
@@ -193,29 +243,39 @@ public class IndustryStatusMemController {
 	@ResponseBody
 	@RequestMapping("/reportDuplCheck.do")
 	public String reportDuplCheck(int seq) {
-		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
-		String id = sessionValue.getId();
-		int result = service.reportDuplCheck(id, seq);
-		if(result>0) {
-			return "dupl";
-		}else {
-			return "possible";
+		try {
+			LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
+			String id = sessionValue.getId();
+			int result = service.reportDuplCheck(id, seq);
+			if(result>0) {
+				return "dupl";
+			}else {
+				return "possible";
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			return "fail";
 		}
 	}
 
 	@ResponseBody
 	@RequestMapping("/report.do")
 	public String reportProject(ReportDTO dto) {
-		LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
-		dto.setReporterID(sessionValue.getId());
-		dto.setReporterNick(sessionValue.getNickName());
-		dto.setReason(Utils.protectXss(dto.getReason()));
-		dto.setTitle(Utils.protectXss(dto.getTitle()));
-		int result = service.reportProject(dto);
-		if(result>0) {
-			return "success";
-		}else {
-			return "redirect:/home/error";
+		try {
+			LoginInfoDTO sessionValue = (LoginInfoDTO)session.getAttribute("loginInfo");
+			dto.setReporterID(sessionValue.getId());
+			dto.setReporterNick(sessionValue.getNickName());
+			dto.setReason(Utils.protectXss(dto.getReason()));
+			dto.setTitle(Utils.protectXss(dto.getTitle()));
+			int result = service.reportProject(dto);
+			if(result>0) {
+				return "success";
+			}else {
+				return "redirect:/home/error";
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			return "fail";
 		}
 	}
 }
