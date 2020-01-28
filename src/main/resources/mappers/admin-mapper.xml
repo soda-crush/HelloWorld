@@ -63,7 +63,7 @@
   <update id="memberOut">
   	update member set pw=null, name=null,phone=null,postCode=null
 		,addr1=null,addr2=null,joinPath=null,gender=null,reportCount=null,point=null
-		,ifmOpenCheck=null,joinDate=null,lastLogin=null,birth=null where id=#{id} 
+		,joinDate=null,lastLogin=null,birth=null where id=#{id} 
   </update>
   <select id="getEmailById" resultType="String">
   	select email from member where id=#{id}
