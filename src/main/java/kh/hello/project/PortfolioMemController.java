@@ -179,7 +179,7 @@ public class PortfolioMemController {
 					return "redirect:toPlogmain.do";
 				}
 			}else {
-				session.setAttribute("ownerInfo", mdto);
+				session.setAttribute("name", "탈퇴안함");
 				return "/plog/notOpenPage";
 			}
 		} catch (Exception e) {
