@@ -20,6 +20,7 @@ import kh.hello.dto.OwnerInfoDTO;
 import kh.hello.dto.PortfolioDTO;
 import kh.hello.services.MemberService;
 import kh.hello.services.PortfolioService;
+import kh.hello.utils.Utils;
 
 @Controller
 @RequestMapping("/Portfolio")
@@ -122,6 +123,10 @@ public class PortfolioMemController {
 			request.setCharacterEncoding("UTF-8");
 			OwnerInfoDTO ownerInfo = (OwnerInfoDTO)session.getAttribute("ownerInfo");
 			List<PortfolioDTO> list = ps.selectList(ownerInfo.getId());
+			for (PortfolioDTO dto : list) {
+				dto.setPortfolioTitle(Utils.protectXss(dto.getPortfolioTitle()));
+				dto.setPurpose(Utils.protectXss(dto.getPurpose()));
+			}
 			MemberDTO mdto = ms.selectMember(ownerInfo.getId());
 			request.setAttribute("point", mdto.getPoint());
 			request.setAttribute("list", list);
@@ -138,6 +143,10 @@ public class PortfolioMemController {
 			request.setCharacterEncoding("UTF-8");
 			OwnerInfoDTO ownerInfo = (OwnerInfoDTO)session.getAttribute("otherInfo");
 			List<PortfolioDTO> list = ps.selectList(ownerInfo.getId());
+			for (PortfolioDTO dto : list) {
+				dto.setPortfolioTitle(Utils.protectXss(dto.getPortfolioTitle()));
+				dto.setPurpose(Utils.protectXss(dto.getPurpose()));
+			}
 			MemberDTO mdto = ms.selectMember(ownerInfo.getId());
 			request.setAttribute("point", mdto.getPoint());
 			request.setAttribute("list", list);
@@ -178,19 +187,62 @@ public class PortfolioMemController {
 	public String viewDetail(int seq) {
 		try {
 			request.setCharacterEncoding("UTF-8");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 			PortfolioDTO pdto = ps.selectBySeq(seq);
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			String str = sdf.format(pdto.getStartDate());
 			String end = sdf.format(pdto.getEndDate());
-			
+			pdto.setPortfolioTitle(Utils.protectXss(pdto.getPortfolioTitle()));
+			pdto.setPurpose(Utils.protectXss(pdto.getPurpose()));
+			pdto.setEnvironment(Utils.protectXss(pdto.getEnvironment()));
+			pdto.setAllFunction(Utils.protectXss(pdto.getAllFunction()));
+			pdto.setDbUnitPlan(Utils.protectXss(pdto.getDbUnitPlan()));
+			pdto.setRole(Utils.protectXss(pdto.getRole()));
+			pdto.setContribution(Utils.protectXss(pdto.getContribution()));
+			pdto.setFunction1(Utils.protectXss(pdto.getFunction1()));
+			pdto.setExplanation1(Utils.protectXss(pdto.getExplanation1()));
+			pdto.setFunction2(Utils.protectXss(pdto.getFunction2()));
+			pdto.setExplanation2(Utils.protectXss(pdto.getExplanation2()));
+			pdto.setFunction3(Utils.protectXss(pdto.getFunction3()));
+			pdto.setExplanation3(Utils.protectXss(pdto.getExplanation3()));
+			pdto.setGit(Utils.protectXss(pdto.getGit()));
 			request.setAttribute("str", str);
 			request.setAttribute("end", end);
 			request.setAttribute("pdto", pdto);
 			return "/plog/viewPortfolio";
+	}
+	
+	@RequestMapping("guestDetail.do")
+	public String guestViewDetail(int seq) {
+		try {
+			request.setCharacterEncoding("UTF-8");
 		} catch (Exception e) {
 			e.printStackTrace();
-			return "redirect:/error";
 		}
+			PortfolioDTO pdto = ps.selectBySeq(seq);
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			String str = sdf.format(pdto.getStartDate());
+			String end = sdf.format(pdto.getEndDate());
+			pdto.setPortfolioTitle(Utils.protectXss(pdto.getPortfolioTitle()));
+			pdto.setPurpose(Utils.protectXss(pdto.getPurpose()));
+			pdto.setEnvironment(Utils.protectXss(pdto.getEnvironment()));
+			pdto.setAllFunction(Utils.protectXss(pdto.getAllFunction()));
+			pdto.setDbUnitPlan(Utils.protectXss(pdto.getDbUnitPlan()));
+			pdto.setRole(Utils.protectXss(pdto.getRole()));
+			pdto.setContribution(Utils.protectXss(pdto.getContribution()));
+			pdto.setFunction1(Utils.protectXss(pdto.getFunction1()));
+			pdto.setExplanation1(Utils.protectXss(pdto.getExplanation1()));
+			pdto.setFunction2(Utils.protectXss(pdto.getFunction2()));
+			pdto.setExplanation2(Utils.protectXss(pdto.getExplanation2()));
+			pdto.setFunction3(Utils.protectXss(pdto.getFunction3()));
+			pdto.setExplanation3(Utils.protectXss(pdto.getExplanation3()));
+			pdto.setGit(Utils.protectXss(pdto.getGit()));
+			request.setAttribute("str", str);
+			request.setAttribute("end", end);
+			request.setAttribute("pdto", pdto);
+			return "/plog/guestViewPortfolio";
 	}
 	
 	@RequestMapping("/toModify.do")

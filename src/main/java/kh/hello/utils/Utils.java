@@ -40,10 +40,11 @@ public class Utils {
 	
 	
 	public static String protectXss(String input) {
-		input = input.replaceAll("&", "&amp;");
-		input = input.replaceAll("<", "&lt;");
-		input = input.replaceAll(">", "&gt;");
-		
+		if(input!=null) {
+			input = input.replaceAll("&", "&amp;");
+			input = input.replaceAll("<", "&lt;");
+			input = input.replaceAll(">", "&gt;");
+		}
 		return input;		
 	}
 	

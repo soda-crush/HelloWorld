@@ -190,42 +190,54 @@ public class PortfolioDTO {
 		this.git = git;
 	}
 	public String getModPortfolioTitle() {
-		this.modPortfolioTitle =this.portfolioTitle.replaceAll("\"","modF'Fdom");
+		if(portfolioTitle!=null) {
+			this.modPortfolioTitle =this.portfolioTitle.replaceAll("\"","modF'Fdom");
+		}
 		return this.modPortfolioTitle;
 	}
 	public void setModPortfolioTitle(String modPortfolioTitle) {
 		this.modPortfolioTitle = getModPortfolioTitle();
 	}
 	public String getModPurpose() {
-		this.modPurpose =this.purpose.replaceAll("\"","modF'Fdom");
+		if(purpose!=null) {
+			this.modPurpose =this.purpose.replaceAll("\"","modF'Fdom");
+		}
 		return this.modPurpose;
 	}
 	public void setModPurpose(String modPurpose) {
 		this.modPurpose = getModPurpose();
 	}
 	public String getModFunction1() {
-		this.modFunction1 =this.function1.replaceAll("\"","modF'Fdom");
+		if(function1!=null) {
+			this.modFunction1 =this.function1.replaceAll("\"","modF'Fdom");
+		}
 		return this.modFunction1;
 	}
 	public void setModFunction1(String modFunction1) {
 		this.modFunction1 = getModFunction1();
 	}
 	public String getModFunction2() {
-		this.modFunction2 =this.function2.replaceAll("\"","modF'Fdom");
+		if(function2!=null) {
+			this.modFunction2 =this.function2.replaceAll("\"","modF'Fdom");
+		}
 		return this.modFunction2;
 	}
 	public void setModFunction2(String modFunction2) {
 		this.modFunction2 = getModFunction2();
 	}
 	public String getModFunction3() {
-		this.modFunction3 =this.function3.replaceAll("\"","modF'Fdom");
+		if(function3!=null) {
+			this.modFunction3 =this.function3.replaceAll("\"","modF'Fdom");
+		}
 		return this.modFunction3;
 	}
 	public void setModFunction3(String modFunction3) {
 		this.modFunction3 = getModFunction3();
 	}
 	public String getModGit() {
-		this.modGit =this.git.replaceAll("\"","modF'Fdom");
+		if(git!=null) {
+			this.modGit =this.git.replaceAll("\"","modF'Fdom");
+		}
 		return this.modGit;
 	}
 	public void setModGit(String modGit) {

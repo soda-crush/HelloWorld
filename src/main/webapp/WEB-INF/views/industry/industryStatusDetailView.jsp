@@ -29,8 +29,8 @@
    });
 </script>
 <script type="text/javascript">
+Kakao.init("17c512cbe4e17a204cce3c9b7d64d274"); // 사용할 앱의 JavaScript 키를 설정
    function shareKakaotalk() {
-	   Kakao.init("17c512cbe4e17a204cce3c9b7d64d274"); // 사용할 앱의 JavaScript 키를 설정
       Kakao.Link.sendDefault({
          objectType : "feed",
          content : {

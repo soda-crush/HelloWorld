@@ -19,7 +19,6 @@ public class ProjectPLogDTO {
 	private int capacity;	
 	private String approve;
 	private int commentCount;
-	private int imageCount;
 	private Timestamp writeDate;
 	
 	public ProjectPLogDTO() {
@@ -109,12 +108,6 @@ public class ProjectPLogDTO {
 	}
 	public void setCommentCount(int commentCount) {
 		this.commentCount = commentCount;
-	}
-	public int getImageCount() {
-		return imageCount;
-	}
-	public void setImageCount(int imageCount) {
-		this.imageCount = imageCount;
 	}
 	public Timestamp getWriteDate() {
 		return writeDate;

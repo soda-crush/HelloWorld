@@ -111,7 +111,7 @@
 													${p.writer}
 												</span>
 											</div>
-											<div class="col-2 d-none d-lg-block">${p.formedWriteDate }</div>
+											<div class="col-2 d-none d-lg-block">${p.formedWriteDateForPLog }</div>
 										</div>	
 						  			</c:forEach>
 						  		</c:otherwise>

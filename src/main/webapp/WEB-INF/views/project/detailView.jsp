@@ -25,9 +25,9 @@
    $(function(){
       $("#proNavi").attr('class','nav-item nav-link active');
       
-		//카카오톡
+	  //카카오톡
+	  Kakao.init("17c512cbe4e17a204cce3c9b7d64d274"); // 사용할 앱의 JavaScript 키를 설정		  	      
 	  function shareKakaotalk() {
-	      Kakao.init("17c512cbe4e17a204cce3c9b7d64d274"); // 사용할 앱의 JavaScript 키를 설정		  
 	      Kakao.Link.sendDefault({
 	         objectType : "feed",
 	         content : {
@@ -35,8 +35,8 @@
 	            description : "프로젝트 모집", // 콘텐츠 상세설명
 	            imageUrl : "https://miro.medium.com/max/3840/1*U-R58ahr5dtAvtSLGK2wXg.png", // 썸네일 이미지          
 	            link : {
-	               mobileWebUrl : "http://${ip}/project/detailView?page=${page}&seq=${pPage.seq }", // 모바일 카카오톡에서 사용하는 웹 링크 URL		            		   
-	               webUrl : "http://${ip}/project/detailView?page=${page}&seq=${pPage.seq }" // PC버전 카카오톡에서 사용하는 웹 링크 URL
+	               mobileWebUrl : "http://${ip}/project/detailView?seq=${pPage.seq }", // 모바일 카카오톡에서 사용하는 웹 링크 URL		            		   
+	               webUrl : "http://${ip}/project/detailView?seq=${pPage.seq }" // PC버전 카카오톡에서 사용하는 웹 링크 URL
 	            }
 	         },
 	         social : {
@@ -51,8 +51,8 @@
 	            title : "링크 이동하기" // 버튼 제목
 	            ,
 	            link : {
-	               mobileWebUrl : "http://${ip}/project/detailView?page=${page}&seq=${pPage.seq }",  // 모바일 카카오톡에서 사용하는 웹 링크 URL
-	               webUrl : "http://${ip}/project/detailView?page=${page}&seq=${pPage.seq }" // PC버전 카카오톡에서 사용하는 웹 링크 URL
+	               mobileWebUrl : "http://${ip}/project/detailView?seq=${pPage.seq }",  // 모바일 카카오톡에서 사용하는 웹 링크 URL
+	               webUrl : "http://${ip}/project/detailView?seq=${pPage.seq }" // PC버전 카카오톡에서 사용하는 웹 링크 URL
 	            }
 	         } ]
 	      });
@@ -102,9 +102,6 @@
 							</label>
 							<br>
 							<div class="ml-4 mr-3 mb-3 mt-2" style="font-weight:bold;font-size:20px;display:inline-block;word-break:break-all;word-break:break-word;">${pPage.title}
-								<c:if test="${pPage.imageCount>0 }">
-									<i class="fa fa-photo ml-1" style="font-size:13px;color:#757575;"></i>
-								</c:if>
 							</div><br>
 							<div class="ml-4 mr-3 mb-3 mt-2">
 								<label class="mb-0 writerPLog" onclick="popUp('/Portfolio/toPlog.do?owner=${pPage.id}&other=Y')" style="cursor:pointer;">
@@ -148,7 +145,7 @@
 											</c:choose>	
 											<form id="frmPopup" method="post"><input type="hidden" name="projectSeq" value="${pPage.seq }"></form>									
 									</c:when>
-									<c:when test="${myApply==null }">
+									<c:when test="${myApply==null && pPage.state=='N'}">
 										<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#pApplyModal" id="getApplyBtn">신청하기</button>
 									</c:when>
 									<c:when test="${myApply.id == sessionScope.loginInfo.id }">

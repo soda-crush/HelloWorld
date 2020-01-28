@@ -48,9 +48,6 @@ img{max-width:100%;}
 #deadlineComment{
 	display:none;
 }
-.titleWrap0{
+.titleWrap{
 max-width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;font-weight:bold;
-}
-.titleWrap1{
-max-width:81%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;font-weight:bold;
 }

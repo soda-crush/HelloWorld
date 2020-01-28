@@ -72,11 +72,11 @@
 		   		return false;
 		   	}
 			if($("#phone1").val()!=""||$("#phone2").val()!=""||$("#phone3").val()!=""){
-				var regex1 = /^(\d){3}$/;
+				var regex1 = /^(01\d)$/;
 	            var data1 = $("#phone1").val();
 	            var result1 = regex1.exec(data1);
 				if(result1 == null){
-					alert("숫자를 입력해주세요");
+					alert("휴대전화번호 형식에 맞지 않습니다");
 					$("#phone1").focus();
 					return false;
 				}            	
@@ -84,14 +84,15 @@
 	            var data2 = $("#phone2").val();
 	            var result2 = regex2.exec(data2);
 				if(result2 == null){
-					alert("숫자를 입력해주세요");
+					alert("휴대전화번호 형식에 맞지 않습니다(숫자 3~4자)");
 					$("#phone2").focus();
 					return false;
 				}
+				var regex3 = /^(\d){4}$/;
 				var data3 = $("#phone3").val();
-				var result3 = regex2.exec(data3);
+				var result3 = regex3.exec(data3);
 				if(result3 == null){
-					alert("숫자를 입력해주세요");
+					alert("휴대전화번호 형식에 맞지 않습니다(숫자 4자)");
 					$("#phone3").focus();
 					return false;
 				}
