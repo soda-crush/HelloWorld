@@ -91,7 +91,7 @@
 		select count(*) from reportedBoard where reporterID=#{id} and boardName='Bamboo' and boardSeq=#{seq}
 	</select>
 	<insert id="insertReport" parameterType="kh.hello.dto.ReportDTO">
-		insert into reportedBoard values(reportedBoardSeq.nextval, 'N', 'Bamboo', #{boardSeq}, #{title}, #{reporterNick}, #{reporterID} , sysdate, #{reason}, null)
+		insert into reportedBoard values(reportedBoardSeq.nextval, 'N', 'Bamboo', #{boardSeq}, null, #{title}, #{reporterNick}, #{reporterID} , sysdate, #{reason}, null)
 	</insert>
 <!-- 	포인트 -면 강등 -->
 	<update id="downLevel">
