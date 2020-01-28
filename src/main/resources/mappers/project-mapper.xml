@@ -9,7 +9,7 @@
 
 	<select id="getList" resultType="kh.hello.dto.ProjectChartDTO">
 	select * from
-	(select seq, title, location1, location2, capacity, startDate, endDate, languages, writer, id, state, nonTagContents, nvl(scrap,0) from project p
+	(select seq, title, location1, location2, capacity, startDate, endDate, languages, writer, id, state, nonTagContents, nvl(scrap,0) as scrap from project p
 	left outer join (select categorySeq, count(*) as scrap from scrap where id=#{id} and category='project' group by categorySeq) s on s.categorySeq=p.seq where state = 'N')	
 		<if test="searchOption!=null">
 			<include refid="search"></include>

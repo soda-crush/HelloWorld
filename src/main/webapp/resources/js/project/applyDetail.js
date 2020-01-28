@@ -21,7 +21,7 @@
 						window.opener.document.location.href = window.opener.document.URL;  
 						window.close();
 	        		}).fail(function(resp){
-	        			
+	        			alert("문제가 발생했습니다. 다시 시도해주세요.");
 	        		});
 	        	}
 	        });
@@ -39,7 +39,7 @@
         				$(".checkBtn").append('<span style="font-weight:bold;">신청 <span style="color:limegreen;font-weight:bold;">승인</span>되었습니다.</span>');
         				window.opener.document.location.href = window.opener.document.URL;
         			}).fail(function(resp){
-    					alert("신청 실패!");
+        				alert("문제가 발생했습니다. 다시 시도해주세요.");
         			});
         		}        		
         	});
@@ -57,7 +57,7 @@
         				$(".checkBtn").append('<span style="font-weight:bold;">신청 <span style="color:red;font-weight:bold;">거절</span>되었습니다.</span>');
         				window.opener.document.location.href = window.opener.document.URL;
         			}).fail(function(resp){
-    					alert("신청 실패!");
+        				alert("문제가 발생했습니다. 다시 시도해주세요.");
         			});
         		}        		
         	});
