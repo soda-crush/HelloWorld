@@ -188,9 +188,14 @@ public class AdminController {
 	@RequestMapping("/deleteInquiryReply")
 	public String adDeleteInquiryReply(int seq, int boardSeq, int page) {		
 		//댓글 삭제하고
-		as.deleteInquiryReply(seq, boardSeq);
-		//boardSeq가지고 디테일뷰로 이동하기
-		return "redirect:inquiryDetailView?page="+page+"&seq="+boardSeq;
+		int result = as.deleteInquiryReply(seq, boardSeq);
+		if(result > 0) {
+			//boardSeq가지고 디테일뷰로 이동하기
+			return "redirect:inquiryDetailView?page="+page+"&seq="+boardSeq;
+		}else {
+			return "redirect:adminError";
+		}
+		
 	}
 	
 	@RequestMapping("/memberList")
