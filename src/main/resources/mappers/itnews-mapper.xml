@@ -84,7 +84,7 @@
 		select * 
 		<choose>
 		 <when test="cate == 'cateAll'">								
-			 from (select itnews.*, row_number() over (order by seq desc) as rown from itnews where (lower(title) like lower('%${search}%')) or (lower(writer) like lower('%${search}%')) or (lower(nonTagContent) like lower('%${search}%'))) where rown between #{start} and #{end} 
+			 from (select itnews.*, row_number() over (order by seq desc) as rown from itnews where (lower(title) like lower('%${search}%')) or (lower(writer) like lower('%${search}%')) or (lower(nonTagContents) like lower('%${search}%'))) where rown between #{start} and #{end} 
 		</when>
 		<when test="cate == 'cateTitle'">								
 			 from (select itnews.*, row_number() over (order by seq desc) as rown from itnews where (lower(title) like lower('%${search}%'))) where rown between #{start} and #{end}
@@ -93,7 +93,7 @@
 			 from (select itnews.*, row_number() over (order by seq desc) as rown from itnews where (lower(writer) like lower('%${search}%'))) where rown between #{start} and #{end}
 		</when>
 		<when test="cate == 'cateContent'">								
-			 from (select itnews.*, row_number() over (order by seq desc) as rown from itnews where (lower(nonTagContent) like lower('%${search}%'))) where rown between #{start} and #{end}
+			 from (select itnews.*, row_number() over (order by seq desc) as rown from itnews where (lower(nonTagContents) like lower('%${search}%'))) where rown between #{start} and #{end}
 		</when>
 		</choose>
 	</select>
