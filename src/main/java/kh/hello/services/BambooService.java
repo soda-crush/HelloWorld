@@ -150,10 +150,11 @@ public class BambooService {
 		dao.deleteWritePoint(writer);
 		dao.downLevel();
 		Gson gson = new Gson();
-		List<BambooCoDTO> result = dao.getCoList(dto.getBamSeq());	
+		List<BambooCoDTO> result = dao.getCoList(dto.getBamSeq());
 		for(BambooCoDTO b : result) {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
 			b.setFormedWriteDate(sdf.format(b.getWriteDate()));
+			b.setModComment(b.getContent());
 		}
 		return gson.toJson(result);
 	}
