@@ -53,7 +53,7 @@
 					<div id="pageBody">					
 						<div id="pInfo">
 							<div class="row">
-								<div class="col-md-2"><label class="pItem">지역</label><label class="star">*</label></div>
+								<div class="col-md-2 pr-0"><label class="pItem">지역</label><label class="star">*</label></div>
 								<div class="col-md-10">
 									<select class="form-control form-control-sm pSelect" onChange="loc1_change(this.value,loc2)" id="loc1" name="loc1">
 										<option selected disabled>선택</option>
@@ -84,13 +84,13 @@
 							</div>
 							
 							<div class="row">
-								<div class="col-md-2"><label class="pItem">모집인원</label><label class="star">*</label></div>
+								<div class="col-md-2 pr-0"><label class="pItem">모집인원</label><label class="star">*</label></div>
 								<div class="col-md-2">
 									<input type="number" id="capacity" name="capacity" class="form-control form-control-sm pSelect" min="1" max="100">
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-md-2"><label class="pItem">프로젝트 기간</label><label class="star">*</label></div>
+								<div class="col-md-2 pr-0"><label class="pItem">프로젝트 기간</label><label class="star">*</label></div>
 								<div class="col-md-10">
 	        						<input type="text" class="form-control form-control-sm datePicker" placeholder="시작일" name="startDate" id="startDate" value="${pPage.formedCalStartDate }" readonly>
 	        						<span> ~ </span>
@@ -98,13 +98,13 @@
 	    						</div>
 							</div>							
 							<div class="row">
-								<div class="col-md-2"><label class="pItem">사용언어</label><label class="star">*</label></div>
+								<div class="col-md-2 pr-0"><label class="pItem">사용언어</label><label class="star">*</label></div>
 								<div class="col-md-7" style="max-width:415px;word-break:break-all;word-break:break-word;">
 									<input type="text" class="form-control" id="languages" name="languages" style="word-break:break-all;word-break:break-word;">
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-md-2"><label class="pItem">휴대전화</label></div>
+								<div class="col-md-2 pr-0"><label class="pItem">휴대전화</label></div>
 								<div class="col-md-7">
 									<input type="text" class="form-control form-control-sm phone p-1" maxlength="3" id="phone1"> -
 									<input type="text" class="form-control form-control-sm phone p-1" maxlength="4" id="phone2"> -
@@ -113,7 +113,7 @@
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-md-2"><label class="pItem">메일주소</label></div>							
+								<div class="col-md-2 pr-0"><label class="pItem">메일주소</label></div>							
 								<div class="col-md-7"><input type="email" class="form-control form-control-sm" id="email" name="email" value="${pPage.email}" style="width:385px;"></div>
 							</div>
 						</div>
