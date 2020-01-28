@@ -153,6 +153,7 @@ public class IndustryStatusService {
 		for(IndustryStatusCoDTO i : result) {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
 			i.setFormedWriteDate(sdf.format(i.getWriteDate()));
+			i.setModComment(i.getContent());
 		}
 		return gson.toJson(result);
 	}
