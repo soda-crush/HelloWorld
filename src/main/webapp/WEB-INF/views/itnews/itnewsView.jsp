@@ -50,10 +50,9 @@
 	$(function(){
 		$("#itNavi").attr('class','nav-item nav-link active');
 	});
-	
+	Kakao.init("17c512cbe4e17a204cce3c9b7d64d274"); // 사용할 앱의 JavaScript 키를 설정
 	 //카카오톡
-	  function shareKakaotalk() {
-		  Kakao.init("17c512cbe4e17a204cce3c9b7d64d274"); // 사용할 앱의 JavaScript 키를 설정
+	  function shareKakaotalk() {		 
 	      Kakao.Link.sendDefault({
 	         objectType : "feed",
 	         content : {
