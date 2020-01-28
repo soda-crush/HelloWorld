@@ -26,8 +26,7 @@ public class ProjectDTO {
 	private String state;
 	private int viewCount;
 	private String nonTagContents;
-	private int commentCount;
-	private int imageCount;
+	private int commentCount;	
 	private int applyCount;
 	private int scrap;
 	private Timestamp changeDate;
@@ -148,12 +147,6 @@ public class ProjectDTO {
 	public void setCommentCount(int commentCount) {
 		this.commentCount = commentCount;
 	}
-	public int getImageCount() {
-		return imageCount;
-	}
-	public void setImageCount(int imageCount) {
-		this.imageCount = imageCount;
-	}
 	public int getApplyCount() {
 		return applyCount;
 	}
@@ -213,6 +206,11 @@ public class ProjectDTO {
 			state = "마감";
 		}
 		return state;
+	}
+	
+	public String getFormedWriteDateForPLog() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+		return sdf.format(this.writeDate);
 	}
 	
 	public String getFormedAllDate() {
@@ -287,19 +285,5 @@ public class ProjectDTO {
 		return result;
 	}
 
-
-	@Override
-	public String toString() {
-		return "ProjectDTO [seq=" + seq + ", title=" + title + ", contents=" + contents + ", location1=" + location1
-				+ ", location2=" + location2 + ", capacity=" + capacity + ", startDate=" + startDate + ", endDate="
-				+ endDate + ", languages=" + languages + ", phone=" + phone + ", email=" + email + ", writer=" + writer
-				+ ", id=" + id + ", writeDate=" + writeDate + ", state=" + state + ", viewCount=" + viewCount
-				+ ", nonTagContents=" + nonTagContents + ", commentCount=" + commentCount + ", imageCount=" + imageCount
-				+ ", applyCount=" + applyCount + ", scrap=" + scrap + ", changeDate=" + changeDate + ", totalApply="
-				+ totalApply + ", totalApprove=" + totalApprove + ", profileImg=" + profileImg + ", modTitle="
-				+ modTitle + "]";
-	}
-	
-	
 	
 }

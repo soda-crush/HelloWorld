@@ -47,9 +47,6 @@ body{background-color:#efefef;}
 img{max-width:100%;}
 .applyTableBody div:nth-child(9) small:hover{color:orange;}
 .capaCheck:not(.achieve0){color:limegreen;}
-.titleWrap0{
+.titleWrap{
 	max-width:85%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;
-}
-.titleWrap1{
-	max-width:75%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;
 }
