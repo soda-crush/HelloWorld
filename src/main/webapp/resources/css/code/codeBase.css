@@ -74,7 +74,7 @@ font-size: 12px;
 .eleCon{
 	background-color: white;
 	border: 1px solid gray;
-	border-radius: 1%;
+	border-radius: 5px;
 }
 #footerSpace{
 	font-size: 11px;
