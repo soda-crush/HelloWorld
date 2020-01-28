@@ -60,7 +60,7 @@ $(function(){
       </div>
       
       <!--      몸통 시작!!!   -->
-      <form action="codeRWriteProc.do" method="post" id="writeForm">
+      <form action="codeRWriteProc.do" method="post" id="writeForm" enctype="multipart/form-data">
          <div class=container>
             <div class=row>
                <div class="col-12 title">
