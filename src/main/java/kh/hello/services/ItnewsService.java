@@ -187,24 +187,30 @@ public class ItnewsService {
 		Matcher m = p.matcher(content);
 		
 		while(m.find()) {
-			String oriName = m.group(2);
-			String sysName = System.currentTimeMillis() + "_" + oriName;
 			
-			String imgString = m.group(1).split(",")[1];
-			byte[] imgByte = Base64Utils.decodeFromString(imgString);
+			int need = m.group(1).split(",").length;
 			
-			FileOutputStream fos = new FileOutputStream(new File(imgPath + "/" + sysName));
-			DataOutputStream dos = new DataOutputStream(fos);
-			
-			dos.write(imgByte);
-			dos.flush();
-			dos.close();
-							
-			//DB에 이미지 목록 저장하기
-			int result = dao.insertImg(new ItnewsImgDTO(0,boardSeq, oriName, sysName));
-			if(result > 0) {
-				content = content.replaceFirst(Pattern.quote(m.group(1)), "/attached/itnews/"+sysName);
+			if(need > 1) {
+				String oriName = m.group(2);
+				String sysName = System.currentTimeMillis() + "_" + oriName;
+				
+				String imgString = m.group(1).split(",")[1];
+				byte[] imgByte = Base64Utils.decodeFromString(imgString);
+				
+				FileOutputStream fos = new FileOutputStream(new File(imgPath + "/" + sysName));
+				DataOutputStream dos = new DataOutputStream(fos);
+				
+				dos.write(imgByte);
+				dos.flush();
+				dos.close();
+								
+				//DB에 이미지 목록 저장하기
+				int result = dao.insertImg(new ItnewsImgDTO(0,boardSeq, oriName, sysName));
+				if(result > 0) {
+					content = content.replaceFirst(Pattern.quote(m.group(1)), "/attached/itnews/"+sysName);
+				}
 			}
+			
 		}
 		return content;
 	}
