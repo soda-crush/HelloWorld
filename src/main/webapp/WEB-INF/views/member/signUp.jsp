@@ -620,6 +620,10 @@
             	 if($("#otherJoinPath").val() != ""){
             		 jpTest = 1;
             	 }else{
+ 					if(($("input:radio[name=joinPath]:checked").val()=='jp1')||($("input:radio[name=joinPath]:checked").val()=='jp2')||($("input:radio[name=joinPath]:checked").val()=='jp3')){
+ 					 jpTest = 1;
+ 					 return false;
+            		 }
             		 jpTest = 0;
             	 }
             });
