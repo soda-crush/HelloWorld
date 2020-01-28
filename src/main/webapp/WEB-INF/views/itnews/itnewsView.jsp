@@ -135,7 +135,7 @@
             		<div class="col-12" style="word-break:break-all;word-break:break-word;"><h3><br>${result.title}</h3></div>
             	</div>
             	<div class=row>
-            		<div class="col-12 gft"><hr><a class="fontBold gft cursorPointer ogog" onclick="popUp('/Portfolio/toPlog.do?owner=${result.id}&other=Y')"><img src="${profileImg}" style="width:40px;position:relative;bottom:1px;">&emsp;${result.writer}</a>&emsp;&emsp;작성일 : ${result.getDate()}&emsp;&emsp;조회 : ${result.viewCount}<hr></div>
+            		<div class="col-12 gft"><hr><a class="fontBold gft cursorPointer" onclick="popUp('/Portfolio/toPlog.do?owner=${result.id}&other=Y')"><img src="${profileImg}" style="width:40px;position:relative;bottom:1px;">&emsp;<span class="ogog">${result.writer}</span></a>&emsp;&emsp;작성일 : ${result.getDate()}&emsp;&emsp;조회 : ${result.viewCount}<hr></div>
             	</div>
             	<div class="row">
             		<div class="col-12" id=contentCon style="word-break:break-all;word-break:break-word;">${result.content}</div>

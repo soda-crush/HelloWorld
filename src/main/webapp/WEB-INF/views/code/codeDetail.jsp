@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
@@ -10,17 +10,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" type="image/png" href="${pageContext.request.contextPath }/icon/favicon.ico"/>
 <link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+   href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script
-	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+   src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+   src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/css/mainBase.css">
 <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.css" type="text/css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath }/adRsc/css/themify-icons.css">
 <link rel="stylesheet" href="/css/code/codeBase.css" type="text/css"/>
-	
+   
 <script>
    $(function(){
       $("#codeNavi").attr('class','nav-item nav-link active');
@@ -29,149 +29,149 @@
 
 <!-- 카톡공유 -->
 <script type="text/JavaScript"
-	src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+   src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script type="text/javascript">
 Kakao.init("17c512cbe4e17a204cce3c9b7d64d274"); // 사용할 앱의 JavaScript 키를 설정
-	function shareKakaotalk() {
-		Kakao.Link.sendDefault({
-			objectType : "feed",
-			content : {
-				title : "${qResult.kakaoTitle}", // 콘텐츠의 타이틀
-				description : "Code-How", // 콘텐츠 상세설명
-				imageUrl : "https://miro.medium.com/max/3840/1*U-R58ahr5dtAvtSLGK2wXg.png", // 썸네일 이미지 			
-				link : {
-					mobileWebUrl : "http://${ip}/code/codeDetail.do?seq="+${qResult.seq}, // 모바일 카카오톡에서 사용하는 웹 링크 URL				
-					webUrl : "http://${ip}/code/codeDetail.do?seq="+${qResult.seq} // PC버전 카카오톡에서 사용하는 웹 링크 URL
-				}
-			},
-			social : {
-				likeCount : 0 // LIKE 개수
-				,
-				commentCount : 0 // 댓글 개수
-				,
-				sharedCount : 0
-			// 공유 회수
-			},
-			buttons : [ {
-				title : "링크 이동하기" // 버튼 제목
-				,
-				link : {
-					mobileWebUrl : "http://${ip}/code/codeDetail.do?seq="+${qResult.seq},  // 모바일 카카오톡에서 사용하는 웹 링크 URL
-					webUrl : "http://${ip}/code/codeDetail.do?seq="+${qResult.seq} // PC버전 카카오톡에서 사용하는 웹 링크 URL
-				}
-			} ]
-		});
-	}
-	
+   function shareKakaotalk() {
+      Kakao.Link.sendDefault({
+         objectType : "feed",
+         content : {
+            title : "${qResult.kakaoTitle}", // 콘텐츠의 타이틀
+            description : "Code-How", // 콘텐츠 상세설명
+            imageUrl : "https://miro.medium.com/max/3840/1*U-R58ahr5dtAvtSLGK2wXg.png", // 썸네일 이미지          
+            link : {
+               mobileWebUrl : "http://${ip}/code/codeDetail.do?seq="+${qResult.seq}, // 모바일 카카오톡에서 사용하는 웹 링크 URL            
+               webUrl : "http://${ip}/code/codeDetail.do?seq="+${qResult.seq} // PC버전 카카오톡에서 사용하는 웹 링크 URL
+            }
+         },
+         social : {
+            likeCount : 0 // LIKE 개수
+            ,
+            commentCount : 0 // 댓글 개수
+            ,
+            sharedCount : 0
+         // 공유 회수
+         },
+         buttons : [ {
+            title : "링크 이동하기" // 버튼 제목
+            ,
+            link : {
+               mobileWebUrl : "http://${ip}/code/codeDetail.do?seq="+${qResult.seq},  // 모바일 카카오톡에서 사용하는 웹 링크 URL
+               webUrl : "http://${ip}/code/codeDetail.do?seq="+${qResult.seq} // PC버전 카카오톡에서 사용하는 웹 링크 URL
+            }
+         } ]
+      });
+   }
+   
 </script>
 <!-- . -->
 
 <style>
 .contentDiv {
-	/* 한 줄 자르기 */
-	display: block;
-	text-align: left;
-	width: 100%;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	/* 여러 줄 자르기 추가 스타일 */
-	white-space: normal;
+   /* 한 줄 자르기 */
+   display: block;
+   text-align: left;
+   width: 100%;
+   white-space: nowrap;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   /* 여러 줄 자르기 추가 스타일 */
+   white-space: normal;
 }
 
 a:hover {
-	text-decoration: none;
+   text-decoration: none;
 }
 
 .topQ {
-	display: block;
-	text-align: left;
+   display: block;
+   text-align: left;
 }
 
 .botD {
-	display: block;
-	text-align: left;
+   display: block;
+   text-align: left;
 }
 
 .btnDIv2 {
-	margin: 20px;
-	padding: 20px;
+   margin: 20px;
+   padding: 20px;
 }
 
 #pageTitle {
-	margin-bottom: 20px;
+   margin-bottom: 20px;
 }
 
 #pageTitle h1 {
-	display: inline;
-	margin-right: 10px;
-	font-weight: bold;
+   display: inline;
+   margin-right: 10px;
+   font-weight: bold;
 }
 
 #pageBody {
-	background-color: white;
+   background-color: white;
 }
 
 #pHeader, #pageFooter {
-	padding-top: 10px;
+   padding-top: 10px;
 }
 
 #pHeader #stateLabel {
-	color: white;
+   color: white;
 }
 
 #pHeader label.N {
-	background-color: limegreen;
+   background-color: limegreen;
 }
 
 #pHeader label.Y {
-	background-color: red;
+   background-color: red;
 }
 
 #pHeader span:first-of-type {
-	font-size: 20px;
+   font-size: 20px;
 }
 
 #pHeader label:nth-of-type(2) {
-	width: 200px;
+   width: 200px;
 }
 
 #pInfo *, #pBody * {
-	font-size: 15px;
+   font-size: 15px;
 }
 
 #pInfo label, #pBody label {
-	width: 100px;
-	color: darkgray;
+   width: 100px;
+   color: darkgray;
 }
 
 #baseBackgroundColor {
-	margin: auto;
-	text-align: center;
+   margin: auto;
+   text-align: center;
 }
 
 #btnDIv {
-	margin: 20px;
+   margin: 20px;
 }
 
 span:nth-child(2) {
-	font-size: 30px;
-	font-weight: 100;
+   font-size: 30px;
+   font-weight: 100;
 }
 
 span:nth-child(4) {
-	font-size: 30px;
-	font-weight: 100;
+   font-size: 30px;
+   font-weight: 100;
 }
 
 .contentDivBot {
-	text-align: left;
+   text-align: left;
 }
 
 .writerR{
-	cursor:pointer; 
-	font-size: 30px; 
-	font-weight: 100;
+   cursor:pointer; 
+   font-size: 30px; 
+   font-weight: 100;
 }
 </style>
 </head>
@@ -183,6 +183,7 @@ span:nth-child(4) {
          location.href="${pageContext.request.contextPath}/code/codeQList.do";
       </script>
    </c:if>
+
 
 	<jsp:include page="/WEB-INF/views/standard/header.jsp" />
 
@@ -245,12 +246,12 @@ span:nth-child(4) {
                
                <c:if test="${qResult.id==sessionScope.loginInfo.id}">
                   <div style="text-align: right;">
-                  	  <a id="kakao-link-btn" href="javascript:;" onClick="shareKakaotalk();" style="text-decoration:none"> 
+                       <a id="kakao-link-btn" href="javascript:;" onClick="shareKakaotalk();" style="text-decoration:none"> 
                          <img src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" height=38/>
                       </a>
-                  		<button class="btn btn-success" id="scrap">스크랩</button>
+                        <button class="btn btn-success" id="scrap">스크랩</button>
                      <!-- 답변이 있으면 삭제,수정이 안됨. -->
-                     <c:if test="${repCount==0}">                     	
+                     <c:if test="${repCount==0}">                        
                         <button class="btn btn-dark" class="btnDIv2" id="modify">수정</button>
                         <button class="btn btn-danger" class="btnDIv2" id="delete">삭제</button>
                      </c:if>
@@ -260,11 +261,12 @@ span:nth-child(4) {
             <br>
             <br>           
             <div class="row">
-<!--             	<div class="col-12" id=adver style="height:100px;background-color:dodgerblue;color:white; text-align:center; line-height:100px;">광고자리</div> -->
-            	<div class="col-8" id=adver style="margin:auto;">
-            		<img src="/img/${ad}" class="d-block w-100" alt="...">
-            	</div>
+<!--                <div class="col-12" id=adver style="height:100px;background-color:dodgerblue;color:white; text-align:center; line-height:100px;">광고자리</div> -->
+               <div class="col-8" id=adver style="margin:auto;">
+                  <img src="/img/${ad}" class="d-block w-100" alt="...">
+               </div>
             </div>
+
             	
 				<!-- 답글 시작-->
 				<c:forEach items="${rResult}" var="r">
@@ -767,13 +769,18 @@ span:nth-child(4) {
 				location.href="${pageContext.request.contextPath}/code/modifyR.do?seq="+seq+"&queSeq="+queSeq;
 			}				
         }
-		
-		function deleteRe(seq,queSeq){
-			var cf = confirm("삭제하시겠습니까?");
-			if(cf){
-				location.href="${pageContext.request.contextPath}/code/deleteR.do?seq="+seq+"&queSeq="+queSeq;
-			}
+      
+      //닉네임 눌렀을때 새창 띄우기
+      function popUp(id,writer){
+         if(writer == null){
+            alert("탈퇴한 회원입니다.");
+            return false;
+         }
+         else{
+            window.open("/Portfolio/toPlog.do?owner="+id+"&other=Y", "pLogPopUp", "width=600,height=600");
+         }
         }
+
 
     	
 	//답글-댓글 삭제
@@ -785,7 +792,7 @@ span:nth-child(4) {
                    type : "post",
                    dataType : "json",
                    data :{
-                 	  queSeq : queSeq,
+                      queSeq : queSeq,
                       repSeq : repSeq,
                       seq:seq
                    }
@@ -793,6 +800,7 @@ span:nth-child(4) {
                $(".pPageComments"+repSeq).html("");
                
              //call list
+
 	               var loginInfo = "${sessionScope.loginInfo.id}";
 	               for(var i=0;i<resp.length;i++){
 	                  var html = [];
