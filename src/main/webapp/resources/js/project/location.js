@@ -64,7 +64,7 @@
 			    (loc2sel.options[0] = new Option('선택','',true,true)).setAttribute("disabled",true);
 			 }
 
-			if(loc2Name[0] === undefined){
+			if(loc2Name[0] === undefined & name != loc2Name[0]){
 			   for(i=0; i<name.length; i++){
 			   loc2sel.options[i+1] = new Option(name[i],val[i]);
 			 } 
