@@ -204,17 +204,18 @@ span:nth-child(4) {
 					<!-- 영어 길게치면 영역넘어감 style설정해줘야함 -->
 				<span style="word-break:break-all; word-break:break-word; font-size:25px;">${qResult.title}</span>
 			</div>
-			<br>
+<!-- 			<br> -->
 			<div>
-				<div class="contentDiv" style="word-break:break-all; word-break:break-word;">${qResult.content}</div>
-				<br>
 				<div class="botD">
 					<img src="${qResult.profileImg}" width=50,height=50> 
 					<span class="hvOrange" style="cursor:pointer" onclick="popUp('${qResult.id}','${qResult.writer}')">${qResult.writer}</span>				
 					<span style="color: gray;">${qResult.formedDate} 조회수${qResult.viewCount}</span>
 				</div>
+				<hr>				
+				<br>							
+				<div class="contentDiv" style="word-break:break-all; word-break:break-word;">${qResult.content}</div>
 				<br>
-				<br>
+
 
                	<c:if test="${qResult.id!=sessionScope.loginInfo.id}">
                	  	  <div style="float:left">
@@ -391,7 +392,7 @@ span:nth-child(4) {
 															<div class="col-lg-1 d-none d-lg-block profileBox pl-1 pt-2 pr-0"><img src="${c.profileImg }" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>
 															<div class="col-7 col-lg-6 pt-1">
 																<div class="row commentInfo">
-																	<div class="col-12 commentWriter">${c.writer }</div>
+																	<div class="col-12 commentWriter"><span class="hvOrange" style="cursor:pointer;" onclick="popUp('${c.id }','${c.writer }')">${c.writer }</span></div>
 																	<div class="col-12 commentWriteDate" style="font-size:12px; color:gray;">${c.formedDate}</div>
 																</div>
 															</div>
@@ -482,7 +483,7 @@ span:nth-child(4) {
 					                        '<div class="row commentDiv commentBox'+resp[i].repSeq+resp[i].seq+' p-0 pb-2 m-2" style="border:1px solid gray; border-top:none; border-left: none; border-right: none;"><div class="col-12 commentInnerBox"><div class="row commentHeader">',
 					                        '<div class="col-lg-1 d-none d-lg-block profileBox pl-1 pt-2 pr-0"><img src="'+resp[i].profileImg+'" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>',
 					                        '<div class="col-7 col-lg-6 pt-1"><div class="row commentInfo">',
-					                        '<div class="col-12 commentWriter">'+resp[i].writer+'</div>',
+					                        '<div class="col-12 commentWriter"><span class="hvOrange" style="cursor:pointer;" onclick="popUp(\''+resp[i].id+'\',\''+resp[i].writer+'\')">'+resp[i].writer+'</span></div>',					                        
 					                        '<div class="col-12 commentWriteDate" style="font-size:12px; color:gray;">'+resp[i].formedWriteDate+'</div></div></div>',
 					                        '<div class="col-5 pt-2 text-right commentBtns">'
 					                        );
@@ -771,18 +772,7 @@ span:nth-child(4) {
 				location.href="${pageContext.request.contextPath}/code/deleteR.do?seq="+seq+"&queSeq="+queSeq;
 			}
         }
-		
-		//닉네임 눌렀을때 새창 띄우기
-		function popUp(id,writer){
-			if(writer == null){
-				alert("탈퇴한 회원입니다.");
-				return false;
-			}
-			else{
-				window.open("/Portfolio/toPlog.do?owner="+id+"&other=Y", "pLogPopUp", "width=600,height=600");
-			}
-	      
-	     }
+
     	
 	//답글-댓글 삭제
 		function coDelFunction(queSeq, repSeq, seq){
@@ -808,7 +798,7 @@ span:nth-child(4) {
 	                		    '<div class="row commentDiv commentBox'+resp[i].repSeq+resp[i].seq+' p-0 pb-2 m-2" style="border:1px solid gray; border-top:none; border-left: none; border-right: none;"><div class="col-12 commentInnerBox"><div class="row commentHeader">',
 		                        '<div class="col-lg-1 d-none d-lg-block profileBox pl-1 pt-2 pr-0"><img src="'+resp[i].profileImg+'" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>',
 		                        '<div class="col-7 col-lg-6 pt-1"><div class="row commentInfo">',
-		                        '<div class="col-12 commentWriter">'+resp[i].writer+'</div>',
+		                        '<div class="col-12 commentWriter"><span class="hvOrange" style="cursor:pointer;" onclick="popUp(\''+resp[i].id+'\',\''+resp[i].writer+'\')">'+resp[i].writer+'</span></div>',
 		                        '<div class="col-12 commentWriteDate" style="font-size:12px; color:gray;">'+resp[i].formedWriteDate+'</div></div></div>',
 		                        '<div class="col-5 pt-2 text-right commentBtns">'
 	                        );
@@ -897,7 +887,7 @@ span:nth-child(4) {
 		  	                		'<div class="row commentDiv commentBox'+resp[i].repSeq+resp[i].seq+' p-0 pb-2 m-2" style="border:1px solid gray; border-top:none; border-left: none; border-right: none;"><div class="col-12 commentInnerBox"><div class="row commentHeader">',
 			                        '<div class="col-lg-1 d-none d-lg-block profileBox pl-1 pt-2 pr-0"><img src="'+resp[i].profileImg+'" class="rounded mx-auto d-block" style="width:40px;height:40px;"></div>',
 			                        '<div class="col-7 col-lg-6 pt-1"><div class="row commentInfo">',
-			                        '<div class="col-12 commentWriter">'+resp[i].writer+'</div>',
+			                        '<div class="col-12 commentWriter"><span class="hvOrange" style="cursor:pointer;" onclick="popUp(\''+resp[i].id+'\',\''+resp[i].writer+'\')">'+resp[i].writer+'</span></div>',
 			                        '<div class="col-12 commentWriteDate" style="font-size:12px; color:gray;">'+resp[i].formedWriteDate+'</div></div></div>',
 			                        '<div class="col-5 pt-2 text-right commentBtns">'
 		  	                        );
@@ -927,6 +917,19 @@ span:nth-child(4) {
 				$("#pCoContents"+seq).val("");
 			}
        	}
+       	
+		
+		//닉네임 눌렀을때 새창 띄우기
+		function popUp(id,writer){
+			if(writer == null){
+				alert("탈퇴한 회원입니다.");
+				return false;
+			}
+			else{
+				window.open("/Portfolio/toPlog.do?owner="+id+"&other=Y", "pLogPopUp", "width=600,height=600");
+			}
+	      
+	     }
 
 	</script>
 </body>
