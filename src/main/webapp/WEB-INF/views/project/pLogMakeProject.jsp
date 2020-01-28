@@ -80,9 +80,6 @@
 						    <button class="btn btn-dark my-2 my-sm-0" type="submit" id="searchBtn">검색</button>
 						  </form>
 					</div>								
-					<div class="col-12 order-1 order-lg-2 col-lg-2 text-right">
-						<button class="btn btn-success mb-2" type="button" onclick="popUp('/project/write')">글쓰기</button>			
-					</div>
 				</div>
 				<nav aria-label="List navi" id="mPageNavi">${makePageNavi }</nav>
 			</div>
