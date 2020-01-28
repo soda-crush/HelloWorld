@@ -210,7 +210,6 @@ public class ItnewsService {
 					content = content.replaceFirst(Pattern.quote(m.group(1)), "/attached/itnews/"+sysName);
 				}
 			}
-			
 		}
 		return content;
 	}
