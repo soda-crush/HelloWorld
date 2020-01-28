@@ -37,74 +37,94 @@ public class ScrapMemController {
 	
 	@RequestMapping("/itNews.do")
 	public String itNews(String cpage) {
-		OwnerInfoDTO ownerInfo = (OwnerInfoDTO)session.getAttribute("ownerInfo");
-		String ownerID = ownerInfo.getId();
-		int currentPage = 1;	
-		if(cpage != null) currentPage = Integer.parseInt(cpage);
-		int end = currentPage * Configuration.pLogProjectRecordCountPerPage;
-		int start = end - (Configuration.pLogProjectRecordCountPerPage - 1);
-		List<ItnewsDTO> nlist = ss.selectItnewsByPage(ownerID,start,end);
-		List<String> pageNavi = ss.getScrapPageNavi(ownerID, currentPage, "itNews");
-		MemberDTO mdto = ms.selectMember(ownerInfo.getId());
-		request.setAttribute("point", mdto.getPoint());
-		request.setAttribute("cpage", currentPage);
-		request.setAttribute("pageNavi", pageNavi);
-		request.setAttribute("nlist", nlist);
-		return "plog/scrapItNews";
+		try {
+			OwnerInfoDTO ownerInfo = (OwnerInfoDTO)session.getAttribute("ownerInfo");
+			String ownerID = ownerInfo.getId();
+			int currentPage = 1;	
+			if(cpage != null) currentPage = Integer.parseInt(cpage);
+			int end = currentPage * Configuration.pLogProjectRecordCountPerPage;
+			int start = end - (Configuration.pLogProjectRecordCountPerPage - 1);
+			List<ItnewsDTO> nlist = ss.selectItnewsByPage(ownerID,start,end);
+			List<String> pageNavi = ss.getScrapPageNavi(ownerID, currentPage, "itNews");
+			MemberDTO mdto = ms.selectMember(ownerInfo.getId());
+			request.setAttribute("point", mdto.getPoint());
+			request.setAttribute("cpage", currentPage);
+			request.setAttribute("pageNavi", pageNavi);
+			request.setAttribute("nlist", nlist);
+			return "plog/scrapItNews";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "redirect:/error";
+		}
 	}
 	
 	@RequestMapping("/cohow.do")
 	public String cohow(String cpage) {
-		OwnerInfoDTO ownerInfo = (OwnerInfoDTO)session.getAttribute("ownerInfo");
-		String ownerID = ownerInfo.getId();
-		int currentPage = 1;
-		if(cpage != null) currentPage = Integer.parseInt(cpage);
-		int end = currentPage * Configuration.pLogProjectRecordCountPerPage;
-		int start = end - (Configuration.pLogProjectRecordCountPerPage - 1);
-		List<CodeQuestionDTO> clist = ss.selectCodeQuestionByPage(ownerID,start,end);
-		List<String> pageNavi = ss.getScrapPageNavi(ownerID, currentPage, "cohow");
-		MemberDTO mdto = ms.selectMember(ownerInfo.getId());
-		request.setAttribute("point", mdto.getPoint());
-		request.setAttribute("cpage", currentPage);
-		request.setAttribute("pageNavi", pageNavi);
-		request.setAttribute("clist", clist);
-		return "plog/scrapCohow";
+		try {
+			OwnerInfoDTO ownerInfo = (OwnerInfoDTO)session.getAttribute("ownerInfo");
+			String ownerID = ownerInfo.getId();
+			int currentPage = 1;
+			if(cpage != null) currentPage = Integer.parseInt(cpage);
+			int end = currentPage * Configuration.pLogProjectRecordCountPerPage;
+			int start = end - (Configuration.pLogProjectRecordCountPerPage - 1);
+			List<CodeQuestionDTO> clist = ss.selectCodeQuestionByPage(ownerID,start,end);
+			List<String> pageNavi = ss.getScrapPageNavi(ownerID, currentPage, "cohow");
+			MemberDTO mdto = ms.selectMember(ownerInfo.getId());
+			request.setAttribute("point", mdto.getPoint());
+			request.setAttribute("cpage", currentPage);
+			request.setAttribute("pageNavi", pageNavi);
+			request.setAttribute("clist", clist);
+			return "plog/scrapCohow";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "redirect:/error";
+		}
 	}
 	
 	@RequestMapping("/industryStatus.do")
 	public String industryStatus(String cpage) {
-		OwnerInfoDTO ownerInfo = (OwnerInfoDTO)session.getAttribute("ownerInfo");
-		String ownerID = ownerInfo.getId();
-		int currentPage = 1;	
-		if(cpage != null) currentPage = Integer.parseInt(cpage);
-		int end = currentPage * Configuration.pLogProjectRecordCountPerPage;
-		int start = end - (Configuration.pLogProjectRecordCountPerPage - 1);
-		List<IndustryStatusDTO> ilist = ss.selectIndustryStatusByPage(ownerID,start,end);
-		List<String> pageNavi = ss.getScrapPageNavi(ownerID, currentPage, "industryStatus");
-		MemberDTO mdto = ms.selectMember(ownerInfo.getId());
-		request.setAttribute("point", mdto.getPoint());
-		request.setAttribute("cpage", currentPage);
-		request.setAttribute("pageNavi", pageNavi);
-		request.setAttribute("ilist", ilist);
-		return "plog/scrapIndustryStatus";
+		try {
+			OwnerInfoDTO ownerInfo = (OwnerInfoDTO)session.getAttribute("ownerInfo");
+			String ownerID = ownerInfo.getId();
+			int currentPage = 1;	
+			if(cpage != null) currentPage = Integer.parseInt(cpage);
+			int end = currentPage * Configuration.pLogProjectRecordCountPerPage;
+			int start = end - (Configuration.pLogProjectRecordCountPerPage - 1);
+			List<IndustryStatusDTO> ilist = ss.selectIndustryStatusByPage(ownerID,start,end);
+			List<String> pageNavi = ss.getScrapPageNavi(ownerID, currentPage, "industryStatus");
+			MemberDTO mdto = ms.selectMember(ownerInfo.getId());
+			request.setAttribute("point", mdto.getPoint());
+			request.setAttribute("cpage", currentPage);
+			request.setAttribute("pageNavi", pageNavi);
+			request.setAttribute("ilist", ilist);
+			return "plog/scrapIndustryStatus";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "redirect:/error";
+		}
 	}
 	
 	@RequestMapping("/project.do")
 	public String project(String cpage) {
-		OwnerInfoDTO ownerInfo = (OwnerInfoDTO)session.getAttribute("ownerInfo");
-		String ownerID = ownerInfo.getId();
-		int currentPage = 1;
-		if(cpage != null) currentPage = Integer.parseInt(cpage);
-		int end = currentPage * Configuration.pLogProjectRecordCountPerPage;
-		int start = end - (Configuration.pLogProjectRecordCountPerPage - 1);
-		List<ProjectDTO> plist = ss.selectProjectByPage(ownerID,start,end);
-		List<String> pageNavi = ss.getScrapPageNavi(ownerID, currentPage, "project");
-		MemberDTO mdto = ms.selectMember(ownerInfo.getId());
-		request.setAttribute("point", mdto.getPoint());
-		request.setAttribute("cpage", currentPage);
-		request.setAttribute("pageNavi", pageNavi);
-		request.setAttribute("plist", plist);
-		return "plog/scrapProject";
+		try {
+			OwnerInfoDTO ownerInfo = (OwnerInfoDTO)session.getAttribute("ownerInfo");
+			String ownerID = ownerInfo.getId();
+			int currentPage = 1;
+			if(cpage != null) currentPage = Integer.parseInt(cpage);
+			int end = currentPage * Configuration.pLogProjectRecordCountPerPage;
+			int start = end - (Configuration.pLogProjectRecordCountPerPage - 1);
+			List<ProjectDTO> plist = ss.selectProjectByPage(ownerID,start,end);
+			List<String> pageNavi = ss.getScrapPageNavi(ownerID, currentPage, "project");
+			MemberDTO mdto = ms.selectMember(ownerInfo.getId());
+			request.setAttribute("point", mdto.getPoint());
+			request.setAttribute("cpage", currentPage);
+			request.setAttribute("pageNavi", pageNavi);
+			request.setAttribute("plist", plist);
+			return "plog/scrapProject";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "redirect:/error";
+		}
 	}
 	
 }
