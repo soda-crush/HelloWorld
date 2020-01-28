@@ -17,6 +17,7 @@ import kh.hello.dto.MemberDTO;
 import kh.hello.dto.OwnerInfoDTO;
 import kh.hello.services.GuestBookService;
 import kh.hello.services.MemberService;
+import kh.hello.utils.Utils;
 
 @Controller
 @RequestMapping("/GuestBook")
@@ -45,12 +46,14 @@ public class GuestBookMemController {
 				OwnerInfoDTO ownerInfo = (OwnerInfoDTO)session.getAttribute("otherInfo");
 				gdto.setOwnerID(ownerInfo.getId());
 				gdto.setOwner(ownerInfo.getNickName());
+				gdto.setContent(Utils.protectXss(gdto.getContent()));
 				gs.insert(gdto);
 				return "redirect:toGuestSelectList.do";
 			}else {
 				OwnerInfoDTO ownerInfo = (OwnerInfoDTO)session.getAttribute("ownerInfo");
 				gdto.setOwnerID(ownerInfo.getId());
 				gdto.setOwner(ownerInfo.getNickName());
+				gdto.setContent(Utils.protectXss(gdto.getContent()));
 				gs.insert(gdto);
 				return "redirect:toSelectList.do";
 			}
@@ -115,7 +118,16 @@ public class GuestBookMemController {
 		}
 	}
 	
-	
+	@RequestMapping("guestDelete.do")
+	public String guestGuestBookdeleteProc(int seq,String cpage) {
+		try {
+			gs.delete(seq);
+			return "redirect:toGuestSelectList.do?cpage=" + cpage;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "redirect:/error";
+		}
+	}
 	
 	@RequestMapping("delete.do")
 	public String guestBookdeleteProc(int seq,String cpage) {

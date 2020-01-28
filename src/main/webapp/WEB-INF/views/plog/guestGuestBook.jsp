@@ -179,7 +179,7 @@
         	
         	function del(seq,cpage){
         		if(confirm("정말 삭제하시겠습니까?")){
-        			location.href='${pageContext.request.contextPath}/GuestBook/delete.do?seq='+seq+'&cpage='+cpage;
+        			location.href='${pageContext.request.contextPath}/GuestBook/guestDelete.do?seq='+seq+'&cpage='+cpage;
         		}
         	}
         	

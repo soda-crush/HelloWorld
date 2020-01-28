@@ -136,7 +136,7 @@
 			                <div class="col-12 col-sm-9 col-xl-10">
 			                    <div class="row">
 			                        <div class="col-3 col-lg-2" id="funcname"> 기능명</div>
-			                        <div class="col-9 col-lg-10" id="funcname3"><input id="function3" name="function3" style="height:18px margin-bottom:" value="${pdto.function3 }" maxlength="100"></div>
+			                        <div class="col-9 col-lg-10" id="funcname3"><input id="function3" name="function3" style="height:18px margin-bottom:" maxlength="100"></div>
 			                        <div class="col-3 col-lg-2" id="funcexpl" > 설명</div>
 			                        <div class="col-9 col-lg-10"><textarea name="explanation3" style="height:150px;" maxlength="1300">${pdto.explanation3 }</textarea></div>
 			                    </div>
