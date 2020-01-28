@@ -1,7 +1,6 @@
 package kh.hello.project;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -19,6 +18,7 @@ import kh.hello.dto.BoardLogDTO;
 import kh.hello.dto.ChartGenderDTO;
 import kh.hello.dto.ChartGenerationDTO;
 import kh.hello.dto.ChartJoinPathDTO;
+import kh.hello.dto.ChartMainDTO;
 import kh.hello.dto.ChartVisitChangeDTO;
 import kh.hello.dto.ChartWorkDTO;
 import kh.hello.dto.CommentLogDTO;
@@ -74,12 +74,8 @@ public class AdminController {
 	@RequestMapping("/main")
 	public String adMain(Model m) {
 		//1-1. 방문자 통계(today, total)
-		try {
-			Map<String, Integer> count = as.getVisitorCount();
-			m.addAttribute("count", count);			
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
+		ChartMainDTO count = as.getVisitorCount();
+		m.addAttribute("count", count);	
 		
 		//1-2. 일일 방문자수 추이
 		List<ChartVisitChangeDTO> visitChange = as.getVisitChange();
@@ -489,6 +485,13 @@ public class AdminController {
 			e.printStackTrace();
 			return "redirect:adminError";
 		}
+	}
+	
+	@RequestMapping(value="/ifmOpenModify", produces="text/html;charset=utf8")
+	@ResponseBody
+	public String ifmOpenModify(String id) {
+		String result = as.ifmOpenModify(id);
+		return result;		
 	}
 }
 

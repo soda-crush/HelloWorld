@@ -113,6 +113,7 @@ $(function(){
 			placeholder : '내용을 입력해주세요',
 			height : 500,
 			lang: 'ko-KR',
+			codeviewFilter: true,
 			toolbar: [
 	            ['style', ['style']],
 	            ['font', ['bold', 'underline', 'clear']],

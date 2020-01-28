@@ -28,11 +28,20 @@
 <!-- jquery latest version -->
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <style>
-#guest img{
-	opacity:50%;
+#guest #plogLogo{
+	display:block;
 }
-.metismenu #guest:hover img, .metismenu #guest.active img {
-	opacity:100%;
+
+#guest #plogLogoActive{
+	display:none;
+}
+
+.metismenu #guest:hover #plogLogo, .metismenu #guest.active #plogLogo {
+	display:none;
+}
+
+.metismenu #guest:hover #plogLogoActive, .metismenu #guest.active #plogLogoActive {
+	display:block
 }
 	.nameBtn{
 		border: 1px solid transparent !important;
@@ -161,8 +170,9 @@
 																  <button class="btn btn-secondary btn-sm dropdown-toggle nameBtn p-0" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-boundary="viewport">
 																    ${dto.owner}(${dto.ownerID})&nbsp;&nbsp;&nbsp;<i class="fa fa-external-link"></i>
 																  </button>
-																  <div class="dropdown-menu">
+																  <div class="dropdown-menu">																  
 																    <p class="dropdown-item" id="ownerInfo${dto.seq}${dto.ownerID}">회원정보</p>
+																    <p class="dropdown-item" id="plogOModify${dto.ownerID}">Plog 공개 여부 변경</p>															    
 																  </div>
 																</div>                                                    
 		                                                    </td>
@@ -173,6 +183,7 @@
 																  </button>
 																  <div class="dropdown-menu">
 																    <p class="dropdown-item" id="writerInfo${dto.seq}${dto.writerID}">회원정보</p>
+																    <p class="dropdown-item" id="plogWModify${dto.writerID}">Plog 공개 여부 변경</p>	
 																  </div>
 																</div>                                                    
 		                                                    </td>  	                                                                                                      
@@ -204,13 +215,39 @@
 			                                               			window.open("${pageContext.request.contextPath}/admin/getMemberInfo?id=${dto.writerID}","","width=600px,height=526px,top=300px,left=600px");
 			                                               		}) 		                                               				
 
-                                                			
+			                                               		$("#plogOModify${dto.ownerID}").on("click", function(){
+			                                               			var result = confirm("Plog 공개설정을 변경할까요?");
+			                                               			if(result){
+			                                               				$.ajax({
+			                                               					url : "${pageContext.request.contextPath}/admin/ifmOpenModify",
+			                                               					type : "post",
+			                                               					data : {
+			                                               						id : "${dto.ownerID}",
+			                                               					}
+			                                               				}).done(function(resp){
+																			alert(resp);
+			                                               				});
+			                                               			}
+			                                               		})
+			                                               		
+			                                               		$("#plogWModify${dto.writerID}").on("click", function(){
+			                                               			var result = confirm("Plog 공개설정을 변경할까요?");
+			                                               			if(result){
+			                                               				$.ajax({
+			                                               					url : "${pageContext.request.contextPath}/admin/ifmOpenModify",
+			                                               					type : "post",
+			                                               					data : {
+			                                               						id : "${dto.writerID}",
+			                                               					}
+			                                               				}).done(function(resp){
+																			alert(resp);
+			                                               				});
+			                                               			}			                                               			
+			                                               		})
 		                                               		</script>
 		                                            	</c:forEach>                                             		                                            		
                                             		</c:otherwise>
-                                            	</c:choose>
-                                            
-                                                                                              
+                                            	</c:choose>                                                   
                                             </tbody>
                                         </table>
                                     </div>

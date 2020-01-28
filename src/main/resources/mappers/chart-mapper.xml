@@ -12,7 +12,12 @@
 		select gender, count(gender) genderCount from member where gender is not null group by gender order by 1
 	</select>
 	<select id="getJoinPath" resultType="kh.hello.dto.ChartJoinPathDTO">
-		select joinPath, count(joinPath) pathCount from member where joinPath is not null group by joinPath order by 2
+		select joinPath, count(joinPath) pathCount from (select case
+        when joinPath = '지인 추천' then '지인 추천'
+        when joinPath = '''Hello World!'' 검색' then 'Hello World 검색'
+        when joinPath = '''프로젝트 모집'' 검색' then '프로젝트 모집 검색'
+        else '기타'
+    	end joinPath from member) group by joinPath order by 1
 	</select>
 	<select id="getWorkRatio" resultType="kh.hello.dto.ChartWorkDTO">
 		select memLevel, count(memLevel) levelCount from member where memLevel ='2' or memLevel='3' group by memLevel order by memLevel

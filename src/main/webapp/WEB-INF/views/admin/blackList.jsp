@@ -27,11 +27,20 @@
 <!-- jquery latest version -->
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <style>
-#guest img{
-	opacity:50%;
+#guest #plogLogo{
+	display:block;
 }
-.metismenu #guest:hover img, .metismenu #guest.active img {
-	opacity:100%;
+
+#guest #plogLogoActive{
+	display:none;
+}
+
+.metismenu #guest:hover #plogLogo, .metismenu #guest.active #plogLogo {
+	display:none;
+}
+
+.metismenu #guest:hover #plogLogoActive, .metismenu #guest.active #plogLogoActive {
+	display:block
 }
 	.nameBtn{
 		border: 1px solid transparent !important;
@@ -53,6 +62,10 @@
 	}
 	.notification-area {
 		text-align:right;
+	}
+	.page-title a{
+		text-decoration:none;
+		color:#313b3d;
 	}
 </style>
 </head>
@@ -77,7 +90,9 @@
                 <div class="row align-items-center">
                     <div class="col-sm-6">
                         <div class="breadcrumbs-area clearfix">
-                            <h4 class="page-title pull-left">회원관리</h4>
+                            <h4 class="page-title pull-left">
+                            	<a href="${pageContext.request.contextPath }/admin/blackList">회원관리</a>
+                            </h4>
                             <ul class="breadcrumbs pull-left">
                                 <li><a href="${pageContext.request.contextPath }/admin/main">Home</a></li>
                                 <li><span>불량 회원 관리</span></li>

@@ -16,16 +16,10 @@
 <script src="https://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
 <link rel="stylesheet" href="https://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.css">
 <link rel="stylesheet" href="https://bootstrap-tagsinput.github.io/bootstrap-tagsinput/examples/assets/app.css">
-<!-- <link rel="stylesheet" href="/css/project/projectBase.css" type="text/css"/> -->
 <link rel="stylesheet" href="/css/project/applyDetailView.css" type="text/css"/>
 <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.css" type="text/css"/>
-<style>
-body{background-color:#e9ecef;}
-#openProject:hover{cursor:pointer;}
-</style>
 </head>
 <body>
-<%-- 	<jsp:include page="/WEB-INF/views/standard/header.jsp"/> --%>
 	
  		<div id=baseBackgroundColor>
             <div class=container style="height:20px;">
@@ -36,28 +30,55 @@ body{background-color:#e9ecef;}
             </div>
             
             <!--      몸통 시작!!!   -->
-            <div class="container d-none d-md-block" id="projectPage">
+            <div class="container" id="projectPage">
 				<div id="pageTitle">
-					<h1>프로젝트 신청 상세보기</h1>
+					<h2>프로젝트 신청 상세</h2>
 				</div>
 				<div class="border border-secondary rounded" id="pageBody">
 					<c:if test="${aPage.seq !=null }">
 						<div id="pBody">
-							<div><label class="ml-4">신청 프로젝트</label>
-							<span onclick="popUp('/project/detailView?seq=${aPage.projectSeq }')" id="openProject">[ ${aPage.title } ] <i class="fa fa-external-link"></i></span>																
+							<div class="row pl-3 mb-3">
+								<div class="col-md-4 col-lg-3 dLabel">신청 프로젝트</div>
+								<div class="col-md-8 col-lg-9" onclick="popUp('/project/detailView?seq=${aPage.projectSeq }')" id="openProject" style="height:22px;">
+									<span style="max-width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;" class="ml-0">${aPage.title } </span>
+									<i class="fa fa-external-link"></i></div>																
+								</div>
+							<div class="row pl-3 mb-3">
+								<div class="col-md-4 col-lg-3 dLabel">신청자</div>
+								<div class="col-md-8 col-lg-9">${aPage.writer }</div>
 							</div>
-							<div><label class="ml-4">신청자</label><span class="ml-1">${aPage.writer }</span></div>
-							<div><label class="ml-4">사용 가능 언어</label><span class="ml-1">${aPage.languages }</span></div>
-							<div><label class="ml-4">성별</label><span class="ml-1">${aPage.genderInKor }</span></div>
-							<div><label class="ml-4">나이</label><span class="ml-1">${aPage.formedAge }</span></div>
-							<div><label class="ml-4">재직여부</label><span class="ml-1">${aPage.workInInKor }</span></div>
-							<div><label class="ml-4">포트폴리오 열람 공개여부</label><span class="ml-1">${aPage.portfolioInKor }</span>
+							<div class="row pl-3 mb-3">
+								<div class="col-md-4 col-lg-3  dLabel">사용 가능 언어</div>
+								<div class="col-md-8 col-lg-9" style="word-break:break-all;word-break:break-word;">${aPage.languages }</div></div>
+							<div class="row pl-3 mb-3">
+								<div class="col-md-4 col-lg-3 dLabel">성별</div>
+								<div class="col-md-8 col-lg-9">${aPage.genderInKor }</div>
+							</div>
+							<div class="row pl-3 mb-3">
+								<div class="col-md-4 col-lg-3 dLabel">나이</div>
+								<div class="col-md-8 col-lg-9">${aPage.formedAge }</div>
+							</div>
+							<div class="row pl-3 mb-3">
+								<div class="col-md-4 col-lg-3 dLabel">재직여부</div>
+								<div class="col-md-8 col-lg-9">${aPage.workInInKor }</div>
+							</div>
+							<div class="row pl-3 mb-3">
+								<div class="col-md-4 col-lg-3 dLabel">포트폴리오 공개여부</div>
+								<div class="col-md-8 col-lg-9">${aPage.portfolioInKor }								
 								<c:if test="${aPage.portfolio=='Y' }">
 									<span onclick="pLogPopUp('/Portfolio/toPlog.do?owner=${aPage.id}&other=Y')" class="badge badge-info" id="openPortfolio" style="cursor:pointer;">열람하기</span>
 								</c:if>
+								</div>
+							</div>							
+							<div class="row pl-3 mb-2">
+								<div class="col-12 dLabel">하고싶은 말</div>
 							</div>
-							<div><label class="ml-4">하고싶은 말</label></div>
-							<div id="pPageContents" class="rounded" style="word-break:break-all;word-break:break-word;">${aPage.etc }</div>
+							<div class="row pl-3 pr-3">
+								<div id="pPageContents" class="col-11 rounded ml-3" style="word-break:break-all;word-break:break-word;">${aPage.etc }</div>
+							</div>	
+							
+							
+							
 							<div class="text-center checkBtn mt-4">
 							
 								<c:choose>
@@ -78,25 +99,27 @@ body{background-color:#e9ecef;}
 											<c:when test="${aPage.id == sessionScope.loginInfo.id }">												
 												<p style="font-weight:bold;">신청 후 <span style="color:orange;font-weight:bold;">승인 대기중</span>입니다.</p>
 												<button type="button" class="btn btn-warning" id="applyCancelBtn">신청취소</button>
+												
 											</c:when>
 										</c:choose>
 									</c:when>															
 								</c:choose>
 													
 							</div>
-						</div>						
+						</div>	
+						<input type=hidden id="applySeq" value="${aPage.seq}">					
 					</c:if>
 				</div>
 				
 				<div id="pageFooter">
 					<span class="float-right">
 						<c:if test="${aPage.leaderId == sessionScope.loginInfo.id }">
-							<a class="btn btn-secondary" href="/project/apply/list?projectSeq=${aPage.projectSeq}" role="button">목록</a>
+							<button class="btn btn-secondary" onclick="openApplyList()">목록</button>
+							<form id="pageChange" method="post"><input type="hidden" name="projectSeq" value="${aPage.projectSeq }"></form>
 						</c:if>
 					</span>
 				</div>          
-            </div>
-            <div class="d-md-none text-center">해당 해상도에서는 지원하지 않습니다</div>
+            </div>            
             <!--       몸통 끝!!!   -->
 
 
@@ -110,68 +133,6 @@ body{background-color:#e9ecef;}
         
 		<jsp:include page="/WEB-INF/views/project/jsp/approveModal.jsp"/>    
 		<jsp:include page="/WEB-INF/views/project/jsp/denialModal.jsp"/>
-<%--         <jsp:include page="/WEB-INF/views/standard/footer.jsp"/> --%>
-        
-        <script>
-			function popUp(link){
-				window.open(link, "applyPopUp", "width=1000,height=750");
-			}
-			function pLogPopUp(link){
-				window.open(link, "pLogPopUp", "width=800,height=600");
-			}			
-	        $("#applyCancelBtn").on("click",function(){
-	        	var check = confirm("신청을 취소하시겠습니까?");
-	        	if(check){
-	        		$.ajax({
-	        			type:"post",
-	        			url:"/project/apply/deleteProc",
-	        			data:{seq:"${aPage.seq}"}
-	        		}).done(function(resp){
-	        			alert("신청이 취소되었습니다.");
-						window.opener.document.location.href = window.opener.document.URL;  
-						window.close();
-	        		}).fail(function(resp){
-	        			
-	        		});
-	        	}
-	        });
-	        
-        	$("#approveBtn").on("click",function(){
-        		var check = confirm("승인 하시겠습니까?");
-        		if(check){
-        			$.ajax({
-        				type:"post",
-        				url:"/project/apply/approveApply",
-        				data:{seq:"${aPage.seq}"}
-        			}).done(function(resp){
-        				$("#pApproveModal").modal('show');
-        				$("#approveProcBtns").remove();
-        				$(".checkBtn").append('<span style="font-weight:bold;">신청 <span style="color:limegreen;font-weight:bold;">승인</span>되었습니다.</span>');
-        				window.opener.document.location.href = window.opener.document.URL;
-        			}).fail(function(resp){
-    					alert("신청 실패!");
-        			});
-        		}        		
-        	});
-        	
-        	$("#denialBtn").on("click",function(){
-        		var check = confirm("승인 거절 하시겠습니까?");
-        		if(check){
-        			$.ajax({
-        				type:"post",
-        				url:"/project/apply/denyApply",
-        				data:{seq:"${aPage.seq}"}
-        			}).done(function(resp){
-        				$("#pDenialModal").modal('show');
-    					$("#approveProcBtns").remove();
-        				$(".checkBtn").append('<span style="font-weight:bold;">신청 <span style="color:red;font-weight:bold;">거절</span>되었습니다.</span>');
-        				window.opener.document.location.href = window.opener.document.URL;
-        			}).fail(function(resp){
-    					alert("신청 실패!");
-        			});
-        		}        		
-        	});
-        
-        </script>
+        <script src="/js/project/applyDetail.js"></script>
 </body>
 </html>

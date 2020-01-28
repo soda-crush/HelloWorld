@@ -1,7 +1,6 @@
 @charset "UTF-8";
 #pageTitle{margin-bottom:20px;}
 #pageTitle h1{display:inline;margin-right:10px;font-weight:bold;}
-#pageTitle .btn{margin-left:5px;}
 .tableDiv{border-radius:5px;}
 .tableHead{
     font-size: 1rem;
@@ -38,3 +37,20 @@
 #pPageNavi{margin-top:30px;}
 img{max-width:100%;}
 #baseBackgroundColor{min-height:603px;}
+#stateCountLabel{
+	background-color:limegreen;
+	color:white;
+	line-height:30px;
+	font-size:25px;
+	position:relative;
+	top:-5px;
+}
+#deadlineComment{
+	display:none;
+}
+.titleWrap0{
+max-width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;font-weight:bold;
+}
+.titleWrap1{
+max-width:81%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;font-weight:bold;
+}

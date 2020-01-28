@@ -25,48 +25,20 @@ public class ProjectDTO {
 	private Timestamp writeDate;
 	private String state;
 	private int viewCount;
+	private String nonTagContents;
 	private int commentCount;
+	private int imageCount;
 	private int applyCount;
 	private int scrap;
 	private Timestamp changeDate;
 	private int totalApply;
 	private int totalApprove;
 	private String profileImg;
-	
+	private String modTitle;
 	
 	public ProjectDTO() {
 		super();
 	}	
-	public ProjectDTO(int seq, String title, String contents, String location1, String location2, int capacity,
-			Date startDate, Date endDate, String languages, String phone, String email, String writer, String id,
-			Timestamp writeDate, String state, int viewCount, int commentCount, int applyCount, int scrap,
-			Timestamp changeDate, int totalApply, int totalApprove, String profileImg) {
-		super();
-		this.seq = seq;
-		this.title = title;
-		this.contents = contents;
-		this.location1 = location1;
-		this.location2 = location2;
-		this.capacity = capacity;
-		this.startDate = startDate;
-		this.endDate = endDate;
-		this.languages = languages;
-		this.phone = phone;
-		this.email = email;
-		this.writer = writer;
-		this.id = id;
-		this.writeDate = writeDate;
-		this.state = state;
-		this.viewCount = viewCount;
-		this.commentCount = commentCount;
-		this.applyCount = applyCount;
-		this.scrap = scrap;
-		this.changeDate = changeDate;
-		this.totalApply = totalApply;
-		this.totalApprove = totalApprove;
-		this.profileImg = profileImg;
-	}
-
 
 	public int getSeq() {
 		return seq;
@@ -164,11 +136,23 @@ public class ProjectDTO {
 	public void setViewCount(int viewCount) {
 		this.viewCount = viewCount;
 	}
+	public String getNonTagContents() {
+		return nonTagContents;
+	}
+	public void setNonTagContents(String nonTagContents) {
+		this.nonTagContents = nonTagContents;
+	}
 	public int getCommentCount() {
 		return commentCount;
 	}
 	public void setCommentCount(int commentCount) {
 		this.commentCount = commentCount;
+	}
+	public int getImageCount() {
+		return imageCount;
+	}
+	public void setImageCount(int imageCount) {
+		this.imageCount = imageCount;
 	}
 	public int getApplyCount() {
 		return applyCount;
@@ -208,6 +192,14 @@ public class ProjectDTO {
 	}
 	
 	
+	public String getModTitle() {
+		this.modTitle = this.title.replaceAll("\"","modF'Fdom");
+		return this.modTitle;
+	}
+	
+	public void setModComment(String title) {
+		this.modTitle = getModTitle();
+	}
 	
 	public String getKakaoTitle() {		
 		return this.title.replaceAll("\"","\\\\\"");		 
@@ -229,9 +221,14 @@ public class ProjectDTO {
 	}
 	
 	public String getFormedWriteDate() {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
-		return sdf.format(this.writeDate);		
-	}	
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+		return sdf.format(this.writeDate);						
+	}
+	public String getFormedChangeDate() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+		return sdf.format(this.changeDate);						
+	}
+	
 	public String getFormedCalStartDate() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		return sdf.format(this.startDate);
@@ -289,4 +286,20 @@ public class ProjectDTO {
 		}
 		return result;
 	}
+
+
+	@Override
+	public String toString() {
+		return "ProjectDTO [seq=" + seq + ", title=" + title + ", contents=" + contents + ", location1=" + location1
+				+ ", location2=" + location2 + ", capacity=" + capacity + ", startDate=" + startDate + ", endDate="
+				+ endDate + ", languages=" + languages + ", phone=" + phone + ", email=" + email + ", writer=" + writer
+				+ ", id=" + id + ", writeDate=" + writeDate + ", state=" + state + ", viewCount=" + viewCount
+				+ ", nonTagContents=" + nonTagContents + ", commentCount=" + commentCount + ", imageCount=" + imageCount
+				+ ", applyCount=" + applyCount + ", scrap=" + scrap + ", changeDate=" + changeDate + ", totalApply="
+				+ totalApply + ", totalApprove=" + totalApprove + ", profileImg=" + profileImg + ", modTitle="
+				+ modTitle + "]";
+	}
+	
+	
+	
 }

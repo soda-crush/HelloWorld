@@ -31,11 +31,20 @@
         ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "ee6b7db5b51705a13dc2339db3edaf6d"];
     </script>
 <style>
-#guest img{
-	opacity:50%;
+#guest #plogLogo{
+	display:block;
 }
-.metismenu #guest:hover img, .metismenu #guest.active img {
-	opacity:100%;
+
+#guest #plogLogoActive{
+	display:none;
+}
+
+.metismenu #guest:hover #plogLogo, .metismenu #guest.active #plogLogo {
+	display:none;
+}
+
+.metismenu #guest:hover #plogLogoActive, .metismenu #guest.active #plogLogoActive {
+	display:block
 }
 	.notification-area {
 		text-align:right;
@@ -43,6 +52,11 @@
 	#chartdiv {
   width: 100%;
   height: 500px;
+	}
+	
+	.page-title a{
+		text-decoration:none;
+		color:#313b3d;
 	}
 </style>
 </head>
@@ -68,7 +82,9 @@
                 <div class="row align-items-center">
                     <div class="col-sm-6">
                         <div class="breadcrumbs-area clearfix">
-                            <h4 class="page-title pull-left">모니터링</h4>
+                            <h4 class="page-title pull-left">
+				            	<a href="${pageContext.request.contextPath }/admin/main">모니터링</a>
+                            </h4>
                             <ul class="breadcrumbs pull-left">
                                 <li><a href="${pageContext.request.contextPath }/admin/main">Home</a></li>
                                 <li><span>모니터링</span></li>
@@ -100,8 +116,8 @@
                                     <div class="seo-fact sbg1 mb-5">
                                         <div class="p-4 d-flex justify-content-between align-items-center">
                                             <div class="seofct-icon"><i class="ti-thumb-up"></i> TODAY</div>
-                                            <h2>${count.today}</h2>                                        </div>
-                                        
+                                            <h2>${count.today}</h2>                                        
+                                        </div>
                                     </div>   
                                     
                                    	<div class="seo-fact sbg2">
@@ -440,19 +456,19 @@ if ($('#visitChange').length > 0) {
 	        "theme": "light",
 	        "marginRight": 0,
 	        "dataProvider": [{
-	            "joinPath": "${joinPath[0].formedPath}",
+	            "joinPath": "${joinPath[0].joinPath}",
 	            "visits": count0,
 	            "color": "#8918FE"
 	        }, {
-	            "joinPath": "${joinPath[1].formedPath}",
+	            "joinPath": "${joinPath[1].joinPath}",
 	            "visits": count1,
 	            "color": "#7474F0"
 	        }, {
-	            "joinPath": "${joinPath[2].formedPath}",
+	            "joinPath": "${joinPath[2].joinPath}",
 	            "visits": count2,
 	            "color": "#C5C5FD"
 	        }, {
-	            "joinPath": "${joinPath[3].formedPath}",
+	            "joinPath": "${joinPath[3].joinPath}",
 	            "visits": count3,
 	            "color": "#FD9C21"
 	        }],

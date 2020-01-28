@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
         <!-- Modal -->
 		<div class="modal fade" id="reportModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="reportModalLabel" aria-hidden="true">
 		  <div class="modal-dialog" role="document">
@@ -18,7 +18,7 @@
 						<div class="col-12" id="reportReasonBox">
 							<textarea class="form-control form-control-sm" placeholder="신고사유를 작성해주세요" name="reason" id="reportReasonInput" style="height:100px;" maxlength="300"></textarea>
 							<input type=hidden name="boardSeq" value="${pPage.seq }">							
-							<input type=hidden name="title" value="${pPage.title }">
+							<input type=hidden name="title" value="${fn:escapeXml(pPage.title)}">
 						</div>
 					</div>						
 			      		       

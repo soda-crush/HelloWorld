@@ -1,6 +1,6 @@
 @charset "UTF-8";
 #pageTitle{margin-bottom:40px;}
-#pageTitle h1{display:inline;margin-right:10px;font-weight:bold;}
+#pageTitle h2{display:inline;font-weight:bold;}
 #pageTitle .btn{margin-left:5px;}
 .tableDiv{border-radius:5px;border-spacing:}
 .tableHead{
@@ -33,3 +33,5 @@
 .applyRowX div{color:lightgray;}
 .pageListFooter{margin-top:20px;}
 img{max-width:100%;}
+body{background-color:#e9ecef;}
+#aPageNavi{margin-top:20px;}

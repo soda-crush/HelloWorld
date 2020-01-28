@@ -4,9 +4,7 @@ import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -28,6 +26,7 @@ import kh.hello.dto.BoardLogDTO;
 import kh.hello.dto.ChartGenderDTO;
 import kh.hello.dto.ChartGenerationDTO;
 import kh.hello.dto.ChartJoinPathDTO;
+import kh.hello.dto.ChartMainDTO;
 import kh.hello.dto.ChartVisitChangeDTO;
 import kh.hello.dto.ChartWorkDTO;
 import kh.hello.dto.CommentLogDTO;
@@ -437,10 +436,10 @@ public class AdminService {
 		return pages;
 	}
 	
-	public Map<String, Integer> getVisitorCount() throws Exception{		
-		Map<String, Integer> result = new HashMap<>();
-		result.put("today", ctdao.getVisitTodayCount());
-		result.put("total", ctdao.getVisitTotalCount());
+	public ChartMainDTO getVisitorCount() {		
+		ChartMainDTO result = new ChartMainDTO();
+		result.setToday(ctdao.getVisitTodayCount());
+		result.setTotal(ctdao.getVisitTotalCount());
 		return result;
 	}
 	
@@ -613,6 +612,26 @@ public class AdminService {
 			adao.delImgsByBoardSeq(seq);
 		}
 		return result;
+	}
+	
+	public String ifmOpenModify(String id) {
+		//1.  ifmOpenCheck  null값인지 체크(탈퇴여부)
+		String check = adao.validOpen(id);
+		//2.  ifmOpenCheck  변경
+		if(check != null) {
+			int result = adao.ifmOpenModify(id, check);
+			if(result > 0) {
+				if(check.equals("Y")) {
+					return "비공개 상태로 변경되었습니다.";
+				}else {
+					return "공개 상태로 변경되었습니다.";
+				}	
+			}else {
+				return "문제가 발생했습니다. 새로고침 후 다시 시도해주세요.";
+			}
+		}else {
+			return "변경할 수 없습니다. 탈퇴한 회원입니다.";
+		}		
 	}
 }
 

@@ -223,7 +223,6 @@ public class MemberService {
 						    String title   = "[Hello World!]  아이디/비밀번호 찾기 인증 코드입니다.";      // 제목
 						    String content = "해당코드를 입력창에 입력해주세요 : " + ctfCode;    // 내용
 						  
-						    
 						  //디비에 이메일이랑 인증코드 저장
 							int ctfDupleCheck = mdao.selectCtfMail(email);
 							if(ctfDupleCheck > 0) {
@@ -231,8 +230,8 @@ public class MemberService {
 							}else {
 								this.insertCtfCode(email, ctfCode);
 							}
-							 
-							    	 MimeMessage message = mailSender.createMimeMessage();
+									
+									MimeMessage message = mailSender.createMimeMessage();
 								      MimeMessageHelper messageHelper 
 								                        = new MimeMessageHelper(message, true, "UTF-8");
 								      

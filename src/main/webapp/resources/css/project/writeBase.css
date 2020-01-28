@@ -1,6 +1,6 @@
 @charset "UTF-8";
 #pageTitle{margin-bottom:40px;}
-#pageTitle h1{display:inline;margin-right:10px;font-weight:bold;}
+#pageTitle h2{display:inline;font-weight:bold;}
 #pageFooter{padding-top:10px;}
 #pBody{margin-top:20px;}
 #pInfo *,#pBody *{font-size:15px;}
@@ -28,3 +28,5 @@
 .bootstrap-tagsinput .tag{color: white;}
 .bootstrap-tagsinput .tag [data-role="remove"]:after{color: red;font-weight: bold;padding: 0px;}
 img{max-width:100%;}
+/* #pInfo > div:nth-child(4) > div.col-md-7 > div > span > input.tt-input{max-width:620px;} */
+#pInfo > div:nth-child(4) > div.col-md-7 > div > span > input.tt-input{max-width:380px;}

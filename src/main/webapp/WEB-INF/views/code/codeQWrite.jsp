@@ -119,7 +119,7 @@
 				<div class=row>
 					<div class="col-12 content">
 						<textarea name="content" id="content" style="display: none" class="summernote"></textarea>
-<!-- 						<div id="summernote"></div> -->
+						<input type="hidden" id="nonTagContents" name="nonTagContents">	
 					</div>
 				</div>
 				
@@ -158,6 +158,7 @@
 			placeholder : '내용을 입력해주세요',
 			height : 500,
 			lang: 'ko-KR',
+			codeviewFilter: true,
 			toolbar: [
 	            ['style', ['style']],
 	            ['font', ['bold', 'underline', 'clear']],
@@ -178,10 +179,10 @@
 		})
 		
 		$("#write").on("click", function(){
-// 		   regex = /^[(<p><br></p>)(<p>(&nbsp; ){1,}</p>)]{0,}$/g;
+		   var oriCon = $("#content").val();
+		   var nonTagCon = oriCon.replace(/(<([^>]+)>)/ig,"");
+		   $("#nonTagContents").val(nonTagCon);
 		   var regex = /^[(<p><br></p>)(<p>(&nbsp; )+</p>)]{0,}$/g;
-		   
-//		   var content = $(".note-editable").text();
  		   var content = $(".summernote").val();
 		   var result = regex.exec(content);
 

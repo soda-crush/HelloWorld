@@ -4,10 +4,12 @@ import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.sql.Date;
-import java.time.Duration;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -17,16 +19,14 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Base64Utils;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 
 import kh.hello.configuration.Configuration;
 import kh.hello.dao.ProjectDAO;
 import kh.hello.dto.ProjectApplyDTO;
+import kh.hello.dto.ProjectChartDTO;
 import kh.hello.dto.ProjectCoDTO;
 import kh.hello.dto.ProjectDTO;
 import kh.hello.dto.ProjectImageDTO;
-import kh.hello.dto.ProjectChartDTO;
 import kh.hello.dto.ProjectPLogDTO;
 import kh.hello.dto.ReportDTO;
 import kh.hello.utils.Utils;
@@ -44,15 +44,13 @@ public class ProjectService {
 	public void letProjectClose() {
 		LocalDate today = LocalDate.now();
 		Date date = Date.valueOf(today);
-		List<ProjectDTO> list = dao.checkForcedCloseProject(date);
-		int result = dao.letProjectClose(date);		
+		List<Integer> list = dao.checkForcedCloseProject(date);
 		if(list.size()>0) {
-			for(ProjectDTO p : list) {
-				dao.closeProjectApply(p.getSeq());
-			}
-		}
-		System.out.println("모집완료 변경된 프로젝트 : "+result+"개");
-		System.out.println("거절된 프로젝트신청 : "+list.size()+"개");
+			for(Integer i : list) {
+				dao.letProjectClose(i);
+				dao.closeProjectApply(i);
+			}	
+		}					
 	}
 	
 	
@@ -61,8 +59,11 @@ public class ProjectService {
 	 * 프로젝트 모집
 	 */
 	
-	public List<ProjectChartDTO> projectList(String id, String pageOrder){
-		List<ProjectChartDTO> result = dao.getProjectList(id, pageOrder);
+	public List<ProjectChartDTO> projectList(String id, String pageOrder, String searchOption, String keyword){
+		if(keyword!=null) {
+			keyword=Utils.protectXss(keyword);
+		}
+		List<ProjectChartDTO> result = dao.getProjectList(id, pageOrder, searchOption, keyword);
 		LocalDate today = LocalDate.now();
 		int tYear = today.getYear();
 		int tMonth = today.getMonthValue();
@@ -72,22 +73,35 @@ public class ProjectService {
 			LocalDate eDate = m.getEndDate().toLocalDate();
 			int sYear = sDate.getYear();
 			int sMonth = sDate.getMonthValue();
-			int sDay = sDate.getDayOfMonth();						
+			int sDay = sDate.getDayOfMonth();			
+			Period p = Period.between(sDate, eDate);
+			double duration = p.getMonths()*105 + p.getDays()*3.2;
+			if(sMonth!=eDate.getMonthValue()) {
+				duration += 2;
+			}			
 			if(tYear==sYear) {
-				long distance = (sMonth-tMonth)*105 + sDay*3;
-				m.setDistance(distance);
-				long duration = Duration.between(sDate.atStartOfDay(), eDate.atStartOfDay()).toDays()*3;
+				double distance = (sMonth-tMonth)*105 + sDay*3.2;				
 				if(distance+duration>626) {
 					duration -= (distance+duration)-626;
 				}
-				m.setWidth(duration);							
+				m.setDistance(distance);				
+			}else {
+				double distance = ((12-tMonth)+sMonth)*105 + sDay*3.2;
+				if(distance+duration>626) {
+					duration -= (distance+duration)-626;
+				}
+				m.setDistance(distance);				
 			}
+			m.setWidth(duration);	
 			m.setToday(tMonth+"-"+tDate);
 		}
 		return result;
 	}
 			
 	public String getPageNavi(int currentPage, String pageOrder, String searchOption, String keyword) {
+		if(keyword!=null) {
+			keyword=Utils.protectXss(keyword);
+		}
 		int recordTotalCount = dao.getArticleCount(pageOrder, searchOption, keyword);
 		int pageTotalCount = 0;		
 		if(recordTotalCount % Configuration.recordCountPerPage>0) {
@@ -164,6 +178,9 @@ public class ProjectService {
 	}
 	
 	public List<ProjectDTO> projectListPerPage(int start, int end, String pageOrder, String searchOption, String keyword){
+		if(keyword!=null) {
+			keyword=Utils.protectXss(keyword);
+		}
 		return dao.getProjectListPerPage(start, end, pageOrder, searchOption, keyword);
 	}
 	
@@ -180,14 +197,15 @@ public class ProjectService {
 	public String projectWrite() {
 		//String[] v = {"markup","css","sass","javascript","java","python","groovy","scala","php","bash","coffeescript","go","haskell","c","cpp","sql","ruby","aspnet","csharp","swift","objectivec"};
 		String[] v = {"HTML/Markup","CSS","Sass","JavaScript","Java","Python","Groovy","Scala","PHP","Bash","CoffeeScript","Go","Haskell","C","C++","SQL","Ruby","ASP.NET","C#","Swift","Objective-C"};
-		JsonArray array = new JsonArray();
+		Gson gson = new Gson();		
+		List<Map<String,String>> list = new ArrayList<>();
 		for(int i=0;i<v.length;i++) {
-			JsonObject obj = new JsonObject();
-			obj.addProperty("value", v[i]);
-			obj.addProperty("text", v[i]);
-			array.add(obj);
+			Map<String,String> map = new HashMap<>();
+			map.put("value", v[i]);
+			map.put("text", v[i]);
+			list.add(map);
 		}
-		return array.toString();		
+		return gson.toJson(list);		
 	}
 	
 	@Transactional("txManager")
@@ -344,7 +362,7 @@ public class ProjectService {
 			if(p.getContents()!=null) {
 				p.setModComment(p.getContents());
 			}					
-		}
+		}				
 		return gson.toJson(result);
 	}
 	
@@ -447,18 +465,18 @@ public class ProjectService {
 		StringBuilder sb = new StringBuilder();
 		sb.append("<ul class='pagination justify-content-center'>");
 		if(needPrev) {
-			sb.append("<li class='page-item'>");		
-			sb.append("<a class='page-link' href='/project/apply/list?page="+(startNavi-1)+"' aria-label='Previous'>");	
-			sb.append("<span aria-hidden='true'>&laquo;</span></a></li>");			
+			sb.append("<li class='page-item' style='cursor:pointer;'>");			
+			sb.append("<span class='page-link' onclick='openApplyList("+(startNavi-1)+")' aria-label='Previous'>");
+			sb.append("<span aria-hidden='true'>&laquo;</span></span></li>");			
 		}
-		for(int i=startNavi;i<=endNavi;i++) {
-			sb.append("<li class='page-item pNavi"+i+"'><a class='page-link' href='/project/apply/list?page="+i+"'>"+i+"</a></li>");			
+		for(int i=startNavi;i<=endNavi;i++) {			
+			sb.append("<li class='page-item pNavi"+i+"' style='cursor:pointer;'><span class='page-link' onclick='openApplyList("+i+")'>"+i+"</span></li>");
 		}			
 		
 		if(needNext) {
-			sb.append("<li class='page-item'>");
-			sb.append("<a class='page-link' href='/project/apply/list?page="+(endNavi+1)+"' aria-label='Next'>");	
-			sb.append("<span aria-hidden='true'>&raquo;</span></a></li>");			
+			sb.append("<li class='page-item' style='cursor:pointer;'>");
+			sb.append("<span class='page-link' onclick='openApplyList("+(endNavi+1)+")' aria-label='Next'>");	
+			sb.append("<span aria-hidden='true'>&raquo;</span></span></li>");			
 		}
 		sb.append("</ul>");
 		return sb.toString();
@@ -497,12 +515,16 @@ public class ProjectService {
 	
 	
 	public String getPLogProjectPageNavi(int currentPage, String id, String listType, String searchOption, String keyword) {
-		
+		if(keyword!=null) {
+			keyword=Utils.protectXss(keyword);
+		}
 		int recordTotalCount = 0;
 		if(listType.contentEquals("makeProjectList")) {
 			recordTotalCount = dao.getMakeArticleCount(id, searchOption, keyword);
 		}else if(listType.contentEquals("applyProjectList")) {
 			recordTotalCount = dao.getApplyArticleCount(id, searchOption, keyword);
+		}else if(listType.contentEquals("makeGuestProjectList")) {
+			recordTotalCount = dao.getMakeArticleCount(id, null, null);
 		}
 		
 		
@@ -553,10 +575,16 @@ public class ProjectService {
 	}
 	
 	public List<ProjectDTO> makeProjectListPerPage(int start, int end, String id, String searchOption, String keyword){
+		if(keyword!=null) {
+			keyword=Utils.protectXss(keyword);
+		}
 		return dao.getMakeProjectListPerPage(start, end, id, searchOption, keyword);
 	}
 	
 	public List<ProjectPLogDTO> applyProjectListPerPage(int start, int end, String id, String searchOption, String keyword){
+		if(keyword!=null) {
+			keyword=Utils.protectXss(keyword);
+		}
 		return dao.getApplyProjectListPerPage(start, end, id, searchOption, keyword);
 	}
 	

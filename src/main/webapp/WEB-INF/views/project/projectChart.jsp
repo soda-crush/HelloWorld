@@ -22,72 +22,7 @@
    $(function(){
       $("#proNavi").attr('class','nav-item nav-link active');      
    });
-
 </script>
-<style>
-	#pageTitle{margin-bottom:20px;}
-	#pageTitle h1{display:inline;margin-right:10px;font-weight:bold;}
-	#pageTitle .btn{margin-left:5px;}
-	#pageComment{margin-bottom:20px;}
-	.projectList{margin-bottom:10px;}	
-	.pTextInfo label.N{background-color:limegreen;}
-	.pTextInfo label.Y{background-color:red;}
-	.pTextInfo label{color:white;}
-	.pTextInfo{padding:15px;background-color:#ffffff;border-radius:10px 0px 0px 10px;}
-	.graphNaviItem:last-of-type{border-radius:0px 10px 10px 0px;}
-	.graphNaviItem:not(:first-of-type){margin-left:2px;}
-	.pGraphBar{position:relative;}
-    .fa-share-alt,.scrapDone,.scrapNull{margin-left:15px;}
-    .pInfoBox span{font-size:15px;display:inline-block;}
-	.pInfoBox span:first-of-type{width:180px;}
-	.pInfoBox span:nth-of-type(2){width:90px;}
-    .pTitleBox{font-weight:bold;}     
-    .pTextInfo{z-index:1;}
-	.graphNaviItem{background-color:#e0e0e0;color:#59595990;text-align:center;width:103px;padding-top:130px;}
-	.progressBar{
-		height:50px;
-		background-color:#ffc107;		
-		position:absolute;
-		top:50%; 
- 		left:50%;       	 
-    }
-    .todayBar{
-    	height:70px;
-    	width:2px;
-    	background-color:crimson;
-    	position:absolute;
-    	top:50%;
-    	left:50%;
-    	z-index:5;
-    }
-    .todayFlag{
-            padding: 1px;
-            font-size: 13px;
-            font-weight: bold;            
-            text-align: center;
-            background-color: crimson;
-            color:white;
-    		position:absolute;
-    	    width:50px;
-            top: -20px;
-            left: -25px;
-            border-radius: 10px;            
-    }
-    .pTitleBox:hover{cursor:pointer;}
-    .progressBar:hover{cursor:pointer;}    
-    .scrapDone{color:crimson;}
-	.kakaoSharing,.scrapDone,.scrapNull:hover{cursor:pointer;}
-	.kakaoSharing:hover{color:#ffc107;}
-	#stateCountLabel{
-		background-color:limegreen;
-		color:white;
-		line-height:30px;
-		font-size:25px;
-		position:relative;
-		top:-5px;
-	}
-#baseBackgroundColor{min-height:603px;}
-</style>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/standard/header.jsp"/>
@@ -105,29 +40,56 @@
                
 	            <div class=container id="projectPage">
 					<div id="pageTitle" class="row">
-						<div class="col-12 col-lg-5"><h1>프로젝트 모집</h1><span class="badge badge-pill ml-2" id="stateCountLabel">${projectList.size() }</span></div>
-						<div class="col-12 col-lg-7 pt-2">
-							<a class="btn btn-secondary" href="/project/list" role="button">게시판</a>
-							<a class="btn btn-danger" href="/project/chart" role="button">일정</a>							
+						<div class="col-12 col-md-6 col-lg-5 m-0 p-0"><h1 onclick="location.href='/project/chart'" style="cursor:pointer">프로젝트 모집</h1><span class="badge badge-pill ml-2" id="stateCountLabel">${projectList.size() }</span></div>
+						<div class="col-12 col-md-6 col-lg-7 m-0 p-0 pt-2 pb-1 text-right">
+							<div style="width:180px;height:35px;display:inline-block;border-bottom:2px solid #99000030;cursor:pointer" class="text-center pt-1" onclick="location.href='/project/list'"><span style="color:black;font-weight:bold;font-size:18px;opacity:30%;">게시판</span></div>
+							<div style="margin-left:-5px;width:180px;height:35px;display:inline-block;border-bottom:2px solid crimson;cursor:pointer" class="text-center pt-1" onclick="location.href='/project/chart'"><span style="color:black;font-weight:bold;font-size:18px;">일정</span></div>
 						</div>
 					</div>	
 					
 					<div class="projectChartDiv d-none d-xl-block">
 						<div class="row mb-3">
-							<div class="col-12">
-								<div class="btn-group" role="group">
-									<button type="button" class="btn btn-outline-warning btn-sm active" id="latestOrder">최신순</button>
-									<button type="button" class="btn btn-outline-warning btn-sm" id="deadlineOrder">마감임박순</button>
-									<span class="ml-3 pt-1" style="height:15px;color:#8a8a8a;"><strong>모집중인 프로젝트만 표시됩니다</strong></span>
-									<input type="hidden" name="pageOrder" id="pageOrder">
-								</div>
+							<div class="col-5 col-md-3 col-lg-2 p-0">
+								<div class="btn-group btn-group-sm" role="group" aria-label="projectOrderBtns">
+									<button type="button" class="btn btn-outline-warning btn-sm active" id="latestOrder" style="font-size:14px;">최신순</button>
+									<button type="button" class="btn btn-outline-warning btn-sm" id="deadlineOrder" style="font-size:14px;">마감임박순</button>								
+								</div>							
 							</div>
+							<div class="col-7 col-md-9 col-lg-10 p-0">
+								<div class="pt-1" style="color:#8a8a8a;display:inline-block;"><small>모집중인 프로젝트만 표시됩니다</small></div>
+<!-- 								<input type="hidden" name="pageOrder" id="pageOrder"> -->
+								
+								
+								<div class="float-right" style="display:inline-block;">
+									  <form class="form-inline" action="/project/chart" method="post" id="searchFrm">
+										<select class="form-control searchSelect" name="searchOption" id="searchOption" style="margin-right:5px;">
+											<option value="all" selected>제목+내용</option>
+										    <option value="title">제목</option>
+										    <option value="nonTagContents">내용</option>
+										    <option value="location">지역</option>
+										    <option value="capacity">인원</option>
+										    <option value="languages">사용언어</option>
+										    <option value="writer">작성자</option>									    
+										</select>
+										<input type="hidden" name="pageOrder" id="pageOrder">
+										<input type="hidden" id="searchChoice" value="${searchChoice }">
+										<input type="hidden" id="keywordChoice" value="${keywordChoice }">										
+									    <input class="form-control mr-sm-2" type="search" placeholder="검색어를 입력하세요(20자 이내)" aria-label="Search" name="keyword" id="keyword" style="margin-right:5px;min-width:285px;" maxlength="20">
+									    <button class="btn btn-dark my-2 my-sm-0 ml-1" type="submit" id="searchBtn">검색</button>
+									  </form>
+								</div>
+							
+							
+							</div>	
 						</div>
 											
 					<div class="projectContainer">
 						<c:choose>
-							<c:when test="${projectList.size()==0 }">
-					  			<div class="row"><div class="col-12">모집중인 프로젝트가 없습니다.</div></div>
+							<c:when test="${not empty searchChoice && projectList.size()==0}">
+								<div class="row"><div class="col-12 text-center mt-2">검색 결과가 없습니다.</div></div>
+							</c:when>
+							<c:when test="${empty searchChoice && projectList.size()==0 }">
+					  			<div class="row"><div class="col-12 text-center mt-2">모집중인 프로젝트가 없습니다.</div></div>
 					  		</c:when>
 					  		<c:otherwise>					  		
 					  			<c:forEach items="${projectList }" var="p">
@@ -143,12 +105,13 @@
 													<i class="fa fa-bookmark-o scrapNull" id="scrap${p.seq }" data-toggle="tooltip" title="스크랩" onclick="scrapFunc(${p.seq})"></i>									
 												</c:otherwise>
 											</c:choose>
-											<span class="float-right"><i class="fa fa-calendar-check-o"></i> ${p.formedAllDate }</span>
+											<span class="float-right"><i class="fa fa-calendar-check-o"></i> <small>${p.formedAllDate }</small></span>
 											<div class="pTitleBox mt-1 mb-1" style="max-width:430px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" onclick="popUp('/project/detailView?seq=${p.seq }')">${p.title }</div>
 											<div class="pInfoBox mt-1" style="height:50px;">
 												<div>
 													<span><i class="fa fa-map-marker"></i> ${p.location1 } ${p.location2 }</span>
-													<span><i class="fa fa-user"></i> ${p.capacity }명</span>
+													<span><i class="fa fa-group"></i> ${p.capacity }명</span>
+													<span><i class="fa fa-user"></i> ${p.writer }</span>
 												</div>
 												<div>
 													<div style="max-width:430px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block"><i class="fa fa-check"></i> ${p.languages }</div>
@@ -161,16 +124,24 @@
 											<ul class="nav graphNavi">
 											<c:set var="month" value="${fn:split(p.today,'-')[0] }"></c:set>
 											  <c:forEach begin="0" end="5" step="1" var="m">
-											  	<li class="nav-item graphNaviItem">${month+m }월</li>
+											  	<c:choose>
+											  		<c:when test="${month+m >12}">
+											  			<li class="nav-item graphNaviItem">${month+m-12 }월</li>
+											  		</c:when>
+												  	<c:otherwise>
+												  		<li class="nav-item graphNaviItem">${month+m }월</li>
+												  	</c:otherwise>
+											  	</c:choose>											  	
 											  </c:forEach>
 											</ul>
-											<div class="todayBar" style="transform: translate(${fn:split(p.today,'-')[1]*3 -330}px, -50%);"><div class="todayFlag" data-toggle="tooltip" title="${fn:split(p.today,'-')[0] }월 ${fn:split(p.today,'-')[1] }일" style="cursor:pointer;">오늘</div></div>												
-											<div class="progressBar text-decoration-none" id="pBar${p.seq }" style="transform: translate(${p.distance -330}px, -50%);width:${p.width}px;" onclick="popUp('/project/detailView?seq=${p.seq }')"></div>											
+											<div class="todayBar" style="transform: translate(${fn:split(p.today,'-')[1]*3.2 -331}px, -50%);"><div class="todayFlag" data-toggle="tooltip" title="${fn:split(p.today,'-')[0] }월 ${fn:split(p.today,'-')[1] }일" style="cursor:pointer;">오늘</div></div>												
+											<div class="progressBar text-decoration-none" id="pBar${p.seq }" style="transform: translate(${p.distance -331}px, -50%);width:${p.width}px;" onclick="popUp('/project/detailView?seq=${p.seq }')" data-toggle="tooltip" title="${p.formedAllDate }"></div>											
 										</div>										
 									</div>					
-								</c:forEach>								
-							</c:otherwise>
-						</c:choose>						
+								</c:forEach>																	
+							</c:otherwise>							
+						</c:choose>			
+						<input type="hidden" id="pageCheckOrder" value="${pageOrder}">			
 					</div>
 	            </div>
 	            <div class="d-xl-none text-center">해당 서비스는 PC 전체화면에서 지원됩니다</div>
@@ -190,61 +161,10 @@
         
         <jsp:include page="/WEB-INF/views/standard/footer.jsp"/>
      
-<script src="https://unpkg.com/aos@next/dist/aos.js"></script>        
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script src="/js/project/chart.js"></script>        
 <script>
 AOS.init();
-var pageOrder = "${pageOrder}";
-if(pageOrder=='seq'){
-	$("#latestOrder").addClass("active");
-	$("#deadlineOrder").removeClass("active");
-	$("#pageOrder").val("seq");
-}else if(pageOrder=='startDate'){
-	$("#deadlineOrder").addClass("active");
-	$("#latestOrder").removeClass("active");
-	$("#pageOrder").val("startDate");
-}
-$("#deadlineOrder").on("click",function(){
-	$("#pageOrder").val("startDate");
-	location.href="/project/chart?pageOrder="+$("#pageOrder").val();
-// 	location.href="/project/list?pageOrder="+$("#pageOrder").val();
-});
-$("#latestOrder").on("click",function(){
-	$("#pageOrder").val("seq");
-	location.href="/project/chart?pageOrder="+$("#pageOrder").val();
-// 	location.href="/project/list?pageOrder="+$("#pageOrder").val();
-});
-function popUp(link){
-	window.open(link, "pLogPopUp", "width=1000,height=750");
-}
-function scrapFunc(seq){
-	$.ajax({
-		url : "/project/scrap",
-		type : "post",
-		data : {
-			categorySeq : seq
-		}
-	}).done(function(resp){
-		alert("스크랩되었습니다.");
-		$("#scrap"+seq).replaceWith('<i class="fa fa-bookmark scrapDone" id="scrap'+seq+'" data-toggle="tooltip" title="스크랩" onclick="unScrapFunc('+seq+')"></i>');
-	}).fail(function(resp){
-	});
-}
-
-function unScrapFunc(seq){
-	$.ajax({
-		url : "/project/unScrap",
-		type : "post",
-		data : {
-			categorySeq : seq
-		}
-	}).done(function(resp){
-		alert("스크랩이 취소되었습니다.");
-		$("#scrap"+seq).replaceWith('<i class="fa fa-bookmark-o scrapNull" id="scrap'+seq+'" data-toggle="tooltip" title="스크랩" onclick="scrapFunc('+seq+')"></i>');
-	}).fail(function(resp){
-	});
-}
-
-
 //카카오톡
   function shareKakaotalk(title,seq) {
 		Kakao.init("17c512cbe4e17a204cce3c9b7d64d274"); // 사용할 앱의 JavaScript 키를 설정

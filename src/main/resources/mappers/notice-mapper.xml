@@ -16,7 +16,7 @@
 	<sql id="search">
 		<choose>
 			<when test="searchOption == 'all'">
-				where lower(title) like lower(#{keyword}) or lower(content) like lower(#{keyword})
+				where lower(title) like lower(#{keyword}) or lower(nonTagContent) like lower(#{keyword})
 			</when>
 			<otherwise>
 				where lower(${searchOption}) like lower(#{keyword})

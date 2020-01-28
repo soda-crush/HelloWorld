@@ -124,8 +124,18 @@ public class IndustryStatusMemController {
 	@RequestMapping("/industryStatusDeleteProc.do")
 	public String deleteProcIndustryStatus(int seq) {
 		LoginInfoDTO loginInfo = (LoginInfoDTO)session.getAttribute("loginInfo");
-		service.industryStatusDeleteConfirm(seq, loginInfo.getId());
-		return "redirect:/industry/industryStatusList.do";
+		int result = 0;
+		try {
+			result = service.industryStatusDeleteConfirm(seq, loginInfo.getId());
+			if(result > 0) {
+				return "redirect:/industry/industryStatusList.do";
+			}else {
+				return "redirect:../error";
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			return "redirect:../error";
+		}
 	}
 
 	//댓글
@@ -178,8 +188,8 @@ public class IndustryStatusMemController {
 		return service.scrap(dto);
 	}
 
-//	게시글신고
-	
+	//	게시글신고
+
 	@ResponseBody
 	@RequestMapping("/reportDuplCheck.do")
 	public String reportDuplCheck(int seq) {
@@ -192,7 +202,7 @@ public class IndustryStatusMemController {
 			return "possible";
 		}
 	}
-	
+
 	@ResponseBody
 	@RequestMapping("/report.do")
 	public String reportProject(ReportDTO dto) {

@@ -241,6 +241,17 @@ public class AdminDAO {
 	public int delImgsByBoardSeq(int boardSeq) {
 		return jdbc.delete("Admin.delImgsByBoardSeq", boardSeq);
 	}
+	
+	public String validOpen(String id) {
+		return jdbc.selectOne("Admin.validOpen", id);
+	}
+	
+	public int ifmOpenModify(String id, String check) {
+		Map<String, String> param = new HashMap<>();
+		param.put("id", id);
+		param.put("check", check);
+		return jdbc.update("Admin.ifmOpenModify", param);
+	}	
 }
 
 

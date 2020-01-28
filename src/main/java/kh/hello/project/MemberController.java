@@ -94,7 +94,6 @@ public class MemberController {
 	@RequestMapping(value = "/signUpProc")
 	public String signUpProc(MemberDTO mdto, String empCheck, String empEmail, String unempEmail 
 			,String otherJoinPath, Timestamp birthday) { //회원가입 프로세스
-		System.out.println(mdto);
 		try {
 			ms.signUp(mdto, empCheck, empEmail, unempEmail, otherJoinPath, birthday);
 			return "redirect:signUpTemp";

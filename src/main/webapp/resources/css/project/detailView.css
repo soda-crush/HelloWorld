@@ -1,6 +1,6 @@
 @charset "UTF-8";
 #pageTitle{margin-bottom:40px;}
-#pageTitle h1{display:inline;margin-right:10px;font-weight:bold;}
+#pageTitle h2{display:inline;font-weight:bold;}
 #pageBody{background-color:#ffffff90;}	
 #pHeader,#pageFooter{padding-top:10px;}
 #pHeader #stateLabel{color:white;}
@@ -51,13 +51,14 @@
 	background-color:#fff;
 	border-radius:10px;	
 }
-.commentInfo{
-	font-size:13px;
+.commentInfo1{
 	padding-left:10px;
 	margin-top:3px;
 }
-.commentWriter,.commentWriteDate{padding-left:0px;}
-.commentWriteDate{color: darkgray;}
+.commentInfo2{
+	padding-left:10px;
+}
+.commentWriteDate,.commentChangeDate,.commentDelMessage,.commentDelDate{color:darkgray;}
 .coModBtn,.coDelBtn,.coReplyBtn{
 	width: 45px;
 	height: 25px;
@@ -76,8 +77,6 @@ img{max-width:100%;}
 #scrapDone{color:crimson;}
 #kakaoSharing,#scrapDone,#scrapNull:hover{cursor:pointer;}
 #kakaoSharing:hover{color:#ffc107;}
-.commentWriteDate{font-size:10px;}
-.commentWriter{font-weight:bold;}
 #pCoReplyContents{
     margin-top:10px;
 	margin-bottom:15px;
@@ -88,3 +87,6 @@ img{max-width:100%;}
     height:45px; width:90%;
 } 
 #projectPage{margin-bottom:100px;} 
+#applyFrm > div.modal-body > div:nth-child(1) > div.col-7.pApplyInput.p-0 > div > span > input.tt-input{max-width:205px;}
+#pHeader > label:nth-child(6):hover{color:orange;}
+.commentWriter > span:hover{color:orange;}
