@@ -299,6 +299,7 @@ public class ProjectService {
 				ProjectImageDTO summer = new ProjectImageDTO();
 				summer.setOriName("URLImage");
 				summer.setSysName("URL_"+System.currentTimeMillis()+"_"+m2.group(1));
+				summer.setProjectSeq(projectSeq);
 				dao.insertImage(summer);				
 			}
 			for(int i=0;i<modiImageSysNames.size();i++) {
