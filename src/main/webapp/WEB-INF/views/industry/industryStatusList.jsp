@@ -105,7 +105,7 @@
 				  					</c:if>
 				  					</div>
 				  					</div>
-				  					<div class="col-xl-1 col-3 col-md-2 notTitle text-center">
+				  					<div class="col-xl-1 col-3 col-md-2 notTitle text-center hvOrange">
 				  					<small style="cursor:pointer" onclick="popUp('${i.id}','${i.writer}')">${i.writer }</small>
 				  					</div>
 				  					<div class="col-xl-2 d-none d-xl-block notTitle">${i.formedWriteDate }</div>

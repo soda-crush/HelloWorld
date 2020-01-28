@@ -163,7 +163,7 @@
             		<input type="hidden" name="seq" value="${iPage.seq}" id="iPageSeq">
             		<input type="hidden" name="id" value="${iPage.id}">
             		
-            		<div class="col-12" style="font-size: 13px;color:#707070;"><hr><img src="${iPage.profileImg }" width=40,height=40><span style="cursor:pointer" onclick="popUpPlog('${iPage.id}','${iPage.writer}')"> ${iPage.writer}</span>&emsp;작성일 : ${iPage.formedWriteDate}&emsp;조회수 : ${iPage.viewCount}<hr></div>
+            		<div class="col-12" style="font-size: 13px;color:#707070;"><hr><img src="${iPage.profileImg }" width=40,height=40><span class="hvOrange" style="cursor:pointer" onclick="popUpPlog('${iPage.id}','${iPage.writer}')"> ${iPage.writer}</span>&emsp;작성일 : ${iPage.formedWriteDate}&emsp;조회수 : ${iPage.viewCount}<hr></div>
             	</div>
             	<div class="row">
             		<div class="col-12" id=contentCon style="word-break:break-all;
