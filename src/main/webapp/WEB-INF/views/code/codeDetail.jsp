@@ -913,7 +913,7 @@ span:nth-child(4) {
 		  	                  html.push(
 		  	                        '</div></div>',
 		  	                        '<div class="row commentContent"><div class="col-12 pt-1 pl-4" style="word-break:break-all; word-break:break-word;">'+resp[i].content+'</div></div></div></div>',
-		  	                        '<input type="hidden" value="'+resp[i].modComment+'" id="hiddenModCo'+resp[i].seq+'">'    
+		  	                        '<input type="hidden" value="'+resp[i].modComment+'" id="hiddenModCo'+resp[i].seq+'">'   
 		  	                  	);
 		  	                  $(".pPageComments"+resp[0].repSeq).append(html.join(""));   
 		  		        }
