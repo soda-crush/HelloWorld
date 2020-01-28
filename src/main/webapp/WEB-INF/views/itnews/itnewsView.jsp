@@ -460,7 +460,6 @@
         				})
                    	});
                    	
-                   	
                   //댓글 에이작스 후 리콜
             		function commentRecall(resp){
 						var loginInfo = "${sessionScope.loginInfo.nickName}";
