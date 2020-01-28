@@ -112,6 +112,8 @@
             </div>
              <div class=row id=empContainer>
             	<div class=col-12>
+            		<h5 style="display:inline"><img src="/icon/arrow.svg" class=arrow style="position:relative;bottom:3px;right:3px;">이메일</h5>
+            		<p class=redP style="display:inline">*<c:if test="${dto.memLevel==3}">재직자에서 일반으로 변경을 원하시면 일대일 문의를 이용해 주세요.</c:if></p><br><br>
             		<input type=radio name=empCheck value=unemployee class=emp><h5 style="display:inline">일반</h5>
             	</div>
             	<div class=col-12>
@@ -516,6 +518,7 @@
 	  	 	 	              		}).done(function(resp){
 	  	 	 	              			if(resp == "true"){
 	  	 	 	              				alert("이미 등록된 이메일입니다.");
+	  	 	 	              				return false;
 	  	 	 	              			}else{
 	 	 	 	 	              			var regex = /^\w+@\w+.co.kr$/g;
 	 	 	 	 	                    	var data = $("#empEmail").val();
@@ -551,6 +554,7 @@
 	 	 	 		 	                    
 	 	 	 	 	 	                    if(result == null){
 	 	 	 	 	 	                    	alert("영리 단체 도메인(co.kr)이 아닙니다. 일반회원 선택후 진행해주세요.");
+	 	 	 	 	 	                   		return false;
 	 	 	 	 	 	                    }else{
 	 	 	 	 	 	                   		emailTestEmp = 1;
 	 	 	 	 	 	                    	emailTest2 = 1;
@@ -583,6 +587,7 @@
  	                     if(data == oriMail){
  	                    	 alert("동일한 이메일은 재인증을 안하셔도 괜찮습니다.");
  	                    	 emailTest = 1;
+ 	                    	 return false;
  	                     }else{
  	                    	 if(emailTestUnemp == 2){
  	 	            			 alert("이미 메일을 전송하였습니다. 메일 재전송을 원하시면 회원가입 절차를 다시 진행해주십시오.");
@@ -609,6 +614,7 @@
  	 	 	 	              		}).done(function(data){
  	 	 	 	              			if(data == "true"){
  	 	 	 	              				alert("이미 등록된 이메일입니다.");
+ 	 	 	 	              				return false;
  	 	 	 	              			}else{
  	 	 	 	              			var regex = /^\w+@\w+.co.kr$/g;
  	 	 	 	                    	var data = $("#unempEmail").val();
@@ -628,6 +634,7 @@
  	 	 	 	 	 	              		});
  	 	 	 	 	                    }else{
  	 	 	 	 	                    	alert("영리단체 도메인(co.kr)은 재직자로 가입부탁드립니다.");
+ 	 	 	 	 	                   		return false;
  	 	 	 	 	                    }
  	 	 	 	              			}
  	 	 	 	              		});	
@@ -649,6 +656,7 @@
             $("#certification1").on("click",function(){
             	if(emailTest2 == 0){
             		alert("인증 메일 발송부터 진행하여 주십시오.");
+            		return false;
             	}else{
             		$.ajax({
             			url:"${pageContext.request.contextPath}/member/ctfCodeProc",
@@ -663,11 +671,17 @@
             				$("#empEmailCheck").css("display","inline");
 							$("#empEmailCheck").attr("src","/icon/check.svg");
                 			emailTest = 1;
+                			var empEleReal1 = document.getElementById('empEmail');
+                			var empEleReal2 = document.getElementById('empCode');
+                			empEleReal1.readOnly = true;
+                			empEleReal2.readOnly = true;
+                			$("input[name='empCheck']").attr('disabled',true);
             			}else{
             				alert("인증에 실패하였습니다. 코드를 다시 확인해주시기 바랍니다.");
             				$("#empEmailCheck").css("display","inline");
 							$("#empEmailCheck").attr("src","/icon/x.svg");
             				emailTest = 0;
+            				return false;
             			}
             		});
             	}
@@ -677,6 +691,7 @@
             	$("#certification2").on("click",function(){
             		if(emailTest2 == 0){
                 		alert("인증 메일 발송부터 진행하여 주십시오.");
+                		return false;
                 	}else{
                 		$.ajax({
                 			url:"${pageContext.request.contextPath}/member/ctfCodeProc",
@@ -691,11 +706,17 @@
                 				$("#unempEmailCheck").css("display","inline");
     							$("#unempEmailCheck").attr("src","/icon/check.svg");
                     			emailTest = 1;
+                    			var empEleReal1 = document.getElementById('unempEmail');
+                    			var empEleReal2 = document.getElementById('unempCode');
+                    			empEleReal1.readOnly = true;
+                    			empEleReal2.readOnly = true;
+                    			$("input[name='empCheck']").attr('disabled',true);
                 			}else{
                 				alert("인증에 실패하였습니다. 코드를 다시 확인해주시기 바랍니다.");
                 				$("#unempEmailCheck").css("display","inline");
     							$("#unempEmailCheck").attr("src","/icon/x.svg");
                 				emailTest = 0;
+                				return false;
                 			}
                 		});
                 	}
@@ -741,6 +762,7 @@
 				$("#birthdayDay").html(str);
 				
 				
+				
 				//다시 뿌려주는 정보
 				 //실무자 비실무자 체크
 				 if(${dto.memLevel==2}){//비실무자
@@ -753,6 +775,8 @@
 		            	$("#empEle").css("display","block");
 			            $("#unempEle").css("display","none");
 			            $("#empEmail").val("${dto.email}");
+			          	//멤버 레벨 3이면 이메일 2로 수정 안되게
+			            $("input[name='empCheck']").attr('disabled',true);
 		            }else{//강등
 		            	$('input:radio[name=empCheck]:input[value=demotion]').attr("checked", true);
 		            	$("#empContainer").css("display","none");
@@ -950,9 +974,10 @@
             	$("#send").on("click",function(){
             		if(${dto.memLevel!=1}){
             			if((pwTest*birthYearTest*birthMonthTest*birthDayTest*nickTest*phoneTest*jpTest*genderTest*nameTest*emailTest) != 1){
-            				//console.log("pwTest*birthYearTest*birthMonthTest*birthDayTest*nickTest*phoneTest*jpTest*genderTest*nameTest");
-                			//console.log(pwTest + " : " + birthYearTest + " : " + birthMonthTest + " : " + birthDayTest + " : " + nickTest + " : " + phoneTest + " : " + jpTest + " : " + genderTest + " : " + nameTest);
-            				alert("조건에 만족하지 않는 문항이 있습니다. 확인부탁드립니다.")
+            				console.log("pwTest*birthYearTest*birthMonthTest*birthDayTest*nickTest*phoneTest*jpTest*genderTest*nameTest");
+                			console.log(pwTest + " : " + birthYearTest + " : " + birthMonthTest + " : " + birthDayTest + " : " + nickTest + " : " + phoneTest + " : " + jpTest + " : " + genderTest + " : " + nameTest);
+            				alert("조건에 만족하지 않는 문항이 있습니다. 확인부탁드립니다.");
+            				return false;
                          }else{
                         	var result = confirm("이대로 수정하시겠습니까?");
                         	if(result){
@@ -971,13 +996,24 @@
                         	}
                         }
             		}else{
-            			//console.log("pwTest*birthYearTest*birthMonthTest*birthDayTest*nickTest*phoneTest*jpTest*genderTest*nameTest");
-            			//console.log(pwTest + " : " + birthYearTest + " : " + birthMonthTest + " : " + birthDayTest + " : " + nickTest + " : " + phoneTest + " : " + jpTest + " : " + genderTest + " : " + nameTest);
+            			console.log("pwTest*birthYearTest*birthMonthTest*birthDayTest*nickTest*phoneTest*jpTest*genderTest*nameTest&emailTest");
+            			console.log(pwTest + " : " + birthYearTest + " : " + birthMonthTest + " : " + birthDayTest + " : " + nickTest + " : " + phoneTest + " : " + jpTest + " : " + genderTest + " : " + nameTest + " : "+emailTest);
             			if((pwTest*birthYearTest*birthMonthTest*birthDayTest*nickTest*phoneTest*jpTest*genderTest*nameTest) != 1){
-                         	alert("조건에 만족하지 않는 문항이 있습니다. 확인부탁드립니다.")
+                         	alert("조건에 만족하지 않는 문항이 있습니다. 확인부탁드립니다.");
+                         	return false;
                          }else{
+                        	 console.log("pwTest*birthYearTest*birthMonthTest*birthDayTest*nickTest*phoneTest*jpTest*genderTest*nameTest&emailTest");
+             				 console.log(pwTest + " : " + birthYearTest + " : " + birthMonthTest + " : " + birthDayTest + " : " + nickTest + " : " + phoneTest + " : " + jpTest + " : " + genderTest + " : " + nameTest + " : "+emailTest);
                         	var result = confirm("이대로수정하시겠습니까?");
                         	if(result){
+                        		//empCheck 다시해주기
+                        		if(($("#empEmail").val() == null)||($("#empEmail").val() == "")){
+                        			$("input[name='empCheck']").attr('disabled',false);
+                        			$('input:radio[name=empCheck]:input[value=unemployee]').attr("checked", true);
+                        		}else{
+                        			$("input[name='empCheck']").attr('disabled',false);
+                        			$('input:radio[name=empCheck]:input[value=employee]').attr("checked", true);
+                        		}
                         		//날짜 다시 2009-03-20 10:20:30.0
                         		var date = $("#birthdayYear").val()+"-"+ $("#birthdayMonth").val()+"-"+ $("#birthdayDay").val()+" 00:00:00.0";
                         		$("#birthday").val(date);
