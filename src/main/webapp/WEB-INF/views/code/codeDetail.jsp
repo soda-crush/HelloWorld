@@ -167,6 +167,12 @@ span:nth-child(4) {
 .contentDivBot {
 	text-align: left;
 }
+
+#writerR{
+	cursor:pointer; 
+	font-size: 30px; 
+	font-weight: 100;
+}
 </style>
 </head>
 <body>
@@ -264,15 +270,33 @@ span:nth-child(4) {
 					<div class="topQ">
 						<hr>
 						<div class="row">
-							<div class="col-xl-1 col-md-2" style="padding-top:0px; position: relative; top: 10px;">
-								<img src="${r.profileImg}" width=90,height=200>							 
-								<div class="d-md-none" style="float:right">
-									<c:if test="${r.adopt=='Y'}">
-										<span class="ti-crown text-warning" style="font-size:18px;"></span>
-										질문자 채택
-									</c:if>
-								</div>
+							<div class="col-xl-1 col-md-2">	
+								<c:choose>
+									<c:when test="${r.memLevel == 3}">
+										<div style="padding-top:0px; position: relative; top: 10px;">	
+											<img src="${r.profileImg}" width=90,height=200>							 
+											<div class="d-md-none" style="float:right">
+												<c:if test="${r.adopt=='Y'}">
+													<span class="ti-crown text-warning" style="font-size:18px;"></span>
+													질문자 채택
+												</c:if>
+											</div>
+										</div>
+									</c:when>															
+									<c:otherwise>
+										<div style="padding-top:0px; position: relative; top: 0px;">
+											<img src="${r.profileImg}" width=90,height=200>							 
+											<div class="d-md-none" style="float:right">
+												<c:if test="${r.adopt=='Y'}">
+													<span class="ti-crown text-warning" style="font-size:18px;"></span>
+													질문자 채택
+												</c:if>
+											</div>
+										</div>
+									</c:otherwise>
+								</c:choose>
 							</div>
+							
 
 							<div class="col-xl-9 col-md-8" style="position: relative; right: 10px;">
 							<c:choose>
@@ -284,15 +308,15 @@ span:nth-child(4) {
 											</c:if>
 										</div>
 										<div class="col-12" style="padding-top:0px; position: relative; bottom: 10px;">
-											<span class="hvOrange" style="cursor:pointer" onclick="popUp('${r.id}','${r.writer}')">${r.writer}</span>
+											<span class="hvOrange" id="writerR" onclick="popUp('${r.id}','${r.writer}')">${r.writer}</span>
 											<span style="font-size: 15px; font-weight: 50; color: gray;">님의 답변입니다.</span>
-										</div>									
+										</div>							
 									</div>
 								</c:when>
 								<c:otherwise>
 									<div class="row">										
-										<div class="col-12" style="padding-top:0px; position: relative; top: 20px;">
-											<span class="hvOrange" style="cursor:pointer" onclick="popUp('${r.id}','${r.writer}')">${r.writer}</span>
+										<div class="col-12" style="padding-top:0px; position: relative; top: 10px;">
+											<span class="hvOrange" id="writerR" onclick="popUp('${r.id}','${r.writer}')">${r.writer}</span>
 											<span style="font-size: 15px; font-weight: 50; color: gray;">님의 답변입니다.</span>
 										</div>									
 									</div>
