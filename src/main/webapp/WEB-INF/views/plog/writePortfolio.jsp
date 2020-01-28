@@ -276,7 +276,7 @@
                 	if($("#portfolioTitle").val() && $("#purpose").val() && $("#funcn1").val() && $("#funce1").val() ){
                 		$("#writeForm").submit();
                 	}else{
-                		alert("프로젝트명과  개발 목표/구현기능 1은 필수 입력 사항입니다.")
+                		alert("프로젝트명과  개발 목표,첫번째 구현기능은 필수 입력 사항입니다.")
                 	}
                 })
 		</script>	
