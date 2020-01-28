@@ -14,7 +14,11 @@
 <body>
 	<script>
 		$(function(){
-			alert("사용자 또는 관리자가 비공개로 설정 한 P-Log입니다.");
+			if(${name==null}){
+				alert("탈퇴한 계정입니다.");
+			}else{
+				alert("사용자 또는 관리자가 비공개로 설정 한 P-Log입니다.");
+			}
 			window.close();
 		})
 	</script>

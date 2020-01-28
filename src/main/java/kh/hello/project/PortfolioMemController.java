@@ -161,6 +161,10 @@ public class PortfolioMemController {
 	public String toPlog(String owner, String other) {
 		try {
 			MemberDTO mdto = ms.selectMember(owner);
+			if(mdto.getName() ==null) {
+				session.setAttribute("name", mdto.getName());
+				return "/plog/notOpenPage";
+			}
 			LoginInfoDTO ldto = (LoginInfoDTO)session.getAttribute("loginInfo");
 			if(mdto.getIfmOpenCheck().equals("Y") || ldto.getId().equals(owner)) {
 				OwnerInfoDTO odto = new OwnerInfoDTO();
@@ -175,6 +179,7 @@ public class PortfolioMemController {
 					return "redirect:toPlogmain.do";
 				}
 			}else {
+				session.setAttribute("ownerInfo", mdto);
 				return "/plog/notOpenPage";
 			}
 		} catch (Exception e) {
