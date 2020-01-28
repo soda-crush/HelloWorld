@@ -319,7 +319,7 @@
 					return false;
 				}	
 			}).fail(function(resp){
-				console.log("실패");
+				alert("문제가 발생했습니다. 다시 시도해주세요.");
 			})
 		})
         
@@ -356,14 +356,14 @@
 		 				$(".pPageComments").html("");
 						commentRecall(resp);
 					}).fail(function(resp){
-						console.log("실패");
+						alert("문제가 발생했습니다. 다시 시도해주세요.");
 					})		
 				}else{
 					alert("권한이 없습니다. 관리자에게 문의해주세요.")
 					return false;
 				}	
 			}).fail(function(resp){
-				console.log("실패");
+				alert("문제가 발생했습니다. 다시 시도해주세요.");
 			})
 		});
     	$("#coCancel").on("click",function(){
@@ -405,7 +405,7 @@
 						return false;
 					}	
 				}).fail(function(resp){
-					console.log("실패");
+					alert("문제가 발생했습니다. 다시 시도해주세요.");
 				})
            	}
            	
@@ -434,7 +434,7 @@
 					$(".pPageComments").html("");
 					commentRecall(resp);
 				}).fail(function(resp){
-
+					alert("문제가 발생했습니다. 다시 시도해주세요.");
 				})
            	});
            	function coDelFunction(seq){
@@ -452,7 +452,7 @@
     					$(".pPageComments").html("");
     					commentRecall(resp);
            			}).fail(function(resp){
-    
+           				alert("문제가 발생했습니다. 다시 시도해주세요.");
            			})
            		}
            	}
@@ -532,8 +532,7 @@
 						$('#reportModal').modal('show');						
 					}
 				}).fail(function(resp){
-					console.log("실패");
-					console.log(resp);
+					alert("문제가 발생했습니다. 다시 시도해주세요.");
 				});
 				return false;
 			}
@@ -554,7 +553,7 @@
 				$('#reportModal').modal('hide');
 				$("#rSuccessModal").modal('show');				
 			}).fail(function(resp){
-				console.log(resp);
+				alert("문제가 발생했습니다. 다시 시도해주세요.");
 			});
 			return false;
 		});
