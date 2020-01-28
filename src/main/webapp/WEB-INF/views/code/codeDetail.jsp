@@ -366,7 +366,7 @@ span:nth-child(4) {
 							<c:otherwise>
 								<c:if test="${sessionScope.loginInfo.id!=null}">
 									<div style="text-align: right;">
-										<button class="btn btn-danger" onclick="reportR(${qResult.seq},'${r.writer}','${r.id}')" id="reportR${r.seq}">신고</button>
+										<button class="btn btn-danger" onclick="reportR(${qResult.seq}, ${r.seq}, '${r.writer}','${r.id}')" id="reportR${r.seq}">신고</button>
 									</div>
 								</c:if>
 							</c:otherwise>
@@ -609,20 +609,22 @@ span:nth-child(4) {
 		});
 	
 	//답변 글 신고하기
-		function reportR(seq,writer,id){
+		function reportR(seq,replySeq,writer,id){
 			var check = "해당 게시물을 신고하시겠습니까?";
 			if(check){
 				$.ajax({
 					url:"/code/reportDuplCheckR.do",
 					type:"post",
 					data:{
-						seq : seq
+						seq : seq,
+						replySeq : replySeq
 						}
 				}).done(function(resp){
 					if(resp == 'dupl'){
 						alert("해당 게시물을 이미 신고하셨습니다.");
 					}else if(resp == 'possible'){
 						$("#titleR").val("[답변]"+writer+"("+id+")님의 답변");
+						$("#replySeq").val(replySeq);
 						$('#reportRModal').modal('show');						
 					}
 				}).fail(function(resp){
