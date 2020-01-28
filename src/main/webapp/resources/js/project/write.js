@@ -19,8 +19,7 @@
 		    weekStart : 0 ,//달력 시작 요일 선택하는 것 기본값은 0인 일요일 
 		    language : "ko"	//달력의 언어 선택, 그에 맞는 js로 교체해줘야한다.			    
 		}).on("changeDate", function(e) {
-            changeDate : true	//사용자가 클릭해서 날짜가 변경되면 호출 (개인적으로 가장 많이 사용함)
-//             console.log(e); 
+            changeDate : true	//사용자가 클릭해서 날짜가 변경되면 호출 (개인적으로 가장 많이 사용함)      
 		});			
 		
 		var data = $("#langData").val();			
@@ -42,16 +41,6 @@
 		});
 		
 		$("#writeBtn").on("click",function(){
-//			console.log($("#loc1").val());
-//			console.log($("#loc2").val());
-//			console.log($("#capacity").val());
-//			console.log($("#startDate").val());
-//			console.log($("#endDate").val());
-//			console.log($("#languages").val());
-//			console.log($("#title").val());
-//			console.log($("#contents").val());
-//			console.log("흠? "+$("#pInfo").find(".tt-input").val());
-//			return false;
 			if(($("#loc1").val()==null&$("#loc2").val()==null)|($("#loc1").val()!=0&$("#loc2").val()==null)|$("#capacity").val()==""|$("#startDate").val()==""|$("#endDate").val()==""|$("#languages").val()==""){
 				if($("#pInfo").find(".tt-input").val()!=""){
 					$("#pInfo").find(".tt-input").val("");

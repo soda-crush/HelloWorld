@@ -218,7 +218,9 @@ public class ProjectService {
 		dto.setTitle(Utils.protectXss(dto.getTitle()));
 		String contents = dto.getContents();
 		Pattern p = Pattern.compile("<img.+?src=\"(.+?)\".+?data-filename=\"(.+?)\".*?>");
+		Pattern p2 = Pattern.compile("<img.+?src=\\\"(.+?)\\\".*?>");
 		Matcher m = p.matcher(contents);
+		Matcher m2 = p2.matcher(contents);
 		List<ProjectImageDTO> summers = new ArrayList<>();
 		int projectSeq = 0;
 			while(m.find()) {
@@ -237,6 +239,12 @@ public class ProjectService {
 				summer.setSysName(sysName);
 				summers.add(summer);
 			}	
+			while(m2.find()) {
+				ProjectImageDTO summer = new ProjectImageDTO();
+				summer.setOriName("URLImage");
+				summer.setSysName("URL_"+System.currentTimeMillis()+"_"+m2.group(1));
+				summers.add(summer);
+			}
 			dto.setContents(contents);
 			dao.insertProject(dto);		
 			projectSeq = dao.latestSeq(dto.getId());
@@ -257,8 +265,9 @@ public class ProjectService {
 		dto.setTitle(Utils.protectXss(dto.getTitle()));
 		String contents = dto.getContents();
 		Pattern p = Pattern.compile("<img.+?src=\"(.+?)\".+?data-filename=\"(.+?)\".*?>");
+		Pattern p2 = Pattern.compile("<img.+?src=\\\"(.+?)\\\".*?>");
 		Matcher m = p.matcher(contents);
-		
+		Matcher m2 = p2.matcher(contents);
 		int projectSeq = dto.getSeq();
 		List<ProjectImageDTO> originImages = dao.getImages(projectSeq);
 		List<String> originSysNames = new ArrayList<>();
@@ -286,7 +295,12 @@ public class ProjectService {
 				}
 				modiImageSysNames.add(m.group(1).substring(headName.length()));			
 			}
-			
+			while(m2.find()) {
+				ProjectImageDTO summer = new ProjectImageDTO();
+				summer.setOriName("URLImage");
+				summer.setSysName("URL_"+System.currentTimeMillis()+"_"+m2.group(1));
+				dao.insertImage(summer);				
+			}
 			for(int i=0;i<modiImageSysNames.size();i++) {
 				if(originSysNames.contains(modiImageSysNames.get(i))) {
 					originSysNames.remove(modiImageSysNames.get(i));
