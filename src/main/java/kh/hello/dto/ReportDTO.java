@@ -60,7 +60,13 @@ public class ReportDTO {
 
 
 	public String getBoardName() {
-		return boardName;
+		if(boardName.contentEquals("CohowQ")) {
+			return "Cohow";
+		}else if(boardName.contentEquals("CohowR")) {
+			return "Cohow";
+		}else {
+			return boardName;			
+		}
 	}
 
 

@@ -172,7 +172,7 @@
 																  </button>
 																  <div class="dropdown-menu">																  
 																    <p class="dropdown-item" id="ownerInfo${dto.seq}${dto.ownerID}">회원정보</p>
-																    <p class="dropdown-item" id="plogOModify${dto.ownerID}">Plog 공개 여부 변경</p>															    
+																    <p class="dropdown-item" id="plogOModify${dto.seq}${dto.ownerID}">Plog 공개 여부 변경</p>															    
 																  </div>
 																</div>                                                    
 		                                                    </td>
@@ -183,7 +183,7 @@
 																  </button>
 																  <div class="dropdown-menu">
 																    <p class="dropdown-item" id="writerInfo${dto.seq}${dto.writerID}">회원정보</p>
-																    <p class="dropdown-item" id="plogWModify${dto.writerID}">Plog 공개 여부 변경</p>	
+																    <p class="dropdown-item" id="plogWModify${dto.seq}${dto.writerID}">Plog 공개 여부 변경</p>	
 																  </div>
 																</div>                                                    
 		                                                    </td>  	                                                                                                      
@@ -215,7 +215,7 @@
 			                                               			window.open("${pageContext.request.contextPath}/admin/getMemberInfo?id=${dto.writerID}","","width=600px,height=526px,top=300px,left=600px");
 			                                               		}) 		                                               				
 
-			                                               		$("#plogOModify${dto.ownerID}").on("click", function(){
+			                                               		$("#plogOModify${dto.seq}${dto.ownerID}").on("click", function(){
 			                                               			var result = confirm("Plog 공개설정을 변경할까요?");
 			                                               			if(result){
 			                                               				$.ajax({
@@ -230,7 +230,7 @@
 			                                               			}
 			                                               		})
 			                                               		
-			                                               		$("#plogWModify${dto.writerID}").on("click", function(){
+			                                               		$("#plogWModify${dto.seq}${dto.writerID}").on("click", function(){
 			                                               			var result = confirm("Plog 공개설정을 변경할까요?");
 			                                               			if(result){
 			                                               				$.ajax({
